@@ -1,25 +1,25 @@
 {
   "name": "many-words",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
-  },
+  "version": "0.0.1",
+  "description": "A WebApp to help you learn foreign languages vocabulary",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node app.js",
+    "client": "cd client && npm start"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "Camille HAGENBOURGER",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.8"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.3.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/C-Hg/many-words"
+  }
 }
