@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 
 const UserTranslation = function(props) {
   return (
     <div>
       <input
-        value={props.UserTranslationInput}
+        value={props.UserTranslation}
         onChange={props.handleUserTranslationChange}
       />
     </div>
