@@ -1,25 +1,40 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Exercise from "./Components/Exercise";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activity: "Exercise",
+      exerciseWords: [
+        { french: "bonjour", english: "hello" },
+        { french: "rouge", english: "red" },
+        { french: "bleu", english: "blue" }
+      ],
+      wordRank: 1,
+      userTranslationInput: ""
+    };
+    this.handleUserTranslationChange = this.handleUserTranslationChange.bind(
+      this
+    );
+  }
+
+  handleUserTranslationChange(event) {
+    this.setState({
+      userTranslationInput: event.target.value
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Exercise
+          exerciseWords={this.state.exerciseWords}
+          wordRank={this.state.wordRank}
+          handleUserTranslationChange={this.handleUserTranslationChange}
+          userTranslationInput={this.state.userTranslationInput}
+        />
       </div>
     );
   }
