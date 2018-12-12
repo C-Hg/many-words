@@ -1,15 +1,10 @@
 import React from "react";
 
 const Result = function(props) {
-  let correct = "2";
-  if (props.correct) {
-    correct = 1;
-  }
-
+  let result = props.correctAnswer ? "correct answer" : "wrong answer";
   return (
     <div>
-      <p>result : {correct}</p>
-      <p>mot numéro : {props.word}</p>
+      <p>{result}</p>
     </div>
   );
 };

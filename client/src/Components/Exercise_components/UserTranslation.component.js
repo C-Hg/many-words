@@ -4,8 +4,8 @@ const UserTranslation = function(props) {
   return (
     <div>
       <input
-        value={props.UserTranslation}
-        onChange={props.handleUserTranslationChange}
+        value={props.userTranslation}
+        onChange={props.userTranslationChange}
       />
     </div>
   );

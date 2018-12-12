@@ -2,7 +2,7 @@ import React from "react";
 import Instructions from "./Exercise_components/Instructions.component";
 import OriginWord from "./Exercise_components/OriginWord.component";
 import UserTranslation from "./Exercise_components/UserTranslation.component";
-import SubmitUserTranslation from "./Exercise_components/SubmitUserTranslation.component";
+import SubmitOrNextButton from "./Exercise_components/SubmitOrNextButton.component";
 import Result from "./Exercise_components/Result.component";
 import functions from "../Functions/Exercise_functions/Exercise.functions";
 
@@ -11,7 +11,7 @@ class Exercise extends React.Component {
     super(props);
     this.userTranslationChange = this.userTranslationChange.bind(this);
     this.submitUserTranslation = this.submitUserTranslation.bind(this);
-    this.incrementWordRank = this.incrementWordRank.bind(this);
+    this.nextWord = this.nextWord.bind(this);
     this.state = {
       exerciseWords: [
         { french: "bonjour", english: "hello" },
@@ -21,14 +21,27 @@ class Exercise extends React.Component {
       wordRank: 0,
       userTranslation: "",
       checking: false,
-      correct: false
+      correctAnswer: false
     };
   }
 
   userTranslationChange(event) {
     this.setState({
-      userTranslationInput: event.target.value
+      userTranslation: event.target.value
     });
+  }
+
+  nextWord() {
+    //exits the exercise module when all the words have been answered
+    if (this.state.wordRank === this.state.exerciseWords.length - 1) {
+      this.props.endExercise();
+    }
+    this.setState(state => ({
+      wordRank: state.wordRank + 1,
+      userTranslation: "",
+      checking: false,
+      correctAnswer: false
+    }));
   }
 
   submitUserTranslation() {
@@ -38,32 +51,29 @@ class Exercise extends React.Component {
     );
     this.setState({
       checking: true,
-      result: result
+      correctAnswer: result
     });
-    this.incrementWordRank();
-  }
-
-  incrementWordRank() {
-    this.setState(state => ({
-      wordRank: state.wordRank + 1
-    }));
   }
 
   render() {
     return (
       <div>
-        <Instructions activity={this.props.activity} />
+        <Instructions />
         <OriginWord
           originWord={this.state.exerciseWords[this.state.wordRank].english}
         />
         <UserTranslation
-          userTranslationInput={this.state.userTranslation}
+          userTranslation={this.state.userTranslation}
           userTranslationChange={this.userTranslationChange}
         />
-        <SubmitUserTranslation
+        <SubmitOrNextButton
           submitUserTranslation={this.submitUserTranslation}
+          nextWord={this.nextWord}
+          checking={this.state.checking}
         />
-        <Result correct={this.state.correct} word={this.state.wordRank} />
+        {this.state.checking && (
+          <Result correctAnswer={this.state.correctAnswer} />
+        )}
       </div>
     );
   }
