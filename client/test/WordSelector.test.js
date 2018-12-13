@@ -8,10 +8,11 @@ suite("Word Filter function", function() {
   test("Unique form with no article", function() {
     let result = functions.wordSelector([
       {
+        languages: ["fr", "en"],
         en_name: "walk",
         fr_name: "marcher",
         hasArticle: false,
-        isUniqueForm: true,
+        hasUniqueForm: true,
         type: "verb",
         fr: [
           {
@@ -72,16 +73,19 @@ suite("Word Filter function", function() {
   test("Noun with 4 forms with article, no alternative", function() {
     let result = functions.wordSelector([
       {
+        languages: ["fr", "en"],
         en_name: "cat",
         fr_name: "chat",
         hasArticle: true,
-        isUniqueForm: false,
+        hasUniqueForm: false,
         fr: [
           {
             acceptedForms: ["masc_sing", "masc_plur", "fem_sing", "fem_plur"],
-            masc: { sing: "chat", plur: "chats" },
-            fem: { sing: "chatte", plur: "chattes" },
-            is_Definite_Article_L_Apostrophe: false
+            masc_sing: "chat",
+            masc_plur: "chats",
+            fem_sing: "chatte",
+            fem_plur: "chattes",
+            isLApostrophe: false
           }
         ],
         en: [
@@ -89,7 +93,7 @@ suite("Word Filter function", function() {
             acceptedForms: ["sing", "plur"],
             sing: "cat",
             plur: "cats",
-            is_Indefinite_Article_An: false
+            isArticleAn: false
           }
         ]
       }
