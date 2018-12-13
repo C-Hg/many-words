@@ -13,11 +13,7 @@ class Exercise extends React.Component {
     this.submitUserTranslation = this.submitUserTranslation.bind(this);
     this.nextWord = this.nextWord.bind(this);
     this.state = {
-      exerciseWords: [
-        { french: "bonjour", english: "hello" },
-        { french: "rouge", english: "red" },
-        { french: "bleu", english: "blue" }
-      ],
+      exerciseWords: "",
       wordRank: 0,
       userTranslation: "",
       checking: false,

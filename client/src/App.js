@@ -5,7 +5,11 @@ import Curriculum from "./Components/Curriculum.component";
 
 const testObject = [
   {
-    name: "walk",
+    en_name: "walk",
+    fr_name: "marcher",
+    hasArticle: false,
+    isUniqueForm: true,
+    type: "verb",
     fr: [
       {
         uniqueForm: "marcher"
@@ -16,27 +20,61 @@ const testObject = [
         uniqueForm: "to walk"
       }
     ],
-    article: { hasArticle: false },
+
     lessonId: "#aLongId"
   },
   {
-    name: "cat",
+    en_name: "cat",
+    fr_name: "chat",
+    hasArticle: true,
+    isUniqueForm: false,
+    //si le nom de base accepte un article, toutes les traductions doivent l'accepter
     //si le nom français de base accepte les 4 formes, il faut préciser les 4 pour le nom anglais
     //inversement au pluriel anglais, il faut accepter les 2 pluriels français si ils existent
     fr: [
       {
         acceptedForms: ["masc_sing", "masc_plur", "fem_sing", "fem_plur"],
         masc: { sing: "chat", plur: "chats" },
-        fem: { sing: "chatte", plur: "chattes" }
+        fem: { sing: "chatte", plur: "chattes" },
+        is_Definite_Article_L_Apostrophe: false
       }
     ],
     en: [
       {
-        masc: { sing: "cat", plur: "cats" },
-        fem: { sing: "cat", plur: "cats" }
+        acceptedForms: ["sing", "plur"],
+        sing: "cat",
+        plur: "cats",
+        is_Indefinite_Article_An: false
+      }
+    ]
+  },
+  {
+    en_name: "travel",
+    fr_name: "voyage",
+    hasArticle: true,
+    isUniqueForm: false,
+    type: "noun",
+    fr: [
+      {
+        acceptedForms: ["masc_sing", "masc_plur"],
+        masc: { sing: "voyage", plur: "voyages" },
+        is_Definite_Article_L_Apostrophe: false
       }
     ],
-    article: { hasArticle: true, isLApostrophe: false, isIndefiniteAn: false }
+    en: [
+      {
+        acceptedForms: ["sing", "plur"],
+        sing: "travel",
+        plur: "travels",
+        is_Indefinite_Article_An: false
+      },
+      {
+        acceptedForms: ["sing", "plur"],
+        sing: "journey",
+        plur: "journeys",
+        is_Indefinite_Article_An: false
+      }
+    ]
   }
 ];
 

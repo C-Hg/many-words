@@ -6,12 +6,15 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node app.js",
-    "client": "cd client && npm start"
+    "client": "cd client && npm start",
+    "test": "mocha"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
   "devDependencies": {
+    "chai": "^4.2.0",
     "concurrently": "^4.1.0",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.8"
   },
   "dependencies": {
