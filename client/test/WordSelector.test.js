@@ -1,12 +1,20 @@
 /* eslint-env mocha */
-
+import randomPicker from "../src/Functions/Exercise_functions/RandomPicker.function";
 const functions = require("../src/Functions/Exercise_functions/WordSelector.functions");
 const chai = require("chai");
 const assert = chai.assert;
 
+suite("Random Picker function", function() {
+  test("Selects fr or en as a language", function() {
+    let result = randomPicker(["fr", "en"]);
+    assert.isString(result, "result should be a string");
+    assert.match(result, /^fr$|^en$/, "fr or en should be picked ");
+  });
+});
+
 suite("Word Filter function", function() {
   test("Unique form with no article", function() {
-    let result = functions.wordSelector([
+    let result = functions.fr_en_wordSelector([
       {
         en_name: "walk",
         fr_name: "marcher",
@@ -28,11 +36,10 @@ suite("Word Filter function", function() {
     ]);
     assert.isArray(result, "the result should be an array");
     assert.lengthOf(result, 1, "the result array length should be one");
-    assert.propertyVal(
-      result[0],
-      "sourceLanguage",
-      "fr" || "en",
-      "sourceLanguage should be fr or en"
+    assert.match(
+      result[0].sourceLanguage,
+      /^fr$|^en$/,
+      "fr or en should be picked "
     );
     if (result[0].sourceLanguage === "fr") {
       assert.propertyVal(result[0], "fr", "marcher");
@@ -70,7 +77,7 @@ suite("Word Filter function", function() {
   });
 
   test("Noun with 4 forms with article, no alternative", function() {
-    let result = functions.wordSelector([
+    let result = functions.fr_en_wordSelector([
       {
         en_name: "cat",
         fr_name: "chat",

@@ -147,6 +147,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
     }
 
     preparedWords.push(new formattedWord(sourceLanguage, fr, en));
+    n++;
   }
   return preparedWords;
 };
