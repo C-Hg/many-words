@@ -57,7 +57,8 @@ const testObject = [
     fr: [
       {
         acceptedForms: ["masc_sing", "masc_plur"],
-        masc: { sing: "voyage", plur: "voyages" },
+        masc_sing: "voyage",
+        masc_plur: "voyages",
         is_Definite_Article_L_Apostrophe: false
       }
     ],

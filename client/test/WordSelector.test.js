@@ -8,7 +8,6 @@ suite("Word Filter function", function() {
   test("Unique form with no article", function() {
     let result = functions.wordSelector([
       {
-        languages: ["fr", "en"],
         en_name: "walk",
         fr_name: "marcher",
         hasArticle: false,
@@ -73,7 +72,6 @@ suite("Word Filter function", function() {
   test("Noun with 4 forms with article, no alternative", function() {
     let result = functions.wordSelector([
       {
-        languages: ["fr", "en"],
         en_name: "cat",
         fr_name: "chat",
         hasArticle: true,
