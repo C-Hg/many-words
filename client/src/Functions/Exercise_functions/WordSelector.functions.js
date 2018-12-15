@@ -45,7 +45,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
     if (word.hasUniqueForm) {
       if (sourceLanguage === "fr") {
         fr = word.fr[0].uniqueForm;
-        for (let a = 0; a < word.en; a++) {
+        for (let a = 0; a < word.en.length; a++) {
           en.push(word.en[a].uniqueForm);
         }
       } else {
@@ -62,13 +62,14 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
       //outsource function article selector
       let articleForm = "";
       if (word.hasArticle) {
-        articleForm = randomPicker(["definite, indefinite"]);
+        articleForm = randomPicker(["definite", "indefinite"]);
       }
 
       if (sourceLanguage === "fr") {
         let fr_form = form;
         let en_form = "";
-        if (fr_form === "masc_sing" || "fem_sing") {
+
+        if (fr_form === "masc_sing" || fr_form === "fem_sing") {
           en_form = "sing";
         } else {
           en_form = "plur";
@@ -78,7 +79,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
           if (
             word.fr[0].isLApostrophe &&
             articleForm === "definite" &&
-            fr_form === ("masc_sing" || "fem_sing")
+            fr_form === ("masc_sing" || fr_form === "fem_sing")
           ) {
             fr_article = "l'";
           } else {
@@ -102,7 +103,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
           en.push(`${en_article} ${word.en[a][en_form]}`.trimLeft());
         }
       } else {
-        let fr_forms = "";
+        let fr_forms = [];
         let en_form = form;
 
         if (en_form === "sing") {
@@ -139,7 +140,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
                   fr_article = frArticles[articleForm][fr_forms[b]];
                 }
               }
-              fr.push(`${fr_article}${word.fr[0][fr_forms[b]]}`);
+              fr.push(`${fr_article}${word.fr[a][fr_forms[b]]}`);
             }
           }
         }

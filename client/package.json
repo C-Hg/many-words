@@ -68,7 +68,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "export NODE_ENV=test && mocha && node scripts/test.js"
+    "mocha-test": "export NODE_ENV=test && mocha",
+    "test": "node scripts/test.js"
   },
   "eslintConfig": {
     "extends": "react-app"

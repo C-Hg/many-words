@@ -10,6 +10,15 @@ suite("Random Picker function", function() {
     assert.isString(result, "result should be a string");
     assert.match(result, /^fr$|^en$/, "fr or en should be picked ");
   });
+  test("Selects infinite or indefinite as article type", function() {
+    let result = randomPicker(["definite", "indefinite"]);
+    assert.isString(result, "result should be a string");
+    assert.match(
+      result,
+      /^definite$|^indefinite$/,
+      "definite or indefinite should be picked "
+    );
+  });
 });
 
 suite("Word Filter function", function() {
@@ -54,11 +63,11 @@ suite("Word Filter function", function() {
       );
       assert.equal(
         result[0].en[0],
-        "walk",
-        "the destination language translation should be 'walk'"
+        "to walk",
+        "the destination language translation should be 'to walk'"
       );
     } else {
-      assert.propertyVal(result[0], "en", "walk");
+      assert.propertyVal(result[0], "en", "to walk");
       assert.isArray(
         result[0].fr,
         "the destination language response should be inside an array"
@@ -69,7 +78,7 @@ suite("Word Filter function", function() {
         "the destination language array should have a length of one"
       );
       assert.equal(
-        result[0].en[0],
+        result[0].fr[0],
         "marcher",
         "the destination language translation should be 'marcher'"
       );
@@ -105,11 +114,10 @@ suite("Word Filter function", function() {
     ]);
     assert.isArray(result, "the result should be an array");
     assert.lengthOf(result, 1, "the result array length should be one");
-    assert.propertyVal(
-      result[0],
-      "sourceLanguage",
-      "fr" || "en",
-      "sourceLanguage should be fr or en"
+    assert.match(
+      result[0].sourceLanguage,
+      /^fr$|^en$/,
+      "fr or en should be picked"
     );
     if (result[0].sourceLanguage === "fr") {
       assert.isArray(
@@ -121,37 +129,30 @@ suite("Word Filter function", function() {
         1,
         "the destination language array should have a length of one"
       );
-      assert.equal(
+      assert.match(
         result[0].fr,
-        "un chat" ||
-          "une chatte" ||
-          "le chat" ||
-          "la chatte" ||
-          "les chats" ||
-          "les chattes" ||
-          "des chats" ||
-          "des chattes",
+        /^un\schat$|^une\schatte$|^le\schat$|^la\schatte$|^les\schats$|^les\schattes|^des\schats$|^des\schattes$/,
         "if fr is the source language, a correct word should be selected"
       );
 
-      if (result[0].fr === "un chat" || "une chatte") {
+      if (result[0].fr === "un chat" || result[0].fr === "une chatte") {
         assert.equal(
           result[0].en[0],
           "a cat",
           "a cat should be the translation"
         );
       }
-      if (result[0].fr === "le chat" || "la chatte") {
+      if (result[0].fr === "le chat" || result[0].fr === "la chatte") {
         assert.equal(
           result[0].en[0],
           "the cat",
           "the cat should be the translation"
         );
       }
-      if (result[0].fr === "des chats" || "des chattes") {
+      if (result[0].fr === "des chats" || result[0].fr === "des chattes") {
         assert.equal(result[0].en[0], "cats", "cats should be the translation");
       }
-      if (result[0].fr === "les chats" || "les chattes") {
+      if (result[0].fr === "les chats" || result[0].fr === "les chattes") {
         assert.equal(
           result[0].en[0],
           "the cats",
@@ -168,9 +169,9 @@ suite("Word Filter function", function() {
         2,
         "the destination language array should have a length of two"
       );
-      assert.equal(
+      assert.match(
         result[0].en,
-        "a cat" || "the cat" || "cats" || "the cats",
+        /^a\scat$|^the\scat$|^cats$|^the\scats$/,
         "if en is the source language, a correct word should be selected"
       );
       if (result[0].en === "a cat") {
