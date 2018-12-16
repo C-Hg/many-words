@@ -1,29 +1,11 @@
 /* eslint-env mocha */
-import randomPicker from "../../src/Functions/Common/RandomPicker.function";
-import wordSelector from "../../src/Functions/WordSelector_functions/WordSelector.function";
+import { fr_en_wordSelector } from "../../src/Functions/WordSelector_functions/WordSelector.function";
 import chai from "chai";
 const assert = chai.assert;
 
-suite("Random Picker function", function() {
-  test("Selects fr or en as a language", function() {
-    let result = randomPicker(["fr", "en"]);
-    assert.isString(result, "result should be a string");
-    assert.match(result, /^fr$|^en$/, "fr or en should be picked ");
-  });
-  test("Selects infinite or indefinite as article type", function() {
-    let result = randomPicker(["definite", "indefinite"]);
-    assert.isString(result, "result should be a string");
-    assert.match(
-      result,
-      /^definite$|^indefinite$/,
-      "definite or indefinite should be picked "
-    );
-  });
-});
-
-suite("Word Filter function", function() {
+suite("FR/EN Word Selector function", function() {
   test("Unique form with no article", function() {
-    let result = wordSelector.fr_en_wordSelector([
+    let result = fr_en_wordSelector([
       {
         en_name: "walk",
         fr_name: "marcher",
@@ -43,6 +25,10 @@ suite("Word Filter function", function() {
         lessonId: "#aLongId"
       }
     ]);
+    //expected response :
+    //[{sourceLanguage: "fr" or "en",
+    //fr: ["marcher"],
+    //en: ["to walk"]}]
     assert.isArray(result, "the result should be an array");
     assert.lengthOf(result, 1, "the result array length should be one");
     assert.match(
@@ -50,43 +36,14 @@ suite("Word Filter function", function() {
       /^fr$|^en$/,
       "fr or en should be picked "
     );
-    if (result[0].sourceLanguage === "fr") {
-      assert.propertyVal(result[0], "fr", "marcher");
-      assert.isArray(
-        result[0].en,
-        "the destination language response should be inside an array"
-      );
-      assert.lengthOf(
-        result[0].en,
-        1,
-        "the destination language array should have a length of one"
-      );
-      assert.equal(
-        result[0].en[0],
-        "to walk",
-        "the destination language translation should be 'to walk'"
-      );
-    } else {
-      assert.propertyVal(result[0], "en", "to walk");
-      assert.isArray(
-        result[0].fr,
-        "the destination language response should be inside an array"
-      );
-      assert.lengthOf(
-        result[0].fr,
-        1,
-        "the destination language array should have a length of one"
-      );
-      assert.equal(
-        result[0].fr[0],
-        "marcher",
-        "the destination language translation should be 'marcher'"
-      );
-    }
+    assert.isArray(result[0].fr, "fr word should be inside an array");
+    assert.isArray(result[0].en, "en word should be inside an array");
+    assert.equal(result[0].fr[0], "marcher");
+    assert.equal(result[0].en[0], "to walk");
   });
 
   test("Noun with 4 forms with article, no alternative", function() {
-    let result = wordSelector.fr_en_wordSelector([
+    let result = fr_en_wordSelector([
       {
         en_name: "cat",
         fr_name: "chat",
@@ -130,29 +87,35 @@ suite("Word Filter function", function() {
         "the destination language array should have a length of one"
       );
       assert.match(
-        result[0].fr,
+        result[0].fr[0],
         /^un\schat$|^une\schatte$|^le\schat$|^la\schatte$|^les\schats$|^les\schattes|^des\schats$|^des\schattes$/,
         "if fr is the source language, a correct word should be selected"
       );
 
-      if (result[0].fr === "un chat" || result[0].fr === "une chatte") {
+      if (result[0].fr[0] === "un chat" || result[0].fr[0] === "une chatte") {
         assert.equal(
           result[0].en[0],
           "a cat",
           "a cat should be the translation"
         );
       }
-      if (result[0].fr === "le chat" || result[0].fr === "la chatte") {
+      if (result[0].fr[0] === "le chat" || result[0].fr[0] === ["la chatte"]) {
         assert.equal(
           result[0].en[0],
           "the cat",
           "the cat should be the translation"
         );
       }
-      if (result[0].fr === "des chats" || result[0].fr === "des chattes") {
+      if (
+        result[0].fr[0] === "des chats" ||
+        result[0].fr[0] === "des chattes"
+      ) {
         assert.equal(result[0].en[0], "cats", "cats should be the translation");
       }
-      if (result[0].fr === "les chats" || result[0].fr === "les chattes") {
+      if (
+        result[0].fr[0] === "les chats" ||
+        result[0].fr[0] === "les chattes"
+      ) {
         assert.equal(
           result[0].en[0],
           "the cats",
@@ -167,40 +130,28 @@ suite("Word Filter function", function() {
       assert.lengthOf(
         result[0].fr,
         2,
-        "the destination language array should have a length of two"
+        "the fr destination language array should have a length of two"
       );
       assert.match(
         result[0].en,
         /^a\scat$|^the\scat$|^cats$|^the\scats$/,
         "if en is the source language, a correct word should be selected"
       );
-      if (result[0].en === "a cat") {
-        assert.include(
-          result[0].fr,
-          "un chat" && "une chatte",
-          "the response should include un chat et une chatte"
-        );
+      if (result[0].en[0] === "a cat") {
+        assert.equal(result[0].fr[0], "un chat");
+        assert.equal(result[0].fr[1], "une chatte");
       }
-      if (result[0].en === "the cat") {
-        assert.include(
-          result[0].fr,
-          "le chat" && "la chatte",
-          "the response should include le chat et la chatte"
-        );
+      if (result[0].en[0] === "the cat") {
+        assert.equal(result[0].fr[0], "le chat");
+        assert.equal(result[0].fr[1], "la chatte");
       }
-      if (result[0].en === "cats") {
-        assert.include(
-          result[0].fr,
-          "des chats" && "des chattes",
-          "the response should include les chats et les chattes"
-        );
+      if (result[0].en[0] === "cats") {
+        assert.equal(result[0].fr[0], "des chats");
+        assert.equal(result[0].fr[1], "des chattes");
       }
-      if (result[0].en === "the cats") {
-        assert.include(
-          result[0].fr,
-          "les chats" && "les chattes",
-          "the response should include les chats et les chattes"
-        );
+      if (result[0].en[0] === "the cats") {
+        assert.equal(result[0].fr[0], "les chats");
+        assert.equal(result[0].fr[1], "les chattes");
       }
     }
   });

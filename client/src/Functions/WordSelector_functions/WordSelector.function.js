@@ -1,5 +1,6 @@
-import randomPicker from "../Common/RandomPicker.function";
-import returnUniqueForm from "./ReturnUniqueForm.function";
+import { randomPicker } from "../Common/RandomPicker.function";
+import { return_Selected_Words_With_Article } from "./ReturnSelectedWords.function";
+import { returnForms } from "./ReturnForms.function";
 
 const formattedWord = function(sourceLanguage, fr, en) {
   this.sourceLanguage = sourceLanguage;
@@ -7,141 +8,41 @@ const formattedWord = function(sourceLanguage, fr, en) {
   this.en = en;
 };
 
-const frArticles = {
-  definite: {
-    masc_sing: "le ",
-    masc_plur: "les ",
-    fem_sing: "la ",
-    fem_plur: "les "
-  },
-  indefinite: {
-    masc_sing: "un ",
-    masc_plur: "des ",
-    fem_sing: "une ",
-    fem_plur: "des "
-  }
-};
-
-const enArticles = {
-  definite: {
-    sing: "the",
-    plur: "the"
-  },
-  indefinite: {
-    sing: "a",
-    plur: ""
-  }
-};
-
 exports.fr_en_wordSelector = function(wordsToSelect) {
   let n = 0;
-  let preparedWords = [];
+  let preparedWords = []; //array of objects
 
   //main loop
   while (n < wordsToSelect.length) {
-    let result = {};
     let word = wordsToSelect[n];
     let sourceLanguage = randomPicker(["fr", "en"]);
+    let articleForm = "";
+    let fr_form = "";
+    let en_form = "";
 
     if (word.hasUniqueForm) {
-      result = returnUniqueForm.returnUniqueForm(
-        sourceLanguage,
-        word.fr,
-        word.en
-      );
+      fr_form = ["uniqueForm"];
+      en_form = "uniqueForm";
     } else {
-      let form = randomPicker(word[sourceLanguage][0].acceptedForms);
-      let fr_article = "";
-      let en_article = "";
-
-      //outsource function article selector
-      let articleForm = "";
-      if (word.hasArticle) {
-        articleForm = randomPicker(["definite", "indefinite"]);
-      }
-
-      if (sourceLanguage === "fr") {
-        let fr_form = form;
-        let en_form = "";
-
-        if (fr_form === "masc_sing" || fr_form === "fem_sing") {
-          en_form = "sing";
-        } else {
-          en_form = "plur";
-        }
-
-        if (articleForm) {
-          if (
-            word.fr[0].isLApostrophe &&
-            articleForm === "definite" &&
-            fr_form === ("masc_sing" || fr_form === "fem_sing")
-          ) {
-            fr_article = "l'";
-          } else {
-            fr_article = frArticles[articleForm][fr_form];
-          }
-        }
-        fr = `${fr_article}${word.fr[0][fr_form]}`;
-
-        for (let a = 0; a < word.en.length; a++) {
-          if (articleForm) {
-            if (
-              word.en[a].isArticleAn &&
-              articleForm === "indefinite" &&
-              en_form === "sing"
-            ) {
-              en_article = "an";
-            } else {
-              en_article = enArticles[articleForm][en_form];
-            }
-          }
-          en.push(`${en_article} ${word.en[a][en_form]}`.trimLeft());
-        }
-      } else {
-        let fr_forms = [];
-        let en_form = form;
-
-        if (en_form === "sing") {
-          fr_forms = ["masc_sing", "fem_sing"];
-        } else {
-          fr_forms = ["masc_plur", "fem_plur"];
-        }
-        //outsource in select en_article
-
-        if (articleForm) {
-          if (
-            word.en[0].isArticleAn &&
-            articleForm === "indefinite" &&
-            en_form === "sing"
-          ) {
-            en_article = "an";
-          } else {
-            en_article = enArticles[articleForm][en_form];
-          }
-        }
-        en = `${en_article} ${word.en[0][en_form]}`.trimLeft();
-
-        for (let a = 0; a < word.fr.length; a++) {
-          for (let b = 0; b < 2; b++) {
-            if (word.fr[a][fr_forms[b]]) {
-              if (articleForm) {
-                if (
-                  word.fr[a].isLApostrophe &&
-                  articleForm === "definite" &&
-                  en_form === "sing"
-                ) {
-                  fr_article = "l'";
-                } else {
-                  fr_article = frArticles[articleForm][fr_forms[b]];
-                }
-              }
-              fr.push(`${fr_article}${word.fr[a][fr_forms[b]]}`);
-            }
-          }
-        }
-      }
+      //return the accepted forms for FR and EN words depending on the source words
+      let sourceForm = randomPicker(word[sourceLanguage][0].acceptedForms);
+      let forms = returnForms(sourceForm);
+      fr_form = forms.fr;
+      en_form = forms.en;
     }
 
+    if (word.hasArticle) {
+      articleForm = randomPicker(["definite", "indefinite"]);
+    }
+
+    let result = return_Selected_Words_With_Article(
+      sourceLanguage,
+      word.fr,
+      word.en,
+      fr_form,
+      en_form,
+      articleForm
+    );
     preparedWords.push(new formattedWord(sourceLanguage, result.fr, result.en));
     n++;
   }
