@@ -1,7 +1,7 @@
 /* eslint-env mocha */
-import randomPicker from "../src/Functions/Exercise_functions/RandomPicker.function";
-const functions = require("../src/Functions/Exercise_functions/WordSelector.functions");
-const chai = require("chai");
+import randomPicker from "../../src/Functions/Common/RandomPicker.function";
+import wordSelector from "../../src/Functions/WordSelector_functions/WordSelector.function";
+import chai from "chai";
 const assert = chai.assert;
 
 suite("Random Picker function", function() {
@@ -23,7 +23,7 @@ suite("Random Picker function", function() {
 
 suite("Word Filter function", function() {
   test("Unique form with no article", function() {
-    let result = functions.fr_en_wordSelector([
+    let result = wordSelector.fr_en_wordSelector([
       {
         en_name: "walk",
         fr_name: "marcher",
@@ -86,7 +86,7 @@ suite("Word Filter function", function() {
   });
 
   test("Noun with 4 forms with article, no alternative", function() {
-    let result = functions.fr_en_wordSelector([
+    let result = wordSelector.fr_en_wordSelector([
       {
         en_name: "cat",
         fr_name: "chat",

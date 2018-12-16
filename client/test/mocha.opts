@@ -1,2 +1,5 @@
 --ui tdd
 --require @babel/register
+
+test
+--recursive

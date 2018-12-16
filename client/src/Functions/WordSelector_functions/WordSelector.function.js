@@ -1,4 +1,5 @@
-import randomPicker from "./RandomPicker.function";
+import randomPicker from "../Common/RandomPicker.function";
+import returnUniqueForm from "./ReturnUniqueForm.function";
 
 const formattedWord = function(sourceLanguage, fr, en) {
   this.sourceLanguage = sourceLanguage;
@@ -36,24 +37,18 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
   let n = 0;
   let preparedWords = [];
 
+  //main loop
   while (n < wordsToSelect.length) {
-    let fr = [];
-    let en = [];
+    let result = {};
     let word = wordsToSelect[n];
     let sourceLanguage = randomPicker(["fr", "en"]);
 
     if (word.hasUniqueForm) {
-      if (sourceLanguage === "fr") {
-        fr = word.fr[0].uniqueForm;
-        for (let a = 0; a < word.en.length; a++) {
-          en.push(word.en[a].uniqueForm);
-        }
-      } else {
-        en = word.en[0].uniqueForm;
-        for (let a = 0; a < word.fr.length; a++) {
-          fr.push(word.fr[a].uniqueForm);
-        }
-      }
+      result = returnUniqueForm.returnUniqueForm(
+        sourceLanguage,
+        word.fr,
+        word.en
+      );
     } else {
       let form = randomPicker(word[sourceLanguage][0].acceptedForms);
       let fr_article = "";
@@ -147,7 +142,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
       }
     }
 
-    preparedWords.push(new formattedWord(sourceLanguage, fr, en));
+    preparedWords.push(new formattedWord(sourceLanguage, result.fr, result.en));
     n++;
   }
   return preparedWords;
