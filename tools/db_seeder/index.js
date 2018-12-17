@@ -1,15 +1,18 @@
 const path = require("path");
 const fs = require("fs");
 const extractData = require("./md_parser/mdParser");
+const fileFunction = require("./getFiles");
 
-fs.readFile(
-  "../../curriculum/FR-EN/Easy_lessons/Animals/cat.md",
-  "utf8",
-  function(err, data) {
-    if (err) {
-      return console.log(err);
-    }
-    let formattedData = extractData.extractData(data);
-    console.log(formattedData);
-  }
-);
+const curriculumDirectory = path.resolve("../../curriculum/FR-EN/");
+//returns an array of files
+/*
+fileFunction.walk(curriculumDirectory, function(err, data) {
+  console.log(data);
+});*/
+
+async function gatherData() {
+  let asyncData = await fileFunction.getFiles(curriculumDirectory);
+  console.log(asyncData);
+}
+
+gatherData();
