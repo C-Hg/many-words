@@ -8,6 +8,8 @@ const formattedWord = function(sourceLanguage, fr, en) {
   this.en = en;
 };
 
+// this is the main function, it formats words for the client, with informations gathered from the db
+
 exports.fr_en_wordSelector = function(wordsToSelect) {
   let n = 0;
   let preparedWords = []; //array of objects
@@ -20,13 +22,13 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
     let fr_form = "";
     let en_form = "";
 
+    //return the accepted forms for FR and EN words depending on the source words
     if (word.hasUniqueForm) {
       fr_form = ["uniqueForm"];
       en_form = "uniqueForm";
     } else {
-      //return the accepted forms for FR and EN words depending on the source words
       let sourceForm = randomPicker(word[sourceLanguage][0].acceptedForms);
-      let forms = returnForms(sourceForm);
+      let forms = returnForms(sourceForm, word.type);
       fr_form = forms.fr;
       en_form = forms.en;
     }
@@ -35,7 +37,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
       articleForm = randomPicker(["definite", "indefinite"]);
     }
 
-    let result = return_Selected_Words_With_Article(
+    let selectedWords = return_Selected_Words_With_Article(
       sourceLanguage,
       word.fr,
       word.en,
@@ -43,7 +45,9 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
       en_form,
       articleForm
     );
-    preparedWords.push(new formattedWord(sourceLanguage, result.fr, result.en));
+    preparedWords.push(
+      new formattedWord(sourceLanguage, selectedWords.fr, selectedWords.en)
+    );
     n++;
   }
   return preparedWords;
