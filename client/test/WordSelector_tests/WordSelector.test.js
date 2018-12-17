@@ -9,7 +9,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "walk",
         fr_name: "marcher",
-        hasArticle: false,
         hasUniqueForm: true,
         type: "verb",
         fr: [
@@ -47,7 +46,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "cat",
         fr_name: "chat",
-        hasArticle: true,
         hasUniqueForm: false,
         type: "noun",
         fr: [
@@ -161,7 +159,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "beautiful",
         fr_name: "beau",
-        hasArticle: false,
         hasUniqueForm: false,
         type: "adjective",
         fr: [
@@ -278,7 +275,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "smile",
         fr_name: "sourire",
-        hasArticle: false,
         hasUniqueForm: true,
         type: "verb",
         fr: [
@@ -296,7 +292,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "apple",
         fr_name: "pomme",
-        hasArticle: true,
         hasUniqueForm: false,
         type: "noun",
         fr: [
@@ -320,7 +315,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "plane",
         fr_name: "avion",
-        hasArticle: true,
         hasUniqueForm: false,
         type: "noun",
         fr: [

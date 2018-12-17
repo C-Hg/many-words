@@ -1,0 +1,15 @@
+{
+  "name": "db_seeder",
+  "version": "1.0.0",
+  "description": "A script to seed the database from markdown files",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Camille Hagenbourger",
+  "license": "MIT",
+  "devDependencies": {
+    "markdown": "^0.5.0"
+  }
+}

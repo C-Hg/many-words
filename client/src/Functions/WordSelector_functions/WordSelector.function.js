@@ -11,12 +11,12 @@ const formattedWord = function(sourceLanguage, fr, en) {
 // this is the main function, it formats words for the client, with informations gathered from the db
 
 exports.fr_en_wordSelector = function(wordsToSelect) {
-  let n = 0;
+  let wordCounter = 0;
   let preparedWords = []; //array of objects
 
   //main loop
-  while (n < wordsToSelect.length) {
-    let word = wordsToSelect[n];
+  while (wordCounter < wordsToSelect.length) {
+    let word = wordsToSelect[wordCounter];
     let sourceLanguage = randomPicker(["fr", "en"]);
     let articleForm = "";
     let fr_form = "";
@@ -33,7 +33,8 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
       en_form = forms.en;
     }
 
-    if (word.hasArticle) {
+    //only nouns accept articles
+    if (word.type === "noun") {
       articleForm = randomPicker(["definite", "indefinite"]);
     }
 
@@ -48,7 +49,7 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
     preparedWords.push(
       new formattedWord(sourceLanguage, selectedWords.fr, selectedWords.en)
     );
-    n++;
+    wordCounter++;
   }
   return preparedWords;
 };
