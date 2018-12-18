@@ -46,7 +46,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "cat",
         fr_name: "chat",
-        hasUniqueForm: false,
         type: "noun",
         fr: [
           {
@@ -157,7 +156,6 @@ suite("FR/EN Word Selector function", function() {
       {
         en_name: "beautiful",
         fr_name: "beau",
-        hasUniqueForm: false,
         type: "adjective",
         fr: [
           {

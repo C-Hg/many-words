@@ -8,6 +8,7 @@
     "server": "node app.js",
     "client": "cd client && npm start",
     "test": "cd client && npm run mocha-test",
+    "test-seeder": "cd tools/db_seeder && mocha",
     "seeder": "cd tools/db_seeder && npm start"
   },
   "author": "Camille HAGENBOURGER",

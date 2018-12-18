@@ -1,17 +1,4 @@
 //fr.isLApostrophe and en.isArticleAn should be written ONLY IF TRUE
-/*fr [
-  {
-    acceptedForms: ["masc_sing", "masc_plur", "fem_sing", "fem_plur"],
-    masc_sing: "beau",
-    masc_plur: "beaux",
-    fem_sing: "belle",
-    fem_plur: "belles"
-  }]
-  en: [
-    {
-      acceptedForms: ["uniqueForm"],
-      uniqueForm: "beautiful"
-    }*/
 
 const word = function(
   en_name,
@@ -47,5 +34,5 @@ exports.extractData = function(document) {
   let fr_uniqueMain = document.match(regex.frUniqueMain);
   let en_uniqueMain = document.match(regex.enUniqueMain);
 
-  console.log(fr_uniqueMain, en_uniqueMain);
+  console.log(lessonName);
 };

@@ -1,6 +1,6 @@
 # Word Template
 
-## Parent lesson :
+## Parent lesson
 
 Animals
 
