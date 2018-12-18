@@ -7,7 +7,8 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node app.js",
     "client": "cd client && npm start",
-    "test": "cd client && npm run mocha-test"
+    "test": "cd client && npm run mocha-test",
+    "seeder": "cd tools/db_seeder && npm start"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",

@@ -54,16 +54,14 @@ suite("FR/EN Word Selector function", function() {
             masc_sing: "chat",
             masc_plur: "chats",
             fem_sing: "chatte",
-            fem_plur: "chattes",
-            isLApostrophe: false
+            fem_plur: "chattes"
           }
         ],
         en: [
           {
             acceptedForms: ["sing", "plur"],
             sing: "cat",
-            plur: "cats",
-            isArticleAn: false
+            plur: "cats"
           }
         ]
       }
@@ -298,8 +296,7 @@ suite("FR/EN Word Selector function", function() {
           {
             acceptedForms: ["fem_sing", "fem_plur"],
             fem_sing: "pomme",
-            fem_plur: "pommes",
-            isLApostrophe: false
+            fem_plur: "pommes"
           }
         ],
         en: [
@@ -329,8 +326,7 @@ suite("FR/EN Word Selector function", function() {
           {
             acceptedForms: ["sing", "plur"],
             sing: "plane",
-            plur: "planes",
-            isArticleAn: false
+            plur: "planes"
           }
         ],
         lessonId: "#aLongId"

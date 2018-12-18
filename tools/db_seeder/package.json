@@ -9,7 +9,5 @@
   },
   "author": "Camille Hagenbourger",
   "license": "MIT",
-  "devDependencies": {
-    "markdown": "^0.5.0"
-  }
+  "devDependencies": {}
 }
