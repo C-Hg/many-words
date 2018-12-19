@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 const {
   verifyDataCompleteness
-} = require("../md_parser/verifyDataCompleteness");
+} = require("../md_parser/functions/verifyDataCompleteness.function");
 const chai = require("chai");
 const assert = chai.assert;
 
@@ -11,9 +11,7 @@ suite("Verify data completeness function", function() {
       "hello",
       "bonjour",
       "other",
-      "présentations",
-      [{ uniqueForm: "hello" }],
-      [{ uniqueForm: "bonjour" }]
+      "présentations"
     );
     assert.isBoolean(result, "response should be a boolean");
     assert.isTrue(result, "response should be true");
@@ -24,22 +22,13 @@ suite("Verify data completeness function", function() {
       "",
       "bonjour",
       "other",
-      "présentations",
-      [{ uniqueForm: "hello" }],
-      [{ uniqueForm: "bonjour" }]
+      "présentations"
     );
     assert.isBoolean(result, "response should be a boolean");
     assert.isFalse(result, "response should be false, missing en_name");
   });
   test("no fr_name", function() {
-    let result = verifyDataCompleteness(
-      "hello",
-      "",
-      "other",
-      "présentations",
-      [{ uniqueForm: "hello" }],
-      [{ uniqueForm: "bonjour" }]
-    );
+    let result = verifyDataCompleteness("hello", "", "other", "présentations");
     assert.isBoolean(result, "response should be a boolean");
     assert.isFalse(result, "response should be false, missing fr_name");
   });
@@ -48,47 +37,14 @@ suite("Verify data completeness function", function() {
       "hello",
       "bonjour",
       "",
-      "présentations",
-      [{ uniqueForm: "hello" }],
-      [{ uniqueForm: "bonjour" }]
+      "présentations"
     );
     assert.isBoolean(result, "response should be a boolean");
     assert.isFalse(result, "response should be false, missing type");
   });
   test("no lesson name", function() {
-    let result = verifyDataCompleteness(
-      "hello",
-      "bonjour",
-      "other",
-      "",
-      [{ uniqueForm: "hello" }],
-      [{ uniqueForm: "bonjour" }]
-    );
+    let result = verifyDataCompleteness("hello", "bonjour", "other", "");
     assert.isBoolean(result, "response should be a boolean");
     assert.isFalse(result, "response should be false, missing lesson name");
-  });
-  test("no EN data", function() {
-    let result = verifyDataCompleteness(
-      "hello",
-      "bonjour",
-      "other",
-      "présentations",
-      [],
-      [{ uniqueForm: "bonjour" }]
-    );
-    assert.isBoolean(result, "response should be a boolean");
-    assert.isFalse(result, "response should be false, missing FR data");
-  });
-  test("no FR data", function() {
-    let result = verifyDataCompleteness(
-      "hello",
-      "bonjour",
-      "other",
-      "présentations",
-      [{ uniqueForm: "hello" }],
-      []
-    );
-    assert.isBoolean(result, "response should be a boolean");
-    assert.isFalse(result, "response should be false, missing FR data");
   });
 });

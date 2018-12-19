@@ -22,8 +22,8 @@ Name : journey
 | :---------- | :------: | :-----: | :----: | ------- |
 | singular    | journey  | travel  |        | bonjour |
 | plural      | journeys | travels |        |         |
-| unique form |  world   |         |        | world   |
-| \*an        |    x     |         |  true  | x       |
+| unique form |          |         |        | world   |
+| \*an        |          |         |  true  | x       |
 
 ---
 

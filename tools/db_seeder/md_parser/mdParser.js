@@ -3,7 +3,7 @@ const regex = require("./mdRegex");
 const {
   verifyDataCompleteness
 } = require("./functions/verifyDataCompleteness.function");
-const { fetchEnWords } = require("./functions/fetchWords.functions");
+const { fetchEnWords } = require("./functions/fetchEnWords.function");
 
 class word {
   constructor(en_name, fr_name, lessonName, type, fr, en) {
@@ -30,7 +30,9 @@ exports.extractData = function(document) {
   //EN data
   let en_name = document.match(regex.enName);
   let en_words = fetchEnWords(document); // fetch words
-  // needs formatting : deleting all null properties
+  console.log(en_words);
+
+  // if error returned : escape with error message instead of returning object
   /*
   //FR data
   let fr_name = document.match(regex.frName);
