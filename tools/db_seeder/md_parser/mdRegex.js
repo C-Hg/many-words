@@ -54,22 +54,22 @@ let regex = {
       switch (a) {
         case 0:
           newName = name + "Main";
-          regex[newName] = new RegExp(pattern + ")" + words, "i");
+          this[newName] = new RegExp(pattern + ")" + words, "i");
           break;
 
         case 1:
           newName = name + "Alt1";
-          regex[newName] = new RegExp(pattern + oneColumn + words, "i");
+          this[newName] = new RegExp(pattern + oneColumn + words, "i");
           break;
 
         case 2:
           newName = name + "Alt2";
-          regex[newName] = new RegExp(pattern + twoColumns + words, "i");
+          this[newName] = new RegExp(pattern + twoColumns + words, "i");
           break;
 
         case 3:
           newName = name + "Alt3";
-          regex[newName] = new RegExp(pattern + threeColumns + words, "i");
+          this[newName] = new RegExp(pattern + threeColumns + words, "i");
           break;
       }
     }

@@ -45,4 +45,4 @@ Name: voyage
 \* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false
 
 - is the indefinite article in English "an" ?
-- or is the definite article in French "l'" ?
+- is the definite article in French "l'" ?

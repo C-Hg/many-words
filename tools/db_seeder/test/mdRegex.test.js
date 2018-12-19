@@ -5,7 +5,7 @@ const path = require("path");
 const chai = require("chai");
 const assert = chai.assert;
 
-// these tests aim to evaluate the regex only, the rely on the test files journey.md
+// these tests aim to evaluate the regex only, the rely on the test file journey.md
 const testFilePath = path.resolve("./test/journey.md");
 
 suite("Markdown regex", function() {
