@@ -1,6 +1,8 @@
 // this function checks that the informations retrieved from the markdown file
 // are not mutually exclusive for a specific word
 // the property acceptedForms is required
+// isArticleAn is facultative, only registered when true, and tested with
+// checkEnAlternative and fetchEnWords functions
 
 // void objects are impossible because not returned from checkEnAlternative function
 

@@ -31,14 +31,14 @@ Name : journey
 
 Name: voyage
 
-|             |   main    |     alt 1     |    alt 2     | alt 3  |
-| :---------- | :-------: | :-----------: | :----------: | :----: |
-| masc_sing   |  voyage   |   voyageurs   |  après-midi  |        |
-| masc_plur   |  voyages  |  voyageuses   |              |  Ânes  |
-| fem_sing    |   fleur   | course à pied | Belle-Pensée |        |
-| fem_plur    |  fleurs   |               |   pensées    |  îles  |
-| unique_form | voyageons |     monde     |    canoë     | monde3 |
-| \*l'        |     x     |       x       |              |  true  |
+|             | main | alt 1 | alt 2 | alt 3 |
+| :---------- | :--: | :---: | :---: | :---: |
+| masc_sing   |      |       |       |       |
+| masc_plur   |      |       |       |       |
+| fem_sing    |      |       |       |       |
+| fem_plur    |      |       |       |       |
+| unique_form |      |       |       |       |
+| \*l'        |      |       |       |       |
 
 ---
 

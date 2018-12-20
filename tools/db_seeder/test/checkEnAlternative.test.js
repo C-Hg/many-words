@@ -1,5 +1,4 @@
 /* eslint-env mocha */
-const regex = require("../md_parser/mdRegex");
 const { readMdFile } = require("../readMdFile");
 const {
   checkEnAlternative

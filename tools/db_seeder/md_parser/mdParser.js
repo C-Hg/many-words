@@ -4,6 +4,7 @@ const {
   verifyDataCompleteness
 } = require("./functions/verifyDataCompleteness.function");
 const { fetchEnWords } = require("./functions/fetchEnWords.function");
+const { fetchFrWords } = require("./functions/fetchFrWords.function");
 
 class word {
   constructor(en_name, fr_name, lessonName, type, fr, en) {
@@ -29,23 +30,20 @@ exports.extractData = function(document) {
 
   //EN data
   let en_name = document.match(regex.enName);
-  let en_words = fetchEnWords(document); // fetch words
+  let en_words = fetchEnWords(document);
   console.log(en_words);
+
+  //FR data
+  let fr_name = document.match(regex.frName);
+  let fr_words = fetchFrWords(document);
+  console.log(fr_words);
+
+  if (!en_words || !fr_words) {
+    return false;
+  }
 
   // if error returned : escape with error message instead of returning object
   /*
-  //FR data
-  let fr_name = document.match(regex.frName);
-  let fr_words = [];
-
-  let enSingMain = document.match(regex.enSingMain);
-  let isAnMain = document.match(regex.isAnMain);
-  let isAnAlt1 = document.match(regex.isAnAlt1);
-  let isAnAlt2 = document.match(regex.isAnAlt2);
-  let isAnAlt3 = document.match(regex.isAnAlt3);
-
-  let fr_uniqueMain = document.match(regex.frUniqueMain);
-  let en_uniqueMain = document.match(regex.enUniqueMain);
 
   if (
     verifyDataCompleteness(
@@ -53,8 +51,6 @@ exports.extractData = function(document) {
       fr_name,
       type,
       lessonName,
-      en_words,
-      fr_words
     )
   ) {
     let newWord = new word(en_name, fr_name, type, lessonName, en, fr);

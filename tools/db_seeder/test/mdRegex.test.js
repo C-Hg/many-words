@@ -130,13 +130,13 @@ suite("Markdown regex", function() {
       "voyageurs",
       "FR masc_sing alt1 should be 'voyageurs'"
     );
-    assert.equal(
-      mdData.match(regex.frMascSingAlt2),
-      "après-midi",
-      "FR masc_sing alt2 should be 'après-midi'"
-    );
     assert.isNull(
+      mdData.match(regex.frMascSingAlt2),
+      "FR masc_sing alt2 should be null"
+    );
+    assert.equal(
       mdData.match(regex.frMascSingAlt3),
+      "canoë après-midi",
       "FR masc_sing alt3 should be null"
     );
     assert.equal(
@@ -168,14 +168,63 @@ suite("Markdown regex", function() {
       "course à pied",
       "FR fem_sing alt1 should be 'course à pied'"
     );
-    assert.equal(
+    assert.isNull(
       mdData.match(regex.frFemSingAlt2),
+      "FR fem_sing alt2 should be null"
+    );
+    assert.equal(
+      mdData.match(regex.frFemSingAlt3),
       "Belle-Pensée",
-      "FR fem_sing alt2 should be 'Pensée'"
+      "FR fem_sing alt3 should be 'Belle-Pensée'"
+    );
+    assert.equal(
+      mdData.match(regex.frFemPlurMain),
+      "fleurs",
+      "FR fem_plur main should be 'fleurs'"
     );
     assert.isNull(
-      mdData.match(regex.frFemSingAlt3),
-      "FR fem_sing alt3 should be null"
+      mdData.match(regex.frFemPlurAlt1),
+      "FR fem_plur alt1 should be null"
+    );
+    assert.isNull(
+      mdData.match(regex.frFemPlurAlt2),
+      "FR fem_plur alt2 should be null"
+    );
+    assert.equal(
+      mdData.match(regex.frFemPlurAlt3),
+      "îles",
+      "FR fem_plur alt3 should be 'îles'"
+    );
+    assert.equal(
+      mdData.match(regex.frUniqueMain),
+      "voyageons",
+      "FR unique_form main should be 'voyageons'"
+    );
+    assert.equal(
+      mdData.match(regex.frUniqueAlt1),
+      "monde",
+      "FR unique_form alt1 should be 'monde'"
+    );
+    assert.isNull(
+      mdData.match(regex.frUniqueAlt2),
+      "FR unique_form alt2 should be null"
+    );
+    assert.equal(
+      mdData.match(regex.frUniqueAlt3),
+      "mondes",
+      "FR unique_form alt3 should be 'mondes'"
+    );
+    assert.isNull(mdData.match(regex.LApostropheMain));
+    assert.isNull(mdData.match(regex.LApostropheAlt1));
+    assert.equal(
+      mdData.match(regex.LApostropheAlt2),
+      "x",
+      "FR l' alt2 should be 'x'"
+    );
+    assert.equal(
+      mdData.match(regex.LApostropheAlt3),
+      "true",
+      "FR l' alt3 should be 'true'"
     );
   });
 });

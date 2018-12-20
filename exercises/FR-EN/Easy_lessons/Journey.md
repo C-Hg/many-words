@@ -18,12 +18,12 @@ type : noun
 
 Name : journey
 
-|             |   main   | alt. 1  | alt. 2 | alt. 3  |
-| :---------- | :------: | :-----: | :----: | ------- |
-| singular    | journey  | travel  |        | bonjour |
-| plural      | journeys | travels |        |         |
-| unique form |          |         |        | world   |
-| \*an        |          |         |  true  | x       |
+|             |   main   | alt. 1  | alt. 2 | alt. 3 |
+| :---------- | :------: | :-----: | :----: | ------ |
+| singular    | journey  | travel  |        |        |
+| plural      | journeys | travels |        |        |
+| unique form |          |         |        |        |
+| \*an        |          |         |        |        |
 
 ---
 
@@ -31,14 +31,14 @@ Name : journey
 
 Name: voyage
 
-|             |  main   |  alt 1   |  alt 2  | alt 3 |
-| :---------- | :-----: | :------: | :-----: | :---: |
-| masc_sing   | voyage  | voyage1  |         |       |
-| masc_plur   | voyages | voyages2 |         |       |
-| fem_sing    |  fleur  |          | pensée  |       |
-| fem_plur    | fleurs  |          | pensées |       |
-| unique_form | voyage  |  monde   |         | monde |
-| \*l'        |    x    |    x     |         | true  |
+|             |  main   | alt 1 | alt 2 | alt 3 |
+| :---------- | :-----: | :---: | :---: | :---: |
+| masc_sing   | voyage  |       |       |       |
+| masc_plur   | voyages |       |       |       |
+| fem_sing    |         |       |       |       |
+| fem_plur    |         |       |       |       |
+| unique_form |         |       |       |       |
+| \*l'        |         |       |       |       |
 
 ---
 

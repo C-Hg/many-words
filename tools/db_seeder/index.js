@@ -7,10 +7,26 @@ const { readMdFile } = require("./readMdFile");
 const curriculumDirectory = path.resolve("../../exercises/FR-EN/");
 //returns an array of files
 async function gatherData() {
-  let wordFilesPaths = await fileExplorer.getFilesPaths(curriculumDirectory);
+  let wordFilesPaths;
+  try {
+    wordFilesPaths = await fileExplorer.getFilesPaths(curriculumDirectory);
+  } catch (e) {
+    console.log("error while getting file paths");
+  }
+
   for (const path of wordFilesPaths) {
-    let mdData = await readMdFile(path);
+    let mdData;
+    try {
+      mdData = await readMdFile(path);
+    } catch (e) {
+      console.log(`error while reading file ${path}`);
+    }
+
     let object = extractData(mdData);
+    if (!object) {
+      console.log(`error while extracting data from ${path}`);
+      return;
+    }
   }
 }
 

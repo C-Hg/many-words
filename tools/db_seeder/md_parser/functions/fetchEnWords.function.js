@@ -1,4 +1,3 @@
-const regex = require("../mdRegex");
 const { checkEnAlternative } = require("./checkEnAlternative.function");
 const { checkEnFormat } = require("./checkEnFormat.function");
 

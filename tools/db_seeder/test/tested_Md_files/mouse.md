@@ -20,10 +20,10 @@ Name : journey
 
 |             | main  | alt. 1 | alt. 2 | alt. 3 |
 | :---------- | :---: | :----: | :----: | :----: |
-| singular    | mouse |        |        |        |
-| plural      | mice  |        |        |        |
-| unique form |       |        |        |        |
-| \*an        |       |        |        |        |
+| singular    | mouse |        | ignore |        |
+| plural      | mice  |        |   me   |        |
+| unique form |       |        |        |  and   |
+| \*an        |       |        |        |   me   |
 
 ---
 
@@ -31,14 +31,14 @@ Name : journey
 
 Name: voyage
 
-|             |   main    |     alt 1     |    alt 2     | alt 3  |
-| :---------- | :-------: | :-----------: | :----------: | :----: |
-| masc_sing   |  voyage   |   voyageurs   |  après-midi  |        |
-| masc_plur   |  voyages  |  voyageuses   |              |  Ânes  |
-| fem_sing    |   fleur   | course à pied | Belle-Pensée |        |
-| fem_plur    |  fleurs   |               |   pensées    |  îles  |
-| unique_form | voyageons |     monde     |    canoë     | monde3 |
-| \*l'        |     x     |       x       |              |  true  |
+|             |  main  | alt 1 | alt 2  | alt 3 |
+| :---------- | :----: | :---: | :----: | :---: |
+| masc_sing   |        |       | ignore |       |
+| masc_plur   |        |       |   me   |       |
+| fem_sing    | souris |       |        |       |
+| fem_plur    | souris |       |        |       |
+| unique_form |        |       |        |  and  |
+| \*l'        |        |       |        |  me   |
 
 ---
 
