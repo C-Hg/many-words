@@ -11,9 +11,15 @@ const assert = chai.assert;
 // of the data from the markdown EN table
 // they rely on the test files in tested_Md_files folder
 
-const journeyPath = path.resolve("./test/tested_Md_files/journey.md");
-const mousePath = path.resolve("./test/tested_Md_files/mouse.md");
-const applePath = path.resolve("./test/tested_Md_files/apple.md");
+const journeyPath = path.resolve(
+  "./test/tested_Md_files/testing_subfolder_search/journey.md"
+);
+const mousePath = path.resolve(
+  "./test/tested_Md_files/testing_subfolder_search/mouse.md"
+);
+const applePath = path.resolve(
+  "./test/tested_Md_files/testing_subfolder_search/in_depth/apple.md"
+);
 const voidPath = path.resolve("./test/tested_Md_files/void.md");
 const uniquePath = path.resolve("./test/tested_Md_files/unique.md");
 

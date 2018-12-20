@@ -22,11 +22,12 @@ async function gatherData() {
       console.log(`error while reading file ${path}`);
     }
 
-    let object = extractData(mdData);
-    if (!object) {
+    let word = extractData(mdData);
+    if (!word) {
       console.log(`error while extracting data from ${path}`);
       return;
     }
+    console.log(word);
   }
 }
 

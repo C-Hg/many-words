@@ -2,21 +2,31 @@
 
 ## Parent lesson
 
+<section>
+
 Animals
+
+</section>
 
 ---
 
 ## General data
 
+<section>
+
 unique form : false
 
 type : noun
+
+</section>
 
 ---
 
 ## English data
 
-Name : journey
+<section>
+
+Name : mouse
 
 |             | main  | alt. 1 | alt. 2 | alt. 3 |
 | :---------- | :---: | :----: | :----: | :----: |
@@ -25,11 +35,15 @@ Name : journey
 | unique form |       |        |        |  and   |
 | \*an        |       |        |        |   me   |
 
+</section>
+
 ---
 
 ## French data
 
-Name: voyage
+<section>
+
+Name: souris
 
 |             |  main  | alt 1 | alt 2  | alt 3 |
 | :---------- | :----: | :---: | :----: | :---: |
@@ -39,6 +53,8 @@ Name: voyage
 | fem_plur    | souris |       |        |       |
 | unique_form |        |       |        |  and  |
 | \*l'        |        |       |        |  me   |
+
+</section>
 
 ---
 

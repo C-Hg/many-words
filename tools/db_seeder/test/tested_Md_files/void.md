@@ -2,19 +2,29 @@
 
 ## Parent lesson
 
+<section>
+
 Animals
+
+</section>
 
 ---
 
 ## General data
 
+<section>
+
 unique form : false
 
 type : noun
 
+</section>
+
 ---
 
 ## English data
+
+<section>
 
 Name : journey
 
@@ -25,9 +35,13 @@ Name : journey
 | unique form |      |        |        |        |
 | \*an        |      |        |        |        |
 
+</section>
+
 ---
 
 ## French data
+
+<section>
 
 Name: voyage
 
@@ -39,6 +53,8 @@ Name: voyage
 | fem_plur    |      |       |       |       |
 | unique_form |      |       |       |       |
 | \*l'        |      |       |       |       |
+
+</section>
 
 ---
 

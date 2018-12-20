@@ -1,22 +1,30 @@
-# Journey
+# No_type
 
 ## Parent lesson
 
+<section>
+
 Animals
+
+</section>
 
 ---
 
 ## General data
 
+<section>
 unique form : false
 
 type : noun
+
+</section>
 
 ---
 
 ## English data
 
-Name : journey
+<section>
+Name :
 
 |             |  main  | alt. 1 | alt. 2  | alt. 3  |
 | :---------- | :----: | :----: | :-----: | :-----: |
@@ -25,11 +33,14 @@ Name : journey
 | unique form |        |        |         |         |
 | \*an        |   x    |        |         |    x    |
 
+</section>
+
 ---
 
 ## French data
 
-Name: voyage
+<section>
+Name: âne
 
 |             | main | alt 1  | alt 2 | alt 3  |
 | :---------- | :--: | :----: | :---: | :----: |
@@ -39,6 +50,8 @@ Name: voyage
 | fem_plur    |      |        |       |        |
 | unique_form |      |        |       |        |
 | \*l'        |  x   |        |       |  true  |
+
+</section>
 
 ---
 

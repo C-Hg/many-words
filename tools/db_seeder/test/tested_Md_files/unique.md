@@ -1,22 +1,32 @@
-# Journey
+# Unique
 
 ## Parent lesson
 
-Animals
+<section>
+
+Uniques
+
+</section>
 
 ---
 
 ## General data
 
-unique form : false
+<section>
 
-type : noun
+unique form : true
+
+type : other
+
+</section>
 
 ---
 
 ## English data
 
-Name : journey
+<section>
+
+Name : hello
 
 |             |   main    | alt. 1 | alt. 2 |       alt. 3        |
 | :---------- | :-------: | :----: | :----: | :-----------------: |
@@ -25,11 +35,15 @@ Name : journey
 | unique form | hello you |   my   |  dear  | and greatest friend |
 | \*an        |           |        |        |                     |
 
+</section>
+
 ---
 
 ## French data
 
-Name: voyage
+<section>
+
+Name: bonjour
 
 |             |  main   | alt 1  |     alt 2      | alt 3 |
 | :---------- | :-----: | :----: | :------------: | :---: |
@@ -39,6 +53,8 @@ Name: voyage
 | fem_plur    |         |        |                |       |
 | unique_form | Bonjour | à vous | mes très chers | amis  |
 | \*l'        |         |        |                |       |
+
+</section>
 
 ---
 

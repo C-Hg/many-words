@@ -6,7 +6,9 @@ const chai = require("chai");
 const assert = chai.assert;
 
 // these tests aim to evaluate the regex only, they rely on the test file journey.md
-const testFilePath = path.resolve("./test/tested_Md_files/journey.md");
+const testFilePath = path.resolve(
+  "./test/tested_Md_files/testing_subfolder_search/journey.md"
+);
 
 suite("Markdown regex", function() {
   let mdData;
@@ -18,6 +20,7 @@ suite("Markdown regex", function() {
   });
 
   test("general data", function() {
+    //console.log(mdData.match(regex.lesson));
     assert.equal(
       mdData.match(regex.lesson),
       "À la plage",

@@ -33,18 +33,21 @@ const LApostrophe = "(?<=\\\\*l'\\s*\\|\\s*";
 
 let regex = {
   //general data
-  lesson: new RegExp("(?<=Parent\\slesson\\s*\\n*)" + words, "i"),
-  uniqueForm: new RegExp("(?<=unique\\sform\\s*\\:\\s*)" + words, "i"),
-  type: new RegExp("(?<=type\\s\\:\\s*)" + words, "i"),
+  lesson: new RegExp("(?<=Parent\\slesson\\n*\\<section\\>\\n*)" + words, "ig"),
+  uniqueForm: new RegExp("(?<=unique\\sform\\s*\\:\\s*)" + words, "ig"),
+  type: new RegExp("(?<=type\\s\\:\\s*)" + words, "ig"),
 
   // EN data
   enName: new RegExp(
-    "(?<=##\\sEnglish\\sdata\\s\\n*Name\\s*\\:\\s*)" + words,
-    "i"
+    "(?<=##\\sEnglish\\sdata\\n*\\<section\\>\\n*Name\\s*\\:\\s*)" + words,
+    "ig"
   ),
 
   //FR data
-  frName: /(?<=##\sFrench\sdata\s\n*Name\s*:\s*)\b\S+\b/i,
+  frName: new RegExp(
+    "(?<=##\\sFrench\\sdata\\n*\\<section\\>\\n*Name\\s*\\:\\s*)" + words,
+    "ig"
+  ),
 
   // creates the regex to match the word inside the column
   // e.g. frMascSingMain, frMascSingAlt1 ...
@@ -54,22 +57,22 @@ let regex = {
       switch (a) {
         case 0:
           newName = name + "Main";
-          this[newName] = new RegExp(pattern + ")" + words, "i");
+          this[newName] = new RegExp(pattern + ")" + words, "ig");
           break;
 
         case 1:
           newName = name + "Alt1";
-          this[newName] = new RegExp(pattern + oneColumn + words, "i");
+          this[newName] = new RegExp(pattern + oneColumn + words, "ig");
           break;
 
         case 2:
           newName = name + "Alt2";
-          this[newName] = new RegExp(pattern + twoColumns + words, "i");
+          this[newName] = new RegExp(pattern + twoColumns + words, "ig");
           break;
 
         case 3:
           newName = name + "Alt3";
-          this[newName] = new RegExp(pattern + threeColumns + words, "i");
+          this[newName] = new RegExp(pattern + threeColumns + words, "ig");
           break;
       }
     }

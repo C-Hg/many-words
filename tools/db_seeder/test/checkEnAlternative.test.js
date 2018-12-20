@@ -10,7 +10,9 @@ const assert = chai.assert;
 // these tests aim to evaluate the correct extraction of the data from the markdown EN table
 // they rely on the test file journey.md
 // QA of the collected data is done by checkEnFormat function
-const testFilePath = path.resolve("./test/tested_Md_files/journey.md");
+const testFilePath = path.resolve(
+  "./test/tested_Md_files/testing_subfolder_search/journey.md"
+);
 
 suite("Check EN Alternative function", function() {
   let mdData;

@@ -15,7 +15,7 @@
 
 unique form
 
-- the answer should be true or false
+- the answer should be true or blank for false, any value different from true will be considered false
 - true means that every word including alternatives have only one form, verbs for example or invariable words; in this case, **only** the field _unique form_ of the table should be filled
 - adjectives should have _unique form : false_, because the french adjectives have 4 forms, but the English form should be filled in the unique form field of the table; it is the **only** case where one word is in the unique form field in one language and not in the other
 
