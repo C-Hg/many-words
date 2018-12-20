@@ -1,15 +1,5 @@
 # Unique
 
-## Parent lesson
-
-<section>
-
-Uniques
-
-</section>
-
----
-
 ## General data
 
 <section>

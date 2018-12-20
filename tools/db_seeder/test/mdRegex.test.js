@@ -20,12 +20,6 @@ suite("Markdown regex", function() {
   });
 
   test("general data", function() {
-    //console.log(mdData.match(regex.lesson));
-    assert.equal(
-      mdData.match(regex.lesson),
-      "À la plage",
-      "the lesson name should be 'À la plage'"
-    );
     assert.equal(
       mdData.match(regex.uniqueForm),
       "false",

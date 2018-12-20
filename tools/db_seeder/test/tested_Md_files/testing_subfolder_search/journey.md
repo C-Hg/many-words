@@ -1,15 +1,5 @@
 # Journey
 
-## Parent lesson
-
-<section>
-
-À la plage
-
-</section>
-
----
-
 ## General data
 
 <section>

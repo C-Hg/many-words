@@ -15,6 +15,11 @@ async function gatherData() {
   }
 
   for (const path of wordFilesPaths) {
+    let lessonName = getLessonName(path);
+    if (!lessonName) {
+      console.log("error while getting lesson name");
+      return;
+    }
     let mdData;
     try {
       mdData = await readMdFile(path);
@@ -22,12 +27,13 @@ async function gatherData() {
       console.log(`error while reading file ${path}`);
     }
 
-    let word = extractData(mdData);
+    let word = extractData(mdData, lessonName[0]);
     if (!word) {
       console.log(`error while extracting data from ${path}`);
       return;
     }
     console.log(word);
+    return word;
   }
 }
 

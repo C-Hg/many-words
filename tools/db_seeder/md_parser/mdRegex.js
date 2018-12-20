@@ -33,7 +33,6 @@ const LApostrophe = "(?<=\\\\*l'\\s*\\|\\s*";
 
 let regex = {
   //general data
-  lesson: new RegExp("(?<=Parent\\slesson\\n*\\<section\\>\\n*)" + words, "ig"),
   uniqueForm: new RegExp("(?<=unique\\sform\\s*\\:\\s*)" + words, "ig"),
   type: new RegExp("(?<=type\\s\\:\\s*)" + words, "ig"),
 

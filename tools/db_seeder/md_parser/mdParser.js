@@ -19,12 +19,10 @@ class word {
   }
 }
 
-exports.extractData = function(document) {
+exports.extractData = function(document, lessonName) {
   //general data
   let type = document.match(regex.type);
-  let lessonName = document.match(regex.lesson);
   let hasUniqueForm = document.match(regex.uniqueForm);
-  console.log(hasUniqueForm);
 
   //EN data
   let en_name = document.match(regex.enName);
@@ -42,7 +40,7 @@ exports.extractData = function(document) {
   let newWord = new word(
     en_name[0],
     fr_name[0],
-    lessonName[0],
+    lessonName,
     type[0],
     en_words,
     fr_words

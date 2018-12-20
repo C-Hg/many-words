@@ -48,12 +48,12 @@ suite("Extract data function", function() {
   });
 
   test("mouse.md, valid noun, ignored last columns", function() {
-    let result = extractData(mouse);
+    let result = extractData(mouse, "testing_subfolder_search");
     assert.isObject(result);
     assert(Object.keys(result).length === 6);
     assert.propertyVal(result, "en_name", "mouse");
     assert.propertyVal(result, "fr_name", "souris");
-    assert.propertyVal(result, "lessonName", "Animals");
+    assert.propertyVal(result, "lessonName", "testing_subfolder_search");
     assert.propertyVal(result, "type", "noun");
     assert.propertyVal(result.fr[0], "fem_sing", "souris");
     assert.propertyVal(result.fr[0], "fem_plur", "souris");
@@ -66,12 +66,12 @@ suite("Extract data function", function() {
   });
 
   test("apple.md, noun with 3 alternatives", function() {
-    let result = extractData(apple);
+    let result = extractData(apple, "in_depth");
     assert.isObject(result);
     assert(Object.keys(result).length === 6);
     assert.propertyVal(result, "en_name", "apple");
     assert.propertyVal(result, "fr_name", "âne");
-    assert.propertyVal(result, "lessonName", "Animals");
+    assert.propertyVal(result, "lessonName", "in_depth");
     assert.propertyVal(result, "type", "noun");
     assert.deepEqual(result.fr, [
       {
@@ -124,32 +124,32 @@ suite("Extract data function", function() {
   });
 
   test("void.md, void table error", function() {
-    let result = extractData(voidTable);
+    let result = extractData(voidTable, "tested_Md_files");
     assert.isFalse(result);
   });
 
   test("no_type.md, no type found error", function() {
-    let result = extractData(noType);
+    let result = extractData(noType, "in_depth");
     assert.isFalse(result);
   });
 
   test("no_fr_name.md, no fr_name found error", function() {
-    let result = extractData(noFrName);
+    let result = extractData(noFrName, "in_depth");
     assert.isFalse(result);
   });
 
   test("no_en_name.md, no en_name found error", function() {
-    let result = extractData(noEnName);
+    let result = extractData(noEnName, "in_depth");
     assert.isFalse(result);
   });
 
   test("unique.md, valid unique forms", function() {
-    let result = extractData(unique);
+    let result = extractData(unique, "tested_Md_files");
     assert.isObject(result);
     assert(Object.keys(result).length === 7);
     assert.propertyVal(result, "en_name", "hello");
     assert.propertyVal(result, "fr_name", "bonjour");
-    assert.propertyVal(result, "lessonName", "Uniques");
+    assert.propertyVal(result, "lessonName", "tested_Md_files");
     assert.propertyVal(result, "type", "other");
     assert.propertyVal(result, "hasUniqueForm", true);
     assert.deepEqual(result.fr, [

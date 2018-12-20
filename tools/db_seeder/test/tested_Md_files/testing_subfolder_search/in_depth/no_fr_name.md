@@ -1,15 +1,5 @@
 # No_type
 
-## Parent lesson
-
-<section>
-
-Animals
-
-</section>
-
----
-
 ## General data
 
 <section>
