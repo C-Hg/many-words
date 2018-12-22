@@ -9,7 +9,9 @@ const fileExplorer = {
     try {
       files = await readDirectory(directory);
     } catch (e) {
-      console.log("error while reading directory");
+      console.error(
+        "\033[1;31m" + "Error while reading directory" + "\033[0;0m"
+      );
     }
     let pending = files.length;
     if (!pending) {

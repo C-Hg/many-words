@@ -35,7 +35,7 @@ exports.extractData = function(document, lessonName) {
   let fr_words = fetchFrWords(document);
 
   if (!en_words || !fr_words || !en_name || !fr_name || !type || !lessonName) {
-    console.log("required parameter missing");
+    console.error("\033[1;31m" + "Required parameter missing" + "\033[0;0m");
     return false;
   }
 

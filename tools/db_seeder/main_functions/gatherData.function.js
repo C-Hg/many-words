@@ -12,27 +12,35 @@ exports.gatherData = async function(directory) {
   try {
     wordFilesPaths = await fileExplorer.getFilesPaths(directory);
   } catch (e) {
-    console.log("error while getting file paths");
+    console.error(
+      "\033[1;31m" + "Error while getting file paths" + "\033[0;0m"
+    );
     return false;
   }
 
   for (const path of wordFilesPaths) {
     let lessonName = getLessonName(path);
     if (!lessonName) {
-      console.log("error while getting lesson name");
+      console.log(
+        "\033[1;31m" + "Error while getting lesson name" + "\033[0;0m"
+      );
       return false;
     }
     let mdData;
     try {
       mdData = await readMdFile(path);
     } catch (e) {
-      console.log(`error while reading file ${path}`);
+      console.error(
+        "\033[1;31m" + `Error while reading file ${path}` + "\033[0;0m"
+      );
       return false;
     }
 
     let word = extractData(mdData, lessonName[0]);
     if (!word) {
-      console.log(`error while extracting data from ${path}`);
+      console.error(
+        "\033[1;31m" + `Error while extracting data from ${path}` + "\033[0;0m"
+      );
       return false;
     }
     arrayOfWords.push(word);

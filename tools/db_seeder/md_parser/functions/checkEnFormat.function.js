@@ -11,15 +11,21 @@ exports.checkEnFormat = function(wordObject) {
     !wordObject.hasOwnProperty("acceptedForms") ||
     !wordObject.acceptedForms.length
   ) {
-    console.log("no 'acceptedForms' property in EN word object");
+    console.error(
+      "\033[1;31m" +
+        "Error : no 'acceptedForms' property in EN word object" +
+        "\033[0;0m"
+    );
     return false;
   }
   if (
     (wordObject.hasOwnProperty("sing") || wordObject.hasOwnProperty("plur")) &&
     wordObject.hasOwnProperty("uniqueForm")
   ) {
-    console.log(
-      "error : a EN word cannot have a unique form AND sing and/or plur form"
+    console.error(
+      "\033[1;31m" +
+        "Error : a EN word cannot have a unique form AND sing and/or plur form" +
+        "\033[0;0m"
     );
     return false;
   }
@@ -27,7 +33,11 @@ exports.checkEnFormat = function(wordObject) {
   // checks that fields are not empty
   if (wordObject.hasOwnProperty("sing")) {
     if (!wordObject.hasOwnProperty("plur")) {
-      console.log("error : property sing but no property plur");
+      console.error(
+        "\033[1;31m" +
+          "Error : property sing but no property plur" +
+          "\033[0;0m"
+      );
       return false;
     }
     if (
@@ -35,11 +45,17 @@ exports.checkEnFormat = function(wordObject) {
       !wordObject.acceptedForms.includes("plur") ||
       wordObject.acceptedForms.length != 2
     ) {
-      console.log("error : acceptedForms property not matching sing/plur");
+      console.error(
+        "\033[1;31m" +
+          "Error : acceptedForms property not matching sing/plur" +
+          "\033[0;0m"
+      );
       return false;
     }
     if (wordObject.sing === "") {
-      console.log("error : empty 'sing' property");
+      console.error(
+        "\033[1;31m" + "Error : empty 'sing' property" + "\033[0;0m"
+      );
       return false;
     }
   }
@@ -48,11 +64,15 @@ exports.checkEnFormat = function(wordObject) {
   // and that acceptedForms matches the registered forms
   if (wordObject.hasOwnProperty("plur")) {
     if (!wordObject.hasOwnProperty("sing")) {
-      console.log("error : property plur but no propert sing");
+      console.error(
+        "\033[1;31m" + "Error : property plur but no propert sing" + "\033[0;0m"
+      );
       return false;
     }
     if (wordObject.plur === "") {
-      console.log("error : empty 'plur' property");
+      console.error(
+        "\033[1;31m" + "Error : empty 'plur' property" + "\033[0;0m"
+      );
       return false;
     }
   }
@@ -61,11 +81,17 @@ exports.checkEnFormat = function(wordObject) {
       wordObject.acceptedForms[0] != "uniqueForm" ||
       wordObject.acceptedForms[0] > 1
     ) {
-      console.log("error : acceptedForms not matching uniqueForm ");
+      console.error(
+        "\033[1;31m" +
+          "Error : acceptedForms not matching uniqueForm" +
+          "\033[0;0m"
+      );
       return false;
     }
     if (wordObject.uniqueForm === "") {
-      console.log("error : empty 'uniqueForm' property");
+      console.error(
+        "\033[1;31m" + "Error : empty 'uniqueForm' property" + "\033[0;0m"
+      );
       return false;
     }
   }

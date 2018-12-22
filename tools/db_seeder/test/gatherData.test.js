@@ -26,7 +26,6 @@ suite("Gather data function", function() {
   });
 
   test("from directory with only valid files", function() {
-    console.log(validTests);
     assert.isArray(validTests);
     assert.lengthOf(validTests, 2);
 

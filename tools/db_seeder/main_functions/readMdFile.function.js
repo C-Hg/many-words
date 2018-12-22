@@ -6,7 +6,6 @@ exports.readMdFile = async function(path) {
       if (err) {
         reject(err);
       }
-      //let formattedData = extractData.extractData(data);
       resolve(data);
     });
   });
