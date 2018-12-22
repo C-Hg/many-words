@@ -2,19 +2,13 @@
 
 ## General data
 
-<section>
-
 unique form : false
 
 type : noun
 
-</section>
-
 ---
 
 ## English data
-
-<section>
 
 Name : apple
 
@@ -25,13 +19,9 @@ Name : apple
 | unique form |        |        |         |         |
 | \*an        |   x    |        |         |    x    |
 
-</section>
-
 ---
 
 ## French data
-
-<section>
 
 Name: âne
 
@@ -43,8 +33,6 @@ Name: âne
 | fem_plur    |      |        |       |        |
 | unique_form |      |        |       |        |
 | \*l'        |  x   |        |       |  true  |
-
-</section>
 
 ---
 

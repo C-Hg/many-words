@@ -2,19 +2,13 @@
 
 ## General data
 
-<section>
-
 unique form : false
 
 type : noun
 
-</section>
-
 ---
 
 ## English data
-
-<section>
 
 Name : journey
 
@@ -25,13 +19,9 @@ Name : journey
 | unique form |  world   |                    |        | world  |
 | \*an        |    x     |                    |  true  |   x    |
 
-</section>
-
 ---
 
 ## French data
-
-<section>
 
 Name: voyage
 
@@ -43,8 +33,6 @@ Name: voyage
 | fem_plur    |  fleurs   |               |       |       îles       |
 | unique_form | voyageons |     monde     |       |      mondes      |
 | \*l'        |           |               |   x   |       true       |
-
-</section>
 
 ---
 

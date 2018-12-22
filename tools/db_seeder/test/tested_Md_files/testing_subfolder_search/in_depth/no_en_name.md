@@ -2,18 +2,14 @@
 
 ## General data
 
-<section>
 unique form : false
 
 type : noun
-
-</section>
 
 ---
 
 ## English data
 
-<section>
 Name :
 
 |             |  main  | alt. 1 | alt. 2  | alt. 3  |
@@ -23,13 +19,10 @@ Name :
 | unique form |        |        |         |         |
 | \*an        |   x    |        |         |    x    |
 
-</section>
-
 ---
 
 ## French data
 
-<section>
 Name: âne
 
 |             | main | alt 1  | alt 2 | alt 3  |
@@ -40,8 +33,6 @@ Name: âne
 | fem_plur    |      |        |       |        |
 | unique_form |      |        |       |        |
 | \*l'        |  x   |        |       |  true  |
-
-</section>
 
 ---
 

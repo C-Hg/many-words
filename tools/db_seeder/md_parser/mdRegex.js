@@ -34,17 +34,20 @@ const LApostrophe = "(?<=\\\\*l'\\s*\\|\\s*";
 let regex = {
   //general data
   uniqueForm: new RegExp("(?<=unique\\sform\\s*\\:\\s*)" + words, "ig"),
-  type: new RegExp("(?<=type\\s\\:\\s*)" + words, "ig"),
+  type: new RegExp(
+    "(?<=type\\s\\:\\s*)" + words + "(?=\\s*\\n*\\-\\-\\-)",
+    "ig"
+  ),
 
   // EN data
   enName: new RegExp(
-    "(?<=##\\sEnglish\\sdata\\n*\\<section\\>\\n*Name\\s*\\:\\s*)" + words,
+    "(?<=##\\sEnglish\\sdata\\n*Name\\s*\\:\\s*)" + words,
     "ig"
   ),
 
   //FR data
   frName: new RegExp(
-    "(?<=##\\sFrench\\sdata\\n*\\<section\\>\\n*Name\\s*\\:\\s*)" + words,
+    "(?<=##\\sFrench\\sdata\\n*Name\\s*\\:\\s*)" + words,
     "ig"
   ),
 

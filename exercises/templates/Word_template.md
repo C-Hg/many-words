@@ -1,20 +1,12 @@
-# Word Template
-
 ## General data
-
-<section>
 
 unique form : boolean
 
 type : noun/adjective/verb/other
 
-</section>
-
 ---
 
 ## English data
-
-<section>
 
 Name :
 
@@ -25,13 +17,9 @@ Name :
 | unique form |      |       |       |       |
 | \*an        |      |       |       |       |
 
-</section>
-
 ---
 
 ## French data
-
-<section>
 
 Name:
 
@@ -43,8 +31,6 @@ Name:
 | fem_plur    |      |       |       |       |
 | unique_form |      |       |       |       |
 | \*l'        |      |       |       |       |
-
-</section>
 
 ---
 

@@ -2,19 +2,13 @@
 
 ## General data
 
-<section>
-
 unique form : false
 
 type : noun
 
-</section>
-
 ---
 
 ## English data
-
-<section>
 
 Name : mouse
 
@@ -25,13 +19,9 @@ Name : mouse
 | unique form |       |        |        |  and   |
 | \*an        |       |        |        |   me   |
 
-</section>
-
 ---
 
 ## French data
-
-<section>
 
 Name: souris
 
@@ -43,8 +33,6 @@ Name: souris
 | fem_plur    | souris |       |        |       |
 | unique_form |        |       |        |  and  |
 | \*l'        |        |       |        |  me   |
-
-</section>
 
 ---
 

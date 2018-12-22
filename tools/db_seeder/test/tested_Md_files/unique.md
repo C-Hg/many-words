@@ -2,19 +2,13 @@
 
 ## General data
 
-<section>
-
 unique form : true
 
 type : other
 
-</section>
-
 ---
 
 ## English data
-
-<section>
 
 Name : hello
 
@@ -25,13 +19,9 @@ Name : hello
 | unique form | hello you |   my   |  dear  | and greatest friend |
 | \*an        |           |        |        |                     |
 
-</section>
-
 ---
 
 ## French data
-
-<section>
 
 Name: bonjour
 
@@ -43,8 +33,6 @@ Name: bonjour
 | fem_plur    |         |        |                |       |
 | unique_form | Bonjour | à vous | mes très chers | amis  |
 | \*l'        |         |        |                |       |
-
-</section>
 
 ---
 

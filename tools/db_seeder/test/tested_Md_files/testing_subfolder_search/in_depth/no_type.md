@@ -2,18 +2,14 @@
 
 ## General data
 
-<section>
 unique form : false
 
 type :
-
-</section>
 
 ---
 
 ## English data
 
-<section>
 Name : apple
 
 |             |  main  | alt. 1 | alt. 2  | alt. 3  |
@@ -23,13 +19,10 @@ Name : apple
 | unique form |        |        |         |         |
 | \*an        |   x    |        |         |    x    |
 
-</section>
-
 ---
 
 ## French data
 
-<section>
 Name: âne
 
 |             | main | alt 1  | alt 2 | alt 3  |
@@ -40,8 +33,6 @@ Name: âne
 | fem_plur    |      |        |       |        |
 | unique_form |      |        |       |        |
 | \*l'        |  x   |        |       |  true  |
-
-</section>
 
 ---
 
