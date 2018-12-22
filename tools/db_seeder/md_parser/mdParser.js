@@ -19,14 +19,16 @@ class word {
   }
 }
 
+// this function is the main controller that retrieves data from a markdown document
+
 exports.extractData = function(document, lessonName) {
-  //general data
+  //general data : regex fetching
   let type = document.match(regex.type);
   let hasUniqueForm = document.match(regex.uniqueForm);
 
   //EN data
   let en_name = document.match(regex.enName);
-  let en_words = fetchEnWords(document);
+  let en_words = fetchEnWords(document); //gathering and validating data
 
   //FR data
   let fr_name = document.match(regex.frName);

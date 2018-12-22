@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-const { readMdFile } = require("../readMdFile");
+const { readMdFile } = require("../main_functions/readMdFile.function");
 const {
   checkEnAlternative
 } = require("../md_parser/functions/checkEnAlternative.function");

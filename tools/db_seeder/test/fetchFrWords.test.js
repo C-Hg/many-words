@@ -1,9 +1,9 @@
 /* eslint-env mocha */
-const { readMdFile } = require("../readMdFile");
+const path = require("path");
+const { readMdFile } = require("../main_functions/readMdFile.function");
 const {
   fetchFrWords
 } = require("../md_parser/functions/fetchFrWords.function");
-const path = require("path");
 const chai = require("chai");
 const assert = chai.assert;
 
@@ -12,16 +12,19 @@ const assert = chai.assert;
 // they rely on the test files in tested_Md_files folder
 
 const journeyPath = path.resolve(
-  "./test/tested_Md_files/testing_subfolder_search/journey.md"
+  process.cwd() + "/test/tested_Md_files/testing_subfolder_search/journey.md"
 );
 const mousePath = path.resolve(
-  "./test/tested_Md_files/testing_subfolder_search/mouse.md"
+  process.cwd() + "/test/tested_Md_files/testing_subfolder_search/mouse.md"
 );
 const applePath = path.resolve(
-  "./test/tested_Md_files/testing_subfolder_search/in_depth/apple.md"
+  process.cwd() +
+    "/test/tested_Md_files/testing_subfolder_search/in_depth/apple.md"
 );
-const voidPath = path.resolve("./test/tested_Md_files/void.md");
-const uniquePath = path.resolve("./test/tested_Md_files/unique.md");
+const voidPath = path.resolve(process.cwd() + "/test/tested_Md_files/void.md");
+const uniquePath = path.resolve(
+  process.cwd() + "/test/tested_Md_files/unique.md"
+);
 
 suite("Fetch FR words function", function() {
   let journey, mouse, apple, voidTable, unique;

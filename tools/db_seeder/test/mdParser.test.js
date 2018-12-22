@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 const { extractData } = require("../md_parser/mdParser");
-const { readMdFile } = require("../readMdFile");
+const { readMdFile } = require("../main_functions/readMdFile.function");
 const path = require("path");
 const chai = require("chai");
 const assert = chai.assert;

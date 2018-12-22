@@ -1,11 +1,16 @@
 const path = require("path");
-const { readDirectory } = require("./readDirectory");
+const { readDirectory } = require("./readDirectory.function");
 
 // a recursive file explorer that returns the paths for all word files
 const fileExplorer = {
   getFilesPaths: async function(directory) {
     let results = [];
-    let files = await readDirectory(directory);
+    let files;
+    try {
+      files = await readDirectory(directory);
+    } catch (e) {
+      console.log("error while reading directory");
+    }
     let pending = files.length;
     if (!pending) {
       return results;

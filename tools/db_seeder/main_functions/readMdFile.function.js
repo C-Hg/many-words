@@ -1,5 +1,4 @@
 const fs = require("fs");
-const path = require("path");
 
 exports.readMdFile = async function(path) {
   return await new Promise((resolve, reject) => {
