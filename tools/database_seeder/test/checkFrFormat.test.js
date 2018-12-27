@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 const {
   checkFrFormat
-} = require("../md_parser/functions/checkFrFormat.function");
+} = require("../markdown_parser/functions/checkFrFormat.function");
 const chai = require("chai");
 const assert = chai.assert;
 

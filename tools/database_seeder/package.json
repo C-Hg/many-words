@@ -9,8 +9,12 @@
   },
   "author": "Camille Hagenbourger",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.1"
-  }
+  },
+  "engines": {
+    "node": "10.13.0"
+  },
+  "devDependencies": {}
 }

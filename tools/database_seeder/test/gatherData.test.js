@@ -1,6 +1,8 @@
 /* eslint-env mocha */
 const path = require("path");
-const { gatherData } = require("../main_functions/gatherData.function");
+const {
+  gatherData
+} = require("../markdown_fetching_functions/gatherData.function");
 const chai = require("chai");
 const assert = chai.assert;
 

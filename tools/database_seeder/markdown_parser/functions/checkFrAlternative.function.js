@@ -1,4 +1,4 @@
-const regex = require("../mdRegex");
+const regex = require("../markdownRegex");
 
 // this function fetches the data from a given column in the FR table of the Markdown document
 // if data is not null, returns an object with properly formatted data

@@ -1,9 +1,11 @@
 /* eslint-env mocha */
 const path = require("path");
-const { readMdFile } = require("../main_functions/readMdFile.function");
+const {
+  readMdFile
+} = require("../markdown_fetching_functions/readMarkdownFile.function");
 const {
   fetchEnWords
-} = require("../md_parser/functions/fetchEnWords.function");
+} = require("../markdown_parser/functions/fetchEnWords.function");
 const chai = require("chai");
 const assert = chai.assert;
 

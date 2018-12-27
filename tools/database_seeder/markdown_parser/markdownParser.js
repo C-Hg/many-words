@@ -1,20 +1,18 @@
 //fr.isLApostrophe and en.isArticleAn should be written ONLY IF TRUE
-const regex = require("./mdRegex");
+const regex = require("./markdownRegex");
 const { fetchEnWords } = require("./functions/fetchEnWords.function");
 const { fetchFrWords } = require("./functions/fetchFrWords.function");
 
-class word {
-  constructor(en_name, fr_name, hasUniqueForm, lessonName, type, en, fr) {
-    this.en_name = en_name;
-    this.fr_name = fr_name;
-    this.lessonName = lessonName;
-    this.type = type;
-    this.fr = fr;
-    this.en = en;
+function word(en_name, fr_name, hasUniqueForm, lessonName, type, en, fr) {
+  this.en_name = en_name;
+  this.fr_name = fr_name;
+  this.lessonName = lessonName;
+  this.type = type;
+  this.en = en;
+  this.fr = fr;
 
-    if (hasUniqueForm === "true") {
-      this.hasUniqueForm = true;
-    }
+  if (hasUniqueForm === "true") {
+    this.hasUniqueForm = true;
   }
 }
 

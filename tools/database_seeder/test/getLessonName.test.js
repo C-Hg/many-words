@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 const {
   getLessonName
-} = require("../md_parser/functions/getLessonName.function");
+} = require("../markdown_parser/functions/getLessonName.function");
 const chai = require("chai");
 const assert = chai.assert;
 
