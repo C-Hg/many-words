@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node app.js",
+    "server": "cd server && node server.js",
     "client": "cd client && npm start",
+    "test": "npm run test:client && npm run test:seeder",
     "test:client": "cd client && npm run mocha-test",
-    "test:seeder": "cd tools/db_seeder && mocha",
-    "seeder": "cd tools/db_seeder && npm start"
+    "test:seeder": "cd tools/database_seeder && mocha",
+    "seeder": "cd tools/database_seeder && npm start"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
@@ -19,10 +20,7 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.8"
   },
-  "dependencies": {
-    "express": "^4.16.4",
-    "mongoose": "^5.3.15"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/C-Hg/many-words"
