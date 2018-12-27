@@ -4,15 +4,14 @@ const { fetchEnWords } = require("./functions/fetchEnWords.function");
 const { fetchFrWords } = require("./functions/fetchFrWords.function");
 
 class word {
-  constructor(en_name, fr_name, lessonName, type, en, fr) {
+  constructor(en_name, fr_name, hasUniqueForm, lessonName, type, en, fr) {
     this.en_name = en_name;
     this.fr_name = fr_name;
     this.lessonName = lessonName;
     this.type = type;
     this.fr = fr;
     this.en = en;
-  }
-  set uniqueForm(hasUniqueForm) {
+
     if (hasUniqueForm === "true") {
       this.hasUniqueForm = true;
     }
@@ -42,11 +41,11 @@ exports.extractData = function(document, lessonName) {
   let newWord = new word(
     en_name[0],
     fr_name[0],
+    hasUniqueForm[0],
     lessonName,
     type[0],
     en_words,
     fr_words
   );
-  newWord.uniqueForm = hasUniqueForm[0];
   return newWord;
 };
