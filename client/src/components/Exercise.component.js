@@ -1,10 +1,10 @@
 import React from "react";
-import Instructions from "./Exercise_components/Instructions.component";
-import OriginWord from "./Exercise_components/OriginWord.component";
-import UserTranslation from "./Exercise_components/UserTranslation.component";
-import SubmitOrNextButton from "./Exercise_components/SubmitOrNextButton.component";
-import Result from "./Exercise_components/Result.component";
-import functions from "../Functions/Exercise_functions/Exercise.functions";
+import Instructions from "./exercise_components/Instructions.component";
+import OriginWord from "./exercise_components/OriginWord.component";
+import UserTranslation from "./exercise_components/UserTranslation.component";
+import SubmitOrNextButton from "./exercise_components/SubmitOrNextButton.component";
+import Result from "./exercise_components/Result.component";
+import functions from "../controllers/exercise_functions/Exercise.functions";
 
 class Exercise extends React.Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class Exercise extends React.Component {
     this.submitUserTranslation = this.submitUserTranslation.bind(this);
     this.nextWord = this.nextWord.bind(this);
     this.state = {
-      exerciseWords: "",
       wordRank: 0,
       userTranslation: "",
       checking: false,
@@ -29,7 +28,7 @@ class Exercise extends React.Component {
 
   nextWord() {
     //exits the exercise module when all the words have been answered
-    if (this.state.wordRank === this.state.exerciseWords.length - 1) {
+    if (this.state.wordRank === this.props.exerciseWords.length - 1) {
       this.props.endExercise();
     }
     this.setState(state => ({
@@ -43,7 +42,7 @@ class Exercise extends React.Component {
   submitUserTranslation() {
     let result = functions.checkUserTranslation(
       this.state.userTranslation,
-      this.state.exerciseWords[this.state.wordRank].french
+      this.props.exerciseWords[this.state.wordRank].fr[0]
     );
     this.setState({
       checking: true,
@@ -51,14 +50,12 @@ class Exercise extends React.Component {
     });
   }
 
-  componentDidMount() {}
-
   render() {
     return (
       <div>
         <Instructions />
         <OriginWord
-          originWord={this.state.exerciseWords[this.state.wordRank].english}
+          originWord={this.props.exerciseWords[this.state.wordRank].en[0]}
         />
         <UserTranslation
           userTranslation={this.state.userTranslation}

@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import { return_Selected_Words_With_Article } from "../../src/Controllers/Exercise_Fetcher/WordSelector_functions/returnSelectedWords.function";
+import { return_Selected_Words_With_Article } from "../../src/controllers/exercise_fetcher/word_selector/returnSelectedWords.function";
 import chai from "chai";
 const assert = chai.assert;
 

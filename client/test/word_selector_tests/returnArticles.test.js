@@ -2,7 +2,7 @@
 import {
   returnFrArticle,
   returnEnArticle
-} from "../../src/Controllers/Exercise_Fetcher/WordSelector_functions/returnArticles.functions";
+} from "../../src/controllers/exercise_fetcher/word_selector/returnArticles.functions";
 import chai from "chai";
 const assert = chai.assert;
 

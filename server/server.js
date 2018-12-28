@@ -23,3 +23,7 @@ db.once("open", () => {
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/client/public/index.html");
 });
+
+//exercises routing
+const exercisesRoutes = require("./routes/exercises.routes");
+app.use("/exercises/", exercisesRoutes);

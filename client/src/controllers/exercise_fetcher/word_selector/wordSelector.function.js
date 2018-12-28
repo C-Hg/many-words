@@ -1,5 +1,5 @@
-import { randomPicker } from "../../Common/randomPicker.function";
-import { return_Selected_Words_With_Article } from "./returnSelectedWords.function";
+import { randomPicker } from "../../common/randomPicker.function";
+import return_Selected_Words_With_Article from "./returnSelectedWords.function";
 import { returnForms } from "./returnForms.function";
 
 const formattedWord = function(sourceLanguage, fr, en) {
@@ -10,7 +10,7 @@ const formattedWord = function(sourceLanguage, fr, en) {
 
 // this is the main function, it formats words for the client, with informations gathered from the db
 
-exports.fr_en_wordSelector = function(wordsToSelect) {
+function fr_en_wordSelector(wordsToSelect) {
   let wordCounter = 0;
   let preparedWords = []; //array of objects
 
@@ -52,4 +52,6 @@ exports.fr_en_wordSelector = function(wordsToSelect) {
     wordCounter++;
   }
   return preparedWords;
-};
+}
+
+export default fr_en_wordSelector;

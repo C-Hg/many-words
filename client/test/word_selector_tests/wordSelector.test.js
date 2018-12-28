@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import { fr_en_wordSelector } from "../../src/Controllers/Exercise_Fetcher/WordSelector_functions/wordSelector.function";
+import { fr_en_wordSelector } from "../../src/controllers/exercise_fetcher/word_selector/wordSelector.function";
 import chai from "chai";
 const assert = chai.assert;
 

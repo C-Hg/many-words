@@ -6,7 +6,7 @@
  the regex 'words' allow us to do so without limit, though it should not exceed 3 or 4
 */
 
-//Common
+//common
 const allLetters = "[a-zàéèùâêîôûäëïöü\\-]+";
 const words = allLetters + "(?:\\s" + allLetters + ")*";
 const wordsOrNot = "(?:" + words + ")?";

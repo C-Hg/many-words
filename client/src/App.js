@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import Exercise from "./Components/Exercise.component";
-import Curriculum from "./Components/Curriculum.component";
+import Exercise from "./components/Exercise.component";
+import Curriculum from "./components/Curriculum.component";
+import exerciseFetcher from "./controllers/exercise_fetcher/exerciseFetcher.controller";
 
 class App extends Component {
   constructor(props) {
@@ -9,29 +10,37 @@ class App extends Component {
     this.endExercise = this.endExercise.bind(this);
     this.startExercise = this.startExercise.bind(this);
     this.state = {
-      activity: "Curriculum"
+      activity: "curriculum",
+      lesson: "",
+      exerciseWords: ""
     };
   }
 
-  startExercise() {
+  async startExercise(event) {
+    let result = await exerciseFetcher(event.target.name);
+    console.log(result);
     this.setState({
-      activity: "Exercise"
+      activity: "exercise",
+      exerciseWords: result
     });
   }
 
   endExercise() {
     this.setState({
-      activity: "Curriculum"
+      activity: "curriculum"
     });
   }
 
   render() {
     return (
       <div className="App">
-        {this.state.activity === "Exercise" && (
-          <Exercise endExercise={this.endExercise} />
+        {this.state.activity === "exercise" && (
+          <Exercise
+            endExercise={this.endExercise}
+            exerciseWords={this.state.exerciseWords}
+          />
         )}
-        {this.state.activity === "Curriculum" && (
+        {this.state.activity === "curriculum" && (
           <Curriculum startExercise={this.startExercise} />
         )}
       </div>

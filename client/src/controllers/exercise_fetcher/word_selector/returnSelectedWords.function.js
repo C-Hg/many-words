@@ -14,7 +14,7 @@ import { associateEnWordWithArticle } from "./associateWordWithArticle.function"
 // return examples where source language is EN:
 // {fr: ["le chat", "la chatte"], en: ["the cat"]}
 
-exports.return_Selected_Words_With_Article = function(
+function return_Selected_Words_With_Article(
   sourceLanguage,
   frWords,
   enWords,
@@ -60,4 +60,6 @@ exports.return_Selected_Words_With_Article = function(
     enResults.push(associateEnWordWithArticle(en_article, enWords[a][en_form]));
   }
   return { fr: frResults, en: enResults };
-};
+}
+
+export default return_Selected_Words_With_Article;
