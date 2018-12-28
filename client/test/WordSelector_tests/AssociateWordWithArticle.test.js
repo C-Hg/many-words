@@ -1,6 +1,6 @@
 /* eslint-env mocha */
-import { associateFrWordWithArticle } from "../../src/Functions/WordSelector_functions/AssociateWordWithArticle.function";
-import { associateEnWordWithArticle } from "../../src/Functions/WordSelector_functions/AssociateWordWithArticle.function";
+import { associateFrWordWithArticle } from "../../src/Controllers/Exercise_Fetcher/WordSelector_functions/associateWordWithArticle.function";
+import { associateEnWordWithArticle } from "../../src/Controllers/Exercise_Fetcher/WordSelector_functions/associateWordWithArticle.function";
 import chai from "chai";
 const assert = chai.assert;
 

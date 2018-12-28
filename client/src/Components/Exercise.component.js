@@ -51,6 +51,8 @@ class Exercise extends React.Component {
     });
   }
 
+  componentDidMount() {}
+
   render() {
     return (
       <div>

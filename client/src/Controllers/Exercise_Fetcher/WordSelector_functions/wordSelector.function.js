@@ -1,6 +1,6 @@
-import { randomPicker } from "../Common/RandomPicker.function";
-import { return_Selected_Words_With_Article } from "./ReturnSelectedWords.function";
-import { returnForms } from "./ReturnForms.function";
+import { randomPicker } from "../../Common/randomPicker.function";
+import { return_Selected_Words_With_Article } from "./returnSelectedWords.function";
+import { returnForms } from "./returnForms.function";
 
 const formattedWord = function(sourceLanguage, fr, en) {
   this.sourceLanguage = sourceLanguage;

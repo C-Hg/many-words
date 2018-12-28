@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import { returnForms } from "../../src/Functions/WordSelector_functions/ReturnForms.function";
+import { returnForms } from "../../src/Controllers/Exercise_Fetcher/WordSelector_functions/returnForms.function";
 import chai from "chai";
 const assert = chai.assert;
 

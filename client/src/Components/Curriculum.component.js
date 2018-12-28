@@ -8,7 +8,9 @@ class Curriculum extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.startExercise}>Start</button>
+        <button onClick={this.props.startExercise} name="animals">
+          Animals
+        </button>
       </div>
     );
   }

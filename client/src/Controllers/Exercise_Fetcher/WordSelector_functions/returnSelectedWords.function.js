@@ -1,7 +1,7 @@
-import { returnFrArticle } from "../WordSelector_functions/ReturnArticles.functions";
-import { returnEnArticle } from "../WordSelector_functions/ReturnArticles.functions";
-import { associateFrWordWithArticle } from "../WordSelector_functions/AssociateWordWithArticle.function";
-import { associateEnWordWithArticle } from "../WordSelector_functions/AssociateWordWithArticle.function";
+import { returnFrArticle } from "./returnArticles.functions";
+import { returnEnArticle } from "./returnArticles.functions";
+import { associateFrWordWithArticle } from "./associateWordWithArticle.function";
+import { associateEnWordWithArticle } from "./associateWordWithArticle.function";
 
 // this function returns the selected word with the matching article if necessary
 // it also returns the accepted translations for the selected word
