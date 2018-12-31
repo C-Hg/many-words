@@ -4,7 +4,7 @@ import OriginWord from "./exercise_components/OriginWord.component";
 import UserTranslation from "./exercise_components/UserTranslation.component";
 import SubmitOrNextButton from "./exercise_components/SubmitOrNextButton.component";
 import Result from "./exercise_components/Result.component";
-import functions from "../controllers/exercise_functions/Exercise.functions";
+import functions from "../controllers/exercise_functions/checkUserTranslation.functions";
 
 class Exercise extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class Exercise extends React.Component {
   submitUserTranslation() {
     let result = functions.checkUserTranslation(
       this.state.userTranslation,
-      this.props.exerciseWords[this.state.wordRank].fr[0]
+      this.props.exerciseWords[this.state.wordRank]
     );
     this.setState({
       checking: true,
@@ -53,9 +53,18 @@ class Exercise extends React.Component {
   render() {
     return (
       <div>
-        <Instructions />
+        <Instructions
+          sourceLanguage={
+            this.props.exerciseWords[this.state.wordRank].sourceLanguage
+          }
+        />
         <OriginWord
-          originWord={this.props.exerciseWords[this.state.wordRank].en[0]}
+          originWord={
+            //sends the word depending on the selected source language
+            this.props.exerciseWords[this.state.wordRank][
+              this.props.exerciseWords[this.state.wordRank].sourceLanguage
+            ][0]
+          }
         />
         <UserTranslation
           userTranslation={this.state.userTranslation}

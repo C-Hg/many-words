@@ -4,6 +4,9 @@ import Exercise from "./components/Exercise.component";
 import Curriculum from "./components/Curriculum.component";
 import exerciseFetcher from "./controllers/exercise_fetcher/exerciseFetcher.controller";
 
+//language Context
+import { LanguageContext, languages } from "./contexts/language-context";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -12,13 +15,13 @@ class App extends Component {
     this.state = {
       activity: "curriculum",
       lesson: "",
-      exerciseWords: ""
+      exerciseWords: "",
+      main_language: languages.French
     };
   }
 
   async startExercise(event) {
     let result = await exerciseFetcher(event.target.name);
-    console.log(result);
     this.setState({
       activity: "exercise",
       exerciseWords: result
@@ -27,23 +30,27 @@ class App extends Component {
 
   endExercise() {
     this.setState({
-      activity: "curriculum"
+      activity: "curriculum",
+      exerciseWords: ""
     });
   }
 
   render() {
     return (
-      <div className="App">
-        {this.state.activity === "exercise" && (
-          <Exercise
-            endExercise={this.endExercise}
-            exerciseWords={this.state.exerciseWords}
-          />
-        )}
-        {this.state.activity === "curriculum" && (
-          <Curriculum startExercise={this.startExercise} />
-        )}
-      </div>
+      <LanguageContext.Provider value={this.state.main_language}>
+        <div className="App">
+          {this.state.activity === "exercise" && (
+            <Exercise
+              endExercise={this.endExercise}
+              exerciseWords={this.state.exerciseWords}
+            />
+          )}
+
+          {this.state.activity === "curriculum" && (
+            <Curriculum startExercise={this.startExercise} />
+          )}
+        </div>
+      </LanguageContext.Provider>
     );
   }
 }

@@ -1,15 +1,25 @@
 import React from "react";
+import { LanguageContext } from "../../contexts/language-context";
 
-const SubmitOrNextButton = function(props) {
-  return (
-    <div>
-      <button
-        onClick={props.checking ? props.nextWord : props.submitUserTranslation}
-      >
-        {props.checking ? "Next" : "Check"}
-      </button>
-    </div>
-  );
-};
+class SubmitOrNextButton extends React.Component {
+  render() {
+    let language = this.context;
+    return (
+      <div>
+        <button
+          onClick={
+            this.props.checking
+              ? this.props.nextWord
+              : this.props.submitUserTranslation
+          }
+        >
+          {this.props.checking ? language.next_button : language.check_button}
+        </button>
+      </div>
+    );
+  }
+}
+
+SubmitOrNextButton.contextType = LanguageContext;
 
 export default SubmitOrNextButton;
