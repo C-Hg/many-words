@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import { fr_en_wordSelector } from "../../src/controllers/exercise_fetcher/word_selector/wordSelector.function";
+import fr_en_wordSelector from "../../src/controllers/exercise_fetcher/word_selector/wordSelector.function";
 import chai from "chai";
 const assert = chai.assert;
 
@@ -20,8 +20,7 @@ suite("FR/EN Word Selector function", function() {
           {
             uniqueForm: "to walk"
           }
-        ],
-        lessonId: "#aLongId"
+        ]
       }
     ]);
     //expected response :
