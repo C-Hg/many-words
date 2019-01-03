@@ -4,11 +4,13 @@ exports.returnForms = function(sourceForm, type) {
 
   if (type === "adjective") {
     switch (sourceForm) {
+      // if EN is the source language
       case "uniqueForm":
         en_form = "uniqueForm";
         fr_form = ["masc_sing", "masc_plur", "fem_sing", "fem_plur"];
         break;
 
+      // if FR is the source language
       default:
         fr_form = [sourceForm];
         en_form = "uniqueForm";
@@ -39,6 +41,8 @@ exports.returnForms = function(sourceForm, type) {
         break;
 
       default:
+        fr_form = ["uniqueForm"];
+        en_form = "uniqueForm";
         break;
     }
   }

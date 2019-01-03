@@ -5,6 +5,8 @@ import Learning from "./components/Learning.component";
 import Curriculum from "./components/Curriculum.component";
 import exerciseFetcher from "./controllers/exercise_fetcher/exerciseFetcher.controller";
 import getWordsToLearn from "./controllers/learning_fetcher/getWordsToLearn.controller";
+import getSwitchesStates from "./controllers/learning_fetcher/getSwitchesStates.function";
+import selectWordsToLearnForms from "./controllers/select_words_to_learn/selectWordsToLearnForms.controller";
 
 //language Context
 import { LanguageContext, languages } from "./contexts/language-context";
@@ -19,7 +21,9 @@ class App extends Component {
       activity: "curriculum",
       lesson: "",
       exerciseWords: "",
-      main_language: languages.French
+      formattedWords: "",
+      main_language: languages.English,
+      switches: ""
     };
   }
 
@@ -32,10 +36,18 @@ class App extends Component {
   }
 
   async startLearning(event) {
-    let words = await getWordsToLearn(event.target.name);
+    let wordsToLearn = await getWordsToLearn(event.target.name);
+    let switches = getSwitchesStates(wordsToLearn);
     this.setState({
       activity: "learning",
-      exerciseWords: words
+      exerciseWords: wordsToLearn,
+      switches: switches,
+      formattedWords: selectWordsToLearnForms(
+        switches[0],
+        switches[1],
+        switches[2],
+        wordsToLearn
+      )
     });
   }
 
@@ -58,8 +70,10 @@ class App extends Component {
           )}
           {this.state.activity === "learning" && (
             <Learning
+              switches={this.state.switches}
               endLearning={this.endExercise}
               wordsToLearn={this.state.exerciseWords}
+              words={this.state.words}
             />
           )}
           {this.state.activity === "curriculum" && (

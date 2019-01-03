@@ -10,7 +10,13 @@ export const languages = {
     french: "French",
     english: "English",
     correct: "Correct answer",
-    wrong: "Wrong answer"
+    wrong: "Wrong answer",
+    masculine: "masculine",
+    feminine: "feminine",
+    singular: "singular",
+    plural: "plural",
+    definite: "definite",
+    indefinite: "indefinite"
   },
   French: {
     animals_lesson: "Animaux",
@@ -21,7 +27,13 @@ export const languages = {
     french: "français",
     english: "anglais",
     correct: "Bonne réponse",
-    wrong: "Mauvaise réponse"
+    wrong: "Mauvaise réponse",
+    masculine: "masculin",
+    feminine: "féminin",
+    singular: "singulier",
+    plural: "pluriel",
+    definite: "défini",
+    indefinite: "indéfini"
   }
 };
 
