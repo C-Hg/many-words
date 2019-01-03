@@ -13,6 +13,9 @@ class Curriculum extends React.Component {
         <button onClick={this.props.startExercise} name="animals">
           {language.animals_lesson}
         </button>
+        <button onClick={this.props.startLearning} name="animals">
+          {language.learn}
+        </button>
       </div>
     );
   }

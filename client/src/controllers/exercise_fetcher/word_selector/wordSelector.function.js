@@ -10,7 +10,7 @@ const formattedWord = function(sourceLanguage, fr, en) {
 
 // this is the main function, it formats words for the client, with informations gathered from the db
 
-function fr_en_wordSelector(wordsToSelect) {
+function FrEnWordSelector(wordsToSelect) {
   let wordCounter = 0;
   let preparedWords = []; //array of objects
 
@@ -54,4 +54,4 @@ function fr_en_wordSelector(wordsToSelect) {
   return preparedWords;
 }
 
-export default fr_en_wordSelector;
+export default FrEnWordSelector;

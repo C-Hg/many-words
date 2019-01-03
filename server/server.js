@@ -24,6 +24,10 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/client/public/index.html");
 });
 
-//exercises routing
+//exercises module routing
 const exercisesRoutes = require("./routes/exercises.routes");
 app.use("/exercises/", exercisesRoutes);
+
+//learning module routing
+const learningRoutes = require("./routes/learning.routes");
+app.use("/learn/", learningRoutes);

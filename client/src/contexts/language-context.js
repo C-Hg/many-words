@@ -3,6 +3,7 @@ import React from "react";
 export const languages = {
   English: {
     animals_lesson: "Animals",
+    learn: "learn",
     check_button: "Check",
     next_button: "Next",
     translate_in: "Translate this word in",
@@ -13,6 +14,7 @@ export const languages = {
   },
   French: {
     animals_lesson: "Animaux",
+    learn: "apprendre",
     check_button: "Vérifier",
     next_button: "Suivant",
     translate_in: "Traduis ce mot en ",
