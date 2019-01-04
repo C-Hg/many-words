@@ -73,7 +73,7 @@ class App extends Component {
               switches={this.state.switches}
               endLearning={this.endExercise}
               wordsToLearn={this.state.exerciseWords}
-              words={this.state.words}
+              formattedWords={this.state.formattedWords}
             />
           )}
           {this.state.activity === "curriculum" && (

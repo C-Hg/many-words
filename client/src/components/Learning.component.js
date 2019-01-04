@@ -4,6 +4,8 @@ import MascFemSwitch from "./learning_components/MascFemSwitch.component";
 import DefIndefSwitch from "./learning_components/DefIndefSwitch.component";
 import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
 
+import "./styles/Learning.css";
+
 class Learning extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ class Learning extends React.Component {
       singPlurSwitch: this.props.switches[0],
       mascFemSwitch: this.props.switches[1],
       defIndefSwitch: this.props.switches[2],
-      words: this.props.words
+      formattedWords: this.props.formattedWords
     };
   }
 
@@ -45,7 +47,7 @@ class Learning extends React.Component {
 
   updateWords() {
     this.setState(state => ({
-      words: selectWordsToLearnForms(
+      formattedWords: selectWordsToLearnForms(
         state.singPlurSwitch,
         state.mascFemSwitch,
         state.defIndefSwitch,
@@ -55,16 +57,16 @@ class Learning extends React.Component {
   }
 
   render() {
-    const wordsToRender = this.state.words.map(val => {
+    const wordsToLearn = this.state.formattedWords.map((val, i) => {
       return (
-        <div>
-          <div>{val[0]}</div>
-          <div>{val[1]}</div>
+        <div key={`twoWords${i}`} className="twoWords">
+          {val.en} : {val.fr}
+          <br />
         </div>
       );
     });
     return (
-      <div>
+      <div className="container">
         {this.state.singPlurSwitch && (
           <SingPlurSwitch
             toggle={this.toggleSingPlur}
@@ -83,7 +85,7 @@ class Learning extends React.Component {
             value={this.state.defIndefSwitch}
           />
         )}
-        {wordsToRender}
+        <div className="wordsToLearn">{wordsToLearn}</div>
       </div>
     );
   }
