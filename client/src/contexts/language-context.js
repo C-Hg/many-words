@@ -2,8 +2,22 @@ import React from "react";
 
 export const languages = {
   English: {
-    animals_lesson: "Animals",
-    learn: "learn",
+    themes: {
+      nature: "Nature"
+    },
+    lessons: {
+      animals: "Animals",
+      earth: "Earth",
+      landscapes: "Landscapes"
+    },
+    subLessons: {
+      common_animals: "Common animals",
+      mammals: "Mammals",
+      birds: "Birds"
+    },
+    curriculum_title: "What do you want to learn?",
+    start_exercise: "test",
+    start_learning: "learn",
     check_button: "Check",
     next_button: "Next",
     translate_in: "Translate this word in",
@@ -19,8 +33,22 @@ export const languages = {
     indefinite: "indefinite"
   },
   French: {
-    animals_lesson: "Animaux",
-    learn: "apprendre",
+    themes: {
+      nature: "Nature"
+    },
+    lessons: {
+      animals: "Animaux",
+      earth: "La Terre",
+      landscapes: "Paysages"
+    },
+    subLessons: {
+      common_animals: "Animaux courants",
+      mammals: "Mammifères",
+      birds: "Oiseaux"
+    },
+    curriculum_title: "Que veux-tu apprendre?",
+    start_exercise: "test",
+    start_learning: "apprendre",
     check_button: "Vérifier",
     next_button: "Suivant",
     translate_in: "Traduis ce mot en ",

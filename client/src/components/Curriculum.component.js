@@ -10,11 +10,9 @@ class Curriculum extends React.Component {
     let language = this.context;
     return (
       <div>
-        <button onClick={this.props.startExercise} name="animals">
-          {language.animals_lesson}
-        </button>
-        <button onClick={this.props.startLearning} name="animals">
-          {language.learn}
+        <h1>{language.curriculum_title}</h1>
+        <button onClick={this.props.seeTheme} name="nature">
+          Nature
         </button>
       </div>
     );

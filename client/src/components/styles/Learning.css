@@ -1,11 +1,6 @@
-.container {
-  display: block;
-  text-align: center;
-}
-
 .wordsToLearn {
-  display: block;
-  margin-top: 20px;
+  display: inline-block;
+  margin-top: 30px;
   text-align: center;
   margin: auto;
 }
@@ -15,4 +10,8 @@
   text-align: left;
   margin-top: 10px;
   font-size: 18px;
+}
+
+.icon {
+  position: absolute;
 }

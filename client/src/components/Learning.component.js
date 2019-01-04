@@ -1,46 +1,43 @@
 import React from "react";
-import SingPlurSwitch from "./learning_components/SingPlurSwitch.component";
-import MascFemSwitch from "./learning_components/MascFemSwitch.component";
-import DefIndefSwitch from "./learning_components/DefIndefSwitch.component";
+
 import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
+import BackArrow from "./common_components/BackArrow.component";
+import Switches from "./learning_components/Switches.component";
 
 import "./styles/Learning.css";
 
 class Learning extends React.Component {
   constructor(props) {
     super(props);
-    this.toggleSingPlur = this.toggleSingPlur.bind(this);
-    this.toggleMascFem = this.toggleMascFem.bind(this);
-    this.toggleDefIndef = this.toggleDefIndef.bind(this);
+    this.toggleNumber = this.toggleNumber.bind(this);
+    this.toggleGender = this.toggleGender.bind(this);
+    this.toggleDefinite = this.toggleDefinite.bind(this);
     this.updateWords = this.updateWords.bind(this);
     this.state = {
-      singPlurSwitch: this.props.switches[0],
-      mascFemSwitch: this.props.switches[1],
-      defIndefSwitch: this.props.switches[2],
+      number: this.props.switches[0],
+      gender: this.props.switches[1],
+      definite: this.props.switches[2],
       formattedWords: this.props.formattedWords
     };
   }
 
-  toggleSingPlur() {
+  toggleNumber() {
     this.setState({
-      singPlurSwitch:
-        this.state.singPlurSwitch === "singular" ? "plural" : "singular"
+      number: this.state.number === "singular" ? "plural" : "singular"
     });
     this.updateWords();
   }
 
-  toggleMascFem() {
+  toggleGender() {
     this.setState({
-      mascFemSwitch:
-        this.state.mascFemSwitch === "masculine" ? "feminine" : "masculine"
+      gender: this.state.gender === "masculine" ? "feminine" : "masculine"
     });
     this.updateWords();
   }
 
-  toggleDefIndef() {
+  toggleDefinite() {
     this.setState({
-      defIndefSwitch:
-        this.state.defIndefSwitch === "definite" ? "indefinite" : "definite"
+      definite: this.state.definite === "definite" ? "indefinite" : "definite"
     });
     this.updateWords();
   }
@@ -48,9 +45,9 @@ class Learning extends React.Component {
   updateWords() {
     this.setState(state => ({
       formattedWords: selectWordsToLearnForms(
-        state.singPlurSwitch,
-        state.mascFemSwitch,
-        state.defIndefSwitch,
+        state.number,
+        state.gender,
+        state.definite,
         this.props.wordsToLearn
       )
     }));
@@ -67,24 +64,15 @@ class Learning extends React.Component {
     });
     return (
       <div className="container">
-        {this.state.singPlurSwitch && (
-          <SingPlurSwitch
-            toggle={this.toggleSingPlur}
-            value={this.state.singPlurSwitch}
-          />
-        )}
-        {this.state.mascFemSwitch && (
-          <MascFemSwitch
-            toggle={this.toggleMascFem}
-            value={this.state.mascFemSwitch}
-          />
-        )}
-        {this.state.defIndefSwitch && (
-          <DefIndefSwitch
-            toggle={this.toggleDefIndef}
-            value={this.state.defIndefSwitch}
-          />
-        )}
+        <BackArrow />
+        <Switches
+          number={this.state.number}
+          toggleNumber={this.toggleNumber}
+          gender={this.state.gender}
+          toggleGender={this.toggleGender}
+          definite={this.state.definite}
+          toggleDefinite={this.toggleDefinite}
+        />
         <div className="wordsToLearn">{wordsToLearn}</div>
       </div>
     );

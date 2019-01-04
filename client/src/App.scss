@@ -1,0 +1,40 @@
+$break-large: 1024px;
+$large-font-size: 28px;
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+.app {
+  background-color: #e5e5e5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.container {
+  height: 100%;
+  margin: auto;
+  margin-top: 30px;
+  background-color: white;
+  padding: 0;
+  border-radius: 15px;
+  @media (min-width: $break-large) {
+    width: $break-large;
+  }
+  @media (max-width: $break-large - 1) {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+}
+
+h1 {
+  margin: 0;
+  padding: 30px;
+  text-align: center;
+}

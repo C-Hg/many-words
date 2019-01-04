@@ -11,6 +11,7 @@ class Exercise extends React.Component {
     super(props);
     this.userTranslationChange = this.userTranslationChange.bind(this);
     this.submitUserTranslation = this.submitUserTranslation.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.nextWord = this.nextWord.bind(this);
     this.state = {
       wordRank: 0,
@@ -48,6 +49,28 @@ class Exercise extends React.Component {
       checking: true,
       correctAnswer: result
     });
+  }
+
+  handleKeyPress(event) {
+    if (event.keyCode === 13) {
+      this.handleEnter();
+    }
+  }
+
+  handleEnter() {
+    if (this.state.checking === false) {
+      this.submitUserTranslation();
+    } else {
+      this.nextWord();
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress);
   }
 
   render() {

@@ -1,0 +1,43 @@
+$break-large: 1024px;
+$large-font-size: 28px;
+$main-color: black;
+
+.navbar {
+  min-width: 300px;
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+  background-color: #92fb8b;
+  padding: 0;
+}
+
+.title,
+.flags,
+.home {
+  font-size: $large-font-size;
+  color: $main-color;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  @media (min-width: $break-large) {
+    width: $break-large - 40;
+  }
+  @media (max-width: $break-large - 1) {
+    width: 100%;
+  }
+}
+
+li {
+  display: inline;
+}
