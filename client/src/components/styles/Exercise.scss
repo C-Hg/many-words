@@ -1,23 +1,48 @@
 @import "../../style_common/variables.scss";
 
 .exercise {
-  text-align: center;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  align-items: center;
+  justify-items: center;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.exercise_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
   padding: 0 15px 0 15px;
-  height: 60%;
   @media (min-width: $break-mid) {
-    width: 800px;
+    margin-top: 150px;
   }
   @media (max-width: $break-mid) {
-    width: 500px;
+    margin-top: 20px;
   }
 }
 
 .instructions {
-  text-align: left;
+  display: inline-block;
   font-weight: bold;
+  color: $main-font-color;
+  width: auto;
+  @media (min-width: $break-mid) {
+    font-size: $instructions-large;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $instructions-small;
+  }
+}
+
+.originWord {
+  display: block;
+  margin-top: 25px;
+  padding-left: 6px;
+  font-weight: 700;
+  color: black;
   @media (min-width: $break-mid) {
     font-size: $h2-large-screen;
   }
@@ -26,33 +51,34 @@
   }
 }
 
-.originWord {
-  text-align: left;
-  margin-top: 25px;
-  @media (min-width: $break-mid) {
-    font-size: $h3-large-screen;
-  }
-  @media (max-width: $break-mid) {
-    font-size: $h3-small-screen;
-  }
-}
-
 input {
-  margin-top: 10px;
+  margin-top: 15px;
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 2px solid grey;
+  border-bottom: 3.5px solid $inactive-exercise-color;
   height: 25px;
-  padding-left: 5px;
-
+  padding-left: 6px;
+  color: $inactive-exercise-color;
+  background-color: $main-container-background;
   &:focus {
-    border-color: red;
+    color: $active-exercise-color;
+    border-color: $active-exercise-color;
   }
   @media (min-width: $break-mid) {
     font-size: $h3-large-screen;
+    padding-bottom: 4px;
+    width: 350px;
   }
   @media (max-width: $break-mid) {
     font-size: $h3-small-screen;
+    padding-bottom: 2px;
+    width: 250px;
   }
+}
+
+button {
+  text-align: center;
+  margin-top: 20px;
+  width: 90px;
 }

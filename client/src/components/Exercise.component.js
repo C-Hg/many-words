@@ -20,7 +20,8 @@ class Exercise extends React.Component {
       wordRank: 0,
       userTranslation: "",
       checking: false,
-      correctAnswer: false
+      correctAnswer: false,
+      activable: false
     };
   }
 
@@ -79,9 +80,9 @@ class Exercise extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="exercise">
         <LessonTitle lesson={this.props.lesson} />
-        <div className="exercise">
+        <div className="exercise_container">
           <Instructions
             sourceLanguage={
               this.props.exerciseWords[this.state.wordRank].sourceLanguage
