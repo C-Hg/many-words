@@ -1,0 +1,37 @@
+@import "../../style_common/variables.scss";
+
+.exercise {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  height: 60%;
+  @media (min-width: $break-mid) {
+    width: 800px;
+  }
+  @media (max-width: $break-mid) {
+    width: 500px;
+  }
+}
+
+.instructions {
+  text-align: left;
+  font-weight: bold;
+  @media (min-width: $break-mid) {
+    font-size: $h2-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h2-small-screen;
+  }
+}
+
+.originWord {
+  text-align: left;
+  margin-top: 25px;
+  @media (min-width: $break-mid) {
+    font-size: $h3-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h3-small-screen;
+  }
+}

@@ -1,12 +1,12 @@
 import React from "react";
 import { LanguageContext } from "../contexts/language-context";
 
-class seeLesson extends React.Component {
+class Subtheme extends React.Component {
   render() {
     let language = this.context;
-    const subLessons = this.props.subLessons.map(val => (
-      <div className="subLesson" key={val[0]}>
-        <p>{language.subLessons[val[0]]}</p>
+    const lessons = this.props.lessons.map(val => (
+      <div className="lesson" key={val[0]}>
+        <p>{language.lessons[val[0]]}</p>
         <button onClick={this.props.startExercise} name={val[0]}>
           {language.start_exercise}
         </button>
@@ -17,13 +17,13 @@ class seeLesson extends React.Component {
     ));
     return (
       <div>
-        <h1>{language.lessons[this.props.lesson]}</h1>
-        {subLessons}
+        <h1>{language.subthemes[this.props.subtheme]}</h1>
+        {lessons}
       </div>
     );
   }
 }
 
-seeLesson.contextType = LanguageContext;
+Subtheme.contextType = LanguageContext;
 
-export default seeLesson;
+export default Subtheme;

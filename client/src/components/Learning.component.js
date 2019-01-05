@@ -3,6 +3,7 @@ import React from "react";
 import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
 import BackArrow from "./common_components/BackArrow.component";
 import Switches from "./learning_components/Switches.component";
+import LessonTitle from "./common_components/LessonTitle.component";
 
 import "./styles/Learning.css";
 
@@ -65,6 +66,7 @@ class Learning extends React.Component {
     return (
       <div className="container">
         <BackArrow />
+        <LessonTitle lesson={this.props.lesson} />
         <Switches
           number={this.state.number}
           toggleNumber={this.toggleNumber}

@@ -6,6 +6,7 @@ const UserTranslation = function(props) {
       <input
         value={props.userTranslation}
         onChange={props.userTranslationChange}
+        autoFocus
       />
     </div>
   );

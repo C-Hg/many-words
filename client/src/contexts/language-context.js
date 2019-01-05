@@ -5,12 +5,12 @@ export const languages = {
     themes: {
       nature: "Nature"
     },
-    lessons: {
+    subthemes: {
       animals: "Animals",
       earth: "Earth",
       landscapes: "Landscapes"
     },
-    subLessons: {
+    lessons: {
       common_animals: "Common animals",
       mammals: "Mammals",
       birds: "Birds"
@@ -36,12 +36,12 @@ export const languages = {
     themes: {
       nature: "Nature"
     },
-    lessons: {
+    subthemes: {
       animals: "Animaux",
       earth: "La Terre",
       landscapes: "Paysages"
     },
-    subLessons: {
+    lessons: {
       common_animals: "Animaux courants",
       mammals: "Mammifères",
       birds: "Oiseaux"

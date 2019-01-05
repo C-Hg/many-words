@@ -80,7 +80,7 @@ suite("Check FR Alternative function", function() {
     assert.isObject(result, "response should be an object");
     assert.propertyVal(result, "masc_sing", "canoë après-midi");
     assert.propertyVal(result, "masc_plur", "Ânes");
-    assert.propertyVal(result, "fem_sing", "Belle-Pensée");
+    assert.propertyVal(result, "fem_sing", "Belle-Pensée de l'île");
     assert.propertyVal(result, "fem_plur", "îles");
     assert.propertyVal(result, "uniqueForm", "mondes");
     assert.propertyVal(result, "isLApostrophe", true);

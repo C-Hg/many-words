@@ -1,4 +1,6 @@
 import React from "react";
+import "./styles/Exercise.scss";
+import LessonTitle from "./common_components/LessonTitle.component";
 import Instructions from "./exercise_components/Instructions.component";
 import OriginWord from "./exercise_components/OriginWord.component";
 import UserTranslation from "./exercise_components/UserTranslation.component";
@@ -12,6 +14,7 @@ class Exercise extends React.Component {
     this.userTranslationChange = this.userTranslationChange.bind(this);
     this.submitUserTranslation = this.submitUserTranslation.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
     this.nextWord = this.nextWord.bind(this);
     this.state = {
       wordRank: 0,
@@ -52,7 +55,8 @@ class Exercise extends React.Component {
   }
 
   handleKeyPress(event) {
-    if (event.keyCode === 13) {
+    if (event.key === "Enter") {
+      event.preventDefault();
       this.handleEnter();
     }
   }
@@ -76,28 +80,31 @@ class Exercise extends React.Component {
   render() {
     return (
       <div>
-        <Instructions
-          sourceLanguage={
-            this.props.exerciseWords[this.state.wordRank].sourceLanguage
-          }
-        />
-        <OriginWord
-          originWord={
-            //sends the word depending on the selected source language
-            this.props.exerciseWords[this.state.wordRank][
+        <LessonTitle lesson={this.props.lesson} />
+        <div className="exercise">
+          <Instructions
+            sourceLanguage={
               this.props.exerciseWords[this.state.wordRank].sourceLanguage
-            ][0]
-          }
-        />
-        <UserTranslation
-          userTranslation={this.state.userTranslation}
-          userTranslationChange={this.userTranslationChange}
-        />
-        <SubmitOrNextButton
-          submitUserTranslation={this.submitUserTranslation}
-          nextWord={this.nextWord}
-          checking={this.state.checking}
-        />
+            }
+          />
+          <OriginWord
+            originWord={
+              //sends the word depending on the selected source language
+              this.props.exerciseWords[this.state.wordRank][
+                this.props.exerciseWords[this.state.wordRank].sourceLanguage
+              ][0]
+            }
+          />
+          <UserTranslation
+            userTranslation={this.state.userTranslation}
+            userTranslationChange={this.userTranslationChange}
+          />
+          <SubmitOrNextButton
+            submitUserTranslation={this.submitUserTranslation}
+            nextWord={this.nextWord}
+            checking={this.state.checking}
+          />
+        </div>
         {this.state.checking && (
           <Result correctAnswer={this.state.correctAnswer} />
         )}

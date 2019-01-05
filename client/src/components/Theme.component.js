@@ -4,15 +4,15 @@ import { LanguageContext } from "../contexts/language-context";
 class Theme extends React.Component {
   render() {
     let language = this.context;
-    const lessons = this.props.lessons.map(val => (
-      <button onClick={this.props.seeLesson} name={val} key={val}>
-        {language.lessons[val]}
+    const subthemes = this.props.subthemes.map(val => (
+      <button onClick={this.props.seeSubtheme} name={val} key={val}>
+        {language.subthemes[val]}
       </button>
     ));
     return (
       <div>
         <h1>{language.themes[this.props.theme]}</h1>
-        {lessons}
+        {subthemes}
       </div>
     );
   }

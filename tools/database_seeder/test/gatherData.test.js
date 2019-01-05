@@ -97,7 +97,7 @@ suite("Gather data function", function() {
       { uniqueForm: "Bonjour", acceptedForms: ["uniqueForm"] },
       { uniqueForm: "à vous", acceptedForms: ["uniqueForm"] },
       { uniqueForm: "mes très chers", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "amis", acceptedForms: ["uniqueForm"] }
+      { uniqueForm: "amis de l'île", acceptedForms: ["uniqueForm"] }
     ]);
     assert.deepEqual(validTests[1].en, [
       { uniqueForm: "hello you", acceptedForms: ["uniqueForm"] },

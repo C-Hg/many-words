@@ -173,7 +173,7 @@ suite("Markdown regex", function() {
     );
     assert.equal(
       mdData.match(regex.frFemSingAlt3),
-      "Belle-Pensée",
+      "Belle-Pensée de l'île",
       "FR fem_sing alt3 should be 'Belle-Pensée'"
     );
     assert.equal(

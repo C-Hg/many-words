@@ -7,7 +7,7 @@
 */
 
 //common
-const allLetters = "[a-zàéèùâêîôûäëïöü\\-]+";
+const allLetters = "[a-zàéèùâêîôûäëïöüç'\\-]+";
 const words = allLetters + "(?:\\s" + allLetters + ")*";
 const wordsOrNot = "(?:" + words + ")?";
 

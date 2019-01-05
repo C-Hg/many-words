@@ -1,5 +1,4 @@
-$break-large: 1024px;
-$large-font-size: 28px;
+@import "./style_common/variables.scss";
 
 html {
   min-height: 100%;
@@ -37,4 +36,10 @@ h1 {
   margin: 0;
   padding: 30px;
   text-align: center;
+  @media (min-width: $break-mid) {
+    font-size: $h1-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h1-small-screen;
+  }
 }
