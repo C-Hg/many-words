@@ -1,15 +1,32 @@
 import React from "react";
 
-const UserTranslation = function(props) {
-  return (
-    <div>
+class UserTranslation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.translationInput = React.createRef();
+  }
+
+  componentDidMount() {
+    this.translationInput.current.focus();
+  }
+
+  //autofocus on the input field for each new word
+  componentDidUpdate() {
+    if (this.props.checking === false) {
+      this.translationInput.current.focus();
+    }
+  }
+
+  render() {
+    return (
       <input
-        value={props.userTranslation}
-        onChange={props.userTranslationChange}
-        autoFocus
+        class="userInput"
+        value={this.props.userTranslation}
+        onChange={this.props.userTranslationChange}
+        ref={this.translationInput}
       />
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default UserTranslation;

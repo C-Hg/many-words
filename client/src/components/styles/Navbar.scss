@@ -1,23 +1,26 @@
-$break-large: 1024px;
-$large-font-size: 28px;
-$main-color: black;
+@import "../../style_common/variables.scss";
 
 .navbar {
   min-width: 300px;
   display: flex;
   flex-direction: row;
   height: 70px;
-  background-color: #92fb8b;
+  background-color: $navbar-background;
   padding: 0;
 }
 
 .title,
 .flags,
 .home {
-  font-size: $large-font-size;
-  color: $main-color;
+  color: $main-font-color;
   margin: 0;
   padding: 0;
+  @media (min-width: $break-mid) {
+    font-size: $h2-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h2-small-screen;
+  }
 }
 
 ul {

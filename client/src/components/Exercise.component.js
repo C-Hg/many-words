@@ -98,6 +98,7 @@ class Exercise extends React.Component {
           <UserTranslation
             userTranslation={this.state.userTranslation}
             userTranslationChange={this.userTranslationChange}
+            checking={this.state.checking}
           />
           <SubmitOrNextButton
             submitUserTranslation={this.submitUserTranslation}
