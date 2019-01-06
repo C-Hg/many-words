@@ -1,31 +1,49 @@
 @import "../../style_common/variables.scss";
 
+.main-container-as-exercise {
+  width: 100%;
+}
+
+//exercise container
 .exercise {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0;
 }
 
+//lesson title
+h1 {
+  justify-self: flex-start;
+  padding-bottom: 0;
+  @media (min-width: $break-mid) {
+    padding-top: 30px;
+  }
+}
+
+//words, instructions, icon and input grouped in .exercise_container
 .exercise_container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   width: auto;
+  height: auto;
   padding: 0 15px 0 15px;
   @media (min-width: $break-mid) {
-    margin-top: 150px;
+    width: 500px;
   }
   @media (max-width: $break-mid) {
-    margin-top: 20px;
+    width: 380px;
+  }
+  @media (min-height: $break-height-mid) {
+    margin-top: -50px;
   }
 }
 
 .instructions {
-  display: inline-block;
+  align-self: flex-start;
   font-weight: bold;
   color: $main-font-color;
   width: auto;
@@ -38,10 +56,9 @@
 }
 
 .originWord {
-  display: block;
-  margin-top: 25px;
+  text-align: center;
+  margin-top: 45px;
   padding-left: 6px;
-  font-weight: 700;
   color: black;
   @media (min-width: $break-mid) {
     font-size: $h2-large-screen;
@@ -51,34 +68,93 @@
   }
 }
 
+//user translation input
 input {
-  margin-top: 15px;
+  text-align: center;
+  margin-top: 20px;
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 3.5px solid $inactive-exercise-color;
+  border-bottom: 3.5px solid $inactive-exercise;
   height: 25px;
-  padding-left: 6px;
-  color: $inactive-exercise-color;
-  background-color: $main-container-background;
+  color: $inactive-exercise;
+  background-color: inherit;
   &:focus {
-    color: $active-exercise-color;
-    border-color: $active-exercise-color;
+    color: $active-exercise;
+    border-color: $active-exercise;
   }
   @media (min-width: $break-mid) {
-    font-size: $h3-large-screen;
-    padding-bottom: 4px;
-    width: 350px;
+    font-size: $h2-large-screen;
+    padding-bottom: 6px;
+    width: 450px;
   }
   @media (max-width: $break-mid) {
-    font-size: $h3-small-screen;
-    padding-bottom: 2px;
-    width: 250px;
+    font-size: $h2-small-screen;
+    padding-bottom: 3px;
+    width: 350px;
   }
 }
 
-button {
+.input-correct {
+  color: $correct;
+  font-weight: bold;
+  border-bottom-color: $correct;
+}
+
+//next or check button
+.exercise-button {
   text-align: center;
-  margin-top: 20px;
-  width: 90px;
+  align-self: center;
+  width: 150px;
+  height: 50px;
+  border-radius: 50px;
+  border-width: 0;
+  color: white;
+  margin-top: 65px;
+  @media (min-width: $break-mid) {
+    font-size: $p-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $p-small-screen;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button-activable {
+  font-weight: 700;
+  background-color: $active-exercise;
+  &:hover {
+    background-color: $active-exercise-light;
+  }
+}
+
+.button-inactivable {
+  background-color: $inactive-background;
+}
+
+.button-correct {
+  font-weight: 700;
+  background-color: $correct;
+  &:hover {
+    background-color: $correct-light;
+    border: 3px solid $correct-light;
+  }
+}
+
+//footer
+.exercise-footer {
+  background-color: $inactive-background;
+  justify-self: flex-end;
+  height: 150px;
+  width: 100%;
+}
+
+.exercise-footer-correct {
+  background-color: $correct-light;
+}
+
+.exercise-footer-incorrect {
+  background-color: $wrong;
 }

@@ -1,13 +1,16 @@
 @import "./style_common/variables.scss";
 
-html {
+html,
+body {
   min-height: 100%;
-  position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 .app {
   background-color: $background-color;
   position: absolute;
+  padding-top: 70px; // compensates margin-top -70px for header
   top: 0;
   bottom: 0;
   left: 0;
@@ -15,12 +18,16 @@ html {
   overflow: hidden;
 }
 
-.container {
-  height: 100%;
+// the main container is styled differently depending on the current "activity"
+.main-container {
   margin: auto;
-  margin-top: 30px;
   background-color: $main-container-background;
   padding: 0;
+  height: 100%;
+}
+
+.main-container-as-menu {
+  margin-top: 30px;
   border-radius: 15px;
   @media (min-width: $break-large) {
     width: $break-large;
@@ -42,4 +49,17 @@ h1 {
   @media (max-width: $break-mid) {
     font-size: $h1-small-screen;
   }
+}
+
+//general button and input styling
+button:hover,
+button:focus,
+button:hover:focus {
+  outline: none;
+}
+
+input:hover,
+input:focus,
+input:hover:focus {
+  outline: none;
 }

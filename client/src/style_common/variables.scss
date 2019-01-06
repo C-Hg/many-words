@@ -11,12 +11,12 @@ $break-height-small: 400px;
 $h1-large-screen: 36px;
 $h2-large-screen: 28px;
 $h3-large-screen: 24px;
-$p-large-screen: 18px;
+$p-large-screen: 20px;
 
 $h1-small-screen: 28px;
 $h2-small-screen: 24px;
 $h3-small-screen: 20px;
-$p-small-screen: 14px;
+$p-small-screen: 18px;
 
 $instructions-large: 40px;
 $instructions-small: 30px;
@@ -24,14 +24,18 @@ $instructions-small: 30px;
 //colors
 $background-color: #e5e5e5;
 $main-container-background: #fffffc;
-$navbar-background: #5662bd;
+$navbar-background: rgba(0, 80, 255, 0.8);
 
 $main-font-color: #404040;
 $navbar-text: white;
 
-$active-exercise-color: #5662bd;
-$inactive-exercise-color: #818e96;
+$active-exercise: rgba(0, 80, 255, 0.8);
+$active-exercise-light: rgba(0, 80, 255, 0.7);
 
-$activable: green;
-$correct-answer: palegreen;
-$wrong-answer: red;
+$inactive-exercise: #818e96;
+$inactive-background: #b3b8bb;
+
+$correct: #1dbf00;
+$correct-light: rgba(108, 210, 80, 0.7);
+
+$wrong: rgba(237, 68, 48, 0.5);

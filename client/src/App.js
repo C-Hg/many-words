@@ -27,6 +27,7 @@ class App extends Component {
     this.seeSubtheme = this.seeSubtheme.bind(this);
     this.state = {
       activity: "curriculum",
+      containerClass: "main-container-as-menu",
       theme: "",
       lesson: "",
       lessons: "",
@@ -45,7 +46,8 @@ class App extends Component {
     this.setState({
       activity: "exercise",
       lesson: lesson,
-      exerciseWords: words
+      exerciseWords: words,
+      containerClass: "main-container-as-exercise"
     });
   }
 
@@ -90,7 +92,8 @@ class App extends Component {
       activity: "curriculum",
       exerciseWords: "",
       switches: "",
-      formattedWords: ""
+      formattedWords: "",
+      containerClass: "main-container-as-menu"
     });
   }
 
@@ -99,7 +102,7 @@ class App extends Component {
       <LanguageContext.Provider value={this.state.main_language}>
         <div className="app">
           <Navbar />
-          <div className="container">
+          <div className={"main-container " + this.state.containerClass}>
             {this.state.activity === "curriculum" && (
               <Curriculum seeTheme={this.seeTheme} />
             )}

@@ -6,7 +6,7 @@ class Result extends React.Component {
     let language = this.context;
     let result = this.props.correctAnswer ? "correct" : "wrong";
     return (
-      <div>
+      <div className="result">
         <p>{language[result]}</p>
       </div>
     );
