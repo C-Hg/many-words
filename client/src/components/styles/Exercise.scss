@@ -31,14 +31,26 @@ h1 {
   width: auto;
   height: auto;
   padding: 0 15px 0 15px;
+  @media (min-height: $break-height-mid) {
+    margin-top: -50px;
+  }
+}
+
+.exercise_container_french {
   @media (min-width: $break-mid) {
     width: 500px;
   }
   @media (max-width: $break-mid) {
     width: 380px;
   }
-  @media (min-height: $break-height-mid) {
-    margin-top: -50px;
+}
+
+.exercise_container_english {
+  @media (min-width: $break-mid) {
+    width: 570px;
+  }
+  @media (max-width: $break-mid) {
+    width: 430px;
   }
 }
 

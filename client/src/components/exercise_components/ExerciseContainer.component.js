@@ -4,16 +4,24 @@ import Instructions from "./Instructions.component";
 import OriginWord from "./OriginWord.component";
 import UserTranslation from "./UserTranslation.component";
 import SubmitOrNextButton from "./SubmitOrNextButton.component";
-import CorrectIcon from "./CorrectIcon.component";
+import { LanguageContext } from "../../contexts/language-context";
 
 class ExerciseContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
   render() {
+    let languageClass = "";
+    let language = this.context;
+    if (language.language === "french") {
+      languageClass = "exercise_container_french";
+    } else {
+      languageClass = "exercise_container_english";
+    }
     return (
-      <div className="exercise_container">
+      <div className={"exercise_container " + languageClass}>
         <Instructions
           sourceLanguage={
             this.props.exerciseWords[this.props.wordRank].sourceLanguage
@@ -46,5 +54,7 @@ class ExerciseContainer extends React.Component {
     );
   }
 }
+
+ExerciseContainer.contextType = LanguageContext;
 
 export default ExerciseContainer;

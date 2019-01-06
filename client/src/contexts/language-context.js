@@ -2,6 +2,7 @@ import React from "react";
 
 export const languages = {
   English: {
+    language: "english",
     themes: {
       nature: "Nature"
     },
@@ -33,6 +34,7 @@ export const languages = {
     indefinite: "indefinite"
   },
   French: {
+    language: "french",
     themes: {
       nature: "Nature"
     },

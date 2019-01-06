@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles/Exercise.scss";
 import LessonTitle from "./common_components/LessonTitle.component";
-import Result from "./exercise_components/Result.component";
 import functions from "../controllers/exercise_functions/checkUserTranslation.functions";
 import ExerciseContainer from "./exercise_components/ExerciseContainer.component";
 import ExerciseFooter from "./exercise_components/ExerciseFooter.component";
