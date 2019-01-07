@@ -64,7 +64,6 @@ class Exercise extends React.Component {
           submitUserTranslation={this.submitUserTranslation}
           nextWord={this.nextWord}
         />
-        {/*} <Result correctAnswer={this.state.correctAnswer} /> */}
         <ExerciseFooter
           correctAnswer={this.state.correctAnswer}
           checking={this.state.checking}

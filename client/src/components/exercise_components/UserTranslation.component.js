@@ -43,8 +43,12 @@ class UserTranslation extends React.Component {
 
   render() {
     let inputStatus = "";
-    if (this.props.checking && this.props.correctAnswer) {
-      inputStatus = "input-correct";
+    if (this.props.checking) {
+      if (this.props.correctAnswer) {
+        inputStatus = "input-correct";
+      } else {
+        inputStatus = "input-wrong";
+      }
     }
     return (
       <input

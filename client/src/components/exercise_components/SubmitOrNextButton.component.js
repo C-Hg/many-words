@@ -10,8 +10,12 @@ class SubmitOrNextButton extends React.Component {
     } else {
       buttonClass = "button-activable";
     }
-    if (this.props.checking && this.props.correctAnswer) {
-      buttonClass = "button-correct";
+    if (this.props.checking) {
+      if (this.props.correctAnswer) {
+        buttonClass = "button-correct";
+      } else {
+        buttonClass = "button-wrong";
+      }
     }
 
     return (

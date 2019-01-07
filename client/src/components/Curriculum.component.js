@@ -1,5 +1,6 @@
 import React from "react";
 import { LanguageContext } from "../contexts/language-context";
+import "./styles/Curriculum.scss";
 
 class Curriculum extends React.Component {
   constructor(props) {
@@ -9,8 +10,8 @@ class Curriculum extends React.Component {
   render() {
     let language = this.context;
     return (
-      <div>
-        <h1>{language.curriculum_title}</h1>
+      <div className="curriculum">
+        <h1 className="curriculumTitle">{language.curriculum_title}</h1>
         <button onClick={this.props.seeTheme} name="nature">
           Nature
         </button>

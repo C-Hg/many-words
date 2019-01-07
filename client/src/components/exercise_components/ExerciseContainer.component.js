@@ -7,11 +7,6 @@ import SubmitOrNextButton from "./SubmitOrNextButton.component";
 import { LanguageContext } from "../../contexts/language-context";
 
 class ExerciseContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   render() {
     let languageClass = "";
     let language = this.context;

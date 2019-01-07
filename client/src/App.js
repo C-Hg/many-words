@@ -28,6 +28,7 @@ class App extends Component {
     this.state = {
       activity: "curriculum",
       containerClass: "main-container-as-menu",
+      appClass: "app-with-navbar",
       theme: "",
       lesson: "",
       lessons: "",
@@ -35,7 +36,7 @@ class App extends Component {
       subthemes: "",
       exerciseWords: "",
       formattedWords: "",
-      main_language: languages.English,
+      main_language: languages.French,
       switches: ""
     };
   }
@@ -47,7 +48,8 @@ class App extends Component {
       activity: "exercise",
       lesson: lesson,
       exerciseWords: words,
-      containerClass: "main-container-as-exercise"
+      containerClass: "main-container-as-exercise",
+      appClass: ""
     });
   }
 
@@ -93,15 +95,16 @@ class App extends Component {
       exerciseWords: "",
       switches: "",
       formattedWords: "",
-      containerClass: "main-container-as-menu"
+      containerClass: "main-container-as-menu",
+      appClass: "app-with-navbar"
     });
   }
 
   render() {
     return (
       <LanguageContext.Provider value={this.state.main_language}>
-        <div className="app">
-          <Navbar />
+        <div className={"app " + this.state.appClass}>
+          <Navbar activity={this.state.activity} />
           <div className={"main-container " + this.state.containerClass}>
             {this.state.activity === "curriculum" && (
               <Curriculum seeTheme={this.seeTheme} />
