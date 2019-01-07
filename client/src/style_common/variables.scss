@@ -13,13 +13,19 @@ $h2-large-screen: 28px;
 $h3-large-screen: 24px;
 $p-large-screen: 20px;
 
-$h1-small-screen: 28px;
-$h2-small-screen: 24px;
-$h3-small-screen: 20px;
-$p-small-screen: 18px;
+$h1-mid-screen: 28px;
+$h2-mid-screen: 24px;
+$h3-mid-screen: 20px;
+$p-mid-screen: 18px;
 
-$instructions-large: 40px;
-$instructions-small: 30px;
+$h1-small-screen: 24px;
+$h2-small-screen: 20px;
+$h3-small-screen: 16px;
+$p-small-screen: 14px;
+
+$instructions-large: 38px;
+$instructions-mid: 28px;
+$instructions-small: 22px;
 
 //colors
 $background-color: #e5e5e5;
@@ -30,7 +36,7 @@ $main-font-color: #404040;
 $navbar-text: white;
 
 $active-exercise: rgba(0, 80, 255, 0.8);
-$active-exercise-light: rgba(0, 80, 255, 0.7);
+$active-exercise-light: rgba(0, 165, 255, 0.3);
 
 $inactive-exercise: #818e96;
 $inactive-background: #b3b8bb;

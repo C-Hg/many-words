@@ -36,7 +36,7 @@ class App extends Component {
       subthemes: "",
       exerciseWords: "",
       formattedWords: "",
-      main_language: languages.French,
+      main_language: languages.English,
       switches: ""
     };
   }

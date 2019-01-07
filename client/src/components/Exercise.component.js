@@ -16,6 +16,7 @@ class Exercise extends React.Component {
       userTranslation: "",
       checking: false,
       correctAnswer: false,
+      expectedAnswer: "",
       activable: false
     };
   }
@@ -35,7 +36,8 @@ class Exercise extends React.Component {
       wordRank: state.wordRank + 1,
       userTranslation: "",
       checking: false,
-      correctAnswer: false
+      correctAnswer: false,
+      expectedAnswer: ""
     }));
   }
 
@@ -46,8 +48,13 @@ class Exercise extends React.Component {
     );
     this.setState({
       checking: true,
-      correctAnswer: result
+      correctAnswer: result[0]
     });
+    if (!result[0]) {
+      this.setState({
+        expectedAnswer: result[1]
+      });
+    }
   }
 
   render() {
@@ -66,6 +73,7 @@ class Exercise extends React.Component {
         />
         <ExerciseFooter
           correctAnswer={this.state.correctAnswer}
+          expectedAnswer={this.state.expectedAnswer}
           checking={this.state.checking}
         />
       </div>

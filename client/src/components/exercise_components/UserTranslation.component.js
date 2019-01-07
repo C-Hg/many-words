@@ -43,12 +43,16 @@ class UserTranslation extends React.Component {
 
   render() {
     let inputStatus = "";
+    let readOnly = "";
     if (this.props.checking) {
+      readOnly = "readonly";
       if (this.props.correctAnswer) {
         inputStatus = "input-correct";
       } else {
         inputStatus = "input-wrong";
       }
+    } else {
+      inputStatus = "input-active";
     }
     return (
       <input
@@ -56,6 +60,7 @@ class UserTranslation extends React.Component {
         value={this.props.userTranslation}
         onChange={this.props.userTranslationChange}
         ref={this.translationInput}
+        readOnly={readOnly}
       />
     );
   }

@@ -26,6 +26,7 @@ class ExerciseFooter extends React.Component {
           <Result
             checking={this.props.checking}
             correctAnswer={this.props.correctAnswer}
+            expectedAnswer={this.props.expectedAnswer}
           />
         </div>
       </div>

@@ -8,8 +8,8 @@ exports.checkUserTranslation = function(userTranslation, words) {
 
   for (let correctTranslation of correctTranslations) {
     if (correctTranslation === userTranslation) {
-      return true;
+      return [true];
     }
   }
-  return false;
+  return [false, correctTranslations[0]];
 };

@@ -27,11 +27,17 @@ export const languages = {
     correct: [
       "Excellent",
       "You're right",
-      "Continue!",
       "Perfect",
       "Nothing to say",
       "Impressive",
-      "Target hit"
+      "Target hit",
+      "Great",
+      "Good",
+      "Indeed",
+      "Easy",
+      "Well done",
+      "Nice",
+      "Way to go"
     ],
     wrong: "Wrong answer",
     masculine: "masculine",
@@ -67,11 +73,17 @@ export const languages = {
     correct: [
       "Excellent",
       "C'est exact",
-      "Continue!",
       "Parfait",
       "Rien à dire",
-      "Impressionant",
-      "Dans la cible"
+      "Impressionnant",
+      "Dans la cible",
+      "Bien",
+      "Très bien",
+      "Tout à fait",
+      "Facile",
+      "Bien joué",
+      "Joli",
+      "Exactement"
     ],
     wrong: "->",
     masculine: "masculin",

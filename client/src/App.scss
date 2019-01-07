@@ -9,6 +9,8 @@ body {
 }
 
 .app {
+  font-family: "Open Sans", sans-serif;
+  color: $main-font-color;
   background-color: $background-color;
   position: absolute;
   top: 0;
@@ -57,10 +59,33 @@ h1 {
 }
 
 //general button and input styling
-button:hover,
-button:focus,
-button:hover:focus {
+//disable outline on focus
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+//remove dotted outline on button click
+button::-moz-focus-outer {
   outline: none;
+}
+
+button {
+  &:hover {
+    cursor: pointer;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  //prevents shifting on click
+  margin: 0;
+  padding: 0;
 }
 
 input:hover,
@@ -69,7 +94,6 @@ input:hover:focus {
   outline: none;
 }
 
-//remove dotted outline on button click
 button::-moz-focus-inner {
   border: 0;
 }

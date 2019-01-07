@@ -4,7 +4,7 @@ import { LanguageContext } from "../../contexts/language-context";
 const Result = function(props) {
   if (props.checking) {
     if (props.correctAnswer) {
-      let randomResponse = Math.floor(Math.random() * 7);
+      let randomResponse = Math.floor(Math.random() * 13);
       return (
         <LanguageContext.Consumer>
           {({ correct }) => (
@@ -14,9 +14,12 @@ const Result = function(props) {
       );
     } else {
       return (
-        <LanguageContext.Consumer>
-          {({ wrong }) => <div className="result">{wrong}</div>}
-        </LanguageContext.Consumer>
+        <div className="result">
+          <i className="material-icons md-48" Style="font-size:36px;">
+            arrow_forward
+          </i>
+          <div className="expectedAnswer">{props.expectedAnswer}</div>
+        </div>
       );
     }
   } else return null;

@@ -31,43 +31,49 @@ h1 {
   width: auto;
   height: auto;
   padding: 0 15px 0 15px;
-  @media (min-height: $break-height-mid) {
-    margin-top: -50px;
-  }
 }
 
 .exercise_container_french {
   @media (min-width: $break-mid) {
-    width: 500px;
+    width: 510px;
   }
   @media (max-width: $break-mid) {
-    width: 380px;
+    width: 370px;
+  }
+  @media (max-width: $break-small) {
+    width: 300px;
   }
 }
 
 .exercise_container_english {
   @media (min-width: $break-mid) {
-    width: 570px;
+    width: 580px;
   }
   @media (max-width: $break-mid) {
     width: 430px;
+  }
+  @media (max-width: $break-small) {
+    width: 330px;
   }
 }
 
 .instructions {
   align-self: flex-start;
-  font-weight: bold;
-  color: $main-font-color;
+  font-weight: 700;
   width: auto;
   @media (min-width: $break-mid) {
     font-size: $instructions-large;
   }
   @media (max-width: $break-mid) {
+    font-size: $instructions-mid;
+  }
+  @media (max-width: $break-small) {
     font-size: $instructions-small;
   }
 }
 
 .originWord {
+  font-weight: 400;
   text-align: center;
   margin-top: 45px;
   padding-left: 6px;
@@ -76,12 +82,16 @@ h1 {
     font-size: $h2-large-screen;
   }
   @media (max-width: $break-mid) {
+    font-size: $h2-mid-screen;
+  }
+  @media (max-width: $break-small) {
     font-size: $h2-small-screen;
   }
 }
 
 //user translation input
 input {
+  font-weight: 400;
   text-align: center;
   margin-top: 20px;
   border-top: none;
@@ -89,21 +99,27 @@ input {
   border-right: none;
   border-bottom: 3.5px solid $inactive-exercise;
   height: 25px;
-  color: $inactive-exercise;
-  background-color: inherit;
-  &:focus {
-    color: $active-exercise;
-    border-color: $active-exercise;
-  }
   @media (min-width: $break-mid) {
     font-size: $h2-large-screen;
-    padding-bottom: 6px;
+    padding-bottom: 7px;
     width: 450px;
   }
   @media (max-width: $break-mid) {
     font-size: $h2-small-screen;
     padding-bottom: 3px;
     width: 350px;
+  }
+  @media (max-width: $break-small) {
+    width: 260px;
+  }
+}
+
+.input-active {
+  color: $inactive-exercise;
+  background-color: inherit;
+  &:focus {
+    color: $active-exercise;
+    border-color: $active-exercise;
   }
 }
 
@@ -127,23 +143,25 @@ input {
   border-radius: 50px;
   border-width: 0;
   color: white;
-
   @media (min-width: $break-mid) {
     font-size: $p-large-screen;
     margin-top: 100px;
   }
   @media (max-width: $break-mid) {
-    font-size: $p-small-screen;
+    font-size: $p-mid-screen;
     margin-top: 65px;
   }
-  &:hover {
-    cursor: pointer;
+  @media (max-width: $break-small) {
+    font-size: $p-small-screen;
+    margin-top: 35px;
   }
 }
 
 .button-activable {
   font-weight: 700;
-  background-color: $active-exercise;
+  background-color: inherit;
+  color: $active-exercise;
+  border: 3px solid $active-exercise;
   &:hover {
     background-color: $active-exercise-light;
   }
@@ -176,10 +194,18 @@ input {
 //footer
 .exercise-footer {
   background-color: $inactive-background;
-  height: 150px;
   width: 100%;
   margin: 0;
   padding: 0;
+  @media (min-width: $break-mid) {
+    height: 200px;
+  }
+  @media (max-width: $break-mid) {
+    height: 140px;
+  }
+  @media (max-width: $break-small) {
+    height: 80px;
+  }
 }
 
 .exercise-footer-correct {
@@ -199,16 +225,17 @@ input {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   padding-left: 20px;
   padding-right: 20px;
   @media (min-width: $break-mid) {
     font-size: $h1-large-screen;
   }
-  @media (max-width: $break-mid - 1) {
-    width: 100%;
+  @media (max-width: $break-mid) {
+    font-size: $h1-mid-screen;
+  }
+  @media (max-width: $break-small) {
     font-size: $h1-small-screen;
-    justify-content: center;
-    padding: 0;
   }
 }
 
@@ -222,4 +249,14 @@ input {
   @media (min-width: $break-mid) {
     width: 610px;
   }
+}
+
+.result {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.expectedAnswer {
+  margin-left: 10px;
 }
