@@ -3,9 +3,9 @@ import React from "react";
 import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
 import BackArrow from "./common_components/BackArrow.component";
 import Switches from "./learning_components/Switches.component";
-import LessonTitle from "./common_components/LessonTitle.component";
+import LearningTitle from "./learning_components/LearningTitle.component";
 
-import "./styles/Learning.css";
+import "./styles/Learning.scss";
 
 class Learning extends React.Component {
   constructor(props) {
@@ -64,9 +64,10 @@ class Learning extends React.Component {
       );
     });
     return (
-      <div className="container">
+      <div className="learning-container">
         <BackArrow />
-        <LessonTitle lesson={this.props.lesson} />
+        <LearningTitle lesson={this.props.lesson} />
+        <div className="wordsToLearn">{wordsToLearn}</div>
         <Switches
           number={this.state.number}
           toggleNumber={this.toggleNumber}
@@ -75,7 +76,6 @@ class Learning extends React.Component {
           definite={this.state.definite}
           toggleDefinite={this.toggleDefinite}
         />
-        <div className="wordsToLearn">{wordsToLearn}</div>
       </div>
     );
   }

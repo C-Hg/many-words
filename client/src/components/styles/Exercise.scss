@@ -15,7 +15,7 @@
 }
 
 //lesson title
-h1 {
+.exerciseTitle {
   justify-self: flex-start;
   padding-bottom: 0;
   @media (min-width: $break-mid) {
@@ -76,7 +76,6 @@ h1 {
   font-weight: 400;
   text-align: center;
   margin-top: 45px;
-  padding-left: 6px;
   color: black;
   @media (min-width: $break-mid) {
     font-size: $h2-large-screen;

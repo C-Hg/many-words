@@ -34,13 +34,14 @@ body {
 }
 
 .main-container-as-menu {
-  margin-top: 30px;
   border-radius: 15px;
   @media (min-width: $break-large) {
+    margin-top: 30px;
     width: $break-large;
   }
   @media (max-width: $break-large - 1) {
     width: 100%;
+    padding-bottom: 30px;
     border-radius: 0;
     margin: 0;
   }

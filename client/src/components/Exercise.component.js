@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles/Exercise.scss";
-import LessonTitle from "./common_components/LessonTitle.component";
+import ExerciseTitle from "./exercise_components/ExerciseTitle.component";
 import functions from "../controllers/exercise_functions/checkUserTranslation.functions";
 import ExerciseContainer from "./exercise_components/ExerciseContainer.component";
 import ExerciseFooter from "./exercise_components/ExerciseFooter.component";
@@ -60,7 +60,7 @@ class Exercise extends React.Component {
   render() {
     return (
       <div className="exercise">
-        <LessonTitle lesson={this.props.lesson} />
+        <ExerciseTitle lesson={this.props.lesson} />
         <ExerciseContainer
           exerciseWords={this.props.exerciseWords}
           wordRank={this.state.wordRank}

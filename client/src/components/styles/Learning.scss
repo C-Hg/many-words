@@ -1,6 +1,67 @@
+@import "../../style_common/variables.scss";
+
+.learning-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  @media (min-width: $break-mid) {
+    font-size: $h2-large-screen;
+    grid-template-columns: 76px auto;
+    grid-template-rows: 130px auto auto;
+    grid-template-areas:
+      "arrow title"
+      "words words"
+      "switches switches";
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h2-mid-screen;
+    grid-template-columns: auto;
+    grid-template-rows: 80px 2fr 1fr 76px;
+    grid-template-areas:
+      "title"
+      "words"
+      "switches"
+      "arrow";
+  }
+  @media (max-width: $break-small) {
+    font-size: $h2-small-screen;
+  }
+}
+
+// navigation arrow
+.backArrow {
+  grid-area: arrow;
+  @media (min-width: $break-mid) {
+    padding-left: 50px;
+  }
+  @media (min-width: $break-mid) {
+    padding-left: 50px;
+  }
+}
+
+// lesson title
+.learningTitle {
+  grid-area: title;
+  padding: 0;
+  @media (min-width: $break-mid) {
+    font-size: $h1-large-screen;
+    justify-self: center;
+    margin-left: -50px; //compensates arrow padding
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h1-mid-screen;
+    margin: auto;
+  }
+}
+
+//vocabulary
 .wordsToLearn {
+  grid-area: words;
+  justify-self: flex-end;
   display: inline-block;
-  margin-top: 30px;
   text-align: center;
   margin: auto;
 }
@@ -8,10 +69,47 @@
 .twoWords {
   margin: auto;
   text-align: left;
-  margin-top: 10px;
-  font-size: 18px;
+  @media (min-width: $break-mid) {
+    margin-top: 20px;
+  }
+  @media (max-width: $break-mid) {
+    margin-top: 8px;
+  }
 }
 
-.icon {
-  position: absolute;
+//switches
+.switches {
+  grid-area: switches;
+  align-self: start;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.switch {
+  text-align: center;
+  font-weight: bold;
+  border-radius: 50px;
+  border: 3px solid $active-exercise;
+  background-color: inherit;
+  color: $active-exercise;
+  &:hover {
+    background-color: $active-exercise-light;
+  }
+  @media (min-width: $break-mid) {
+    font-size: $h3-large-screen;
+    margin-top: 20px;
+    width: 160px;
+    height: 60px;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h3-mid-screen;
+    margin-top: 8px;
+    width: 130px;
+    height: 45px;
+  }
+  @media (max-width: $break-small) {
+    font-size: $h3-small-screen;
+  }
 }

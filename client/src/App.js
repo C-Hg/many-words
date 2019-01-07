@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.scss";
+import "./style_common/material_icons.css";
 import Navbar from "./components/Navbar.component";
 import Curriculum from "./components/Curriculum.component";
 import Theme from "./components/Theme.component";
