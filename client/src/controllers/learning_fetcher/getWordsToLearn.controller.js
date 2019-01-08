@@ -1,7 +1,7 @@
 async function getWordsToLearn(lesson) {
   let result = new Promise((resolve, reject) => {
     let req = new XMLHttpRequest();
-    req.open("GET", `/learn/${lesson}`, true);
+    req.open("GET", `/api/learn/${lesson}`, true);
     req.send();
     req.onload = function() {
       resolve(JSON.parse(req.response));

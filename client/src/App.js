@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./App.scss";
 import "./style_common/material_icons.css";
 import Navbar from "./components/Navbar.component";
@@ -103,47 +104,52 @@ class App extends Component {
 
   render() {
     return (
-      <LanguageContext.Provider value={this.state.main_language}>
-        <div className={"app " + this.state.appClass}>
-          <Navbar activity={this.state.activity} />
-          <div className={"main-container " + this.state.containerClass}>
-            {this.state.activity === "curriculum" && (
-              <Curriculum seeTheme={this.seeTheme} />
-            )}
-            {this.state.activity === "theme" && (
-              <Theme
-                theme={this.state.theme}
-                subthemes={this.state.subthemes}
-                seeSubtheme={this.seeSubtheme}
-              />
-            )}
-            {this.state.activity === "seeSubtheme" && (
-              <Subtheme
-                subtheme={this.state.subtheme}
-                lessons={this.state.lessons}
-                startExercise={this.startExercise}
-                startLearning={this.startLearning}
-              />
-            )}
-            {this.state.activity === "exercise" && (
-              <Exercise
-                endExercise={this.endSession}
-                exerciseWords={this.state.exerciseWords}
-                lesson={this.state.lesson}
-              />
-            )}
-            {this.state.activity === "learning" && (
-              <Learning
-                lesson={this.state.lesson}
-                switches={this.state.switches}
-                endLearning={this.endSession}
-                wordsToLearn={this.state.exerciseWords}
-                formattedWords={this.state.formattedWords}
-              />
-            )}
+      <Router>
+        <LanguageContext.Provider value={this.state.main_language}>
+          <div className={"app " + this.state.appClass}>
+            <Navbar activity={this.state.activity} />
+            <div className={"main-container " + this.state.containerClass}>
+              {this.state.activity === "curriculum" && (
+                <Curriculum seeTheme={this.seeTheme} />
+              )}
+              {this.state.activity === "theme" && (
+                <Theme
+                  theme={this.state.theme}
+                  subthemes={this.state.subthemes}
+                  seeSubtheme={this.seeSubtheme}
+                />
+              )}
+              {this.state.activity === "seeSubtheme" && (
+                <Subtheme
+                  subtheme={this.state.subtheme}
+                  lessons={this.state.lessons}
+                  startExercise={this.startExercise}
+                  startLearning={this.startLearning}
+                />
+              )}
+              {this.state.activity === "exercise" && (
+                <Exercise
+                  endExercise={this.endSession}
+                  exerciseWords={this.state.exerciseWords}
+                  lesson={this.state.lesson}
+                />
+              )}
+              {this.state.activity === "learning" && (
+                <Learning
+                  lesson={this.state.lesson}
+                  switches={this.state.switches}
+                  endLearning={this.endSession}
+                  wordsToLearn={this.state.exerciseWords}
+                  formattedWords={this.state.formattedWords}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      </LanguageContext.Provider>
+        </LanguageContext.Provider>
+        <Route exact path="/" component={Curriculum} />
+        <Route path="/theme" component={Theme} />
+        <Route path="/subtheme" component={Subtheme} />
+      </Router>
     );
   }
 }

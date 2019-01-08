@@ -12,9 +12,11 @@ class Curriculum extends React.Component {
     return (
       <div className="curriculum">
         <h1 className="curriculumTitle">{language.curriculum_title}</h1>
-        <button onClick={this.props.seeTheme} name="nature">
-          Nature
-        </button>
+        <Link to="">
+          <button onClick={this.props.seeTheme} name="nature">
+            Nature
+          </button>
+        </Link>
       </div>
     );
   }

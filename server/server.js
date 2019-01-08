@@ -20,14 +20,18 @@ db.once("open", () => {
 });
 
 //home routing
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/client/public/index.html");
-});
+if (process.env.STATUS === "DEVELOPMENT") {
+  app.get("/", function(req, res) {
+    res.sendFile(__dirname + "/client/public/index.html");
+  });
+} else if (process.env.STATUS === "PRODUCTION") {
+  // allows client-side routing
+  app.use(express.static(path.join(__dirname, "build")));
+  app.get("/*", function(req, res) {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}
 
-//exercises module routing
-const exercisesRoutes = require("./routes/exercises.routes");
-app.use("/exercises/", exercisesRoutes);
-
-//learning module routing
-const learningRoutes = require("./routes/learning.routes");
-app.use("/learn/", learningRoutes);
+//api routing
+const apiRoutes = require("./routes/api.routes");
+app.use("/api/", apiRoutes);
