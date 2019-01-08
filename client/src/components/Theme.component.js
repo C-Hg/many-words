@@ -1,17 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
+import { getSubthemesNames } from "../controllers/getSubthemesNames.function";
 
 class Theme extends React.Component {
   render() {
+    let theme = this.props.theme;
+    let subthemesNames = getSubthemesNames(theme);
     let language = this.context;
-    const subthemes = this.props.subthemes.map(val => (
-      <button onClick={this.props.seeSubtheme} name={val} key={val}>
+    const subthemes = subthemesNames.map(val => (
+      <Link to={`${this.props.match.url}/${val}`}>
         {language.subthemes[val]}
-      </button>
+      </Link>
     ));
+
     return (
       <div>
-        <h1>{language.themes[this.props.theme]}</h1>
+        <h1>{language.themes[theme]}</h1>
         {subthemes}
       </div>
     );

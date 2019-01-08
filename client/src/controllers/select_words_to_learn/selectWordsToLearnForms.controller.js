@@ -40,7 +40,6 @@ function selectWordsToLearnForms(singOrPlur, mascOrFem, defOrIndef, words) {
     }
     formattedWords.push({ en: enWord, fr: frWord });
   }
-  console.log(formattedWords);
   return formattedWords;
 }
 

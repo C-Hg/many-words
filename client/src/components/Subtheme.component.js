@@ -1,18 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
+import { getLessons } from "../controllers/getLessons.function";
 
 class Subtheme extends React.Component {
   render() {
     let language = this.context;
-    const lessons = this.props.lessons.map(val => (
+    let subtheme = this.props.subtheme;
+    let lessonsData = getLessons(subtheme);
+    const lessons = lessonsData.map(val => (
       <div className="lesson" key={val[0]}>
         <p>{language.lessons[val[0]]}</p>
-        <button onClick={this.props.startExercise} name={val[0]}>
+        <Link to={`${this.props.match.url}/${val[0]}/test`}>
           {language.start_exercise}
-        </button>
-        <button onClick={this.props.startLearning} name={val[0]}>
+        </Link>
+        <Link to={`${this.props.match.url}/${val[0]}/learn`}>
           {language.start_learning}
-        </button>
+        </Link>
       </div>
     ));
     return (

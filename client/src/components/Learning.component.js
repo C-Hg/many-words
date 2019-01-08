@@ -1,5 +1,7 @@
 import React from "react";
 
+import getWordsToLearn from "../controllers/learning_fetcher/getWordsToLearn.controller";
+import getSwitchesStates from "../controllers/learning_fetcher/getSwitchesStates.function";
 import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
 import BackArrow from "./common_components/BackArrow.component";
 import Switches from "./learning_components/Switches.component";
@@ -15,10 +17,11 @@ class Learning extends React.Component {
     this.toggleDefinite = this.toggleDefinite.bind(this);
     this.updateWords = this.updateWords.bind(this);
     this.state = {
-      number: this.props.switches[0],
-      gender: this.props.switches[1],
-      definite: this.props.switches[2],
-      formattedWords: this.props.formattedWords
+      number: "",
+      gender: "",
+      definite: "",
+      formattedWords: ["hello", "ty"],
+      exerciseWords: ""
     };
   }
 
@@ -49,20 +52,41 @@ class Learning extends React.Component {
         state.number,
         state.gender,
         state.definite,
-        this.props.wordsToLearn
+        this.state.wordsToLearn
       )
     }));
   }
 
-  render() {
-    const wordsToLearn = this.state.formattedWords.map((val, i) => {
-      return (
-        <div key={`twoWords${i}`} className="twoWords">
-          {val.en} : {val.fr}
-          <br />
-        </div>
-      );
+  async componentDidMount() {
+    let wordsToLearn = await getWordsToLearn(this.props.lesson);
+    let switches = getSwitchesStates(wordsToLearn);
+    this.setState({
+      wordsToLearn: wordsToLearn,
+      formattedWords: selectWordsToLearnForms(
+        switches[0],
+        switches[1],
+        switches[2],
+        wordsToLearn
+      ),
+      number: switches[0],
+      gender: switches[1],
+      definite: switches[2]
     });
+  }
+
+  render() {
+    let wordsToLearn;
+    //cannot do it if data is not fetched from the database
+    if (this.state.formattedWords) {
+      wordsToLearn = this.state.formattedWords.map((val, i) => {
+        return (
+          <div key={`twoWords${i}`} className="twoWords">
+            {val.en} : {val.fr}
+            <br />
+          </div>
+        );
+      });
+    }
     return (
       <div className="learning-container">
         <BackArrow />
