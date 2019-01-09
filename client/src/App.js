@@ -11,19 +11,9 @@ import ExerciseLayout from "./layouts/Exercise.layout";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.endSession = this.endSession.bind(this);
     this.state = {
       main_language: languages.French
     };
-  }
-
-  endSession() {
-    this.setState({
-      activity: "curriculum",
-      exerciseWords: "",
-      switches: "",
-      formattedWords: ""
-    });
   }
 
   render() {

@@ -14,12 +14,45 @@
   padding: 0;
 }
 
-//lesson title
-.exerciseTitle {
-  justify-self: flex-start;
-  padding-bottom: 0;
+//lesson title and close cross
+.titleAndCross {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
   @media (min-width: $break-mid) {
-    padding-top: 30px;
+    height: 100px;
+    grid-template-columns: 72px 1fr;
+  }
+  @media (max-width: $break-mid) {
+    font-size: 50px !important;
+    grid-template-columns: 36px 1fr;
+  }
+}
+.exerciseTitle {
+  padding: 0;
+
+  margin-left: -72px;
+  justify-self: center;
+  vertical-align: baseline;
+  @media (min-width: $break-mid) {
+    font-size: 72px;
+    margin-top: -6px; //vertical alignment with close cross due to font type
+  }
+  @media (max-width: $break-mid) {
+    font-size: 36px !important;
+  }
+}
+
+.close {
+  color: $wrong-light;
+  padding-left: 20px;
+  @media (min-width: $break-mid) {
+    font-size: 72px;
+  }
+  @media (max-width: $break-mid) {
+    font-size: 36px !important;
   }
 }
 

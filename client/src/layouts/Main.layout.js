@@ -5,7 +5,6 @@ import Theme from "../components/Theme.component";
 import Subtheme from "../components/Subtheme.component";
 import Learning from "../components/Learning.component";
 import Navbar from "../components/Navbar.component";
-import "../App.scss";
 
 function MainLayout({ match }) {
   return (
@@ -36,7 +35,12 @@ function MainLayout({ match }) {
             exact
             path={`${match.path}:themeId/:subthemeId/:lessonId/learn`}
             render={props => (
-              <Learning lesson={props.match.params.lessonId} {...props} />
+              <Learning
+                lesson={props.match.params.lessonId}
+                theme={props.match.params.themeId}
+                subtheme={props.match.params.subthemeId}
+                {...props}
+              />
             )}
           />
         </Switch>

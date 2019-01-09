@@ -1,6 +1,7 @@
 import React from "react";
-import "./styles/Exercise.scss";
+import { Redirect, Link } from "react-router-dom";
 import exerciseFetcher from "../controllers/exercise_fetcher/exerciseFetcher.controller";
+import Close from "./common_components/Close.component";
 import ExerciseTitle from "./exercise_components/ExerciseTitle.component";
 import functions from "../controllers/exercise_functions/checkUserTranslation.functions";
 import ExerciseContainer from "./exercise_components/ExerciseContainer.component";
@@ -19,7 +20,8 @@ class Exercise extends React.Component {
       checking: false,
       correctAnswer: false,
       expectedAnswer: "",
-      activable: false
+      activable: false,
+      redirect: false
     };
   }
 
@@ -32,6 +34,9 @@ class Exercise extends React.Component {
   nextWord() {
     //exits the exercise module when all the words have been answered
     if (this.state.wordRank === this.state.exerciseWords.length - 1) {
+      this.setState({
+        redirect: true
+      });
     }
     this.setState(state => ({
       wordRank: state.wordRank + 1,
@@ -68,10 +73,18 @@ class Exercise extends React.Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={`/${this.props.theme}/${this.props.subtheme}`} />;
+    }
     if (this.state.exerciseWords) {
       return (
         <div className="exercise">
-          <ExerciseTitle lesson={this.props.lesson} />
+          <div className="titleAndCross">
+            <Link to={`/${this.props.theme}/${this.props.subtheme}`}>
+              <Close />{" "}
+            </Link>
+            <ExerciseTitle lesson={this.props.lesson} />
+          </div>
           <ExerciseContainer
             exerciseWords={this.state.exerciseWords}
             wordRank={this.state.wordRank}

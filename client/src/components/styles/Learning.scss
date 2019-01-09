@@ -34,12 +34,7 @@
 // navigation arrow
 .backArrow {
   grid-area: arrow;
-  @media (min-width: $break-mid) {
-    padding-left: 50px;
-  }
-  @media (min-width: $break-mid) {
-    padding-left: 50px;
-  }
+  padding-left: 50px;
 }
 
 // lesson title

@@ -2,7 +2,7 @@ import React from "react";
 
 const BackArrow = function() {
   return (
-    <i alt="Back" className="material-icons backArrow" Style="font-size: 76px">
+    <i alt="Back" className="material-icons md-72">
       arrow_back
     </i>
   );

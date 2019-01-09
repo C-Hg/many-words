@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import getWordsToLearn from "../controllers/learning_fetcher/getWordsToLearn.controller";
 import getSwitchesStates from "../controllers/learning_fetcher/getSwitchesStates.function";
 import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
@@ -89,7 +89,9 @@ class Learning extends React.Component {
     }
     return (
       <div className="learning-container">
-        <BackArrow />
+        <Link to={`/${this.props.theme}/${this.props.subtheme}`}>
+          <BackArrow />
+        </Link>
         <LearningTitle lesson={this.props.lesson} />
         <div className="wordsToLearn">{wordsToLearn}</div>
         <Switches
