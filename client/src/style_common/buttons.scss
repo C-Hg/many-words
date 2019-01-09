@@ -1,0 +1,22 @@
+//main button styling
+.blue-button {
+  text-align: center;
+  font-weight: bold;
+  border-radius: 50px;
+  border: 3px solid $active-exercise;
+  background-color: inherit;
+  color: $active-exercise;
+  &:hover {
+    background-color: $active-exercise-light;
+  }
+  @media (min-width: $break-mid) {
+    font-size: $h3-large-screen;
+    width: 160px;
+    height: 60px;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h3-mid-screen;
+    width: 130px;
+    height: 45px;
+  }
+}

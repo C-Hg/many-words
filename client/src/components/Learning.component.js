@@ -82,7 +82,6 @@ class Learning extends React.Component {
         return (
           <div key={`twoWords${i}`} className="twoWords">
             {val.en} : {val.fr}
-            <br />
           </div>
         );
       });

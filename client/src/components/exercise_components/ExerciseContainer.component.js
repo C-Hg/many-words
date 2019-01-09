@@ -8,6 +8,10 @@ import { LanguageContext } from "../../contexts/language-context";
 
 class ExerciseContainer extends React.Component {
   render() {
+    //sends the word depending on the selected source language
+    const originWord = this.props.exerciseWords[this.props.wordRank][
+      this.props.exerciseWords[this.props.wordRank].sourceLanguage
+    ][0];
     let languageClass = "";
     let language = this.context;
     if (language.language === "french") {
@@ -22,14 +26,7 @@ class ExerciseContainer extends React.Component {
             this.props.exerciseWords[this.props.wordRank].sourceLanguage
           }
         />
-        <OriginWord
-          originWord={
-            //sends the word depending on the selected source language
-            this.props.exerciseWords[this.props.wordRank][
-              this.props.exerciseWords[this.props.wordRank].sourceLanguage
-            ][0]
-          }
-        />
+        <OriginWord originWord={originWord} />
         <UserTranslation
           userTranslation={this.props.userTranslation}
           userTranslationChange={this.props.userTranslationChange}

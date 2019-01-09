@@ -1,4 +1,5 @@
 @import "../../style_common/variables.scss";
+@import "../../style_common/buttons.scss";
 
 .main-container-as-exercise {
   width: 100%;
@@ -22,26 +23,24 @@
   align-items: center;
   justify-items: center;
   @media (min-width: $break-mid) {
-    height: 100px;
+    height: 140px;
     grid-template-columns: 72px 1fr;
   }
   @media (max-width: $break-mid) {
-    font-size: 50px !important;
+    height: 80px;
     grid-template-columns: 36px 1fr;
   }
 }
 .exerciseTitle {
   padding: 0;
-
-  margin-left: -72px;
   justify-self: center;
   vertical-align: baseline;
+  margin-top: -8px; //vertical alignment with "close" cross due to font type
   @media (min-width: $break-mid) {
-    font-size: 72px;
-    margin-top: -6px; //vertical alignment with close cross due to font type
+    margin-left: -72px;
   }
   @media (max-width: $break-mid) {
-    font-size: 36px !important;
+    margin-left: -36px;
   }
 }
 
@@ -123,6 +122,7 @@
 
 //user translation input
 input {
+  background-color: inherit;
   font-weight: 400;
   text-align: center;
   margin-top: 20px;
@@ -148,7 +148,6 @@ input {
 
 .input-active {
   color: $inactive-exercise;
-  background-color: inherit;
   &:focus {
     color: $active-exercise;
     border-color: $active-exercise;
@@ -168,6 +167,7 @@ input {
 
 //next or check button
 .exercise-button {
+  background-color: inherit;
   text-align: center;
   align-self: center;
   width: 150px;
@@ -245,6 +245,11 @@ input {
   color: $correct;
 }
 
+.exercise-footer-warning {
+  background-color: $warning-light;
+  color: $warning;
+}
+
 .exercise-footer-incorrect {
   background-color: $wrong-light;
   color: $wrong;
@@ -291,4 +296,79 @@ input {
 
 .expectedAnswer {
   margin-left: 10px;
+}
+
+//recap screen
+.exerciseRecap {
+  //main container
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.lessonResult {
+  margin-bottom: 15px;
+  @media (min-width: $break-mid) {
+    font-size: $h1-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h1-mid-screen;
+  }
+  @media (max-width: $break-small) {
+    font-size: $h1-small-screen;
+  }
+}
+
+.missedWords {
+  text-align: left;
+  margin-bottom: 15px;
+  @media (min-width: $break-mid) {
+    font-size: $h2-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h2-mid-screen;
+  }
+  @media (max-width: $break-small) {
+    font-size: $h2-small-screen;
+  }
+}
+
+//link buttons
+.exitLink {
+  @extend .blue-button;
+  margin-bottom: 15px;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  @media (min-width: $break-mid) {
+    width: 600px;
+  }
+  @media (max-width: $break-mid) {
+    width: 450px;
+  }
+  @media (max-width: $break-small) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+//score in the footer : bigger than result comments during exercise
+.score {
+  @media (min-width: $break-mid) {
+    font-size: $score-large;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $score-mid;
+  }
+  @media (max-width: $break-small) {
+    font-size: $score-small;
+  }
 }

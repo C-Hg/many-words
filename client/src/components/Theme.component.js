@@ -9,7 +9,7 @@ class Theme extends React.Component {
     let subthemesNames = getSubthemesNames(theme);
     let language = this.context;
     const subthemes = subthemesNames.map(val => (
-      <Link to={`${this.props.match.url}/${val}`}>
+      <Link to={`${this.props.match.url}/${val}`} key={val}>
         {language.subthemes[val]}
       </Link>
     ));

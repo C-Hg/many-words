@@ -1,4 +1,5 @@
 @import "../../style_common/variables.scss";
+@import "../../style_common/buttons.scss";
 
 .learning-container {
   height: 100%;
@@ -34,7 +35,9 @@
 // navigation arrow
 .backArrow {
   grid-area: arrow;
-  padding-left: 50px;
+  @media (min-width: $break-mid) {
+    padding-left: 80px;
+  }
 }
 
 // lesson title
@@ -45,6 +48,7 @@
     font-size: $h1-large-screen;
     justify-self: center;
     margin-left: -50px; //compensates arrow padding
+    margin-top: -8px;
   }
   @media (max-width: $break-mid) {
     font-size: $h1-mid-screen;
@@ -57,13 +61,12 @@
   grid-area: words;
   justify-self: flex-end;
   display: inline-block;
-  text-align: center;
   margin: auto;
+  padding-bottom: 20px;
 }
 
 .twoWords {
   margin: auto;
-  text-align: left;
   @media (min-width: $break-mid) {
     margin-top: 20px;
   }
@@ -75,36 +78,27 @@
 //switches
 .switches {
   grid-area: switches;
-  align-self: start;
-  width: 80%;
+  flex-grow: 3;
+  align-self: flex-start;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-}
-
-.switch {
-  text-align: center;
-  font-weight: bold;
-  border-radius: 50px;
-  border: 3px solid $active-exercise;
-  background-color: inherit;
-  color: $active-exercise;
-  &:hover {
-    background-color: $active-exercise-light;
-  }
+  flex-wrap: wrap;
   @media (min-width: $break-mid) {
-    font-size: $h3-large-screen;
-    margin-top: 20px;
-    width: 160px;
-    height: 60px;
+    width: 75%;
   }
   @media (max-width: $break-mid) {
-    font-size: $h3-mid-screen;
-    margin-top: 8px;
-    width: 130px;
-    height: 45px;
+    width: 85%;
   }
-  @media (max-width: $break-small) {
-    font-size: $h3-small-screen;
+  @media (max-width: $break-small + 35) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
   }
+}
+
+//button styling
+.switch {
+  @extend .blue-button;
+  margin-bottom: 15px;
 }

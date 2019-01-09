@@ -27,9 +27,13 @@ $instructions-large: 38px;
 $instructions-mid: 28px;
 $instructions-small: 22px;
 
+$score-large: 42px;
+$score-mid: 32px;
+$score-small: 24px;
+
 //colors
-$background-color: #e5e5e5;
-$main-container-background: #fffffc;
+$main-background-color: rgba(229, 229, 229, 0.9);
+$main-container-background: rgba(245, 245, 245, 1);
 $navbar-background: rgba(0, 80, 255, 0.8);
 
 $main-font-color: #404040;
@@ -44,5 +48,8 @@ $inactive-background: #b3b8bb;
 $correct: #1aab00;
 $correct-light: rgba(175, 255, 125, 0.7);
 
-$wrong: rgba(250, 50, 50, 1);
-$wrong-light: rgba(250, 50, 50, 0.3);
+$warning: rgba(255, 97, 0, 1);
+$warning-light: rgba(255, 97, 0, 0.3);
+
+$wrong: rgba(255, 50, 50, 1);
+$wrong-light: rgba(255, 50, 50, 0.3);
