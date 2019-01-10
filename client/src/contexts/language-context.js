@@ -40,7 +40,7 @@ export const languages = {
       "Way to go"
     ],
     no_mistake: "Congratulations, you've made no mistake !",
-    one_mistake: "Great, it was almost perfect !",
+    one_mistake: "Great, it is almost perfect !",
     one_mistake_instructions: "Mind this word :",
     more_mistakes: "Take a moment to memorize the words you missed :",
     try_again: "Try again",
@@ -91,7 +91,7 @@ export const languages = {
       "Exactement"
     ],
     no_mistake: "Félicitations, tu n'as fait aucune erreur !",
-    one_mistake: "Bravo, tu as presque tout bon !",
+    one_mistake: "Bravo, c'est presque parfait !",
     one_mistake_instructions: "Fais attention à ce mot :",
     more_mistakes: "Prends un moment pour apprendre ces mots :",
     try_again: "Réessayer",

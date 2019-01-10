@@ -12,8 +12,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      main_language: languages.French
+      main_language: languages.French,
+      language_selected: false
     };
+  }
+
+  //automatic language selection without login
+  componentDidMount() {
+    if (!this.state.language_selected) {
+      if (!/fr/i.test(window.navigator.language)) {
+        this.setState({
+          main_language: languages.English,
+          language_selected: true
+        });
+      }
+    }
   }
 
   render() {
