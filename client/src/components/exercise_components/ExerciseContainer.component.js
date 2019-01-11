@@ -35,7 +35,12 @@ class ExerciseContainer extends React.Component {
           nextWord={this.props.nextWord}
         />
         {language.language === "english" && (
-          <SpecialCharacters sourceLanguage={sourceLanguage} />
+          <SpecialCharacters
+            sourceLanguage={sourceLanguage}
+            specialCharactersVisible={this.props.specialCharactersVisible}
+            toggleSpecialCharacters={this.props.toggleSpecialCharacters}
+            handleSpecialCharacter={this.props.handleSpecialCharacter}
+          />
         )}
 
         <SubmitOrNextButton

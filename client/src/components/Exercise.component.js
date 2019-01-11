@@ -13,6 +13,8 @@ class Exercise extends React.Component {
     super(props);
     this.userTranslationChange = this.userTranslationChange.bind(this);
     this.submitUserTranslation = this.submitUserTranslation.bind(this);
+    this.toggleSpecialCharacters = this.toggleSpecialCharacters.bind(this);
+    this.handleSpecialCharacter = this.handleSpecialCharacter.bind(this);
     this.nextWord = this.nextWord.bind(this);
     this.restart = this.restart.bind(this);
     this.redirect = this.redirect.bind(this);
@@ -26,8 +28,22 @@ class Exercise extends React.Component {
       expectedAnswer: "",
       activable: false,
       redirect: false,
+      specialCharactersVisible: false,
       failedWords: []
     };
+  }
+
+  toggleSpecialCharacters() {
+    this.setState({
+      specialCharactersVisible: true
+    });
+  }
+
+  handleSpecialCharacter(event) {
+    const letter = event.target.name;
+    this.setState(state => ({
+      userTranslation: state.userTranslation + letter
+    }));
   }
 
   nextWord() {
@@ -35,7 +51,8 @@ class Exercise extends React.Component {
     if (this.state.wordRank === this.state.exerciseWords.length - 1) {
       this.setState({
         status: "recap",
-        checking: false
+        checking: false,
+        specialCharactersVisible: false
       });
     } else {
       this.setState(state => ({
@@ -43,12 +60,14 @@ class Exercise extends React.Component {
         userTranslation: "",
         checking: false,
         correctAnswer: false,
-        expectedAnswer: ""
+        expectedAnswer: "",
+        specialCharactersVisible: false
       }));
     }
   }
 
-  restart() {
+  async restart() {
+    let words = await exerciseFetcher(this.props.lesson);
     this.setState({
       status: "exercise",
       wordRank: 0,
@@ -57,7 +76,7 @@ class Exercise extends React.Component {
       expectedAnswer: "",
       activable: false,
       failedWords: [],
-      exerciseWords: ""
+      exerciseWords: words
     });
   }
 
@@ -101,9 +120,8 @@ class Exercise extends React.Component {
   }
 
   async componentDidMount() {
-    if (this.state.exerciseWords === "") {
-      const lesson = this.props.lesson;
-      let words = await exerciseFetcher(lesson);
+    if (!this.state.exerciseWords) {
+      let words = await exerciseFetcher(this.props.lesson);
       this.setState({
         exerciseWords: words
       });
@@ -133,6 +151,9 @@ class Exercise extends React.Component {
               userTranslationChange={this.userTranslationChange}
               submitUserTranslation={this.submitUserTranslation}
               nextWord={this.nextWord}
+              toggleSpecialCharacters={this.toggleSpecialCharacters}
+              specialCharactersVisible={this.state.specialCharactersVisible}
+              handleSpecialCharacter={this.handleSpecialCharacter}
             />
           )}
           {this.state.status === "recap" && (
@@ -157,6 +178,7 @@ class Exercise extends React.Component {
       );
     } else {
       return (
+        //TO DO : implement waiting animation
         <div className="exercise">
           <ExerciseTitle lesson={this.props.lesson} />
           <ExerciseFooter

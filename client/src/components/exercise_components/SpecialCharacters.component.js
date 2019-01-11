@@ -1,22 +1,9 @@
 import React from "react";
 
 class SpecialCharacters extends React.Component {
-  constructor(props) {
-    super(props);
-    this.toggleVisibility = this.toggleVisibility.bind(this);
-    this.state = {
-      visible: false
-    };
-  }
-
-  toggleVisibility() {
-    this.setState(state => ({
-      visible: state.visible === false ? true : false
-    }));
-  }
-
   render() {
-    let visibilityClass = this.state.visible
+    let visible = this.props.specialCharactersVisible;
+    let visibilityClass = visible
       ? "specialCharacters-visible"
       : "specialCharacters-invisible";
     // the element is rendered only for english speakers when translating to French
@@ -26,15 +13,15 @@ class SpecialCharacters extends React.Component {
     } else
       return (
         <div className={"specialCharacters " + visibilityClass}>
-          {!this.state.visible && (
+          {!visible && (
             <button
               className="toggleSpecialCharacters"
-              onClick={this.toggleVisibility}
+              onClick={this.props.toggleSpecialCharacters}
             >
               Special characters
             </button>
           )}
-          {this.state.visible && (
+          {visible && (
             <div className="keys">
               <button
                 className="specialCharacter"
