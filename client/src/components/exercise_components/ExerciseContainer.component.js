@@ -4,6 +4,7 @@ import Instructions from "./Instructions.component";
 import OriginWord from "./OriginWord.component";
 import UserTranslation from "./UserTranslation.component";
 import SubmitOrNextButton from "./SubmitOrNextButton.component";
+import SpecialCharacters from "./SpecialCharacters.component";
 import { LanguageContext } from "../../contexts/language-context";
 
 class ExerciseContainer extends React.Component {
@@ -12,6 +13,8 @@ class ExerciseContainer extends React.Component {
     const originWord = this.props.exerciseWords[this.props.wordRank][
       this.props.exerciseWords[this.props.wordRank].sourceLanguage
     ][0];
+    const sourceLanguage = this.props.exerciseWords[this.props.wordRank]
+      .sourceLanguage;
     let languageClass = "";
     let language = this.context;
     if (language.language === "french") {
@@ -21,11 +24,7 @@ class ExerciseContainer extends React.Component {
     }
     return (
       <div className={"exercise_container " + languageClass}>
-        <Instructions
-          sourceLanguage={
-            this.props.exerciseWords[this.props.wordRank].sourceLanguage
-          }
-        />
+        <Instructions sourceLanguage={sourceLanguage} />
         <OriginWord originWord={originWord} />
         <UserTranslation
           userTranslation={this.props.userTranslation}
@@ -35,6 +34,10 @@ class ExerciseContainer extends React.Component {
           submitUserTranslation={this.props.submitUserTranslation}
           nextWord={this.props.nextWord}
         />
+        {language.language === "english" && (
+          <SpecialCharacters sourceLanguage={sourceLanguage} />
+        )}
+
         <SubmitOrNextButton
           submitUserTranslation={this.props.submitUserTranslation}
           nextWord={this.props.nextWord}

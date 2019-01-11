@@ -30,12 +30,6 @@ class Exercise extends React.Component {
     };
   }
 
-  userTranslationChange(event) {
-    this.setState({
-      userTranslation: event.target.value
-    });
-  }
-
   nextWord() {
     //goes to recap screen when all the words have been answered
     if (this.state.wordRank === this.state.exerciseWords.length - 1) {
@@ -62,13 +56,20 @@ class Exercise extends React.Component {
       correctAnswer: false,
       expectedAnswer: "",
       activable: false,
-      failedWords: []
+      failedWords: [],
+      exerciseWords: ""
     });
   }
 
   redirect() {
     this.setState({
       redirect: true
+    });
+  }
+
+  userTranslationChange(event) {
+    this.setState({
+      userTranslation: event.target.value
     });
   }
 
