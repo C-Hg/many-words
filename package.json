@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && node server.js",
+    "server": "cd server && nodemon server.js",
     "client": "cd client && npm start",
     "test": "npm run test:client && npm run test:seeder",
     "test:client": "cd client && npm run mocha-test",
@@ -17,9 +17,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "concurrently": "^4.1.0",
-    "dotenv": "^6.2.0",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.18.8"
+    "mocha": "^5.2.0"
   },
   "dependencies": {},
   "repository": {

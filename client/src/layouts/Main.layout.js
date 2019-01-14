@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import Home from "../components/Home.component";
 import Curriculum from "../components/Curriculum.component";
 import Theme from "../components/Theme.component";
 import Subtheme from "../components/Subtheme.component";
@@ -12,7 +13,12 @@ function MainLayout({ match }) {
       <Navbar />
       <div className={"main-container main-container-as-menu"}>
         <Switch>
-          <Route exact path={match.path} component={Curriculum} />
+          <Route exact path={match.path} component={Home} />
+          <Route
+            exact
+            path={`${match.path}curriculum`}
+            component={Curriculum}
+          />
           <Route
             exact
             path={`${match.path}:themeId`}

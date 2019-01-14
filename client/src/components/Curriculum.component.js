@@ -10,7 +10,7 @@ class Curriculum extends React.Component {
     return (
       <div className="curriculum">
         <h1 className="curriculumTitle">{language.curriculum_title}</h1>
-        <Link to={`${this.props.match.path}nature`}>Nature</Link>
+        <Link to={`../nature`}>Nature</Link>
       </div>
     );
   }

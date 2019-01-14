@@ -17,7 +17,7 @@ class App extends Component {
     };
   }
 
-  //automatic language selection without login
+  //automatic language selection
   componentDidMount() {
     if (!this.state.language_selected) {
       if (!/fr/i.test(window.navigator.language)) {
