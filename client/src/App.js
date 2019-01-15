@@ -3,8 +3,10 @@ import { Switch, Route } from "react-router-dom";
 import "./App.scss";
 import "./style_common/material_icons.css";
 
-//language Context
+//Contexts
 import { LanguageContext, languages } from "./contexts/language-context";
+import { UserContext, user } from "./contexts/user-context";
+
 import MainLayout from "./layouts/Main.layout";
 import ExerciseLayout from "./layouts/Exercise.layout";
 
@@ -12,6 +14,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: user.guest,
+      isAuthenticated: false,
       main_language: languages.French,
       language_selected: false
     };
@@ -31,16 +35,18 @@ class App extends Component {
 
   render() {
     return (
-      <LanguageContext.Provider value={this.state.main_language}>
-        <Switch>
-          <Route
-            exact
-            path="/:themeId/:subthemeId/:lessonId/test"
-            component={ExerciseLayout}
-          />
-          <Route path="/" component={MainLayout} />
-        </Switch>
-      </LanguageContext.Provider>
+      <UserContext.Provider value={this.state.user}>
+        <LanguageContext.Provider value={this.state.main_language}>
+          <Switch>
+            <Route
+              exact
+              path="/:themeId/:subthemeId/:lessonId/test"
+              component={ExerciseLayout}
+            />
+            <Route path="/" component={MainLayout} />
+          </Switch>
+        </LanguageContext.Provider>
+      </UserContext.Provider>
     );
   }
 }

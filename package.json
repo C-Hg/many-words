@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && nodemon server.js",
-    "client": "cd client && npm start",
+    "client": "set HTTPS=true && cd client && npm start",
     "test": "npm run test:client && npm run test:seeder",
     "test:client": "cd client && npm run mocha-test",
     "test:seeder": "cd tools/database_seeder && mocha",

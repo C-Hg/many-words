@@ -24,3 +24,6 @@ yarn-error.log*
 
 #lint
 .eslintrc
+
+#config files
+src/config/secrets.js

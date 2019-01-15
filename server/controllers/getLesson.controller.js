@@ -2,6 +2,7 @@ const Word = require("../models/word.model");
 
 exports.getLesson = async function(req, res) {
   let words;
+  console.log(req.user);
   try {
     words = await Word.find(
       { lessonName: req.params.lesson },

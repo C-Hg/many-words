@@ -2,11 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
 import GoogleLogin from "react-google-login";
+import googleAuth from "../controllers/auth/googleAuth.function";
+import secrets from "../config/secrets";
 
 class Home extends React.Component {
   render() {
-    let language = this.context;
-    const responseGoogle = response => {
+    //let language = this.context;
+    const responseGoogle = async response => {
+      let authResponse = await googleAuth(response.accessToken);
+      if (authResponse);
+    };
+
+    const responseError = response => {
       console.log(response);
     };
 
@@ -14,10 +21,10 @@ class Home extends React.Component {
       <div className="home">
         <Link to={`${this.props.match.path}curriculum`}>Curriculum</Link>
         <GoogleLogin
-          clientId="698239669940-ekd7gksv36tt6cd5l4cnumtlf7rdj84b.apps.googleusercontent.com"
+          clientId={secrets.GOOGLE_CLIENT_ID}
           buttonText="Login"
           onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          onFailure={responseError}
         />
       </div>
     );
