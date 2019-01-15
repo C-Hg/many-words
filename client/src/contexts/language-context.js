@@ -16,6 +16,9 @@ export const languages = {
       mammals: "Mammals",
       birds: "Birds"
     },
+    navigation: {
+      connect_with_google: "Log in with Google"
+    },
     curriculum_title: "What do you want to learn?",
     start_exercise: "test",
     start_learning: "learn",
@@ -66,6 +69,9 @@ export const languages = {
       common_animals: "Animaux courants",
       mammals: "Mammifères",
       birds: "Oiseaux"
+    },
+    navigation: {
+      connect_with_google: "Connexion avec Google"
     },
     curriculum_title: "Que veux-tu apprendre?",
     start_exercise: "test",

@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Home from "../components/Home.component";
 import Curriculum from "../components/Curriculum.component";
 import Theme from "../components/Theme.component";
 import Subtheme from "../components/Subtheme.component";
@@ -9,11 +8,10 @@ import Navbar from "../components/Navbar.component";
 
 function MainLayout({ match }) {
   return (
-    <div className={"app app-with-navbar"}>
+    <div className="app app-with-navbar">
       <Navbar />
-      <div className={"main-container main-container-as-menu"}>
+      <div className="main-container main-container-as-menu">
         <Switch>
-          <Route exact path={match.path} component={Home} />
           <Route
             exact
             path={`${match.path}curriculum`}

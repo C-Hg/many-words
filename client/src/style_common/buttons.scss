@@ -20,3 +20,24 @@
     height: 45px;
   }
 }
+
+.auth-button {
+  text-align: center;
+  font-weight: normal;
+  border-radius: 12px;
+  border: 1.5px solid;
+  background-color: inherit;
+  height: 50px;
+  @media (min-width: $break-mid) {
+    font-size: $p-large-screen;
+    width: 300px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $p-mid-screen;
+    width: 220px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}

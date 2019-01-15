@@ -5,28 +5,30 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 const secrets = require("./config/secrets");
 
 /*  -------------   login and session middlewares    -----------*/
 app.use(
   session({
     secret: secrets.SESSION_SECRET,
-    resave: false,
+    resave: false, // prevents race condition
     saveUninitialized: true,
-    cookie: { secure: false, sameSite: true },
+    cookie: {
+      secure: false,
+      sameSite: true,
+      maxAge: 100 * 24 * 60 * 60 * 1000
+    },
     store: new MongoDBStore({
       uri: process.env.MONGO_URI || "mongodb://localhost/many-words",
       collection: "mySessions"
     })
   })
 );
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
-require("./auth/session.middlewares")(); // passport serializer and deserializer
+require("./auth/session/session.middlewares")(); // passport serializer and deserializer
 
 /* ----------------------     Mongoose setup     ------------*/
 const mongoose = require("mongoose");

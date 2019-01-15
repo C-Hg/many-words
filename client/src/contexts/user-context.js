@@ -2,9 +2,11 @@ import React from "react";
 
 export let user = {
   guest: {
-    language: "english"
+    language: "english",
+    isAuthenticated: false
   },
   loggedInUser: {
+    isAuthenticated: true,
     name: "",
     language: ""
   }

@@ -1,0 +1,42 @@
+@import "../../style_common/variables.scss";
+@import "../../style_common/buttons.scss";
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $main-font-color;
+}
+
+h2 {
+  color: $main-font-color;
+}
+
+.googleButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 15px;
+  padding-right: 15px;
+  @extend .auth-button;
+  color: #d34836;
+  border-color: #d34836;
+  &:hover {
+    animation-name: google-hover;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes google-hover {
+  0% {
+    color: #d34836;
+  }
+  100% {
+    color: white;
+    background-color: #d34836;
+    border-color: black;
+  }
+}
