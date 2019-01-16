@@ -1,17 +1,15 @@
 import React from "react";
 
 export let user = {
-  guest: {
-    language: "english",
-    isAuthenticated: false
-  },
-  loggedInUser: {
-    isAuthenticated: true,
-    name: "",
-    language: ""
+  isAuthenticated: false,
+  email: "",
+  language: "",
+  logInUser(email) {
+    this.email = email;
+    this.isAuthenticated = true;
   }
 };
 
 export let UserContext = React.createContext(
-  user.guest // default value
+  user // default value
 );

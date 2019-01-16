@@ -4,7 +4,6 @@ async function getSessionDetails() {
     req.open("GET", `/auth/session`, true);
     req.send();
     req.onload = function() {
-      console.log(req.response);
       resolve(req.response);
     };
     req.onerror = function() {

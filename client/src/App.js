@@ -16,33 +16,27 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: user.guest,
+      user: user,
       main_language: languages.French,
-      language_selected: false,
       isSessionChecked: false
     };
   }
 
-  //automatic language selection
+  // automatic language and session detection on first page rendering
+  // otherwise triggered by login/logout actions
   async componentDidMount() {
     if (!this.state.isSessionChecked) {
-      let user = await getUserDetails();
-      console.log(user);
+      let userData = await getUserDetails();
       this.setState({
         isSessionChecked: true
       });
-      if (typeof user === "object") {
-        this.setState({
-          user: user.loggedInUser
-        });
+      if (userData !== "no active session") {
+        userData = JSON.parse(userData);
+        user.logInUser(userData.email); //updates user context
       }
-    }
-
-    if (!this.state.language_selected) {
       if (!/fr/i.test(window.navigator.language)) {
         this.setState({
-          main_language: languages.English,
-          language_selected: true
+          main_language: languages.English
         });
       }
     }

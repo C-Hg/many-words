@@ -16,11 +16,11 @@ app.use(
     cookie: {
       secure: false,
       sameSite: true,
-      maxAge: 100 * 24 * 60 * 60 * 1000
+      maxAge: 100 * 24 * 60 * 60 * 1000 //log in every 3 months
     },
     store: new MongoDBStore({
       uri: process.env.MONGO_URI || "mongodb://localhost/many-words",
-      collection: "mySessions"
+      collection: "sessions"
     })
   })
 );

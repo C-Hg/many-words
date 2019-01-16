@@ -7,7 +7,7 @@ exports.getWordsToLearn = async function(req, res) {
       { lessonName: req.params.lesson },
       "type hasUniqueForm en fr"
     );
-    res.send(words);
+    res.send(JSON.stringify(words));
   } catch (e) {
     console.log("Error while fetching words to learn (server side)");
     return;
