@@ -3,21 +3,20 @@ import { GoogleLogin } from "react-google-login";
 import googleAuth from "../../controllers/auth/googleAuth.function";
 import secrets from "../../config/secrets";
 import { LanguageContext } from "../../contexts/language-context";
-import { user } from "../../contexts/user-context";
-
-const responseGoogle = async response => {
-  let authResponse = await googleAuth(response.accessToken);
-  if (authResponse !== "no active session") {
-    let userData = JSON.parse(authResponse);
-    user.logInUser(userData.email);
-  }
-};
-
-const responseError = response => {
-  console.log(response);
-};
 
 class LoginWithGoogle extends React.Component {
+  responseGoogle = async response => {
+    let authResponse = await googleAuth(response.accessToken);
+    if (authResponse !== "no active session") {
+      let userData = JSON.parse(authResponse);
+      this.props.loginUser(userData.email); //login logic is centralized in app.js
+    }
+  };
+
+  responseError = response => {
+    console.log(response);
+  };
+
   render() {
     let language = this.context;
     return (
@@ -27,12 +26,12 @@ class LoginWithGoogle extends React.Component {
           <button onClick={renderProps.onClick} className="googleButton">
             <i className="fa fa-google" />
             <p className="loginInstructions">
-              {language.navigation.connect_with_google}
+              {language.navigation.login_with_google}
             </p>
           </button>
         )}
-        onSuccess={responseGoogle}
-        onFailure={responseError}
+        onSuccess={this.responseGoogle}
+        onFailure={this.responseError}
       />
     );
   }

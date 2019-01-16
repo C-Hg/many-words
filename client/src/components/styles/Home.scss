@@ -12,6 +12,7 @@ h2 {
   color: $main-font-color;
 }
 
+/* ------------------    login buttons    ---------------------   */
 .googleButton {
   display: flex;
   flex-direction: row;
@@ -38,5 +39,83 @@ h2 {
     color: white;
     background-color: #d34836;
     border-color: black;
+  }
+}
+
+/*   -----------------------  logout button ------------------------ */
+.logoutButton {
+  text-align: center;
+  font-weight: normal;
+  border-radius: 10px;
+  border: 1px solid $main-font-color;
+  background-color: inherit;
+  padding: 0;
+  height: 50px;
+  margin: auto;
+  @media (min-width: $break-mid) {
+    font-size: $p-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $p-mid-screen;
+  }
+}
+
+.logout-button-english {
+  @media (min-width: $break-mid) {
+    width: 200px;
+  }
+  @media (max-width: $break-mid) {
+    width: 140px;
+  }
+}
+
+.logout-button-french {
+  @media (min-width: $break-mid) {
+    width: 250px;
+  }
+  @media (max-width: $break-mid) {
+    width: 200px;
+  }
+}
+
+/* -------------------    logout confirmation   ----------------- */
+.logoutInfo {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoutText {
+  @media (min-width: $break-mid) {
+    font-size: $h2-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h2-mid-screen;
+  }
+}
+
+.acknowledgeLogout {
+  margin-top: 30px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 1px solid;
+  background-color: inherit;
+  padding: 0;
+  height: 40px;
+  @media (min-width: $break-mid) {
+    font-size: $p-large-screen;
+    width: 250px;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $p-mid-screen;
+    width: 150px;
+  }
+  &:hover {
+    background-color: $inactive-light;
   }
 }

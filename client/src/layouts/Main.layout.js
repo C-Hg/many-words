@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar.component";
 
 function MainLayout({ match }) {
   return (
-    <div className="app app-with-navbar">
+    <div className="app app-with-navbar-as-menu">
       <Navbar />
       <div className="main-container main-container-as-menu">
         <Switch>

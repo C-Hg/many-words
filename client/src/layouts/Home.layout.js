@@ -3,15 +3,27 @@ import { Route } from "react-router-dom";
 import Navbar from "../components/Navbar.component";
 import Home from "../components/Home.component";
 
-function HomeLayout({ match }) {
-  return (
-    <div className="app app-with-navbar">
-      <Navbar />
-      <div className="main-container .main-container-full-screen">
-        <Route exact path={match.path} render={props => <Home {...props} />} />
+class HomeLayout extends React.Component {
+  render() {
+    return (
+      <div className="app app-with-navbar-full-screen">
+        <Navbar />
+        <div className="main-container main-container-full-screen">
+          <Route
+            exact
+            path={this.props.match.path}
+            render={props => (
+              <Home
+                {...props}
+                logoutUser={this.props.logoutUser}
+                loginUser={this.props.loginUser}
+              />
+            )}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default HomeLayout;

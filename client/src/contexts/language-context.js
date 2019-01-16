@@ -17,7 +17,13 @@ export const languages = {
       birds: "Birds"
     },
     navigation: {
-      connect_with_google: "Log in with Google"
+      login_with_google: "Log in with Google",
+      logout: "Log out"
+    },
+    home: {
+      main_title: "Enhance your French vocabulary",
+      logout_success: "You were successfully disconnected",
+      logout_failure: "There was a problem during the disconnection"
     },
     curriculum_title: "What do you want to learn?",
     start_exercise: "test",
@@ -71,7 +77,13 @@ export const languages = {
       birds: "Oiseaux"
     },
     navigation: {
-      connect_with_google: "Connexion avec Google"
+      login_with_google: "Connexion avec Google",
+      logout: "Déconnexion"
+    },
+    home: {
+      main_title: "Enrichis ton vocabulaire anglais",
+      logout_success: "Vous êtes maintenant déconnecté",
+      logout_failure: "Il y a eu un problème pendant la déconnexion"
     },
     curriculum_title: "Que veux-tu apprendre?",
     start_exercise: "test",

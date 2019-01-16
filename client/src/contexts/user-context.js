@@ -1,12 +1,19 @@
 import React from "react";
 
 export let user = {
-  isAuthenticated: false,
-  email: "",
-  language: "",
+  guest: {
+    isAuthenticated: false
+  },
+  connected: {
+    isAuthenticated: true,
+    email: "",
+    language: ""
+  },
   logInUser(email) {
-    this.email = email;
-    this.isAuthenticated = true;
+    this.connected.email = email;
+  },
+  logOutUser() {
+    this.connected.email = "";
   }
 };
 

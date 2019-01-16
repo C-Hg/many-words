@@ -25,9 +25,11 @@
   text-align: center;
   font-weight: normal;
   border-radius: 12px;
-  border: 1.5px solid;
+  border: 1px solid;
   background-color: inherit;
+  padding: 0;
   height: 50px;
+  margin: auto;
   @media (min-width: $break-mid) {
     font-size: $p-large-screen;
     width: 300px;

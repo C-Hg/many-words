@@ -8,6 +8,7 @@ body {
   padding: 0;
 }
 
+/*   ----------------------      app container      --------------------------- */
 .app {
   font-family: "Open Sans", sans-serif;
   color: $main-font-color;
@@ -20,12 +21,16 @@ body {
   overflow: hidden;
 }
 
-.app-with-navbar {
+.app-with-navbar-full-screen {
+  padding-top: 70px;
+}
+
+.app-with-navbar-as-menu {
   padding-top: 70px;
   padding-bottom: 30px;
 }
 
-// the main container is styled differently depending on the current "activity"
+/*    --------------    main container, full screen or not   --------------   */
 .main-container {
   margin: auto;
   background-color: $main-container-background;
@@ -42,13 +47,18 @@ body {
   @media (max-width: $break-large - 1) {
     width: 100%;
     padding-bottom: 30px;
-    border-radius: 0;
     margin: 0;
   }
 }
 
 .main-container-full-screen {
   width: 100%;
+}
+
+/*   ----------------    default values overwriting    --------------- */
+p {
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -77,7 +87,8 @@ h2 {
   }
 }
 
-//general button and input styling
+/*     ------------     general button and input styling    -------------------  */
+// mostly disabling useless or annoying features
 //disable outline on focus
 * {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
