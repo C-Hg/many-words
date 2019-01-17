@@ -2,22 +2,16 @@ const findUserWithEmail = require("../common/findUserWithEmail.function");
 const findUserWithGoogleId = require("./findUserWithGoogleId.function");
 const createUserWithGoogle = require("./createUserWithGoogle.function");
 
-module.exports = async function findOrCreateGoogleUser(googleId, email = "") {
+module.exports = async function findOrCreateGoogleUser(googleId, email) {
   let user = "";
 
-  // searches the user with email (thus a chance to find same user with different social providers)
-  // careful : google sends an array of email adresses of the form :
-  // [{ value: email@adress }]
+  // searches user with email, allows cross auth with several providers
+  // see findUserWithEmail.function for details
   if (email) {
-    if (typeof email === "object") {
-      for (let count = 0; count < email.length; count++) {
-        try {
-          user = await findUserWithEmail(email[count].value);
-          if (user) break;
-        } catch (e) {
-          console.log("error while searching user with email");
-        }
-      }
+    try {
+      user = await findUserWithEmail(email);
+    } catch (e) {
+      console.log("error while searching user with email");
     }
   }
   if (user) return user;

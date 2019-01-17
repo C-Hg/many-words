@@ -7,10 +7,8 @@ import { LanguageContext } from "../../contexts/language-context";
 class LoginWithGoogle extends React.Component {
   responseGoogle = async response => {
     let authResponse = await googleAuth(response.accessToken);
-    if (authResponse !== "no active session") {
-      let userData = JSON.parse(authResponse);
-      this.props.loginUser(userData.email); //login logic is centralized in app.js
-    }
+    let userData = JSON.parse(authResponse);
+    this.props.loginUser(userData.email); //login logic is centralized in app.js
   };
 
   responseError = response => {
