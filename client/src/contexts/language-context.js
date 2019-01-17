@@ -17,7 +17,7 @@ export const languages = {
       birds: "Birds"
     },
     navigation: {
-      login_with_google: "Log in with Google",
+      login_with: "Log in with",
       logout: "Log out"
     },
     home: {
@@ -77,7 +77,7 @@ export const languages = {
       birds: "Oiseaux"
     },
     navigation: {
-      login_with_google: "Connexion avec Google",
+      login_with: "Connexion avec",
       logout: "Déconnexion"
     },
     home: {

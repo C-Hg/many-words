@@ -32,13 +32,13 @@
   margin: auto;
   @media (min-width: $break-mid) {
     font-size: $p-large-screen;
-    width: 300px;
+    width: 320px;
     padding-left: 20px;
     padding-right: 20px;
   }
   @media (max-width: $break-mid) {
     font-size: $p-mid-screen;
-    width: 220px;
+    width: 280px;
     padding-left: 8px;
     padding-right: 8px;
   }

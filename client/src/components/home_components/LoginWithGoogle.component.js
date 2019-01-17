@@ -26,7 +26,7 @@ class LoginWithGoogle extends React.Component {
           <button onClick={renderProps.onClick} className="googleButton">
             <i className="fa fa-google" />
             <p className="loginInstructions">
-              {language.navigation.login_with_google}
+              {language.navigation.login_with + " Google"}
             </p>
           </button>
         )}

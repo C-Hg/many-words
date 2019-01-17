@@ -13,6 +13,13 @@ router.get("/google/token", passport.authenticate("google-token"), function(
   res.send(req.user);
 });
 
+router.get("/facebook/token", passport.authenticate("facebook-token"), function(
+  req,
+  res
+) {
+  res.send(req.user);
+});
+
 router.get("/session", sendUserDetails);
 router.get("/logout", logoutUser);
 
