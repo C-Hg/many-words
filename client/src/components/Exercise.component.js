@@ -29,7 +29,8 @@ class Exercise extends React.Component {
       activable: false,
       redirect: false,
       specialCharactersVisible: false,
-      failedWords: []
+      failedWords: [],
+      result: []
     };
   }
 
@@ -97,10 +98,20 @@ class Exercise extends React.Component {
       this.state.userTranslation,
       this.state.exerciseWords[this.state.wordRank]
     );
-    this.setState({
+    this.setState(state => ({
       checking: true,
-      correctAnswer: result[0]
-    });
+      correctAnswer: result[0],
+      result: [
+        ...state.result,
+        [
+          this.state.exerciseWords[this.state.wordRank].selectedForm[0],
+          this.state.exerciseWords[this.state.wordRank].selectedForm[1],
+          this.state.exerciseWords[this.state.wordRank].selectedForm[2],
+          result[0]
+        ]
+      ]
+    }));
+    // if wrong answer, adds word to failedWords for restitution in recap
     if (!result[0]) {
       this.setState(state => ({
         //allows rendering of the expect answer in the footer
@@ -110,7 +121,7 @@ class Exercise extends React.Component {
           ...state.failedWords,
           [
             this.state.exerciseWords[this.state.wordRank][
-              this.state.exerciseWords[this.state.wordRank].sourceLanguage
+              this.state.exerciseWords[this.state.wordRank].selectedForm[1]
             ][0],
             result[1]
           ]
@@ -158,6 +169,7 @@ class Exercise extends React.Component {
           )}
           {this.state.status === "recap" && (
             <ExerciseRecap
+              result={this.state.result}
               failedWords={this.state.failedWords}
               restart={this.restart}
               redirect={this.redirect}

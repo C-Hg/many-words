@@ -2,12 +2,6 @@ import { randomPicker } from "../../common/randomPicker.function";
 import return_Selected_Words_With_Article from "./returnSelectedWords.function";
 import { returnForms } from "./returnForms.function";
 
-const formattedWord = function(sourceLanguage, fr, en) {
-  this.sourceLanguage = sourceLanguage;
-  this.fr = fr;
-  this.en = en;
-};
-
 // this is the main function, it formats words for the client, with informations gathered from the db
 
 function FrEnWordSelector(wordsToSelect) {
@@ -44,11 +38,14 @@ function FrEnWordSelector(wordsToSelect) {
       word.en,
       fr_form,
       en_form,
-      articleForm
+      articleForm,
+      word.en_name
     );
-    preparedWords.push(
-      new formattedWord(sourceLanguage, selectedWords.fr, selectedWords.en)
-    );
+    preparedWords.push({
+      selectedForm: selectedWords.selectedForm,
+      fr: selectedWords.fr,
+      en: selectedWords.en
+    });
     wordCounter++;
   }
   return preparedWords;

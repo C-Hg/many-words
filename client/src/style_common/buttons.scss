@@ -25,21 +25,17 @@
   text-align: center;
   font-weight: normal;
   border-radius: 12px;
-  border: 1px solid;
+  border: 1.2px solid;
   background-color: inherit;
   padding: 0;
   height: 50px;
   margin: auto;
   @media (min-width: $break-mid) {
     font-size: $p-large-screen;
-    width: 320px;
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 330px;
   }
   @media (max-width: $break-mid) {
     font-size: $p-mid-screen;
-    width: 280px;
-    padding-left: 8px;
-    padding-right: 8px;
+    width: 270px;
   }
 }

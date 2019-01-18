@@ -11,10 +11,10 @@ class ExerciseContainer extends React.Component {
   render() {
     //sends the word depending on the selected source language
     const originWord = this.props.exerciseWords[this.props.wordRank][
-      this.props.exerciseWords[this.props.wordRank].sourceLanguage
+      this.props.exerciseWords[this.props.wordRank].selectedForm[1]
     ][0];
     const sourceLanguage = this.props.exerciseWords[this.props.wordRank]
-      .sourceLanguage;
+      .selectedForm[1];
     let languageClass = "";
     let language = this.context;
     if (language.language === "french") {

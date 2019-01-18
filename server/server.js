@@ -12,7 +12,7 @@ app.use(
   session({
     secret: secrets.SESSION_SECRET,
     resave: false, // prevents race condition
-    saveUninitialized: true,
+    saveUninitialized: false, // creates a session only if user logs in
     cookie: {
       secure: false,
       sameSite: true,
@@ -24,7 +24,7 @@ app.use(
     })
   })
 );
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());

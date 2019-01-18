@@ -1,6 +1,6 @@
 exports.checkUserTranslation = function(userTranslation, words) {
   let correctTranslations;
-  if (words.sourceLanguage === "fr") {
+  if (words.selectedForm[1] === "fr") {
     correctTranslations = words.en;
   } else {
     correctTranslations = words.fr;

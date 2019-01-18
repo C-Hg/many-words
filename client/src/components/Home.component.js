@@ -1,11 +1,11 @@
 import React from "react";
 import "./styles/Home.scss";
-import LoginWithGoogle from "./home_components/LoginWithGoogle.component";
-import LoginWithFacebook from "./home_components/LoginWithFacebook.component";
+
 import { UserContext } from "../contexts/user-context";
 import LogoutButton from "./home_components/LogoutButton.component";
 import Welcome from "./home_components/Welcome.component";
 import LogoutConfirmation from "./home_components/LogoutConfirmation.component";
+import LoginButtons from "./home_components/LoginButtons.component";
 
 class Home extends React.Component {
   constructor(props) {
@@ -46,10 +46,7 @@ class Home extends React.Component {
           {user.isAuthenticated && <LogoutButton logout={this.logout} />}
           {!user.isAuthenticated && <Welcome />}
           {!user.isAuthenticated && (
-            <LoginWithGoogle loginUser={this.props.loginUser} />
-          )}
-          {!user.isAuthenticated && (
-            <LoginWithFacebook loginUser={this.props.loginUser} />
+            <LoginButtons loginUser={this.props.loginUser} />
           )}
         </div>
       );

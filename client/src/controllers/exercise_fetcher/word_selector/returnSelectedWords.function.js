@@ -8,6 +8,8 @@ import { associateEnWordWithArticle } from "./associateWordWithArticle.function"
 // source language : single word inside an array
 // destination language : one or several accepted translations in an array
 
+// update for progress tracking: also returns an array with source language and selected form
+
 // return examples where source language is FR:
 // {fr: ["marcher"], en: ["to walk"]}
 // {fr: ["voyage"], en: ["travel", "journey"]}
@@ -20,7 +22,8 @@ function return_Selected_Words_With_Article(
   enWords,
   fr_form,
   en_form,
-  articleForm
+  articleForm,
+  en_name
 ) {
   let frResults = [];
   let enResults = [];
@@ -59,7 +62,14 @@ function return_Selected_Words_With_Article(
     }
     enResults.push(associateEnWordWithArticle(en_article, enWords[a][en_form]));
   }
-  return { fr: frResults, en: enResults };
+
+  //gathering info for progress tracking
+  let selectedForm = [en_name, sourceLanguage];
+  sourceLanguage === "fr"
+    ? selectedForm.push(fr_form[0])
+    : selectedForm.push(en_form);
+
+  return { fr: frResults, en: enResults, selectedForm };
 }
 
 export default return_Selected_Words_With_Article;

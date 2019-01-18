@@ -2,8 +2,11 @@
 @import "../../style_common/buttons.scss";
 
 .home {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   color: $main-font-color;
 }
@@ -13,19 +16,46 @@ h2 {
 }
 
 /* ------------------    login buttons    ---------------------   */
-.googleButton {
+.loginButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 120px;
+}
+
+.loginButtonContent {
+  margin: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
-  padding-left: 15px;
-  padding-right: 15px;
+  justify-content: flex-start;
+}
+
+.login-button-french {
+  @media (min-width: $break-mid) {
+    width: 255px;
+  }
+  @media (max-width: $break-mid) {
+    width: 230px;
+  }
+}
+
+.login-button-english {
+  @media (min-width: $break-mid) {
+    width: 220px;
+  }
+  @media (max-width: $break-mid) {
+    width: 190px;
+  }
+}
+
+.googleButton {
   @extend .auth-button;
   color: #d34836;
   border-color: #d34836;
   &:hover {
     animation-name: google-hover;
-    animation-duration: 0.1s;
+    animation-duration: 0.3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
   }
@@ -34,12 +64,57 @@ h2 {
 @keyframes google-hover {
   0% {
     color: #d34836;
+    border-color: #d34836;
+    background-color: inherit;
   }
   100% {
     color: white;
     background-color: #d34836;
     border-color: black;
   }
+}
+
+.fa-google {
+  width: 20px;
+  text-align: center;
+}
+
+.facebookButton {
+  @extend .auth-button;
+  color: #3b5998;
+  border-color: #3b5998;
+  &:hover {
+    animation-name: facebook-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes facebook-hover {
+  0% {
+    color: #3b5998;
+    border-color: #3b5998;
+    background-color: inherit;
+  }
+  100% {
+    color: white;
+    background-color: #3b5998;
+    border-color: black;
+  }
+}
+
+.fa-facebook {
+  width: 20px;
+  text-align: center;
+}
+
+.login-instructions-french {
+  padding-left: 6%;
+}
+
+.login-instructions-english {
+  padding-left: 10%;
 }
 
 /*   -----------------------  logout button ------------------------ */

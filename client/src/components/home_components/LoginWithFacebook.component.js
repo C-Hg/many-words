@@ -13,18 +13,31 @@ class LoginWithFacebook extends React.Component {
 
   render() {
     let language = this.context;
+    let languageClass;
+    let loginInstructions;
+    if (language.language === "english") {
+      languageClass = "login-button-english";
+      loginInstructions = "login-instructions-english";
+    } else {
+      languageClass = "login-button-french";
+      loginInstructions = "login-instructions-french";
+    }
     return (
       <FacebookLogin
         appId={secrets.FACEBOOK_APP_ID}
         autoLoad={false} //prevents auto connection with facebook on page load : user must be able to choose
         fields="email"
         render={renderProps => (
-          <button onClick={renderProps.onClick}>
-            {language.navigation.login_with + " Facebook"}
+          <button onClick={renderProps.onClick} className="facebookButton">
+            <div className={`loginButtonContent ${languageClass}`}>
+              <i className="fa fa-facebook" />
+              <p className={loginInstructions}>
+                {language.navigation.login_with + " Facebook"}
+              </p>
+            </div>
           </button>
         )}
         callback={this.responseFacebook}
-        cssClass="my-facebook-button-class"
         icon="fa-facebook"
       />
     );

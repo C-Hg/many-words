@@ -27,10 +27,10 @@ db.once("open", async () => {
   });
 });
 
-//returns an array of word objects
 async function seedDatabase() {
   let words, result;
   try {
+    //returns an array of word objects
     words = await gatherData(curriculumDirectory);
   } catch (e) {
     console.error(

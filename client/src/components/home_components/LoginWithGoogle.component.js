@@ -17,15 +17,26 @@ class LoginWithGoogle extends React.Component {
 
   render() {
     let language = this.context;
+    let languageClass;
+    let loginInstructions;
+    if (language.language === "english") {
+      languageClass = "login-button-english";
+      loginInstructions = "login-instructions-english";
+    } else {
+      languageClass = "login-button-french";
+      loginInstructions = "login-instructions-french";
+    }
     return (
       <GoogleLogin
         clientId={secrets.GOOGLE_CLIENT_ID}
         render={renderProps => (
           <button onClick={renderProps.onClick} className="googleButton">
-            <i className="fa fa-google" />
-            <p className="loginInstructions">
-              {language.navigation.login_with + " Google"}
-            </p>
+            <div className={`loginButtonContent ${languageClass}`}>
+              <i className="fa fa-google" />
+              <p className={loginInstructions}>
+                {language.navigation.login_with + " Google"}
+              </p>
+            </div>
           </button>
         )}
         onSuccess={this.responseGoogle}

@@ -1,4 +1,4 @@
-const Word = require("../models/word.model");
+const Word = require("../../models/word.model");
 
 exports.getWordsToLearn = async function(req, res) {
   let words;
