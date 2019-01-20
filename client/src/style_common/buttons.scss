@@ -1,9 +1,10 @@
 //main button styling
 .blue-button {
   text-align: center;
+  font-family: $main-font;
   font-weight: bold;
   border-radius: 50px;
-  border: 3px solid $active;
+  border: 2.5px solid $active;
   background-color: inherit;
   color: $active;
   &:hover {
@@ -11,12 +12,12 @@
   }
   @media (min-width: $break-mid) {
     font-size: $h3-large-screen;
-    width: 160px;
-    height: 60px;
+    width: 170px;
+    height: 55px;
   }
   @media (max-width: $break-mid) {
     font-size: $h3-mid-screen;
-    width: 130px;
+    width: 140px;
     height: 45px;
   }
 }

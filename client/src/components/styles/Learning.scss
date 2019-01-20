@@ -7,6 +7,7 @@
   display: grid;
   align-items: center;
   justify-items: center;
+  overflow-y: auto;
 
   @media (min-width: $break-mid) {
     font-size: $h2-large-screen;
@@ -59,26 +60,34 @@
 //vocabulary
 .wordsToLearn {
   grid-area: words;
-  justify-self: flex-end;
+  justify-self: start;
   display: inline-block;
   margin: auto;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
+  @media (min-width: $break-mid) {
+    font-size: $h3-large-screen;
+  }
+  @media (max-width: $break-mid) {
+    font-size: $h3-mid-screen;
+  }
+  @media (max-width: $break-small) {
+    font-size: $h3-small-screen;
+  }
 }
 
 .twoWords {
   margin: auto;
   @media (min-width: $break-mid) {
-    margin-top: 20px;
+    margin-bottom: 15px;
   }
   @media (max-width: $break-mid) {
-    margin-top: 8px;
+    margin-bottom: 6px;
   }
 }
 
 //switches
 .switches {
   grid-area: switches;
-  flex-grow: 3;
   align-self: flex-start;
   display: flex;
   flex-direction: row;
@@ -101,4 +110,8 @@
 .switch {
   @extend .blue-button;
   margin-bottom: 15px;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
