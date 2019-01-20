@@ -1,7 +1,8 @@
 const passport = require("passport");
 const GoogleTokenStrategy = require("passport-google-token").Strategy;
 const FacebookTokenStrategy = require("passport-facebook-token");
-const secrets = require("../config/secrets");
+//const secrets = require("../config/secrets");
+const voidSecrets = require("../config/voidSecrets");
 const findOrCreateGoogleUser = require("./google/findOrCreateGoogleUser.controller");
 const findOrCreateFacebookUser = require("../auth/facebook/findOrCreateFacebookUser.controller");
 
@@ -9,8 +10,8 @@ module.exports = function() {
   passport.use(
     new GoogleTokenStrategy(
       {
-        clientID: secrets.GOOGLE_CLIENT_ID,
-        clientSecret: secrets.GOOGLE_CLIENT_SECRET
+        clientID: /*secrets.GOOGLE_CLIENT_ID ||*/ voidSecrets.GOOGLE_CLIENT_ID,
+        clientSecret: /*secrets.GOOGLE_CLIENT_SECRET ||*/ voidSecrets.GOOGLE_CLIENT_SECRET
       },
       async function(accessToken, refreshToken, profile, done) {
         let user = await findOrCreateGoogleUser(profile.id, profile.emails);
@@ -22,8 +23,8 @@ module.exports = function() {
   passport.use(
     new FacebookTokenStrategy(
       {
-        clientID: secrets.FACEBOOK_APP_ID,
-        clientSecret: secrets.FACEBOOK_APP_SECRET
+        clientID: /*secrets.FACEBOOK_APP_ID ||*/ voidSecrets.FACEBOOK_APP_ID,
+        clientSecret: /*secrets.FACEBOOK_APP_SECRET ||*/ voidSecrets.FACEBOOK_APP_SECRET
       },
       async function(accessToken, refreshToken, profile, done) {
         let user = await findOrCreateFacebookUser(profile.id, profile.emails);

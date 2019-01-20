@@ -1,5 +1,6 @@
 import React from "react";
-import secrets from "../../config/secrets";
+import voidSecrets from "../../config/voidSecrets";
+//import secrets from "../../config/secrets";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { LanguageContext } from "../../contexts/language-context";
 import facebookAuth from "../../controllers/auth/facebookAuth.function";
@@ -24,7 +25,7 @@ class LoginWithFacebook extends React.Component {
     }
     return (
       <FacebookLogin
-        appId={secrets.FACEBOOK_APP_ID}
+        appId={/*secrets.FACEBOOK_APP_ID ||*/ voidSecrets.FACEBOOK_APP_ID}
         autoLoad={false} //prevents auto connection with facebook on page load : user must be able to choose
         fields="email"
         render={renderProps => (

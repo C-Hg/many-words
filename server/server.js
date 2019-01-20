@@ -5,12 +5,13 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const bodyParser = require("body-parser");
-const secrets = require("./config/secrets");
+//const secrets = require("./config/secrets");
+const voidSecrets = require("./config/voidSecrets");
 
 /*  -------------   login and session middlewares    -----------*/
 app.use(
   session({
-    secret: secrets.SESSION_SECRET,
+    secret: /*secrets.SESSION_SECRET ||*/ voidSecrets.SESSION_SECRET,
     resave: false, // prevents race condition
     saveUninitialized: false, // creates a session only if user logs in
     cookie: {
