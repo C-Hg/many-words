@@ -16,7 +16,7 @@ then run it:
 sudo service mongod start
 
 ### Many-Words itself
-* clone the repository, then from the repository
+* clone the repository, then from the repository (you might need sudo)
 
 npm run install:all
 * seed the database :
