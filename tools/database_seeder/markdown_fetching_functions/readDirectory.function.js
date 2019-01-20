@@ -1,4 +1,3 @@
-const path = require("path");
 const fs = require("fs");
 
 exports.readDirectory = async function(directory) {
