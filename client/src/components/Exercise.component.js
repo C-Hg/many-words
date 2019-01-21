@@ -77,6 +77,7 @@ class Exercise extends React.Component {
       expectedAnswer: "",
       activable: false,
       failedWords: [],
+      result: [],
       exerciseWords: words
     });
   }

@@ -1,9 +1,10 @@
 async function updateWordStats(wordStats) {
-  console.log(wordStats);
   new Promise((resolve, reject) => {
     let req = new XMLHttpRequest();
+    let data = JSON.stringify(wordStats);
     req.open("POST", `/api/tracking/update_word_stats`, true);
-    req.send();
+    req.setRequestHeader("Content-Type", "application/json");
+    req.send(data);
     req.onload = function() {
       resolve();
     };

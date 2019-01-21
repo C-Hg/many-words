@@ -7,7 +7,7 @@ const cors = require("cors");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
-const bodyParser = require("body-parser");
+
 const secrets = require("./config/secrets");
 
 /*  -------------   login and session middlewares    -----------*/
@@ -27,7 +27,6 @@ app.use(
     })
   })
 );
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
