@@ -1,8 +1,7 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
 import googleAuth from "../../controllers/auth/googleAuth.function";
-import voidSecrets from "../../config/voidSecrets";
-//import secrets from "../../config/secrets";
+import secrets from "../../config/secrets";
 import { LanguageContext } from "../../contexts/language-context";
 
 class LoginWithGoogle extends React.Component {
@@ -29,7 +28,7 @@ class LoginWithGoogle extends React.Component {
     }
     return (
       <GoogleLogin
-        clientId={/*secrets.GOOGLE_CLIENT_ID ||*/ voidSecrets.GOOGLE_CLIENT_ID}
+        clientId={secrets.GOOGLE_CLIENT_ID}
         render={renderProps => (
           <button onClick={renderProps.onClick} className="googleButton">
             <div className={`loginButtonContent ${languageClass}`}>

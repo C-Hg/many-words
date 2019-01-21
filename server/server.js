@@ -1,3 +1,6 @@
+const dotenv = require("dotenv");
+require("dotenv").config({ path: process.cwd() + "/.env" });
+const path = require("path");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -5,13 +8,12 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const bodyParser = require("body-parser");
-//const secrets = require("./config/secrets");
-const voidSecrets = require("./config/voidSecrets");
+const secrets = require("./config/secrets");
 
 /*  -------------   login and session middlewares    -----------*/
 app.use(
   session({
-    secret: /*secrets.SESSION_SECRET ||*/ voidSecrets.SESSION_SECRET,
+    secret: secrets.SESSION_SECRET,
     resave: false, // prevents race condition
     saveUninitialized: false, // creates a session only if user logs in
     cookie: {
@@ -46,6 +48,7 @@ db.once("open", () => {
   //configuring the listening port
   const listener = app.listen(process.env.PORT || 3001, function() {
     console.log("Many-words is listening on port " + listener.address().port);
+    console.log(secrets);
   });
 });
 

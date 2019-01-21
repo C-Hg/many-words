@@ -16,7 +16,6 @@
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
     "css-loader": "1.0.0",
-    "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "5.6.0",
     "eslint-config-react-app": "^3.0.5",
@@ -88,6 +87,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.2.0",
     "chai": "^4.2.0",
+    "dotenv": "^6.0.0",
     "mocha": "^5.2.0"
   },
   "jest": {
