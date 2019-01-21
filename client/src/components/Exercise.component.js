@@ -147,7 +147,10 @@ class Exercise extends React.Component {
       return (
         <div className="exercise">
           <div className="titleAndCross">
-            <Link to={`/${this.props.theme}/${this.props.subtheme}`}>
+            <Link
+              to={`/${this.props.theme}/${this.props.subtheme}`}
+              className="closeLink"
+            >
               <Close />{" "}
             </Link>
             <ExerciseTitle lesson={this.props.lesson} />

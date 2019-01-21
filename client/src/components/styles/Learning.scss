@@ -2,8 +2,8 @@
 @import "../../style_common/buttons.scss";
 
 .learning-container {
-  height: 100%;
   width: 100%;
+  min-height: 400px;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -12,7 +12,7 @@
   @media (min-width: $break-mid) {
     font-size: $h2-large-screen;
     grid-template-columns: 76px auto;
-    grid-template-rows: 130px auto auto;
+    grid-template-rows: 130px auto 130px;
     grid-template-areas:
       "arrow title"
       "words words"
@@ -21,7 +21,7 @@
   @media (max-width: $break-mid) {
     font-size: $h2-mid-screen;
     grid-template-columns: auto;
-    grid-template-rows: 80px 2fr 1fr 76px;
+    grid-template-rows: 80px auto auto 80px;
     grid-template-areas:
       "title"
       "words"
@@ -34,22 +34,28 @@
 }
 
 // navigation arrow
-.backArrow {
+.arrowLink {
   grid-area: arrow;
+  display: inline;
+  text-align: center; // necessary for clickable link not on margins
   @media (min-width: $break-mid) {
-    padding-left: 80px;
+    margin-left: 80px;
   }
+}
+
+.backArrow {
+  display: block;
 }
 
 // lesson title
 .learningTitle {
   grid-area: title;
+  width: auto;
   padding: 0;
   @media (min-width: $break-mid) {
     font-size: $h1-large-screen;
     justify-self: center;
     margin-left: -50px; //compensates arrow padding
-    margin-top: -8px;
   }
   @media (max-width: $break-mid) {
     font-size: $h1-mid-screen;
@@ -59,16 +65,18 @@
 
 //vocabulary
 .wordsToLearn {
+  width: 100%;
   grid-area: words;
-  justify-self: start;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   margin: auto;
-  margin-bottom: 20px;
   @media (min-width: $break-mid) {
     font-size: $h3-large-screen;
+    margin-bottom: 10px;
   }
   @media (max-width: $break-mid) {
     font-size: $h3-mid-screen;
+    margin-bottom: 15px;
   }
   @media (max-width: $break-small) {
     font-size: $h3-small-screen;
@@ -88,9 +96,10 @@
 //switches
 .switches {
   grid-area: switches;
-  align-self: flex-start;
+  align-self: center;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
   @media (min-width: $break-mid) {
@@ -101,6 +110,8 @@
   }
   @media (max-width: $break-small + 35) {
     width: 100%;
+    height: 180px;
+    min-height: 180px;
     flex-direction: column;
     align-items: center;
   }
@@ -110,7 +121,7 @@
 .switch {
   @extend .blue-button;
   margin-bottom: 15px;
-  display:flex;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;

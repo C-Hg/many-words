@@ -1,6 +1,5 @@
 import React from "react";
 import Result from "./Result.component";
-import { LanguageContext } from "../../contexts/language-context";
 import Score from "./Score.component";
 
 class ExerciseFooter extends React.Component {
@@ -29,18 +28,9 @@ class ExerciseFooter extends React.Component {
       }
     }
 
-    // TO BE DELETED IF TEXT STAYS CENTERED
-    let languageClass = "";
-    let language = this.context;
-    if (language.language === "french") {
-      languageClass = "footer-content-french";
-    } else {
-      languageClass = "footer-content-english";
-    }
-
     return (
       <div className={`exercise-footer ${footerClass}`}>
-        <div className={`footer-content ${languageClass}`}>
+        <div className={`footer-content`}>
           {this.props.status === "exercise" && (
             <Result
               checking={this.props.checking}
@@ -59,7 +49,5 @@ class ExerciseFooter extends React.Component {
     );
   }
 }
-
-ExerciseFooter.contextType = LanguageContext;
 
 export default ExerciseFooter;

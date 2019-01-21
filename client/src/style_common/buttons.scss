@@ -2,7 +2,7 @@
 .blue-button {
   text-align: center;
   font-family: $main-font;
-  font-weight: bold;
+  font-weight: 600;
   border-radius: 50px;
   border: 2.5px solid $active;
   background-color: inherit;
@@ -14,11 +14,13 @@
     font-size: $h3-large-screen;
     width: 170px;
     height: 55px;
+    min-height: 55px;
   }
   @media (max-width: $break-mid) {
     font-size: $h3-mid-screen;
     width: 140px;
     height: 45px;
+    min-height: 45px;
   }
 }
 
