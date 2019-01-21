@@ -48,7 +48,6 @@ db.once("open", () => {
   //configuring the listening port
   const listener = app.listen(process.env.PORT || 3001, function() {
     console.log("Many-words is listening on port " + listener.address().port);
-    console.log(secrets);
   });
 });
 
