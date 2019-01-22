@@ -1,6 +1,7 @@
 import { randomPicker } from "../../common/randomPicker.function";
 import return_Selected_Words_With_Article from "./returnSelectedWords.function";
 import { returnForms } from "./returnForms.function";
+import pickFormRandomly from "./pickFormRandomly.function";
 
 // this is the main function, it formats words for the client, with informations gathered from the db
 
@@ -10,22 +11,20 @@ function FrEnWordSelector(wordsToSelect) {
 
   //main loop
   while (wordCounter < wordsToSelect.length) {
-    let word = wordsToSelect[wordCounter];
-    let sourceLanguage = randomPicker(["fr", "en"]);
-    let articleForm = "";
-    let fr_form = "";
-    let en_form = "";
+    let word = wordsToSelect.words[wordCounter];
+    let articleForm, fr_form, en_form;
+    let formDetails;
 
-    //return the accepted forms for FR and EN words depending on the source words
-    if (word.hasUniqueForm) {
-      fr_form = ["uniqueForm"];
-      en_form = "uniqueForm";
-    } else {
-      let sourceForm = randomPicker(word[sourceLanguage][0].acceptedForms);
-      let forms = returnForms(sourceForm, word.type);
-      fr_form = forms.fr;
-      en_form = forms.en;
+    if (!wordsToSelect.proficiencyIndexes) {
+      formDetails = pickFormRandomly(word);
     }
+
+    let sourceForm = formDetails.sourceForm;
+    let sourceLanguage = formDetails.sourceLanguage;
+
+    let fr_en_forms = returnForms(sourceForm, word.type);
+    fr_form = fr_en_forms.fr;
+    en_form = fr_en_forms.en;
 
     //only nouns accept articles
     if (word.type === "noun") {
