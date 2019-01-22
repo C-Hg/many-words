@@ -14,6 +14,7 @@ module.exports = function() {
         clientSecret: secrets.GOOGLE_CLIENT_SECRET
       },
       async function(accessToken, refreshToken, profile, done) {
+        console.log("hello from server");
         let user = await findOrCreateGoogleUser(profile.id, profile.emails);
         return done(null, user);
       }

@@ -7,6 +7,7 @@ const cors = require("cors");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
+const bodyParser = require("body-parser");
 
 const secrets = require("./config/secrets");
 
@@ -30,6 +31,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 require("./auth/session/session.middlewares")(); // passport serializer and deserializer
 
 /* ----------------------     Mongoose setup     ------------*/

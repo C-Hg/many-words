@@ -15,7 +15,6 @@ class LoginWithFacebook extends React.Component {
     let language = this.context;
     let languageClass;
     let loginInstructions;
-    console.log(secrets);
     if (language.language === "english") {
       languageClass = "login-button-english";
       loginInstructions = "login-instructions-english";

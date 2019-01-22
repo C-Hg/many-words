@@ -6,6 +6,7 @@ import LogoutButton from "./home_components/LogoutButton.component";
 import Welcome from "./home_components/Welcome.component";
 import LogoutConfirmation from "./home_components/LogoutConfirmation.component";
 import LoginButtons from "./home_components/LoginButtons.component";
+import Statistics from "./home_components/Statistics.component";
 
 class Home extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Home extends React.Component {
       return (
         <div className="home">
           {/*TO DO : separate logout and accout informations from user progress */}
+          {user.isAuthenticated && <Statistics />}
           {user.isAuthenticated && <LogoutButton logout={this.logout} />}
           {!user.isAuthenticated && <Welcome />}
           {!user.isAuthenticated && (

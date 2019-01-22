@@ -1,16 +1,16 @@
-async function getLessonData(lessonName) {
+async function getWordCount() {
   return await new Promise((resolve, reject) => {
     let req = new XMLHttpRequest();
-    req.open("GET", `/api/exercise/${lessonName}`, true);
+    req.open("GET", `/api/tracking/word_count`, true);
     req.send();
     req.onload = function() {
       resolve(JSON.parse(req.response));
     };
     req.onerror = function() {
-      console.error("Error while fetching data for the lesson (API call)");
+      console.error("Error while updating word stats");
       reject();
     };
   });
 }
 
-export default getLessonData;
+export default getWordCount;

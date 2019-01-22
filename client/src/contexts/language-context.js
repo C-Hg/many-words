@@ -22,6 +22,8 @@ export const languages = {
     },
     home: {
       main_title: "Enhance your French vocabulary",
+      word_stats_ok: "Total words studied : ",
+      word_stats_no: "It's time to start learning !",
       logout_success: "You were successfully disconnected",
       logout_failure: "There was a problem during the disconnection"
     },
@@ -82,6 +84,8 @@ export const languages = {
     },
     home: {
       main_title: "Enrichis ton vocabulaire anglais",
+      word_stats_ok: "Nombre de mots étudiés : ",
+      word_stats_no: "C'est l'heure d'apprendre !",
       logout_success: "Vous êtes maintenant déconnecté",
       logout_failure: "Il y a eu un problème pendant la déconnexion"
     },

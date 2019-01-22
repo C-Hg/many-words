@@ -1,5 +1,5 @@
 async function facebookAuth(accessToken) {
-  let result = new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     let req = new XMLHttpRequest();
     req.open("GET", `/auth/facebook/token`, true);
     req.setRequestHeader("access_token", accessToken);
@@ -13,7 +13,6 @@ async function facebookAuth(accessToken) {
       reject();
     };
   });
-  return await result;
 }
 
 export default facebookAuth;
