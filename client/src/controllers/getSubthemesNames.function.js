@@ -5,6 +5,10 @@ exports.getSubthemesNames = function(theme) {
       subthemes = ["animals", "earth", "landscapes"];
       break;
 
+    case "education":
+      subthemes = ["numbers", "school"];
+      break;
+
     default:
       break;
   }

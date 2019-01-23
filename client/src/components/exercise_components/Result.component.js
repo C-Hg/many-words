@@ -4,7 +4,7 @@ import { LanguageContext } from "../../contexts/language-context";
 const Result = function(props) {
   if (props.checking) {
     if (props.correctAnswer) {
-      let randomResponse = Math.floor(Math.random() * 13);
+      let randomResponse = Math.floor(Math.random() * 17);
       return (
         <LanguageContext.Consumer>
           {({ correct }) => (

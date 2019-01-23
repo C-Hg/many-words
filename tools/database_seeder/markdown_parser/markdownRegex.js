@@ -7,8 +7,8 @@
 */
 
 //common
-const allLetters = "[a-zàéèùâêîôûäëïöüç'\\-]+";
-const words = allLetters + "(?:\\s" + allLetters + ")*";
+const allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
+const words = allLettersAndNumbers + "(?:\\s" + allLettersAndNumbers + ")*";
 const wordsOrNot = "(?:" + words + ")?";
 
 const columnOpen = "\\s*\\|\\s*";

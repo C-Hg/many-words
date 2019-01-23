@@ -9,8 +9,12 @@ class Curriculum extends React.Component {
 
     return (
       <div className="curriculum">
-        <h1 className="curriculumTitle">{language.curriculum_title}</h1>
-        <Link to={`../nature`}>Nature</Link>
+        <h1 className="curriculumTitle">{language.curriculum.title}</h1>
+        <Link to={`../relationships`}>{language.themes.relationships}</Link>
+        <Link to={`../nature`}>{language.themes.nature}</Link>
+        <Link to={`../education`}>{language.themes.education}</Link>
+        <Link to={`../leisure`}>{language.themes.leisure}</Link>
+        <Link to={`../health`}>{language.themes.health}</Link>
       </div>
     );
   }

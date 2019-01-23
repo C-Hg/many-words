@@ -3,6 +3,7 @@ import return_Selected_Words_With_Article from "./returnSelectedWords.function";
 import { returnForms } from "./returnForms.function";
 import pickFormRandomly from "./pickFormRandomly.function";
 import pickWeakForm from "./pickWeakForm.function";
+import { shuffleArray } from "../../common/arrayShuffler.function";
 
 /*
 this is the main function, it formats words for the client, with informations gathered from the db
@@ -61,7 +62,7 @@ function FrEnWordSelector(wordsToSelect) {
     });
     wordCounter++;
   }
-
+  preparedWords = shuffleArray(preparedWords);
   return preparedWords;
 }
 

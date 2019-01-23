@@ -3,19 +3,6 @@ import React from "react";
 export const languages = {
   English: {
     language: "english",
-    themes: {
-      nature: "Nature"
-    },
-    subthemes: {
-      animals: "Animals",
-      earth: "Earth",
-      landscapes: "Landscapes"
-    },
-    lessons: {
-      common_animals: "Common animals",
-      mammals: "Mammals",
-      birds: "Birds"
-    },
     navigation: {
       login_with: "Log in with",
       logout: "Log out"
@@ -27,7 +14,29 @@ export const languages = {
       logout_success: "You were successfully disconnected",
       logout_failure: "There was a problem during the disconnection"
     },
-    curriculum_title: "What do you want to learn?",
+    curriculum: {
+      title: "What do you want to learn?"
+    },
+    themes: {
+      nature: "Nature",
+      education: "Education",
+      relationships: "relationships",
+      leisure: "Leisure Activities",
+      health: "Health"
+    },
+    subthemes: {
+      numbers: "Numbers",
+      school: "School",
+      animals: "Animals",
+      earth: "Earth",
+      landscapes: "Landscapes"
+    },
+    lessons: {
+      first_numbers: "First numbers",
+      animals_basics: "Common animals",
+      mammals: "Mammals",
+      birds: "Birds"
+    },
     start_exercise: "test",
     start_learning: "learn",
     check_button: "Check",
@@ -48,7 +57,11 @@ export const languages = {
       "Easy",
       "Well done",
       "Nice",
-      "Way to go"
+      "Way to go",
+      "Wonderful",
+      "Incredible",
+      "Bravo",
+      "Et voilà"
     ],
     no_mistake: "Congratulations, you've made no mistake !",
     one_mistake: "Great, it is almost perfect !",
@@ -65,19 +78,6 @@ export const languages = {
   },
   French: {
     language: "french",
-    themes: {
-      nature: "Nature"
-    },
-    subthemes: {
-      animals: "Animaux",
-      earth: "La Terre",
-      landscapes: "Paysages"
-    },
-    lessons: {
-      common_animals: "Animaux courants",
-      mammals: "Mammifères",
-      birds: "Oiseaux"
-    },
     navigation: {
       login_with: "Connexion avec",
       logout: "Déconnexion"
@@ -89,7 +89,29 @@ export const languages = {
       logout_success: "Vous êtes maintenant déconnecté",
       logout_failure: "Il y a eu un problème pendant la déconnexion"
     },
-    curriculum_title: "Que veux-tu apprendre?",
+    curriculum: {
+      title: "Que veux-tu apprendre?"
+    },
+    themes: {
+      nature: "Nature",
+      education: "Éducation",
+      relationships: "Relations",
+      leisure: "Loisirs",
+      health: "Santé"
+    },
+    subthemes: {
+      numbers: "Nombres",
+      school: "École",
+      animals: "Animaux",
+      earth: "La Terre",
+      landscapes: "Paysages"
+    },
+    lessons: {
+      first_numbers: "Premiers nombres",
+      common_animals: "Animaux courants",
+      mammals: "Mammifères",
+      birds: "Oiseaux"
+    },
     start_exercise: "test",
     start_learning: "apprendre",
     check_button: "Vérifier",
@@ -110,7 +132,11 @@ export const languages = {
       "Facile",
       "Bien joué",
       "Joli",
-      "Exactement"
+      "Exactement",
+      "Merveilleux",
+      "Formidable",
+      "Bravo",
+      "Et voilà"
     ],
     no_mistake: "Félicitations, tu n'as fait aucune erreur !",
     one_mistake: "Bravo, c'est presque parfait !",
