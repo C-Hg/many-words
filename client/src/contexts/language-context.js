@@ -20,7 +20,7 @@ export const languages = {
     themes: {
       nature: "Nature",
       education: "Education",
-      relationships: "relationships",
+      relationships: "Relationships",
       leisure: "Leisure Activities",
       health: "Health"
     },
@@ -29,10 +29,19 @@ export const languages = {
       school: "School",
       animals: "Animals",
       earth: "Earth",
-      landscapes: "Landscapes"
+      landscapes: "Landscapes",
+      food: "Food",
+      healthcare: "Medecine",
+      human_body: "Human body"
     },
     lessons: {
       first_numbers: "First numbers",
+      more_numbers: "More numbers",
+      large_numbers: "Large numbers",
+      food_basics: "Basics",
+      drinks: "Drinks",
+      fruits: "Fruits",
+      vegetables: "Vegetables",
       animals_basics: "Common animals",
       mammals: "Mammals",
       birds: "Birds"
@@ -100,14 +109,23 @@ export const languages = {
       health: "Santé"
     },
     subthemes: {
-      numbers: "Nombres",
-      school: "École",
-      animals: "Animaux",
+      numbers: "Les nombres",
+      school: "L'école",
+      animals: "Les animaux",
       earth: "La Terre",
-      landscapes: "Paysages"
+      landscapes: "Les paysages",
+      food: "La nourriture",
+      healthcare: "La médecine",
+      human_body: "Le corps humain"
     },
     lessons: {
       first_numbers: "Premiers nombres",
+      more_numbers: "Plus de nombres",
+      large_numbers: "Grands nombres",
+      food_basics: "Bases",
+      drinks: "Boissons",
+      fruits: "Fruits",
+      vegetables: "Légumes",
       common_animals: "Animaux courants",
       mammals: "Mammifères",
       birds: "Oiseaux"

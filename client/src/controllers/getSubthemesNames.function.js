@@ -9,6 +9,10 @@ exports.getSubthemesNames = function(theme) {
       subthemes = ["numbers", "school"];
       break;
 
+    case "health":
+      subthemes = ["food", "healthcare", "human body"];
+      break;
+
     default:
       break;
   }

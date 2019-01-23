@@ -9,7 +9,20 @@ exports.getLessons = function(subtheme) {
       break;
 
     case "numbers":
-      lessons = [["first_numbers", 1]];
+      lessons = [
+        ["first_numbers", 1],
+        ["more_numbers", 2],
+        ["large_numbers", 2]
+      ];
+      break;
+
+    case "food":
+      lessons = [
+        ["food_basics", 1],
+        ["drinks", 2],
+        ["fruits", 2],
+        ["vegetables", 2]
+      ];
       break;
 
     default:

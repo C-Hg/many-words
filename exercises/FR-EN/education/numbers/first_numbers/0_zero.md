@@ -1,27 +1,27 @@
 ## General data
 
-unique form : boolean
+unique form : true
 
-type : noun/adjective/verb/other
+type : number
 
 ---
 
 ## English data
 
-Name :
+Name : zero
 
 |             | main | alt 1 | alt 2 | alt 3 |
 | :---------- | :--: | :---: | :---: | ----- |
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
-| unique form |      |       |       |       |
+| unique form | zero |       |       |       |
 | \*an        |      |       |       |       |
 
 ---
 
 ## French data
 
-Name:
+Name: zéro
 
 |             | main | alt 1 | alt 2 | alt 3 |
 | :---------- | :--: | :---: | :---: | :---: |
@@ -29,7 +29,7 @@ Name:
 | masc_plur   |      |       |       |       |
 | fem_sing    |      |       |       |       |
 | fem_plur    |      |       |       |       |
-| unique_form |      |       |       |       |
+| unique_form | zéro |       |       |       |
 | \*l'        |      |       |       |       |
 
 ---

@@ -10,7 +10,7 @@
 - words can have several parts like "to walk" or "après-midi"
 - words are registered case-sensitively so capitalization should concern only words that always need to be capitalized e.g "Brazil"
 - do not modify the template, the Markdown parser relies on it to properly seed the database
-- do not use parentheses to disambiguate homonyms, but rather spaces or -
+- do not use parentheses to disambiguate homonyms, but rather spaces or hyphens ( "-" )
 
 ### General data
 
@@ -23,6 +23,8 @@ unique form
 type
 
 - simply fill in the type : noun, adjective, verb...
+- noun means that the word can be preceded by an article, definite or indefinite;
+  if it is not the case, please use the unique form field (e.g. meat can only be preceded by _the_ and not _a_)
 
 ### English data
 

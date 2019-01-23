@@ -41,8 +41,8 @@ function FrEnWordSelector(wordsToSelect) {
     fr_form = forms.fr;
     en_form = forms.en;
 
-    //only nouns accept articles
-    if (word.type === "noun") {
+    //only nouns accept articles, special cases when nouns have only certains articles -> hasUniqueForm = true
+    if (word.type === "noun" && !word.hasUniqueForm) {
       articleForm = randomPicker(["definite", "indefinite"]);
     }
 

@@ -1,6 +1,6 @@
 ## General data
 
-unique form : boolean
+unique form :
 
 type : noun/adjective/verb/other
 
@@ -21,7 +21,7 @@ Name :
 
 ## French data
 
-Name:
+Name :
 
 |             | main | alt 1 | alt 2 | alt 3 |
 | :---------- | :--: | :---: | :---: | :---: |

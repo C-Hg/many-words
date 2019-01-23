@@ -1,34 +1,34 @@
 ## General data
 
-unique form : boolean
+unique form :
 
-type : noun/adjective/verb/other
+type : noun
 
 ---
 
 ## English data
 
-Name :
+Name : nut
 
-|             | main | alt 1 | alt 2 | alt 3 |
-| :---------- | :--: | :---: | :---: | ----- |
-| singular    |      |       |       |       |
-| plural      |      |       |       |       |
-| unique form |      |       |       |       |
-| \*an        |      |       |       |       |
+|             |  main   | alt 1 | alt 2 | alt 3 |
+| :---------- | :-----: | :---: | :---: | ----- |
+| singular    | walnut  |  nut  |       |       |
+| plural      | walnuts | nuts  |       |       |
+| unique form |         |       |       |       |
+| \*an        |         |       |       |       |
 
 ---
 
 ## French data
 
-Name:
+Name : noix
 
 |             | main | alt 1 | alt 2 | alt 3 |
 | :---------- | :--: | :---: | :---: | :---: |
 | masc_sing   |      |       |       |       |
 | masc_plur   |      |       |       |       |
-| fem_sing    |      |       |       |       |
-| fem_plur    |      |       |       |       |
+| fem_sing    | noix |       |       |       |
+| fem_plur    | noix |       |       |       |
 | unique_form |      |       |       |       |
 | \*l'        |      |       |       |       |
 

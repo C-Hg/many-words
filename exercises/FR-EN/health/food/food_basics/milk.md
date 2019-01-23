@@ -1,36 +1,36 @@
 ## General data
 
-unique form : boolean
+unique form : true
 
-type : noun/adjective/verb/other
+type : noun
 
 ---
 
 ## English data
 
-Name :
+Name : milk
 
 |             | main | alt 1 | alt 2 | alt 3 |
 | :---------- | :--: | :---: | :---: | ----- |
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
-| unique form |      |       |       |       |
+| unique form | milk |       |       |       |
 | \*an        |      |       |       |       |
 
 ---
 
 ## French data
 
-Name:
+Name: lait
 
-|             | main | alt 1 | alt 2 | alt 3 |
-| :---------- | :--: | :---: | :---: | :---: |
-| masc_sing   |      |       |       |       |
-| masc_plur   |      |       |       |       |
-| fem_sing    |      |       |       |       |
-| fem_plur    |      |       |       |       |
-| unique_form |      |       |       |       |
-| \*l'        |      |       |       |       |
+|             | main |  alt 1  | alt 2 | alt 3 |
+| :---------- | :--: | :-----: | :---: | :---: |
+| masc_sing   |      |         |       |       |
+| masc_plur   |      |         |       |       |
+| fem_sing    |      |         |       |       |
+| fem_plur    |      |         |       |       |
+| unique_form | lait | du lait |       |       |
+| \*l'        |      |         |       |       |
 
 ---
 
