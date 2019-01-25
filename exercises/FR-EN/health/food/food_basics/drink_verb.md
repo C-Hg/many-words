@@ -8,7 +8,7 @@ type : verb
 
 ## English data
 
-Name : drink
+Name : drink verb
 
 |             |   main   | alt 1 | alt 2 | alt 3 |
 | :---------- | :------: | :---: | :---: | ----- |
