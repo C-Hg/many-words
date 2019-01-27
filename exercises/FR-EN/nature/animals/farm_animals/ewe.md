@@ -8,12 +8,12 @@ type : noun
 
 ## English data
 
-Name : dog
+Name : ewe
 
 |             | main | alt 1 | alt 2 | alt 3 |
 | :---------- | :--: | :---: | :---: | ----- |
-| singular    | dog  |       |       |       |
-| plural      | dogs |       |       |       |
+| singular    | ewe  |       |       |       |
+| plural      | ewes |       |       |       |
 | unique form |      |       |       |       |
 | \*an        |      |       |       |       |
 
@@ -21,14 +21,14 @@ Name : dog
 
 ## French data
 
-Name: chien
+Name : brebis
 
 |             |  main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :----: | :---: | :---: | :---: |
-| masc_sing   | chien  |       |       |       |
-| masc_plur   | chiens |       |       |       |
-| fem_sing    |        |       |       |       |
-| fem_plur    |        |       |       |       |
+| masc_sing   |        |       |       |       |
+| masc_plur   |        |       |       |       |
+| fem_sing    | brebis |       |       |       |
+| fem_plur    | brebis |       |       |       |
 | unique_form |        |       |       |       |
 | \*l'        |        |       |       |       |
 

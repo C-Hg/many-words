@@ -8,25 +8,25 @@ type : noun
 
 ## English data
 
-Name : dog
+Name : tiger
 
-|             | main | alt 1 | alt 2 | alt 3 |
-| :---------- | :--: | :---: | :---: | ----- |
-| singular    | dog  |       |       |       |
-| plural      | dogs |       |       |       |
-| unique form |      |       |       |       |
-| \*an        |      |       |       |       |
+|             |  main  | alt 1 | alt 2 | alt 3 |
+| :---------- | :----: | :---: | :---: | ----- |
+| singular    | tiger  |       |       |       |
+| plural      | tigers |       |       |       |
+| unique form |        |       |       |       |
+| \*an        |        |       |       |       |
 
 ---
 
 ## French data
 
-Name: chien
+Name : tigre
 
 |             |  main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :----: | :---: | :---: | :---: |
-| masc_sing   | chien  |       |       |       |
-| masc_plur   | chiens |       |       |       |
+| masc_sing   | tigre  |       |       |       |
+| masc_plur   | tigres |       |       |       |
 | fem_sing    |        |       |       |       |
 | fem_plur    |        |       |       |       |
 | unique_form |        |       |       |       |

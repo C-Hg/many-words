@@ -1,35 +1,35 @@
 ## General data
 
-unique form :
+unique form : true
 
-type : noun
+type : verb
 
 ---
 
 ## English data
 
-Name : dog
+Name : bark
 
-|             | main | alt 1 | alt 2 | alt 3 |
-| :---------- | :--: | :---: | :---: | ----- |
-| singular    | dog  |       |       |       |
-| plural      | dogs |       |       |       |
-| unique form |      |       |       |       |
-| \*an        |      |       |       |       |
+|             |  main   | alt 1 | alt 2 | alt 3 |
+| :---------- | :-----: | :---: | :---: | ----- |
+| singular    |         |       |       |       |
+| plural      |         |       |       |       |
+| unique form | to bark | bark  |       |       |
+| \*an        |         |       |       |       |
 
 ---
 
 ## French data
 
-Name: chien
+Name : aboyer
 
 |             |  main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :----: | :---: | :---: | :---: |
-| masc_sing   | chien  |       |       |       |
-| masc_plur   | chiens |       |       |       |
+| masc_sing   |        |       |       |       |
+| masc_plur   |        |       |       |       |
 | fem_sing    |        |       |       |       |
 | fem_plur    |        |       |       |       |
-| unique_form |        |       |       |       |
+| unique_form | aboyer |       |       |       |
 | \*l'        |        |       |       |       |
 
 ---

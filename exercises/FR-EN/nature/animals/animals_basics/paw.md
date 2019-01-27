@@ -8,12 +8,12 @@ type : noun
 
 ## English data
 
-Name : dog
+Name : paw
 
 |             | main | alt 1 | alt 2 | alt 3 |
 | :---------- | :--: | :---: | :---: | ----- |
-| singular    | dog  |       |       |       |
-| plural      | dogs |       |       |       |
+| singular    | paw  |       |       |       |
+| plural      | paws |       |       |       |
 | unique form |      |       |       |       |
 | \*an        |      |       |       |       |
 
@@ -21,14 +21,14 @@ Name : dog
 
 ## French data
 
-Name: chien
+Name : patte
 
 |             |  main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :----: | :---: | :---: | :---: |
-| masc_sing   | chien  |       |       |       |
-| masc_plur   | chiens |       |       |       |
-| fem_sing    |        |       |       |       |
-| fem_plur    |        |       |       |       |
+| masc_sing   |        |       |       |       |
+| masc_plur   |        |       |       |       |
+| fem_sing    | patte  |       |       |       |
+| fem_plur    | pattes |       |       |       |
 | unique_form |        |       |       |       |
 | \*l'        |        |       |       |       |
 

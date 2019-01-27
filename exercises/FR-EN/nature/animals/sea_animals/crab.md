@@ -8,25 +8,25 @@ type : noun
 
 ## English data
 
-Name : dog
+Name : crab
 
-|             | main | alt 1 | alt 2 | alt 3 |
-| :---------- | :--: | :---: | :---: | ----- |
-| singular    | dog  |       |       |       |
-| plural      | dogs |       |       |       |
-| unique form |      |       |       |       |
-| \*an        |      |       |       |       |
+|             | main  | alt 1 | alt 2 | alt 3 |
+| :---------- | :---: | :---: | :---: | ----- |
+| singular    | crab  |       |       |       |
+| plural      | crabs |       |       |       |
+| unique form |       |       |       |       |
+| \*an        |       |       |       |       |
 
 ---
 
 ## French data
 
-Name: chien
+Name : crabe
 
 |             |  main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :----: | :---: | :---: | :---: |
-| masc_sing   | chien  |       |       |       |
-| masc_plur   | chiens |       |       |       |
+| masc_sing   | crabe  |       |       |       |
+| masc_plur   | crabes |       |       |       |
 | fem_sing    |        |       |       |       |
 | fem_plur    |        |       |       |       |
 | unique_form |        |       |       |       |

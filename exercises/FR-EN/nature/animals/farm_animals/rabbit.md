@@ -8,25 +8,25 @@ type : noun
 
 ## English data
 
-Name : dog
+Name : rabbit
 
-|             | main | alt 1 | alt 2 | alt 3 |
-| :---------- | :--: | :---: | :---: | ----- |
-| singular    | dog  |       |       |       |
-| plural      | dogs |       |       |       |
-| unique form |      |       |       |       |
-| \*an        |      |       |       |       |
+|             |  main   | alt 1 | alt 2 | alt 3 |
+| :---------- | :-----: | :---: | :---: | ----- |
+| singular    | rabbit  |       |       |       |
+| plural      | rabbits |       |       |       |
+| unique form |         |       |       |       |
+| \*an        |         |       |       |       |
 
 ---
 
 ## French data
 
-Name: chien
+Name : lapin
 
 |             |  main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :----: | :---: | :---: | :---: |
-| masc_sing   | chien  |       |       |       |
-| masc_plur   | chiens |       |       |       |
+| masc_sing   | lapin  |       |       |       |
+| masc_plur   | lapins |       |       |       |
 | fem_sing    |        |       |       |       |
 | fem_plur    |        |       |       |       |
 | unique_form |        |       |       |       |

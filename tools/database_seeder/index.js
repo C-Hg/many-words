@@ -20,8 +20,14 @@ mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 db.once("open", async () => {
+  let startTime = new Date();
   console.log("Connected to database");
   await seedDatabase();
+  let endTime = new Date();
+  console.log(
+    "\033[1;32m" + `Completion time : ${endTime - startTime} ms.` + "\033[0;0m"
+  );
+
   db.close(() => {
     console.log("Connection to the database closed");
   });
