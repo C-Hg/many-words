@@ -2,6 +2,7 @@
 
 1. create a new folder for a lesson if needed, words are linked to lessons based on their parent folder
 1. copy the word template once for each word in the lesson folder
+1. filenames must not contain hyphens, only underscores
 1. **refer to already filled templates to get a good understanding!**
 
 ## Detailled instructions for the word template
