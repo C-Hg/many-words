@@ -156,18 +156,33 @@
 }
 
 .specialCharacters-visible {
-  animation-name: expand-border;
+  @media (min-width: $break-mid) {
+    animation-name: expand-border-large;
+  }
+  @media (max-width: $break-mid) {
+    animation-name: expand-border-small;
+  }
+
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
 }
 
-@keyframes expand-border {
+@keyframes expand-border-large {
   0% {
     width: 190px;
   }
   100% {
-    width: 350px;
+    width: 380px;
+  }
+}
+
+@keyframes expand-border-small {
+  0% {
+    width: 190px;
+  }
+  100% {
+    width: 340px;
   }
 }
 

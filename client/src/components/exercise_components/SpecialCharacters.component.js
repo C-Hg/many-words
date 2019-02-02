@@ -82,6 +82,13 @@ class SpecialCharacters extends React.Component {
               <button
                 className="specialCharacter"
                 onClick={this.props.handleSpecialCharacter}
+                name="û"
+              >
+                û
+              </button>
+              <button
+                className="specialCharacter"
+                onClick={this.props.handleSpecialCharacter}
                 name="ù"
               >
                 ù
