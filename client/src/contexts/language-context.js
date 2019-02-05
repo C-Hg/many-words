@@ -18,33 +18,86 @@ export const languages = {
       title: "What do you want to learn?"
     },
     themes: {
-      nature: "Nature",
-      education: "Education",
-      relationships: "Relationships",
-      leisure: "Leisure Activities",
-      health: "Health"
-    },
-    subthemes: {
-      numbers: "Numbers",
-      school: "School",
       animals: "Animals",
-      earth: "Earth",
-      landscapes: "Landscapes",
+      clothes: "Clothes",
+      colors: "Colors",
       food: "Food",
-      healthcare: "Medecine",
-      human_body: "Human body"
+      habitation: "Habitation",
+      human_body: "Human body",
+      nature: "Nature",
+      numbers: "Numbers",
+      social_life: "Social life",
+      time: "Time",
+      vegetals: "Vegetals"
     },
     lessons: {
-      first_numbers: "First numbers",
-      more_numbers: "More numbers",
-      large_numbers: "Large numbers",
-      food_basics: "Basics",
-      drinks: "Drinks",
-      fruits: "Fruits",
-      vegetables: "Vegetables",
-      animals_basics: "Common animals",
-      mammals: "Mammals",
-      birds: "Birds"
+      animals: {
+        animals_basics: "Animals, basics",
+        birds: "Birds",
+        farm_animals: "Farm animals",
+        insects: "Insects",
+        mammals_1: "Mammals",
+        sea_animals: "Sea animals"
+      },
+      clothes: {
+        accessories: "Accessories",
+        clothes_basics: "Clothes 1",
+        more_clothes: "Clothes 2"
+      },
+      colors: {
+        main_colors: "Main colors"
+      },
+      food: {
+        drinks: "Drinks",
+        food_basics: "Food 1",
+        foods: "Foods",
+        fruits: "Fruits",
+        more_fruits_and_vegetables: "Fruits and Vegetables 2",
+        vegetables: "Vegetables"
+      },
+      habitation: {
+        construction_materials: "Materials",
+        construction_tools: "Tools",
+        furniture: "Furniture",
+        house: "House",
+        housing: "Housing",
+        rooms: "Rooms"
+      },
+      human_body: {
+        human_body_basics: "Human body",
+        head: "Head",
+        limbs: "Limbs",
+        organs: "Organs",
+        senses: "Senses"
+      },
+      nature: {
+        nature_basics: "Nature",
+        universe: "Universe"
+      },
+      numbers: {
+        first_numbers: "First numbers",
+        more_numbers: "More numbers",
+        large_numbers: "Large numbers"
+      },
+      social_life: {
+        close_family: "Close family",
+        human_beings: "Human beings",
+        identity: "Identity",
+        introduction: "Introduction"
+      },
+      time: {
+        days: "Days",
+        months: "Months",
+        time_basics: "Time 1",
+        time_description_1: "Time 2",
+        time_description_2: "Time 3",
+        time_divisions: "Time divisions"
+      },
+      vegetals: {
+        plants: "Plants",
+        trees: "Trees",
+        vegetals_basics: "Vegetals"
+      }
     },
     start_exercise: "test",
     start_learning: "learn",
@@ -102,33 +155,86 @@ export const languages = {
       title: "Que veux-tu apprendre?"
     },
     themes: {
+      animals: "Animaux",
+      clothes: "Vêtements",
+      colors: "Couleurs",
+      food: "Nourriture",
+      habitation: "Habitation",
+      human_body: "Corps humain",
       nature: "Nature",
-      education: "Éducation",
-      relationships: "Relations",
-      leisure: "Loisirs",
-      health: "Santé"
-    },
-    subthemes: {
-      numbers: "Les nombres",
-      school: "L'école",
-      animals: "Les animaux",
-      earth: "La Terre",
-      landscapes: "Les paysages",
-      food: "La nourriture",
-      healthcare: "La médecine",
-      human_body: "Le corps humain"
+      numbers: "Nombres",
+      social_life: "Vie sociale",
+      time: "Temps",
+      vegetals: "Végétaux"
     },
     lessons: {
-      first_numbers: "Premiers nombres",
-      more_numbers: "Plus de nombres",
-      large_numbers: "Grands nombres",
-      food_basics: "Bases",
-      drinks: "Boissons",
-      fruits: "Fruits",
-      vegetables: "Légumes",
-      common_animals: "Animaux courants",
-      mammals: "Mammifères",
-      birds: "Oiseaux"
+      animals: {
+        animals_basics: "Animaux",
+        birds: "Oiseaux",
+        farm_animals: "Animaux de la ferme",
+        insects: "Insectes",
+        mammals_1: "Mammifères",
+        sea_animals: "Animaux marins"
+      },
+      clothes: {
+        accessories: "Accessoires",
+        clothes_basics: "Vêtements 1",
+        more_clothes: "Vêtements 2"
+      },
+      colors: {
+        main_colors: "Couleurs 1"
+      },
+      food: {
+        drinks: "Boissons",
+        food_basics: "Nourriture 1",
+        foods: "Aliments",
+        fruits: "Fruits",
+        more_fruits_and_vegetables: "Fruits et légumes 2",
+        vegetables: "Légumes"
+      },
+      habitation: {
+        construction_materials: "Matériaux",
+        construction_tools: "Outils",
+        furniture: "Meubles",
+        house: "Maison",
+        housing: "Se loger",
+        rooms: "Pièces"
+      },
+      human_body: {
+        human_body_basics: "Corps humain",
+        head: "Tête",
+        limbs: "Membres",
+        organs: "Organes",
+        senses: "Sens"
+      },
+      nature: {
+        nature_basics: "Nature",
+        universe: "Univers"
+      },
+      numbers: {
+        first_numbers: "Premiers nombres",
+        more_numbers: "Nombres suivants",
+        large_numbers: "Grands nombres"
+      },
+      social_life: {
+        close_family: "Famille proche",
+        human_beings: "Êtres humains",
+        identity: "Identité",
+        introduction: "Rencontre"
+      },
+      time: {
+        days: "Jours",
+        months: "Mois",
+        time_basics: "Temps 1",
+        time_description_1: "Temps 2",
+        time_description_2: "Temps 3",
+        time_divisions: "Mesurer le temps"
+      },
+      vegetals: {
+        plants: "Plantes",
+        trees: "Arbres",
+        vegetals_basics: "Végétaux"
+      }
     },
     start_exercise: "test",
     start_learning: "apprendre",

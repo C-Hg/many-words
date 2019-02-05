@@ -142,16 +142,13 @@ class Exercise extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={`/${this.props.theme}/${this.props.subtheme}`} />;
+      return <Redirect to={`/${this.props.theme}`} />;
     }
     if (this.state.exerciseWords) {
       return (
         <div className="exercise">
           <div className="titleAndCross">
-            <Link
-              to={`/${this.props.theme}/${this.props.subtheme}`}
-              className="closeLink"
-            >
+            <Link to={`/${this.props.theme}`} className="closeLink">
               <Close />{" "}
             </Link>
             <ExerciseTitle lesson={this.props.lesson} />
@@ -179,7 +176,6 @@ class Exercise extends React.Component {
               redirect={this.redirect}
               lesson={this.props.lesson}
               theme={this.props.theme}
-              subtheme={this.props.subtheme}
             />
           )}
           <ExerciseFooter

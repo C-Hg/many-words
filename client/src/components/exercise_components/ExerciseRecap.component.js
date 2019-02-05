@@ -23,7 +23,6 @@ class ExerciseRecap extends React.Component {
           restart={this.props.restart}
           lesson={this.props.lesson}
           theme={this.props.theme}
-          subtheme={this.props.subtheme}
           redirect={this.props.redirect}
         />
       </div>

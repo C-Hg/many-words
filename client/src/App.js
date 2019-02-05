@@ -89,7 +89,7 @@ class App extends Component {
             />
             <Route
               exact
-              path="/:themeId/:subthemeId/:lessonId/test"
+              path="/:themeId/:lessonId/test"
               component={FullScreenLayout}
             />
             <Route path="/" component={MainLayout} />

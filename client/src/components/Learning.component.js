@@ -88,10 +88,7 @@ class Learning extends React.Component {
     }
     return (
       <div className="learning-container">
-        <Link
-          to={`/${this.props.theme}/${this.props.subtheme}`}
-          className="arrowLink"
-        >
+        <Link to={`/${this.props.theme}`} className="arrowLink">
           <BackArrow />
         </Link>
         <LearningTitle lesson={this.props.lesson} />

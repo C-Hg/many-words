@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Curriculum from "../components/Curriculum.component";
 import Theme from "../components/Theme.component";
-import Subtheme from "../components/Subtheme.component";
 import Learning from "../components/Learning.component";
 import Navbar from "../components/Navbar.component";
 
@@ -26,23 +25,11 @@ function MainLayout({ match }) {
           />
           <Route
             exact
-            path={`${match.path}:themeId/:subthemeId`}
-            render={props => (
-              <Subtheme
-                theme={props.match.params.themeId}
-                subtheme={props.match.params.subthemeId}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            exact
-            path={`${match.path}:themeId/:subthemeId/:lessonId/learn`}
+            path={`${match.path}:themeId/:lessonId/learn`}
             render={props => (
               <Learning
                 lesson={props.match.params.lessonId}
                 theme={props.match.params.themeId}
-                subtheme={props.match.params.subthemeId}
                 {...props}
               />
             )}

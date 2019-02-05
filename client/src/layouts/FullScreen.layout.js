@@ -14,7 +14,6 @@ function FullScreenLayout({ match }) {
             <Exercise
               lesson={props.match.params.lessonId}
               theme={props.match.params.themeId}
-              subtheme={props.match.params.subthemeId}
               {...props}
             />
           )}
