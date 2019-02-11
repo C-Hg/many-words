@@ -1,31 +1,71 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
+import { UserContext } from "../contexts/user-context";
 import "./styles/Curriculum.scss";
 
+import ThemeTitle from "./curriculum_components/ThemeTitle.component";
+import getThemesStats from "../controllers/progress_tracking/getThemesStats.function";
+
 class Curriculum extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getStats = this.getStats.bind(this);
+  }
+
+  async getStats() {
+    let stats = await getThemesStats();
+    console.log(stats);
+    //this.setState({});
+  }
+
+  componentDidMount() {
+    let user = this.context;
+    if (user.isAuthenticated) {
+      this.getStats();
+    }
+  }
+
   render() {
-    let language = this.context;
+    // the adjacent number is the total number of words per theme, for stats tracking
+    const themes = [
+      ["animals", 103],
+      ["clothes", 47],
+      ["colors", 10],
+      ["food", 95],
+      ["habitation", 82],
+      ["human_body", 76],
+      ["nature", 79],
+      ["numbers", 32],
+      ["social_life", 51],
+      ["time", 79],
+      ["vegetals", 35]
+    ];
+
+    const cards = themes.map(val => {
+      return (
+        <Link className="themeCard" key={val[0]} to={`../${val[0]}`}>
+          <ThemeTitle theme={val[0]} />
+          {/* send this.state stats, the components return null if no data is fetched
+          <StudiedWords />
+        <StarredWords />*/}
+        </Link>
+      );
+    });
 
     return (
-      <div className="curriculum">
-        <h1 className="curriculumTitle">{language.curriculum.title}</h1>
-        <Link to={`../animals`}>{language.themes.animals}</Link>
-        <Link to={`../clothes`}>{language.themes.clothes}</Link>
-        <Link to={`../colors`}>{language.themes.colors}</Link>
-        <Link to={`../food`}>{language.themes.food}</Link>
-        <Link to={`../habitation`}>{language.themes.habitation}</Link>
-        <Link to={`../human_body`}>{language.themes.human_body}</Link>
-        <Link to={`../nature`}>{language.themes.nature}</Link>
-        <Link to={`../numbers`}>{language.themes.numbers}</Link>
-        <Link to={`../social_life`}>{language.themes.social_life}</Link>
-        <Link to={`../time`}>{language.themes.time}</Link>
-        <Link to={`../vegetals`}>{language.themes.vegetals}</Link>
-      </div>
+      <LanguageContext.Consumer>
+        {({ curriculum }) => (
+          <div className="curriculum">
+            <h1 className="curriculumTitle">{curriculum.title}</h1>
+            <div className="themeCards">{cards}</div>
+          </div>
+        )}
+      </LanguageContext.Consumer>
     );
   }
 }
 
-Curriculum.contextType = LanguageContext;
+Curriculum.contextType = UserContext;
 
 export default Curriculum;

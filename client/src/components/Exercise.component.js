@@ -18,6 +18,7 @@ class Exercise extends React.Component {
     this.nextWord = this.nextWord.bind(this);
     this.restart = this.restart.bind(this);
     this.redirect = this.redirect.bind(this);
+    this.getWords = this.getWords.bind(this);
     this.state = {
       status: "exercise",
       exerciseWords: "",
@@ -131,12 +132,17 @@ class Exercise extends React.Component {
     }
   }
 
-  async componentDidMount() {
+  async getWords() {
+    let words = await exerciseFetcher(this.props.lesson);
+    this.setState({
+      exerciseWords: words
+    });
+  }
+
+  componentDidMount() {
+    this.mounted = true;
     if (!this.state.exerciseWords) {
-      let words = await exerciseFetcher(this.props.lesson);
-      this.setState({
-        exerciseWords: words
-      });
+      this.getWords();
     }
   }
 
@@ -149,7 +155,7 @@ class Exercise extends React.Component {
         <div className="exercise">
           <div className="titleAndCross">
             <Link to={`/${this.props.theme}`} className="closeLink">
-              <Close />{" "}
+              <Close />
             </Link>
             <ExerciseTitle
               lesson={this.props.lesson}
@@ -195,7 +201,6 @@ class Exercise extends React.Component {
       return (
         //TO DO : implement waiting animation
         <div className="exercise">
-          <ExerciseTitle lesson={this.props.lesson} theme={this.props.theme} />
           <ExerciseFooter
             correctAnswer={this.state.correctAnswer}
             expectedAnswer={this.state.expectedAnswer}

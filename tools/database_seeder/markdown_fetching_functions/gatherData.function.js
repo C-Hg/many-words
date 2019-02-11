@@ -2,8 +2,8 @@ const { extractData } = require("../markdown_parser/markdownParser");
 const fileExplorer = require("./getFiles.function");
 const { readMdFile } = require("./readMarkdownFile.function");
 const {
-  getLessonName
-} = require("../markdown_parser/functions/getLessonName.function");
+  getLessonAndTheme
+} = require("../markdown_parser/functions/getLessonAndTheme.function");
 
 //returns an array of word objects from markdown documents
 exports.gatherData = async function(directory) {
@@ -19,10 +19,10 @@ exports.gatherData = async function(directory) {
   }
 
   for (const path of wordFilesPaths) {
-    let lessonName = getLessonName(path);
-    if (!lessonName) {
+    let lessonAndTheme = getLessonAndTheme(path);
+    if (!lessonAndTheme[0] || !lessonAndTheme[1]) {
       console.log(
-        "\033[1;31m" + "Error while getting lesson name" + "\033[0;0m"
+        "\033[1;31m" + "Error while getting lesson or theme name" + "\033[0;0m"
       );
       return false;
     }
@@ -36,7 +36,7 @@ exports.gatherData = async function(directory) {
       return false;
     }
 
-    let word = extractData(mdData, lessonName[0]);
+    let word = extractData(mdData, lessonAndTheme);
     if (!word) {
       console.error(
         "\033[1;31m" + `Error while extracting data from ${path}` + "\033[0;0m"

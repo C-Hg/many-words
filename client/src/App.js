@@ -10,7 +10,6 @@ import { UserContext, user } from "./contexts/user-context";
 // Layouts
 import MainLayout from "./layouts/Main.layout";
 import FullScreenLayout from "./layouts/FullScreen.layout";
-import HomeLayout from "./layouts/Home.layout";
 
 //functions
 import getUserDetails from "./controllers/auth/getUserDetails.function";
@@ -55,12 +54,12 @@ class App extends Component {
   async componentDidMount() {
     if (!this.state.isSessionChecked) {
       let userData = await getUserDetails();
-      this.setState({
-        isSessionChecked: true
-      });
       if (userData !== "no active session") {
         userData = JSON.parse(userData);
         this.loginUser(userData.email);
+        this.setState({
+          isSessionChecked: true
+        });
       }
       if (!/fr/i.test(window.navigator.language)) {
         this.setState({
@@ -71,32 +70,35 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <UserContext.Provider value={this.state.user}>
-        <LanguageContext.Provider value={this.state.main_language}>
-          <Switch>
-            <Route exact path="/" render={() => <Redirect to="/home" />} />
-            <Route
-              exact
-              path="/home"
-              render={props => (
-                <HomeLayout
-                  {...props}
-                  logoutUser={this.logoutUser}
-                  loginUser={this.loginUser}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/:themeId/:lessonId/test"
-              component={FullScreenLayout}
-            />
-            <Route path="/" component={MainLayout} />
-          </Switch>
-        </LanguageContext.Provider>
-      </UserContext.Provider>
-    );
+    // TO DO : waiting screen or animation ?
+    // allows the user context to load before rendering children components, critical when loading other page than home first
+    if (!this.state.isSessionChecked) {
+      return null;
+    } else
+      return (
+        <UserContext.Provider value={this.state.user}>
+          <LanguageContext.Provider value={this.state.main_language}>
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="/home" />} />
+              <Route
+                exact
+                path="/:themeId/:lessonId/test"
+                component={FullScreenLayout}
+              />
+              <Route
+                path="/"
+                render={props => (
+                  <MainLayout
+                    {...props}
+                    logoutUser={this.logoutUser}
+                    loginUser={this.loginUser}
+                  />
+                )}
+              />
+            </Switch>
+          </LanguageContext.Provider>
+        </UserContext.Provider>
+      );
   }
 }
 

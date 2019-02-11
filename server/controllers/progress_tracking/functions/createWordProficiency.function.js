@@ -4,7 +4,8 @@ const WordProficiency = require("../../../models/wordProficiency.model");
 module.exports = async function createWordProficiency(word, user) {
   let wordData;
   try {
-    wordData = await Word.findOne({ en_name: word }, "en fr");
+    wordData = await Word.findOne({ en_name: word }, "en fr lesson theme");
+    console.log(wordData);
   } catch (e) {
     console.log("error while fetching word data");
   }
@@ -30,7 +31,9 @@ module.exports = async function createWordProficiency(word, user) {
   let wordProficiency = new WordProficiency({
     userId: user,
     en_name: word,
-    proficiencyIndexes: proficiencyIndexes
+    proficiencyIndexes: proficiencyIndexes,
+    lesson: wordData.lesson,
+    theme: wordData.theme
   });
   return wordProficiency;
 };

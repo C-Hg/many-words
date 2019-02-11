@@ -6,7 +6,8 @@ const wordSchema = new Schema({
   fr_name: { type: String, required: true },
   hasUniqueForm: { type: Boolean, required: false },
   type: { type: String, required: true },
-  lessonName: { type: String, required: true },
+  lesson: { type: String, required: true },
+  theme: { type: String, required: true },
   en: { type: Array, required: true },
   fr: { type: Array, required: true }
 });

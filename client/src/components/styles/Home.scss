@@ -32,19 +32,19 @@ h2 {
 }
 
 .login-button-french {
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     width: 255px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     width: 230px;
   }
 }
 
 .login-button-english {
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     width: 220px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     width: 190px;
   }
 }
@@ -127,28 +127,28 @@ h2 {
   padding: 0;
   height: 50px;
   margin: auto;
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     font-size: $p-large-screen;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $p-mid-screen;
   }
 }
 
 .logout-button-english {
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     width: 200px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     width: 140px;
   }
 }
 
 .logout-button-french {
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     width: 250px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     width: 200px;
   }
 }
@@ -165,10 +165,10 @@ h2 {
 }
 
 .logoutText {
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     font-size: $h2-large-screen;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $h2-mid-screen;
   }
 }
@@ -182,11 +182,11 @@ h2 {
   background-color: inherit;
   padding: 0;
   height: 40px;
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     font-size: $p-large-screen;
     width: 250px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $p-mid-screen;
     width: 150px;
   }

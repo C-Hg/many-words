@@ -4,7 +4,7 @@ exports.getWordsToLearn = async function(req, res) {
   let words;
   try {
     words = await Word.find(
-      { lessonName: req.params.lesson },
+      { lesson: req.params.lesson },
       "type hasUniqueForm en fr"
     );
     res.send(JSON.stringify(words));

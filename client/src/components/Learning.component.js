@@ -91,7 +91,7 @@ class Learning extends React.Component {
         <Link to={`/${this.props.theme}`} className="arrowLink">
           <BackArrow />
         </Link>
-        <LearningTitle lesson={this.props.lesson} />
+        <LearningTitle lesson={this.props.lesson} theme={this.props.theme} />
         <div className="wordsToLearn">{wordsToLearn}</div>
         <Switches
           number={this.state.number}

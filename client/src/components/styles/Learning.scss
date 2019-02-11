@@ -5,11 +5,12 @@
   width: 100%;
   min-height: 400px;
   display: grid;
+  margin: auto;
   align-items: center;
   justify-items: center;
   overflow-y: auto;
 
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     font-size: $h2-large-screen;
     grid-template-columns: 76px auto;
     grid-template-rows: 130px auto 130px;
@@ -18,7 +19,7 @@
       "words words"
       "switches switches";
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $h2-mid-screen;
     grid-template-columns: auto;
     grid-template-rows: 80px auto auto 80px;
@@ -28,7 +29,7 @@
       "switches"
       "arrow";
   }
-  @media (max-width: $break-small) {
+  @media (max-width: $break-small-horizontal) {
     font-size: $h2-small-screen;
   }
 }
@@ -38,7 +39,7 @@
   grid-area: arrow;
   display: inline;
   text-align: center; // necessary for clickable link not on margins
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     margin-left: 80px;
   }
 }
@@ -52,12 +53,12 @@
   grid-area: title;
   width: auto;
   padding: 0;
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     font-size: $h1-large-screen;
     justify-self: center;
     margin-left: -50px; //compensates arrow padding
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $h1-mid-screen;
     margin: auto;
   }
@@ -65,30 +66,31 @@
 
 //vocabulary
 .wordsToLearn {
-  width: 100%;
+  width: auto;
   grid-area: words;
   display: flex;
   flex-direction: column;
-  margin: auto;
-  @media (min-width: $break-mid) {
+  justify-content: space-evenly;
+  align-items: flex-start;
+  @media (min-width: $break-mid-horizontal) {
     font-size: $h3-large-screen;
     margin-bottom: 10px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $h3-mid-screen;
     margin-bottom: 15px;
   }
-  @media (max-width: $break-small) {
+  @media (max-width: $break-small-horizontal) {
     font-size: $h3-small-screen;
   }
 }
 
 .twoWords {
-  margin: auto;
-  @media (min-width: $break-mid) {
+  text-align: left;
+  @media (min-width: $break-mid-horizontal) {
     margin-bottom: 15px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     margin-bottom: 6px;
   }
 }
@@ -100,15 +102,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     width: 75%;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     width: 85%;
   }
-  @media (max-width: $break-small + 35) {
+  @media (max-width: $break-small-horizontal + 35) {
     width: 100%;
     height: 180px;
     min-height: 180px;
@@ -120,6 +122,8 @@
 //button styling
 .switch {
   @extend .blue-button;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 15px;
   display: flex;
   flex-direction: row;

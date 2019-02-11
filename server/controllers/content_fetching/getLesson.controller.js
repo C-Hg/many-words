@@ -8,8 +8,8 @@ exports.getLesson = async function(req, res) {
   // fetches the words for the lesson
   try {
     words = await Word.find(
-      { lessonName: req.params.lesson },
-      "en_name fr_name lessonName type hasUniqueForm en fr"
+      { lesson: req.params.lesson },
+      "en_name fr_name lesson type hasUniqueForm en fr"
     );
     // sends them as is if user is not logged in
     if (!req.user) {

@@ -33,6 +33,7 @@ class Home extends React.Component {
 
   render() {
     let user = this.context;
+    console.log(user);
     if (this.state.attemptedLogout) {
       return (
         <LogoutConfirmation
@@ -56,6 +57,6 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
-
 Home.contextType = UserContext;
+
+export default Home;

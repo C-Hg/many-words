@@ -10,13 +10,13 @@
   &:hover {
     background-color: $active-light;
   }
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     font-size: $h3-large-screen;
     width: 170px;
     height: 55px;
     min-height: 55px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $h3-mid-screen;
     width: 140px;
     height: 45px;
@@ -33,11 +33,11 @@
   padding: 0;
   height: 50px;
   margin: auto;
-  @media (min-width: $break-mid) {
+  @media (min-width: $break-mid-horizontal) {
     font-size: $p-large-screen;
     width: 330px;
   }
-  @media (max-width: $break-mid) {
+  @media (max-width: $break-mid-horizontal) {
     font-size: $p-mid-screen;
     width: 270px;
   }
