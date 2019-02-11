@@ -10,7 +10,6 @@ class ExerciseRecap extends React.Component {
   render() {
     let user = this.context;
     if (user.isAuthenticated) {
-      console.log(this.props.result);
       updateWordStats(this.props.result);
     }
     return (

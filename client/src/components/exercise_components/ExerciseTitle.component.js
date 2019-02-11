@@ -5,7 +5,9 @@ class ExerciseTitle extends React.Component {
   render() {
     let language = this.context;
     return (
-      <h1 className="exerciseTitle">{language.lessons[this.props.lesson]}</h1>
+      <h1 className="exerciseTitle">
+        {language.lessons[this.props.theme][this.props.lesson]}
+      </h1>
     );
   }
 }

@@ -151,7 +151,10 @@ class Exercise extends React.Component {
             <Link to={`/${this.props.theme}`} className="closeLink">
               <Close />{" "}
             </Link>
-            <ExerciseTitle lesson={this.props.lesson} />
+            <ExerciseTitle
+              lesson={this.props.lesson}
+              theme={this.props.theme}
+            />
           </div>
           {this.state.status === "exercise" && (
             <ExerciseContainer
@@ -192,7 +195,7 @@ class Exercise extends React.Component {
       return (
         //TO DO : implement waiting animation
         <div className="exercise">
-          <ExerciseTitle lesson={this.props.lesson} />
+          <ExerciseTitle lesson={this.props.lesson} theme={this.props.theme} />
           <ExerciseFooter
             correctAnswer={this.state.correctAnswer}
             expectedAnswer={this.state.expectedAnswer}
