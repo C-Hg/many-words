@@ -30,6 +30,7 @@ async function countLessonsAndThemes() {
   let wordFilesPaths;
   let lessons = {};
   let themes = [];
+  let wordCountByLesson = {};
 
   try {
     wordFilesPaths = await fileExplorer.getFilesPaths(curriculumDirectory);
@@ -70,13 +71,23 @@ async function countLessonsAndThemes() {
   console.log(lessons);
 
   //then reducing to themes, outside of the getLessonAndTheme for loop
-  for (let lesson in lessons) {
-    let totalCount = lessons[lesson].reduce((acc, val) => {
+  for (let theme in lessons) {
+    let totalCount = lessons[theme].reduce((acc, val) => {
       return acc + val[1];
     }, 0);
-    themes.push([lesson, totalCount]);
+    themes.push([theme, totalCount]);
   }
 
   console.log("-----------   themes   -------------");
   console.log(themes);
+
+  //counting words for each lesson, inside a single object
+  for (let theme in lessons) {
+    for (let lesson of lessons[theme]) {
+      wordCountByLesson[lesson[0]] = lesson[1];
+    }
+  }
+
+  console.log("-----------   word counts  -------------");
+  console.log(wordCountByLesson);
 }

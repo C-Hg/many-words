@@ -8,7 +8,7 @@ import { shuffleArray } from "../../common/arrayShuffler.function";
 /*
 this is the main function, it formats words for the client, with informations gathered from the db
 wordsToSelect contains either a single object "words", containing an array of the words to learn
-or two objects : "words" and "proficiencyIndexes", an array matching the words to learn, with 
+or two objects : "words" and "stats_by_form", an array matching the words to learn, with 
 the stats of the user for each form of the words to learn
 see getLesson.controller.js server side for a clearer understanding 
 */
@@ -22,9 +22,9 @@ function FrEnWordSelector(wordsToSelect) {
     let articleForm, fr_form, en_form;
     let formDetails;
     let word = wordsToSelect.words[wordCounter];
-    let weakForms = false; //contains the proficiencyIndexes of the user for the current word
-    if (wordsToSelect.proficiencyIndexes) {
-      weakForms = wordsToSelect.proficiencyIndexes[wordCounter];
+    let weakForms = false; //contains the stats_by_form of the user for the current word
+    if (wordsToSelect.stats_by_form) {
+      weakForms = wordsToSelect.stats_by_form[wordCounter];
     }
 
     // picks randomly the source language and the form the first time it is presented (null or false)

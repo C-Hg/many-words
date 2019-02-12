@@ -1,6 +1,6 @@
 const Word = require("../../models/word.model");
-const findWordProficiency = require("../progress_tracking/functions/findWordProficiency.function");
-const mapWordProficiencies = require("./functions/mapWordProficiencies.function");
+const findWordStatsByWord = require("../progress_tracking/word_stats/findWordStatsByWord.function");
+const mapWordScores = require("./functions/mapWordScores.function");
 
 exports.getLesson = async function(req, res) {
   let words;
@@ -22,24 +22,22 @@ exports.getLesson = async function(req, res) {
   }
 
   // if user is registered, selects the weakest forms
-  // wordProficiencies is a parallel array containing proficiencies if they exist,
+  // wordScores is a parallel array containing scores if they exist,
   // or "null", for each word
-  let wordProficiencies = [];
+  let wordScores = [];
   try {
     for (let word of words) {
-      wordProficiencies = [
-        ...wordProficiencies,
-        await findWordProficiency(word.en_name, req.user._id)
+      wordScores = [
+        ...wordScores,
+        await findWordStatsByWord(word.en_name, req.user._id)
       ];
     }
 
-    // filters out only proficiency indexes
-    let proficiencyIndexes = mapWordProficiencies(wordProficiencies);
+    // filters out only stats indexes
+    let stats_by_form = mapWordScores(wordScores);
 
-    res.send(
-      JSON.stringify({ words: words, proficiencyIndexes: proficiencyIndexes })
-    );
+    res.send(JSON.stringify({ words: words, stats_by_form: stats_by_form }));
   } catch (e) {
-    console.log("error while fetching proficiencies");
+    console.log("error while fetching word scores");
   }
 };

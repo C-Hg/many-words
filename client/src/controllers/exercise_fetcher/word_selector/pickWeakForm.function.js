@@ -20,7 +20,7 @@ weakForms format :
 [{
     language: "en",
     form: "sing",
-    proficiency: -0.5
+    stats: -0.5
 }]
 
 */

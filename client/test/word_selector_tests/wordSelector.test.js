@@ -553,24 +553,24 @@ suite("FR/EN Word Selector function", function() {
             lessonId: "#aLongId"
           }
         ],
-        proficiencyIndexes: [
+        stats_by_form: [
           [
             {
               language: "en",
               form: "uniqueForm",
-              proficiency: -0.5
+              stats: -0.5
             }
           ],
           [
             {
               language: "en",
               form: "sing",
-              proficiency: -1
+              stats: -1
             },
             {
               language: "en",
               form: "plur",
-              proficiency: -1
+              stats: -1
             }
           ]
         ]
