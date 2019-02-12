@@ -33,7 +33,6 @@ class Home extends React.Component {
 
   render() {
     let user = this.context;
-    console.log(user);
     if (this.state.attemptedLogout) {
       return (
         <LogoutConfirmation

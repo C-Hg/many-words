@@ -1,4 +1,4 @@
-const Word = require("../models/word.model");
+const Word = require("../../common/models/word.model");
 
 exports.clearDatabase = async function() {
   try {

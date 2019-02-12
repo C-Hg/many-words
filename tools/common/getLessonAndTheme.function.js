@@ -1,4 +1,4 @@
-exports.getLessonAndTheme = function(path) {
+module.exports = function getLessonAndTheme(path) {
   let lessonRegex = /\w+(?=\/[\w]+\.md)/gi;
   let themeRegex = /\w+(?=\/[\w]+\/[\w]+\.md)/gi;
   let lesson = path.match(lessonRegex);

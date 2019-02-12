@@ -1,13 +1,13 @@
 const {
   gatherData
-} = require("./markdown_fetching_functions/gatherData.function");
+} = require("./database_seeder/markdown_fetching_functions/gatherData.function");
 const {
   clearDatabase
-} = require("./database_controllers/clearDatabase.controller");
+} = require("./database_seeder/database_controllers/clearDatabase.controller");
 const {
   seedWordsInDatabase
-} = require("./database_controllers/seedWordsInDatabase.controller");
-const curriculumDirectory = "../../exercises/FR-EN";
+} = require("./database_seeder/database_controllers/seedWordsInDatabase.controller");
+const curriculumDirectory = "../exercises/FR-EN";
 
 //Mongoose setup
 const mongoose = require("mongoose");

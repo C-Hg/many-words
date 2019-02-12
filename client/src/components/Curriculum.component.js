@@ -11,12 +11,16 @@ class Curriculum extends React.Component {
   constructor(props) {
     super(props);
     this.getStats = this.getStats.bind(this);
+    this.state = {
+      stats: ""
+    };
   }
 
   async getStats() {
     let stats = await getThemesStats();
-    console.log(stats);
-    //this.setState({});
+    this.setState({
+      stats: stats
+    });
   }
 
   componentDidMount() {

@@ -1,0 +1,16 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "Tools suite for managing Many-Words server and exercises",
+  "main": "index.js",
+  "scripts": {
+    "database_seeder": "node database_seeder.js",
+    "word_counter": "node word_counter.js"
+  },
+  "author": "Camille HAGENBOURGER",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.1"
+  }
+}
