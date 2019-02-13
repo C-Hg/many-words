@@ -1,12 +1,12 @@
 const WordStats = require("../../models/wordStats.model");
 const FR_EN_Themes = require("../../exercises/FR-EN/themes");
 const FR_EN_Lessons = require("../../exercises/FR-EN/lessons");
-const createOrUpdateLessonStats = require("./createOrUpdateLessonStats.controller");
+const createOrReplaceLessonStats = require("./createOrReplaceLessonStats.controller");
 
 module.exports = async function getThemesStats(req, res) {
   let themesStats = {};
 
-  createOrUpdateLessonStats(req.user._id, "animals_basics");
+  createOrReplaceLessonStats(req.user._id, "animals_basics");
   for (let theme of FR_EN_Themes) {
     try {
       let studiedWords = await WordStats.countDocuments({

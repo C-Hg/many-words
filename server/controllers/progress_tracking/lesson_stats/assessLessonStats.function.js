@@ -11,7 +11,7 @@ module.exports = function assessLessonStats(
     }
     return acc + val.global_score;
   }, 0);
-  return score / (totalNumberOfWords * 5);
+  return Number((score / (totalNumberOfWords * 5)).toFixed(3));
 };
 
 /*
