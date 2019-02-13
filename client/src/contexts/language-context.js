@@ -27,6 +27,7 @@ export const languages = {
       nature: "Nature",
       numbers: "Numbers",
       social_life: "Social life",
+      society: "Society",
       time: "Time",
       vegetals: "Vegetals"
     },
@@ -84,6 +85,11 @@ export const languages = {
         human_beings: "Human beings",
         identity: "Identity",
         introduction: "Introduction"
+      },
+      society: {
+        buildings: "Buildings",
+        town: "Town",
+        transports: "Transports"
       },
       time: {
         days: "Days",
@@ -164,6 +170,7 @@ export const languages = {
       nature: "Nature",
       numbers: "Nombres",
       social_life: "Vie sociale",
+      society: "Société",
       time: "Temps",
       vegetals: "Végétaux"
     },
@@ -221,6 +228,11 @@ export const languages = {
         human_beings: "Êtres humains",
         identity: "Identité",
         introduction: "Rencontre"
+      },
+      society: {
+        buildings: "Bâtiments",
+        town: "Ville",
+        transports: "Transports"
       },
       time: {
         days: "Jours",

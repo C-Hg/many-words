@@ -10,6 +10,12 @@
 
 .curriculumTitle {
   margin-top: 20px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $instructions-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $instructions-mid;
+  }
 }
 
 /* ---------------------------      main container        ------------------ */
@@ -25,32 +31,85 @@
   margin-right: auto;
 }
 
+/* --------------------------     each card          ----------------------- */
 .themeCard {
-  width: 200px;
-  height: 250px;
-  border: 2px solid $main-font-color;
+  border: 3px solid $active;
   border-radius: 15px;
   margin: 10px 10px 10px;
+  background-color: $main-background-color;
   &:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
     border-color: $active;
+  }
+  @media (min-width: $break-mid-horizontal) {
+    width: 180px;
+    height: 230px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    width: 150px;
+    height: 200px;
   }
 }
 
+.themeCardGreen {
+  border-color: $correct;
+}
+
+.themeCardGold {
+  border-color: $gold;
+}
+
+/* -----------------------------      card title    ---------------------- */
 .themeTitle {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 10px;
+  font-weight: 700;
   @media (min-width: $break-mid-horizontal) {
     font-size: $h3-large-screen;
+    margin-top: 10px;
+    margin-bottom: 15px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $h3-mid-screen;
+    margin-top: 5px;
+    margin-bottom: 8px;
   }
 }
 
-.selectTheme {
-  display: inline;
-  text-align: center;
+/*   ------------------------      achievements   ----------------------- */
+.cardLine {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: $break-mid-horizontal) {
+    margin-top: 8px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    margin-top: 5px;
+  }
+}
+
+.cardNumbers {
+  margin-left: 10px;
+  font-weight: 600;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h2-large-screen;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $h2-mid-screen;
+  }
+}
+
+.assignments {
+  color: $active;
+}
+
+.greenLessonsIcon {
+  color: $correct;
+}
+
+.goldLessonsIcon {
+  color: $gold;
 }

@@ -1,55 +1,56 @@
 @import "../../style_common/variables.scss";
 
 .navbar {
-  min-width: 300px;
-  display: flex;
-  flex-direction: row;
-  height: 70px;
-  margin-top: -70px;
+  height: 65px;
+  margin-top: -65px;
   background-color: $navbar-background;
-  padding: 0;
+  width: 100%;
 }
 
-.navbar-title,
-.flags,
-.home-link {
-  color: $navbar-text;
-  margin: 0;
-  padding: 0;
-  @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
-  }
-  @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-small-screen;
-  }
-}
-
-.home-link {
-  margin-left: auto;
-}
-
-.navbar-title {
-  margin-right: auto;
-}
-
-ul {
-  list-style-type: none;
-  margin: auto;
+.navbar-links {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  color: $navbar-text;
   height: 100%;
   padding-left: 20px;
   padding-right: 20px;
+  margin: auto;
   @media (min-width: $break-large-horizontal) {
-    width: $break-large-horizontal - 40;
+    width: $break-large-horizontal - 100;
   }
   @media (max-width: $break-large-horizontal - 1) {
-    width: 100%;
+    width: 85%;
+  }
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h2-large-screen;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $h2-mid-screen;
   }
 }
 
-li {
-  display: inline;
+.navbar-link {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.inactive-link {
+  &:hover {
+    color: $active;
+    background-color: white;
+  }
+}
+
+.active-link {
+  &:hover {
+    color: inherit !important;
+    background-color: inherit !important;
+  }
 }

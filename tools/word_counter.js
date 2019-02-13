@@ -75,7 +75,7 @@ async function countLessonsAndThemes() {
     let totalCount = lessons[theme].reduce((acc, val) => {
       return acc + val[1];
     }, 0);
-    themes.push([theme, totalCount]);
+    themes.push([theme, totalCount, lessons[theme].length]);
   }
 
   console.log("-----------   themes   -------------");

@@ -3,7 +3,8 @@ const findLessonStats = require("./lesson_stats/findLessonStats.function");
 const createUserStats = require("./user_stats/createUserStats.function");
 const wordCountByLesson = require("../../exercises/FR-EN/wordCountByLesson");
 const assessLessonStats = require("./lesson_stats/assessLessonStats.function");
-const replaceLessonStats = require("./lesson_stats/replaceLessonStats.function");
+const replaceUserStats = require("./user_stats/replaceUserStats.function");
+const updateThemesStats = require("./updateThemesStats.controller");
 
 module.exports = async function createOrReplaceLessonStats(user, lesson) {
   let wordStats;
@@ -28,16 +29,22 @@ module.exports = async function createOrReplaceLessonStats(user, lesson) {
   if (!userStats) {
     let lessonStats = {};
     lessonStats[lesson] = newScore;
-    let userData = { userId: user, lessonStats: lessonStats };
-    await createUserStats(userData);
-    return;
+    userStats = { userId: user, lessonStats: lessonStats };
+    await createUserStats(userStats);
   } else {
     // updates userStats otherwise
     userStats.lessonStats[lesson] = newScore;
     try {
-      await replaceLessonStats(user, userStats);
+      await replaceUserStats(userStats);
     } catch (e) {
       console.log("error while updating lesson stats");
     }
+  }
+
+  // finally, update themes stats with userStats
+  try {
+    await updateThemesStats(userStats);
+  } catch (e) {
+    console.log("error while updating themes stats");
   }
 };

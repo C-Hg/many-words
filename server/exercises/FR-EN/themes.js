@@ -1,16 +1,16 @@
 // the adjacent number is the total number of words per theme, for stats tracking
 
 module.exports = [
-  ["animals", 103],
-  ["clothes", 47],
-  ["colors", 10],
-  ["food", 95],
-  ["habitation", 82],
-  ["human_body", 76],
-  ["nature", 79],
-  ["numbers", 32],
-  ["social_life", 51],
-  ["society", 42],
-  ["time", 79],
-  ["vegetals", 35]
+  ["animals", 103, 6],
+  ["clothes", 47, 3],
+  ["colors", 10, 1],
+  ["food", 95, 7],
+  ["habitation", 82, 6],
+  ["human_body", 76, 5],
+  ["nature", 79, 6],
+  ["numbers", 32, 2],
+  ["social_life", 51, 4],
+  ["society", 42, 3],
+  ["time", 79, 6],
+  ["vegetals", 35, 3]
 ];

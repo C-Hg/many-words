@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const userStatsSchema = new Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    lessonStats: { type: Object, required: true, default: {} }
+    lessonStats: { type: Object, required: true, default: {} },
+    themeStats: { type: Object, required: true, default: {} }
   },
-  { strict: false, minimize: false, validateBeforeSave: false }
+  { minimize: false }
 );
 
 module.exports = mongoose.model("UserStats", userStatsSchema);

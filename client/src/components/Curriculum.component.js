@@ -6,6 +6,9 @@ import "./styles/Curriculum.scss";
 
 import ThemeTitle from "./curriculum_components/ThemeTitle.component";
 import getThemesStats from "../controllers/progress_tracking/getThemesStats.function";
+import ThemeLessonsNumber from "./curriculum_components/ThemeLessonsNumber.component";
+import GreenLessons from "./curriculum_components/GreenLessons.component";
+import GoldLessons from "./curriculum_components/GoldLesson.component";
 
 class Curriculum extends React.Component {
   constructor(props) {
@@ -31,28 +34,55 @@ class Curriculum extends React.Component {
   }
 
   render() {
-    // the adjacent number is the total number of words per theme, for stats tracking
+    // lesson name, words/theme, lessons/theme
     const themes = [
-      ["animals", 103],
-      ["clothes", 47],
-      ["colors", 10],
-      ["food", 95],
-      ["habitation", 82],
-      ["human_body", 76],
-      ["nature", 79],
-      ["numbers", 32],
-      ["social_life", 51],
-      ["time", 79],
-      ["vegetals", 35]
+      ["animals", 103, 6],
+      ["clothes", 47, 3],
+      ["colors", 10, 1],
+      ["food", 95, 7],
+      ["habitation", 82, 6],
+      ["human_body", 76, 5],
+      ["nature", 79, 6],
+      ["numbers", 32, 2],
+      ["social_life", 51, 4],
+      ["society", 42, 3],
+      ["time", 79, 6],
+      ["vegetals", 35, 3]
     ];
 
     const cards = themes.map(val => {
+      let greenLessons = 0;
+      let goldLessons = 0;
+      let lessons = val[2];
+      let borderColorClass = "";
+
+      if (this.state.stats[val[0]]) {
+        greenLessons = this.state.stats[val[0]].green;
+        goldLessons = this.state.stats[val[0]].gold;
+        lessons -= greenLessons;
+        lessons -= goldLessons;
+      }
+      if (lessons === 0) {
+        if (greenLessons === 0) {
+          borderColorClass = "themeCardGold";
+        } else {
+          borderColorClass = "themeCardGreen";
+        }
+      }
       return (
-        <Link className="themeCard" key={val[0]} to={`../${val[0]}`}>
+        <Link
+          className={`themeCard ${borderColorClass}`}
+          key={val[0]}
+          to={`../${val[0]}`}
+        >
           <ThemeTitle theme={val[0]} />
-          {/* send this.state stats, the components return null if no data is fetched
-          <StudiedWords />
-        <StarredWords />*/}
+          {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
+          {this.state.stats && greenLessons > 0 && (
+            <GreenLessons green={greenLessons} />
+          )}
+          {this.state.stats && goldLessons > 0 && (
+            <GoldLessons gold={goldLessons} />
+          )}
         </Link>
       );
     });
