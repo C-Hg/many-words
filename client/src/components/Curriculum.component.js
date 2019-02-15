@@ -10,6 +10,21 @@ import ThemeLessonsNumber from "./curriculum_components/ThemeLessonsNumber.compo
 import GreenLessons from "./curriculum_components/GreenLessons.component";
 import GoldLessons from "./curriculum_components/GoldLesson.component";
 
+const themes = [
+  ["animals", 103, 6],
+  ["clothes", 47, 3],
+  ["colors", 10, 1],
+  ["food", 95, 7],
+  ["habitation", 82, 6],
+  ["human_body", 76, 5],
+  ["nature", 79, 6],
+  ["numbers", 32, 2],
+  ["social_life", 51, 4],
+  ["society", 42, 3],
+  ["time", 79, 6],
+  ["vegetals", 35, 3]
+];
+
 class Curriculum extends React.Component {
   constructor(props) {
     super(props);
@@ -34,21 +49,9 @@ class Curriculum extends React.Component {
   }
 
   render() {
+    let user = this.context;
+
     // lesson name, words/theme, lessons/theme
-    const themes = [
-      ["animals", 103, 6],
-      ["clothes", 47, 3],
-      ["colors", 10, 1],
-      ["food", 95, 7],
-      ["habitation", 82, 6],
-      ["human_body", 76, 5],
-      ["nature", 79, 6],
-      ["numbers", 32, 2],
-      ["social_life", 51, 4],
-      ["society", 42, 3],
-      ["time", 79, 6],
-      ["vegetals", 35, 3]
-    ];
 
     const cards = themes.map(val => {
       let greenLessons = 0;
@@ -56,6 +59,7 @@ class Curriculum extends React.Component {
       let lessons = val[2];
       let borderColorClass = "";
 
+      // depends on api call
       if (this.state.stats[val[0]]) {
         greenLessons = this.state.stats[val[0]].green;
         goldLessons = this.state.stats[val[0]].gold;
@@ -64,11 +68,12 @@ class Curriculum extends React.Component {
       }
       if (lessons === 0) {
         if (greenLessons === 0) {
-          borderColorClass = "themeCardGold";
+          borderColorClass = "borderGold";
         } else {
-          borderColorClass = "themeCardGreen";
+          borderColorClass = "borderGreen";
         }
       }
+
       return (
         <Link
           className={`themeCard ${borderColorClass}`}
@@ -87,16 +92,21 @@ class Curriculum extends React.Component {
       );
     });
 
-    return (
-      <LanguageContext.Consumer>
-        {({ curriculum }) => (
-          <div className="curriculum">
-            <h1 className="curriculumTitle">{curriculum.title}</h1>
-            <div className="themeCards">{cards}</div>
-          </div>
-        )}
-      </LanguageContext.Consumer>
-    );
+    // render cards only after the database call if user is logged in
+    if (this.state.stats || !user.isAuthenticated) {
+      return (
+        <LanguageContext.Consumer>
+          {({ curriculum }) => (
+            <div className="curriculum">
+              <h1 className="menuTitle">{curriculum.title}</h1>
+              <div className="themeCards">{cards}</div>
+            </div>
+          )}
+        </LanguageContext.Consumer>
+      );
+    }
+
+    return null;
   }
 }
 

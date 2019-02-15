@@ -3,6 +3,10 @@ import React from "react";
 export const languages = {
   English: {
     language: "english",
+    navbar: {
+      home: "Home",
+      login: "Login"
+    },
     navigation: {
       login_with: "Log in with",
       logout: "Log out"
@@ -144,8 +148,15 @@ export const languages = {
     definite: "definite",
     indefinite: "indefinite"
   },
+
+  /* --------------------        FRENCH     ------------------- */
+
   French: {
     language: "french",
+    navbar: {
+      home: "Accueil",
+      login: "Connexion"
+    },
     navigation: {
       login_with: "Connexion avec",
       logout: "Déconnexion"

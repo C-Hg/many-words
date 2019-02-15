@@ -20,7 +20,7 @@ class Learning extends React.Component {
       number: "",
       gender: "",
       definite: "",
-      formattedWords: ["hello", "ty"],
+      formattedWords: "",
       exerciseWords: ""
     };
   }

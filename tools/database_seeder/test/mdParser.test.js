@@ -50,12 +50,14 @@ suite("Extract data function", function() {
   });
 
   test("mouse.md, valid noun, ignored last columns", function() {
-    let result = extractData(mouse, "testing_subfolder_search");
+    let result = extractData(mouse, ["testing_subfolder_search", "theme"]);
+    console.log(result);
     assert.isObject(result);
-    assert(Object.keys(result).length === 6);
+    assert(Object.keys(result).length === 7);
     assert.propertyVal(result, "en_name", "mouse");
     assert.propertyVal(result, "fr_name", "souris");
-    assert.propertyVal(result, "lessonName", "testing_subfolder_search");
+    assert.propertyVal(result, "lesson", "testing_subfolder_search");
+    assert.propertyVal(result, "theme", "theme");
     assert.propertyVal(result, "type", "noun");
     assert.propertyVal(result.fr[0], "fem_sing", "souris");
     assert.propertyVal(result.fr[0], "fem_plur", "souris");
@@ -68,12 +70,13 @@ suite("Extract data function", function() {
   });
 
   test("apple.md, noun with 3 alternatives", function() {
-    let result = extractData(apple, "in_depth");
+    let result = extractData(apple, ["in_depth", "theme"]);
     assert.isObject(result);
-    assert(Object.keys(result).length === 6);
+    assert(Object.keys(result).length === 7);
     assert.propertyVal(result, "en_name", "apple");
     assert.propertyVal(result, "fr_name", "âne");
-    assert.propertyVal(result, "lessonName", "in_depth");
+    assert.propertyVal(result, "lesson", "in_depth");
+    assert.propertyVal(result, "theme", "theme");
     assert.propertyVal(result, "type", "noun");
     assert.deepEqual(result.fr, [
       {
@@ -146,12 +149,13 @@ suite("Extract data function", function() {
   });
 
   test("unique.md, valid unique forms", function() {
-    let result = extractData(unique, "tested_Md_files");
+    let result = extractData(unique, ["tested_Md_files", "theme"]);
     assert.isObject(result);
-    assert(Object.keys(result).length === 7);
+    assert(Object.keys(result).length === 8);
     assert.propertyVal(result, "en_name", "hello");
     assert.propertyVal(result, "fr_name", "bonjour");
-    assert.propertyVal(result, "lessonName", "tested_Md_files");
+    assert.propertyVal(result, "lesson", "tested_Md_files");
+    assert.propertyVal(result, "theme", "theme");
     assert.propertyVal(result, "type", "other");
     assert.propertyVal(result, "hasUniqueForm", true);
     assert.deepEqual(result.fr, [

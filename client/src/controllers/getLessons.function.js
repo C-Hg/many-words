@@ -2,101 +2,70 @@
 // and the difficulty index for all lessons of a theme
 
 exports.getLessons = function(theme) {
-  let lessons = [];
-  switch (theme) {
-    case "animals":
-      lessons = [
-        ["animals_basics", 1],
-        ["birds", 3],
-        ["farm_animals", 2],
-        ["insects", 3],
-        ["mammals_1", 2],
-        ["sea_animals", 3]
-      ];
-      break;
-
-    case "clothes":
-      lessons = [
-        ["accessories", 3],
-        ["clothes_basics", 1],
-        ["more_clothes", 2]
-      ];
-      break;
-
-    case "colors":
-      lessons = [["main_colors", 1]];
-      break;
-
-    case "food":
-      lessons = [
-        ["drinks", 2],
-        ["food_basics", 1],
-        ["foods", 1],
-        ["fruits", 2],
-        ["more_fruits_and_vegetables", 3],
-        ["vegetables", 2]
-      ];
-      break;
-
-    case "habitation":
-      lessons = [
-        ["construction_materials", 2],
-        ["constuction_tools", 2],
-        ["furniture", 2],
-        ["house", 1],
-        ["housing", 3],
-        ["rooms", 1]
-      ];
-      break;
-
-    case "human_body":
-      lessons = [
-        ["head", 2],
-        ["human_body_basics", 1],
-        ["limbs", 2],
-        ["organs", 3],
-        ["senses", 3]
-      ];
-      break;
-
-    case "nature":
-      lessons = [["nature_basics", 1], ["universe", 2]];
-      break;
-
-    case "numbers":
-      lessons = [
-        ["first_numbers", 1],
-        ["more_numbers", 2],
-        ["large_numbers", 2]
-      ];
-      break;
-
-    case "social_life":
-      lessons = [
-        ["close_family", 1],
-        ["human_beings", 1],
-        ["identity", 2],
-        ["introduction", 1]
-      ];
-      break;
-
-    case "time":
-      lessons = [
-        ["days", 1],
-        ["months", 1],
-        ["time_basics", 1],
-        ["time_description_1", 2],
-        ["time_description_2", 2],
-        ["time_divisions", 2]
-      ];
-      break;
-
-    case "vegetals":
-      lessons = [["plants", 2], ["trees", 2], ["vegetals_basics", 1]];
-      break;
-
-    default:
-      break;
-  }
-  return lessons;
+  const lessons = {
+    animals: [
+      ["animals_basics", 10],
+      ["birds", 21],
+      ["farm_animals", 18],
+      ["insects", 20],
+      ["mammals_1", 17],
+      ["sea_animals", 17]
+    ],
+    clothes: [
+      ["accessories", 19],
+      ["clothes_basics", 11],
+      ["more_clothes", 17]
+    ],
+    colors: [["main_colors", 10]],
+    food: [
+      ["agriculture", 14],
+      ["drinks", 15],
+      ["food_basics", 17],
+      ["foods", 18],
+      ["fruits", 16],
+      ["more_fruits_and_vegetables", 3],
+      ["vegetables", 12]
+    ],
+    habitation: [
+      ["construction_materials", 14],
+      ["construction_tools", 14],
+      ["furniture", 16],
+      ["house", 16],
+      ["housing", 11],
+      ["rooms", 11]
+    ],
+    human_body: [
+      ["head", 15],
+      ["human_body_basics", 16],
+      ["limbs", 15],
+      ["organs", 14],
+      ["senses", 16]
+    ],
+    nature: [
+      ["earth", 11],
+      ["nature_basics", 12],
+      ["seas", 14],
+      ["universe", 10],
+      ["weather_1", 15],
+      ["weather_2", 17]
+    ],
+    numbers: [["first_numbers", 21], ["more_numbers", 11]],
+    social_life: [
+      ["close_family", 11],
+      ["human_beings", 19],
+      ["identity", 10],
+      ["introduction", 11]
+    ],
+    society: [["buildings", 11], ["town", 15], ["transports", 16]],
+    time: [
+      ["days", 10],
+      ["months", 12],
+      ["time_basics", 15],
+      ["time_description_1", 14],
+      ["time_description_2", 13],
+      ["time_divisions", 15]
+    ],
+    vegetals: [["plants", 12], ["trees", 13], ["vegetals_basics", 10]]
+  };
+  return lessons[theme];
 };

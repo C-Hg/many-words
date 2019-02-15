@@ -1,4 +1,5 @@
 @import "../../style_common/variables.scss";
+@import "../../style_common/layouts.scss";
 
 .curriculum {
   display: flex;
@@ -8,73 +9,22 @@
   margin: auto;
 }
 
-.curriculumTitle {
-  margin-top: 20px;
-  @media (min-width: $break-mid-horizontal) {
-    font-size: $instructions-large;
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $instructions-mid;
-  }
-}
-
 /* ---------------------------      main container        ------------------ */
 .themeCards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 85%;
-  height: auto;
-  margin-top: 30px;
-  margin-left: auto;
-  margin-right: auto;
+  @extend .cardContainer;
 }
 
 /* --------------------------     each card          ----------------------- */
 .themeCard {
-  border: 3px solid $active;
-  border-radius: 15px;
-  margin: 10px 10px 10px;
-  background-color: $main-background-color;
+  @extend .card;
   &:hover {
-    transform: scale(1.05);
-    border-color: $active;
+    transform: scale(1.1);
   }
-  @media (min-width: $break-mid-horizontal) {
-    width: 180px;
-    height: 230px;
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    width: 150px;
-    height: 200px;
-  }
-}
-
-.themeCardGreen {
-  border-color: $correct;
-}
-
-.themeCardGold {
-  border-color: $gold;
 }
 
 /* -----------------------------      card title    ---------------------- */
 .themeTitle {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  font-weight: 700;
-  @media (min-width: $break-mid-horizontal) {
-    font-size: $h3-large-screen;
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h3-mid-screen;
-    margin-top: 5px;
-    margin-bottom: 8px;
-  }
+  @extend .cardTitle;
 }
 
 /*   ------------------------      achievements   ----------------------- */

@@ -32,10 +32,10 @@ suite("Gather data function", function() {
     assert.lengthOf(validTests, 2);
 
     //apple.md
-    assert(Object.keys(validTests[0]).length === 6);
+    assert(Object.keys(validTests[0]).length === 7);
     assert.propertyVal(validTests[0], "en_name", "apple");
     assert.propertyVal(validTests[0], "fr_name", "âne");
-    assert.propertyVal(validTests[0], "lessonName", "valid_files");
+    assert.propertyVal(validTests[0], "lesson", "valid_files");
     assert.propertyVal(validTests[0], "type", "noun");
     assert.deepEqual(validTests[0].fr, [
       {
@@ -87,10 +87,10 @@ suite("Gather data function", function() {
     ]);
 
     //uique.md
-    assert(Object.keys(validTests[1]).length === 7);
+    assert(Object.keys(validTests[1]).length === 8);
     assert.propertyVal(validTests[1], "en_name", "hello");
     assert.propertyVal(validTests[1], "fr_name", "bonjour");
-    assert.propertyVal(validTests[1], "lessonName", "subfolder_test");
+    assert.propertyVal(validTests[1], "lesson", "subfolder_test");
     assert.propertyVal(validTests[1], "type", "other");
     assert.propertyVal(validTests[1], "hasUniqueForm", true);
     assert.deepEqual(validTests[1].fr, [

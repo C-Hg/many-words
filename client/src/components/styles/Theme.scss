@@ -1,0 +1,30 @@
+@import "../../style_common/variables.scss";
+@import "../../style_common/layouts.scss";
+
+/* ---------------------------      main container        ------------------ */
+.lessonCards {
+  @extend .cardContainer;
+}
+
+.lessonCard {
+  @extend .card;
+  display: flex;
+}
+
+.lessonTitle {
+  @extend .cardTitle;
+}
+
+.themeButtons {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.startTest {
+  width: 100%;
+  height: 50px;
+  border: 1px solid $active;
+}

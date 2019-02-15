@@ -10,7 +10,6 @@ router.get("/google/token", passport.authenticate("google-token"), function(
   req,
   res
 ) {
-  console.log("hello");
   res.send(req.user);
 });
 

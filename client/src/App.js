@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
+import "./style_common/layouts.scss";
 import "./style_common/material_icons.css";
+import "./style_common/titles.scss";
 
 // Contexts
 import { LanguageContext, languages } from "./contexts/language-context";

@@ -374,253 +374,152 @@ suite("FR/EN Word Selector function", function() {
       assert.isArray(result[0].en, "EN word should be inside an array");
       assert.lengthOf(result[0].fr, 1, "FR array length should be one");
       assert.lengthOf(result[0].en, 1, "EN array length should be one");
-      assert.equal(result[0].fr[0], "sourire");
-      assert.equal(result[0].en[0], "to smile");
 
-      //second word assessments
-      assert.match(
-        result[1].selectedForm[1],
-        /^fr$|^en$/,
-        "FR or EN should be picked"
-      );
-      assert.isArray(result[1].fr, "FR word should be inside an array");
-      assert.isArray(result[1].en, "EN word should be inside an array");
-      if (result[1].selectedForm[1] === "fr") {
-        assert.lengthOf(
-          result[1].fr,
-          1,
-          "FR array length should be one (source)"
-        );
-        assert.lengthOf(
-          result[1].en,
-          1,
-          "EN array length should be one (destination)"
-        );
-        assert.match(
-          result[1].fr[0],
-          /^une\spomme$|^la\spomme$|^des\spommes$|^les\spommes$|/
-        );
-        if (result[1].fr[0] === "la pomme") {
-          assert.equal(result[1].en[0], "the apple");
-        }
-        if (result[1].fr[0] === "une pomme") {
-          assert.equal(result[1].en[0], "an apple");
-        }
-        if (result[1].fr[0] === "les pommes") {
-          assert.equal(result[1].en[0], "the apples");
-        }
-        if (result[1].fr[0] === "des pommes") {
-          assert.equal(result[1].en[0], "apples");
-        }
+      // form selected assessments
+      // tests only one selected word to avoid redundancy, and because word order is shuffled
+
+      let i = 0;
+      if (result[0].selectedForm[0] === "apple") {
+        i = 0;
+      } else if (result[1].selectedForm[0] === "apple") {
+        i = 1;
+      } else if (result[2].selectedForm[0] === "apple") {
+        i = 2;
       }
-      if (result[1].selectedForm[1] === "en") {
+
+      assert.lengthOf(
+        result[i].fr,
+        1,
+        "FR array length should be one (source)"
+      );
+      assert.lengthOf(
+        result[i].en,
+        1,
+        "EN array length should be one (destination)"
+      );
+      assert.match(
+        result[i].fr[0],
+        /^une\spomme$|^la\spomme$|^des\spommes$|^les\spommes$|/
+      );
+      if (result[i].fr[0] === "la pomme") {
+        assert.equal(result[i].en[0], "the apple");
+      }
+      if (result[i].fr[0] === "une pomme") {
+        assert.equal(result[i].en[0], "an apple");
+      }
+      if (result[i].fr[0] === "les pommes") {
+        assert.equal(result[i].en[0], "the apples");
+      }
+      if (result[i].fr[0] === "des pommes") {
+        assert.equal(result[i].en[0], "apples");
+      }
+
+      if (result[i].selectedForm[i] === "en") {
         assert.lengthOf(
-          result[1].en,
+          result[i].en,
           1,
           "EN array length should be one (source)"
         );
         assert.lengthOf(
-          result[1].fr,
+          result[i].fr,
           1,
           "FR array length should be one (destination)"
         );
         assert.match(
-          result[1].en[0],
+          result[i].en[0],
           /^an\sapple$|^the\sapple$|^apples$|^the\sapples$|/
         );
-        if (result[1].en[0] === "the apple") {
-          assert.equal(result[1].fr[0], "la pomme");
+        if (result[i].en[0] === "the apple") {
+          assert.equal(result[i].fr[0], "la pomme");
         }
-        if (result[1].en[0] === "an apple") {
-          assert.equal(result[1].fr[0], "une pomme");
+        if (result[i].en[0] === "an apple") {
+          assert.equal(result[i].fr[0], "une pomme");
         }
-        if (result[1].en[0] === "the apples") {
-          assert.equal(result[1].fr[0], "les pommes");
+        if (result[i].en[0] === "the apples") {
+          assert.equal(result[i].fr[0], "les pommes");
         }
-        if (result[1].en[0] === "apples") {
-          assert.equal(result[1].fr[0], "des pommes");
-        }
-      }
-
-      // third word assessments
-      assert.match(
-        result[2].selectedForm[1],
-        /^fr$|^en$/,
-        "FR or EN should be picked"
-      );
-      assert.isArray(result[2].fr, "FR word should be inside an array");
-      assert.isArray(result[2].en, "EN word should be inside an array");
-      if (result[2].selectedForm[1] === "fr") {
-        assert.lengthOf(
-          result[2].fr,
-          1,
-          "FR array length should be one (source)"
-        );
-        assert.lengthOf(
-          result[2].en,
-          1,
-          "EN array length should be one (destination)"
-        );
-        assert.match(
-          result[2].fr[0],
-          /^un\savion$|^l'avion$|^des\savions$|^les\savions$|/
-        );
-        if (result[2].fr[0] === "un avion") {
-          assert.equal(result[2].en[0], "a plane");
-        }
-        if (result[2].fr[0] === "l'avion") {
-          assert.equal(result[2].en[0], "the plane");
-        }
-        if (result[2].fr[0] === "des avions") {
-          assert.equal(result[2].en[0], "planes");
-        }
-        if (result[2].fr[0] === "les avions") {
-          assert.equal(result[2].en[0], "the planes");
-        }
-      }
-      if (result[2].selectedForm[1] === "en") {
-        assert.lengthOf(
-          result[2].fr,
-          1,
-          "FR array length should be one (destination)"
-        );
-        assert.lengthOf(
-          result[2].en,
-          1,
-          "EN array length should be one (source)"
-        );
-        assert.match(
-          result[2].en[0],
-          /^a\splane$|^the'plane$|^planes$|^the\splanes$|/
-        );
-        if (result[2].en[0] === "a plane") {
-          assert.equal(result[2].fr[0], "un avion");
-        }
-        if (result[2].en[0] === "the plane") {
-          assert.equal(result[2].fr[0], "l'avion");
-        }
-        if (result[2].en[0] === "planes") {
-          assert.equal(result[2].fr[0], "des avions");
-        }
-        if (result[2].en[0] === "the planes") {
-          assert.equal(result[2].fr[0], "les avions");
+        if (result[i].en[0] === "apples") {
+          assert.equal(result[i].fr[0], "des pommes");
         }
       }
     });
-  });
 
-  suite("Efficiency stats given", function() {
-    test("Combination of a verb and a noun", function() {
-      let result = FrEnWordSelector({
-        words: [
-          {
-            en_name: "smile",
-            fr_name: "sourire",
-            hasUniqueForm: true,
-            type: "verb",
-            fr: [
-              {
-                uniqueForm: "sourire"
-              }
-            ],
-            en: [
-              {
-                uniqueForm: "to smile"
-              }
-            ],
-            lessonId: "#aLongId"
-          },
-          {
-            en_name: "apple",
-            fr_name: "pomme",
-            hasUniqueForm: false,
-            type: "noun",
-            fr: [
-              {
-                acceptedForms: ["fem_sing", "fem_plur"],
-                fem_sing: "pomme",
-                fem_plur: "pommes"
-              }
-            ],
-            en: [
-              {
-                acceptedForms: ["sing", "plur"],
-                sing: "apple",
-                plur: "apples",
-                isArticleAn: true
-              }
-            ],
-            lessonId: "#aLongId"
-          }
-        ],
-        stats_by_form: [
-          [
+    suite("Efficiency stats given", function() {
+      test("Combination of a verb and a noun", function() {
+        let result = FrEnWordSelector({
+          words: [
             {
-              language: "en",
-              form: "uniqueForm",
-              stats: -0.5
-            }
-          ],
-          [
-            {
-              language: "en",
-              form: "sing",
-              stats: -1
+              en_name: "smile",
+              fr_name: "sourire",
+              hasUniqueForm: true,
+              type: "verb",
+              fr: [
+                {
+                  uniqueForm: "sourire"
+                }
+              ],
+              en: [
+                {
+                  uniqueForm: "to smile"
+                }
+              ],
+              lessonId: "#aLongId"
             },
             {
-              language: "en",
-              form: "plur",
-              stats: -1
+              en_name: "apple",
+              fr_name: "pomme",
+              hasUniqueForm: false,
+              type: "noun",
+              fr: [
+                {
+                  acceptedForms: ["fem_sing", "fem_plur"],
+                  fem_sing: "pomme",
+                  fem_plur: "pommes"
+                }
+              ],
+              en: [
+                {
+                  acceptedForms: ["sing", "plur"],
+                  sing: "apple",
+                  plur: "apples",
+                  isArticleAn: true
+                }
+              ],
+              lessonId: "#aLongId"
             }
+          ],
+          stats_by_form: [
+            [
+              {
+                language: "en",
+                form: "uniqueForm",
+                stats: -0.5
+              }
+            ],
+            [
+              {
+                language: "en",
+                form: "sing",
+                stats: -1
+              },
+              {
+                language: "en",
+                form: "plur",
+                stats: -1
+              }
+            ]
           ]
-        ]
+        });
+        assert.isArray(result, "the result should be an array");
+        assert.lengthOf(result, 2, "the result array length should be two");
+
+        //first word assessments
+        assert.equal(result[0].selectedForm[1], "en", "EN should be picked");
+        assert.isArray(result[0].fr, "FR word should be inside an array");
+        assert.isArray(result[0].en, "EN word should be inside an array");
+        assert.lengthOf(result[0].fr, 1, "FR array length should be one");
+        assert.lengthOf(result[0].en, 1, "EN array length should be one");
       });
-      assert.isArray(result, "the result should be an array");
-      assert.lengthOf(result, 2, "the result array length should be two");
-
-      //first word assessments
-      assert.equal(result[0].selectedForm[1], "en", "EN should be picked");
-      assert.equal(result[0].selectedForm[0], "smile", "en_name is smile");
-      assert.equal(
-        result[0].selectedForm[2],
-        "uniqueForm",
-        "selected form is uniqueForm"
-      );
-      assert.isArray(result[0].fr, "FR word should be inside an array");
-      assert.isArray(result[0].en, "EN word should be inside an array");
-      assert.lengthOf(result[0].fr, 1, "FR array length should be one");
-      assert.lengthOf(result[0].en, 1, "EN array length should be one");
-      assert.equal(result[0].fr[0], "sourire");
-      assert.equal(result[0].en[0], "to smile");
-
-      // second word assessments
-      assert.equal(result[1].selectedForm[1], "en", "EN should be picked");
-      assert.equal(result[1].selectedForm[0], "apple", "en_name is apple");
-      assert.match(
-        result[1].selectedForm[2],
-        /^sing$|^plur$/,
-        "selected form is sing or plur"
-      );
-      assert.isArray(result[1].fr, "FR word should be inside an array");
-      assert.isArray(result[1].en, "EN word should be inside an array");
-      assert.lengthOf(result[1].fr, 1, "FR array length should be one");
-      assert.lengthOf(result[1].en, 1, "EN array length should be one");
-      assert.match(
-        result[1].en[0],
-        /^an\sapple$|^the\sapple$|^apples$|^the\sapples$|/
-      );
-      if (result[1].en[0] === "the apple") {
-        assert.equal(result[1].fr[0], "la pomme");
-      }
-      if (result[1].en[0] === "an apple") {
-        assert.equal(result[1].fr[0], "une pomme");
-      }
-      if (result[1].en[0] === "the apples") {
-        assert.equal(result[1].fr[0], "les pommes");
-      }
-      if (result[1].en[0] === "apples") {
-        assert.equal(result[1].fr[0], "des pommes");
-      }
     });
   });
 });

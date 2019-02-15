@@ -1,0 +1,55 @@
+@import "./variables.scss";
+
+/*   ------------------    card properties    ----------------    */
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 85%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid $active;
+  border-radius: 15px;
+  margin: 12px 12px 12px;
+  background-color: $main-background-color;
+  @media (min-width: $break-mid-horizontal) {
+    width: 180px;
+    height: 230px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    width: 150px;
+    height: 200px;
+  }
+}
+
+.cardTitle {
+  width: 100%;
+  font-weight: 700;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h3-large-screen;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $h3-mid-screen;
+    margin-top: 5px;
+    margin-bottom: 8px;
+  }
+}
+
+/*   -------------------     borders    -------------------- */
+
+.borderGreen {
+  border-color: $correct;
+}
+
+.borderGold {
+  border-color: $gold;
+}
