@@ -3,7 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import exerciseFetcher from "../controllers/exercise_fetcher/exerciseFetcher.controller";
 import Close from "./common_components/Close.component";
 import ExerciseTitle from "./exercise_components/ExerciseTitle.component";
-import functions from "../controllers/exercise_functions/checkUserTranslation.functions";
+import checkUserTranslation from "../controllers/exercise_functions/checkUserTranslation.function";
 import ExerciseContainer from "./exercise_components/ExerciseContainer.component";
 import ExerciseFooter from "./exercise_components/ExerciseFooter.component";
 import ExerciseRecap from "./exercise_components/ExerciseRecap.component";
@@ -96,7 +96,7 @@ class Exercise extends React.Component {
   }
 
   submitUserTranslation() {
-    let result = functions.checkUserTranslation(
+    let result = checkUserTranslation(
       this.state.userTranslation,
       this.state.exerciseWords[this.state.wordRank]
     );

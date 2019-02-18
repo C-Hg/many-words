@@ -33,10 +33,12 @@ exports.getLesson = async function(req, res) {
       ];
     }
 
-    // filters out only stats indexes
-    let stats_by_form = mapWordScores(wordScores);
+    // filters out the stats of the weakest forms of each word
+    let weakestFormsStats = mapWordScores(wordScores);
 
-    res.send(JSON.stringify({ words: words, stats_by_form: stats_by_form }));
+    res.send(
+      JSON.stringify({ words: words, stats_by_form: weakestFormsStats })
+    );
   } catch (e) {
     console.log("error while fetching word scores");
   }

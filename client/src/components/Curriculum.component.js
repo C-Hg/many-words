@@ -30,14 +30,19 @@ class Curriculum extends React.Component {
     super(props);
     this.fetchThemesStats = this.fetchThemesStats.bind(this);
     this.state = {
-      stats: ""
+      userStats: "",
+      areStatsChecked: false
     };
   }
 
   async fetchThemesStats() {
-    let stats = await getThemesStats();
+    let userStats = await getThemesStats();
+    if (userStats.response === "No data for this user") {
+      userStats = false;
+    }
     this.setState({
-      stats: stats
+      userStats: userStats,
+      areStatsChecked: true
     });
   }
 
@@ -60,9 +65,9 @@ class Curriculum extends React.Component {
       let borderColorClass = "";
 
       // depends on api call
-      if (this.state.stats[val[0]]) {
-        greenLessons = this.state.stats[val[0]].green;
-        goldLessons = this.state.stats[val[0]].gold;
+      if (this.state.userStats[val[0]]) {
+        greenLessons = this.state.userStats[val[0]].green;
+        goldLessons = this.state.userStats[val[0]].gold;
         lessons -= greenLessons;
         lessons -= goldLessons;
       }
@@ -84,10 +89,10 @@ class Curriculum extends React.Component {
         >
           <ThemeTitle theme={val[0]} />
           {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
-          {this.state.stats && greenLessons > 0 && (
+          {this.state.userStats && greenLessons > 0 && (
             <GreenLessons green={greenLessons} />
           )}
-          {this.state.stats && goldLessons > 0 && (
+          {this.state.userStats && goldLessons > 0 && (
             <GoldLessons gold={goldLessons} />
           )}
         </Link>
@@ -95,7 +100,7 @@ class Curriculum extends React.Component {
     });
 
     // render cards only after the database call if user is logged in
-    if (this.state.stats || !user.isAuthenticated) {
+    if (this.state.areStatsChecked || !user.isAuthenticated) {
       return (
         <LanguageContext.Consumer>
           {({ curriculum }) => (

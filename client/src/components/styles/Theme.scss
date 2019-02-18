@@ -158,21 +158,21 @@
   font-weight: 600;
   @media (min-width: $break-mid-horizontal) {
     font-size: $p-large-screen;
-    top: -85px;
+    top: -87px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $p-mid-screen;
-    top: -78px;
+    top: -80px;
   }
 }
 
 .goldStar {
   color: $gold;
   @media (min-width: $break-mid-horizontal) {
-    top: -104px;
+    top: -109px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    top: -96px;
+    top: -99px;
   }
 }
 
