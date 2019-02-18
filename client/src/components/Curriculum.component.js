@@ -72,6 +72,8 @@ class Curriculum extends React.Component {
         } else {
           borderColorClass = "greenBorder";
         }
+      } else {
+        borderColorClass = "blueBorder";
       }
 
       return (
@@ -97,7 +99,7 @@ class Curriculum extends React.Component {
       return (
         <LanguageContext.Consumer>
           {({ curriculum }) => (
-            <div className="curriculum">
+            <div className="curriculum greyBackground">
               <h1 className="menuTitle">{curriculum.title}</h1>
               <div className="themeCards">{cards}</div>
             </div>

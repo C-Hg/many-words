@@ -19,7 +19,7 @@ class ProgressCircle extends React.Component {
   componentDidMount() {
     this.progressCircleTimeout = setTimeout(
       () => this.delayCircleApparition(),
-      500
+      450
     );
   }
 
@@ -41,7 +41,7 @@ class ProgressCircle extends React.Component {
       <div className="circleContainer">
         <SVGCircle
           strokeDashoffset={`${strokeDashoffset}px`}
-          style={`${strokeColor} ${this.state.progressCircle}`}
+          style={`${this.state.progressCircle} ${strokeColor}`}
         />
       </div>
     );

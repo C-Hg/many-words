@@ -52,13 +52,14 @@
 .close {
   color: $wrong-light;
   display: block;
-  @media (min-width: $break-mid-horizontal) {
-    font-size: 72px;
-    width: 72px;
+  @media (min-width: $break-small-horizontal) {
+    font-size: 60px;
+    width: 60px;
   }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: 36px !important;
-    width: 36px;
+  @media (max-width: $break-small-horizontal),
+    (max-height: $break-small-vertical) {
+    font-size: 48px !important;
+    width: 48px;
   }
 }
 

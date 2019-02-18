@@ -6,9 +6,11 @@ class LessonTitle extends React.Component {
     let language = this.context;
 
     return (
-      <h2 className="lessonTitle">
-        {language.lessons[this.props.theme][this.props.lesson]}
-      </h2>
+      <div className="lessonTitleContainer">
+        <h2 className="lessonTitle">
+          {language.lessons[this.props.theme][this.props.lesson]}
+        </h2>
+      </div>
     );
   }
 }

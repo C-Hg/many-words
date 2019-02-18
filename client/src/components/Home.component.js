@@ -42,7 +42,7 @@ class Home extends React.Component {
       );
     } else {
       return (
-        <div className="home">
+        <div className="home whiteBackground">
           {/*TO DO : separate logout and accout informations from user progress */}
           {user.isAuthenticated && <Statistics />}
           {user.isAuthenticated && <LogoutButton logout={this.logout} />}

@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/user-context";
 import { getLessons } from "../controllers/getLessons.function";
 import getLessonsStats from "../controllers/progress_tracking/getLessonsStats.function";
 
 import "./styles/Theme.scss";
 
+import BackArrow from "./common_components/BackArrow.component";
 import ProgressCircle from "./theme_components/ProgressCircle.component";
 import StartTestButton from "./theme_components/StartTestButton.component";
 import LearnWordsButton from "./theme_components/LearnWordsButton.component";
@@ -37,10 +39,13 @@ class Theme extends React.Component {
   }
 
   render() {
+    /* ----------------       preparing data    -------------- */
+    let user = this.context;
     let theme = this.props.theme;
     let lessonsData = getLessons(theme);
     let progressColor = "";
 
+    //map for each lesson of the theme
     const lessons = lessonsData.map(val => {
       let progress = this.state.lessonsStats
         ? this.state.lessonsStats[val[0]]
@@ -55,12 +60,10 @@ class Theme extends React.Component {
         <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
           <LessonTitle lesson={val[0]} theme={theme} />
           <ProgressCircle progress={progress} progressColor={progressColor} />
-          {progress > 0 && progress < 1 && (
-            <ProgressPercentage
-              progress={progress}
-              progressColor={progressColor}
-            />
-          )}
+          <ProgressPercentage
+            progress={progress}
+            progressColor={progressColor}
+          />
           {progress === 1 && <GoldStar />}
           <div className="themeButtons">
             <StartTestButton {...this.props} lesson={val[0]} />
@@ -69,12 +72,21 @@ class Theme extends React.Component {
         </div>
       );
     });
-    return (
-      <div>
-        <ThemePageTitle theme={theme} />
-        <div className="lessonCards">{lessons}</div>
-      </div>
-    );
+
+    /* -----------------    rendering component     -----------------  */
+    if (!user.isAuthenticated || lessonsData) {
+      return (
+        <div>
+          <div className="themeAndArrow">
+            <Link to={`/curriculum`}>
+              <BackArrow additionalClass="themePageArrow" />
+            </Link>
+            <ThemePageTitle theme={theme} />
+          </div>
+          <div className="lessonCards">{lessons}</div>
+        </div>
+      );
+    }
   }
 }
 

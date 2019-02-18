@@ -1,5 +1,6 @@
 @import "../../style_common/variables.scss";
 @import "../../style_common/buttons.scss";
+@import "../../style_common/titles.scss";
 
 .learning-container {
   width: 100%;
@@ -13,7 +14,7 @@
   @media (min-width: $break-mid-horizontal) {
     font-size: $h2-large-screen;
     grid-template-columns: 76px auto;
-    grid-template-rows: 130px auto 130px;
+    grid-template-rows: 123px auto 130px;
     grid-template-areas:
       "arrow title"
       "words words"
@@ -50,16 +51,15 @@
 
 // lesson title
 .learningTitle {
+  @extend .menuTitle;
   grid-area: title;
   width: auto;
   padding: 0;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h1-large-screen;
     justify-self: center;
     margin-left: -50px; //compensates arrow padding
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h1-mid-screen;
     margin: auto;
   }
 }

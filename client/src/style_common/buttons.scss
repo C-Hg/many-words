@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 //main button styling
 .blue-button {
   text-align: center;
@@ -56,5 +58,9 @@
     font-size: $h3-mid-screen;
     width: 100px;
     height: 40px;
+  }
+  &:hover {
+    border: 3px solid $main-font-color;
+    margin-top: -2px;
   }
 }

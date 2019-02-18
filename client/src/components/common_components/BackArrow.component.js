@@ -1,8 +1,12 @@
 import React from "react";
 
-const BackArrow = function() {
+const BackArrow = function(props) {
   return (
-    <i alt="Back" className="material-icons md-72 backArrow">
+    <i
+      alt="Back"
+      className={`material-icons md-60 backArrow ${props.additionalClass ||
+        ""}`}
+    >
       arrow_back
     </i>
   );

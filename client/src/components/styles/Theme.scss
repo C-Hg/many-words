@@ -2,6 +2,33 @@
 @import "../../style_common/layouts.scss";
 @import "../../style_common/buttons.scss";
 
+/*   --------------------      title and back arrow      ----------------------- */
+.themeAndArrow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.themePageArrow {
+  @media (min-width: $break-small-horizontal) {
+    margin-right: -112px; //compensates to center the title
+    padding-left: 40px;
+    font-size: 72px;
+  }
+  @media (max-width: $break-small-horizontal),
+    (max-height: $break-small-vertical) {
+    font-size: 48px !important;
+    margin-right: -56px;
+    padding-left: 10px;
+  }
+}
+
+.themePageTitle {
+  margin: auto;
+  padding-right: 72px;
+}
+
 /* ---------------------------      main container        ------------------ */
 .lessonCards {
   @extend .cardContainer;
@@ -14,21 +41,27 @@
   justify-content: space-between;
   align-items: center;
   @media (min-width: $break-mid-horizontal) {
-    width: 180px;
-    height: 290px;
+    width: 200px;
+    height: 320px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    width: 150px;
-    height: 260px;
+    width: 170px;
+    height: 290px;
   }
+}
+
+.lessonTitleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  height: 55px;
+  margin-bottom: 2px;
+  margin-top: 8px;
 }
 
 .lessonTitle {
   @extend .cardTitle;
-  flex-shrink: 0;
-  height: 70px;
-  margin-bottom: 4px;
-  margin-top: 4px;
 }
 
 /* --------------------     start buttons      -------------------  */
@@ -61,6 +94,9 @@
   padding-left: 10px;
   padding-right: 10px;
   background-color: $active-light;
+  &:hover {
+    margin-top: -2px;
+  }
 }
 
 .startButtonTitle {
@@ -72,18 +108,6 @@
 
 .circleContainer {
   margin-bottom: 10px;
-}
-
-.greenStroke {
-  stroke: $correct;
-}
-
-.goldStroke {
-  stroke: $gold;
-}
-
-.blueStroke {
-  stroke: $active;
 }
 
 .greyCircle {
@@ -100,9 +124,23 @@
   animation: progressAnimation 1000ms ease forwards;
 }
 
+.greenStroke {
+  stroke: $correct;
+}
+
+.blueStroke {
+  stroke: $active;
+}
+
+.goldStroke {
+  stroke: $gold;
+  stroke-width: 14;
+}
+
 @keyframes progressAnimation {
   0% {
     stroke-dashoffset: 251px;
+    opacity: 0.4;
   }
 }
 
@@ -110,17 +148,17 @@
 .circleStats {
   position: relative;
   text-align: center;
-  height: 0px;
+  height: 0;
   width: 100%;
   opacity: 0;
-  animation: progressPercentageFadeIn 800ms ease 750ms forwards;
+  animation: progressPercentageFadeIn 800ms ease 450ms forwards;
 }
 
 .progressPercentage {
   font-weight: 600;
   @media (min-width: $break-mid-horizontal) {
     font-size: $p-large-screen;
-    top: -80px;
+    top: -85px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $p-mid-screen;
@@ -131,7 +169,7 @@
 .goldStar {
   color: $gold;
   @media (min-width: $break-mid-horizontal) {
-    top: -96px;
+    top: -104px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     top: -96px;

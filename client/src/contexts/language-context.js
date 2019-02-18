@@ -260,7 +260,7 @@ export const languages = {
       }
     },
     start_exercise: "test",
-    start_learning: "apprendre",
+    start_learning: "réviser",
     check_button: "Vérifier",
     next_button: "Suivant",
     translate_in: "Traduis ce mot en ",

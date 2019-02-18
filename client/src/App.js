@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
-import "./style_common/layouts.scss";
 import "./style_common/material_icons.css";
 import "./style_common/titles.scss";
+import "./style_common/layouts.scss";
+import "./style_common/buttons.scss";
 
 // Contexts
 import { LanguageContext, languages } from "./contexts/language-context";
@@ -59,10 +60,10 @@ class App extends Component {
       if (userData !== "no active session") {
         userData = JSON.parse(userData);
         this.loginUser(userData.email);
-        this.setState({
-          isSessionChecked: true
-        });
       }
+      this.setState({
+        isSessionChecked: true
+      });
       if (!/fr/i.test(window.navigator.language)) {
         this.setState({
           main_language: languages.English
