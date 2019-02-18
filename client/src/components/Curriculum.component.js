@@ -28,13 +28,13 @@ const themes = [
 class Curriculum extends React.Component {
   constructor(props) {
     super(props);
-    this.getStats = this.getStats.bind(this);
+    this.fetchThemesStats = this.fetchThemesStats.bind(this);
     this.state = {
       stats: ""
     };
   }
 
-  async getStats() {
+  async fetchThemesStats() {
     let stats = await getThemesStats();
     this.setState({
       stats: stats
@@ -44,7 +44,7 @@ class Curriculum extends React.Component {
   componentDidMount() {
     let user = this.context;
     if (user.isAuthenticated) {
-      this.getStats();
+      this.fetchThemesStats();
     }
   }
 
@@ -68,9 +68,9 @@ class Curriculum extends React.Component {
       }
       if (lessons === 0) {
         if (greenLessons === 0) {
-          borderColorClass = "borderGold";
+          borderColorClass = "goldBorder";
         } else {
-          borderColorClass = "borderGreen";
+          borderColorClass = "greenBorder";
         }
       }
 

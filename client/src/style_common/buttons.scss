@@ -16,7 +16,7 @@
     height: 55px;
     min-height: 55px;
   }
-  @media (max-width: $break-mid-horizontal) {
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $h3-mid-screen;
     width: 140px;
     height: 45px;
@@ -37,8 +37,24 @@
     font-size: $p-large-screen;
     width: 330px;
   }
-  @media (max-width: $break-mid-horizontal) {
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $p-mid-screen;
     width: 270px;
+  }
+}
+
+.start-button {
+  border-radius: 10px;
+  border: 2px solid $main-font-color;
+  margin-bottom: 8px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h3-large-screen;
+    width: 130px;
+    height: 45px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $h3-mid-screen;
+    width: 100px;
+    height: 40px;
   }
 }

@@ -11,7 +11,7 @@ class MainLayout extends React.Component {
     return (
       <div className="app app-with-navbar-full-screen">
         <Navbar />
-        <div className="main-container main-container-full-screen">
+        <div className="main-container greyBackground">
           <Switch>
             <Route
               exact

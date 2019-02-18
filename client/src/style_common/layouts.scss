@@ -13,20 +13,14 @@
 }
 
 .card {
+  flex-shrink: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   border: 3px solid $active;
-  border-radius: 15px;
+  border-radius: 14px;
   margin: 12px 12px 12px;
-  background-color: $main-background-color;
-  @media (min-width: $break-mid-horizontal) {
-    width: 180px;
-    height: 230px;
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    width: 150px;
-    height: 200px;
-  }
+  background-color: white;
 }
 
 .cardTitle {
@@ -46,10 +40,10 @@
 
 /*   -------------------     borders    -------------------- */
 
-.borderGreen {
+.greenBorder {
   border-color: $correct;
 }
 
-.borderGold {
+.goldBorder {
   border-color: $gold;
 }

@@ -5,6 +5,7 @@ const wordCountByLesson = require("../../exercises/FR-EN/wordCountByLesson");
 const assessLessonStats = require("./lesson_stats/assessLessonStats.function");
 const replaceUserStats = require("./user_stats/replaceUserStats.function");
 const updateThemesStats = require("./updateThemesStats.controller");
+const lessonHierarchy = require("../../exercises/FR-EN/lessons");
 
 module.exports = async function createOrReplaceLessonStats(user, lesson) {
   let wordStats;
@@ -17,6 +18,8 @@ module.exports = async function createOrReplaceLessonStats(user, lesson) {
   } catch (e) {
     console.log("error while fetching or creating word stats");
   }
+  let theme = wordStats[0].theme;
+
   // to calculate the lesson score
   newScore = assessLessonStats(wordStats, wordCountByLesson[lesson]);
 
@@ -25,15 +28,22 @@ module.exports = async function createOrReplaceLessonStats(user, lesson) {
   } catch (e) {
     console.log("error while fetching lesson stats");
   }
+
   // creates userStats for new user with lesson score
   if (!userStats) {
-    let lessonStats = {};
-    lessonStats[lesson] = newScore;
-    userStats = { userId: user, lessonStats: lessonStats };
+    let lessonsStats = {};
+    lessonsStats[theme] = {};
+    lessonsStats[theme][lesson] = newScore;
+    userStats = { userId: user, lessonsStats: lessonsStats, themesStats: {} };
     await createUserStats(userStats);
   } else {
     // updates userStats otherwise
-    userStats.lessonStats[lesson] = newScore;
+    // creates theme entry if necessary
+    if (!userStats.lessonsStats[theme]) {
+      userStats.lessonsStats[theme] = {};
+    }
+    userStats.lessonsStats[theme][lesson] = newScore;
+
     try {
       await replaceUserStats(userStats);
     } catch (e) {
@@ -41,7 +51,7 @@ module.exports = async function createOrReplaceLessonStats(user, lesson) {
     }
   }
 
-  // finally, update themes stats with userStats
+  // finally, updates themes stats
   try {
     await updateThemesStats(userStats);
   } catch (e) {

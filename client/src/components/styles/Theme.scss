@@ -1,5 +1,6 @@
 @import "../../style_common/variables.scss";
 @import "../../style_common/layouts.scss";
+@import "../../style_common/buttons.scss";
 
 /* ---------------------------      main container        ------------------ */
 .lessonCards {
@@ -9,22 +10,136 @@
 .lessonCard {
   @extend .card;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  @media (min-width: $break-mid-horizontal) {
+    width: 180px;
+    height: 290px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    width: 150px;
+    height: 260px;
+  }
 }
 
 .lessonTitle {
   @extend .cardTitle;
+  flex-shrink: 0;
+  height: 70px;
+  margin-bottom: 4px;
+  margin-top: 4px;
 }
 
+/* --------------------     start buttons      -------------------  */
 .themeButtons {
-  margin-top: auto;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+/* --------------------     start exercise      -------------------  */
+.startTest {
+  @extend .start-button;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: $correct-light;
+}
+
+/* --------------------     learn words      -------------------  */
+.startLearning {
+  @extend .start-button;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: $active-light;
+}
+
+.startButtonTitle {
+  align-self: center;
   width: 100%;
 }
 
-.startTest {
+/* ---------------------    progress circles   --------------------- */
+
+.circleContainer {
+  margin-bottom: 10px;
+}
+
+.greenStroke {
+  stroke: $correct;
+}
+
+.goldStroke {
+  stroke: $gold;
+}
+
+.blueStroke {
+  stroke: $active;
+}
+
+.greyCircle {
+  stroke-width: 14;
+  fill: transparent;
+  stroke: $inactive-lightest;
+}
+
+.progressCircle {
+  stroke-dasharray: 251.5px;
+  stroke-width: 13;
+  fill: transparent;
+  stroke-linecap: round;
+  animation: progressAnimation 1000ms ease forwards;
+}
+
+@keyframes progressAnimation {
+  0% {
+    stroke-dashoffset: 251px;
+  }
+}
+
+/*  ----------------------------------   progress percentage or star    ---------   */
+.circleStats {
+  position: relative;
+  text-align: center;
+  height: 0px;
   width: 100%;
-  height: 50px;
-  border: 1px solid $active;
+  opacity: 0;
+  animation: progressPercentageFadeIn 800ms ease 750ms forwards;
+}
+
+.progressPercentage {
+  font-weight: 600;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $p-large-screen;
+    top: -80px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $p-mid-screen;
+    top: -78px;
+  }
+}
+
+.goldStar {
+  color: $gold;
+  @media (min-width: $break-mid-horizontal) {
+    top: -96px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    top: -96px;
+  }
+}
+
+@keyframes progressPercentageFadeIn {
+  100% {
+    opacity: 1;
+  }
 }

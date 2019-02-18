@@ -28,14 +28,18 @@ body {
 /*    --------------    main container, full screen or not   --------------   */
 .main-container {
   margin: auto;
-  background-color: $main-container-background;
+
   padding: 0;
   height: 100%;
   overflow-y: auto;
 }
 
-.main-container-full-screen {
-  width: 100%;
+.greyBackground {
+  background-color: $main-background-color;
+}
+
+.whiteBackground {
+  background-color: white;
 }
 
 /*   ----------------    default values overwriting    --------------- */

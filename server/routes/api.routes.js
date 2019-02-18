@@ -10,11 +10,13 @@ const {
 const createOrUpdateWordStats = require("../controllers/progress_tracking/createOrUpdateWordStats.controller");
 const getWordStatsCount = require("../controllers/progress_tracking/word_stats/getWordStatsCount.function");
 const getThemesStats = require("../controllers/progress_tracking/getThemesStats.controller");
+const getLessonsStats = require("../controllers/progress_tracking/getLessonsStats.controller");
 
 router.get("/learn/:lesson", getWordsToLearn);
 router.get("/exercise/:lesson", getLesson);
 router.get("/tracking/word_count", getWordStatsCount);
 router.get("/tracking/themes_stats", getThemesStats);
+router.get("/tracking/lessons_stats/:theme", getLessonsStats);
 
 router.post(
   "/tracking/update_word_stats",
