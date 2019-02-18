@@ -36,10 +36,9 @@ require("./auth/session/session.middlewares")(); // passport serializer and dese
 
 /* ----------------------     Mongoose setup     ------------*/
 const mongoose = require("mongoose");
-mongoose.connect(
-  process.env.MONGO_URI || "mongodb://localhost/many-words",
-  { useNewUrlParser: true }
-);
+mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/many-words", {
+  useNewUrlParser: true
+});
 mongoose.Promise = global.Promise;
 //Get the default connection
 let db = mongoose.connection;
@@ -60,11 +59,14 @@ app.use("/api/", apiRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth/", authRoutes);
 
+app.use(express.static(path.join(__dirname, "build")));
 //home routing
-if (process.env.ENV === "DEVELOPMENT") {
-  app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/client/public/index.html");
-  });
+//if (process.env.ENV === "DEVELOPMENT") {
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+  //res.sendFile(__dirname + "/client/public/index.html");
+});
+/*
 } else if (process.env.ENV === "PRODUCTION") {
   // allows client-side routing
   app.use(express.static(path.join(__dirname, "build")));
@@ -72,3 +74,5 @@ if (process.env.ENV === "DEVELOPMENT") {
     res.sendFile(path.join(__dirname, "build", "index.html"));
   });
 }
+
+*/
