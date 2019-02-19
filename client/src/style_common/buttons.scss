@@ -13,13 +13,13 @@
     background-color: $active-light;
   }
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h3-large-screen;
+    font-size: $h3-large;
     width: 170px;
     height: 55px;
     min-height: 55px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h3-mid-screen;
+    font-size: $h3-mid;
     width: 140px;
     height: 45px;
     min-height: 45px;
@@ -30,18 +30,18 @@
   text-align: center;
   font-weight: normal;
   border-radius: 12px;
-  border: 1.2px solid;
+  border: 3px solid;
   background-color: inherit;
   padding: 0;
-  height: 50px;
+  height: 55px;
   margin: auto;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $p-large-screen;
-    width: 330px;
+    font-size: $h3-large;
+    width: 380px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $p-mid-screen;
-    width: 270px;
+    font-size: $h3-mid;
+    width: 310px;
   }
 }
 
@@ -50,12 +50,12 @@
   border: 2px solid $main-font-color;
   margin-bottom: 8px;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h3-large-screen;
+    font-size: $h3-large;
     width: 130px;
     height: 45px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h3-mid-screen;
+    font-size: $h3-mid;
     width: 100px;
     height: 40px;
   }

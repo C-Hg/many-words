@@ -54,10 +54,10 @@ h1 {
   padding: 0;
   text-align: center;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h1-large-screen;
+    font-size: $h1-large;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h1-small-screen;
+    font-size: $h1-small;
   }
 }
 
@@ -67,10 +67,10 @@ h2 {
   padding: 0;
   text-align: center;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-small-screen;
+    font-size: $h2-small;
   }
 }
 

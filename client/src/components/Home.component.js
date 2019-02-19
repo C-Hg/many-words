@@ -2,11 +2,9 @@ import React from "react";
 import "./styles/Home.scss";
 
 import { UserContext } from "../contexts/user-context";
-import LogoutButton from "./home_components/LogoutButton.component";
-import Welcome from "./home_components/Welcome.component";
 import LogoutConfirmation from "./home_components/LogoutConfirmation.component";
-import LoginButtons from "./home_components/LoginButtons.component";
-import Statistics from "./home_components/Statistics.component";
+import HomeLoggedIn from "./home_components/HomeLoggedIn.component";
+import HomeForGuestUser from "./home_components/HomeForGuestUser.component";
 
 class Home extends React.Component {
   constructor(props) {
@@ -43,12 +41,10 @@ class Home extends React.Component {
     } else {
       return (
         <div className="home whiteBackground">
-          {/*TO DO : separate logout and accout informations from user progress */}
-          {user.isAuthenticated && <Statistics />}
-          {user.isAuthenticated && <LogoutButton logout={this.logout} />}
-          {!user.isAuthenticated && <Welcome />}
+          {/*TO DO : separate logout and account informations from user progress */}
+          {user.isAuthenticated && <HomeLoggedIn logout={this.logout} />}
           {!user.isAuthenticated && (
-            <LoginButtons loginUser={this.props.loginUser} />
+            <HomeForGuestUser loginUser={this.props.loginUser} />
           )}
         </div>
       );

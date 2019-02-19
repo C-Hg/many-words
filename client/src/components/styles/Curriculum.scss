@@ -51,12 +51,13 @@
 
 .cardNumbers {
   margin-left: 10px;
+  font-family: $secondary-font;
   font-weight: 600;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h2-mid-screen;
+    font-size: $h2-mid;
   }
 }
 

@@ -7,35 +7,44 @@ $break-large-vertical: 900px;
 $break-mid-vertical: 650px;
 $break-small-vertical: 495px;
 
-//font-family
+//font-families
 $main-font: "Open Sans", sans-serif;
-
+$secondary-font: "Raleway", sans-serif;
+$cursive: "Handlee", cursive;
 //font-sizes
-$h1-large-screen: 36px;
-$h2-large-screen: 28px;
-$h3-large-screen: 22px;
-$p-large-screen: 18px;
+$h1-large: 36px;
+$h2-large: 28px;
+$h3-large: 22px;
+$p-large: 18px;
 
-$h1-mid-screen: 28px;
-$h2-mid-screen: 24px;
-$h3-mid-screen: 18px;
-$p-mid-screen: 16px;
+$h1-mid: 28px;
+$h2-mid: 24px;
+$h3-mid: 18px;
+$p-mid: 16px;
 
-$h1-small-screen: 24px;
-$h2-small-screen: 20px;
-$h3-small-screen: 16px;
-$p-small-screen: 12px;
+$h1-small: 24px;
+$h2-small: 20px;
+$h3-small: 16px;
+$p-small: 12px;
 
 $instructions-large: 38px;
 $instructions-mid: 28px;
 $instructions-small: 22px;
+
+$cursive-instructions-large: 46px;
+$cursive-instructions-mid: 36px;
+$cursive-instructions-small: 28px;
+
+$huge-title-large: 62px;
+$huge-title-mid: 50px;
+$huge-title-small: 40px;
 
 $score-large: 42px;
 $score-mid: 32px;
 $score-small: 24px;
 
 //colors
-$main-background-color: rgba(240, 240, 240, 0.9);
+$main-background-color: rgba(240, 240, 240, 0.8);
 $main-container-background: rgba(255, 255, 255, 1);
 $navbar-background: rgba(0, 80, 255, 0.8);
 

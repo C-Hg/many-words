@@ -5,15 +5,21 @@ export const languages = {
     language: "english",
     navbar: {
       home: "Home",
-      login: "Login"
+      login: "Log in"
     },
     navigation: {
       login_with: "Log in with",
       logout: "Log out"
     },
     home: {
-      main_title: "Enhance your French vocabulary",
-      word_stats_ok: "Total words studied : ",
+      main_title: "Improve your French vocabulary",
+      features_free: "100% Free",
+      features_words: "750+ Words",
+      features_progress: "Make progress",
+      register: "Log in to collect stars along the way",
+      discover: "Or start learning without registering",
+      discover_button: "Let's go !",
+      progress_title: "Global progress",
       word_stats_no: "It's time to start learning !",
       logout_success: "You were successfully disconnected",
       logout_failure: "There was a problem during the disconnection"
@@ -163,6 +169,12 @@ export const languages = {
     },
     home: {
       main_title: "Enrichis ton vocabulaire anglais",
+      features_free: "100% Gratuit",
+      features_words: "750+ Mots",
+      features_progress: "Suis tes progrès",
+      register: "Connecte-toi pour enregister ta progression",
+      discover: "Ou commence ton apprentissage sans te connecter",
+      discover_button: "C'est parti !",
       word_stats_ok: "Nombre de mots étudiés : ",
       word_stats_no: "C'est l'heure d'apprendre !",
       logout_success: "Vous êtes maintenant déconnecté",

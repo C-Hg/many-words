@@ -15,12 +15,95 @@ h2 {
   color: $main-font-color;
 }
 
+/*  -------------------     main title    -----------------------   */
+.homeTitle {
+  font-weight: 600;
+  font-family: $secondary-font;
+  padding-left: 15px;
+  padding-right: 15px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $huge-title-large;
+    margin-top: 50px;
+    margin-bottom: 70px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $huge-title-mid;
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+}
+
+/*  ----------------------     features     -----------------------   */
+.features {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  @media (min-width: $break-small-horizontal) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  @media (max-width: $break-small-horizontal),
+    (max-height: $break-small-vertical) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+.feature {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  @media (min-width: $break-small-horizontal) {
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    margin-bottom: 20px;
+  }
+}
+
+.features_title {
+  margin-top: 10px;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-right: 10px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h1-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $h1-mid;
+  }
+}
+
+.featureIcon {
+  color: $active;
+}
+
+/*  -----------------  register instructions  -----------------   */
+.register {
+  margin-top: 90px;
+  margin-bottom: 40px;
+  font-weight: 600;
+  font-family: $secondary-font;
+  padding-left: 15px;
+  padding-right: 15px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $huge-title-mid;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $huge-title-small;
+  }
+}
+
 /* ------------------    login buttons    ---------------------   */
 .loginButtons {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 120px;
+  height: 140px;
 }
 
 .loginButtonContent {
@@ -33,19 +116,19 @@ h2 {
 
 .login-button-french {
   @media (min-width: $break-mid-horizontal) {
-    width: 255px;
+    width: 300px;
   }
   @media (max-width: $break-mid-horizontal) {
-    width: 230px;
+    width: 260px;
   }
 }
 
 .login-button-english {
   @media (min-width: $break-mid-horizontal) {
-    width: 220px;
+    width: 250px;
   }
   @media (max-width: $break-mid-horizontal) {
-    width: 190px;
+    width: 220px;
   }
 }
 
@@ -114,7 +197,51 @@ h2 {
 }
 
 .login-instructions-english {
-  padding-left: 10%;
+  padding-left: 6%;
+}
+
+/* -------------------------  discover   ---------------------------- */
+.discover {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.discoverTitle {
+  @extend .register;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $instructions-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $instructions-mid;
+  }
+}
+
+.discoverButton {
+  @extend .auth-button;
+  background-color: inherit;
+  color: $active;
+  border-color: $active;
+  &:hover {
+    animation-name: discover-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes discover-hover {
+  0% {
+    color: $active;
+    border-color: $active;
+    background-color: inherit;
+  }
+  100% {
+    color: white;
+    background-color: $active;
+    border-color: black;
+  }
 }
 
 /*   -----------------------  logout button ------------------------ */
@@ -128,10 +255,10 @@ h2 {
   height: 50px;
   margin: auto;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $p-large-screen;
+    font-size: $p-large;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $p-mid-screen;
+    font-size: $p-mid;
   }
 }
 
@@ -166,10 +293,10 @@ h2 {
 
 .logoutText {
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-mid-screen;
+    font-size: $h2-mid;
   }
 }
 
@@ -183,14 +310,19 @@ h2 {
   padding: 0;
   height: 40px;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $p-large-screen;
+    font-size: $p-large;
     width: 250px;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $p-mid-screen;
+    font-size: $p-mid;
     width: 150px;
   }
   &:hover {
     background-color: $inactive-light;
   }
+}
+
+/*   ----------------------   stats tracking   -------------------- */
+.globalCircle {
+  transform: scale(3);
 }

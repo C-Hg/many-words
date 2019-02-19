@@ -17,7 +17,7 @@ class Navbar extends React.Component {
                 className="navbar-link inactive-link"
                 activeClassName="active-link"
               >
-                <div>Many Words</div>
+                <div className="manyWords">Many Words</div>
               </NavLink>
               <NavLink
                 to="/home"

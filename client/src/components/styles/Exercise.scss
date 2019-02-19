@@ -33,13 +33,14 @@
   padding: 0;
   justify-self: center;
   vertical-align: baseline;
+  font-family: $cursive;
   @media (min-width: $break-mid-horizontal) {
     margin-left: -72px;
-    font-size: $h1-large-screen;
+    font-size: $cursive-instructions-large;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     margin-left: -36px;
-    font-size: $h1-mid-screen;
+    font-size: $cursive-instructions-mid;
   }
 }
 
@@ -123,16 +124,16 @@
   text-align: center;
   color: black;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
     margin-top: 45px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h2-mid-screen;
+    font-size: $h2-mid;
     margin-top: 25px;
   }
   @media (max-width: $break-small-horizontal),
     (max-height: $break-small-vertical) {
-    font-size: $h2-small-screen;
+    font-size: $h2-small;
     margin-top: 15px;
   }
 }
@@ -153,12 +154,12 @@
 
 .specialCharacters-invisible {
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
     width: 190px;
     height: 45px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h2-mid-screen;
+    font-size: $h2-mid;
     width: 170px;
     height: 35px;
   }
@@ -205,10 +206,10 @@
   border-radius: 50px;
   background-color: inherit;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $p-large-screen;
+    font-size: $p-large;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $p-mid-screen;
+    font-size: $p-mid;
   }
 }
 
@@ -238,12 +239,12 @@
     background-color: $active-light;
   }
   @media (min-width: $break-mid-horizontal) {
-    font-size: $p-large-screen;
+    font-size: $p-large;
     width: 28px;
     height: 28px;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $p-mid-screen;
+    font-size: $p-mid;
     width: 24px;
     height: 24px;
   }
@@ -274,12 +275,12 @@ input {
   border-bottom: 3.5px solid $inactive;
   height: 25px;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
     padding-bottom: 7px;
     width: 450px;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-small-screen;
+    font-size: $h2-small;
     padding-bottom: 3px;
     width: 350px;
   }
@@ -319,20 +320,20 @@ input {
   border-width: 0;
   color: white;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h3-large-screen;
+    font-size: $h3-large;
     width: 190px;
     height: 55px;
     margin-top: 80px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h3-mid-screen;
+    font-size: $h3-mid;
     width: 170px;
     height: 45px;
     margin-top: 40px;
   }
   @media (max-width: $break-small-horizontal),
     (max-height: $break-small-vertical) {
-    font-size: $h3-small-screen;
+    font-size: $h3-small;
     margin-top: 20px;
   }
 }
@@ -407,13 +408,13 @@ input {
   padding-left: 20px;
   padding-right: 20px;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h1-large-screen;
+    font-size: $h1-large;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h1-mid-screen;
+    font-size: $h1-mid;
   }
   @media (max-width: $break-small-horizontal) {
-    font-size: $h1-small-screen;
+    font-size: $h1-small;
   }
 }
 
@@ -439,15 +440,15 @@ input {
 .lessonResult {
   flex-shrink: 0;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h1-large-screen;
+    font-size: $h1-large;
     margin-bottom: 50px;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h1-mid-screen;
+    font-size: $h1-mid;
     margin-bottom: 30px;
   }
   @media (max-width: $break-small-horizontal) {
-    font-size: $h1-small-screen;
+    font-size: $h1-small;
     margin-bottom: 15px;
   }
 }
@@ -457,15 +458,15 @@ input {
   text-align: left;
   margin-bottom: 15px;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
     margin-bottom: 50px;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-mid-screen;
+    font-size: $h2-mid;
     margin-bottom: 30px;
   }
   @media (max-width: $break-small-horizontal) {
-    font-size: $h2-small-screen;
+    font-size: $h2-small;
     margin-bottom: 15px;
   }
 }

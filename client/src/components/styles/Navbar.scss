@@ -24,10 +24,10 @@
     width: 85%;
   }
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-mid-screen;
+    font-size: $h2-mid;
   }
 }
 
@@ -51,5 +51,22 @@
   &:hover {
     color: inherit !important;
     background-color: inherit !important;
+  }
+}
+
+.manyWords {
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h1-large;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $h1-mid;
+  }
+  font-family: $cursive;
+  &:after {
+    position: relative;
+    content: "beta";
+    left: 8px;
+    bottom: 10px;
+    font-size: 20px;
   }
 }

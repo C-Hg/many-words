@@ -12,7 +12,7 @@
   overflow-y: auto;
 
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large-screen;
+    font-size: $h2-large;
     grid-template-columns: 76px auto;
     grid-template-rows: 123px auto 130px;
     grid-template-areas:
@@ -21,7 +21,7 @@
       "switches switches";
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-mid-screen;
+    font-size: $h2-mid;
     grid-template-columns: auto;
     grid-template-rows: 80px auto auto 80px;
     grid-template-areas:
@@ -31,7 +31,7 @@
       "arrow";
   }
   @media (max-width: $break-small-horizontal) {
-    font-size: $h2-small-screen;
+    font-size: $h2-small;
   }
 }
 
@@ -52,14 +52,17 @@
 // lesson title
 .learningTitle {
   @extend .menuTitle;
+  font-family: $cursive;
   grid-area: title;
   width: auto;
   padding: 0;
   @media (min-width: $break-mid-horizontal) {
+    font-size: $cursive-instructions-large;
     justify-self: center;
     margin-left: -50px; //compensates arrow padding
   }
   @media (max-width: $break-mid-horizontal) {
+    font-size: $cursive-instructions-mid;
     margin: auto;
   }
 }
@@ -73,15 +76,15 @@
   justify-content: space-evenly;
   align-items: flex-start;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h3-large-screen;
+    font-size: $h3-large;
     margin-bottom: 10px;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $h3-mid-screen;
+    font-size: $h3-mid;
     margin-bottom: 15px;
   }
   @media (max-width: $break-small-horizontal) {
-    font-size: $h3-small-screen;
+    font-size: $h3-small;
   }
 }
 

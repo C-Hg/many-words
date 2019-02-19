@@ -1,6 +1,8 @@
 @import "./variables.scss";
 
 .menuTitle {
+  font-family: $main-font;
+  font-weight: 600;
   padding-left: 5px;
   padding-right: 5px;
   @media (min-width: $break-mid-horizontal) {

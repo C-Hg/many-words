@@ -59,12 +59,17 @@ class Theme extends React.Component {
       return (
         <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
           <LessonTitle lesson={val[0]} theme={theme} />
-          <ProgressCircle progress={progress} progressColor={progressColor} />
+          <ProgressCircle
+            progress={progress}
+            progressColor={progressColor}
+            sizeClass=""
+            length="100"
+          />
           <ProgressPercentage
             progress={progress}
             progressColor={progressColor}
           />
-          {progress === 1 && <GoldStar />}
+          <GoldStar progress={progress} />
           <div className="themeButtons">
             <StartTestButton {...this.props} lesson={val[0]} />
             <LearnWordsButton {...this.props} lesson={val[0]} />

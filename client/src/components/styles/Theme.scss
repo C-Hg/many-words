@@ -40,6 +40,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  font-family: $secondary-font;
   @media (min-width: $break-mid-horizontal) {
     width: 200px;
     height: 320px;
@@ -156,12 +157,13 @@
 
 .progressPercentage {
   font-weight: 600;
+  font-family: $main-font;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $p-large-screen;
+    font-size: $p-large;
     top: -87px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $p-mid-screen;
+    font-size: $p-mid;
     top: -80px;
   }
 }
