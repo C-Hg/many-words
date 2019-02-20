@@ -1,8 +1,8 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
-import googleAuth from "../../controllers/auth/googleAuth.function";
-import secrets from "../../config/secrets";
-import { LanguageContext } from "../../contexts/language-context";
+import googleAuth from "../../../controllers/auth/googleAuth.function";
+import secrets from "../../../config/secrets";
+import { LanguageContext } from "../../../contexts/language-context";
 
 class LoginWithGoogle extends React.Component {
   responseGoogle = async response => {

@@ -84,13 +84,14 @@ class App extends Component {
           <LanguageContext.Provider value={this.state.main_language}>
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/home" />} />
+              <Route exact path="/about" component={MainLayoutWhite} />
               <Route
                 exact
                 path="/home"
                 render={props => (
                   <MainLayoutWhite
-                    logoutUser={this.props.logoutUser}
-                    loginUser={this.props.loginUser}
+                    logoutUser={this.logoutUser}
+                    loginUser={this.loginUser}
                     {...props}
                   />
                 )}
@@ -100,16 +101,7 @@ class App extends Component {
                 path="/:themeId/:lessonId/test"
                 component={FullScreenLayout}
               />
-              <Route
-                path="/"
-                render={props => (
-                  <MainLayoutGrey
-                    {...props}
-                    logoutUser={this.logoutUser}
-                    loginUser={this.loginUser}
-                  />
-                )}
-              />
+              <Route path="/" component={MainLayoutGrey} />
             </Switch>
           </LanguageContext.Provider>
         </UserContext.Provider>

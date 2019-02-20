@@ -1,9 +1,11 @@
 import React from "react";
-import Statistics from "./Statistics.component";
-import LogoutButton from "./LogoutButton.component";
+import LogoutButton from "./home_logged_in_components/LogoutButton.component";
 import getUserStats from "../../controllers/progress_tracking/getUserStats.function";
-import GlobalProgress from "./GlobalProgress.component";
-import TimeToWork from "./TimeToWork.component";
+import GlobalProgress from "./home_logged_in_components/GlobalProgress.component";
+import TimeToWork from "./home_logged_in_components/TimeToWork.component";
+import ResumeLearningButton from "./home_logged_in_components/ResumeLearningButton.component";
+import AboutButton from "./AboutButton.component";
+import DeleteAccountButton from "./home_logged_in_components/DeleteAccountButton.component";
 
 class HomeLoggedIn extends React.Component {
   constructor(props) {
@@ -39,8 +41,13 @@ class HomeLoggedIn extends React.Component {
             <GlobalProgress userStats={this.state.userStats} />
           )}
           {!this.state.userStats && <TimeToWork />}
-          <Statistics />
-          <LogoutButton logout={this.props.logout} />
+          <ResumeLearningButton />
+          <hr className="homeSeparator separatorLoggedIn" />
+          <div className="footerButtons">
+            <AboutButton />
+            <LogoutButton logout={this.props.logout} />
+            <DeleteAccountButton />
+          </div>
         </div>
       );
     }

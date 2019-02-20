@@ -1,0 +1,76 @@
+@import "../../style_common/variables.scss";
+@import "./Home.scss";
+
+.description {
+  text-align: justify;
+  margin: auto;
+  @media (min-width: $break-mid-horizontal) {
+    width: 80%;
+    font-size: $h3-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    width: 90%;
+    font-size: $h3-mid;
+  }
+}
+
+/*  -------------------------------       icons     -------------------   */
+.aboutIcons {
+  font-size: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 300px;
+  margin: 20px auto 0 auto;
+}
+
+.fa-github {
+  color: #211f1f;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.fa-twitter {
+  color: #08a0e9;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.aboutSeparation {
+  @extend .homeSeparator;
+}
+
+/*  ---------------------------------    roadmap     ----------------------------*/
+.roadmapSubTitle {
+  text-align: left;
+  padding-left: 50px;
+}
+
+.roadmap {
+  margin: auto;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h3-large;
+    width: 80%;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    width: 95%;
+    font-size: $h3-small;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.checkbox {
+  margin-right: 10px;
+}

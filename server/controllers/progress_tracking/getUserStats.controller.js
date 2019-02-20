@@ -22,7 +22,9 @@ module.exports = async function getUserStats(req, res) {
   } catch (e) {
     console.log("error while fetching word stats by user");
   }
-  userStats = userStats.toObject();
-  userStats.globalProgress = globalProgress;
+  if (userStats) {
+    userStats = userStats.toObject();
+    userStats.globalProgress = globalProgress;
+  }
   res.send(JSON.stringify(userStats));
 };

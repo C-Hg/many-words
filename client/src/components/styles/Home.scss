@@ -13,20 +13,18 @@ h2 {
   color: $main-font-color;
 }
 
-/*  -------------------     main title    -----------------------   */
-.homeTitle {
-  font-weight: 600;
-  font-family: $secondary-font;
-  padding-left: 15px;
-  padding-right: 15px;
+.homeSeparator {
+  width: 90%;
+  margin-bottom: -10px;
+  height: 5px;
+  color: $active;
+  background-color: $active;
+  border: 0;
+  border-radius: 5px;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $huge-title-large;
-    padding-top: 50px;
-    padding-bottom: 70px;
+    margin-top: 100px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $huge-title-mid;
-    padding-top: 35px;
-    padding-bottom: 35px;
+    margin-top: 60px;
   }
 }

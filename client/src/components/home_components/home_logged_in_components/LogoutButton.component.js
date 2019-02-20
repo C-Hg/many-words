@@ -1,19 +1,14 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
+import { LanguageContext } from "../../../contexts/language-context";
 
 class Logout extends React.Component {
   render() {
     let language = this.context;
-    let languageClass;
-    if (language.language === "english") {
-      languageClass = "logout-button-english";
-    } else {
-      languageClass = "logout-button-french";
-    }
+
     return (
       <button
         onClick={this.props.logout}
-        className={`logoutButton ${languageClass}`}
+        className={`logoutButton homeFooterButton`}
       >
         {language.navigation.logout}
       </button>

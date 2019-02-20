@@ -1,8 +1,8 @@
 import React from "react";
-import secrets from "../../config/secrets";
+import secrets from "../../../config/secrets";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { LanguageContext } from "../../contexts/language-context";
-import facebookAuth from "../../controllers/auth/facebookAuth.function";
+import { LanguageContext } from "../../../contexts/language-context";
+import facebookAuth from "../../../controllers/auth/facebookAuth.function";
 
 class LoginWithFacebook extends React.Component {
   responseFacebook = async response => {

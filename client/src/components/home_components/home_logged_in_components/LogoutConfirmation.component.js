@@ -1,5 +1,5 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
+import { LanguageContext } from "../../../contexts/language-context";
 
 function LogoutConfirmation(props) {
   if (props.isUserLoggedOut) {

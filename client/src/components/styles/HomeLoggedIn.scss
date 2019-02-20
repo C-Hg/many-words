@@ -13,13 +13,18 @@
   align-items: center;
 }
 
-.barsContainer {
+.globalProgressTitle {
   @media (min-width: $break-mid-horizontal) {
-    width: 330px;
+    font-size: $huge-title-mid;
   }
-  @media (max-width: $break-mid-horizontal) {
-    width: 250px;
+  @media (max-width: $break-mid-horizontal), (max-width: $break-mid-vertical) {
+    font-size: $huge-title-small;
   }
+}
+
+/* ---------------------    progress bar    ----------------  */
+.barsContainer {
+  width: 330px;
 }
 
 .progressBar {
@@ -46,39 +51,212 @@
   }
 }
 
-/*   -----------------------  logout button ------------------------ */
-.logoutButton {
-  text-align: center;
-  font-weight: normal;
-  border-radius: 10px;
-  border: 1px solid $main-font-color;
-  background-color: inherit;
-  padding: 0;
-  height: 50px;
-  margin-top: 20px;
+/*  ---------------------  words and lessons stats       ------------ */
+.wordAndLessonProgress {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
   @media (min-width: $break-mid-horizontal) {
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 800px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-width: $break-mid-vertical) {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 360px;
+  }
+}
+
+.wordStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  border: 3px solid $active;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.userStats {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.progressTitle {
+  font-family: $secondary-font;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h1-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-width: $break-mid-vertical) {
+    font-size: $h1-mid;
+  }
+}
+
+// numbers themselves
+.userStat {
+  text-align: center;
+  font-weight: 600;
+  margin-top: -8px;
+  font-family: $secondary-font;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h2-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-width: $break-mid-vertical) {
+    font-size: $h2-mid;
+  }
+}
+
+.separation {
+  width: 220px;
+  height: 2px;
+  color: $active;
+  background-color: $active;
+  border: 0;
+  border-radius: 5px;
+}
+
+/*  --------------------      icons       ----------------------- */
+.seenIcon {
+  color: $active;
+}
+
+.greenIcon {
+  color: $correct;
+}
+
+.goldIcon {
+  color: $gold;
+}
+
+/*   -----------------------   resume learning button   ---------- */
+.resumeLearningButton {
+  text-align: center;
+  font-weight: bold;
+  font-family: $secondary-font;
+  border-radius: 15px;
+  border: 4px solid $correct;
+  background-color: $correct-light;
+  padding: 0;
+  margin: auto;
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h2-large;
+    width: 620px;
+    height: 70px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $h2-mid;
+    width: 450px;
+    height: 60px;
+  }
+  @media (max-width: $break-small-horizontal) {
+    font-size: $h2-small;
+    width: 300px;
+    height: 50px;
+  }
+  &:hover {
+    animation-name: resumeLearning-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes resumeLearning-hover {
+  100% {
+    color: white;
+    background-color: $correct;
+    border-color: black;
+  }
+}
+
+/*   -----------------------  bottom buttons ------------------------ */
+.separatorLoggedIn {
+  @media (min-width: $break-mid-horizontal) {
+    margin-top: 200px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    margin-top: 100px;
+  }
+}
+
+.footerButtons {
+  margin-top: 50px;
+  margin-bottom: 40px;
+  flex-basis: 1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  @media (min-width: 900px) {
+    flex-direction: row;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    height: 250px;
+  }
+}
+
+.homeFooterButton {
+  @extend .auth-button;
+  font-family: $secondary-font;
+  font-weight: bold;
+  border-width: 2px;
+  margin: 0;
+  @media (min-width: $break-mid-horizontal) {
+    width: 270px;
     font-size: $p-large;
   }
   @media (max-width: $break-mid-horizontal) {
+    width: 220px;
     font-size: $p-mid;
   }
 }
 
-.logout-button-english {
-  @media (min-width: $break-mid-horizontal) {
-    width: 200px;
-  }
-  @media (max-width: $break-mid-horizontal) {
-    width: 140px;
+.aboutButton {
+  border-radius: 12px;
+  &:hover {
+    animation-name: blueBackground-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
   }
 }
 
-.logout-button-french {
-  @media (min-width: $break-mid-horizontal) {
-    width: 250px;
+.logoutButton,
+.deleteAccountButton {
+  &:hover {
+    animation-name: redBackground-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
   }
-  @media (max-width: $break-mid-horizontal) {
-    width: 200px;
+}
+
+@keyframes blueBackground-hover {
+  100% {
+    color: white;
+    background-color: $active;
+    border-color: black;
+  }
+}
+
+@keyframes redBackground-hover {
+  100% {
+    color: white;
+    background-color: $wrong;
+    border-color: black;
   }
 }
 
@@ -107,7 +285,7 @@
   text-align: center;
   font-weight: bold;
   border-radius: 12px;
-  border: 1px solid;
+  border: 2px solid;
   background-color: inherit;
   padding: 0;
   height: 40px;
@@ -120,6 +298,6 @@
     width: 150px;
   }
   &:hover {
-    background-color: $inactive-light;
+    background-color: $inactive-lightest;
   }
 }

@@ -4,7 +4,7 @@ import "./styles/HomeForGuest.scss";
 import "./styles/HomeLoggedIn.scss";
 
 import { UserContext } from "../contexts/user-context";
-import LogoutConfirmation from "./home_components/LogoutConfirmation.component";
+import LogoutConfirmation from "./home_components/home_logged_in_components/LogoutConfirmation.component";
 import HomeLoggedIn from "./home_components/HomeLoggedIn.component";
 import HomeForGuestUser from "./home_components/HomeForGuestUser.component";
 

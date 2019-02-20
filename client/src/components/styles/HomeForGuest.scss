@@ -6,6 +6,24 @@
   height: 100%;
 }
 
+/*  -------------------     main title    -----------------------   */
+.homeTitle {
+  font-weight: 600;
+  font-family: $secondary-font;
+  padding-left: 15px;
+  padding-right: 15px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $huge-title-large;
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $huge-title-mid;
+    padding-top: 45px;
+    padding-bottom: 20px;
+  }
+}
+
 /*  ----------------------     features     -----------------------   */
 .features {
   display: flex;
@@ -64,21 +82,19 @@
 
 /*  -----------------  register instructions  -----------------   */
 .register {
-  margin-top: 90px;
-  margin-bottom: 40px;
   font-weight: 600;
   font-family: $secondary-font;
   padding-left: 15px;
   padding-right: 15px;
   @media (min-width: $break-mid-horizontal) {
     font-size: $huge-title-mid;
-    margin-top: 90px;
-    margin-bottom: 40px;
+    margin-top: 60px;
+    margin-bottom: 30px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $huge-title-small;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    padding-top: 45px;
+    padding-bottom: 20px;
   }
 }
 
@@ -129,11 +145,6 @@
 }
 
 @keyframes google-hover {
-  0% {
-    color: #d34836;
-    border-color: #d34836;
-    background-color: inherit;
-  }
   100% {
     color: white;
     background-color: #d34836;
@@ -159,11 +170,6 @@
 }
 
 @keyframes facebook-hover {
-  0% {
-    color: #3b5998;
-    border-color: #3b5998;
-    background-color: inherit;
-  }
   100% {
     color: white;
     background-color: #3b5998;
@@ -190,15 +196,18 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 40px;
 }
 
 .discoverTitle {
   @extend .register;
   @media (min-width: $break-mid-horizontal) {
     font-size: $instructions-large;
+    margin-top: 30px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $instructions-mid;
+    margin-top: 20px;
   }
 }
 
@@ -216,11 +225,6 @@
 }
 
 @keyframes discover-hover {
-  0% {
-    color: $active;
-    border-color: $active;
-    background-color: inherit;
-  }
   100% {
     color: white;
     background-color: $active;

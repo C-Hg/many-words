@@ -1,5 +1,5 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
+import { LanguageContext } from "../../../contexts/language-context";
 
 function Features(props) {
   return (
@@ -7,19 +7,19 @@ function Features(props) {
       {({ home }) => (
         <div className="features">
           <div className="feature">
-            <i alt="Free" className="material-icons md-72 featureIcon">
+            <i alt="free" className="material-icons md-72 featureIcon">
               all_inclusive
             </i>
             <h2 className="features_title">{home.features_free}</h2>
           </div>
           <div className="feature">
-            <i alt="Free" className="material-icons md-72 featureIcon">
+            <i alt="spellcheck" className="material-icons md-72 featureIcon">
               spellcheck
             </i>
             <h2 className="features_title">{home.features_words}</h2>
           </div>
           <div className="feature">
-            <i alt="Free" className="material-icons md-72 featureIcon">
+            <i alt="stars" className="material-icons md-72 featureIcon">
               stars
             </i>
             <h2 className="features_title">{home.features_progress}</h2>
@@ -31,5 +31,3 @@ function Features(props) {
 }
 
 export default Features;
-
-Features.contextType = LanguageContext;
