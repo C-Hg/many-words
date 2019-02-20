@@ -11,8 +11,9 @@ body {
 /*   ----------------------      app container      --------------------------- */
 .app {
   font-family: "Open Sans", sans-serif;
+  width: 100%;
   color: $main-font-color;
-  background-color: $main-background-color;
+  background-color: $grey-background;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -27,19 +28,18 @@ body {
 
 /*    --------------    main container, full screen or not   --------------   */
 .main-container {
-  margin: auto;
-
+  width: 100%;
   padding: 0;
   height: 100%;
   overflow-y: auto;
 }
 
 .greyBackground {
-  background-color: $main-background-color;
+  background-color: $grey-background;
 }
 
 .whiteBackground {
-  background-color: white;
+  background-color: $white-background;
 }
 
 /*   ----------------    default values overwriting    --------------- */

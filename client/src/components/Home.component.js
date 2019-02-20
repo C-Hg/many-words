@@ -1,5 +1,7 @@
 import React from "react";
 import "./styles/Home.scss";
+import "./styles/HomeForGuest.scss";
+import "./styles/HomeLoggedIn.scss";
 
 import { UserContext } from "../contexts/user-context";
 import LogoutConfirmation from "./home_components/LogoutConfirmation.component";

@@ -1,0 +1,125 @@
+@import "../../style_common/variables.scss";
+@import "../../style_common/buttons.scss";
+
+.homeLoggedIn {
+  width: 100%;
+}
+
+/*   ----------------------   stats tracking   -------------------- */
+.globalProgress {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.barsContainer {
+  @media (min-width: $break-mid-horizontal) {
+    width: 330px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    width: 250px;
+  }
+}
+
+.progressBar {
+  stroke-width: 30px;
+  stroke-linecap: round;
+}
+
+.emptyBar {
+  stroke: $grey-background;
+
+  fill: black;
+}
+
+.filledBar {
+  stroke: $correct;
+  stroke-dasharray: 300px;
+  animation: fillProgressBar 1000ms ease 400ms forwards;
+}
+
+@keyframes fillProgressBar {
+  0% {
+    stroke-dashoffset: 300px;
+    opacity: 0.4;
+  }
+}
+
+/*   -----------------------  logout button ------------------------ */
+.logoutButton {
+  text-align: center;
+  font-weight: normal;
+  border-radius: 10px;
+  border: 1px solid $main-font-color;
+  background-color: inherit;
+  padding: 0;
+  height: 50px;
+  margin-top: 20px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $p-large;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $p-mid;
+  }
+}
+
+.logout-button-english {
+  @media (min-width: $break-mid-horizontal) {
+    width: 200px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    width: 140px;
+  }
+}
+
+.logout-button-french {
+  @media (min-width: $break-mid-horizontal) {
+    width: 250px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    width: 200px;
+  }
+}
+
+/* -------------------    logout confirmation   ----------------- */
+.logoutInfo {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoutText {
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h2-large;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $h2-mid;
+  }
+}
+
+.acknowledgeLogout {
+  margin-top: 30px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 1px solid;
+  background-color: inherit;
+  padding: 0;
+  height: 40px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $p-large;
+    width: 250px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $p-mid;
+    width: 150px;
+  }
+  &:hover {
+    background-color: $inactive-light;
+  }
+}

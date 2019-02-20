@@ -2,7 +2,11 @@ import React from "react";
 
 function GoldStar(props) {
   if (props.progress !== 1) {
-    return null;
+    return (
+      <div className="goldStar circleStats">
+        <i alt="Back" className="material-icons md-60 goldLessonsIcon" />
+      </div>
+    );
     // placeholder to prevent shift on loading
   } else
     return (

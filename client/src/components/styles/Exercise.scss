@@ -234,7 +234,7 @@
 .specialCharacter {
   border: 1px solid $inactive-light;
   border-radius: 50px;
-  background-color: $main-container-background;
+  background-color: $grey-background;
   &:hover {
     background-color: $active-light;
   }
@@ -260,7 +260,7 @@
 }
 
 .noborder {
-  border-color: $main-container-background;
+  border-color: $white-background;
 }
 
 /*    ----------------    user translation input   ---------------- */

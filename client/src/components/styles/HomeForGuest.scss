@@ -1,0 +1,229 @@
+@import "../../style_common/variables.scss";
+@import "../../style_common/buttons.scss";
+
+.homeForGuestUser {
+  width: 100%;
+  height: 100%;
+}
+
+/*  ----------------------     features     -----------------------   */
+.features {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  @media (min-width: $break-mid-horizontal) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    max-width: 1000px;
+  }
+  @media (min-width: $break-small-horizontal) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    width: 90%;
+  }
+  @media (max-width: $break-small-horizontal),
+    (max-height: $break-small-vertical) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.feature {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  @media (min-width: $break-small-horizontal) {
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    margin-bottom: 20px;
+  }
+}
+
+.features_title {
+  margin-top: 10px;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-right: 10px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h1-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $h1-mid;
+  }
+}
+
+.featureIcon {
+  color: $active;
+}
+
+/*  -----------------  register instructions  -----------------   */
+.register {
+  margin-top: 90px;
+  margin-bottom: 40px;
+  font-weight: 600;
+  font-family: $secondary-font;
+  padding-left: 15px;
+  padding-right: 15px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $huge-title-mid;
+    margin-top: 90px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $huge-title-small;
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+}
+
+/* ------------------    login buttons    ---------------------   */
+.loginButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 140px;
+}
+
+.loginButtonContent {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.login-button-french {
+  @media (min-width: $break-mid-horizontal) {
+    width: 300px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    width: 260px;
+  }
+}
+
+.login-button-english {
+  @media (min-width: $break-mid-horizontal) {
+    width: 250px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    width: 220px;
+  }
+}
+
+.googleButton {
+  @extend .auth-button;
+  color: #d34836;
+  border-color: #d34836;
+  &:hover {
+    animation-name: google-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes google-hover {
+  0% {
+    color: #d34836;
+    border-color: #d34836;
+    background-color: inherit;
+  }
+  100% {
+    color: white;
+    background-color: #d34836;
+    border-color: black;
+  }
+}
+
+.fa-google {
+  width: 20px;
+  text-align: center;
+}
+
+.facebookButton {
+  @extend .auth-button;
+  color: #3b5998;
+  border-color: #3b5998;
+  &:hover {
+    animation-name: facebook-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes facebook-hover {
+  0% {
+    color: #3b5998;
+    border-color: #3b5998;
+    background-color: inherit;
+  }
+  100% {
+    color: white;
+    background-color: #3b5998;
+    border-color: black;
+  }
+}
+
+.fa-facebook {
+  width: 20px;
+  text-align: center;
+}
+
+.login-instructions-french {
+  padding-left: 6%;
+}
+
+.login-instructions-english {
+  padding-left: 6%;
+}
+
+/* -------------------------  discover   ---------------------------- */
+.discover {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.discoverTitle {
+  @extend .register;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $instructions-large;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    font-size: $instructions-mid;
+  }
+}
+
+.discoverButton {
+  @extend .auth-button;
+  background-color: inherit;
+  color: $active;
+  border-color: $active;
+  &:hover {
+    animation-name: discover-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+@keyframes discover-hover {
+  0% {
+    color: $active;
+    border-color: $active;
+    background-color: inherit;
+  }
+  100% {
+    color: white;
+    background-color: $active;
+    border-color: black;
+  }
+}

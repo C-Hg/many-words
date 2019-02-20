@@ -59,12 +59,7 @@ class Theme extends React.Component {
       return (
         <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
           <LessonTitle lesson={val[0]} theme={theme} />
-          <ProgressCircle
-            progress={progress}
-            progressColor={progressColor}
-            sizeClass=""
-            length="100"
-          />
+          <ProgressCircle progress={progress} progressColor={progressColor} />
           <ProgressPercentage
             progress={progress}
             progressColor={progressColor}
@@ -81,7 +76,7 @@ class Theme extends React.Component {
     /* -----------------    rendering component     -----------------  */
     if (!user.isAuthenticated || lessonsData) {
       return (
-        <div>
+        <div className="greyBackground">
           <div className="themeAndArrow">
             <Link to={`/curriculum`}>
               <BackArrow additionalClass="themePageArrow" />

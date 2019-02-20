@@ -11,7 +11,8 @@ import { LanguageContext, languages } from "./contexts/language-context";
 import { UserContext, user } from "./contexts/user-context";
 
 // Layouts
-import MainLayout from "./layouts/Main.layout";
+import MainLayoutGrey from "./layouts/Main.layout.grey";
+import MainLayoutWhite from "./layouts/Main.layout.white";
 import FullScreenLayout from "./layouts/FullScreen.layout";
 
 //functions
@@ -85,13 +86,24 @@ class App extends Component {
               <Route exact path="/" render={() => <Redirect to="/home" />} />
               <Route
                 exact
+                path="/home"
+                render={props => (
+                  <MainLayoutWhite
+                    logoutUser={this.props.logoutUser}
+                    loginUser={this.props.loginUser}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                exact
                 path="/:themeId/:lessonId/test"
                 component={FullScreenLayout}
               />
               <Route
                 path="/"
                 render={props => (
-                  <MainLayout
+                  <MainLayoutGrey
                     {...props}
                     logoutUser={this.logoutUser}
                     loginUser={this.loginUser}

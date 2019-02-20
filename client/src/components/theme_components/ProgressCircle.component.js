@@ -42,8 +42,6 @@ class ProgressCircle extends React.Component {
         <SVGCircle
           strokeDashoffset={`${strokeDashoffset}px`}
           style={`${this.state.progressCircle} ${strokeColor}`}
-          sizeClass={this.props.sizeClass}
-          length={this.props.length}
         />
       </div>
     );
