@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const sendUserDetails = require("../auth/session/sendUserDetails.controller");
 const logoutUser = require("../auth/session/logoutUser.controller");
+const deleteUserAccount = require("../auth/account/deleteUserAccount.controller");
 
 require("../auth/passport")(); //importing passport strategies with iife
 
@@ -22,5 +23,6 @@ router.get("/facebook/token", passport.authenticate("facebook-token"), function(
 
 router.get("/session", sendUserDetails);
 router.get("/logout", logoutUser);
+router.get("/delete_user", deleteUserAccount);
 
 module.exports = router;

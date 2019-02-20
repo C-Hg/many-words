@@ -17,6 +17,7 @@ class MainLayoutWhite extends React.Component {
             render={props => (
               <Home
                 logoutUser={this.props.logoutUser}
+                logoutAndDeleteUser={this.props.logoutAndDeleteUser}
                 loginUser={this.props.loginUser}
                 {...props}
               />

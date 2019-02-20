@@ -47,6 +47,12 @@ export const languages = {
       resume_learning: "Resume learning",
       about: "About",
       delete_account: "Delete my account",
+      confirm_deletion:
+        "All your data will be permanently deleted. Are you sure?",
+      confirm: "Confirm",
+      back: "Cancel",
+      delete_success: "You account has been permanently deleted",
+      delete_waiting: "Deletion in progress",
       logout_success: "You were successfully disconnected",
       logout_failure: "There was a problem during the disconnection"
     },
@@ -234,6 +240,12 @@ export const languages = {
       resume_learning: "Apprendre",
       about: "À propos",
       delete_account: "Supprimer mon compte",
+      confirm_deletion:
+        "Toutes tes données seront supprimées définitivement. Es-tu sûr?",
+      confirm: "Confirmer",
+      back: "Annuler",
+      delete_success: "Ton compte a été définitivement supprimé",
+      delete_waiting: "Suppression en cours",
       logout_success: "Vous êtes maintenant déconnecté",
       logout_failure: "Il y a eu un problème pendant la déconnexion"
     },

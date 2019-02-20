@@ -18,12 +18,14 @@ import FullScreenLayout from "./layouts/FullScreen.layout";
 //functions
 import getUserDetails from "./controllers/auth/getUserDetails.function";
 import serverLogout from "./controllers/auth/serverLogout.function";
+import deleteUserAccount from "./controllers/auth/deleteUserAccount.function";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.loginUser = this.loginUser.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
+    this.logoutAndDeleteUser = this.logoutAndDeleteUser.bind(this);
     this.state = {
       user: user.guest,
       main_language: languages.French,
@@ -39,6 +41,20 @@ class App extends Component {
     });
   }
 
+  async logoutAndDeleteUser() {
+    try {
+      let confirmation = await deleteUserAccount();
+      if (confirmation === "user deleted and logged out") {
+        this.setState({
+          user: user.guest
+        });
+        user.logOutUser();
+      }
+    } catch (e) {
+      console.log("error while trying to delete user account");
+    }
+  }
+
   async logoutUser() {
     try {
       let confirmation = await serverLogout();
@@ -46,8 +62,8 @@ class App extends Component {
         this.setState({
           user: user.guest
         });
+        user.logOutUser();
       }
-      user.logOutUser();
     } catch (e) {
       console.log("error while trying to log out");
     }
@@ -91,6 +107,7 @@ class App extends Component {
                 render={props => (
                   <MainLayoutWhite
                     logoutUser={this.logoutUser}
+                    logoutAndDeleteUser={this.logoutAndDeleteUser}
                     loginUser={this.loginUser}
                     {...props}
                   />

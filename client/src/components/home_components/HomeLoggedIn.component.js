@@ -46,7 +46,7 @@ class HomeLoggedIn extends React.Component {
           <div className="footerButtons">
             <AboutButton />
             <LogoutButton logout={this.props.logout} />
-            <DeleteAccountButton />
+            <DeleteAccountButton delete={this.props.delete} />
           </div>
         </div>
       );
