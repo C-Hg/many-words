@@ -6,7 +6,7 @@ import Exercise from "../components/Exercise.component";
 function FullScreenLayout({ match }) {
   return (
     <div className="app">
-      <div className="main-container whiteBackground">
+      <div className="main-container">
         <Route
           exact
           path={match.path}

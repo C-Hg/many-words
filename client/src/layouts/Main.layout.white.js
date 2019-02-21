@@ -6,7 +6,6 @@ import About from "../components/About.component";
 
 class MainLayoutWhite extends React.Component {
   render() {
-    console.log(this.props.match);
     return (
       <div className="app app-with-navbar-full-screen">
         <Navbar />

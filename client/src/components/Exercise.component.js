@@ -152,7 +152,7 @@ class Exercise extends React.Component {
     }
     if (this.state.exerciseWords) {
       return (
-        <div className="exercise">
+        <div className="exercise whiteBackground">
           <div className="titleAndCross">
             <Link to={`/${this.props.theme}`} className="closeLink">
               <Close />

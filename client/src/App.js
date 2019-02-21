@@ -11,6 +11,7 @@ import { LanguageContext, languages } from "./contexts/language-context";
 import { UserContext, user } from "./contexts/user-context";
 
 // Layouts
+import MainLayoutGrey from "./layouts/Main.layout.grey";
 import MainLayoutWhite from "./layouts/Main.layout.white";
 import FullScreenLayout from "./layouts/FullScreen.layout";
 
@@ -117,6 +118,7 @@ class App extends Component {
                 path="/:themeId/:lessonId/test"
                 component={FullScreenLayout}
               />
+              <Route path="/" component={MainLayoutGrey} />
             </Switch>
           </LanguageContext.Provider>
         </UserContext.Provider>
