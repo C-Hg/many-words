@@ -20,11 +20,13 @@ module.exports = async function getUserStats(req, res) {
       "lessonsStats themesStats"
     );
   } catch (e) {
-    console.log("error while fetching word stats by user");
+    console.log("error while fetching user stats by user");
   }
   if (userStats) {
     userStats = userStats.toObject();
     userStats.globalProgress = globalProgress;
+    res.send(JSON.stringify(userStats));
+    return;
   }
-  res.send(JSON.stringify(userStats));
+  res.send(JSON.stringify(null));
 };

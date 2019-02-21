@@ -6,10 +6,14 @@ import { LanguageContext } from "../../../contexts/language-context";
 
 class LoginWithGoogle extends React.Component {
   responseGoogle = async response => {
-    let authResponse = await googleAuth(response.accessToken);
-    // TO DO : failure message if authResponse = "unauthorized"
-    let userData = JSON.parse(authResponse);
-    this.props.loginUser(userData.email); //login logic is centralized in app.js
+    // TO DO : failure message if authResponse = "unauthorized", seems ok with try-catch
+    try {
+      let authResponse = await googleAuth(response.accessToken);
+      let userData = JSON.parse(authResponse);
+      this.props.loginUser(userData.email); //login logic is centralized in app.js
+    } catch (error) {
+      console.log("error while trying to log with Google");
+    }
   };
 
   responseError = response => {

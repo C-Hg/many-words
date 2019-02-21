@@ -34,7 +34,7 @@ function DeleteConfirmation(props) {
           {({ home }) => (
             <div className="logoutInfo">
               <h3 className="logoutText">{home.delete_success}</h3>
-              <button onClick={props.continue} className="acknowledgeLogout">
+              <button onClick={props.continue} className="acknowledgeLogout ok">
                 OK
               </button>
             </div>

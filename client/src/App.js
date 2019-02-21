@@ -43,7 +43,9 @@ class App extends Component {
 
   async logoutAndDeleteUser() {
     try {
+      console.log("hello from app.js");
       let confirmation = await deleteUserAccount();
+      console.log(confirmation);
       if (confirmation === "user deleted and logged out") {
         this.setState({
           user: user.guest

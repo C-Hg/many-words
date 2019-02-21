@@ -1,4 +1,3 @@
-const dotenv = require("dotenv");
 require("dotenv").config({ path: process.cwd() + "/.env" });
 const path = require("path");
 const express = require("express");
@@ -8,17 +7,19 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 
 const secrets = require("./config/secrets");
 
 /*  -------------   login and session middlewares    -----------*/
+app.set("trust proxy", 1);
 app.use(
   session({
     secret: secrets.SESSION_SECRET,
     resave: false, // prevents race condition
     saveUninitialized: false, // creates a session only if user logs in
     cookie: {
-      secure: false,
+      secure: true,
       sameSite: true,
       maxAge: 100 * 24 * 60 * 60 * 1000 //log in every 3 months
     },
@@ -28,6 +29,7 @@ app.use(
     })
   })
 );
+app.use(helmet());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
@@ -60,13 +62,16 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/auth/", authRoutes);
 
 app.use(express.static(path.join(__dirname, "build")));
-//home routing
+
+/*home routing
+To be resolved before deployment, depending on the strategy chosen
+
 //if (process.env.ENV === "DEVELOPMENT") {
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
   //res.sendFile(__dirname + "/client/public/index.html");
 });
-/*
+
 } else if (process.env.ENV === "PRODUCTION") {
   // allows client-side routing
   app.use(express.static(path.join(__dirname, "build")));

@@ -4,12 +4,14 @@ module.exports = async function deleteUserAccount(req, res) {
   if (!req.user) {
     res.send("no active session");
   }
+  let result = false;
   try {
-    let clear = await deleteData(req.user._id);
+    result = await deleteData(req.user._id);
+    console.log("deleteData result", result);
   } catch (e) {
-    console.log("error while trying to delete user data");
+    console.log(e);
   }
-  if (clear) {
+  if (result) {
     req.logout();
     req.session.destroy(function(err) {
       if (err) {

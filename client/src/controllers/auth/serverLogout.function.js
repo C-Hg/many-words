@@ -1,5 +1,5 @@
 async function serverLogout() {
-  let result = new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     let req = new XMLHttpRequest();
     req.open("GET", `/auth/logout`, true);
     req.send();
@@ -11,7 +11,6 @@ async function serverLogout() {
       reject();
     };
   });
-  return await result;
 }
 
 export default serverLogout;

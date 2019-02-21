@@ -8,6 +8,7 @@ import LogoutConfirmation from "./home_components/home_logged_in_components/Logo
 import HomeLoggedIn from "./home_components/HomeLoggedIn.component";
 import HomeForGuestUser from "./home_components/HomeForGuestUser.component";
 import DeleteConfirmation from "./home_components/home_logged_in_components/DeleteConfirmation.component";
+import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 class Home extends React.Component {
   constructor(props) {
@@ -37,8 +38,9 @@ class Home extends React.Component {
   }
 
   setUserResponse(event) {
+    let value = event.target.value;
     this.setState({
-      isDeletionConfirmed: event.target.value
+      isDeletionConfirmed: value
     });
   }
 
@@ -50,8 +52,9 @@ class Home extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     if (this.state.isDeletionConfirmed === "confirm") {
+      console.log("hello from componentDidMount");
       this.props.logoutAndDeleteUser();
     }
     if (this.state.isDeletionConfirmed === "back") {
@@ -80,6 +83,7 @@ class Home extends React.Component {
     } else {
       return (
         <div className="home whiteBackground">
+          <ScrollToTopOnMount />
           {/*TO DO : separate logout and account informations from user progress */}
           {user.isAuthenticated && (
             <HomeLoggedIn logout={this.logout} delete={this.delete} />

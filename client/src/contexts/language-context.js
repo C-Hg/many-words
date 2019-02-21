@@ -251,7 +251,7 @@ export const languages = {
       back: "Annuler",
       delete_success: "Ton compte a été définitivement supprimé",
       delete_waiting: "Suppression en cours",
-      logout_success: "Vous êtes maintenant déconnecté",
+      logout_success: "Tu es maintenant déconnecté",
       logout_failure: "Il y a eu un problème pendant la déconnexion"
     },
     curriculum: {

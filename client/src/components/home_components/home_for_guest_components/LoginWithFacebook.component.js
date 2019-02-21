@@ -6,9 +6,13 @@ import facebookAuth from "../../../controllers/auth/facebookAuth.function";
 
 class LoginWithFacebook extends React.Component {
   responseFacebook = async response => {
-    let authResponse = await facebookAuth(response.accessToken);
-    let userData = JSON.parse(authResponse);
-    this.props.loginUser(userData.email); //login logic is centralized in app.js
+    try {
+      let authResponse = await facebookAuth(response.accessToken);
+      let userData = JSON.parse(authResponse);
+      this.props.loginUser(userData.email); //login logic is centralized in app.js
+    } catch (error) {
+      console.log("error while trying to log with Facebook");
+    }
   };
 
   render() {
