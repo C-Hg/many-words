@@ -1,6 +1,6 @@
 ## General data
 
-unique form :
+unique form : true
 
 type : noun
 

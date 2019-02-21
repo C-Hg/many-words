@@ -25,8 +25,8 @@ Name : ciel
 
 |             | main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :---: | :---: | :---: | :---: |
-| masc_sing   | ciel  |       |       |       |
-| masc_plur   | cieux |       |       |       |
+| masc_sing   | ciel  | ciel  |       |       |
+| masc_plur   | cieux | ciels |       |       |
 | fem_sing    |       |       |       |       |
 | fem_plur    |       |       |       |       |
 | unique_form |       |       |       |       |

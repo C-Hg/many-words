@@ -44,7 +44,7 @@ class HomeLoggedIn extends React.Component {
           <ResumeLearningButton />
           <hr className="homeSeparator separatorLoggedIn" />
           <div className="footerButtons">
-            <AboutButton />
+            <AboutButton contextualClass="homeFooterButton" />
             <LogoutButton logout={this.props.logout} />
             <DeleteAccountButton delete={this.props.delete} />
           </div>

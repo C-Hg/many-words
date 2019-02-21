@@ -10,12 +10,12 @@ type : verb
 
 Name : to flower
 
-|             |   main    | alt 1  | alt 2 | alt 3 |
-| :---------- | :-------: | :----: | :---: | ----- |
-| singular    |           |        |       |       |
-| plural      |           |        |       |       |
-| unique form | to flower | flower |       |       |
-| \*an        |           |        |       |       |
+|             |   main    | alt 1  |  alt 2   | alt 3 |
+| :---------- | :-------: | :----: | :------: | ----- |
+| singular    |           |        |          |       |
+| plural      |           |        |          |       |
+| unique form | to flower | flower | to bloom | bloom |
+| \*an        |           |        |          |       |
 
 ---
 

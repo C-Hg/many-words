@@ -10,12 +10,12 @@ type : other
 
 Name : my last name
 
-|             |     main     | alt 1 | alt 2 | alt 3 |
-| :---------- | :----------: | :---: | :---: | ----- |
-| singular    |              |       |       |       |
-| plural      |              |       |       |       |
-| unique form | my last name |       |       |       |
-| \*an        |              |       |       |       |
+|             |     main     |     alt 1      | alt 2 | alt 3 |
+| :---------- | :----------: | :------------: | :---: | ----- |
+| singular    |              |                |       |       |
+| plural      |              |                |       |       |
+| unique form | my last name | my family name |       |       |
+| \*an        |              |                |       |       |
 
 ---
 

@@ -23,14 +23,14 @@ Name : afternoon
 
 Name : après-midi
 
-|             |    main    | alt 1 | alt 2 | alt 3 |
-| :---------- | :--------: | :---: | :---: | :---: |
-| masc_sing   | après-midi |       |       |       |
-| masc_plur   | après-midi |       |       |       |
-| fem_sing    | après-midi |       |       |       |
-| fem_plur    | après-midi |       |       |       |
-| unique_form |            |       |       |       |
-| \*l'        |            |       |       |       |
+|             |    main    |    alt 1    | alt 2 | alt 3 |
+| :---------- | :--------: | :---------: | :---: | :---: |
+| masc_sing   | après-midi | après-midi  |       |       |
+| masc_plur   | après-midi | après-midis |       |       |
+| fem_sing    | après-midi | après-midi  |       |       |
+| fem_plur    | après-midi | après-midis |       |       |
+| unique_form |            |             |       |       |
+| \*l'        |            |             |       |       |
 
 ---
 

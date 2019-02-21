@@ -64,3 +64,28 @@
     margin-top: -2px;
   }
 }
+
+/*   ------------------     hover animations   ----------------------- */
+@keyframes blueBackground-hover {
+  100% {
+    color: white;
+    background-color: $active;
+    border-color: black;
+  }
+}
+
+@keyframes redBackground-hover {
+  100% {
+    color: white;
+    background-color: $wrong;
+    border-color: black;
+  }
+}
+
+@keyframes greenBackground-hover {
+  100% {
+    color: white;
+    background-color: $correct;
+    border-color: black;
+  }
+}

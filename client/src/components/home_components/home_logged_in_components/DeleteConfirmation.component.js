@@ -8,20 +8,21 @@ function DeleteConfirmation(props) {
         {({ home }) => (
           <div className="logoutInfo">
             <h3 className="logoutText">{home.confirm_deletion}</h3>
-            <button
-              onClick={props.setUserResponse}
-              key="confirm"
-              className="acknowledgeLogout"
-            >
-              {home.confirm}
-            </button>
-            <button
-              onClick={props.setUserResponse}
-              key="back"
-              className="acknowledgeLogout"
-            >
-              {home.back}
-            </button>
+            <div className="deleteButtons">
+              <button
+                onClick={props.setUserResponse}
+                value="confirm"
+                className="acknowledgeLogout confirm"
+              >
+                {home.confirm}
+              </button>
+              <button
+                onClick={props.continue}
+                className="acknowledgeLogout abort"
+              >
+                {home.back}
+              </button>
+            </div>
           </div>
         )}
       </LanguageContext.Consumer>

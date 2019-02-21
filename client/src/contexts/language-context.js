@@ -91,6 +91,7 @@ export const languages = {
         main_colors: "Main colors"
       },
       food: {
+        agriculture: "Agriculture",
         drinks: "Drinks",
         food_basics: "Food 1",
         foods: "Foods",
@@ -114,8 +115,12 @@ export const languages = {
         senses: "Senses"
       },
       nature: {
+        earth: "Earth",
         nature_basics: "Nature",
-        universe: "Universe"
+        seas: "Seas",
+        universe: "Universe",
+        weather_1: "Weather 1",
+        weather_2: "Weather 2"
       },
       numbers: {
         first_numbers: "First numbers",
@@ -204,7 +209,7 @@ export const languages = {
       description: `Comme tu as pu le remarquer, Many Words est 
       encore à la phase précoce de son développement. Cette application 
       n'est pas à but lucratif : tu ne trouveras aucune publicité et 
-      ta vie privée sera respectée (pas de traqueurs ni de cookies tiers). Si tu as des question, remarques,
+      ta vie privée sera respectée (pas de traqueurs ni de cookies tiers). Si tu as des questions, remarques,
        ou si tu souhaites signaler des bugs, contacte-moi via Twitter ou Github. 
        Le code est open-source sous licence MIT, toute aide est la bienvenue!`,
       roadmap: "Fonctionnalités futures",
@@ -217,7 +222,7 @@ export const languages = {
       sht_3: "Niveaux de leçons: 3 niveaux de difficulté",
       sht_4: "Apprentissage progressif: débloque les leçons au fur et à mesure",
       sht_5:
-        "Apprentissage continu: apprends sans revenir au menu, l'application sélectionne tes points faibles et les prochaines leçons.",
+        "Apprentissage continu: apprends sans revenir au menu, l'application sélectionne tes points faibles et les prochaines leçons",
       sht_6: "Fin de la beta!",
       lgt_1: "Ajout d'une troisième langue: l'Espagnol très probablement",
       lgt_2: "Apprends le vocabulaire de 2 ou 3 langues simultanément",
@@ -284,6 +289,7 @@ export const languages = {
         main_colors: "Couleurs 1"
       },
       food: {
+        agriculture: "Agriculture",
         drinks: "Boissons",
         food_basics: "Nourriture 1",
         foods: "Aliments",
@@ -307,8 +313,12 @@ export const languages = {
         senses: "Sens"
       },
       nature: {
+        earth: "La Terre",
         nature_basics: "Nature",
-        universe: "Univers"
+        seas: "Mer",
+        universe: "Univers",
+        weather_1: "Meteo 1",
+        weather_2: "Meteo 2"
       },
       numbers: {
         first_numbers: "Premiers nombres",

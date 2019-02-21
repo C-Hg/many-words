@@ -224,16 +224,6 @@
   }
 }
 
-.aboutButton {
-  border-radius: 12px;
-  &:hover {
-    animation-name: blueBackground-hover;
-    animation-duration: 0.3s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-  }
-}
-
 .logoutButton,
 .deleteAccountButton {
   &:hover {
@@ -244,23 +234,7 @@
   }
 }
 
-@keyframes blueBackground-hover {
-  100% {
-    color: white;
-    background-color: $active;
-    border-color: black;
-  }
-}
-
-@keyframes redBackground-hover {
-  100% {
-    color: white;
-    background-color: $wrong;
-    border-color: black;
-  }
-}
-
-/* -------------------    logout confirmation   ----------------- */
+/* -------------------    logout and delete confirmation   ----------------- */
 .logoutInfo {
   text-align: center;
   width: 100%;
@@ -269,6 +243,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: -50px;
 }
 
 .logoutText {
@@ -280,24 +255,58 @@
   }
 }
 
-.acknowledgeLogout {
-  margin-top: 30px;
-  text-align: center;
-  font-weight: bold;
-  border-radius: 12px;
-  border: 2px solid;
-  background-color: inherit;
-  padding: 0;
-  height: 40px;
+// button container
+.deleteButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $p-large;
-    width: 250px;
+    flex-direction: row;
+    width: 750px;
+    font-size: $h2-large;
   }
   @media (max-width: $break-mid-horizontal) {
-    font-size: $p-mid;
-    width: 150px;
+    flex-direction: column;
+    height: 120px;
+    font-size: $h2-mid;
   }
+}
+
+.acknowledgeLogout {
+  @extend .auth-button;
+  font-family: $secondary-font;
+  font-weight: bold;
+  border-width: 2px;
+  margin: 0;
+  text-align: center;
   &:hover {
     background-color: $inactive-lightest;
+  }
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h3-large;
+    width: 360px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $h3-mid;
+    width: 300px;
+  }
+}
+
+.confirm {
+  &:hover {
+    animation-name: redBackground-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}
+
+.abort,
+.ok {
+  &:hover {
+    animation-name: greenBackground-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
   }
 }

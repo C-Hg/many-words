@@ -15,7 +15,6 @@ const Result = function(props) {
     } else {
       return (
         <div className="result">
-          <i className="material-icons md-48">arrow_forward</i>
           <div className="expectedAnswer">{props.expectedAnswer}</div>
         </div>
       );

@@ -8,7 +8,7 @@ function LogoutConfirmation(props) {
         {({ home }) => (
           <div className="logoutInfo">
             <h3 className="logoutText">{home.logout_success}</h3>
-            <button onClick={props.continue} className="acknowledgeLogout">
+            <button onClick={props.continue} className="acknowledgeLogout ok">
               OK
             </button>
           </div>
@@ -21,7 +21,7 @@ function LogoutConfirmation(props) {
         {({ home }) => (
           <div className="logoutInfo">
             <h3 className="logoutText">{home.logout_failure}</h3>
-            <button onClick={props.continue} className="acknowledgeLogout">
+            <button onClick={props.continue} className="acknowledgeLogout ok">
               OK
             </button>
           </div>

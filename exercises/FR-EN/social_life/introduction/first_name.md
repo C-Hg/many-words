@@ -10,12 +10,12 @@ type : noun
 
 Name : my first name
 
-|             |     main      | alt 1 | alt 2 | alt 3 |
-| :---------- | :-----------: | :---: | :---: | ----- |
-| singular    |               |       |       |       |
-| plural      |               |       |       |       |
-| unique form | my first name |       |       |       |
-| \*an        |               |       |       |       |
+|             |     main      |    alt 1    | alt 2 | alt 3 |
+| :---------- | :-----------: | :---------: | :---: | ----- |
+| singular    |               |             |       |       |
+| plural      |               |             |       |       |
+| unique form | my first name | my forename |       |       |
+| \*an        |               |             |       |       |
 
 ---
 

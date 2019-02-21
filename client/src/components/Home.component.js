@@ -15,6 +15,7 @@ class Home extends React.Component {
     this.logout = this.logout.bind(this);
     this.delete = this.delete.bind(this);
     this.continue = this.continue.bind(this);
+    this.setUserResponse = this.setUserResponse.bind(this);
     this.state = {
       attemptedLogout: false,
       attemptedDelete: false,
@@ -73,6 +74,7 @@ class Home extends React.Component {
           continue={this.continue}
           isDeletionConfirmed={this.state.isDeletionConfirmed}
           isUserLoggedOut={!user.isAuthenticated}
+          setUserResponse={this.setUserResponse}
         />
       );
     } else {

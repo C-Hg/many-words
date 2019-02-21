@@ -216,18 +216,11 @@
   background-color: inherit;
   color: $active;
   border-color: $active;
+  margin-bottom: 15px;
   &:hover {
-    animation-name: discover-hover;
+    animation-name: blueBackground-hover;
     animation-duration: 0.3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
-  }
-}
-
-@keyframes discover-hover {
-  100% {
-    color: white;
-    background-color: $active;
-    border-color: black;
   }
 }

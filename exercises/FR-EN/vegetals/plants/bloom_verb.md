@@ -23,14 +23,14 @@ Name : to bloom
 
 Name : éclore
 
-|             |  main  | alt 1 | alt 2 | alt 3 |
-| :---------- | :----: | :---: | :---: | :---: |
-| masc_sing   |        |       |       |       |
-| masc_plur   |        |       |       |       |
-| fem_sing    |        |       |       |       |
-| fem_plur    |        |       |       |       |
-| unique_form | éclore |       |       |       |
-| \*l'        |        |       |       |       |
+|             |  main  |  alt 1  | alt 2 | alt 3 |
+| :---------- | :----: | :-----: | :---: | :---: |
+| masc_sing   |        |         |       |       |
+| masc_plur   |        |         |       |       |
+| fem_sing    |        |         |       |       |
+| fem_plur    |        |         |       |       |
+| unique_form | éclore | fleurir |       |       |
+| \*l'        |        |         |       |       |
 
 ---
 

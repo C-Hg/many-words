@@ -28,3 +28,13 @@ h2 {
     margin-top: 60px;
   }
 }
+
+.aboutButton {
+  border-radius: 12px;
+  &:hover {
+    animation-name: blueBackground-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+}

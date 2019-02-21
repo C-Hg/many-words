@@ -73,6 +73,12 @@ function About() {
                 </i>
                 {about.lgt_3}
               </li>
+              <li>
+                <i alt="seen" className="material-icons md-36 checkbox">
+                  check_box_outline_blank
+                </i>
+                {about.lgt_4}
+              </li>
             </ul>
           </div>
         </div>

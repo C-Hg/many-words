@@ -15,7 +15,7 @@ Name : evening
 | singular    | evening  |       |       |       |
 | plural      | evenings |       |       |       |
 | unique form |          |       |       |       |
-| \*an        |          |       |       |       |
+| \*an        |    x     |       |       |       |
 
 ---
 
