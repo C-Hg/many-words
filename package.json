@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && nodemon server.js",
     "client": "cd client && npm start",
-    "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools/database_seeder && npm install",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
     "test": "npm run test:client && npm run test:seeder",
     "test:client": "cd client && npm run mocha-test",
     "test:seeder": "cd tools/database_seeder && mocha",

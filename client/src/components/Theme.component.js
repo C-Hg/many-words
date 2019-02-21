@@ -14,6 +14,7 @@ import LessonTitle from "./theme_components/LessonTitle.component";
 import ThemePageTitle from "./theme_components/ThemePageTitle.component";
 import ProgressPercentage from "./theme_components/ProgressPercentage.component";
 import GoldStar from "./theme_components/GoldStar.component";
+import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 class Theme extends React.Component {
   constructor(props) {
@@ -77,6 +78,7 @@ class Theme extends React.Component {
     if (!user.isAuthenticated || lessonsData) {
       return (
         <div className="greyBackground">
+          <ScrollToTopOnMount />
           <div className="themeAndArrow">
             <Link to={`/curriculum`}>
               <BackArrow additionalClass="themePageArrow" />

@@ -2,12 +2,14 @@ import React from "react";
 import { LanguageContext } from "../contexts/language-context";
 import "./styles/About.scss";
 import AboutIcons from "./about_components/AboutIcons.component";
+import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 function About() {
   return (
     <LanguageContext.Consumer>
       {({ about }) => (
         <div className="about">
+          <ScrollToTopOnMount />
           <h1 className="menuTitle aboutTitle">{about.title}</h1>
           <p className="description">{about.description}</p>
           <AboutIcons />
