@@ -117,7 +117,7 @@ export const languages = {
       nature: {
         earth: "Earth",
         nature_basics: "Nature",
-        seas: "Seas",
+        sea: "Sea",
         universe: "Universe",
         weather_1: "Weather 1",
         weather_2: "Weather 2"
@@ -315,7 +315,7 @@ export const languages = {
       nature: {
         earth: "La Terre",
         nature_basics: "Nature",
-        seas: "Mer",
+        sea: "Mer",
         universe: "Univers",
         weather_1: "Meteo 1",
         weather_2: "Meteo 2"

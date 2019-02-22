@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bodyParser = require("body-parser");
 const passport = require("passport");
 const sendUserDetails = require("../auth/session/sendUserDetails.controller");
 const logoutUser = require("../auth/session/logoutUser.controller");
@@ -23,6 +24,6 @@ router.get("/facebook/token", passport.authenticate("facebook-token"), function(
 
 router.get("/session", sendUserDetails);
 router.get("/logout", logoutUser);
-router.get("/delete_user", deleteUserAccount);
+router.get("/delete_user", bodyParser.json(), deleteUserAccount);
 
 module.exports = router;

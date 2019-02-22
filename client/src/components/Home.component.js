@@ -13,10 +13,11 @@ import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.logout = this.logout.bind(this);
-    this.delete = this.delete.bind(this);
+    this.attemptLogout = this.attemptLogout.bind(this);
+    this.attemptDelete = this.attemptDelete.bind(this);
     this.continue = this.continue.bind(this);
     this.setUserResponse = this.setUserResponse.bind(this);
+    this.logoutAndDelete = this.logoutAndDelete.bind(this);
     this.state = {
       attemptedLogout: false,
       attemptedDelete: false,
@@ -24,14 +25,14 @@ class Home extends React.Component {
     };
   }
 
-  logout() {
+  attemptLogout() {
     this.props.logoutUser();
     this.setState({
       attemptedLogout: true
     });
   }
 
-  delete() {
+  attemptDelete() {
     this.setState({
       attemptedDelete: true
     });
@@ -52,14 +53,11 @@ class Home extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    if (this.state.isDeletionConfirmed === "confirm") {
-      console.log("hello from componentDidMount");
-      this.props.logoutAndDeleteUser();
-    }
-    if (this.state.isDeletionConfirmed === "back") {
-      this.continue();
-    }
+  logoutAndDelete() {
+    this.setState({
+      isDeletionConfirmed: "confirm"
+    });
+    this.props.logoutAndDeleteUser();
   }
 
   render() {
@@ -77,7 +75,7 @@ class Home extends React.Component {
           continue={this.continue}
           isDeletionConfirmed={this.state.isDeletionConfirmed}
           isUserLoggedOut={!user.isAuthenticated}
-          setUserResponse={this.setUserResponse}
+          logoutAndDelete={this.logoutAndDelete}
         />
       );
     } else {
@@ -86,7 +84,10 @@ class Home extends React.Component {
           <ScrollToTopOnMount />
           {/*TO DO : separate logout and account informations from user progress */}
           {user.isAuthenticated && (
-            <HomeLoggedIn logout={this.logout} delete={this.delete} />
+            <HomeLoggedIn
+              logout={this.attemptLogout}
+              delete={this.attemptDelete}
+            />
           )}
           {!user.isAuthenticated && (
             <HomeForGuestUser loginUser={this.props.loginUser} />

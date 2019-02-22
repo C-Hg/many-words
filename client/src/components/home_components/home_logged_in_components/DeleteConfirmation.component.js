@@ -10,8 +10,7 @@ function DeleteConfirmation(props) {
             <h3 className="logoutText">{home.confirm_deletion}</h3>
             <div className="deleteButtons">
               <button
-                onClick={props.setUserResponse}
-                value="confirm"
+                onClick={props.logoutAndDelete}
                 className="acknowledgeLogout confirm"
               >
                 {home.confirm}

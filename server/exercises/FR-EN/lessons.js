@@ -36,7 +36,7 @@ module.exports = {
   nature: [
     ["earth", 11],
     ["nature_basics", 12],
-    ["seas", 14],
+    ["sea", 14],
     ["universe", 10],
     ["weather_1", 15],
     ["weather_2", 17]

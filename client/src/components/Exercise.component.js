@@ -90,9 +90,12 @@ class Exercise extends React.Component {
   }
 
   userTranslationChange(event) {
-    this.setState({
-      userTranslation: event.target.value
-    });
+    const specialCharacters = /[.?/\\_+,;:!*()[\]{}~&%$]+/i;
+    let isCharacterAllowed = !specialCharacters.test(event.target.value);
+    if (isCharacterAllowed)
+      this.setState({
+        userTranslation: event.target.value
+      });
   }
 
   submitUserTranslation() {
