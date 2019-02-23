@@ -15,7 +15,7 @@ Name : ox
 | singular    |  ox  |       |       |       |
 | plural      | oxen |       |       |       |
 | unique form |      |       |       |       |
-| \*an        |      |       |       |       |
+| \*an        |  x   |       |       |       |
 
 ---
 

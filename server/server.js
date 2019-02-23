@@ -30,6 +30,18 @@ app.use(
   })
 );
 app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: [
+        "'self'",
+        "https://fonts.googleapis.com/",
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      ]
+    }
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
@@ -55,29 +67,12 @@ db.once("open", () => {
 
 /* --------------------------      routing        ----------------- */
 const apiRoutes = require("./routes/api.routes");
-app.use("/api/", apiRoutes);
-
-//auth routing
 const authRoutes = require("./routes/auth.routes");
+app.use("/api/", apiRoutes);
 app.use("/auth/", authRoutes);
 
+//home routing, allows client-side routing
 app.use(express.static(path.join(__dirname, "build")));
-
-/*home routing
-To be resolved before deployment, depending on the strategy chosen
-
-//if (process.env.ENV === "DEVELOPMENT") {
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
-  //res.sendFile(__dirname + "/client/public/index.html");
 });
-
-} else if (process.env.ENV === "PRODUCTION") {
-  // allows client-side routing
-  app.use(express.static(path.join(__dirname, "build")));
-  app.get("/*", function(req, res) {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
-  });
-}
-
-*/

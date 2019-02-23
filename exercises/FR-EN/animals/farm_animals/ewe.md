@@ -15,7 +15,7 @@ Name : ewe
 | singular    | ewe  |       |       |       |
 | plural      | ewes |       |       |       |
 | unique form |      |       |       |       |
-| \*an        |      |       |       |       |
+| \*an        |  x   |       |       |       |
 
 ---
 

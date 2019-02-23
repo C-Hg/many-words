@@ -1,3 +1,4 @@
+require("dotenv").config({ path: process.cwd() + "/.env" });
 const {
   gatherData
 } = require("./database_seeder/markdown_fetching_functions/gatherData.function");
@@ -11,10 +12,9 @@ const curriculumDirectory = "../exercises/FR-EN";
 
 //Mongoose setup
 const mongoose = require("mongoose");
-mongoose.connect(
-  process.env.MONGO_URI || "mongodb://localhost:27017/many-words",
-  { useNewUrlParser: true }
-);
+mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/many-words", {
+  useNewUrlParser: true
+});
 mongoose.Promise = global.Promise;
 //Get the default connection
 let db = mongoose.connection;

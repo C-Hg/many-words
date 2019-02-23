@@ -1,13 +1,13 @@
+require("dotenv").config({ path: process.cwd() + "/.env" });
 const countWords = require("./word_counter/countWords.function");
 const fileExplorer = require("./common/fs_explorers/getFiles.function");
 const getLessonAndTheme = require("./common/getLessonAndTheme.function");
 
 //Mongoose setup
 const mongoose = require("mongoose");
-mongoose.connect(
-  process.env.MONGO_URI || "mongodb://localhost:27017/many-words",
-  { useNewUrlParser: true }
-);
+mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/many-words", {
+  useNewUrlParser: true
+});
 mongoose.Promise = global.Promise;
 //Get the default connection
 let db = mongoose.connection;
