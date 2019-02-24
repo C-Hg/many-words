@@ -5,6 +5,7 @@
   margin-top: -65px;
   background-color: $navbar-background;
   width: 100%;
+  position: fixed;
 }
 
 .navbar-links {
@@ -14,8 +15,8 @@
   align-items: center;
   color: $navbar-text;
   height: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
   margin: auto;
   @media (min-width: $break-large-horizontal) {
     width: $break-large-horizontal - 100;
@@ -37,8 +38,6 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .inactive-link {

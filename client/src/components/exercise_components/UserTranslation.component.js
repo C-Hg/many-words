@@ -56,6 +56,11 @@ class UserTranslation extends React.Component {
     }
     return (
       <input
+        type="text"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
         className={"userInput " + inputStatus}
         value={this.props.userTranslation}
         onChange={this.props.userTranslationChange}

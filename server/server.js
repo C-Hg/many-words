@@ -24,24 +24,25 @@ app.use(
       maxAge: 100 * 24 * 60 * 60 * 1000 //log in every 3 months
     },
     store: new MongoDBStore({
-      uri: process.env.MONGO_URI || "mongodb://localhost/many-words",
+      uri: "mongodb://localhost/many-words",
       collection: "sessions"
     })
   })
 );
 app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: [
-        "'self'",
-        "https://fonts.googleapis.com/",
-        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      ]
-    }
-  })
-);
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       defaultSrc: ["'self'",
+//         "https://fonts.googleapis.com/",
+//         "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/"
+//       ],
+//       styleSrc: ["'self'",
+//       "https://fonts.googleapis.com/",
+//       "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/"]
+//     }
+//   })
+// );
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
@@ -50,7 +51,7 @@ require("./auth/session/session.middlewares")(); // passport serializer and dese
 
 /* ----------------------     Mongoose setup     ------------*/
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/many-words", {
+mongoose.connect("mongodb://localhost/many-words", {
   useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
