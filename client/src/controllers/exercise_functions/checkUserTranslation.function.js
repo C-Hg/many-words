@@ -14,7 +14,7 @@ function checkUserTranslation(userTranslation, words) {
         correctTranslations
       );
       for (let correctTranslation of correctTranslationsWithoutArticles) {
-        if (correctTranslation === userTranslation) {
+        if (correctTranslation === userTranslation.trim()) {
           return [true];
         }
       }
@@ -23,7 +23,7 @@ function checkUserTranslation(userTranslation, words) {
 
   //checks with articles
   for (let correctTranslation of correctTranslations) {
-    if (correctTranslation === userTranslation) {
+    if (correctTranslation === userTranslation.trim()) {
       return [true];
     }
   }

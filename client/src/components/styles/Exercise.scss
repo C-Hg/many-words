@@ -22,9 +22,11 @@
   justify-content: flex-start;
   align-items: center;
   height: 12%;
-  @media (min-width: $break-mid-horizontal) {
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+  // hides the title when android resizes the screen to display the keyboard
+  // no solution found to force soft keyboard to overlay and not resize
+  @media (max-height: 450px) {
+    height: 0%;
+    opacity: 0;
   }
 }
 .exerciseTitle {
@@ -381,6 +383,12 @@ input {
   margin-top: auto;
   padding: 0;
   height: 20%;
+  // hides the footer when android resizes the screen to display the keyboard
+  // no solution found to force soft keyboard to overlay and not resize
+  @media (max-height: 450px) {
+    height: 0%;
+    opacity: 0;
+  }
 }
 
 .exercise-footer-correct {
