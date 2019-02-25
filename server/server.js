@@ -24,7 +24,7 @@ app.use(
       maxAge: 100 * 24 * 60 * 60 * 1000 //log in every 3 months
     },
     store: new MongoDBStore({
-      uri: "mongodb://localhost/many-words",
+      uri: secrets.MONGO_URI,
       collection: "sessions"
     })
   })
@@ -51,7 +51,7 @@ require("./auth/session/session.middlewares")(); // passport serializer and dese
 
 /* ----------------------     Mongoose setup     ------------*/
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/many-words", {
+mongoose.connect(secrets.MONGO_URI, {
   useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
@@ -61,7 +61,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
   console.log("Connected to database");
   //configuring the listening port
-  const listener = app.listen(process.env.PORT || 3001, function() {
+  const listener = app.listen(3001, function() {
     console.log("Many-words is listening on port " + listener.address().port);
   });
 });
