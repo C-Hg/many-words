@@ -15,7 +15,7 @@ Name : eyelash
 | singular    |  eyelash  |       |       |       |
 | plural      | eyelashes |       |       |       |
 | unique form |           |       |       |       |
-| \*an        |           |       |       |       |
+| \*an        |     x     |       |       |       |
 
 ---
 

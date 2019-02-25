@@ -1,8 +1,6 @@
 const findWordStatsByLesson = require("./word_stats/findWordStatsByLesson.function");
 const wordCountByLesson = require("../../exercises/FR-EN/wordCountByLesson");
 const assessLessonStats = require("./lesson_stats/assessLessonStats.function");
-const replaceUserStats = require("./user_stats/replaceUserStats.function");
-const updateThemesStats = require("./updateThemesStats.controller");
 
 module.exports = async function updateLessonStats(user, lesson) {
   let wordStats;
@@ -16,6 +14,7 @@ module.exports = async function updateLessonStats(user, lesson) {
   }
   let theme = wordStats[0].theme;
 
+  console.log(wordStats);
   // to calculate the lesson score
   newScore = assessLessonStats(wordStats, wordCountByLesson[lesson]);
 
@@ -25,10 +24,6 @@ module.exports = async function updateLessonStats(user, lesson) {
   }
   user.lessonsStats[theme][lesson] = newScore;
 
-  // pass data to update theme stats, thus writing only once in the dbfinally, updates themes stats
-  try {
-    await updateThemesStats(user);
-  } catch (e) {
-    console.log("error while updating themes stats");
-  }
+  // return data to update theme stats, thus writing only once in the dbfinally, updates themes stats
+  return user;
 };

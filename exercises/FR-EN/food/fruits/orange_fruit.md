@@ -8,7 +8,7 @@ type : noun
 
 ## English data
 
-Name : orange
+Name : orange fruit
 
 |             |  main   | alt 1 | alt 2 | alt 3 |
 | :---------- | :-----: | :---: | :---: | ----- |

@@ -1,6 +1,7 @@
 const getWordStats = require("./getWordStats.controller");
 const updateWordStats = require("./word_stats/updateWordStats.function");
 const updateLessonStats = require("./updateLessonStats.controller");
+const updateThemesStats = require("./updateThemesStats.controller");
 
 module.exports = async function createOrUpdateWordStats(req, res) {
   // data received in an array of arrays :
@@ -31,12 +32,19 @@ module.exports = async function createOrUpdateWordStats(req, res) {
     }
   }
 
+  let user = req.user.toObject();
   for (let lesson of lessons) {
     try {
-      updateLessonStats(req.user.toObject(), lesson);
+      user = await updateLessonStats(user, lesson);
     } catch (e) {
       console.log("error while updating lesson stats");
     }
+  }
+
+  try {
+    await updateThemesStats(user);
+  } catch (e) {
+    console.log("error while updating themes stats");
   }
 
   res.send("all good");

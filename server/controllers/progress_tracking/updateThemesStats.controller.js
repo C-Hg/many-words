@@ -13,9 +13,9 @@ module.exports = async function updateThemesStats(user) {
         user.lessonsStats[theme] &&
         user.lessonsStats[theme].hasOwnProperty(lesson[0])
       ) {
-        if (user.lessonsStats[theme][lesson[0]] > 0.8) {
+        if (user.lessonsStats[theme][lesson[0]] >= 0.8) {
           gold++;
-        } else if (user.lessonsStats[theme][lesson[0]] > 0.4) {
+        } else if (user.lessonsStats[theme][lesson[0]] >= 0.4) {
           green++;
         }
       }

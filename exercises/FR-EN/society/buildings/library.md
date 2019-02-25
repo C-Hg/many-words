@@ -23,14 +23,14 @@ Name : library
 
 Name : bibliothèque
 
-|             |     main     | alt 1 | alt 2 | alt 3 |
-| :---------- | :----------: | :---: | :---: | :---: |
-| masc_sing   |              |       |       |       |
-| masc_plur   |              |       |       |       |
-| fem_sing    | bibliothèque |       |       |       |
-| fem_plur    | bibliothèque |       |       |       |
-| unique_form |              |       |       |       |
-| \*l'        |              |       |       |       |
+|             |     main      | alt 1 | alt 2 | alt 3 |
+| :---------- | :-----------: | :---: | :---: | :---: |
+| masc_sing   |               |       |       |       |
+| masc_plur   |               |       |       |       |
+| fem_sing    | bibliothèque  |       |       |       |
+| fem_plur    | bibliothèques |       |       |       |
+| unique_form |               |       |       |       |
+| \*l'        |               |       |       |       |
 
 ---
 

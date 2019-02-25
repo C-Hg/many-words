@@ -10,12 +10,12 @@ type : noun
 
 Name : theatre
 
-|             |   main   | alt 1 | alt 2 | alt 3 |
-| :---------- | :------: | :---: | :---: | ----- |
-| singular    | theatre  |       |       |       |
-| plural      | theatres |       |       |       |
-| unique form |          |       |       |       |
-| \*an        |          |       |       |       |
+|             |   main   |  alt 1   | alt 2 | alt 3 |
+| :---------- | :------: | :------: | :---: | ----- |
+| singular    | theatre  | theater  |       |       |
+| plural      | theatres | theaters |       |       |
+| unique form |          |          |       |       |
+| \*an        |          |          |       |       |
 
 ---
 

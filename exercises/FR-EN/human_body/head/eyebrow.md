@@ -15,7 +15,7 @@ Name : eyebrow
 | singular    | eyebrow  |       |       |       |
 | plural      | eyebrows |       |       |       |
 | unique form |          |       |       |       |
-| \*an        |          |       |       |       |
+| \*an        |    x     |       |       |       |
 
 ---
 

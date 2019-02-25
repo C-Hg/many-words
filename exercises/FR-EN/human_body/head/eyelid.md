@@ -15,7 +15,7 @@ Name : eyelid
 | singular    | eyelid  |       |       |       |
 | plural      | eyelids |       |       |       |
 | unique form |         |       |       |       |
-| \*an        |         |       |       |       |
+| \*an        |    x    |       |       |       |
 
 ---
 

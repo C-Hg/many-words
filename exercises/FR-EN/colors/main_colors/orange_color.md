@@ -8,7 +8,7 @@ type : adjective
 
 ## English data
 
-Name : orange
+Name : orange color
 
 |             |  main  | alt 1 | alt 2 | alt 3 |
 | :---------- | :----: | :---: | :---: | ----- |
