@@ -6,14 +6,7 @@ export let user = {
   },
   connected: {
     isAuthenticated: true,
-    email: "",
     language: ""
-  },
-  logInUser(email) {
-    this.connected.email = email;
-  },
-  logOutUser() {
-    this.connected.email = "";
   }
 };
 

@@ -1,6 +1,6 @@
 const getWordStats = require("./getWordStats.controller");
 const updateWordStats = require("./word_stats/updateWordStats.function");
-const createOrReplaceLessonStats = require("./createOrReplaceLessonStats.controller");
+const updateLessonStats = require("./updateLessonStats.controller");
 
 module.exports = async function createOrUpdateWordStats(req, res) {
   // data received in an array of arrays :
@@ -33,7 +33,7 @@ module.exports = async function createOrUpdateWordStats(req, res) {
 
   for (let lesson of lessons) {
     try {
-      createOrReplaceLessonStats(user_id, lesson);
+      updateLessonStats(req.user.toObject(), lesson);
     } catch (e) {
       console.log("error while updating lesson stats");
     }

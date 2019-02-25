@@ -10,6 +10,7 @@ import ThemeLessonsNumber from "./curriculum_components/ThemeLessonsNumber.compo
 import GreenLessons from "./curriculum_components/GreenLessons.component";
 import GoldLessons from "./curriculum_components/GoldLesson.component";
 
+//TO DO : separate in its own file
 const themes = [
   ["animals", 103, 6],
   ["clothes", 47, 3],
@@ -57,7 +58,6 @@ class Curriculum extends React.Component {
     let user = this.context;
 
     // lesson name, words/theme, lessons/theme
-
     const cards = themes.map(val => {
       let greenLessons = 0;
       let goldLessons = 0;

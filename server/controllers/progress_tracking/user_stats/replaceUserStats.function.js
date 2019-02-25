@@ -1,8 +1,8 @@
-const UserStats = require("../../../models/userStats.model");
+const User = require("../../../models/user.model");
 
-module.exports = async function replaceUserStats(userStats) {
+module.exports = async function replaceUserStats(user) {
   try {
-    return await UserStats.replaceOne({ userId: userStats.userId }, userStats);
+    return await User.replaceOne({ _id: user._id }, user);
   } catch (e) {
     console.log("error while saving user stats!");
   }

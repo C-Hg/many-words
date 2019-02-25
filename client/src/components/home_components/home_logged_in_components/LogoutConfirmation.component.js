@@ -20,10 +20,7 @@ function LogoutConfirmation(props) {
       <LanguageContext.Consumer>
         {({ home }) => (
           <div className="logoutInfo">
-            <h3 className="logoutText">{home.logout_failure}</h3>
-            <button onClick={props.continue} className="acknowledgeLogout ok">
-              OK
-            </button>
+            <h3 className="logoutText">{home.logout_progress}</h3>
           </div>
         )}
       </LanguageContext.Consumer>

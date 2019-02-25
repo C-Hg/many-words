@@ -54,7 +54,7 @@ export const languages = {
       delete_success: "You account has been permanently deleted",
       delete_waiting: "Deletion in progress",
       logout_success: "You were successfully disconnected",
-      logout_failure: "There was a problem during the disconnection"
+      logout_progress: "Logging out"
     },
     curriculum: {
       title: "What do you want to learn?"
@@ -252,7 +252,7 @@ export const languages = {
       delete_success: "Ton compte a été définitivement supprimé",
       delete_waiting: "Suppression en cours",
       logout_success: "Tu es maintenant déconnecté",
-      logout_failure: "Il y a eu un problème pendant la déconnexion"
+      logout_progress: "Déconnexion en cours"
     },
     curriculum: {
       title: "Que veux-tu apprendre?"

@@ -53,7 +53,7 @@ class Theme extends React.Component {
         : null;
       if (progress > 0.8) {
         progressColor = "gold";
-      } else if (progress > 0.2) {
+      } else if (progress > 0.4) {
         progressColor = "green";
       } else progressColor = "blue";
 

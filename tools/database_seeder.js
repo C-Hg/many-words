@@ -12,7 +12,7 @@ const curriculumDirectory = "../exercises/FR-EN";
 
 //Mongoose setup
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/many-words", {
+mongoose.connect("mongodb://localhost/many-words", {
   useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;

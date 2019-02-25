@@ -34,8 +34,7 @@ class App extends Component {
   }
 
   // this centralisation is needed for react to be aware of a change and rerender the components
-  loginUser(email) {
-    user.logInUser(email); //updates user data directly in user context
+  loginUser() {
     this.setState({
       user: user.connected
     });
@@ -48,7 +47,6 @@ class App extends Component {
         this.setState({
           user: user.guest
         });
-        user.logOutUser();
       }
     } catch (e) {
       console.log("error while trying to delete user account");
@@ -62,7 +60,6 @@ class App extends Component {
         this.setState({
           user: user.guest
         });
-        user.logOutUser();
       }
     } catch (e) {
       console.log("error while trying to log out");
@@ -75,8 +72,7 @@ class App extends Component {
     if (!this.state.isSessionChecked) {
       let userData = await getUserDetails();
       if (userData !== "no active session") {
-        userData = JSON.parse(userData);
-        this.loginUser(userData.email);
+        this.loginUser();
       }
       this.setState({
         isSessionChecked: true
