@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
-import { UserContext } from "../contexts/user-context";
+import { UserContext, user } from "../contexts/user-context";
 import "./styles/Curriculum.scss";
 
 import ThemeTitle from "./curriculum_components/ThemeTitle.component";
-import getThemesStats from "../controllers/progress_tracking/getThemesStats.function";
+import getUserStats from "../controllers/progress_tracking/getUserStats.function";
 import ThemeLessonsNumber from "./curriculum_components/ThemeLessonsNumber.component";
 import GreenLessons from "./curriculum_components/GreenLessons.component";
 import GoldLessons from "./curriculum_components/GoldLesson.component";
@@ -15,28 +15,37 @@ import themes from "../exercises/themes";
 class Curriculum extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchThemesStats = this.fetchThemesStats.bind(this);
+    this.fetchUserStats = this.fetchUserStats.bind(this);
     this.state = {
-      userStats: "",
+      themesStats: "",
       areStatsChecked: false
     };
   }
 
-  async fetchThemesStats() {
-    let userStats = await getThemesStats();
-    if (userStats.response === "No data for this user") {
-      userStats = false;
+  // uses UserContext as a cache for user Stats, refreshes only after an exercise is finished
+  async fetchUserStats(currentUser) {
+    if (currentUser.areStatsValid) {
+      this.setState({
+        themesStats: currentUser.stats.themesStats,
+        areStatsChecked: true
+      });
+    } else {
+      let stats = await getUserStats();
+      if (stats.themesStats === {}) {
+        stats.themesStats = false;
+      }
+      this.setState({
+        themesStats: stats.themesStats,
+        areStatsChecked: true
+      });
+      user.updateUserStats(stats);
     }
-    this.setState({
-      userStats: userStats,
-      areStatsChecked: true
-    });
   }
 
   componentDidMount() {
-    let user = this.context;
-    if (user.isAuthenticated) {
-      this.fetchThemesStats();
+    let currentUser = this.context;
+    if (currentUser.isAuthenticated) {
+      this.fetchUserStats(currentUser);
     }
   }
 
@@ -51,9 +60,9 @@ class Curriculum extends React.Component {
       let borderColorClass = "";
 
       // depends on api call
-      if (this.state.userStats[val[0]]) {
-        greenLessons = this.state.userStats[val[0]].green;
-        goldLessons = this.state.userStats[val[0]].gold;
+      if (this.state.themesStats[val[0]]) {
+        greenLessons = this.state.themesStats[val[0]].green;
+        goldLessons = this.state.themesStats[val[0]].gold;
         lessons -= greenLessons;
         lessons -= goldLessons;
       }
@@ -75,10 +84,10 @@ class Curriculum extends React.Component {
         >
           <ThemeTitle theme={val[0]} />
           {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
-          {this.state.userStats && greenLessons > 0 && (
+          {this.state.themesStats && greenLessons > 0 && (
             <GreenLessons green={greenLessons} />
           )}
-          {this.state.userStats && goldLessons > 0 && (
+          {this.state.themesStats && goldLessons > 0 && (
             <GoldLessons gold={goldLessons} />
           )}
         </Link>

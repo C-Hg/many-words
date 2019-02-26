@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../contexts/user-context";
-import getLessonsStats from "../controllers/progress_tracking/getLessonsStats.function";
+import { UserContext, user } from "../contexts/user-context";
+import getUserStats from "../controllers/progress_tracking/getUserStats.function";
 
 import "./styles/Theme.scss";
 
@@ -20,23 +20,30 @@ import FR_EN_Lessons from "../exercises/lessons";
 class Theme extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchLessonsStats = this.fetchLessonsStats.bind(this);
+    this.fetchUserStats = this.fetchUserStats.bind(this);
     this.state = {
       lessonsStats: ""
     };
   }
 
-  async fetchLessonsStats() {
-    let lessonsStats = await getLessonsStats(this.props.theme);
-    this.setState({
-      lessonsStats: lessonsStats
-    });
+  async fetchUserStats(currentUser) {
+    if (currentUser.areStatsValid) {
+      this.setState({
+        lessonsStats: currentUser.stats.lessonsStats[this.props.theme]
+      });
+    } else {
+      let userStats = await getUserStats(this.props.theme);
+      this.setState({
+        lessonsStats: userStats.lessonsStats[this.props.theme]
+      });
+      user.updateUserStats(userStats);
+    }
   }
 
   componentDidMount() {
-    let user = this.context;
-    if (user.isAuthenticated) {
-      this.fetchLessonsStats();
+    let currentUser = this.context;
+    if (currentUser.isAuthenticated) {
+      this.fetchUserStats(currentUser);
     }
   }
 
@@ -46,6 +53,7 @@ class Theme extends React.Component {
     let theme = this.props.theme;
     let lessonsData = FR_EN_Lessons[theme];
     let progressColor = "";
+    console.log(lessonsData);
 
     //map for each lesson of the theme
     const lessons = lessonsData.map(val => {

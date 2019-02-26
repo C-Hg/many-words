@@ -3,7 +3,7 @@ import "./styles/Home.scss";
 import "./styles/HomeForGuest.scss";
 import "./styles/HomeLoggedIn.scss";
 
-import { UserContext } from "../contexts/user-context";
+import { UserContext, user } from "../contexts/user-context";
 import LogoutConfirmation from "./home_components/home_logged_in_components/LogoutConfirmation.component";
 import HomeLoggedIn from "./home_components/HomeLoggedIn.component";
 import HomeForGuestUser from "./home_components/HomeForGuestUser.component";
@@ -27,6 +27,7 @@ class Home extends React.Component {
 
   attemptLogout() {
     this.props.logoutUser();
+    user.outdateUserStats();
     this.setState({
       attemptedLogout: true
     });
@@ -54,19 +55,20 @@ class Home extends React.Component {
   }
 
   logoutAndDelete() {
+    this.props.logoutAndDeleteUser();
+    user.outdateUserStats();
     this.setState({
       isDeletionConfirmed: "confirm"
     });
-    this.props.logoutAndDeleteUser();
   }
 
   render() {
-    let user = this.context;
+    let currentUser = this.context;
     if (this.state.attemptedLogout) {
       return (
         <LogoutConfirmation
           continue={this.continue}
-          isUserLoggedOut={!user.isAuthenticated}
+          isUserLoggedOut={!currentUser.isAuthenticated}
         />
       );
     } else if (this.state.attemptedDelete) {
@@ -74,7 +76,7 @@ class Home extends React.Component {
         <DeleteConfirmation
           continue={this.continue}
           isDeletionConfirmed={this.state.isDeletionConfirmed}
-          isUserLoggedOut={!user.isAuthenticated}
+          isUserLoggedOut={!currentUser.isAuthenticated}
           logoutAndDelete={this.logoutAndDelete}
         />
       );
@@ -82,14 +84,14 @@ class Home extends React.Component {
       return (
         <div className="home whiteBackground">
           <ScrollToTopOnMount />
-          {/*TO DO : separate logout and account informations from user progress */}
-          {user.isAuthenticated && (
+          {/*TO DO : separate logout and account informations from currentUser progress */}
+          {currentUser.isAuthenticated && (
             <HomeLoggedIn
               logout={this.attemptLogout}
               delete={this.attemptDelete}
             />
           )}
-          {!user.isAuthenticated && (
+          {!currentUser.isAuthenticated && (
             <HomeForGuestUser loginUser={this.props.loginUser} />
           )}
         </div>

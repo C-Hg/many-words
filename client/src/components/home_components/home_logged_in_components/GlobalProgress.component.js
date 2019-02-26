@@ -6,11 +6,11 @@ import { calculateLessonsStats } from "../../../controllers/progress_tracking/ca
 import LessonProgress from "./LessonProgress.component";
 
 function GlobalProgress(props) {
-  let progress = props.userStats.globalProgress.globalPercentage;
-  let wordStats = props.userStats.globalProgress;
+  let progress = props.stats.globalProgress.globalPercentage;
+  let wordStats = props.stats.globalProgress;
   let lessonStats = calculateLessonsStats(
-    props.userStats.lessonsStats,
-    props.userStats.themesStats
+    props.stats.lessonsStats,
+    props.stats.themesStats
   );
 
   return (

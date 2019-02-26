@@ -186,7 +186,7 @@
     width: 190px;
   }
   100% {
-    width: 380px;
+    width: 420px;
   }
 }
 
@@ -195,7 +195,7 @@
     width: 190px;
   }
   100% {
-    width: 340px;
+    width: 350px;
   }
 }
 
@@ -238,6 +238,7 @@
   border: 1px solid $inactive-light;
   border-radius: 50px;
   background-color: $grey-background;
+  text-align: center;
   &:hover {
     background-color: $active-light;
   }

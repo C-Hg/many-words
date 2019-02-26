@@ -6,6 +6,7 @@ import TimeToWork from "./home_logged_in_components/TimeToWork.component";
 import ResumeLearningButton from "./home_logged_in_components/ResumeLearningButton.component";
 import AboutButton from "./AboutButton.component";
 import DeleteAccountButton from "./home_logged_in_components/DeleteAccountButton.component";
+import { UserContext, user } from "../../contexts/user-context";
 
 class HomeLoggedIn extends React.Component {
   constructor(props) {
@@ -13,34 +14,41 @@ class HomeLoggedIn extends React.Component {
     this.fetchUserStats = this.fetchUserStats.bind(this);
     this.state = {
       statsFetched: false,
-      userStats: ""
+      stats: ""
     };
   }
 
-  async fetchUserStats() {
-    try {
-      let userStats = await getUserStats();
+  async fetchUserStats(loggedUser) {
+    if (loggedUser.areStatsValid)
       this.setState({
-        userStats: userStats,
+        stats: loggedUser.stats,
         statsFetched: true
       });
-    } catch (e) {
-      console.log("error while getting user Stats");
+    else {
+      try {
+        let userStats = await getUserStats();
+        this.setState({
+          stats: userStats,
+          statsFetched: true
+        });
+        user.updateUserStats(userStats);
+      } catch (e) {
+        console.log("error while getting user Stats");
+      }
     }
   }
 
   componentDidMount() {
-    this.fetchUserStats();
+    let loggedUser = this.context; // Attention! loggedUser is different from user imported directly from context
+    this.fetchUserStats(loggedUser);
   }
 
   render() {
     if (this.state.statsFetched) {
       return (
         <div className="HomeLoggedIn">
-          {this.state.userStats && (
-            <GlobalProgress userStats={this.state.userStats} />
-          )}
-          {!this.state.userStats && <TimeToWork />}
+          {this.state.stats && <GlobalProgress stats={this.state.stats} />}
+          {!this.state.stats && <TimeToWork />}
           <ResumeLearningButton />
           <hr className="homeSeparator separatorLoggedIn" />
           <div className="footerButtons">
@@ -56,3 +64,5 @@ class HomeLoggedIn extends React.Component {
 }
 
 export default HomeLoggedIn;
+
+HomeLoggedIn.contextType = UserContext;

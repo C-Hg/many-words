@@ -6,10 +6,20 @@ export let user = {
   },
   connected: {
     isAuthenticated: true,
-    language: ""
+    language: "",
+    stats: "",
+    areStatsValid: false
+  },
+  updateUserStats: function(userStats) {
+    this.connected.stats = userStats;
+    this.connected.areStatsValid = true;
+  },
+  outdateUserStats: function() {
+    this.connected.areStatsValid = false;
+    this.connected.stats = "";
   }
 };
 
 export let UserContext = React.createContext(
-  user // default value
+  user.guest // default value
 );

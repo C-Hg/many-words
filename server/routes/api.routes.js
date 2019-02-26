@@ -8,14 +8,10 @@ const {
   getLesson
 } = require("../controllers/content_fetching/getLesson.controller");
 const createOrUpdateWordStats = require("../controllers/progress_tracking/createOrUpdateWordStats.controller");
-const getThemesStats = require("../controllers/progress_tracking/getThemesStats.controller");
-const getLessonsStats = require("../controllers/progress_tracking/getLessonsStats.controller");
 const getUserStats = require("../controllers/progress_tracking/getUserStats.controller");
 
 router.get("/learn/:lesson", getWordsToLearn);
 router.get("/exercise/:lesson", getLesson);
-router.get("/tracking/themes_stats", getThemesStats);
-router.get("/tracking/lessons_stats/:theme", getLessonsStats);
 router.get("/tracking/user_stats", getUserStats);
 
 router.post(
