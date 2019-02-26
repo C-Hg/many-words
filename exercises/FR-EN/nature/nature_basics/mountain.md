@@ -8,14 +8,14 @@ type : noun
 
 ## English data
 
-Name : moutain
+Name : mountain
 
-|             |   main   | alt 1 | alt 2 | alt 3 |
-| :---------- | :------: | :---: | :---: | ----- |
-| singular    | moutain  |       |       |       |
-| plural      | moutains |       |       |       |
-| unique form |          |       |       |       |
-| \*an        |          |       |       |       |
+|             |   main    | alt 1 | alt 2 | alt 3 |
+| :---------- | :-------: | :---: | :---: | ----- |
+| singular    | mountain  |       |       |       |
+| plural      | mountains |       |       |       |
+| unique form |           |       |       |       |
+| \*an        |           |       |       |       |
 
 ---
 

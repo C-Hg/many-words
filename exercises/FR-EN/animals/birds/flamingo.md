@@ -10,12 +10,12 @@ type : noun
 
 Name : flamingo
 
-|             |   main   | alt 1 | alt 2 | alt 3 |
-| :---------- | :------: | :---: | :---: | ----- |
-| singular    | flamingo |       |       |       |
-| plural      | flamingo |       |       |       |
-| unique form |          |       |       |       |
-| \*an        |          |       |       |       |
+|             |    main    |   alt 1   | alt 2 | alt 3 |
+| :---------- | :--------: | :-------: | :---: | ----- |
+| singular    |  flamingo  | flamingo  |       |       |
+| plural      | flamingoes | flamingos |       |       |
+| unique form |            |           |       |       |
+| \*an        |            |           |       |       |
 
 ---
 

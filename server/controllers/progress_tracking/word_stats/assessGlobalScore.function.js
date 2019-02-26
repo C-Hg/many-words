@@ -6,15 +6,17 @@ module.exports = function assessGlobalScore(wordStats) {
     if (val.global_score <= 0) {
       return acc;
     }
-    if (val.global_score >= 2 && val.global_score < 5) {
+    if (val.global_score >= 2 && val.global_score < 4) {
       greenWords++;
-      return acc + val.global_score;
-    } else if (val.global_score >= 4) {
+    }
+    if (val.global_score >= 4) {
       goldWords++;
+    }
+    if (val.global_score >= 5) {
       return acc + 5;
     }
+    return acc + val.global_score;
   }, 0);
-
   return {
     greenWords: greenWords,
     goldWords: goldWords,

@@ -14,7 +14,6 @@ module.exports = async function updateLessonStats(user, lesson) {
   }
   let theme = wordStats[0].theme;
 
-  console.log(wordStats);
   // to calculate the lesson score
   newScore = assessLessonStats(wordStats, wordCountByLesson[lesson]);
 

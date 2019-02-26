@@ -2,6 +2,7 @@ require("dotenv").config({ path: process.cwd() + "/.env" });
 const countWords = require("./word_counter/countWords.function");
 const fileExplorer = require("./common/fs_explorers/getFiles.function");
 const getLessonAndTheme = require("./common/getLessonAndTheme.function");
+const updateFiles = require("./word_counter/updateFiles.function");
 
 //Mongoose setup
 const mongoose = require("mongoose");
@@ -90,4 +91,6 @@ async function countLessonsAndThemes() {
 
   console.log("-----------   word counts  -------------");
   console.log(wordCountByLesson);
+
+  updateFiles(lessons, themes, wordCountByLesson);
 }

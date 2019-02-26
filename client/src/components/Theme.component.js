@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/user-context";
-import { getLessons } from "../controllers/getLessons.function";
 import getLessonsStats from "../controllers/progress_tracking/getLessonsStats.function";
 
 import "./styles/Theme.scss";
@@ -15,6 +14,8 @@ import ThemePageTitle from "./theme_components/ThemePageTitle.component";
 import ProgressPercentage from "./theme_components/ProgressPercentage.component";
 import GoldStar from "./theme_components/GoldStar.component";
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
+
+import FR_EN_Lessons from "../exercises/lessons";
 
 class Theme extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class Theme extends React.Component {
     /* ----------------       preparing data    -------------- */
     let user = this.context;
     let theme = this.props.theme;
-    let lessonsData = getLessons(theme);
+    let lessonsData = FR_EN_Lessons[theme];
     let progressColor = "";
 
     //map for each lesson of the theme

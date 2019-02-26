@@ -29,7 +29,7 @@ module.exports = {
   senses: 16,
   earth: 11,
   nature_basics: 12,
-  sea: 14,
+  sea: 13,
   universe: 10,
   weather_1: 15,
   weather_2: 17,

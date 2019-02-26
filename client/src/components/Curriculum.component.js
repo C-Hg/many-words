@@ -10,21 +10,7 @@ import ThemeLessonsNumber from "./curriculum_components/ThemeLessonsNumber.compo
 import GreenLessons from "./curriculum_components/GreenLessons.component";
 import GoldLessons from "./curriculum_components/GoldLesson.component";
 
-//TO DO : separate in its own file
-const themes = [
-  ["animals", 103, 6],
-  ["clothes", 47, 3],
-  ["colors", 10, 1],
-  ["food", 95, 7],
-  ["habitation", 82, 6],
-  ["human_body", 76, 5],
-  ["nature", 79, 6],
-  ["numbers", 32, 2],
-  ["social_life", 51, 4],
-  ["society", 42, 3],
-  ["time", 79, 6],
-  ["vegetals", 35, 3]
-];
+import themes from "../exercises/themes";
 
 class Curriculum extends React.Component {
   constructor(props) {
