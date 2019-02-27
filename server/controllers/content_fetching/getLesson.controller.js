@@ -9,7 +9,7 @@ exports.getLesson = async function(req, res) {
   try {
     words = await Word.find(
       { lesson: req.params.lesson },
-      "en_name fr_name lesson type hasUniqueForm en fr"
+      "en_name fr_name lesson theme type hasUniqueForm en fr"
     );
     // sends them as is if user is not logged in
     if (!req.user) {
@@ -20,7 +20,6 @@ exports.getLesson = async function(req, res) {
     console.log("Error while fetching lesson data");
     return;
   }
-
   // if user is registered, selects the weakest forms
   // wordScores is a parallel array containing scores if they exist,
   // or "null", for each word

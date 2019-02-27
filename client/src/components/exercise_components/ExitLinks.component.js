@@ -1,21 +1,31 @@
 import React from "react";
 import { LanguageContext } from "../../contexts/language-context";
+import { UserContext } from "../../contexts/user-context";
 
-const WordsToRemember = function(props) {
-  return (
-    <LanguageContext.Consumer>
-      {({ try_again, to_continue }) => (
-        <div className="links">
-          <button className="exitLink" onClick={props.restart}>
-            {try_again}
-          </button>
-          <button className="exitLink" onClick={props.redirect}>
-            {to_continue}
-          </button>
-        </div>
-      )}
-    </LanguageContext.Consumer>
-  );
-};
+class ExitLinks extends React.Component {
+  render() {
+    let user = this.context;
+    return (
+      <LanguageContext.Consumer>
+        {({ navigation }) => (
+          <div className="links">
+            <button className="exitLink" onClick={this.props.restart}>
+              {user.activity === "weak_words"
+                ? navigation.to_continue
+                : navigation.try_again}
+            </button>
+            <button className="exitLink" onClick={this.props.redirect}>
+              {user.activity === "weak_words"
+                ? navigation.quit_main
+                : navigation.quit}
+            </button>
+          </div>
+        )}
+      </LanguageContext.Consumer>
+    );
+  }
+}
 
-export default WordsToRemember;
+export default ExitLinks;
+
+ExitLinks.contextType = UserContext;

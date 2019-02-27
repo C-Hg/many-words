@@ -8,7 +8,9 @@ export let user = {
     isAuthenticated: true,
     language: "",
     stats: "",
-    areStatsValid: false
+    areStatsValid: false,
+    activity: "",
+    weak_words_details: ""
   },
   updateUserStats: function(userStats) {
     this.connected.stats = userStats;
@@ -17,6 +19,17 @@ export let user = {
   outdateUserStats: function() {
     this.connected.areStatsValid = false;
     this.connected.stats = "";
+  },
+  startWeakWords: function(context, reference) {
+    this.connected.activity = "weak_words";
+    this.connected.weak_words_details = {
+      context: context,
+      reference: reference
+    };
+  },
+  resetActivity: function() {
+    this.connected.activity = "";
+    this.connected.weak_words_details = "";
   }
 };
 

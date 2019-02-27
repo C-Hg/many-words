@@ -42,8 +42,9 @@
   }
 }
 
-.closeLink {
-  display: inline;
+.closeButton {
+  border: 0;
+  background-color: inherit;
   text-align: center;
   @media (min-width: $break-mid-horizontal) {
     margin-left: 20px;
@@ -55,7 +56,6 @@
 
 .close {
   color: $wrong-light;
-
   @media (min-width: $break-small-horizontal) {
     font-size: 60px;
     width: 60px;

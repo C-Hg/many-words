@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
 import { UserContext, user } from "../contexts/user-context";
 import "./styles/Curriculum.scss";
@@ -11,6 +11,7 @@ import GreenLessons from "./curriculum_components/GreenLessons.component";
 import GoldLessons from "./curriculum_components/GoldLesson.component";
 
 import themes from "../exercises/themes";
+import WeakWords from "./common_components/WeakWords.component";
 
 class Curriculum extends React.Component {
   constructor(props) {
@@ -51,7 +52,9 @@ class Curriculum extends React.Component {
 
   render() {
     let user = this.context;
-
+    if (user.isAuthenticated && user.activity === "weak_words") {
+      return <Redirect to="/weak_words" />;
+    }
     // lesson name, words/theme, lessons/theme
     const cards = themes.map(val => {
       let greenLessons = 0;
@@ -101,6 +104,13 @@ class Curriculum extends React.Component {
           {({ curriculum }) => (
             <div className="curriculum greyBackground">
               <h1 className="menuTitle">{curriculum.title}</h1>
+              {user.isAuthenticated && (
+                <WeakWords
+                  context="global"
+                  reference={null}
+                  startWeakWords={this.props.startWeakWords}
+                />
+              )}
               <div className="themeCards">{cards}</div>
             </div>
           )}

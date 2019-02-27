@@ -53,7 +53,6 @@ class Theme extends React.Component {
     let theme = this.props.theme;
     let lessonsData = FR_EN_Lessons[theme];
     let progressColor = "";
-    console.log(lessonsData);
 
     //map for each lesson of the theme
     const lessons = lessonsData.map(val => {

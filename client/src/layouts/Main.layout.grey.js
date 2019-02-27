@@ -15,7 +15,12 @@ class MainLayoutGrey extends React.Component {
             <Route
               exact
               path={`${this.props.match.path}curriculum`}
-              component={Curriculum}
+              render={props => (
+                <Curriculum
+                  startWeakWords={this.props.startWeakWords}
+                  {...props}
+                />
+              )}
             />
             <Route
               exact

@@ -1,12 +1,18 @@
 import React from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import exerciseFetcher from "../controllers/exercise_fetcher/exerciseFetcher.controller";
-import Close from "./common_components/Close.component";
+import Close from "./exercise_components/Close.component";
 import ExerciseTitle from "./exercise_components/ExerciseTitle.component";
 import checkUserTranslation from "../controllers/exercise_functions/checkUserTranslation.function";
 import ExerciseContainer from "./exercise_components/ExerciseContainer.component";
 import ExerciseFooter from "./exercise_components/ExerciseFooter.component";
 import ExerciseRecap from "./exercise_components/ExerciseRecap.component";
+import { UserContext, user } from "../contexts/user-context";
+import weakWordsFetcher from "../controllers/exercise_fetcher/weakWordsFetcher.controller";
+import makeBatches from "../controllers/exercise_fetcher/makeBatches.function";
+import updateWordStats from "../controllers/progress_tracking/updateWordStats.function";
+
+/*     2 main cases : either we are in weak words mode or not!      */
 
 class Exercise extends React.Component {
   constructor(props) {
@@ -19,7 +25,11 @@ class Exercise extends React.Component {
     this.restart = this.restart.bind(this);
     this.redirect = this.redirect.bind(this);
     this.getWords = this.getWords.bind(this);
+    this.getWeakWords = this.getWeakWords.bind(this);
     this.state = {
+      weak_words_mode: false,
+      weak_words: "",
+      weak_words_batches_done: 0,
       status: "exercise",
       exerciseWords: "",
       wordRank: 0,
@@ -49,13 +59,23 @@ class Exercise extends React.Component {
   }
 
   nextWord() {
-    //goes to recap screen when all the words have been answered
+    let currentUser = this.context;
+    //goes to recap screen when all the words have been answered, and update stats in db
     if (this.state.wordRank === this.state.exerciseWords.length - 1) {
+      if (currentUser.isAuthenticated) {
+        updateWordStats(this.state.result);
+        user.outdateUserStats();
+      }
       this.setState({
         status: "recap",
         checking: false,
         specialCharactersVisible: false
       });
+      if (this.state.weak_words_mode) {
+        this.setState(state => ({
+          weak_words_batches_done: state.weak_words_batches_done + 1
+        }));
+      }
     } else {
       this.setState(state => ({
         wordRank: state.wordRank + 1,
@@ -69,7 +89,14 @@ class Exercise extends React.Component {
   }
 
   async restart() {
-    let words = await exerciseFetcher(this.props.lesson);
+    if (this.state.weak_words_mode) {
+      this.getWeakWords();
+    } else {
+      let words = await exerciseFetcher(this.props.lesson);
+      this.setState({
+        exerciseWords: words
+      });
+    }
     this.setState({
       status: "exercise",
       wordRank: 0,
@@ -78,12 +105,12 @@ class Exercise extends React.Component {
       expectedAnswer: "",
       activable: false,
       failedWords: [],
-      result: [],
-      exerciseWords: words
+      result: []
     });
   }
 
   redirect() {
+    user.resetActivity();
     this.setState({
       redirect: true
     });
@@ -135,34 +162,77 @@ class Exercise extends React.Component {
     }
   }
 
+  async getWeakWords() {
+    let weak_words = this.state.weak_words;
+    let currentBatch = this.state.weak_words_batches_done;
+    let totalNumberOfBatches = weak_words.length;
+
+    // if words are already fetched, sends the next batch if present
+    if (weak_words && currentBatch < totalNumberOfBatches) {
+      this.setState({
+        exerciseWords: weak_words[currentBatch]
+      });
+
+      // else get new batches
+    } else {
+      let currentUser = this.context;
+      let context = currentUser.weak_words_details.context;
+      let reference = currentUser.weak_words_details.reference;
+      try {
+        weak_words = await weakWordsFetcher(context, reference);
+        weak_words = makeBatches(weak_words);
+        this.setState({
+          exerciseWords: weak_words[0],
+          weak_words: weak_words,
+          weak_words_batches_done: 0,
+          weak_words_mode: true
+        });
+      } catch (e) {
+        console.log("error while fetching weak words");
+      }
+    }
+  }
+
   async getWords() {
-    let words = await exerciseFetcher(this.props.lesson);
-    this.setState({
-      exerciseWords: words
-    });
+    try {
+      let words = await exerciseFetcher(this.props.lesson);
+      this.setState({
+        exerciseWords: words
+      });
+    } catch (e) {
+      console.log("error while fetching words");
+    }
   }
 
   componentDidMount() {
-    this.mounted = true;
+    let currentUser = this.context;
     if (!this.state.exerciseWords) {
-      this.getWords();
+      if (
+        currentUser.isAuthenticated &&
+        currentUser.activity === "weak_words"
+      ) {
+        this.getWeakWords();
+      } else {
+        this.getWords();
+      }
     }
   }
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={`/${this.props.theme}`} />;
+      if (this.state.weak_words_mode) {
+        // if weak words on, goes to main menu
+        return <Redirect to={`/curriculum`} />;
+      } else return <Redirect to={`/${this.props.theme}`} />;
     }
     if (this.state.exerciseWords) {
       return (
         <div className="exercise whiteBackground">
           <div className="titleAndCross">
-            <Link to={`/${this.props.theme}`} className="closeLink">
-              <Close />
-            </Link>
+            <Close redirect={this.redirect} />
             <ExerciseTitle
-              lesson={this.props.lesson}
-              theme={this.props.theme}
+              lesson={this.state.exerciseWords[this.state.wordRank].lesson}
+              theme={this.state.exerciseWords[this.state.wordRank].theme}
             />
           </div>
           {this.state.status === "exercise" && (
@@ -182,7 +252,6 @@ class Exercise extends React.Component {
           )}
           {this.state.status === "recap" && (
             <ExerciseRecap
-              result={this.state.result}
               failedWords={this.state.failedWords}
               restart={this.restart}
               redirect={this.redirect}
@@ -201,18 +270,12 @@ class Exercise extends React.Component {
         </div>
       );
     } else {
-      return (
-        //TO DO : implement waiting animation
-        <div className="exercise">
-          <ExerciseFooter
-            correctAnswer={this.state.correctAnswer}
-            expectedAnswer={this.state.expectedAnswer}
-            checking={this.state.checking}
-          />
-        </div>
-      );
+      //TO DO : implement waiting animation
+      return null;
     }
   }
 }
 
 export default Exercise;
+
+Exercise.contextType = UserContext;

@@ -13,7 +13,7 @@ the stats of the user for each form of the words to learn
 see getLesson.controller.js server side for a clearer understanding 
 */
 
-function FrEnWordSelector(wordsToSelect) {
+function FrEnWordSelector(wordsToSelect, shuffle) {
   let wordCounter = 0;
   let preparedWords = []; //array of objects
 
@@ -58,11 +58,15 @@ function FrEnWordSelector(wordsToSelect) {
     preparedWords.push({
       selectedForm: selectedWords.selectedForm,
       fr: selectedWords.fr,
-      en: selectedWords.en
+      en: selectedWords.en,
+      lesson: word.lesson,
+      theme: word.theme
     });
     wordCounter++;
   }
-  preparedWords = shuffleArray(preparedWords);
+  if (shuffle) {
+    preparedWords = shuffleArray(preparedWords);
+  }
   return preparedWords;
 }
 

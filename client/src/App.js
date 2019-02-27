@@ -26,11 +26,19 @@ class App extends Component {
     this.loginUser = this.loginUser.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
     this.logoutAndDeleteUser = this.logoutAndDeleteUser.bind(this);
+    this.startWeakWords = this.startWeakWords.bind(this);
     this.state = {
       user: user.guest,
       main_language: languages.French,
       isSessionChecked: false
     };
+  }
+
+  startWeakWords(event) {
+    let context = event.target.getAttribute("context");
+    let reference = event.target.getAttribute("reference");
+    user.startWeakWords(context, reference);
+    this.forceUpdate(); // forces rerendering and redirecting from curriculum to exercise after user context is updated!
   }
 
   // this centralisation is needed for react to be aware of a change and rerender the components
@@ -109,12 +117,21 @@ class App extends Component {
                   />
                 )}
               />
+              <Route exact path="/weak_words" component={FullScreenLayout} />
               <Route
                 exact
                 path="/:themeId/:lessonId/test"
                 component={FullScreenLayout}
               />
-              <Route path="/" component={MainLayoutGrey} />
+              <Route
+                path="/"
+                render={props => (
+                  <MainLayoutGrey
+                    startWeakWords={this.startWeakWords}
+                    {...props}
+                  />
+                )}
+              />
             </Switch>
           </LanguageContext.Provider>
         </UserContext.Provider>

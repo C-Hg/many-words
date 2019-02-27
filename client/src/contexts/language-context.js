@@ -9,7 +9,12 @@ export const languages = {
     },
     navigation: {
       login_with: "Log in with",
-      logout: "Log out"
+      logout: "Log out",
+      weak_words: "Weak words",
+      try_again: "Try again",
+      to_continue: "Continue",
+      quit: "Menu",
+      quit_main: "Main menu"
     },
     about: {
       title: "About Many Words",
@@ -182,8 +187,6 @@ export const languages = {
     one_mistake: "Great, it is almost perfect !",
     one_mistake_instructions: "Mind this word :",
     more_mistakes: "Take a moment to memorize the words you missed :",
-    try_again: "Try again",
-    to_continue: "Continue",
     masculine: "masculine",
     feminine: "feminine",
     singular: "singular",
@@ -202,7 +205,12 @@ export const languages = {
     },
     navigation: {
       login_with: "Connexion avec",
-      logout: "Déconnexion"
+      logout: "Déconnexion",
+      weak_words: "Mots faibles",
+      to_continue: "Continuer",
+      try_again: "Réessayer",
+      quit: "Menu",
+      quit_main: "Menu principal"
     },
     about: {
       title: "À propos de Many Words",
@@ -380,8 +388,6 @@ export const languages = {
     one_mistake: "Bravo, c'est presque parfait !",
     one_mistake_instructions: "Fais attention à ce mot :",
     more_mistakes: "Prends un moment pour apprendre ces mots :",
-    try_again: "Réessayer",
-    to_continue: "Continuer",
     masculine: "masculin",
     feminine: "féminin",
     singular: "singulier",

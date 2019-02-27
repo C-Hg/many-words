@@ -1,4 +1,6 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+
 import LogoutButton from "./home_logged_in_components/LogoutButton.component";
 import getUserStats from "../../controllers/progress_tracking/getUserStats.function";
 import GlobalProgress from "./home_logged_in_components/GlobalProgress.component";
@@ -44,6 +46,11 @@ class HomeLoggedIn extends React.Component {
   }
 
   render() {
+    let loggedUser = this.context;
+    if (loggedUser.activity === "weak_words") {
+      return <Redirect to="/weak_words" />;
+    }
+
     if (this.state.statsFetched) {
       return (
         <div className="HomeLoggedIn">
