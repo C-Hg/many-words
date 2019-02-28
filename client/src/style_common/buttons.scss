@@ -67,6 +67,7 @@
 }
 
 .weak_words_button {
+  display: block;
   flex-shrink: 0;
   text-align: center;
   border: 3px solid $correct;
@@ -76,11 +77,11 @@
   height: 55px;
   @media (min-width: $break-mid-horizontal) {
     font-size: $h2-mid;
-    width: 350px;
+    width: 320px;
   }
   @media (max-width: $break-mid-horizontal) {
     font-size: $h2-small;
-    width: 280px;
+    width: 260px;
   }
 
   &:hover {

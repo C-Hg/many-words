@@ -19,6 +19,7 @@ class Curriculum extends React.Component {
     this.fetchUserStats = this.fetchUserStats.bind(this);
     this.state = {
       themesStats: "",
+      lessonsStats: {},
       areStatsChecked: false
     };
   }
@@ -28,6 +29,7 @@ class Curriculum extends React.Component {
     if (currentUser.areStatsValid) {
       this.setState({
         themesStats: currentUser.stats.themesStats,
+        lessonsStats: currentUser.stats.lessonsStats,
         areStatsChecked: true
       });
     } else {
@@ -37,6 +39,7 @@ class Curriculum extends React.Component {
       }
       this.setState({
         themesStats: stats.themesStats,
+        lessonsStats: stats.lessonsStats,
         areStatsChecked: true
       });
       user.updateUserStats(stats);
@@ -108,7 +111,7 @@ class Curriculum extends React.Component {
           {({ curriculum }) => (
             <div className="curriculum greyBackground">
               <h1 className="menuTitle">{curriculum.title}</h1>
-              {user.isAuthenticated && (
+              {user.isAuthenticated && this.state.lessonsStats && (
                 <WeakWords
                   context="global"
                   reference={null}

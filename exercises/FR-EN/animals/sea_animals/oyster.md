@@ -15,7 +15,7 @@ Name : oyster
 | singular    | oyster  |       |       |       |
 | plural      | oysters |       |       |       |
 | unique form |         |       |       |       |
-| \*an        |         |       |       |       |
+| \*an        |    x    |       |       |       |
 
 ---
 

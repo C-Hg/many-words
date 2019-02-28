@@ -26,7 +26,11 @@ class MainLayoutGrey extends React.Component {
               exact
               path={`${this.props.match.path}:themeId`}
               render={props => (
-                <Theme theme={props.match.params.themeId} {...props} />
+                <Theme
+                  theme={props.match.params.themeId}
+                  startWeakWords={this.props.startWeakWords}
+                  {...props}
+                />
               )}
             />
             <Route

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { UserContext, user } from "../contexts/user-context";
 import getUserStats from "../controllers/progress_tracking/getUserStats.function";
 
@@ -16,25 +16,29 @@ import GoldStar from "./theme_components/GoldStar.component";
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 import FR_EN_Lessons from "../exercises/lessons";
+import WeakWords from "./common_components/WeakWords.component";
 
 class Theme extends React.Component {
   constructor(props) {
     super(props);
     this.fetchUserStats = this.fetchUserStats.bind(this);
     this.state = {
-      lessonsStats: ""
+      lessonsStats: "",
+      areStatsChecked: false
     };
   }
 
   async fetchUserStats(currentUser) {
     if (currentUser.areStatsValid) {
       this.setState({
-        lessonsStats: currentUser.stats.lessonsStats[this.props.theme]
+        lessonsStats: currentUser.stats.lessonsStats[this.props.theme],
+        areStatsChecked: true
       });
     } else {
       let userStats = await getUserStats(this.props.theme);
       this.setState({
-        lessonsStats: userStats.lessonsStats[this.props.theme]
+        lessonsStats: userStats.lessonsStats[this.props.theme],
+        areStatsChecked: true
       });
       user.updateUserStats(userStats);
     }
@@ -83,7 +87,10 @@ class Theme extends React.Component {
     });
 
     /* -----------------    rendering component     -----------------  */
-    if (!user.isAuthenticated || lessonsData) {
+    if (user.isAuthenticated && user.activity === "weak_words") {
+      return <Redirect to="/weak_words" />;
+    }
+    if (this.state.areStatsChecked || !user.isAuthenticated) {
       return (
         <div className="greyBackground">
           <ScrollToTopOnMount />
@@ -93,10 +100,17 @@ class Theme extends React.Component {
             </Link>
             <ThemePageTitle theme={theme} />
           </div>
+          {user.isAuthenticated && this.state.lessonsStats && (
+            <WeakWords
+              context="theme"
+              reference={this.props.theme}
+              startWeakWords={this.props.startWeakWords}
+            />
+          )}
           <div className="lessonCards">{lessons}</div>
         </div>
       );
-    }
+    } else return null;
   }
 }
 

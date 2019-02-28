@@ -13,8 +13,7 @@ export const languages = {
       weak_words: "Weak words",
       try_again: "Try again",
       to_continue: "Continue",
-      quit: "Menu",
-      quit_main: "Main menu"
+      quit: "Menu"
     },
     about: {
       title: "About Many Words",
@@ -209,8 +208,7 @@ export const languages = {
       weak_words: "Mots faibles",
       to_continue: "Continuer",
       try_again: "Réessayer",
-      quit: "Menu",
-      quit_main: "Menu principal"
+      quit: "Menu"
     },
     about: {
       title: "À propos de Many Words",

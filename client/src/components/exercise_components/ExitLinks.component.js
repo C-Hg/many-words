@@ -15,9 +15,7 @@ class ExitLinks extends React.Component {
                 : navigation.try_again}
             </button>
             <button className="exitLink" onClick={this.props.redirect}>
-              {user.activity === "weak_words"
-                ? navigation.quit_main
-                : navigation.quit}
+              {navigation.quit}
             </button>
           </div>
         )}
