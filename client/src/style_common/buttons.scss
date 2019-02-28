@@ -49,19 +49,47 @@
   border-radius: 10px;
   border: 2px solid $main-font-color;
   margin-bottom: 8px;
+  font-weight: bold;
   @media (min-width: $break-mid-horizontal) {
-    font-size: $h3-large;
-    width: 130px;
+    font-size: $h3-mid;
+    width: 135px;
     height: 45px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h3-mid;
-    width: 100px;
-    height: 40px;
+    font-size: $h3-small;
+    width: 95px;
+    height: 35px;
   }
   &:hover {
     border: 3px solid $main-font-color;
     margin-top: -2px;
+  }
+}
+
+.weak_words_button {
+  flex-shrink: 0;
+  text-align: center;
+  border: 3px solid $correct;
+  border-radius: 12px;
+  background-color: $correct-light;
+  margin: 0 auto 30px auto;
+  height: 55px;
+  @media (min-width: $break-mid-horizontal) {
+    font-size: $h2-mid;
+    width: 350px;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    font-size: $h2-small;
+    width: 280px;
+  }
+
+  &:hover {
+    &:hover {
+      animation-name: greenBackground-hover;
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: 1;
+    }
   }
 }
 

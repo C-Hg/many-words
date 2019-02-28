@@ -2,8 +2,11 @@ import React from "react";
 
 function GreenLessons(props) {
   return (
-    <div className="cardLine">
-      <i alt="Back" className="material-icons md-48 greenLessonsIcon">
+    <div className="cardColumn">
+      <i
+        alt="Back"
+        className="material-icons md-48 greenLessonsIcon lessonsStatsIcon"
+      >
         check_circle_outline
       </i>
       <div className="cardNumbers">{props.green}</div>

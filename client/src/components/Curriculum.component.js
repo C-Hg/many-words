@@ -85,14 +85,18 @@ class Curriculum extends React.Component {
           key={val[0]}
           to={`../${val[0]}`}
         >
-          <ThemeTitle theme={val[0]} />
-          {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
-          {this.state.themesStats && greenLessons > 0 && (
-            <GreenLessons green={greenLessons} />
-          )}
-          {this.state.themesStats && goldLessons > 0 && (
-            <GoldLessons gold={goldLessons} />
-          )}
+          <div className="themeTitleContainer">
+            <ThemeTitle theme={val[0]} />
+          </div>
+          <div className="lessonsStats">
+            {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
+            {this.state.themesStats && greenLessons > 0 && (
+              <GreenLessons green={greenLessons} />
+            )}
+            {this.state.themesStats && goldLessons > 0 && (
+              <GoldLessons gold={goldLessons} />
+            )}
+          </div>
         </Link>
       );
     });

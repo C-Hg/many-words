@@ -36,29 +36,18 @@
 
 .lessonCard {
   @extend .card;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   font-family: $secondary-font;
   @media (min-width: $break-mid-horizontal) {
-    width: 200px;
-    height: 320px;
+    width: 190px;
+    height: 295px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    width: 170px;
-    height: 290px;
+    width: 145px;
+    height: 260px;
+    margin: 6px 6px 6px;
   }
-}
-
-.lessonTitleContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  height: 55px;
-  margin-bottom: 2px;
-  margin-top: 8px;
 }
 
 .lessonTitle {
@@ -72,7 +61,6 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: auto;
 }
 
 /* --------------------     start exercise      -------------------  */
@@ -81,8 +69,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 6px;
+  padding-right: 6px;
   background-color: $correct-light;
 }
 
@@ -92,8 +80,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 6px;
+  padding-right: 6px;
   background-color: $active-light;
   &:hover {
     margin-top: -2px;
@@ -102,6 +90,7 @@
 
 .startButtonTitle {
   align-self: center;
+  padding-left: 5px;
   width: 100%;
 }
 
@@ -160,21 +149,21 @@
   font-family: $main-font;
   @media (min-width: $break-mid-horizontal) {
     font-size: $p-large;
-    top: -87px;
+    top: -78px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $p-mid;
-    top: -80px;
+    top: -76px;
   }
 }
 
 .goldStar {
   color: $gold;
   @media (min-width: $break-mid-horizontal) {
-    top: -109px;
+    top: -95px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    top: -99px;
+    top: -94px;
   }
 }
 

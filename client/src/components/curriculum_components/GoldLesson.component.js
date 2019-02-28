@@ -2,8 +2,11 @@ import React from "react";
 
 function GoldLessons(props) {
   return (
-    <div className="cardLine">
-      <i alt="Back" className="material-icons md-48 goldLessonsIcon">
+    <div className="cardColumn">
+      <i
+        alt="Back"
+        className="material-icons md-48 goldLessonsIcon  lessonsStatsIcon"
+      >
         grade
       </i>
       <div className="cardNumbers">{props.gold}</div>

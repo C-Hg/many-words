@@ -1,5 +1,6 @@
 @import "../../style_common/variables.scss";
 @import "../../style_common/buttons.scss";
+@import "../../style_common/layouts.scss";
 
 .homeLoggedIn {
   width: 100%;
@@ -112,13 +113,10 @@
   }
 }
 
-.separation {
+.progressSeparation {
+  @extend .separation;
   width: 220px;
   height: 2px;
-  color: $active;
-  background-color: $active;
-  border: 0;
-  border-radius: 5px;
 }
 
 /*  --------------------      icons       ----------------------- */
@@ -164,18 +162,10 @@
     height: 50px;
   }
   &:hover {
-    animation-name: resumeLearning-hover;
+    animation-name: greenBackground-hover;
     animation-duration: 0.3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
-  }
-}
-
-@keyframes resumeLearning-hover {
-  100% {
-    color: white;
-    background-color: $correct;
-    border-color: black;
   }
 }
 

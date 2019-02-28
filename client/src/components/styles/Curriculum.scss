@@ -23,42 +23,67 @@
   }
   @media (min-width: $break-mid-horizontal) {
     width: 180px;
-    height: 230px;
+    height: 140px;
   }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    width: 150px;
-    height: 200px;
+  @media (max-width: $break-mid-horizontal) {
+    width: 140px;
+    height: 110px;
+  }
+  @media (max-width: $break-small-horizontal) {
+    width: 120px;
+    height: 105px;
   }
 }
 
 /* -----------------------------      card title    ---------------------- */
+.themeTitleContainer {
+  @extend .cardTitleContainer;
+  @media (min-width: $break-mid-horizontal) {
+    height: 45px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    height: 35px;
+  }
+}
+
 .themeTitle {
   @extend .cardTitle;
 }
 
 /*   ------------------------      achievements   ----------------------- */
-.cardLine {
+.lessonsStats {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.cardColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   @media (min-width: $break-mid-horizontal) {
-    margin-top: 8px;
+    padding: 0 3px 0 3px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    margin-top: 5px;
+    padding: 0;
   }
 }
 
 .cardNumbers {
-  margin-left: 10px;
   font-family: $secondary-font;
   font-weight: 600;
   @media (min-width: $break-mid-horizontal) {
     font-size: $h2-large;
+    margin-top: -4px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $h2-mid;
+  }
+  @media (max-width: $break-small-horizontal),
+    (max-height: $break-small-vertical) {
+    font-size: $h2-small;
   }
 }
 
@@ -72,4 +97,10 @@
 
 .goldLessonsIcon {
   color: $gold;
+}
+
+.lessonsStatsIcon {
+  @media (max-width: $break-mid-horizontal) {
+    font-size: 36px !important;
+  }
 }

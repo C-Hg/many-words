@@ -6,22 +6,49 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  width: 85%;
   height: auto;
   margin-left: auto;
   margin-right: auto;
+  @media (min-width: $break-mid-horizontal) {
+    width: 80%;
+  }
+  @media (min-width: $break-large-horizontal) {
+    width: 65%;
+  }
+  @media (max-width: $break-mid-horizontal) {
+    width: 85%;
+  }
+  @media (max-width: $break-small-horizontal) {
+    width: 100%;
+  }
 }
 
 .card {
-  flex-shrink: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  border-width: 3px;
   border-style: solid;
-  border-radius: 14px;
-  margin: 12px 12px 12px;
+  border-radius: 22px;
   background-color: white;
+  margin: 12px 12px 12px;
+  @media (min-width: $break-mid-horizontal) {
+    border-width: 3px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    border-width: 2px;
+  }
+}
+
+.cardTitleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  @media (min-width: $break-mid-horizontal) {
+    height: 65px;
+  }
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
+    height: 55px;
+  }
 }
 
 .cardTitle {
@@ -30,14 +57,24 @@
   font-weight: 600;
   @media (min-width: $break-mid-horizontal) {
     font-size: $h3-large;
-    margin-top: 10px;
-    margin-bottom: 15px;
+    padding: 0 15px 0 15px;
   }
   @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $h3-mid;
-    margin-top: 5px;
-    margin-bottom: 8px;
+    padding: 0 6px 0 6px;
   }
+  @media (max-width: $break-small-horizontal),
+    (max-height: $break-small-vertical) {
+    font-size: $h3-small;
+  }
+}
+
+/*  ----------------------    separation   ------------------ */
+.separation {
+  color: $active;
+  background-color: $active;
+  border: 0;
+  border-radius: 5px;
 }
 
 /*   -------------------     borders    -------------------- */

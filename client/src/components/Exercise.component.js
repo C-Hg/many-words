@@ -45,6 +45,8 @@ class Exercise extends React.Component {
     };
   }
 
+  /*   -----------------------            user input management        -------------------  */
+
   toggleSpecialCharacters() {
     this.setState({
       specialCharactersVisible: true
@@ -58,65 +60,8 @@ class Exercise extends React.Component {
     }));
   }
 
-  nextWord() {
-    let currentUser = this.context;
-    //goes to recap screen when all the words have been answered, and update stats in db
-    if (this.state.wordRank === this.state.exerciseWords.length - 1) {
-      if (currentUser.isAuthenticated) {
-        updateWordStats(this.state.result);
-        user.outdateUserStats();
-      }
-      this.setState({
-        status: "recap",
-        checking: false,
-        specialCharactersVisible: false
-      });
-      if (this.state.weak_words_mode) {
-        this.setState(state => ({
-          weak_words_batches_done: state.weak_words_batches_done + 1
-        }));
-      }
-    } else {
-      this.setState(state => ({
-        wordRank: state.wordRank + 1,
-        userTranslation: "",
-        checking: false,
-        correctAnswer: false,
-        expectedAnswer: "",
-        specialCharactersVisible: false
-      }));
-    }
-  }
-
-  async restart() {
-    if (this.state.weak_words_mode) {
-      this.getWeakWords();
-    } else {
-      let words = await exerciseFetcher(this.props.lesson);
-      this.setState({
-        exerciseWords: words
-      });
-    }
-    this.setState({
-      status: "exercise",
-      wordRank: 0,
-      userTranslation: "",
-      correctAnswer: false,
-      expectedAnswer: "",
-      activable: false,
-      failedWords: [],
-      result: []
-    });
-  }
-
-  redirect() {
-    user.resetActivity();
-    this.setState({
-      redirect: true
-    });
-  }
-
   userTranslationChange(event) {
+    // special characters are not allowed for security reasons
     const specialCharacters = /[.?/\\_+,;:!*()[\]{}~&%$]+/i;
     let isCharacterAllowed = !specialCharacters.test(event.target.value);
     if (isCharacterAllowed)
@@ -162,6 +107,73 @@ class Exercise extends React.Component {
     }
   }
 
+  /*     ------------------------         transitions          ------------------ */
+
+  nextWord() {
+    let currentUser = this.context;
+    //goes to recap screen when all the words have been answered, and update stats in db
+    if (this.state.wordRank === this.state.exerciseWords.length - 1) {
+      if (currentUser.isAuthenticated) {
+        updateWordStats(this.state.result);
+        user.outdateUserStats();
+      }
+      this.setState({
+        status: "recap",
+        checking: false,
+        specialCharactersVisible: false
+      });
+      if (this.state.weak_words_mode) {
+        this.setState(state => ({
+          weak_words_batches_done: state.weak_words_batches_done + 1
+        }));
+      }
+    } else {
+      this.setState(state => ({
+        wordRank: state.wordRank + 1,
+        userTranslation: "",
+        checking: false,
+        correctAnswer: false,
+        expectedAnswer: "",
+        specialCharactersVisible: false
+      }));
+    }
+  }
+
+  // quit exercise screen
+  redirect() {
+    let currentUser = this.context;
+    if (currentUser.isAuthenticated) {
+      user.resetActivity(); // exits weak_words mode
+    }
+    this.setState({
+      redirect: true
+    });
+  }
+
+  // starts another exercise
+  async restart() {
+    if (this.state.weak_words_mode) {
+      this.getWeakWords();
+    } else {
+      let words = await exerciseFetcher(this.props.lesson);
+      this.setState({
+        exerciseWords: words
+      });
+    }
+    this.setState({
+      status: "exercise",
+      wordRank: 0,
+      userTranslation: "",
+      correctAnswer: false,
+      expectedAnswer: "",
+      activable: false,
+      failedWords: [],
+      result: []
+    });
+  }
+
+  /*     ----------------------        fetching content        ------------------ */
+
   async getWeakWords() {
     let weak_words = this.state.weak_words;
     let currentBatch = this.state.weak_words_batches_done;
@@ -178,12 +190,13 @@ class Exercise extends React.Component {
       let currentUser = this.context;
       let context = currentUser.weak_words_details.context;
       let reference = currentUser.weak_words_details.reference;
+      let new_weak_words;
       try {
-        weak_words = await weakWordsFetcher(context, reference);
-        weak_words = makeBatches(weak_words);
+        new_weak_words = await weakWordsFetcher(context, reference);
+        new_weak_words = makeBatches(new_weak_words);
         this.setState({
-          exerciseWords: weak_words[0],
-          weak_words: weak_words,
+          exerciseWords: new_weak_words[0],
+          weak_words: new_weak_words,
           weak_words_batches_done: 0,
           weak_words_mode: true
         });
@@ -207,10 +220,7 @@ class Exercise extends React.Component {
   componentDidMount() {
     let currentUser = this.context;
     if (!this.state.exerciseWords) {
-      if (
-        currentUser.isAuthenticated &&
-        currentUser.activity === "weak_words"
-      ) {
+      if (currentUser.activity === "weak_words") {
         this.getWeakWords();
       } else {
         this.getWords();

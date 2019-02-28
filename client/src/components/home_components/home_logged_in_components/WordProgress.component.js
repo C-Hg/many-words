@@ -7,7 +7,7 @@ function WordProgress(props) {
       {({ home }) => (
         <div className="wordStats">
           <h1 className="progressTitle">{home.words}</h1>
-          <hr className="separation" />
+          <hr className="progressSeparation" />
           <div className="userStats">
             <div className="iconAndStat">
               <i alt="seen" className="material-icons md-48 seenIcon">

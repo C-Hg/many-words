@@ -6,7 +6,7 @@ class LessonTitle extends React.Component {
     let language = this.context;
 
     return (
-      <div className="lessonTitleContainer">
+      <div className="cardTitleContainer">
         <h2 className="lessonTitle">
           {language.lessons[this.props.theme][this.props.lesson]}
         </h2>
