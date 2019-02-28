@@ -12,7 +12,8 @@
     "test:client": "cd client && npm run mocha-test",
     "test:seeder": "cd tools/database_seeder && mocha",
     "seeder": "cd tools && npm run database_seeder",
-    "counter": "cd tools && npm run word_counter"
+    "counter": "cd tools && npm run word_counter",
+    "configure:all": "cd tools && node prepare_all.js"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
