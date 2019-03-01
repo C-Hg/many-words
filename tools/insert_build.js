@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-fs.copyFile("../client/build", "../server/", err => {
+fs.rename("../client/build", "../server/build", err => {
   if (err) throw err;
   console.log("build in place, ready to serve");
 });

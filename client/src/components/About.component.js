@@ -25,8 +25,11 @@ function About() {
                 {about.sht_1}
               </li>
               <li>
-                <i alt="seen" className="material-icons md-36 checkbox">
-                  check_box_outline_blank
+                <i
+                  alt="seen"
+                  className="material-icons md-36 checkbox completed"
+                >
+                  check_box
                 </i>
                 {about.sht_2}
               </li>

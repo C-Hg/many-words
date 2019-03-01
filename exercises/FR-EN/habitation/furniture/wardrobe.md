@@ -30,7 +30,7 @@ Name : armoire
 | fem_sing    | armoire  |       |       |       |
 | fem_plur    | armoires |       |       |       |
 | unique_form |          |       |       |       |
-| \*l'        |          |       |       |       |
+| \*l'        |    x     |       |       |       |
 
 ---
 

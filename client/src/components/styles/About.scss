@@ -74,4 +74,10 @@ li {
 
 .checkbox {
   margin-right: 10px;
+  margin-bottom: -2px;
+  color: $inactive;
+}
+
+.completed {
+  color: $correct;
 }

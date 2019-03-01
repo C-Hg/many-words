@@ -30,7 +30,7 @@ Name : ours
 | fem_sing    |      |       |       |       |
 | fem_plur    |      |       |       |       |
 | unique_form |      |       |       |       |
-| \*l'        |      |       |       |       |
+| \*l'        |  x   |       |       |       |
 
 ---
 

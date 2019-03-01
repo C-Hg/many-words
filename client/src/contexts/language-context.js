@@ -25,7 +25,8 @@ export const languages = {
       roadmap_short: "Short term",
       roadmap_long: "Long term",
       sht_1: "More content: from 2000 to 3000 words (scaling is easy now)",
-      sht_2: "Weak words: focus on the weak words of a given lesson or theme",
+      sht_2:
+        "Weak words: focus on the hardest words for you, globally or by theme",
       sht_3: "Lesson levels: 3 differents levels of difficulty",
       sht_4: "Progressive learning: unlock lessons progressively",
       sht_5:
@@ -33,7 +34,7 @@ export const languages = {
       sht_6: "We're out of beta!",
       lgt_1: "Add a third language: Spanish most probably",
       lgt_2: "Learn the vocabulary of 2 or 3 languages at the same time",
-      lgt_3: "Publish a smartphone app if people are interested",
+      lgt_3: "Publish a smartphone app",
       lgt_4: "Climb to 5 languages"
     },
     home: {
@@ -224,7 +225,7 @@ export const languages = {
       sht_1:
         "Plus de contenu: entre 2000 et 3000 mots (facile à augmenter maintenant)",
       sht_2:
-        "Mots faibles: concentre-toi sur tes points faibles par leçon ou par thème",
+        "Mots faibles: concentre-toi sur tes points faibles, globalement ou par thème",
       sht_3: "Niveaux de leçons: 3 niveaux de difficulté",
       sht_4: "Apprentissage progressif: débloque les leçons au fur et à mesure",
       sht_5:
@@ -232,8 +233,7 @@ export const languages = {
       sht_6: "Fin de la beta!",
       lgt_1: "Ajout d'une troisième langue: l'Espagnol très probablement",
       lgt_2: "Apprends le vocabulaire de 2 ou 3 langues simultanément",
-      lgt_3:
-        "Publication d'une application pour smartphone si la demande est présente",
+      lgt_3: "Publication d'une application pour smartphone",
       lgt_4: "Ajouter jusqu'à 5 languages"
     },
     home: {
