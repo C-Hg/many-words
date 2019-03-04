@@ -18,7 +18,6 @@ import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 import FR_EN_Lessons from "../exercises/lessons";
 import WeakWords from "./common_components/WeakWords.component";
-import Navbar from "./Navbar.component";
 
 class Theme extends React.Component {
   constructor(props) {
@@ -94,25 +93,22 @@ class Theme extends React.Component {
     }
     if (this.state.areStatsChecked || !user.isAuthenticated) {
       return (
-        <div className="app app-with-navbar-full-screen">
-          <Navbar />
-          <div className="main-container greyBackground">
-            <ScrollToTopOnMount />
-            <div className="themeAndArrow">
-              <Link to={`/curriculum`}>
-                <BackArrow additionalClass="themePageArrow" />
-              </Link>
-              <ThemePageTitle theme={theme} />
-            </div>
-            {user.isAuthenticated && this.state.lessonsStats && (
-              <WeakWords
-                context="theme"
-                reference={this.props.theme}
-                startWeakWords={this.props.startWeakWords}
-              />
-            )}
-            <div className="lessonCards">{lessons}</div>
+        <div className="main-container greyBackground">
+          <ScrollToTopOnMount />
+          <div className="themeAndArrow">
+            <Link to={`/curriculum`}>
+              <BackArrow additionalClass="themePageArrow" />
+            </Link>
+            <ThemePageTitle theme={theme} />
           </div>
+          {user.isAuthenticated && this.state.lessonsStats && (
+            <WeakWords
+              context="theme"
+              reference={this.props.theme}
+              startWeakWords={this.props.startWeakWords}
+            />
+          )}
+          <div className="lessonCards">{lessons}</div>
         </div>
       );
     } else return null;

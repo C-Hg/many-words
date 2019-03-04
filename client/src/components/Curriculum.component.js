@@ -110,21 +110,16 @@ class Curriculum extends React.Component {
       return (
         <LanguageContext.Consumer>
           {({ curriculum }) => (
-            <div className="app app-with-navbar-full-screen">
-              <Navbar />
-              <div className="main-container greyBackground">
-                <div className="curriculum greyBackground">
-                  <h1 className="menuTitle">{curriculum.title}</h1>
-                  {user.isAuthenticated && this.state.lessonsStats && (
-                    <WeakWords
-                      context="global"
-                      reference={null}
-                      startWeakWords={this.props.startWeakWords}
-                    />
-                  )}
-                  <div className="themeCards">{cards}</div>
-                </div>
-              </div>
+            <div className="curriculum greyBackground">
+              <h1 className="menuTitle">{curriculum.title}</h1>
+              {user.isAuthenticated && this.state.lessonsStats && (
+                <WeakWords
+                  context="global"
+                  reference={null}
+                  startWeakWords={this.props.startWeakWords}
+                />
+              )}
+              <div className="themeCards">{cards}</div>
             </div>
           )}
         </LanguageContext.Consumer>

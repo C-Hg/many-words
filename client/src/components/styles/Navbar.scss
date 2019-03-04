@@ -6,7 +6,6 @@
   background-color: $navbar-background;
   width: 100%;
   position: fixed;
-  color: $navbar-text;
 }
 
 .navbar-links {
@@ -14,11 +13,11 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: $navbar-text;
   height: 100%;
   padding-left: 5px;
   padding-right: 5px;
   margin: auto;
+  color: $navbar-text;
   @media (min-width: $break-large-horizontal) {
     width: $break-large-horizontal - 100;
   }
@@ -35,6 +34,7 @@
 }
 
 .navbar-link {
+  color: $navbar-text;
   display: flex;
   flex-direction: column;
   justify-content: center;

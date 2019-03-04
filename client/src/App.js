@@ -21,6 +21,8 @@ import Exercise from "./components/Exercise.component";
 import Curriculum from "./components/Curriculum.component";
 import Learning from "./components/Learning.component";
 import Theme from "./components/Theme.component";
+import Navbar from "./components/Navbar.component";
+import AppWithNavbar from "./layouts/AppWithNavbar.layout";
 
 class App extends Component {
   constructor(props) {
@@ -106,50 +108,22 @@ class App extends Component {
           <LanguageContext.Provider value={this.state.main_language}>
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/home" />} />
-              <Route exact path="/about" component={About} />
-              <Route
-                exact
-                path={"/curriculum"}
-                render={props => (
-                  <Curriculum startWeakWords={this.startWeakWords} {...props} />
-                )}
-              />
-              <Route
-                exact
-                path="/home"
-                render={props => (
-                  <Home
-                    logoutUser={this.logoutUser}
-                    logoutAndDeleteUser={this.logoutAndDeleteUser}
-                    loginUser={this.loginUser}
-                    {...props}
-                  />
-                )}
-              />
               <Route exact path="/weak_words" component={Exercise} />
-              <Route
-                exact
-                path={`/:themeId`}
-                render={props => (
-                  <Theme
-                    theme={props.match.params.themeId}
-                    startWeakWords={this.props.startWeakWords}
-                    {...props}
-                  />
-                )}
-              />
               <Route
                 exact
                 path="/:themeId/:lessonId/test"
                 component={Exercise}
               />
               <Route
-                exact
-                path={`/:themeId/:lessonId/learn`}
+                path={"/"}
                 render={props => (
-                  <Learning
+                  <AppWithNavbar
+                    startWeakWords={this.startWeakWords}
                     lesson={props.match.params.lessonId}
                     theme={props.match.params.themeId}
+                    logoutUser={this.logoutUser}
+                    logoutAndDeleteUser={this.logoutAndDeleteUser}
+                    loginUser={this.loginUser}
                     {...props}
                   />
                 )}

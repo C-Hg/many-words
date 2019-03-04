@@ -9,7 +9,6 @@ import HomeLoggedIn from "./home_components/HomeLoggedIn.component";
 import HomeForGuestUser from "./home_components/HomeForGuestUser.component";
 import DeleteConfirmation from "./home_components/home_logged_in_components/DeleteConfirmation.component";
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
-import Navbar from "./Navbar.component";
 
 class Home extends React.Component {
   constructor(props) {
@@ -83,22 +82,19 @@ class Home extends React.Component {
       );
     } else {
       return (
-        <div className="app app-with-navbar-full-screen">
-          <Navbar />
-          <div className="main-container whiteBackground">
-            <div className="home whiteBackground">
-              <ScrollToTopOnMount />
-              {/*TO DO : separate logout and account informations from currentUser progress */}
-              {currentUser.isAuthenticated && (
-                <HomeLoggedIn
-                  logout={this.attemptLogout}
-                  delete={this.attemptDelete}
-                />
-              )}
-              {!currentUser.isAuthenticated && (
-                <HomeForGuestUser loginUser={this.props.loginUser} />
-              )}
-            </div>
+        <div className="main-container whiteBackground">
+          <div className="home whiteBackground">
+            <ScrollToTopOnMount />
+            {/*TO DO : separate logout and account informations from currentUser progress */}
+            {currentUser.isAuthenticated && (
+              <HomeLoggedIn
+                logout={this.attemptLogout}
+                delete={this.attemptDelete}
+              />
+            )}
+            {!currentUser.isAuthenticated && (
+              <HomeForGuestUser loginUser={this.props.loginUser} />
+            )}
           </div>
         </div>
       );
