@@ -8,6 +8,7 @@ import Switches from "./learning_components/Switches.component";
 import LearningTitle from "./learning_components/LearningTitle.component";
 
 import "./styles/Learning.scss";
+import Navbar from "./Navbar.component";
 
 class Learning extends React.Component {
   constructor(props) {
@@ -87,20 +88,28 @@ class Learning extends React.Component {
       });
     }
     return (
-      <div className="learning-container">
-        <Link to={`/${this.props.theme}`} className="arrowLink">
-          <BackArrow />
-        </Link>
-        <LearningTitle lesson={this.props.lesson} theme={this.props.theme} />
-        <div className="wordsToLearn">{wordsToLearn}</div>
-        <Switches
-          number={this.state.number}
-          toggleNumber={this.toggleNumber}
-          gender={this.state.gender}
-          toggleGender={this.toggleGender}
-          definite={this.state.definite}
-          toggleDefinite={this.toggleDefinite}
-        />
+      <div className="app app-with-navbar-full-screen">
+        <Navbar />
+        <div className="main-container whiteBackground">
+          <div className="learning-container">
+            <Link to={`/${this.props.theme}`} className="arrowLink">
+              <BackArrow />
+            </Link>
+            <LearningTitle
+              lesson={this.props.lesson}
+              theme={this.props.theme}
+            />
+            <div className="wordsToLearn">{wordsToLearn}</div>
+            <Switches
+              number={this.state.number}
+              toggleNumber={this.toggleNumber}
+              gender={this.state.gender}
+              toggleGender={this.toggleGender}
+              definite={this.state.definite}
+              toggleDefinite={this.toggleDefinite}
+            />
+          </div>
+        </div>
       </div>
     );
   }

@@ -192,7 +192,8 @@ export const languages = {
     singular: "singular",
     plural: "plural",
     definite: "definite",
-    indefinite: "indefinite"
+    indefinite: "indefinite",
+    revision: "Revision"
   },
 
   /* --------------------        FRENCH     ------------------- */
@@ -391,7 +392,8 @@ export const languages = {
     singular: "singulier",
     plural: "pluriel",
     definite: "défini",
-    indefinite: "indéfini"
+    indefinite: "indéfini",
+    revision: "Révisions"
   }
 };
 

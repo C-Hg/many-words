@@ -12,6 +12,7 @@ import weakWordsFetcher from "../controllers/exercise_fetcher/weakWordsFetcher.c
 import makeBatches from "../controllers/exercise_fetcher/makeBatches.function";
 import updateWordStats from "../controllers/progress_tracking/updateWordStats.function";
 
+import "./styles/Exercise.scss";
 /*     2 main cases : either we are in weak words mode or not!      */
 
 class Exercise extends React.Component {
@@ -142,7 +143,7 @@ class Exercise extends React.Component {
   // quit exercise screen
   redirect() {
     let currentUser = this.context;
-    if (currentUser.isAuthenticated) {
+    if (currentUser.isAuthenticated && currentUser.activity === "weak_words") {
       user.resetActivity(); // exits weak_words mode
     }
     this.setState({
@@ -208,7 +209,7 @@ class Exercise extends React.Component {
 
   async getWords() {
     try {
-      let words = await exerciseFetcher(this.props.lesson);
+      let words = await exerciseFetcher(this.props.match.params.lessonId);
       this.setState({
         exerciseWords: words
       });
@@ -233,50 +234,56 @@ class Exercise extends React.Component {
       if (this.state.weak_words_mode) {
         // if weak words on, goes to main menu
         return <Redirect to={`/curriculum`} />;
-      } else return <Redirect to={`/${this.props.theme}`} />;
+      } else return <Redirect to={`/${this.props.match.params.themeId}`} />;
     }
     if (this.state.exerciseWords) {
       return (
-        <div className="exercise whiteBackground">
-          <div className="titleAndCross">
-            <Close redirect={this.redirect} />
-            <ExerciseTitle
-              lesson={this.state.exerciseWords[this.state.wordRank].lesson}
-              theme={this.state.exerciseWords[this.state.wordRank].theme}
-            />
+        <div className="app">
+          <div className="main-container">
+            <div className="exercise whiteBackground">
+              <div className="titleAndCross">
+                <Close redirect={this.redirect} />
+                <ExerciseTitle
+                  lesson={this.state.exerciseWords[this.state.wordRank].lesson}
+                  theme={this.state.exerciseWords[this.state.wordRank].theme}
+                  weak_words_mode={this.state.weak_words_mode}
+                  status={this.state.status}
+                />
+              </div>
+              {this.state.status === "exercise" && (
+                <ExerciseContainer
+                  exerciseWords={this.state.exerciseWords}
+                  wordRank={this.state.wordRank}
+                  userTranslation={this.state.userTranslation}
+                  checking={this.state.checking}
+                  correctAnswer={this.state.correctAnswer}
+                  userTranslationChange={this.userTranslationChange}
+                  submitUserTranslation={this.submitUserTranslation}
+                  nextWord={this.nextWord}
+                  toggleSpecialCharacters={this.toggleSpecialCharacters}
+                  specialCharactersVisible={this.state.specialCharactersVisible}
+                  handleSpecialCharacter={this.handleSpecialCharacter}
+                />
+              )}
+              {this.state.status === "recap" && (
+                <ExerciseRecap
+                  failedWords={this.state.failedWords}
+                  restart={this.restart}
+                  redirect={this.redirect}
+                  lesson={this.props.match.params.lessonId}
+                  theme={this.props.match.params.themeId}
+                />
+              )}
+              <ExerciseFooter
+                correctAnswer={this.state.correctAnswer}
+                expectedAnswer={this.state.expectedAnswer}
+                checking={this.state.checking}
+                status={this.state.status}
+                wordRank={this.state.wordRank}
+                failedWords={this.state.failedWords}
+              />
+            </div>
           </div>
-          {this.state.status === "exercise" && (
-            <ExerciseContainer
-              exerciseWords={this.state.exerciseWords}
-              wordRank={this.state.wordRank}
-              userTranslation={this.state.userTranslation}
-              checking={this.state.checking}
-              correctAnswer={this.state.correctAnswer}
-              userTranslationChange={this.userTranslationChange}
-              submitUserTranslation={this.submitUserTranslation}
-              nextWord={this.nextWord}
-              toggleSpecialCharacters={this.toggleSpecialCharacters}
-              specialCharactersVisible={this.state.specialCharactersVisible}
-              handleSpecialCharacter={this.handleSpecialCharacter}
-            />
-          )}
-          {this.state.status === "recap" && (
-            <ExerciseRecap
-              failedWords={this.state.failedWords}
-              restart={this.restart}
-              redirect={this.redirect}
-              lesson={this.props.lesson}
-              theme={this.props.theme}
-            />
-          )}
-          <ExerciseFooter
-            correctAnswer={this.state.correctAnswer}
-            expectedAnswer={this.state.expectedAnswer}
-            checking={this.state.checking}
-            status={this.state.status}
-            wordRank={this.state.wordRank}
-            failedWords={this.state.failedWords}
-          />
         </div>
       );
     } else {

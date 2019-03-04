@@ -5,20 +5,22 @@ import "./style_common/material_icons.css";
 import "./style_common/titles.scss";
 import "./style_common/layouts.scss";
 import "./style_common/buttons.scss";
+import "./style_common/variables.scss";
 
 // Contexts
 import { LanguageContext, languages } from "./contexts/language-context";
 import { UserContext, user } from "./contexts/user-context";
 
-// Layouts
-import MainLayoutGrey from "./layouts/Main.layout.grey";
-import MainLayoutWhite from "./layouts/Main.layout.white";
-import FullScreenLayout from "./layouts/FullScreen.layout";
-
 //functions
 import getUserDetails from "./controllers/auth/getUserDetails.function";
 import serverLogout from "./controllers/auth/serverLogout.function";
 import deleteUserAccount from "./controllers/auth/deleteUserAccount.function";
+import Home from "./components/Home.component";
+import About from "./components/About.component";
+import Exercise from "./components/Exercise.component";
+import Curriculum from "./components/Curriculum.component";
+import Learning from "./components/Learning.component";
+import Theme from "./components/Theme.component";
 
 class App extends Component {
   constructor(props) {
@@ -104,12 +106,19 @@ class App extends Component {
           <LanguageContext.Provider value={this.state.main_language}>
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/home" />} />
-              <Route exact path="/about" component={MainLayoutWhite} />
+              <Route exact path="/about" component={About} />
+              <Route
+                exact
+                path={"/curriculum"}
+                render={props => (
+                  <Curriculum startWeakWords={this.startWeakWords} {...props} />
+                )}
+              />
               <Route
                 exact
                 path="/home"
                 render={props => (
-                  <MainLayoutWhite
+                  <Home
                     logoutUser={this.logoutUser}
                     logoutAndDeleteUser={this.logoutAndDeleteUser}
                     loginUser={this.loginUser}
@@ -117,17 +126,30 @@ class App extends Component {
                   />
                 )}
               />
-              <Route exact path="/weak_words" component={FullScreenLayout} />
+              <Route exact path="/weak_words" component={Exercise} />
+              <Route
+                exact
+                path={`/:themeId`}
+                render={props => (
+                  <Theme
+                    theme={props.match.params.themeId}
+                    startWeakWords={this.props.startWeakWords}
+                    {...props}
+                  />
+                )}
+              />
               <Route
                 exact
                 path="/:themeId/:lessonId/test"
-                component={FullScreenLayout}
+                component={Exercise}
               />
               <Route
-                path="/"
+                exact
+                path={`/:themeId/:lessonId/learn`}
                 render={props => (
-                  <MainLayoutGrey
-                    startWeakWords={this.startWeakWords}
+                  <Learning
+                    lesson={props.match.params.lessonId}
+                    theme={props.match.params.themeId}
                     {...props}
                   />
                 )}
