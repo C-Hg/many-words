@@ -1,13 +1,13 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import LogoutButton from "./home_logged_in_components/LogoutButton.component";
+import LogoutButton from "./home_logged_in/LogoutButton.component";
 import getUserStats from "../../controllers/progress_tracking/getUserStats.function";
-import GlobalProgress from "./home_logged_in_components/GlobalProgress.component";
-import TimeToWork from "./home_logged_in_components/TimeToWork.component";
-import ResumeLearningButton from "./home_logged_in_components/ResumeLearningButton.component";
+import GlobalProgress from "./home_logged_in/GlobalProgress.component";
+import TimeToWork from "./home_logged_in/TimeToWork.component";
+import ResumeLearningButton from "./home_logged_in/ResumeLearningButton.component";
 import AboutButton from "./AboutButton.component";
-import DeleteAccountButton from "./home_logged_in_components/DeleteAccountButton.component";
+import DeleteAccountButton from "./home_logged_in/DeleteAccountButton.component";
 import { UserContext, user } from "../../contexts/user-context";
 
 class HomeLoggedIn extends React.Component {

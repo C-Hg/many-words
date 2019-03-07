@@ -1,5 +1,5 @@
 import React from "react";
-import "../../style_common/material_icons.css";
+import "../../common/material_icons.css";
 
 const CorrectIcon = function(props) {
   if (props.checking && props.correctAnswer) {

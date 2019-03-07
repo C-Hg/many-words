@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
-import "./style_common/material_icons.css";
-import "./style_common/titles.scss";
-import "./style_common/layouts.scss";
-import "./style_common/buttons.scss";
-import "./style_common/variables.scss";
+import "./styles/common/material_icons.css";
+import "./styles/common/titles.scss";
+import "./styles/common/layouts.scss";
+import "./styles/common/buttons.scss";
+import "./styles/common/variables.scss";
 
 // Contexts
 import { LanguageContext, languages } from "./contexts/language-context";
@@ -15,7 +15,7 @@ import { UserContext, user } from "./contexts/user-context";
 import getUserDetails from "./controllers/auth/getUserDetails.function";
 import serverLogout from "./controllers/auth/serverLogout.function";
 import deleteUserAccount from "./controllers/auth/deleteUserAccount.function";
-import Exercise from "./components/Exercise.component";
+import Exercise from "./pages/Exercise.page";
 import AppWithNavbar from "./layouts/AppWithNavbar.layout";
 
 class App extends Component {

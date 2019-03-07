@@ -1,8 +1,8 @@
 import React from "react";
-import "./styles/Navbar.scss";
+import "../../styles/Navbar.scss";
 import { NavLink } from "react-router-dom";
-import { LanguageContext } from "../contexts/language-context";
-import { UserContext } from "../contexts/user-context";
+import { LanguageContext } from "../../contexts/language-context";
+import { UserContext } from "../../contexts/user-context";
 
 class Navbar extends React.Component {
   render() {

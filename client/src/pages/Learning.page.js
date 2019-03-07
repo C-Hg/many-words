@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import getWordsToLearn from "../controllers/learning_fetcher/getWordsToLearn.controller";
 import getSwitchesStates from "../controllers/learning_fetcher/getSwitchesStates.function";
 import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
-import BackArrow from "./common_components/BackArrow.component";
-import Switches from "./learning_components/Switches.component";
-import LearningTitle from "./learning_components/LearningTitle.component";
+import BackArrow from "../components/common/BackArrow.component";
+import Switches from "../components/learning/Switches.component";
+import LearningTitle from "../components/learning/LearningTitle.component";
 
-import "./styles/Learning.scss";
+import "../styles/Learning.scss";
 
 class Learning extends React.Component {
   constructor(props) {

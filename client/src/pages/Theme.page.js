@@ -3,21 +3,21 @@ import { Link, Redirect } from "react-router-dom";
 import { UserContext, user } from "../contexts/user-context";
 import getUserStats from "../controllers/progress_tracking/getUserStats.function";
 
-import "./styles/Theme.scss";
-import "../style_common/titles.scss";
+import "../styles/Theme.scss";
+import "../styles/common/titles.scss";
 
-import BackArrow from "./common_components/BackArrow.component";
-import ProgressCircle from "./theme_components/ProgressCircle.component";
-import StartTestButton from "./theme_components/StartTestButton.component";
-import LearnWordsButton from "./theme_components/LearnWordsButton.component";
-import LessonTitle from "./theme_components/LessonTitle.component";
-import ThemePageTitle from "./theme_components/ThemePageTitle.component";
-import ProgressPercentage from "./theme_components/ProgressPercentage.component";
-import GoldStar from "./theme_components/GoldStar.component";
+import BackArrow from "../components/common/BackArrow.component";
+import ProgressCircle from "../components/theme/ProgressCircle.component";
+import StartTestButton from "../components/theme/StartTestButton.component";
+import LearnWordsButton from "../components/theme/LearnWordsButton.component";
+import LessonTitle from "../components/theme/LessonTitle.component";
+import ThemePageTitle from "../components/theme/ThemePageTitle.component";
+import ProgressPercentage from "../components/theme/ProgressPercentage.component";
+import GoldStar from "../components/theme/GoldStar.component";
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 import FR_EN_Lessons from "../exercises/lessons";
-import WeakWords from "./common_components/WeakWords.component";
+import WeakWords from "../components/common/WeakWords.component";
 
 class Theme extends React.Component {
   constructor(props) {

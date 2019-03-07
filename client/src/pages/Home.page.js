@@ -1,13 +1,13 @@
 import React from "react";
-import "./styles/Home.scss";
-import "./styles/HomeForGuest.scss";
-import "./styles/HomeLoggedIn.scss";
+import "../styles/Home.scss";
+import "../styles/HomeForGuest.scss";
+import "../styles/HomeLoggedIn.scss";
 
 import { UserContext, user } from "../contexts/user-context";
-import LogoutConfirmation from "./home_components/home_logged_in_components/LogoutConfirmation.component";
-import HomeLoggedIn from "./home_components/HomeLoggedIn.component";
-import HomeForGuestUser from "./home_components/HomeForGuestUser.component";
-import DeleteConfirmation from "./home_components/home_logged_in_components/DeleteConfirmation.component";
+import LogoutConfirmation from "../components/home/home_logged_in/LogoutConfirmation.component";
+import HomeLoggedIn from "../components/home/HomeLoggedIn.component";
+import HomeForGuestUser from "../components/home/HomeForGuestUser.component";
+import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirmation.component";
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 class Home extends React.Component {

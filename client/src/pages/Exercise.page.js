@@ -1,18 +1,18 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import exerciseFetcher from "../controllers/exercise_fetcher/exerciseFetcher.controller";
-import Close from "./exercise_components/Close.component";
-import ExerciseTitle from "./exercise_components/ExerciseTitle.component";
+import Close from "../components/exercise/Close.component";
+import ExerciseTitle from "../components/exercise/ExerciseTitle.component";
 import checkUserTranslation from "../controllers/exercise_functions/checkUserTranslation.function";
-import ExerciseContainer from "./exercise_components/ExerciseContainer.component";
-import ExerciseFooter from "./exercise_components/ExerciseFooter.component";
-import ExerciseRecap from "./exercise_components/ExerciseRecap.component";
+import ExerciseContainer from "../components/exercise/ExerciseContainer.component";
+import ExerciseFooter from "../components/exercise/ExerciseFooter.component";
+import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
 import { UserContext, user } from "../contexts/user-context";
 import weakWordsFetcher from "../controllers/exercise_fetcher/weakWordsFetcher.controller";
 import makeBatches from "../controllers/exercise_fetcher/makeBatches.function";
 import updateWordStats from "../controllers/progress_tracking/updateWordStats.function";
 
-import "./styles/Exercise.scss";
+import "../styles/Exercise.scss";
 /*     2 main cases : either we are in weak words mode or not!      */
 
 class Exercise extends React.Component {

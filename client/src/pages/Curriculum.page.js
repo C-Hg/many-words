@@ -2,16 +2,16 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
 import { UserContext, user } from "../contexts/user-context";
-import "./styles/Curriculum.scss";
+import "../styles/Curriculum.scss";
 
-import ThemeTitle from "./curriculum_components/ThemeTitle.component";
+import ThemeTitle from "../components/curriculum/ThemeTitle.component";
 import getUserStats from "../controllers/progress_tracking/getUserStats.function";
-import ThemeLessonsNumber from "./curriculum_components/ThemeLessonsNumber.component";
-import GreenLessons from "./curriculum_components/GreenLessons.component";
-import GoldLessons from "./curriculum_components/GoldLesson.component";
+import ThemeLessonsNumber from "../components/curriculum/ThemeLessonsNumber.component";
+import GreenLessons from "../components/curriculum/GreenLessons.component";
+import GoldLessons from "../components/curriculum/GoldLesson.component";
 
 import themes from "../exercises/themes";
-import WeakWords from "./common_components/WeakWords.component";
+import WeakWords from "../components/common/WeakWords.component";
 
 class Curriculum extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { LanguageContext } from "../contexts/language-context";
-import "./styles/About.scss";
-import AboutIcons from "./about_components/AboutIcons.component";
+import "../styles/About.scss";
+import AboutIcons from "../components/about/AboutIcons.component";
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 function About() {

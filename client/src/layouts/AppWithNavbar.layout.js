@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Curriculum from "../components/Curriculum.component";
-import About from "../components/About.component";
-import Home from "../components/Home.component";
-import Theme from "../components/Theme.component";
-import Navbar from "../components/Navbar.component";
-import Learning from "../components/Learning.component";
+import Curriculum from "../pages/Curriculum.page";
+import About from "../pages/About.page";
+import Home from "../pages/Home.page";
+import Theme from "../pages/Theme.page";
+import Navbar from "../components/navbar/Navbar.component";
+import Learning from "../pages/Learning.page";
 
 class AppWithNavbar extends React.Component {
   render() {
