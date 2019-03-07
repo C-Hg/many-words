@@ -12,7 +12,6 @@ import GoldLessons from "./curriculum_components/GoldLesson.component";
 
 import themes from "../exercises/themes";
 import WeakWords from "./common_components/WeakWords.component";
-import Navbar from "./Navbar.component";
 
 class Curriculum extends React.Component {
   constructor(props) {

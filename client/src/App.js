@@ -15,13 +15,7 @@ import { UserContext, user } from "./contexts/user-context";
 import getUserDetails from "./controllers/auth/getUserDetails.function";
 import serverLogout from "./controllers/auth/serverLogout.function";
 import deleteUserAccount from "./controllers/auth/deleteUserAccount.function";
-import Home from "./components/Home.component";
-import About from "./components/About.component";
 import Exercise from "./components/Exercise.component";
-import Curriculum from "./components/Curriculum.component";
-import Learning from "./components/Learning.component";
-import Theme from "./components/Theme.component";
-import Navbar from "./components/Navbar.component";
 import AppWithNavbar from "./layouts/AppWithNavbar.layout";
 
 class App extends Component {
