@@ -153,14 +153,6 @@ class Exercise extends React.Component {
 
   // starts another exercise
   async restart() {
-    if (this.state.weak_words_mode) {
-      this.getWeakWords();
-    } else {
-      let words = await exerciseFetcher(this.props.lesson);
-      this.setState({
-        exerciseWords: words
-      });
-    }
     this.setState({
       status: "exercise",
       wordRank: 0,
@@ -171,6 +163,7 @@ class Exercise extends React.Component {
       failedWords: [],
       result: []
     });
+    this.getNewWords();
   }
 
   /*     ----------------------        fetching content        ------------------ */
@@ -209,23 +202,26 @@ class Exercise extends React.Component {
 
   async getWords() {
     try {
-      let words = await exerciseFetcher(this.props.match.params.lessonId);
       this.setState({
-        exerciseWords: words
+        exerciseWords: await exerciseFetcher(this.props.match.params.lessonId)
       });
     } catch (e) {
       console.log("error while fetching words");
     }
   }
 
-  componentDidMount() {
+  getNewWords() {
     let currentUser = this.context;
+    if (currentUser.activity === "weak_words") {
+      this.getWeakWords();
+    } else {
+      this.getWords();
+    }
+  }
+
+  componentDidMount() {
     if (!this.state.exerciseWords) {
-      if (currentUser.activity === "weak_words") {
-        this.getWeakWords();
-      } else {
-        this.getWords();
-      }
+      this.getNewWords();
     }
   }
 
