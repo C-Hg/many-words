@@ -1,17 +1,36 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Curriculum from "../components/Curriculum.component";
+import About from "../components/About.component";
+import Home from "../components/Home.component";
 import Theme from "../components/Theme.component";
-import Learning from "../components/Learning.component";
 import Navbar from "../components/Navbar.component";
+import Learning from "../components/Learning.component";
 
-class MainLayoutGrey extends React.Component {
+class AppWithNavbar extends React.Component {
   render() {
     return (
       <div className="app app-with-navbar-full-screen">
         <Navbar />
-        <div className="main-container greyBackground">
+        <div className="main-container whiteBackground">
           <Switch>
+            <Route
+              exact
+              path={`${this.props.match.path}about`}
+              component={About}
+            />
+            <Route
+              exact
+              path={`${this.props.match.path}home`}
+              render={props => (
+                <Home
+                  logoutUser={this.props.logoutUser}
+                  logoutAndDeleteUser={this.props.logoutAndDeleteUser}
+                  loginUser={this.props.loginUser}
+                  {...props}
+                />
+              )}
+            />
             <Route
               exact
               path={`${this.props.match.path}curriculum`}
@@ -51,4 +70,4 @@ class MainLayoutGrey extends React.Component {
   }
 }
 
-export default MainLayoutGrey;
+export default AppWithNavbar;

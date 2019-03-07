@@ -4,6 +4,7 @@ import { UserContext, user } from "../contexts/user-context";
 import getUserStats from "../controllers/progress_tracking/getUserStats.function";
 
 import "./styles/Theme.scss";
+import "../style_common/titles.scss";
 
 import BackArrow from "./common_components/BackArrow.component";
 import ProgressCircle from "./theme_components/ProgressCircle.component";
@@ -92,7 +93,7 @@ class Theme extends React.Component {
     }
     if (this.state.areStatsChecked || !user.isAuthenticated) {
       return (
-        <div className="greyBackground">
+        <div className="main-container greyBackground">
           <ScrollToTopOnMount />
           <div className="themeAndArrow">
             <Link to={`/curriculum`}>

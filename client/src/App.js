@@ -5,20 +5,18 @@ import "./style_common/material_icons.css";
 import "./style_common/titles.scss";
 import "./style_common/layouts.scss";
 import "./style_common/buttons.scss";
+import "./style_common/variables.scss";
 
 // Contexts
 import { LanguageContext, languages } from "./contexts/language-context";
 import { UserContext, user } from "./contexts/user-context";
 
-// Layouts
-import MainLayoutGrey from "./layouts/Main.layout.grey";
-import MainLayoutWhite from "./layouts/Main.layout.white";
-import FullScreenLayout from "./layouts/FullScreen.layout";
-
 //functions
 import getUserDetails from "./controllers/auth/getUserDetails.function";
 import serverLogout from "./controllers/auth/serverLogout.function";
 import deleteUserAccount from "./controllers/auth/deleteUserAccount.function";
+import Exercise from "./components/Exercise.component";
+import AppWithNavbar from "./layouts/AppWithNavbar.layout";
 
 class App extends Component {
   constructor(props) {
@@ -104,30 +102,22 @@ class App extends Component {
           <LanguageContext.Provider value={this.state.main_language}>
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/home" />} />
-              <Route exact path="/about" component={MainLayoutWhite} />
-              <Route
-                exact
-                path="/home"
-                render={props => (
-                  <MainLayoutWhite
-                    logoutUser={this.logoutUser}
-                    logoutAndDeleteUser={this.logoutAndDeleteUser}
-                    loginUser={this.loginUser}
-                    {...props}
-                  />
-                )}
-              />
-              <Route exact path="/weak_words" component={FullScreenLayout} />
+              <Route exact path="/weak_words" component={Exercise} />
               <Route
                 exact
                 path="/:themeId/:lessonId/test"
-                component={FullScreenLayout}
+                component={Exercise}
               />
               <Route
-                path="/"
+                path={"/"}
                 render={props => (
-                  <MainLayoutGrey
+                  <AppWithNavbar
                     startWeakWords={this.startWeakWords}
+                    lesson={props.match.params.lessonId}
+                    theme={props.match.params.themeId}
+                    logoutUser={this.logoutUser}
+                    logoutAndDeleteUser={this.logoutAndDeleteUser}
+                    loginUser={this.loginUser}
                     {...props}
                   />
                 )}
