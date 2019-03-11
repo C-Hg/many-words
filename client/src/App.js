@@ -7,9 +7,11 @@ import "./styles/common/layouts.scss";
 import "./styles/common/buttons.scss";
 import "./styles/common/variables.scss";
 
+import { actions as userActions } from "./redux/reducers/user";
+import { connect } from "react-redux";
+
 // Contexts
 import { LanguageContext, languages } from "./contexts/language-context";
-import { UserContext, user } from "./contexts/user-context";
 
 //functions
 import getUserDetails from "./controllers/auth/getUserDetails.function";
@@ -18,15 +20,29 @@ import deleteUserAccount from "./controllers/auth/deleteUserAccount.function";
 import Exercise from "./pages/Exercise.page";
 import AppWithNavbar from "./layouts/AppWithNavbar.layout";
 
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUser: () => {
+      dispatch(userActions.login());
+    },
+    logoutUser: () => {
+      dispatch(userActions.logout());
+    }
+  };
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.loginUser = this.loginUser.bind(this);
+    // this.loginUser = this.loginUser.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
     this.logoutAndDeleteUser = this.logoutAndDeleteUser.bind(this);
     this.startWeakWords = this.startWeakWords.bind(this);
     this.state = {
-      user: user.guest,
       main_language: languages.French,
       isSessionChecked: false
     };
@@ -40,11 +56,11 @@ class App extends Component {
   }
 
   // this centralisation is needed for react to be aware of a change and rerender the components
-  loginUser() {
-    this.setState({
-      user: user.connected
-    });
-  }
+  // loginUser() {
+  //   this.setState({
+  //     user: user.connected
+  //   });
+  // }
 
   async logoutAndDeleteUser() {
     try {
@@ -78,7 +94,7 @@ class App extends Component {
     if (!this.state.isSessionChecked) {
       let userData = await getUserDetails();
       if (userData !== "no active session") {
-        this.loginUser();
+        this.props.loginUser();
       }
       this.setState({
         isSessionChecked: true
@@ -129,4 +145,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
