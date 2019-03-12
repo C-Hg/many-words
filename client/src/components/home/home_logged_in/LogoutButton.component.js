@@ -1,13 +1,27 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
+import { actions as userActions } from "../../../redux/reducers/user";
+import { connect } from "react-redux";
 
-class Logout extends React.Component {
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    attemptLogout: () => {
+      dispatch(userActions.attemptLogout());
+    }
+  };
+};
+
+class LogoutButton extends React.Component {
   render() {
     let language = this.context;
 
     return (
       <button
-        onClick={this.props.logout}
+        onClick={this.props.attemptLogout}
         className={`logoutButton homeFooterButton`}
       >
         {language.navigation.logout}
@@ -16,6 +30,9 @@ class Logout extends React.Component {
   }
 }
 
-export default Logout;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LogoutButton);
 
-Logout.contextType = LanguageContext;
+LogoutButton.contextType = LanguageContext;

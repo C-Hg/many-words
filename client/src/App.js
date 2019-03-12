@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import "./App.scss";
 import "./styles/common/material_icons.css";
 import "./styles/common/titles.scss";
@@ -26,11 +26,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginUser: () => {
-      dispatch(userActions.login());
-    },
-    logoutUser: () => {
-      dispatch(userActions.logout());
+    loginSucces: user => {
+      dispatch(userActions.loginSuccess(user));
     }
   };
 };
@@ -38,37 +35,26 @@ const mapDispatchToProps = dispatch => {
 class App extends Component {
   constructor(props) {
     super(props);
-    // this.loginUser = this.loginUser.bind(this);
-    this.logoutUser = this.logoutUser.bind(this);
     this.logoutAndDeleteUser = this.logoutAndDeleteUser.bind(this);
-    this.startWeakWords = this.startWeakWords.bind(this);
+    // this.startWeakWords = this.startWeakWords.bind(this);
     this.state = {
       main_language: languages.French,
       isSessionChecked: false
     };
   }
 
-  startWeakWords(event) {
-    let context = event.target.getAttribute("context");
-    let reference = event.target.getAttribute("reference");
-    user.startWeakWords(context, reference);
-    this.forceUpdate(); // forces rerendering and redirecting from curriculum to exercise after user context is updated!
-  }
-
-  // this centralisation is needed for react to be aware of a change and rerender the components
-  // loginUser() {
-  //   this.setState({
-  //     user: user.connected
-  //   });
+  // startWeakWords(event) {
+  //   let context = event.target.getAttribute("context");
+  //   let reference = event.target.getAttribute("reference");
+  //   user.startWeakWords(context, reference);
+  //   this.forceUpdate(); // forces rerendering and redirecting from curriculum to exercise after user context is updated!
   // }
 
   async logoutAndDeleteUser() {
     try {
       let confirmation = await deleteUserAccount();
       if (confirmation === "user deleted and logged out") {
-        this.setState({
-          user: user.guest
-        });
+        this.props.logoutUser();
       }
     } catch (e) {
       console.log("error while trying to delete user account");
@@ -79,9 +65,7 @@ class App extends Component {
     try {
       let confirmation = await serverLogout();
       if (confirmation === "user logged out") {
-        this.setState({
-          user: user.guest
-        });
+        this.props.logoutUser();
       }
     } catch (e) {
       console.log("error while trying to log out");
@@ -94,7 +78,7 @@ class App extends Component {
     if (!this.state.isSessionChecked) {
       let userData = await getUserDetails();
       if (userData !== "no active session") {
-        this.props.loginUser();
+        this.props.loginSucces(userData);
       }
       this.setState({
         isSessionChecked: true
@@ -114,38 +98,31 @@ class App extends Component {
       return null;
     } else
       return (
-        <UserContext.Provider value={this.state.user}>
-          <LanguageContext.Provider value={this.state.main_language}>
-            <Switch>
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
-              <Route exact path="/weak_words" component={Exercise} />
-              <Route
-                exact
-                path="/:themeId/:lessonId/test"
-                component={Exercise}
-              />
-              <Route
-                path={"/"}
-                render={props => (
-                  <AppWithNavbar
-                    startWeakWords={this.startWeakWords}
-                    lesson={props.match.params.lessonId}
-                    theme={props.match.params.themeId}
-                    logoutUser={this.logoutUser}
-                    logoutAndDeleteUser={this.logoutAndDeleteUser}
-                    loginUser={this.loginUser}
-                    {...props}
-                  />
-                )}
-              />
-            </Switch>
-          </LanguageContext.Provider>
-        </UserContext.Provider>
+        <LanguageContext.Provider value={this.state.main_language}>
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/home" />} />
+            <Route exact path="/weak_words" component={Exercise} />
+            <Route exact path="/:themeId/:lessonId/test" component={Exercise} />
+            <Route
+              path={"/"}
+              render={props => (
+                <AppWithNavbar
+                  startWeakWords={this.startWeakWords}
+                  lesson={props.match.params.lessonId}
+                  theme={props.match.params.themeId}
+                  {...props}
+                />
+              )}
+            />
+          </Switch>
+        </LanguageContext.Provider>
       );
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);

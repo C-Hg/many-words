@@ -72,8 +72,9 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/api/", apiRoutes);
 app.use("/auth/", authRoutes);
 
-//home routing, allows client-side routing
+/* home routing, allows client-side routing on production
 app.use(express.static(path.join(__dirname, "build")));
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
+*/

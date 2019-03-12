@@ -2,11 +2,19 @@ import React from "react";
 import "../../styles/Navbar.scss";
 import { NavLink } from "react-router-dom";
 import { LanguageContext } from "../../contexts/language-context";
-import { UserContext } from "../../contexts/user-context";
+
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
 
 class Navbar extends React.Component {
   render() {
-    let user = this.context;
     return (
       <LanguageContext.Consumer>
         {({ navbar }) => (
@@ -24,7 +32,9 @@ class Navbar extends React.Component {
                 className="navbar-link inactive-link"
                 activeClassName="active-link"
               >
-                <div>{user.isAuthenticated ? navbar.home : navbar.login}</div>
+                <div>
+                  {this.props.user.isAuthenticated ? navbar.home : navbar.login}
+                </div>
               </NavLink>
             </div>
           </header>
@@ -34,6 +44,7 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
-
-Navbar.contextType = UserContext;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navbar);

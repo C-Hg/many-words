@@ -22,14 +22,7 @@ class AppWithNavbar extends React.Component {
             <Route
               exact
               path={`${this.props.match.path}home`}
-              render={props => (
-                <Home
-                  logoutUser={this.props.logoutUser}
-                  logoutAndDeleteUser={this.props.logoutAndDeleteUser}
-                  loginUser={this.props.loginUser}
-                  {...props}
-                />
-              )}
+              component={Home}
             />
             <Route
               exact

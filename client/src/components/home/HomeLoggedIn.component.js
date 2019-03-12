@@ -1,66 +1,70 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
+import { actions as userActions } from "../../redux/reducers/user";
+import { connect } from "react-redux";
+
 import LogoutButton from "./home_logged_in/LogoutButton.component";
-import getUserStats from "../../controllers/progress_tracking/getUserStats.function";
 import GlobalProgress from "./home_logged_in/GlobalProgress.component";
 import TimeToWork from "./home_logged_in/TimeToWork.component";
 import ResumeLearningButton from "./home_logged_in/ResumeLearningButton.component";
 import AboutButton from "./AboutButton.component";
 import DeleteAccountButton from "./home_logged_in/DeleteAccountButton.component";
-import { UserContext, user } from "../../contexts/user-context";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    outdateUserStats: () => {
+      dispatch(userActions.outdateUserStats());
+    },
+    updateUserStats: () => {
+      dispatch(userActions.getUserStats());
+    }
+  };
+};
 
 class HomeLoggedIn extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchUserStats = this.fetchUserStats.bind(this);
+    this.updateUserStats = this.updateUserStats.bind(this);
     this.state = {
-      statsFetched: false,
-      stats: ""
+      statsFetched: false
     };
   }
 
-  async fetchUserStats(loggedUser) {
-    if (loggedUser.areStatsValid)
-      this.setState({
-        stats: loggedUser.stats,
-        statsFetched: true
-      });
-    else {
-      try {
-        let userStats = await getUserStats();
-        this.setState({
-          stats: userStats,
-          statsFetched: true
-        });
-        user.updateUserStats(userStats);
-      } catch (e) {
-        console.log("error while getting user Stats");
-      }
+  async updateUserStats() {
+    await this.props.updateUserStats();
+    this.setState({
+      statsFetched: true
+    });
+  }
+
+  //TO BE DELETED and replaced by stats fetching on loging and after exercise only
+  componentDidMount() {
+    if (!this.state.statsFetched) {
+      this.updateUserStats();
     }
   }
 
-  componentDidMount() {
-    let loggedUser = this.context; // Attention! loggedUser is different from user imported directly from context
-    this.fetchUserStats(loggedUser);
-  }
-
   render() {
-    let loggedUser = this.context;
-    if (loggedUser.activity === "weak_words") {
+    let user = this.props.user;
+    if (user.activity === "weak_words") {
       return <Redirect to="/weak_words" />;
     }
 
     if (this.state.statsFetched) {
       return (
         <div className="HomeLoggedIn">
-          {this.state.stats && <GlobalProgress stats={this.state.stats} />}
-          {!this.state.stats && <TimeToWork />}
+          {user.stats && <GlobalProgress stats={user.stats} />}
+          {!user.stats && <TimeToWork />}
           <ResumeLearningButton />
           <hr className="homeSeparator separatorLoggedIn" />
           <div className="footerButtons">
             <AboutButton contextualClass="homeFooterButton" />
-            <LogoutButton logout={this.props.logout} />
+            <LogoutButton />
             <DeleteAccountButton delete={this.props.delete} />
           </div>
         </div>
@@ -70,6 +74,7 @@ class HomeLoggedIn extends React.Component {
   }
 }
 
-export default HomeLoggedIn;
-
-HomeLoggedIn.contextType = UserContext;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeLoggedIn);

@@ -2,17 +2,25 @@ import React from "react";
 import secrets from "../../../config/secrets";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { LanguageContext } from "../../../contexts/language-context";
-import facebookAuth from "../../../controllers/auth/facebookAuth.function";
+
+import { actions as userActions } from "../../../redux/reducers/user";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    attemptLogin: (provider, token) => {
+      dispatch(userActions.attemptLogin(provider, token));
+    }
+  };
+};
 
 class LoginWithFacebook extends React.Component {
-  responseFacebook = async response => {
-    try {
-      let authResponse = await facebookAuth(response.accessToken);
-      let userData = JSON.parse(authResponse);
-      this.props.loginUser(userData.email); //login logic is centralized in app.js
-    } catch (error) {
-      console.log("error while trying to log with Facebook");
-    }
+  responseFacebook = response => {
+    this.props.attemptLogin("facebook", response.accessToken);
   };
 
   render() {
@@ -48,6 +56,9 @@ class LoginWithFacebook extends React.Component {
   }
 }
 
-export default LoginWithFacebook;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginWithFacebook);
 
 LoginWithFacebook.contextType = LanguageContext;

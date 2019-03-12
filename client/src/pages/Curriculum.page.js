@@ -1,8 +1,10 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
-import { UserContext, user } from "../contexts/user-context";
 import "../styles/Curriculum.scss";
+
+import { actions as userActions } from "../redux/reducers/user";
+import { connect } from "react-redux";
 
 import ThemeTitle from "../components/curriculum/ThemeTitle.component";
 import getUserStats from "../controllers/progress_tracking/getUserStats.function";
@@ -12,6 +14,24 @@ import GoldLessons from "../components/curriculum/GoldLesson.component";
 
 import themes from "../exercises/themes";
 import WeakWords from "../components/common/WeakWords.component";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUser: () => {
+      dispatch(userActions.login());
+    },
+    logoutUser: () => {
+      dispatch(userActions.logout());
+    },
+    outdateUserStats: () => {
+      dispatch(userActions.outdateUserStats());
+    }
+  };
+};
 
 class Curriculum extends React.Component {
   constructor(props) {
@@ -25,31 +45,30 @@ class Curriculum extends React.Component {
   }
 
   // uses UserContext as a cache for user Stats, refreshes only after an exercise is finished
-  async fetchUserStats(currentUser) {
-    if (currentUser.areStatsValid) {
-      this.setState({
-        themesStats: currentUser.stats.themesStats,
-        lessonsStats: currentUser.stats.lessonsStats,
-        areStatsChecked: true
-      });
-    } else {
-      let stats = await getUserStats();
-      if (stats.themesStats === {}) {
-        stats.themesStats = false;
-      }
-      this.setState({
-        themesStats: stats.themesStats,
-        lessonsStats: stats.lessonsStats,
-        areStatsChecked: true
-      });
-      user.updateUserStats(stats);
-    }
-  }
+  // async fetchUserStats(user) {
+  //   if (user.areStatsValid) {
+  //     this.setState({
+  //       themesStats: user.stats.themesStats,
+  //       lessonsStats: user.stats.lessonsStats,
+  //       areStatsChecked: true
+  //     });
+  //   } else {
+  //     let stats = await getUserStats();
+  //     if (stats.themesStats === {}) {
+  //       stats.themesStats = false;
+  //     }
+  //     this.setState({
+  //       themesStats: stats.themesStats,
+  //       lessonsStats: stats.lessonsStats,
+  //       areStatsChecked: true
+  //     });
+  //     user.updateUserStats(stats);
+  //   }
+  // }
 
   componentDidMount() {
-    let currentUser = this.context;
-    if (currentUser.isAuthenticated) {
-      this.fetchUserStats(currentUser);
+    if (this.props.user.isAuthenticated) {
+      this.fetchUserStats(this.props.user);
     }
   }
 
@@ -129,6 +148,7 @@ class Curriculum extends React.Component {
   }
 }
 
-Curriculum.contextType = UserContext;
-
-export default Curriculum;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Curriculum);

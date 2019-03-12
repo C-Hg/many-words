@@ -1,19 +1,27 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
-import googleAuth from "../../../controllers/auth/googleAuth.function";
 import secrets from "../../../config/secrets";
 import { LanguageContext } from "../../../contexts/language-context";
 
-class LoginWithGoogle extends React.Component {
-  responseGoogle = async response => {
-    // TO DO : failure message if authResponse = "unauthorized", seems ok with try-catch
-    try {
-      let authResponse = await googleAuth(response.accessToken);
-      let userData = JSON.parse(authResponse);
-      this.props.loginUser(userData.email); //login logic is centralized in app.js
-    } catch (error) {
-      console.log("error while trying to log with Google");
+import { actions as userActions } from "../../../redux/reducers/user";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    attemptLogin: (provider, token) => {
+      dispatch(userActions.attemptLogin(provider, token));
     }
+  };
+};
+
+class LoginWithGoogle extends React.Component {
+  responseGoogle = response => {
+    // TO DO : failure message if authResponse = "unauthorized", seems ok with try-catch
+    this.props.attemptLogin("google", response.accessToken);
   };
 
   responseError = response => {
@@ -51,6 +59,9 @@ class LoginWithGoogle extends React.Component {
   }
 }
 
-export default LoginWithGoogle;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginWithGoogle);
 
 LoginWithGoogle.contextType = LanguageContext;
