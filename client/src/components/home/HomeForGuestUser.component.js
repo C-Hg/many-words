@@ -11,7 +11,7 @@ function HomeForGuestUser(props) {
       <Welcome />
       <Features />
       <Register />
-      <LoginButtons loginUser={props.loginUser} />
+      <LoginButtons />
       <hr className="homeSeparator" />
       <Discover />
     </div>

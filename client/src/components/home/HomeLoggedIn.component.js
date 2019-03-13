@@ -17,9 +17,6 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    outdateUserStats: () => {
-      dispatch(userActions.outdateUserStats());
-    },
     updateUserStats: () => {
       dispatch(userActions.getUserStats());
     }
@@ -27,25 +24,12 @@ const mapDispatchToProps = dispatch => {
 };
 
 class HomeLoggedIn extends React.Component {
-  constructor(props) {
-    super(props);
-    this.updateUserStats = this.updateUserStats.bind(this);
-    this.state = {
-      statsFetched: false
-    };
-  }
-
-  async updateUserStats() {
-    await this.props.updateUserStats();
-    this.setState({
-      statsFetched: true
-    });
-  }
-
   //TO BE DELETED and replaced by stats fetching on loging and after exercise only
+
+  //    ++++++++++++++++++++++++++++++++++++++++++++++++
   componentDidMount() {
-    if (!this.state.statsFetched) {
-      this.updateUserStats();
+    if (!this.props.user.stats.hasOwnProperty("globalProgress")) {
+      this.props.updateUserStats();
     }
   }
 
@@ -55,7 +39,7 @@ class HomeLoggedIn extends React.Component {
       return <Redirect to="/weak_words" />;
     }
 
-    if (this.state.statsFetched) {
+    if (user.stats.hasOwnProperty("globalProgress")) {
       return (
         <div className="HomeLoggedIn">
           {user.stats && <GlobalProgress stats={user.stats} />}

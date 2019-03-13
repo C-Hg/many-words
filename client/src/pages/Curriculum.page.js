@@ -7,13 +7,13 @@ import { actions as userActions } from "../redux/reducers/user";
 import { connect } from "react-redux";
 
 import ThemeTitle from "../components/curriculum/ThemeTitle.component";
-import getUserStats from "../controllers/progress_tracking/getUserStats.function";
 import ThemeLessonsNumber from "../components/curriculum/ThemeLessonsNumber.component";
 import GreenLessons from "../components/curriculum/GreenLessons.component";
 import GoldLessons from "../components/curriculum/GoldLesson.component";
 
 import themes from "../exercises/themes";
 import WeakWords from "../components/common/WeakWords.component";
+import Register from "../components/home/home_for_guest/Register.component";
 
 function mapStateToProps(state) {
   return { user: state.user };
@@ -36,11 +36,11 @@ const mapDispatchToProps = dispatch => {
 class Curriculum extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchUserStats = this.fetchUserStats.bind(this);
+    // this.fetchUserStats = this.fetchUserStats.bind(this);
     this.state = {
-      themesStats: "",
-      lessonsStats: {},
-      areStatsChecked: false
+      // themesStats: "",
+      // lessonsStats: {},
+      // areStatsChecked: false
     };
   }
 
@@ -66,14 +66,18 @@ class Curriculum extends React.Component {
   //   }
   // }
 
-  componentDidMount() {
-    if (this.props.user.isAuthenticated) {
-      this.fetchUserStats(this.props.user);
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.user.isAuthenticated) {
+  //     this.fetchUserStats(this.props.user);
+  //   }
+  // }
 
   render() {
-    let user = this.context;
+    let user = this.props.user;
+    // render cards only after the database call if user is logged in
+    if (!user.stats.hasOwnProperty("globalProgress") && user.isAuthenticated) {
+      return null;
+    }
     if (user.isAuthenticated && user.activity === "weak_words") {
       return <Redirect to="/weak_words" />;
     }
@@ -85,9 +89,9 @@ class Curriculum extends React.Component {
       let borderColorClass = "";
 
       // depends on api call
-      if (this.state.themesStats[val[0]]) {
-        greenLessons = this.state.themesStats[val[0]].green;
-        goldLessons = this.state.themesStats[val[0]].gold;
+      if (user.stats.themesStats[val[0]]) {
+        greenLessons = user.stats.themesStats[val[0]].green;
+        goldLessons = user.stats.themesStats[val[0]].gold;
         lessons -= greenLessons;
         lessons -= goldLessons;
       }
@@ -112,10 +116,10 @@ class Curriculum extends React.Component {
           </div>
           <div className="lessonsStats">
             {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
-            {this.state.themesStats && greenLessons > 0 && (
+            {user.stats.themesStats && greenLessons > 0 && (
               <GreenLessons green={greenLessons} />
             )}
-            {this.state.themesStats && goldLessons > 0 && (
+            {user.stats.themesStats && goldLessons > 0 && (
               <GoldLessons gold={goldLessons} />
             )}
           </div>
@@ -123,28 +127,23 @@ class Curriculum extends React.Component {
       );
     });
 
-    // render cards only after the database call if user is logged in
-    if (this.state.areStatsChecked || !user.isAuthenticated) {
-      return (
-        <LanguageContext.Consumer>
-          {({ curriculum }) => (
-            <div className="curriculum greyBackground">
-              <h1 className="menuTitle">{curriculum.title}</h1>
-              {user.isAuthenticated && this.state.lessonsStats && (
-                <WeakWords
-                  context="global"
-                  reference={null}
-                  startWeakWords={this.props.startWeakWords}
-                />
-              )}
-              <div className="themeCards">{cards}</div>
-            </div>
-          )}
-        </LanguageContext.Consumer>
-      );
-    }
-
-    return null;
+    return (
+      <LanguageContext.Consumer>
+        {({ curriculum }) => (
+          <div className="curriculum greyBackground">
+            <h1 className="menuTitle">{curriculum.title}</h1>
+            {user.isAuthenticated && user.stats.lessonsStats && (
+              <WeakWords
+                context="global"
+                reference={null}
+                startWeakWords={this.props.startWeakWords}
+              />
+            )}
+            <div className="themeCards">{cards}</div>
+          </div>
+        )}
+      </LanguageContext.Consumer>
+    );
   }
 }
 

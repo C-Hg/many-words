@@ -22,79 +22,60 @@ const mapDispatchToProps = dispatch => {
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.attemptLogout = this.attemptLogout.bind(this);
+    // this.attemptLogout = this.attemptLogout.bind(this);
     this.state = {};
   }
 
-  attemptLogout() {
-    this.props.logoutUser();
-    this.setState({
-      attemptedLogout: true
-    });
-  }
+  // attemptLogout() {
+  //   this.props.logoutUser();
+  //   this.setState({
+  //     attemptedLogout: true
+  //   });
+  // }
 
-  attemptDelete() {
-    this.setState({
-      attemptedDelete: true
-    });
-  }
+  // attemptDelete() {
+  //   this.setState({
+  //     attemptedDelete: true
+  //   });
+  // }
 
-  setUserResponse(event) {
-    let value = event.target.value;
-    this.setState({
-      isDeletionConfirmed: value
-    });
-  }
+  // setUserResponse(event) {
+  //   let value = event.target.value;
+  //   this.setState({
+  //     isDeletionConfirmed: value
+  //   });
+  // }
 
-  continue() {
-    this.setState({
-      attemptedLogout: false,
-      attemptedDelete: false,
-      isDeletionConfirmed: false
-    });
-  }
+  // continue() {
+  //   this.setState({
+  //     attemptedLogout: false,
+  //     attemptedDelete: false,
+  //     isDeletionConfirmed: false
+  //   });
+  // }
 
-  logoutAndDelete() {
-    this.props.logoutAndDeleteUser();
-    this.props.outdateUserStats();
-    this.setState({
-      isDeletionConfirmed: "confirm"
-    });
-  }
+  // logoutAndDelete() {
+  //   this.props.logoutAndDeleteUser();
+  //   this.props.outdateUserStats();
+  //   this.setState({
+  //     isDeletionConfirmed: "confirm"
+  //   });
+  // }
 
   render() {
     const user = this.props.user;
     if (user.login.isDisconnecting) {
-      return (
-        <LogoutConfirmation
-          continue={this.continue}
-          isUserLoggedOut={!user.isAuthenticated}
-        />
-      );
+      return <LogoutConfirmation />;
     } else if (user.login.isDeletingAccount) {
-      return (
-        <DeleteConfirmation
-          continue={this.continue}
-          isDeletionConfirmed={this.state.isDeletionConfirmed}
-          isUserLoggedOut={!user.isAuthenticated}
-          logoutAndDelete={this.logoutAndDelete}
-        />
-      );
+      return <DeleteConfirmation />;
     } else {
       return (
         <div className="main-container whiteBackground">
           <div className="home whiteBackground">
             <ScrollToTopOnMount />
             {/*TO DO : separate logout and account informations from currentUser progress */}
-            {user.isAuthenticated && (
-              <HomeLoggedIn
-                logout={this.attemptLogout}
-                delete={this.attemptDelete}
-              />
-            )}
-            {!user.isAuthenticated && (
-              <HomeForGuestUser loginUser={this.props.loginUser} />
-            )}
+            {user.isAuthenticated && <HomeLoggedIn />}
+            {!user.isAuthenticated && <HomeForGuestUser />}
           </div>
         </div>
       );

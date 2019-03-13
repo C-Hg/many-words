@@ -8,13 +8,17 @@ const defaultState = {
   login: {
     isDisconnecting: false,
     isDeletingAccount: false,
-    confirmation: false
+    hasConfirmed: false,
+    hasProcedureSucceeded: false
   }
 };
 
 const types = {
   ATTEMPT_LOGIN: "ATTEMPT_LOGIN",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  BEGIN_LOGOUT: "BEGIN_LOGOUT",
+  BEGIN_ACCOUNT_DELETION: "BEGIN_ACCOUNT_DELETION",
+  CONFIRM_ACTION: "CONFIRM_ACTION",
   ATTEMPT_LOGOUT: "ATTEMPT_LOGOUT",
   LOGOUT_SUCCESS: "LOGOUT_SUCCESS",
   UPDATE_STATS: "UPDATE_STATS",
@@ -32,6 +36,15 @@ const userReducer = (state = defaultState, action) => {
       };
       return { ...state, isAuthenticated: true, stats };
 
+    case types.BEGIN_LOGOUT:
+      return { ...state, login: { ...state.login, isDisconnecting: true } };
+
+    case types.BEGIN_ACCOUNT_DELETION:
+      return { ...state, login: { ...state.login, isDeletingAccount: true } };
+
+    case types.CONFIRM_ACTION:
+      return { ...state, login: { ...state.login, hasConfirmed: true } };
+
     case types.LOGOUT_SUCCESS:
       return defaultState;
 
@@ -39,7 +52,8 @@ const userReducer = (state = defaultState, action) => {
       return { ...state, areStatsValid: false };
 
     case types.UPDATE_STATS:
-      return { ...state, areStatsValid: true, stats: { ...action.stats } };
+      console.log(action.stats);
+      return { ...state, areStatsValid: true, stats: action.stats };
 
     case types.RESET_ACTIVITY:
       return { ...state, activity: "", weak_words_details: "" };
@@ -62,6 +76,24 @@ const actions = {
     return {
       type: types.LOGIN_SUCCESS,
       user
+    };
+  },
+
+  beginLogout: () => {
+    return {
+      type: types.BEGIN_LOGOUT
+    };
+  },
+
+  beginAccountDeletion: () => {
+    return {
+      type: types.BEGIN_ACCOUNT_DELETION
+    };
+  },
+
+  confirmAction: () => {
+    return {
+      type: types.CONFIRM_ACTION
     };
   },
 

@@ -1,8 +1,23 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
+import { actions as userActions } from "../../../redux/reducers/user";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    attemptLogout: () => {
+      dispatch(userActions.attemptLogout());
+    }
+  };
+};
 
 function DeleteConfirmation(props) {
-  if (!props.isDeletionConfirmed) {
+  let user = this.props.user.login;
+  if (!user.hasConfirmed) {
     return (
       <LanguageContext.Consumer>
         {({ home }) => (
@@ -26,8 +41,8 @@ function DeleteConfirmation(props) {
         )}
       </LanguageContext.Consumer>
     );
-  } else if (props.isDeletionConfirmed) {
-    if (props.isUserLoggedOut) {
+  } else if (user.hasConfirmed) {
+    if (user.hasProcedureSuceeded) {
       return (
         <LanguageContext.Consumer>
           {({ home }) => (
@@ -54,4 +69,7 @@ function DeleteConfirmation(props) {
   }
 }
 
-export default DeleteConfirmation;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteConfirmation);

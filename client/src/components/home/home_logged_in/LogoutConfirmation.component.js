@@ -1,8 +1,24 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
+import { actions as userActions } from "../../../redux/reducers/user";
+import { connect } from "react-redux";
 
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    attemptLogout: () => {
+      dispatch(userActions.attemptLogout());
+    }
+  };
+};
+
+// ADD action to reset login independently from other user stats to allow confirmation step
 function LogoutConfirmation(props) {
-  if (props.isUserLoggedOut) {
+  let user = this.props.user.login;
+  if (user.hasProcedureSuceeded) {
     return (
       <LanguageContext.Consumer>
         {({ home }) => (
@@ -28,4 +44,7 @@ function LogoutConfirmation(props) {
   }
 }
 
-export default LogoutConfirmation;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LogoutConfirmation);
