@@ -7,12 +7,21 @@ import checkUserTranslation from "../controllers/exercise_functions/checkUserTra
 import ExerciseContainer from "../components/exercise/ExerciseContainer.component";
 import ExerciseFooter from "../components/exercise/ExerciseFooter.component";
 import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
-import { UserContext, user } from "../contexts/user-context";
 import weakWordsFetcher from "../controllers/exercise_fetcher/weakWordsFetcher.controller";
 import makeBatches from "../controllers/exercise_fetcher/makeBatches.function";
 import updateWordStats from "../controllers/progress_tracking/updateWordStats.function";
+import { connect } from "react-redux";
 
 import "../styles/Exercise.scss";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
 /*     2 main cases : either we are in weak words mode or not!      */
 
 class Exercise extends React.Component {
@@ -111,12 +120,11 @@ class Exercise extends React.Component {
   /*     ------------------------         transitions          ------------------ */
 
   nextWord() {
-    let currentUser = this.context;
+    let user = this.props.user;
     //goes to recap screen when all the words have been answered, and update stats in db
     if (this.state.wordRank === this.state.exerciseWords.length - 1) {
-      if (currentUser.isAuthenticated) {
+      if (user.isAuthenticated) {
         updateWordStats(this.state.result);
-        user.outdateUserStats();
       }
       this.setState({
         status: "recap",
@@ -142,9 +150,9 @@ class Exercise extends React.Component {
 
   // quit exercise screen
   redirect() {
-    let currentUser = this.context;
-    if (currentUser.isAuthenticated && currentUser.activity === "weak_words") {
-      user.resetActivity(); // exits weak_words mode
+    let user = this.context;
+    if (user.isAuthenticated && user.activity === "weak_words") {
+      // user.resetActivity(); // exits weak_words mode
     }
     this.setState({
       redirect: true
@@ -181,9 +189,9 @@ class Exercise extends React.Component {
 
       // else get new batches
     } else {
-      let currentUser = this.context;
-      let context = currentUser.weak_words_details.context;
-      let reference = currentUser.weak_words_details.reference;
+      let user = this.context;
+      let context = user.weak_words_details.context;
+      let reference = user.weak_words_details.reference;
       let new_weak_words;
       try {
         new_weak_words = await weakWordsFetcher(context, reference);
@@ -211,8 +219,8 @@ class Exercise extends React.Component {
   }
 
   getNewWords() {
-    let currentUser = this.context;
-    if (currentUser.activity === "weak_words") {
+    let user = this.context;
+    if (user.activity === "weak_words") {
       this.getWeakWords();
     } else {
       this.getWords();
@@ -289,6 +297,7 @@ class Exercise extends React.Component {
   }
 }
 
-export default Exercise;
-
-Exercise.contextType = UserContext;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Exercise);

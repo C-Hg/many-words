@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
-import { UserContext, user } from "../contexts/user-context";
 import getUserStats from "../controllers/progress_tracking/getUserStats.function";
+import { connect } from "react-redux";
 
 import "../styles/Theme.scss";
 import "../styles/common/titles.scss";
@@ -19,6 +19,14 @@ import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 import FR_EN_Lessons from "../exercises/lessons";
 import WeakWords from "../components/common/WeakWords.component";
 
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
 class Theme extends React.Component {
   constructor(props) {
     super(props);
@@ -29,10 +37,10 @@ class Theme extends React.Component {
     };
   }
 
-  async fetchUserStats(currentUser) {
-    if (currentUser.areStatsValid) {
+  async fetchUserStats(user) {
+    if (user.areStatsValid) {
       this.setState({
-        lessonsStats: currentUser.stats.lessonsStats[this.props.theme],
+        lessonsStats: user.stats.lessonsStats[this.props.theme],
         areStatsChecked: true
       });
     } else {
@@ -46,15 +54,15 @@ class Theme extends React.Component {
   }
 
   componentDidMount() {
-    let currentUser = this.context;
-    if (currentUser.isAuthenticated) {
-      this.fetchUserStats(currentUser);
+    let user = this.context;
+    if (user.isAuthenticated) {
+      this.fetchUserStats(user);
     }
   }
 
   render() {
     /* ----------------       preparing data    -------------- */
-    let user = this.context;
+    let user = this.props.user;
     let theme = this.props.theme;
     let lessonsData = FR_EN_Lessons[theme];
     let progressColor = "";
@@ -115,6 +123,7 @@ class Theme extends React.Component {
   }
 }
 
-Theme.contextType = UserContext;
-
-export default Theme;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Theme);

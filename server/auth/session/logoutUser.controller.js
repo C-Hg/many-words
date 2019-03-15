@@ -8,10 +8,8 @@ module.exports = function logoutUser(req, res) {
         console.log("error while destroying session");
       }
     });
-    console.log("user logged out!");
-    res.write("user logged out");
+    res.status(200).send("user logged out");
   } else {
-    res.body("no active session");
+    res.status(401).send("no active session");
   }
-  res.end();
 };

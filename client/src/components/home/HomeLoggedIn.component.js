@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import { actions as userActions } from "../../redux/reducers/user";
 import { connect } from "react-redux";
 
 import LogoutButton from "./home_logged_in/LogoutButton.component";
@@ -15,24 +14,7 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateUserStats: () => {
-      dispatch(userActions.getUserStats());
-    }
-  };
-};
-
 class HomeLoggedIn extends React.Component {
-  //TO BE DELETED and replaced by stats fetching on loging and after exercise only
-
-  //    ++++++++++++++++++++++++++++++++++++++++++++++++
-  componentDidMount() {
-    if (!this.props.user.stats.hasOwnProperty("globalProgress")) {
-      this.props.updateUserStats();
-    }
-  }
-
   render() {
     let user = this.props.user;
     if (user.activity === "weak_words") {
@@ -49,7 +31,7 @@ class HomeLoggedIn extends React.Component {
           <div className="footerButtons">
             <AboutButton contextualClass="homeFooterButton" />
             <LogoutButton />
-            <DeleteAccountButton delete={this.props.delete} />
+            <DeleteAccountButton />
           </div>
         </div>
       );
@@ -60,5 +42,5 @@ class HomeLoggedIn extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(HomeLoggedIn);

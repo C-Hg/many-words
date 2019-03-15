@@ -13,7 +13,6 @@ import GoldLessons from "../components/curriculum/GoldLesson.component";
 
 import themes from "../exercises/themes";
 import WeakWords from "../components/common/WeakWords.component";
-import Register from "../components/home/home_for_guest/Register.component";
 
 function mapStateToProps(state) {
   return { user: state.user };
@@ -34,44 +33,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class Curriculum extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.fetchUserStats = this.fetchUserStats.bind(this);
-    this.state = {
-      // themesStats: "",
-      // lessonsStats: {},
-      // areStatsChecked: false
-    };
-  }
-
-  // uses UserContext as a cache for user Stats, refreshes only after an exercise is finished
-  // async fetchUserStats(user) {
-  //   if (user.areStatsValid) {
-  //     this.setState({
-  //       themesStats: user.stats.themesStats,
-  //       lessonsStats: user.stats.lessonsStats,
-  //       areStatsChecked: true
-  //     });
-  //   } else {
-  //     let stats = await getUserStats();
-  //     if (stats.themesStats === {}) {
-  //       stats.themesStats = false;
-  //     }
-  //     this.setState({
-  //       themesStats: stats.themesStats,
-  //       lessonsStats: stats.lessonsStats,
-  //       areStatsChecked: true
-  //     });
-  //     user.updateUserStats(stats);
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   if (this.props.user.isAuthenticated) {
-  //     this.fetchUserStats(this.props.user);
-  //   }
-  // }
-
   render() {
     let user = this.props.user;
     // render cards only after the database call if user is logged in

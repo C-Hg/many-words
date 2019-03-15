@@ -3,17 +3,13 @@ import secrets from "../../../config/secrets";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { LanguageContext } from "../../../contexts/language-context";
 
-import { actions as userActions } from "../../../redux/reducers/user";
+import { actions as authActions } from "../../../redux/reducers/auth";
 import { connect } from "react-redux";
-
-function mapStateToProps(state) {
-  return { user: state.user };
-}
 
 const mapDispatchToProps = dispatch => {
   return {
     attemptLogin: (provider, token) => {
-      dispatch(userActions.attemptLogin(provider, token));
+      dispatch(authActions.attemptLogin(provider, token));
     }
   };
 };
@@ -57,7 +53,7 @@ class LoginWithFacebook extends React.Component {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(LoginWithFacebook);
 

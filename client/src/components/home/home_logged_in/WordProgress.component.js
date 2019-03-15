@@ -13,19 +13,21 @@ function WordProgress(props) {
               <i alt="seen" className="material-icons md-48 seenIcon">
                 search
               </i>
-              <div className="userStat">{props.wordStats.encounteredWords}</div>
+              <div className="userStat">
+                {props.wordStats.encounteredWords || 0}
+              </div>
             </div>
             <div className="iconAndStat">
               <i alt="green" className="material-icons md-48 greenIcon">
                 check_circle_outline
               </i>
-              <div className="userStat">{props.wordStats.greenWords}</div>
+              <div className="userStat">{props.wordStats.greenWords || 0}</div>
             </div>
             <div className="iconAndStat">
               <i alt="gold" className="material-icons md-48 goldIcon">
                 grade
               </i>
-              <div className="userStat">{props.wordStats.goldWords}</div>
+              <div className="userStat">{props.wordStats.goldWords || 0}</div>
             </div>
           </div>
         </div>

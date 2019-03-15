@@ -2,6 +2,7 @@ const getWordStats = require("./getWordStats.controller");
 const updateWordStats = require("./word_stats/updateWordStats.function");
 const updateLessonStats = require("./updateLessonStats.controller");
 const updateThemesStats = require("./updateThemesStats.controller");
+const replaceUserStats = require("./user_stats/replaceUserStats.function");
 
 module.exports = async function createOrUpdateWordStats(req, res) {
   // data received in an array of arrays :
@@ -32,6 +33,7 @@ module.exports = async function createOrUpdateWordStats(req, res) {
     }
   }
 
+  // TO BE GATHERED in a controller ??? assess if parallel runs are possible
   let user = req.user.toObject();
   for (let lesson of lessons) {
     try {
@@ -42,10 +44,23 @@ module.exports = async function createOrUpdateWordStats(req, res) {
   }
 
   try {
-    await updateThemesStats(user);
+    user = await updateThemesStats(user);
   } catch (e) {
     console.log("error while updating themes stats");
   }
 
-  res.send("all good");
+  try {
+    user = await updateGlobalProgress(user);
+  } catch (e) {
+    console.log("error while updating themes stats");
+  }
+
+  // only one writing operation to the db
+  try {
+    await replaceUserStats(user);
+  } catch (e) {
+    console.log("error while replacing theme stats");
+  }
+
+  res.send(user);
 };

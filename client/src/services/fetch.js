@@ -13,9 +13,14 @@ const services = {
     return await result.json();
   },
 
-  async get(url) {
+  async getJSONResponse(url) {
     const result = await fetch(url);
     return await result.json();
+  },
+
+  async getTextResponse(url) {
+    const result = await fetch(url);
+    return await result.text();
   }
 };
 

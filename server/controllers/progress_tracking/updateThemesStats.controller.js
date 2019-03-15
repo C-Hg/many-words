@@ -1,5 +1,4 @@
 const FR_EN_Lessons = require("../../exercises/FR-EN/lessons");
-const replaceUserStats = require("./user_stats/replaceUserStats.function");
 
 /*  ------   see FR_EN_Lessons format for a better understanding   -------- */
 
@@ -28,9 +27,5 @@ module.exports = async function updateThemesStats(user) {
     user.themesStats[theme].green = green;
   }
 
-  try {
-    await replaceUserStats(user);
-  } catch (e) {
-    console.log("error while replacing theme stats");
-  }
+  return user;
 };

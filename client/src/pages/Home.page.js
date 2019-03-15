@@ -12,78 +12,28 @@ import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirma
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { user: state.user, auth: state.auth };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.attemptLogout = this.attemptLogout.bind(this);
-    this.state = {};
-  }
-
-  // attemptLogout() {
-  //   this.props.logoutUser();
-  //   this.setState({
-  //     attemptedLogout: true
-  //   });
-  // }
-
-  // attemptDelete() {
-  //   this.setState({
-  //     attemptedDelete: true
-  //   });
-  // }
-
-  // setUserResponse(event) {
-  //   let value = event.target.value;
-  //   this.setState({
-  //     isDeletionConfirmed: value
-  //   });
-  // }
-
-  // continue() {
-  //   this.setState({
-  //     attemptedLogout: false,
-  //     attemptedDelete: false,
-  //     isDeletionConfirmed: false
-  //   });
-  // }
-
-  // logoutAndDelete() {
-  //   this.props.logoutAndDeleteUser();
-  //   this.props.outdateUserStats();
-  //   this.setState({
-  //     isDeletionConfirmed: "confirm"
-  //   });
-  // }
-
-  render() {
-    const user = this.props.user;
-    if (user.login.isDisconnecting) {
-      return <LogoutConfirmation />;
-    } else if (user.login.isDeletingAccount) {
-      return <DeleteConfirmation />;
-    } else {
-      return (
-        <div className="main-container whiteBackground">
-          <div className="home whiteBackground">
-            <ScrollToTopOnMount />
-            {/*TO DO : separate logout and account informations from currentUser progress */}
-            {user.isAuthenticated && <HomeLoggedIn />}
-            {!user.isAuthenticated && <HomeForGuestUser />}
-          </div>
+function Home(props) {
+  if (props.auth.isDisconnecting) {
+    return <LogoutConfirmation />;
+  } else if (props.auth.isDeletingAccount) {
+    return <DeleteConfirmation />;
+  } else {
+    return (
+      <div className="main-container whiteBackground">
+        <div className="home whiteBackground">
+          <ScrollToTopOnMount />
+          {props.user.isAuthenticated && <HomeLoggedIn />}
+          {!props.user.isAuthenticated && <HomeForGuestUser />}
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Home);

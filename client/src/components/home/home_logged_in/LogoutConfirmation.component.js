@@ -1,30 +1,31 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
-import { actions as userActions } from "../../../redux/reducers/user";
+import { actions as authActions } from "../../../redux/reducers/auth";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { auth: state.auth };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    attemptLogout: () => {
-      dispatch(userActions.attemptLogout());
+    acknowledgeAction: () => {
+      dispatch(authActions.acknowledgeAction());
     }
   };
 };
 
-// ADD action to reset login independently from other user stats to allow confirmation step
 function LogoutConfirmation(props) {
-  let user = this.props.user.login;
-  if (user.hasProcedureSuceeded) {
+  if (props.auth.hasProcedureSucceeded) {
     return (
       <LanguageContext.Consumer>
         {({ home }) => (
           <div className="logoutInfo">
             <h3 className="logoutText">{home.logout_success}</h3>
-            <button onClick={props.continue} className="acknowledgeLogout ok">
+            <button
+              onClick={props.acknowledgeAction}
+              className="acknowledgeLogout ok"
+            >
               OK
             </button>
           </div>

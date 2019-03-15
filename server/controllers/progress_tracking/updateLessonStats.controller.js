@@ -23,6 +23,5 @@ module.exports = async function updateLessonStats(user, lesson) {
   }
   user.lessonsStats[theme][lesson] = newScore;
 
-  // return data to update theme stats, thus writing only once in the dbfinally, updates themes stats
   return user;
 };

@@ -1,16 +1,12 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
-import { actions as userActions } from "../../../redux/reducers/user";
+import { actions as authActions } from "../../../redux/reducers/auth";
 import { connect } from "react-redux";
-
-function mapStateToProps(state) {
-  return { user: state.user };
-}
 
 const mapDispatchToProps = dispatch => {
   return {
     attemptLogout: () => {
-      dispatch(userActions.attemptLogout());
+      dispatch(authActions.attemptLogout());
     }
   };
 };
@@ -31,7 +27,7 @@ class LogoutButton extends React.Component {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(LogoutButton);
 

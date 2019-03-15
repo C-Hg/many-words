@@ -1,9 +1,8 @@
 const getWordStatsByUser = require("./word_stats/getWordStatsByUser.function");
 const assessGlobalProgress = require("./word_stats/assessGlobalProgress.function");
 
-module.exports = async function getUserStats(req, res) {
+module.exports = async function getUserStats(user) {
   let wordStats;
-  let user = req.user;
   let globalProgress = null;
 
   try {
@@ -12,15 +11,8 @@ module.exports = async function getUserStats(req, res) {
     console.log("error while fetching word stats by user");
   }
   if (wordStats) {
-    globalProgress = assessGlobalProgress(wordStats);
+    user.globalProgress = assessGlobalProgress(wordStats);
   }
 
-  res.send(
-    JSON.stringify({
-      lessonsStats: user.lessonsStats,
-      themesStats: user.themesStats,
-      globalProgress: globalProgress
-    })
-  );
-  return;
+  return user;
 };

@@ -14,9 +14,6 @@ import { connect } from "react-redux";
 import { LanguageContext, languages } from "./contexts/language-context";
 
 //functions
-import getUserDetails from "./controllers/auth/getUserDetails.function";
-import serverLogout from "./controllers/auth/serverLogout.function";
-import deleteUserAccount from "./controllers/auth/deleteUserAccount.function";
 import Exercise from "./pages/Exercise.page";
 import AppWithNavbar from "./layouts/AppWithNavbar.layout";
 
@@ -26,8 +23,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginSucces: user => {
-      dispatch(userActions.loginSuccess(user));
+    loginSucces: () => {
+      dispatch(userActions.loginSuccess());
     }
   };
 };
@@ -35,7 +32,6 @@ const mapDispatchToProps = dispatch => {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.logoutAndDeleteUser = this.logoutAndDeleteUser.bind(this);
     // this.startWeakWords = this.startWeakWords.bind(this);
     this.state = {
       main_language: languages.French,
@@ -50,36 +46,16 @@ class App extends Component {
   //   this.forceUpdate(); // forces rerendering and redirecting from curriculum to exercise after user context is updated!
   // }
 
-  async logoutAndDeleteUser() {
-    try {
-      let confirmation = await deleteUserAccount();
-      if (confirmation === "user deleted and logged out") {
-        this.props.logoutUser();
-      }
-    } catch (e) {
-      console.log("error while trying to delete user account");
-    }
-  }
-
-  async logoutUser() {
-    try {
-      let confirmation = await serverLogout();
-      if (confirmation === "user logged out") {
-        this.props.logoutUser();
-      }
-    } catch (e) {
-      console.log("error while trying to log out");
-    }
-  }
-
   // automatic language and session detection on first page rendering
   // otherwise triggered by login/logout actions
   async componentDidMount() {
     if (!this.state.isSessionChecked) {
-      let userData = await getUserDetails();
-      if (userData !== "no active session") {
-        this.props.loginSucces(userData);
-      }
+      // ++++++++++++++++++++        write new session checking algo         ++++++++++++++++++++++++
+
+      // let userData = await getUserDetails();
+      // if (userData !== "no active session") {
+      //   this.props.loginSucces(userData);
+      // }
       this.setState({
         isSessionChecked: true
       });

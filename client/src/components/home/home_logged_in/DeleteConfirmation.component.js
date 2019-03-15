@@ -1,23 +1,28 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
-import { actions as userActions } from "../../../redux/reducers/user";
+import { actions as authActions } from "../../../redux/reducers/auth";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { auth: state.auth };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    attemptLogout: () => {
-      dispatch(userActions.attemptLogout());
+    confirmDeletion: () => {
+      dispatch(authActions.confirmDeletion());
+    },
+    abortDeletion: () => {
+      dispatch(authActions.abortDeletion());
+    },
+    acknowledgeAction: () => {
+      dispatch(authActions.acknowledgeAction());
     }
   };
 };
 
 function DeleteConfirmation(props) {
-  let user = this.props.user.login;
-  if (!user.hasConfirmed) {
+  if (!props.auth.hasConfirmedDeletion) {
     return (
       <LanguageContext.Consumer>
         {({ home }) => (
@@ -25,13 +30,13 @@ function DeleteConfirmation(props) {
             <h3 className="logoutText">{home.confirm_deletion}</h3>
             <div className="deleteButtons">
               <button
-                onClick={props.logoutAndDelete}
+                onClick={props.confirmDeletion}
                 className="acknowledgeLogout confirm"
               >
                 {home.confirm}
               </button>
               <button
-                onClick={props.continue}
+                onClick={props.abortDeletion}
                 className="acknowledgeLogout abort"
               >
                 {home.back}
@@ -41,14 +46,17 @@ function DeleteConfirmation(props) {
         )}
       </LanguageContext.Consumer>
     );
-  } else if (user.hasConfirmed) {
-    if (user.hasProcedureSuceeded) {
+  } else {
+    if (props.auth.hasProcedureSucceeded) {
       return (
         <LanguageContext.Consumer>
           {({ home }) => (
             <div className="logoutInfo">
               <h3 className="logoutText">{home.delete_success}</h3>
-              <button onClick={props.continue} className="acknowledgeLogout ok">
+              <button
+                onClick={props.acknowledgeAction}
+                className="acknowledgeLogout ok"
+              >
                 OK
               </button>
             </div>
