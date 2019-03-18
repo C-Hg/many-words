@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
-import getUserStats from "../controllers/progress_tracking/getUserStats.function";
 import { connect } from "react-redux";
 
 import "../styles/Theme.scss";
@@ -23,83 +22,61 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
+// const mapDispatchToProps = dispatch => {
+//   return {};
+// };
 
 class Theme extends React.Component {
-  constructor(props) {
-    super(props);
-    this.fetchUserStats = this.fetchUserStats.bind(this);
-    this.state = {
-      lessonsStats: "",
-      areStatsChecked: false
-    };
-  }
-
-  async fetchUserStats(user) {
-    if (user.areStatsValid) {
-      this.setState({
-        lessonsStats: user.stats.lessonsStats[this.props.theme],
-        areStatsChecked: true
-      });
-    } else {
-      let userStats = await getUserStats(this.props.theme);
-      this.setState({
-        lessonsStats: userStats.lessonsStats[this.props.theme],
-        areStatsChecked: true
-      });
-      user.updateUserStats(userStats);
-    }
-  }
-
-  componentDidMount() {
-    let user = this.context;
-    if (user.isAuthenticated) {
-      this.fetchUserStats(user);
-    }
-  }
-
   render() {
     /* ----------------       preparing data    -------------- */
-    let user = this.props.user;
-    let theme = this.props.theme;
+    const user = this.props.user;
+    const theme = this.props.theme;
+    let lessonsStats = null;
     let lessonsData = FR_EN_Lessons[theme];
-    let progressColor = "";
+    let weak_words_launchable = false;
+    let lessons = "";
+    if (user.stats.lessonsStats && user.stats.lessonsStats[theme]) {
+      lessonsStats = user.stats.lessonsStats[theme];
+    }
 
-    //map for each lesson of the theme
-    const lessons = lessonsData.map(val => {
-      let progress = this.state.lessonsStats
-        ? this.state.lessonsStats[val[0]]
-        : null;
-      if (progress >= 0.8) {
-        progressColor = "gold";
-      } else if (progress >= 0.4) {
-        progressColor = "green";
-      } else progressColor = "blue";
+    if (user.isAuthenticated) {
+      //map for each lesson of the theme
+      lessons = lessonsData.map(val => {
+        if (lessonsStats) {
+          weak_words_launchable = true;
+        }
+        let progressColor = "";
+        let progress = lessonsStats ? lessonsStats[val[0]] : null;
+        if (progress >= 0.8) {
+          progressColor = "gold";
+        } else if (progress >= 0.4) {
+          progressColor = "green";
+        } else progressColor = "blue";
 
-      return (
-        <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
-          <LessonTitle lesson={val[0]} theme={theme} />
-          <ProgressCircle progress={progress} progressColor={progressColor} />
-          <ProgressPercentage
-            progress={progress}
-            progressColor={progressColor}
-          />
-          <GoldStar progress={progress} />
-          <div className="themeButtons">
-            <StartTestButton {...this.props} lesson={val[0]} />
-            <LearnWordsButton {...this.props} lesson={val[0]} />
+        return (
+          <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
+            <LessonTitle lesson={val[0]} theme={theme} />
+            <ProgressCircle progress={progress} progressColor={progressColor} />
+            <ProgressPercentage
+              progress={progress}
+              progressColor={progressColor}
+            />
+            <GoldStar progress={progress} />
+            <div className="themeButtons">
+              <StartTestButton {...this.props} lesson={val[0]} />
+              <LearnWordsButton {...this.props} lesson={val[0]} />
+            </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
+    }
 
     /* -----------------    rendering component     -----------------  */
+    console.log(this.props.theme);
     if (user.isAuthenticated && user.activity === "weak_words") {
       return <Redirect to="/weak_words" />;
     }
-    if (this.state.areStatsChecked || !user.isAuthenticated) {
+    if (lessons || !user.isAuthenticated) {
       return (
         <div className="main-container greyBackground">
           <ScrollToTopOnMount />
@@ -109,7 +86,7 @@ class Theme extends React.Component {
             </Link>
             <ThemePageTitle theme={theme} />
           </div>
-          {user.isAuthenticated && this.state.lessonsStats && (
+          {user.isAuthenticated && weak_words_launchable && (
             <WeakWords
               context="theme"
               reference={this.props.theme}
@@ -125,5 +102,5 @@ class Theme extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Theme);

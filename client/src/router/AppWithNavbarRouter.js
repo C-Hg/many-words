@@ -7,47 +7,26 @@ import Theme from "../pages/Theme.page";
 import Navbar from "../components/navbar/Navbar.component";
 import Learning from "../pages/Learning.page";
 
-class AppWithNavbar extends React.Component {
+class AppWithNavbarRouter extends React.Component {
   render() {
     return (
       <div className="app app-with-navbar-full-screen">
         <Navbar />
         <div className="main-container whiteBackground">
           <Switch>
+            <Route exact path={`/about`} component={About} />
+            <Route exact path={`/home`} component={Home} />
+            <Route exact path={`/curriculum`} component={Curriculum} />
             <Route
               exact
-              path={`${this.props.match.path}about`}
-              component={About}
-            />
-            <Route
-              exact
-              path={`${this.props.match.path}home`}
-              component={Home}
-            />
-            <Route
-              exact
-              path={`${this.props.match.path}curriculum`}
+              path={`/:themeId`}
               render={props => (
-                <Curriculum
-                  startWeakWords={this.props.startWeakWords}
-                  {...props}
-                />
+                <Theme theme={props.match.params.themeId} {...props} />
               )}
             />
             <Route
               exact
-              path={`${this.props.match.path}:themeId`}
-              render={props => (
-                <Theme
-                  theme={props.match.params.themeId}
-                  startWeakWords={this.props.startWeakWords}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              exact
-              path={`${this.props.match.path}:themeId/:lessonId/learn`}
+              path={`/:themeId/:lessonId/learn`}
               render={props => (
                 <Learning
                   lesson={props.match.params.lessonId}
@@ -63,4 +42,4 @@ class AppWithNavbar extends React.Component {
   }
 }
 
-export default AppWithNavbar;
+export default AppWithNavbarRouter;

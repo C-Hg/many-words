@@ -2,12 +2,9 @@ import { put, call, takeEvery } from "redux-saga/effects";
 import fetch from "../../services/fetch";
 import { types } from "../reducers/auth";
 
-//login or restore session to keep one single consistent login flow ?
-
 function* socialLogin({ provider, token }) {
   try {
     const user = yield call(fetch.socialLogin, provider, token);
-    console.log(user, user.lessonsStats);
     const stats = {
       globalProgress: user.globalProgress,
       lessonsStats: user.lessonsStats,
@@ -22,7 +19,6 @@ function* socialLogin({ provider, token }) {
 function* logout() {
   try {
     const response = yield call(fetch.getTextResponse, `/auth/logout`);
-    console.log(response);
     if (response === "user logged out") {
       yield put({ type: "LOGOUT_SUCCESS" });
     } else {

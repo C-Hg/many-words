@@ -13,19 +13,25 @@ function LessonProgress(props) {
               <i alt="seen" className="material-icons md-48 seenIcon">
                 search
               </i>
-              <div className="userStat">{props.lessonStats.studiedLessons}</div>
+              <div className="userStat">
+                {props.lessonStats.studiedLessons || 0}
+              </div>
             </div>
             <div className="iconAndStat">
               <i alt="green" className="material-icons md-48 greenIcon">
                 check_circle_outline
               </i>
-              <div className="userStat">{props.lessonStats.greenLessons}</div>
+              <div className="userStat">
+                {props.lessonStats.greenLessons || 0}
+              </div>
             </div>
             <div className="iconAndStat">
               <i alt="gold" className="material-icons md-48 goldIcon">
                 grade
               </i>
-              <div className="userStat">{props.lessonStats.goldLessons}</div>
+              <div className="userStat">
+                {props.lessonStats.goldLessons || 0}
+              </div>
             </div>
           </div>
         </div>

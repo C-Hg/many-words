@@ -2,16 +2,17 @@ import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
 import ProgressBar from "./ProgressBar.component";
 import WordProgress from "./WordProgress.component";
-import { calculateLessonsStats } from "../../../controllers/progress_tracking/calculateLessonsStats.function";
 import LessonProgress from "./LessonProgress.component";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
 
 function GlobalProgress(props) {
   let progress = props.stats.globalProgress.globalPercentage;
   let wordStats = props.stats.globalProgress;
-  let lessonStats = calculateLessonsStats(
-    props.stats.lessonsStats,
-    props.stats.themesStats
-  );
+  let lessonStats = props.user.stats.lessonsStats;
 
   return (
     <LanguageContext.Consumer>
@@ -31,4 +32,7 @@ function GlobalProgress(props) {
   );
 }
 
-export default GlobalProgress;
+export default connect(
+  mapStateToProps,
+  null
+)(GlobalProgress);

@@ -1,10 +1,14 @@
 import React from "react";
 import { LanguageContext } from "../../contexts/language-context";
-import { UserContext } from "../../contexts/user-context";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
 
 class ExitLinks extends React.Component {
   render() {
-    let user = this.context;
+    let user = this.props.user;
     return (
       <LanguageContext.Consumer>
         {({ navigation }) => (
@@ -24,6 +28,7 @@ class ExitLinks extends React.Component {
   }
 }
 
-export default ExitLinks;
-
-ExitLinks.contextType = UserContext;
+export default connect(
+  mapStateToProps,
+  null
+)(ExitLinks);

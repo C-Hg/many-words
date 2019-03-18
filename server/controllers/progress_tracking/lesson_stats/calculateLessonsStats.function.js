@@ -1,5 +1,6 @@
-exports.calculateLessonsStats = function(lessonsStats, themesStats) {
-  //doing this in the browser to alleviate server workload
+module.exports = function calculateLessonsStats(user) {
+  let lessonsStats = user.lessonsStats;
+  let themesStats = user.themesStats;
   let studiedLessons = 0;
   let greenLessons = 0;
   let goldLessons = 0;
@@ -12,9 +13,8 @@ exports.calculateLessonsStats = function(lessonsStats, themesStats) {
     goldLessons += themesStats[theme].gold;
   }
 
-  return {
-    studiedLessons: studiedLessons,
-    greenLessons: greenLessons,
-    goldLessons: goldLessons
-  };
+  user.lessonsStats.studiedLessons = studiedLessons;
+  user.lessonsStats.greenLessons = greenLessons;
+  user.lessonsStats.goldLessons = goldLessons;
+  return user;
 };

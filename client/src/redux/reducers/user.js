@@ -9,6 +9,9 @@ const defaultState = {
 const types = {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   LOGOUT_SUCCESS: "LOGOUT_SUCCESS",
+  CHECK_SESSION: "CHECK_SESSION",
+  DEFINE_LANGUAGE: "DEFINE_LANGUAGE",
+  SET_LANGUAGE: "SET_LANGUAGE",
   UPDATE_STATS: "UPDATE_STATS",
   RESET_ACTIVITY: "RESET_ACTIVITY"
 };
@@ -20,7 +23,10 @@ const userReducer = (state = defaultState, action) => {
       return { ...state, isAuthenticated: true, stats };
 
     case types.LOGOUT_SUCCESS:
-      return defaultState;
+      return { ...state, isAuthenticated: false, stats: "" };
+
+    case types.SET_LANGUAGE:
+      return { ...state, language: action.language };
 
     case types.UPDATE_STATS:
       return { ...state, stats };
@@ -44,6 +50,18 @@ const actions = {
   resetActivity: () => {
     return {
       type: types.RESET_ACTIVITY
+    };
+  },
+
+  defineLanguage: () => {
+    return {
+      type: types.DEFINE_LANGUAGE
+    };
+  },
+
+  checkSession: () => {
+    return {
+      type: types.CHECK_SESSION
     };
   }
 };

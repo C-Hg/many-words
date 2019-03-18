@@ -11,8 +11,10 @@ module.exports = async function getUserStats(user) {
     console.log("error while fetching word stats by user");
   }
   if (wordStats) {
-    user.globalProgress = assessGlobalProgress(wordStats);
+    globalProgress = assessGlobalProgress(wordStats);
   }
+  console.log(globalProgress);
+  user.globalProgress = globalProgress;
 
   return user;
 };

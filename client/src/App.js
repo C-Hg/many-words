@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./App.scss";
 import "./styles/common/material_icons.css";
 import "./styles/common/titles.scss";
@@ -10,12 +10,8 @@ import "./styles/common/variables.scss";
 import { actions as userActions } from "./redux/reducers/user";
 import { connect } from "react-redux";
 
-// Contexts
-import { LanguageContext, languages } from "./contexts/language-context";
-
-//functions
-import Exercise from "./pages/Exercise.page";
-import AppWithNavbar from "./layouts/AppWithNavbar.layout";
+import { LanguageContext } from "./contexts/language-context";
+import MainRouter from "./router/MainRouter";
 
 function mapStateToProps(state) {
   return { user: state.user };
@@ -23,8 +19,11 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginSucces: () => {
-      dispatch(userActions.loginSuccess());
+    defineLanguage: () => {
+      dispatch(userActions.defineLanguage());
+    },
+    checkSession: () => {
+      dispatch(userActions.checkSession());
     }
   };
 };
@@ -34,7 +33,6 @@ class App extends Component {
     super(props);
     // this.startWeakWords = this.startWeakWords.bind(this);
     this.state = {
-      main_language: languages.French,
       isSessionChecked: false
     };
   }
@@ -47,23 +45,13 @@ class App extends Component {
   // }
 
   // automatic language and session detection on first page rendering
-  // otherwise triggered by login/logout actions
   async componentDidMount() {
     if (!this.state.isSessionChecked) {
-      // ++++++++++++++++++++        write new session checking algo         ++++++++++++++++++++++++
-
-      // let userData = await getUserDetails();
-      // if (userData !== "no active session") {
-      //   this.props.loginSucces(userData);
-      // }
+      this.props.checkSession();
+      this.props.defineLanguage();
       this.setState({
         isSessionChecked: true
       });
-      if (!/fr/i.test(window.navigator.language)) {
-        this.setState({
-          main_language: languages.English
-        });
-      }
     }
   }
 
@@ -74,23 +62,8 @@ class App extends Component {
       return null;
     } else
       return (
-        <LanguageContext.Provider value={this.state.main_language}>
-          <Switch>
-            <Route exact path="/" render={() => <Redirect to="/home" />} />
-            <Route exact path="/weak_words" component={Exercise} />
-            <Route exact path="/:themeId/:lessonId/test" component={Exercise} />
-            <Route
-              path={"/"}
-              render={props => (
-                <AppWithNavbar
-                  startWeakWords={this.startWeakWords}
-                  lesson={props.match.params.lessonId}
-                  theme={props.match.params.themeId}
-                  {...props}
-                />
-              )}
-            />
-          </Switch>
+        <LanguageContext.Provider value={this.props.user.language}>
+          <MainRouter />
         </LanguageContext.Provider>
       );
   }

@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
 import "../styles/Curriculum.scss";
 
-import { actions as userActions } from "../redux/reducers/user";
+// import { actions as userActions } from "../redux/reducers/user";
 import { connect } from "react-redux";
 
 import ThemeTitle from "../components/curriculum/ThemeTitle.component";
@@ -18,25 +18,22 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loginUser: () => {
-      dispatch(userActions.login());
-    },
-    logoutUser: () => {
-      dispatch(userActions.logout());
-    },
-    outdateUserStats: () => {
-      dispatch(userActions.outdateUserStats());
-    }
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//   };
+// };
 
 class Curriculum extends React.Component {
   render() {
     let user = this.props.user;
+    let weak_words_launchable = false;
+
+    if (user.stats.lessonsStats) {
+      weak_words_launchable = true;
+    }
+
     // render cards only after the database call if user is logged in
-    if (!user.stats.hasOwnProperty("globalProgress") && user.isAuthenticated) {
+    if (!user.stats.hasOwnProperty("themesStats") && user.isAuthenticated) {
       return null;
     }
     if (user.isAuthenticated && user.activity === "weak_words") {
@@ -49,8 +46,7 @@ class Curriculum extends React.Component {
       let lessons = val[2];
       let borderColorClass = "";
 
-      // depends on api call
-      if (user.stats.themesStats[val[0]]) {
+      if (user.isAuthenticated && user.stats.themesStats[val[0]]) {
         greenLessons = user.stats.themesStats[val[0]].green;
         goldLessons = user.stats.themesStats[val[0]].gold;
         lessons -= greenLessons;
@@ -93,7 +89,7 @@ class Curriculum extends React.Component {
         {({ curriculum }) => (
           <div className="curriculum greyBackground">
             <h1 className="menuTitle">{curriculum.title}</h1>
-            {user.isAuthenticated && user.stats.lessonsStats && (
+            {weak_words_launchable && (
               <WeakWords
                 context="global"
                 reference={null}
@@ -110,5 +106,5 @@ class Curriculum extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Curriculum);

@@ -2,6 +2,8 @@ const getWordStats = require("./getWordStats.controller");
 const updateWordStats = require("./word_stats/updateWordStats.function");
 const updateLessonStats = require("./updateLessonStats.controller");
 const updateThemesStats = require("./updateThemesStats.controller");
+const updateGlobalProgress = require("./updateGlobalProgress.controller");
+const calculateLessonsStats = require("./lesson_stats/calculateLessonsStats.function");
 const replaceUserStats = require("./user_stats/replaceUserStats.function");
 
 module.exports = async function createOrUpdateWordStats(req, res) {
@@ -18,13 +20,13 @@ module.exports = async function createOrUpdateWordStats(req, res) {
     try {
       wordStats = await getWordStats(word[0], user_id);
     } catch (e) {
-      console.log("error while fetching or creating word stats");
+      console.log("error while fetching or creating word stats", e);
     }
 
     try {
       await updateWordStats(wordStats, word);
     } catch (e) {
-      console.log("error while updating word stats");
+      console.log("error while updating word stats", e);
     }
 
     //gather lessons to update
@@ -39,27 +41,29 @@ module.exports = async function createOrUpdateWordStats(req, res) {
     try {
       user = await updateLessonStats(user, lesson);
     } catch (e) {
-      console.log("error while updating lesson stats");
+      console.log("error while updating lesson stats", e);
     }
   }
 
   try {
     user = await updateThemesStats(user);
   } catch (e) {
-    console.log("error while updating themes stats");
+    console.log("error while updating themes stats", e);
   }
 
   try {
     user = await updateGlobalProgress(user);
   } catch (e) {
-    console.log("error while updating themes stats");
+    console.log("error while updating global stats", e);
   }
+
+  user = calculateLessonsStats(user);
 
   // only one writing operation to the db
   try {
     await replaceUserStats(user);
   } catch (e) {
-    console.log("error while replacing theme stats");
+    console.log("error while replacing user stats", e);
   }
 
   res.send(user);

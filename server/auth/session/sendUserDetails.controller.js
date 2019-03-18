@@ -1,9 +1,15 @@
 module.exports = function sendUserDetails(req, res) {
   if (req.user) {
-    res.send(req.user._id);
+    const stats = {
+      globalProgress: req.user.globalProgress,
+      lessonsStats: req.user.lessonsStats,
+      themesStats: req.user.themesStats
+    };
+    console.log(stats);
+    res.status(200).send(stats);
     return;
   } else {
-    res.send("no active session");
+    res.status(401).send("no active session");
     return;
   }
 };
