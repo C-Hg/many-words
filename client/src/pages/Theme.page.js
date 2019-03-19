@@ -37,14 +37,12 @@ class Theme extends React.Component {
     let lessons = "";
     if (user.stats.lessonsStats && user.stats.lessonsStats[theme]) {
       lessonsStats = user.stats.lessonsStats[theme];
+      weak_words_launchable = true;
     }
 
     if (user.isAuthenticated) {
       //map for each lesson of the theme
       lessons = lessonsData.map(val => {
-        if (lessonsStats) {
-          weak_words_launchable = true;
-        }
         let progressColor = "";
         let progress = lessonsStats ? lessonsStats[val[0]] : null;
         if (progress >= 0.8) {

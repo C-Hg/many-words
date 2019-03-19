@@ -6,13 +6,14 @@ import UserTranslation from "./UserTranslation.component";
 import SubmitOrNextButton from "./SubmitOrNextButton.component";
 import SpecialCharacters from "./SpecialCharacters.component";
 import { LanguageContext } from "../../contexts/language-context";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user, exercise: state.exercise };
+}
 
 class ExerciseContainer extends React.Component {
   render() {
-    //sends the word depending on the selected source language
-    const originWord = this.props.exerciseWords[this.props.wordRank][
-      this.props.exerciseWords[this.props.wordRank].selectedForm[1]
-    ][0];
     const sourceLanguage = this.props.exerciseWords[this.props.wordRank]
       .selectedForm[1];
     let languageClass = "";
@@ -25,15 +26,8 @@ class ExerciseContainer extends React.Component {
     return (
       <div className={"exercise_container " + languageClass}>
         <Instructions sourceLanguage={sourceLanguage} />
-        <OriginWord originWord={originWord} />
-        <UserTranslation
-          userTranslation={this.props.userTranslation}
-          userTranslationChange={this.props.userTranslationChange}
-          checking={this.props.checking}
-          correctAnswer={this.props.correctAnswer}
-          submitUserTranslation={this.props.submitUserTranslation}
-          nextWord={this.props.nextWord}
-        />
+        <OriginWord />
+        <UserTranslation />
         {language.language === "english" && (
           <SpecialCharacters
             sourceLanguage={sourceLanguage}
@@ -43,13 +37,7 @@ class ExerciseContainer extends React.Component {
           />
         )}
 
-        <SubmitOrNextButton
-          submitUserTranslation={this.props.submitUserTranslation}
-          nextWord={this.props.nextWord}
-          checking={this.props.checking}
-          correctAnswer={this.props.correctAnswer}
-          userTranslation={this.props.userTranslation}
-        />
+        <SubmitOrNextButton />
       </div>
     );
   }
@@ -57,4 +45,7 @@ class ExerciseContainer extends React.Component {
 
 ExerciseContainer.contextType = LanguageContext;
 
-export default ExerciseContainer;
+export default connect(
+  mapStateToProps,
+  null
+)(ExerciseContainer);

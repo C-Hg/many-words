@@ -28,10 +28,6 @@ class Curriculum extends React.Component {
     let user = this.props.user;
     let weak_words_launchable = false;
 
-    if (user.stats.lessonsStats) {
-      weak_words_launchable = true;
-    }
-
     // render cards only after the database call if user is logged in
     if (!user.stats.hasOwnProperty("themesStats") && user.isAuthenticated) {
       return null;
@@ -39,6 +35,10 @@ class Curriculum extends React.Component {
     if (user.isAuthenticated && user.activity === "weak_words") {
       return <Redirect to="/weak_words" />;
     }
+    // if (user.stats.globalProgress.studiedLessons) {
+    //   weak_words_launchable = true;
+    // }
+
     // lesson name, words/theme, lessons/theme
     const cards = themes.map(val => {
       let greenLessons = 0;

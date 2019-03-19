@@ -1,9 +1,9 @@
 const getWordStatsByUser = require("./word_stats/getWordStatsByUser.function");
-const assessGlobalProgress = require("./word_stats/assessGlobalProgress.function");
+const assessGlobalProgress = require("./global_progress/assessGlobalProgress.function");
 
 module.exports = async function getUserStats(user) {
-  let wordStats;
-  let globalProgress = null;
+  let wordStats = null;
+  let globalProgress = {};
 
   try {
     wordStats = await getWordStatsByUser(user._id);
@@ -13,7 +13,7 @@ module.exports = async function getUserStats(user) {
   if (wordStats) {
     globalProgress = assessGlobalProgress(wordStats);
   }
-  console.log(globalProgress);
+
   user.globalProgress = globalProgress;
 
   return user;

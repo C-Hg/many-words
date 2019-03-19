@@ -1,4 +1,4 @@
-module.exports = function calculateLessonsStats(user) {
+module.exports = function assessGlobalLessonsStats(user) {
   let lessonsStats = user.lessonsStats;
   let themesStats = user.themesStats;
   let studiedLessons = 0;
@@ -13,8 +13,5 @@ module.exports = function calculateLessonsStats(user) {
     goldLessons += themesStats[theme].gold;
   }
 
-  user.lessonsStats.studiedLessons = studiedLessons;
-  user.lessonsStats.greenLessons = greenLessons;
-  user.lessonsStats.goldLessons = goldLessons;
-  return user;
+  return { studiedLessons, greenLessons, goldLessons };
 };

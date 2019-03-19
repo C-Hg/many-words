@@ -1,7 +1,13 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
 
 function WordProgress(props) {
+  const globalProgress = props.user.stats.globalProgress;
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
@@ -14,20 +20,20 @@ function WordProgress(props) {
                 search
               </i>
               <div className="userStat">
-                {props.wordStats.encounteredWords || 0}
+                {globalProgress.encounteredWords || 0}
               </div>
             </div>
             <div className="iconAndStat">
               <i alt="green" className="material-icons md-48 greenIcon">
                 check_circle_outline
               </i>
-              <div className="userStat">{props.wordStats.greenWords || 0}</div>
+              <div className="userStat">{globalProgress.greenWords || 0}</div>
             </div>
             <div className="iconAndStat">
               <i alt="gold" className="material-icons md-48 goldIcon">
                 grade
               </i>
-              <div className="userStat">{props.wordStats.goldWords || 0}</div>
+              <div className="userStat">{globalProgress.goldWords || 0}</div>
             </div>
           </div>
         </div>
@@ -36,4 +42,7 @@ function WordProgress(props) {
   );
 }
 
-export default WordProgress;
+export default connect(
+  mapStateToProps,
+  null
+)(WordProgress);

@@ -3,7 +3,7 @@ const updateWordStats = require("./word_stats/updateWordStats.function");
 const updateLessonStats = require("./updateLessonStats.controller");
 const updateThemesStats = require("./updateThemesStats.controller");
 const updateGlobalProgress = require("./updateGlobalProgress.controller");
-const calculateLessonsStats = require("./lesson_stats/calculateLessonsStats.function");
+const calculateLessonsStats = require("./global_progress/assessGlobalLessonsStats.function");
 const replaceUserStats = require("./user_stats/replaceUserStats.function");
 
 module.exports = async function createOrUpdateWordStats(req, res) {
@@ -35,7 +35,8 @@ module.exports = async function createOrUpdateWordStats(req, res) {
     }
   }
 
-  // TO BE GATHERED in a controller ??? assess if parallel runs are possible
+  // TO BE GATHERED AND OPTIMIZED in a controller ??? assess if parallel runs are possible
+  // delete useless try/catch
   let user = req.user.toObject();
   for (let lesson of lessons) {
     try {
@@ -56,8 +57,6 @@ module.exports = async function createOrUpdateWordStats(req, res) {
   } catch (e) {
     console.log("error while updating global stats", e);
   }
-
-  user = calculateLessonsStats(user);
 
   // only one writing operation to the db
   try {

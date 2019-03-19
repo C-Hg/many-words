@@ -1,4 +1,4 @@
-module.exports = function assessGlobalScore(wordStats) {
+module.exports = function assessGlobalWordsStats(wordStats) {
   let greenWords = 0;
   let goldWords = 0;
   const encounteredWords = wordStats.length;
@@ -18,9 +18,9 @@ module.exports = function assessGlobalScore(wordStats) {
     return acc + val.global_score;
   }, 0);
   return {
-    greenWords: greenWords,
-    goldWords: goldWords,
-    globalScore: globalScore,
-    encounteredWords: encounteredWords
+    encounteredWords,
+    greenWords,
+    goldWords,
+    globalScore
   };
 };

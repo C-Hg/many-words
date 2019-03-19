@@ -1,7 +1,13 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
 
 function LessonProgress(props) {
+  const globalProgress = props.user.stats.globalProgress;
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
@@ -14,24 +20,20 @@ function LessonProgress(props) {
                 search
               </i>
               <div className="userStat">
-                {props.lessonStats.studiedLessons || 0}
+                {globalProgress.studiedLessons || 0}
               </div>
             </div>
             <div className="iconAndStat">
               <i alt="green" className="material-icons md-48 greenIcon">
                 check_circle_outline
               </i>
-              <div className="userStat">
-                {props.lessonStats.greenLessons || 0}
-              </div>
+              <div className="userStat">{globalProgress.greenLessons || 0}</div>
             </div>
             <div className="iconAndStat">
               <i alt="gold" className="material-icons md-48 goldIcon">
                 grade
               </i>
-              <div className="userStat">
-                {props.lessonStats.goldLessons || 0}
-              </div>
+              <div className="userStat">{globalProgress.goldLessons || 0}</div>
             </div>
           </div>
         </div>
@@ -40,4 +42,7 @@ function LessonProgress(props) {
   );
 }
 
-export default LessonProgress;
+export default connect(
+  mapStateToProps,
+  null
+)(LessonProgress);

@@ -1,4 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
 
 class ProgressBar extends React.Component {
   constructor(props) {
@@ -24,7 +29,7 @@ class ProgressBar extends React.Component {
   }
 
   render() {
-    let progress = this.props.progress; //from 0 to 1 or falsy
+    let progress = this.props.user.stats.globalProgress.globalPercentage; //from 0 to 1 or falsy
     let strokeDashoffset = 300;
 
     if (progress && this.state.progressBar) {
@@ -60,4 +65,7 @@ class ProgressBar extends React.Component {
   }
 }
 
-export default ProgressBar;
+export default connect(
+  mapStateToProps,
+  null
+)(ProgressBar);

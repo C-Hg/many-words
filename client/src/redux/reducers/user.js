@@ -1,9 +1,7 @@
 const defaultState = {
   isAuthenticated: false,
   language: "",
-  stats: "",
-  activity: "",
-  weakWordsDetails: ""
+  stats: ""
 };
 
 const types = {

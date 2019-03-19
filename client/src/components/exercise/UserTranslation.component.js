@@ -1,11 +1,40 @@
 import React from "react";
+import { connect } from "react-redux";
+import { actions as exerciseActions } from "../../redux/reducers/exercise";
+
+function mapStateToProps(state) {
+  return { exercise: state.exercise };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    submitUserTranslation: () => {
+      dispatch(exerciseActions.submitUserTranslation());
+    },
+    updateUserTranslation: value => {
+      dispatch(exerciseActions.updateUserTranslation(value));
+    },
+    nextWord: () => {
+      dispatch(exerciseActions.nextWord());
+    }
+  };
+};
 
 class UserTranslation extends React.Component {
   constructor(props) {
     super(props);
     this.translationInput = React.createRef();
+    this.userTranslationChange = this.userTranslationChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
+  }
+
+  userTranslationChange(event) {
+    // special characters are not allowed for security reasons
+    const specialCharacters = /[.?/\\_+,;:!*()[\]{}~&%$]+/i;
+    let isCharacterAllowed = !specialCharacters.test(event.target.value);
+    if (isCharacterAllowed)
+      this.props.updateUserTranslation(event.target.value);
   }
 
   handleKeyPress(event) {
@@ -16,7 +45,7 @@ class UserTranslation extends React.Component {
   }
 
   handleEnter() {
-    if (this.props.checking === false) {
+    if (this.props.exercise.checking === false) {
       this.props.submitUserTranslation();
     } else {
       this.props.nextWord();
@@ -30,7 +59,7 @@ class UserTranslation extends React.Component {
 
   //autofocus on the input field for each new word
   componentDidUpdate() {
-    if (this.props.checking === false) {
+    if (this.props.exercise.checking === false) {
       this.translationInput.current.focus();
     } else {
       this.translationInput.current.blur();
@@ -44,9 +73,9 @@ class UserTranslation extends React.Component {
   render() {
     let inputStatus = "";
     let readOnly = "";
-    if (this.props.checking) {
+    if (this.props.exercise.checking) {
       readOnly = "readonly";
-      if (this.props.correctAnswer) {
+      if (this.props.exercise.correctAnswer) {
         inputStatus = "input-correct";
       } else {
         inputStatus = "input-wrong";
@@ -62,8 +91,8 @@ class UserTranslation extends React.Component {
         autoCapitalize="off"
         spellCheck="false"
         className={"userInput " + inputStatus}
-        value={this.props.userTranslation}
-        onChange={this.props.userTranslationChange}
+        value={this.props.exercise.userTranslation}
+        onChange={this.userTranslationChange}
         ref={this.translationInput}
         readOnly={readOnly}
       />
@@ -71,4 +100,7 @@ class UserTranslation extends React.Component {
   }
 }
 
-export default UserTranslation;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserTranslation);
