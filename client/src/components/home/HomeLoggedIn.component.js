@@ -17,6 +17,7 @@ function mapStateToProps(state) {
 class HomeLoggedIn extends React.Component {
   render() {
     let user = this.props.user;
+    console.log(user);
     if (user.activity === "weak_words") {
       return <Redirect to="/weak_words" />;
     }

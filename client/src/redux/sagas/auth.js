@@ -5,12 +5,7 @@ import { types } from "../reducers/auth";
 function* socialLogin({ provider, token }) {
   try {
     const user = yield call(fetch.socialLogin, provider, token);
-    const stats = {
-      globalProgress: user.globalProgress,
-      lessonsStats: user.lessonsStats,
-      themesStats: user.themesStats
-    };
-    yield put({ type: "LOGIN_SUCCESS", stats });
+    yield put({ type: "LOGIN_SUCCESS", stats: user.stats });
   } catch (error) {
     yield put({ type: "LOGIN_ERROR", error });
   }

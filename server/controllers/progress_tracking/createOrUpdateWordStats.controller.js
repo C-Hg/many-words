@@ -65,5 +65,5 @@ module.exports = async function createOrUpdateWordStats(req, res) {
     console.log("error while replacing user stats", e);
   }
 
-  res.send(user);
+  res.send(user.stats);
 };

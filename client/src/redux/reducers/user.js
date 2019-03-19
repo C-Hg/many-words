@@ -21,7 +21,7 @@ const userReducer = (state = defaultState, action) => {
       return { ...state, isAuthenticated: true, stats };
 
     case types.LOGOUT_SUCCESS:
-      return { ...state, isAuthenticated: false, stats: "" };
+      return defaultState;
 
     case types.SET_LANGUAGE:
       return { ...state, language: action.language };

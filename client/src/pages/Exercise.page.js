@@ -32,12 +32,9 @@ const mapDispatchToProps = dispatch => {
 class Exercise extends React.Component {
   constructor(props) {
     super(props);
-    // this.userTranslationChange = this.userTranslationChange.bind(this);
-    // this.submitUserTranslation = this.submitUserTranslation.bind(this);
     this.toggleSpecialCharacters = this.toggleSpecialCharacters.bind(this);
     this.handleSpecialCharacter = this.handleSpecialCharacter.bind(this);
-    // this.nextWord = this.nextWord.bind(this);
-    this.restart = this.restart.bind(this);
+    this.updateWords = this.updateWords.bind(this);
     this.redirect = this.redirect.bind(this);
     this.state = {
       weak_words_mode: false,
@@ -73,74 +70,6 @@ class Exercise extends React.Component {
     }));
   }
 
-  // submitUserTranslation() {
-  //   let result = checkUserTranslation(
-  //     this.state.userTranslation,
-  //     this.props.exercise.words[this.props.exercise.wordRank]
-  //   );
-  //   this.setState(state => ({
-  //     checking: true,
-  //     correctAnswer: result[0],
-  //     result: [
-  //       ...state.result,
-  //       [
-  //         this.state.exerciseWords[this.state.wordRank].selectedForm[0],
-  //         this.state.exerciseWords[this.state.wordRank].selectedForm[1],
-  //         this.state.exerciseWords[this.state.wordRank].selectedForm[2],
-  //         result[0]
-  //       ]
-  //     ]
-  //   }));
-  //   // if wrong answer, adds word to failedWords for restitution in recap
-  //   if (!result[0]) {
-  //     this.setState(state => ({
-  //       //allows rendering of the expect answer in the footer
-  //       expectedAnswer: result[1],
-  //       //pushes origin word and expected answer for lesson recap at the end of the session
-  //       failedWords: [
-  //         ...state.failedWords,
-  //         [
-  //           this.state.exerciseWords[this.state.wordRank][
-  //             this.state.exerciseWords[this.state.wordRank].selectedForm[1]
-  //           ][0],
-  //           result[1]
-  //         ]
-  //       ]
-  //     }));
-  //   }
-  // }
-
-  /*     ------------------------         transitions          ------------------ */
-
-  // nextWord() {
-  //   let user = this.props.user;
-  //   //goes to recap screen when all the words have been answered, and update stats in db
-  //   if (this.state.wordRank === this.state.exerciseWords.length - 1) {
-  //     if (user.isAuthenticated) {
-  //       updateWordStats(this.state.result);
-  //     }
-  //     this.setState({
-  //       status: "recap",
-  //       checking: false,
-  //       specialCharactersVisible: false
-  //     });
-  //     if (this.state.weak_words_mode) {
-  //       this.setState(state => ({
-  //         weak_words_batches_done: state.weak_words_batches_done + 1
-  //       }));
-  //     }
-  //   } else {
-  //     this.setState(state => ({
-  //       wordRank: state.wordRank + 1,
-  //       userTranslation: "",
-  //       checking: false,
-  //       correctAnswer: false,
-  //       expectedAnswer: "",
-  //       specialCharactersVisible: false
-  //     }));
-  //   }
-  // }
-
   // quit exercise screen
   redirect() {
     let user = this.context;
@@ -153,19 +82,19 @@ class Exercise extends React.Component {
   }
 
   // starts another exercise
-  async restart() {
-    this.setState({
-      status: "exercise",
-      wordRank: 0,
-      userTranslation: "",
-      correctAnswer: false,
-      expectedAnswer: "",
-      activable: false,
-      failedWords: [],
-      result: []
-    });
-    this.getNewWords();
-  }
+  // async restart() {
+  //   this.setState({
+  //     status: "exercise",
+  //     wordRank: 0,
+  //     userTranslation: "",
+  //     correctAnswer: false,
+  //     expectedAnswer: "",
+  //     activable: false,
+  //     failedWords: [],
+  //     result: []
+  //   });
+  //   this.getNewWords();
+  // }
 
   /*     ----------------------        fetching content        ------------------ */
 
@@ -201,32 +130,27 @@ class Exercise extends React.Component {
     }
   }
 
-  // async getWords() {
-  //   try {
-  //     this.setState({
-  //       exerciseWords: await exerciseFetcher(this.props.match.params.lessonId)
-  //     });
-  //   } catch (e) {
-  //     console.log("error while fetching words");
-  //   }
-  // }
+  updateWords() {
+    if (this.props.exercise.weak_words_mode) {
+      this.props.getWeakWords();
+    } else {
+      this.props.getWords(this.props.match.params.lessonId);
+    }
+  }
 
-  // getNewWords() {
-  //   let user = this.context;
-  //   if (user.activity === "weak_words") {
-  //     this.getWeakWords();
-  //   } else {
-  //     this.getWords();
-  //   }
-  // }
-
+  //getting words on first rendering
   componentDidMount() {
     if (!this.props.exercise.words) {
-      if (this.props.exercise.weak_words_mode) {
-        this.props.getWeakWords();
-      } else {
-        this.props.getWords(this.props.match.params.lessonId);
-      }
+      this.updateWords();
+    }
+  }
+
+  /* MIGHT BE ENOUGH ONCE STATE CLEARANCE IS DONE ON REDIRECTION   */
+
+  //getting words when restarting lesson
+  componentDidUpdate() {
+    if (!this.props.exercise.words) {
+      this.updateWords();
     }
   }
 
@@ -270,7 +194,6 @@ class Exercise extends React.Component {
               {this.props.exercise.status === "recap" && (
                 <ExerciseRecap
                   failedWords={this.state.failedWords}
-                  restart={this.restart}
                   redirect={this.redirect}
                   lesson={this.props.match.params.lessonId}
                   theme={this.props.match.params.themeId}

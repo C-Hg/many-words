@@ -26,8 +26,10 @@ const types = {
   NEXT_WORD: "NEXT_WORD",
   PREPARE_NEXT_WORD: "PREPARE_NEXT_WORD",
   PREPARE_RECAP: "PREPARE_RECAP",
+  RESTART_EXERCISE: "RESTART_EXERCISE",
   INCREMENT_BATCHES_DONE: "INCREMENT_BATCHES_DONE",
-  SET_LESSON_WORDS: "SET_LESSON_WORDS"
+  SET_LESSON_WORDS: "SET_LESSON_WORDS",
+  RESET_STATE: "RESET_STATE"
 };
 
 const exerciseReducer = (state = defaultState, action) => {
@@ -56,7 +58,6 @@ const exerciseReducer = (state = defaultState, action) => {
       return {
         ...state,
         expectedAnswer: action.expectedAnswer,
-        //pushes origin word and expected answer for lesson recap at the end of the session
         failedWords: [
           ...state.failedWords,
           [
@@ -86,6 +87,9 @@ const exerciseReducer = (state = defaultState, action) => {
         expectedAnswer: "",
         specialCharactersVisible: false
       };
+
+    case types.RESET_STATE:
+      return defaultState;
 
     case types.INCREMENT_BATCHES_DONE:
       return {
@@ -129,6 +133,12 @@ const actions = {
   nextWord: () => {
     return {
       type: types.NEXT_WORD
+    };
+  },
+
+  restartExercise: () => {
+    return {
+      type: types.RESTART_EXERCISE
     };
   }
 };

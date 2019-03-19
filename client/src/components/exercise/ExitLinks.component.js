@@ -1,10 +1,19 @@
 import React from "react";
 import { LanguageContext } from "../../contexts/language-context";
 import { connect } from "react-redux";
+import { actions as exerciseActions } from "../../redux/reducers/exercise";
 
 function mapStateToProps(state) {
   return { user: state.user };
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    restartExercise: () => {
+      dispatch(exerciseActions.restartExercise());
+    }
+  };
+};
 
 class ExitLinks extends React.Component {
   render() {
@@ -13,7 +22,7 @@ class ExitLinks extends React.Component {
       <LanguageContext.Consumer>
         {({ navigation }) => (
           <div className="links">
-            <button className="exitLink" onClick={this.props.restart}>
+            <button className="exitLink" onClick={this.props.restartExercise}>
               {user.activity === "weak_words"
                 ? navigation.to_continue
                 : navigation.try_again}
@@ -30,5 +39,5 @@ class ExitLinks extends React.Component {
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ExitLinks);

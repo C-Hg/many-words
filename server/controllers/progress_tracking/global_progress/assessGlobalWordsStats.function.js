@@ -17,6 +17,7 @@ module.exports = function assessGlobalWordsStats(wordStats) {
     }
     return acc + val.global_score;
   }, 0);
+  console.log(wordStats);
   return {
     encounteredWords,
     greenWords,

@@ -7,9 +7,15 @@ const userSchema = new Schema(
     name: { type: String, required: false },
     googleId: { type: String, required: false },
     facebookId: { type: String, required: false },
-    lessonsStats: { type: Object, required: true, default: {} },
-    themesStats: { type: Object, required: true, default: {} },
-    globalProgress: { type: Object, required: true, default: {} }
+    stats: {
+      type: Object,
+      required: true,
+      default: {
+        lessonsStats: {},
+        themesStats: {},
+        globalProgress: {}
+      }
+    }
   },
   { minimize: false }
 );

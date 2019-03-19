@@ -2,12 +2,13 @@ const themes = require("../../../exercises/FR-EN/themes");
 const assessGlobalWordsStats = require("./assessGlobalWordsStats.function");
 const assessGlobalLessonsStats = require("./assessGlobalLessonsStats.function");
 
-module.exports = function assessGlobalProgress(wordStats) {
+module.exports = function assessGlobalProgress(wordStats, user) {
   const totalNumberOfWords = themes.reduce((acc, val) => {
     return acc + val[1];
   }, 0);
 
-  const wordsScores = assessGlobalWordStats(wordStats);
+  const wordsScores = assessGlobalWordsStats(wordStats);
+  console.log(wordsScores);
   const lessonsScores = assessGlobalLessonsStats(user);
   const globalPercentage = Number(
     wordsScores.globalScore / (totalNumberOfWords * 5)

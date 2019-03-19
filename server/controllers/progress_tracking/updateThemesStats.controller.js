@@ -9,22 +9,22 @@ module.exports = async function updateThemesStats(user) {
     for (let lesson of FR_EN_Lessons[theme]) {
       // has user already a score for this lesson?
       if (
-        user.lessonsStats[theme] &&
-        user.lessonsStats[theme].hasOwnProperty(lesson[0])
+        user.stats.lessonsStats[theme] &&
+        user.stats.lessonsStats[theme].hasOwnProperty(lesson[0])
       ) {
-        if (user.lessonsStats[theme][lesson[0]] >= 0.8) {
+        if (user.stats.lessonsStats[theme][lesson[0]] >= 0.8) {
           gold++;
-        } else if (user.lessonsStats[theme][lesson[0]] >= 0.4) {
+        } else if (user.stats.lessonsStats[theme][lesson[0]] >= 0.4) {
           green++;
         }
       }
     }
 
-    if (!user.themesStats[theme]) {
-      user.themesStats[theme] = {};
+    if (!user.stats.themesStats[theme]) {
+      user.stats.themesStats[theme] = {};
     }
-    user.themesStats[theme].gold = gold;
-    user.themesStats[theme].green = green;
+    user.stats.themesStats[theme].gold = gold;
+    user.stats.themesStats[theme].green = green;
   }
 
   return user;

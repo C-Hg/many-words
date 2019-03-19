@@ -18,10 +18,10 @@ module.exports = async function updateLessonStats(user, lesson) {
   newScore = assessLessonStats(wordStats, wordCountByLesson[lesson]);
 
   // creates theme entry if necessary
-  if (!user.lessonsStats[theme]) {
-    user.lessonsStats[theme] = {};
+  if (!user.stats.lessonsStats[theme]) {
+    user.stats.lessonsStats[theme] = {};
   }
-  user.lessonsStats[theme][lesson] = newScore;
+  user.stats.lessonsStats[theme][lesson] = newScore;
 
   return user;
 };

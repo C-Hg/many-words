@@ -13,7 +13,6 @@ class ExerciseRecap extends React.Component {
           <WordsToRemember failedWords={this.props.failedWords} />
         )}
         <ExitLinks
-          restart={this.props.restart}
           lesson={this.props.lesson}
           theme={this.props.theme}
           redirect={this.props.redirect}

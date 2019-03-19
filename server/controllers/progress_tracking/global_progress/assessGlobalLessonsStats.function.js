@@ -1,6 +1,6 @@
 module.exports = function assessGlobalLessonsStats(user) {
-  let lessonsStats = user.lessonsStats;
-  let themesStats = user.themesStats;
+  let lessonsStats = user.stats.lessonsStats;
+  let themesStats = user.stats.themesStats;
   let studiedLessons = 0;
   let greenLessons = 0;
   let goldLessons = 0;

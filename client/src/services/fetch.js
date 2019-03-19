@@ -21,6 +21,18 @@ const services = {
   async getTextResponse(url) {
     const result = await fetch(url);
     return await result.text();
+  },
+
+  async postJSONResponse(url, data) {
+    const options = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: data
+    };
+    const result = await fetch(url, options);
+    return await result.json();
   }
 };
 

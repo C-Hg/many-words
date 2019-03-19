@@ -5,12 +5,7 @@ import fetch from "../../services/fetch";
 
 function* checkSession() {
   try {
-    const user = yield call(fetch.getJSONResponse, "/auth/session");
-    const stats = {
-      globalProgress: user.globalProgress,
-      lessonsStats: user.lessonsStats,
-      themesStats: user.themesStats
-    };
+    const stats = yield call(fetch.getJSONResponse, "/auth/session");
     yield put({ type: "LOGIN_SUCCESS", stats });
   } catch (error) {}
 }
