@@ -1,41 +1,70 @@
 const defaultState = {
-  weak_words_mode: false,
-  weak_words_batches_done: 0,
-  weakWordsContext: "",
+  weakWordsMode: false,
+  weakWordsBatches: [],
+  weakWordsBatchesDone: 0,
+  weakWordsContext: null,
+  weakWordsReference: null,
   status: "exercise",
-  words: "",
+  words: null,
   wordRank: 0,
   userTranslation: "",
   expectedAnswer: "",
   checking: false,
   correctAnswer: false,
   activable: false,
-  redirect: false,
   specialCharactersVisible: false,
   failedWords: [],
-  result: []
+  result: [],
+  redirect: true,
+  redirectionTarget: ""
 };
 
 const types = {
+  BEGIN_EXERCISE: "BEGIN_EXERCISE",
   GET_WORDS: "GET_WORDS",
   GET_WEAK_WORDS: "GET_WEAK_WORDS",
   UPDATE_USER_TRANSLATION: "UPDATE_USER_TRANSLATION",
   SUBMIT_USER_TRANSLATION: "SUBMIT_USER_TRANSLATION",
+  TOGGLE_SPECIAL_CHARACTERS: "TOGGLE_SPECIAL_CHARACTERS",
   UPDATE_RESULT: "UPDATE_RESULT",
   UPDATE_FAILED_WORDS: "UPDATE_FAILED_WORDS",
   NEXT_WORD: "NEXT_WORD",
   PREPARE_NEXT_WORD: "PREPARE_NEXT_WORD",
   PREPARE_RECAP: "PREPARE_RECAP",
   RESTART_EXERCISE: "RESTART_EXERCISE",
-  INCREMENT_BATCHES_DONE: "INCREMENT_BATCHES_DONE",
+  CONTINUE_WEAK_WORDS: "CONTINUE_WEAK_WORDS",
+  NEXT_BATCH: "NEXT_BATCH",
   SET_LESSON_WORDS: "SET_LESSON_WORDS",
-  RESET_STATE: "RESET_STATE"
+  SET_WEAK_WORDS: "SET_WEAK_WORDS",
+  RESET_STATE: "RESET_STATE",
+  QUIT_EXERCISE: "QUIT_EXERCISE"
 };
 
 const exerciseReducer = (state = defaultState, action) => {
   switch (action.type) {
     case types.SET_LESSON_WORDS:
-      return { ...state, words: action.lessonWords };
+      return {
+        ...state,
+        words: action.lessonWords,
+        redirectionTarget: `/${action.theme}`
+      };
+
+    case types.SET_WEAK_WORDS:
+      return {
+        ...state,
+        weakWordsBatches: action.weakWordsBatches,
+        weakWordsMode: true,
+        weakWordsContext: action.context,
+        weakWordsReference: action.reference,
+        words: action.weakWordsBatches[0],
+        redirectionTarget: action.redirectionTarget
+      };
+
+    case types.BEGIN_EXERCISE:
+      return { ...defaultState, redirect: false };
+
+    case types.TOGGLE_SPECIAL_CHARACTERS:
+      return { ...state, specialCharactersVisible: true };
 
     case types.UPDATE_USER_TRANSLATION:
       return { ...state, userTranslation: action.userTranslation };
@@ -91,11 +120,21 @@ const exerciseReducer = (state = defaultState, action) => {
     case types.RESET_STATE:
       return defaultState;
 
-    case types.INCREMENT_BATCHES_DONE:
+    case types.NEXT_BATCH:
       return {
-        ...state,
-        weak_words_batches_done: state.weak_words_batches_done + 1
+        ...defaultState,
+        redirect: false,
+        weakWordsMode: true,
+        weakWordsBatches: state.weakWordsBatches,
+        weakWordsBatchesDone: state.weakWordsBatchesDone + 1,
+        weakWordsContext: state.context,
+        weakWordsReference: state.reference,
+        words: state.weakWordsBatches[action.nextBatch],
+        redirectionTarget: state.redirectionTarget
       };
+
+    case types.QUIT_EXERCISE:
+      return { ...defaultState, redirectionTarget: state.redirectionTarget };
 
     default:
       return state;
@@ -103,10 +142,31 @@ const exerciseReducer = (state = defaultState, action) => {
 };
 
 const actions = {
-  getWords: lesson => {
+  getWords: (lesson, theme) => {
     return {
       type: types.GET_WORDS,
-      lesson
+      lesson,
+      theme
+    };
+  },
+
+  getWeakWords: (context, reference) => {
+    return {
+      type: types.GET_WEAK_WORDS,
+      context,
+      reference
+    };
+  },
+
+  continueWeakWords: () => {
+    return {
+      type: types.CONTINUE_WEAK_WORDS
+    };
+  },
+
+  toggleSpecialCharacters: () => {
+    return {
+      type: types.TOGGLE_SPECIAL_CHARACTERS
     };
   },
 
@@ -123,22 +183,21 @@ const actions = {
     };
   },
 
-  getWeakWords: lesson => {
-    return {
-      type: types.GET_WEAK_WORDS,
-      lesson
-    };
-  },
-
   nextWord: () => {
     return {
       type: types.NEXT_WORD
     };
   },
 
-  restartExercise: () => {
+  resetState: () => {
     return {
-      type: types.RESTART_EXERCISE
+      type: types.RESET_STATE
+    };
+  },
+
+  quitExercise: () => {
+    return {
+      type: types.QUIT_EXERCISE
     };
   }
 };

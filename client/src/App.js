@@ -31,18 +31,10 @@ const mapDispatchToProps = dispatch => {
 class App extends Component {
   constructor(props) {
     super(props);
-    // this.startWeakWords = this.startWeakWords.bind(this);
     this.state = {
       isSessionChecked: false
     };
   }
-
-  // startWeakWords(event) {
-  //   let context = event.target.getAttribute("context");
-  //   let reference = event.target.getAttribute("reference");
-  //   user.startWeakWords(context, reference);
-  //   this.forceUpdate(); // forces rerendering and redirecting from curriculum to exercise after user context is updated!
-  // }
 
   // automatic language and session detection on first page rendering
   async componentDidMount() {
@@ -57,12 +49,12 @@ class App extends Component {
 
   render() {
     // TO DO : waiting screen or animation ?
-    // allows the user context to load before rendering children components, critical when loading other page than home first
+    // allows the language context to load before rendering children components, critical when loading other page than home first
     if (!this.state.isSessionChecked) {
       return null;
     } else
       return (
-        <LanguageContext.Provider value={this.props.user.language}>
+        <LanguageContext.Provider value={this.props.user.languageContext}>
           <MainRouter />
         </LanguageContext.Provider>
       );

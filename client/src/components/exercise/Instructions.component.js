@@ -1,9 +1,15 @@
 import React from "react";
 import { LanguageContext } from "../../contexts/language-context";
+import { connect } from "react-redux";
 
-const Instructions = function(props) {
+function mapStateToProps(state) {
+  return { exercise: state.exercise };
+}
+
+function Instructions(props) {
   let sourceLanguageIsFr = true;
-  if (props.sourceLanguage === "en") {
+  const exercise = props.exercise;
+  if (exercise.words[exercise.wordRank].selectedForm[1] === "en") {
     sourceLanguageIsFr = false;
   }
   return (
@@ -15,6 +21,9 @@ const Instructions = function(props) {
       )}
     </LanguageContext.Consumer>
   );
-};
+}
 
-export default Instructions;
+export default connect(
+  mapStateToProps,
+  null
+)(Instructions);

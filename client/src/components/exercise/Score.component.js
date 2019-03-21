@@ -1,8 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { exercise: state.exercise };
+}
 
 function Score(props) {
-  let totalWords = props.wordRank + 1;
-  let correctAnswers = props.wordRank + 1 - props.failedWords.length;
+  const exercise = props.exercise;
+  const totalWords = exercise.wordRank + 1;
+  const correctAnswers = exercise.wordRank + 1 - exercise.failedWords.length;
   return (
     <div className="score">
       {correctAnswers} / {totalWords}
@@ -10,4 +16,7 @@ function Score(props) {
   );
 }
 
-export default Score;
+export default connect(
+  mapStateToProps,
+  null
+)(Score);

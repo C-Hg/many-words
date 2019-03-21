@@ -12,9 +12,17 @@ function* checkSession() {
 
 function* defineLanguage() {
   if (!/fr/i.test(window.navigator.language)) {
-    yield put({ type: "SET_LANGUAGE", language: languages.English });
+    yield put({
+      type: "SET_LANGUAGE",
+      languageContext: languages.English,
+      language: "en"
+    });
   } else {
-    yield put({ type: "SET_LANGUAGE", language: languages.French });
+    yield put({
+      type: "SET_LANGUAGE",
+      languageContext: languages.French,
+      language: "fr"
+    });
   }
 }
 

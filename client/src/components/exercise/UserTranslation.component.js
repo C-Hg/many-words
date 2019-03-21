@@ -25,7 +25,6 @@ class UserTranslation extends React.Component {
     super(props);
     this.translationInput = React.createRef();
     this.userTranslationChange = this.userTranslationChange.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
   }
 
@@ -37,23 +36,19 @@ class UserTranslation extends React.Component {
       this.props.updateUserTranslation(event.target.value);
   }
 
-  handleKeyPress(event) {
+  handleEnter(event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      this.handleEnter();
-    }
-  }
-
-  handleEnter() {
-    if (this.props.exercise.checking === false) {
-      this.props.submitUserTranslation();
-    } else {
-      this.props.nextWord();
+      if (this.props.exercise.checking) {
+        this.props.nextWord();
+      } else {
+        this.props.submitUserTranslation();
+      }
     }
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPress);
+    document.addEventListener("keydown", this.handleEnter);
     this.translationInput.current.focus();
   }
 
@@ -67,7 +62,7 @@ class UserTranslation extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyPress);
+    document.removeEventListener("keydown", this.handleEnter);
   }
 
   render() {

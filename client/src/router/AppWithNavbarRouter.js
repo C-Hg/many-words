@@ -17,13 +17,7 @@ class AppWithNavbarRouter extends React.Component {
             <Route exact path={`/about`} component={About} />
             <Route exact path={`/home`} component={Home} />
             <Route exact path={`/curriculum`} component={Curriculum} />
-            <Route
-              exact
-              path={`/:themeId`}
-              render={props => (
-                <Theme theme={props.match.params.themeId} {...props} />
-              )}
-            />
+            <Route exact path={`/:themeId`} component={Theme} />
             <Route
               exact
               path={`/:themeId/:lessonId/learn`}

@@ -1,7 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const WordsToRemember = function(props) {
-  let words = props.failedWords.map(val => {
+function mapStateToProps(state) {
+  return { exercise: state.exercise };
+}
+
+function WordsToRemember(props) {
+  const words = props.exercise.failedWords.map(val => {
     return (
       <div key={`${val[0]}`}>
         {val[0]} : {val[1]}
@@ -9,6 +14,9 @@ const WordsToRemember = function(props) {
     );
   });
   return <div className="missedWords">{words}</div>;
-};
+}
 
-export default WordsToRemember;
+export default connect(
+  mapStateToProps,
+  null
+)(WordsToRemember);

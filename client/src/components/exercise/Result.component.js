@@ -1,9 +1,16 @@
 import React from "react";
 import { LanguageContext } from "../../contexts/language-context";
+import { connect } from "react-redux";
 
-const Result = function(props) {
-  if (props.checking) {
-    if (props.correctAnswer) {
+function mapStateToProps(state) {
+  return { exercise: state.exercise };
+}
+
+function Result(props) {
+  const exercise = props.exercise;
+
+  if (exercise.checking) {
+    if (exercise.correctAnswer) {
       let randomResponse = Math.floor(Math.random() * 17);
       return (
         <LanguageContext.Consumer>
@@ -15,11 +22,14 @@ const Result = function(props) {
     } else {
       return (
         <div className="result">
-          <div className="expectedAnswer">{props.expectedAnswer}</div>
+          <div className="expectedAnswer">{exercise.expectedAnswer}</div>
         </div>
       );
     }
   } else return null;
-};
+}
 
-export default Result;
+export default connect(
+  mapStateToProps,
+  null
+)(Result);

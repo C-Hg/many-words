@@ -1,8 +1,13 @@
 import React from "react";
 import { LanguageContext } from "../../contexts/language-context";
+import { connect } from "react-redux";
 
-const LessonResult = function(props) {
-  let errors = props.failedWords.length;
+function mapStateToProps(state) {
+  return { exercise: state.exercise };
+}
+
+function LessonResult(props) {
+  const errors = props.exercise.failedWords.length;
   if (!errors) {
     return (
       <LanguageContext.Consumer>
@@ -30,6 +35,9 @@ const LessonResult = function(props) {
       </LanguageContext.Consumer>
     );
   }
-};
+}
 
-export default LessonResult;
+export default connect(
+  mapStateToProps,
+  null
+)(LessonResult);

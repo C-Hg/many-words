@@ -186,7 +186,7 @@
     width: 190px;
   }
   100% {
-    width: 420px;
+    width: 440px;
   }
 }
 
@@ -195,7 +195,7 @@
     width: 190px;
   }
   100% {
-    width: 350px;
+    width: 355px;
   }
 }
 
@@ -244,10 +244,10 @@
   }
   @media (min-width: $break-mid-horizontal) {
     font-size: $p-large;
-    width: 28px;
-    height: 28px;
+    width: 29px;
+    height: 29px;
   }
-  @media (max-width: $break-mid-horizontal) {
+  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
     font-size: $p-mid;
     width: 24px;
     height: 24px;
@@ -294,11 +294,8 @@ input {
 }
 
 .input-active {
-  color: $inactive;
-  &:focus {
-    color: $active;
-    border-color: $active;
-  }
+  color: $active;
+  border-color: $active;
 }
 
 .input-correct {

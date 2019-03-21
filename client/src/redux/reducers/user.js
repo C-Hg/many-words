@@ -1,5 +1,6 @@
 const defaultState = {
   isAuthenticated: false,
+  languageContext: "",
   language: "",
   stats: ""
 };
@@ -24,13 +25,17 @@ const userReducer = (state = defaultState, action) => {
       return defaultState;
 
     case types.SET_LANGUAGE:
-      return { ...state, language: action.language };
+      return {
+        ...state,
+        language: action.language,
+        languageContext: action.languageContext
+      };
 
     case types.UPDATE_STATS:
       return { ...state, stats };
 
     case types.RESET_ACTIVITY:
-      return { ...state, activity: "", weak_words_details: "" };
+      return { ...state, activity: "", weakWordsContext: "" };
 
     default:
       return state;

@@ -8,7 +8,6 @@ module.exports = function assessGlobalProgress(wordStats, user) {
   }, 0);
 
   const wordsScores = assessGlobalWordsStats(wordStats);
-  console.log(wordsScores);
   const lessonsScores = assessGlobalLessonsStats(user);
   const globalPercentage = Number(
     wordsScores.globalScore / (totalNumberOfWords * 5)

@@ -3,23 +3,23 @@ import React from "react";
 import LessonResult from "./LessonResult.component";
 import WordsToRemember from "./WordsToRemember.component";
 import ExitLinks from "./ExitLinks.component";
+import { connect } from "react-redux";
 
-class ExerciseRecap extends React.Component {
-  render() {
-    return (
-      <div className="exerciseRecap">
-        <LessonResult failedWords={this.props.failedWords} />
-        {this.props.failedWords.length > 0 && (
-          <WordsToRemember failedWords={this.props.failedWords} />
-        )}
-        <ExitLinks
-          lesson={this.props.lesson}
-          theme={this.props.theme}
-          redirect={this.props.redirect}
-        />
-      </div>
-    );
-  }
+function mapStateToProps(state) {
+  return { exercise: state.exercise };
 }
 
-export default ExerciseRecap;
+function ExerciseRecap(props) {
+  return (
+    <div className="exerciseRecap">
+      <LessonResult />
+      {props.exercise.failedWords.length > 0 && <WordsToRemember />}
+      <ExitLinks />
+    </div>
+  );
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(ExerciseRecap);

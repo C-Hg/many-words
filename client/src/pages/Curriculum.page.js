@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
 import "../styles/Curriculum.scss";
 
@@ -28,16 +28,11 @@ class Curriculum extends React.Component {
     let user = this.props.user;
     let weak_words_launchable = false;
 
-    // render cards only after the database call if user is logged in
-    if (!user.stats.hasOwnProperty("themesStats") && user.isAuthenticated) {
-      return null;
+    // TO DO :render cards only after the database call if user is logged in ?
+
+    if (user.isAuthenticated && user.stats.globalProgress.studiedLessons) {
+      weak_words_launchable = true;
     }
-    if (user.isAuthenticated && user.activity === "weak_words") {
-      return <Redirect to="/weak_words" />;
-    }
-    // if (user.stats.globalProgress.studiedLessons) {
-    //   weak_words_launchable = true;
-    // }
 
     // lesson name, words/theme, lessons/theme
     const cards = themes.map(val => {

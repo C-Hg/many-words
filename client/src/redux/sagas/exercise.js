@@ -2,25 +2,54 @@ import { put, call, select, takeEvery } from "redux-saga/effects";
 import { types } from "../reducers/exercise";
 import fetch from "../../services/fetch";
 import FrEnWordSelector from "../../controllers/exercise_fetcher/word_selector/wordSelector.function";
-import checkUserTranslation from "../../controllers/exercise_functions/checkUserTranslation.function";
+import checkUserTranslation from "../../controllers/exercise/checkUserTranslation.function";
+import makeBatches from "../../controllers/exercise_fetcher/weak_words/makeBatches.function";
 
-function* getWords({ lesson }) {
+function* getWords({ lesson, theme }) {
   try {
-    const exercise = yield select(state => state.exercise);
-    if (exercise.weak_words_mode) {
-      yield call(getWeakWords);
-    } else {
-      const words = yield call(
-        fetch.getJSONResponse,
-        `/api/exercise/${lesson}`
-      );
-      const lessonWords = FrEnWordSelector(words, true);
-      yield put({ type: "SET_LESSON_WORDS", lessonWords });
-    }
+    yield put({ type: "BEGIN_EXERCISE" });
+    const words = yield call(fetch.getJSONResponse, `/api/exercise/${lesson}`);
+    const lessonWords = FrEnWordSelector(words, true);
+    yield put({ type: "SET_LESSON_WORDS", lessonWords, theme });
   } catch (error) {}
 }
 
-function* getWeakWords() {}
+function* getWeakWords({ context, reference = null }) {
+  console.log("hello from getWeakWords, ", context, reference);
+  try {
+    yield put({ type: "BEGIN_EXERCISE" });
+    const route = reference
+      ? `/api/weak_words/${context}/${reference}`
+      : `/api/weak_words/${context}`;
+    let redirectionTarget;
+    if (reference) {
+      redirectionTarget = `/${reference}`;
+    } else redirectionTarget = "/curriculum";
+    const rawWeakWords = yield call(fetch.getJSONResponse, route);
+    const preparedWeakWords = FrEnWordSelector(rawWeakWords, false);
+    const weakWordsBatches = makeBatches(preparedWeakWords);
+    yield put({
+      type: "SET_WEAK_WORDS",
+      weakWordsBatches,
+      context,
+      reference,
+      redirectionTarget
+    });
+  } catch (error) {}
+}
+
+function* continueWeakWords() {
+  try {
+    const exercise = yield select(state => state.exercise);
+    const context = exercise.weakWordsContext;
+    const reference = exercise.weakWordsReference;
+    console.log(exercise.weakWordsBatchesDone, exercise.weakWordsContext);
+    if (exercise.weakWordsBatchesDone < exercise.weakWordsBatches.length - 1) {
+      const nextBatch = exercise.weakWordsBatchesDone + 1;
+      yield put({ type: "NEXT_BATCH", nextBatch });
+    } else yield put({ type: "GET_WEAK_WORDS", context, reference });
+  } catch (error) {}
+}
 
 function* submitUserTranslation() {
   try {
@@ -44,7 +73,6 @@ function* nextWord() {
   try {
     const exercise = yield select(state => state.exercise);
     const user = yield select(state => state.user);
-    console.log(exercise.wordRank, exercise.words.length - 1);
 
     // if all the words of the current batch have been done
     if (exercise.wordRank === exercise.words.length - 1) {
@@ -52,9 +80,6 @@ function* nextWord() {
         yield call(updateStats);
       }
       yield put({ type: "PREPARE_RECAP" });
-      if (exercise.weak_words_mode) {
-        yield put({ type: "INCREMENT_BATCHES_DONE" });
-      }
     } else {
       yield put({ type: "PREPARE_NEXT_WORD" });
     }
@@ -75,15 +100,10 @@ function* updateStats() {
   } catch (error) {}
 }
 
-function* restartExercise() {
-  try {
-    yield put({ type: "RESET_STATE" });
-  } catch (e) {}
-}
-
 export default function* exerciseSaga() {
   yield takeEvery(types.GET_WORDS, getWords);
+  yield takeEvery(types.GET_WEAK_WORDS, getWeakWords);
+  yield takeEvery(types.CONTINUE_WEAK_WORDS, continueWeakWords);
   yield takeEvery(types.NEXT_WORD, nextWord);
   yield takeEvery(types.SUBMIT_USER_TRANSLATION, submitUserTranslation);
-  yield takeEvery(types.RESTART_EXERCISE, restartExercise);
 }

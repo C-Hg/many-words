@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import "../styles/Theme.scss";
@@ -30,7 +30,7 @@ class Theme extends React.Component {
   render() {
     /* ----------------       preparing data    -------------- */
     const user = this.props.user;
-    const theme = this.props.theme;
+    const theme = this.props.match.params.themeId;
     let lessonsStats = null;
     let lessonsData = FR_EN_Lessons[theme];
     let weak_words_launchable = false;
@@ -61,7 +61,7 @@ class Theme extends React.Component {
             />
             <GoldStar progress={progress} />
             <div className="themeButtons">
-              <StartTestButton {...this.props} lesson={val[0]} />
+              <StartTestButton {...this.props} lesson={val[0]} theme={theme} />
               <LearnWordsButton {...this.props} lesson={val[0]} />
             </div>
           </div>
@@ -70,10 +70,6 @@ class Theme extends React.Component {
     }
 
     /* -----------------    rendering component     -----------------  */
-    console.log(this.props.theme);
-    if (user.isAuthenticated && user.activity === "weak_words") {
-      return <Redirect to="/weak_words" />;
-    }
     if (lessons || !user.isAuthenticated) {
       return (
         <div className="main-container greyBackground">
@@ -85,11 +81,7 @@ class Theme extends React.Component {
             <ThemePageTitle theme={theme} />
           </div>
           {user.isAuthenticated && weak_words_launchable && (
-            <WeakWords
-              context="theme"
-              reference={this.props.theme}
-              startWeakWords={this.props.startWeakWords}
-            />
+            <WeakWords context="theme" reference={theme} />
           )}
           <div className="lessonCards">{lessons}</div>
         </div>

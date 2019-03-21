@@ -7,7 +7,7 @@ export let user = {
     stats: "",
     areStatsValid: false,
     activity: "",
-    weak_words_details: ""
+    weakWordsContext: ""
   },
   // updateUserStats: function(userStats) {
   //   this.connected.stats = userStats;
@@ -15,7 +15,7 @@ export let user = {
   // },
   startWeakWords: function(context, reference) {
     this.connected.activity = "weak_words";
-    this.connected.weak_words_details = {
+    this.connected.weakWordsContext = {
       context: context,
       reference: reference
     };
