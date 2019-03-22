@@ -1,5 +1,4 @@
 require("dotenv").config({ path: process.cwd() + "/.env" });
-const path = require("path");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -30,19 +29,6 @@ app.use(
   })
 );
 app.use(helmet());
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'",
-//         "https://fonts.googleapis.com/",
-//         "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/"
-//       ],
-//       styleSrc: ["'self'",
-//       "https://fonts.googleapis.com/",
-//       "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/"]
-//     }
-//   })
-// );
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());

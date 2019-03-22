@@ -15,7 +15,7 @@ module.exports = async function prepareWeakWords(req, res) {
       req.user._id
     );
   } catch (e) {
-    console.log("error while getting weak words");
+    console.log("error while getting weak words", e);
   }
 
   if (!wordStats) {

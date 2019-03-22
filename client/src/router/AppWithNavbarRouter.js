@@ -21,13 +21,7 @@ class AppWithNavbarRouter extends React.Component {
             <Route
               exact
               path={`/:themeId/:lessonId/learn`}
-              render={props => (
-                <Learning
-                  lesson={props.match.params.lessonId}
-                  theme={props.match.params.themeId}
-                  {...props}
-                />
-              )}
+              component={Learning}
             />
           </Switch>
         </div>

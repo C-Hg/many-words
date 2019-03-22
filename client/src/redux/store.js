@@ -4,13 +4,15 @@ import rootSaga from "./sagas/root";
 import userReducer from "./reducers/user";
 import authReducer from "./reducers/auth";
 import exerciseReducer from "./reducers/exercise";
+import learnReducer from "./reducers/learn";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   user: userReducer,
   auth: authReducer,
-  exercise: exerciseReducer
+  exercise: exerciseReducer,
+  learn: learnReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));

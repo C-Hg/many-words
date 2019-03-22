@@ -9,10 +9,6 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
 class Navbar extends React.Component {
   render() {
     return (
@@ -46,5 +42,5 @@ class Navbar extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Navbar);

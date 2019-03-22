@@ -1,84 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import getWordsToLearn from "../controllers/learning_fetcher/getWordsToLearn.controller";
-import getSwitchesStates from "../controllers/learning_fetcher/getSwitchesStates.function";
-import selectWordsToLearnForms from "../controllers/select_words_to_learn/selectWordsToLearnForms.controller";
 import BackArrow from "../components/common/BackArrow.component";
 import Switches from "../components/learning/Switches.component";
 import LearningTitle from "../components/learning/LearningTitle.component";
+import { connect } from "react-redux";
+import { actions as learnActions } from "../redux/reducers/learn";
 
 import "../styles/Learning.scss";
 
+function mapStateToProps(state) {
+  return { learn: state.learn };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getWordsToLearn: lesson => {
+      dispatch(learnActions.getWordsToLearn(lesson));
+    }
+  };
+};
+
 class Learning extends React.Component {
-  constructor(props) {
-    super(props);
-    this.toggleNumber = this.toggleNumber.bind(this);
-    this.toggleGender = this.toggleGender.bind(this);
-    this.toggleDefinite = this.toggleDefinite.bind(this);
-    this.updateWords = this.updateWords.bind(this);
-    this.state = {
-      number: "",
-      gender: "",
-      definite: "",
-      formattedWords: "",
-      exerciseWords: ""
-    };
-  }
-
-  toggleNumber() {
-    this.setState({
-      number: this.state.number === "singular" ? "plural" : "singular"
-    });
-    this.updateWords();
-  }
-
-  toggleGender() {
-    this.setState({
-      gender: this.state.gender === "masculine" ? "feminine" : "masculine"
-    });
-    this.updateWords();
-  }
-
-  toggleDefinite() {
-    this.setState({
-      definite: this.state.definite === "definite" ? "indefinite" : "definite"
-    });
-    this.updateWords();
-  }
-
-  updateWords() {
-    this.setState(state => ({
-      formattedWords: selectWordsToLearnForms(
-        state.number,
-        state.gender,
-        state.definite,
-        this.state.wordsToLearn
-      )
-    }));
-  }
-
   async componentDidMount() {
-    let wordsToLearn = await getWordsToLearn(this.props.lesson);
-    let switches = getSwitchesStates(wordsToLearn);
-    this.setState({
-      wordsToLearn: wordsToLearn,
-      formattedWords: selectWordsToLearnForms(
-        switches[0],
-        switches[1],
-        switches[2],
-        wordsToLearn
-      ),
-      number: switches[0],
-      gender: switches[1],
-      definite: switches[2]
-    });
+    this.props.getWordsToLearn(this.props.match.params.lessonId);
   }
 
   render() {
+    const lesson = this.props.match.params.lessonId;
+    const theme = this.props.match.params.themeId;
+    const learn = this.props.learn;
+
     let wordsToLearn;
     //cannot do it if data is not fetched from the database
-    if (this.state.formattedWords) {
-      wordsToLearn = this.state.formattedWords.map((val, i) => {
+    if (learn.formattedWords) {
+      wordsToLearn = learn.formattedWords.map((val, i) => {
         return (
           <div key={`twoWords${i}`} className="twoWords">
             {val.en} : {val.fr}
@@ -89,23 +44,19 @@ class Learning extends React.Component {
     return (
       <div className="main-container whiteBackground">
         <div className="learning-container">
-          <Link to={`/${this.props.theme}`} className="arrowLink">
+          <Link to={`/${theme}`} className="arrowLink">
             <BackArrow />
           </Link>
-          <LearningTitle lesson={this.props.lesson} theme={this.props.theme} />
+          <LearningTitle lesson={lesson} theme={theme} />
           <div className="wordsToLearn">{wordsToLearn}</div>
-          <Switches
-            number={this.state.number}
-            toggleNumber={this.toggleNumber}
-            gender={this.state.gender}
-            toggleGender={this.toggleGender}
-            definite={this.state.definite}
-            toggleDefinite={this.toggleDefinite}
-          />
+          <Switches />
         </div>
       </div>
     );
   }
 }
 
-export default Learning;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Learning);

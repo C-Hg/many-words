@@ -22,7 +22,11 @@ const userReducer = (state = defaultState, action) => {
       return { ...state, isAuthenticated: true, stats };
 
     case types.LOGOUT_SUCCESS:
-      return defaultState;
+      return {
+        ...defaultState,
+        languageContext: state.languageContext,
+        language: state.language
+      };
 
     case types.SET_LANGUAGE:
       return {

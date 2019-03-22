@@ -1,4 +1,4 @@
-//placeholder allow compiling without app secrets for social auth
+//placeholders allow compiling without app secrets for social auth
 
 module.exports = {
   SESSION_SECRET: process.env.SESSION_SECRET || "session_secret",
