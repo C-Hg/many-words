@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 }
 
 function Exercise(props) {
-  const exercise = this.props.exercise;
+  const exercise = props.exercise;
 
   if (exercise.redirect) {
     return <Redirect to={exercise.redirectionTarget} />;

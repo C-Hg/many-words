@@ -15,7 +15,6 @@ function* getWords({ lesson, theme }) {
 }
 
 function* getWeakWords({ context, reference = null }) {
-  console.log("hello from getWeakWords, ", context, reference);
   try {
     yield put({ type: "BEGIN_EXERCISE" });
     const route = reference
@@ -43,7 +42,6 @@ function* continueWeakWords() {
     const exercise = yield select(state => state.exercise);
     const context = exercise.weakWordsContext;
     const reference = exercise.weakWordsReference;
-    console.log(exercise.weakWordsBatchesDone, exercise.weakWordsContext);
     if (exercise.weakWordsBatchesDone < exercise.weakWordsBatches.length - 1) {
       const nextBatch = exercise.weakWordsBatchesDone + 1;
       yield put({ type: "NEXT_BATCH", nextBatch });
