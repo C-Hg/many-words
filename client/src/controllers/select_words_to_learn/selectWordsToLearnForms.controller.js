@@ -3,11 +3,11 @@ import { getEnForm } from "./getEnForm.function";
 import {
   returnFrArticle,
   returnEnArticle
-} from "../exercise_fetcher/word_selector/returnArticles.functions";
+} from "../exercise/word_selector/returnArticles.functions";
 import {
   associateFrWordWithArticle,
   associateEnWordWithArticle
-} from "../exercise_fetcher/word_selector/associateWordWithArticle.function";
+} from "../exercise/word_selector/associateWordWithArticle.function";
 
 function selectWordsToLearnForms(singOrPlur, mascOrFem, defOrIndef, words) {
   let formattedWords = [];

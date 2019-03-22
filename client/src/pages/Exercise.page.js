@@ -13,33 +13,31 @@ function mapStateToProps(state) {
   return { user: state.user, exercise: state.exercise };
 }
 
-class Exercise extends React.Component {
-  render() {
-    const exercise = this.props.exercise;
+function Exercise(props) {
+  const exercise = this.props.exercise;
 
-    if (exercise.redirect) {
-      return <Redirect to={exercise.redirectionTarget} />;
-    }
-    if (exercise.words) {
-      return (
-        <div className="app">
-          <div className="main-container">
-            <div className="exercise whiteBackground">
-              <div className="titleAndCross">
-                <Close />
-                <ExerciseTitle />
-              </div>
-              {exercise.status === "exercise" && <ExerciseContainer />}
-              {exercise.status === "recap" && <ExerciseRecap />}
-              <ExerciseFooter />
+  if (exercise.redirect) {
+    return <Redirect to={exercise.redirectionTarget} />;
+  }
+  if (exercise.words) {
+    return (
+      <div className="app">
+        <div className="main-container">
+          <div className="exercise whiteBackground">
+            <div className="titleAndCross">
+              <Close />
+              <ExerciseTitle />
             </div>
+            {exercise.status === "exercise" && <ExerciseContainer />}
+            {exercise.status === "recap" && <ExerciseRecap />}
+            <ExerciseFooter />
           </div>
         </div>
-      );
-    } else {
-      //TO DO : implement waiting animation
-      return null;
-    }
+      </div>
+    );
+  } else {
+    //TO DO : implement waiting animation
+    return null;
   }
 }
 

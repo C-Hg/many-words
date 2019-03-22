@@ -10,8 +10,8 @@ class ExerciseTitle extends React.Component {
   render() {
     const language = this.context;
     const exercise = this.props.exercise;
-    const lesson = exercise.words[exercise.wordRank].lesson;
-    const theme = exercise.words[exercise.wordRank].theme;
+    const lesson = exercise.words[0].lesson;
+    const theme = exercise.words[0].theme;
 
     if (exercise.status === "recap" && exercise.weakWordsMode) {
       return <h1 className="exerciseTitle">{language.revision}</h1>;

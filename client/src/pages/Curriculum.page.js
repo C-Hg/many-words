@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
 import "../styles/Curriculum.scss";
 
-// import { actions as userActions } from "../redux/reducers/user";
 import { connect } from "react-redux";
 
 import ThemeTitle from "../components/curriculum/ThemeTitle.component";
@@ -18,18 +17,12 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//   };
-// };
-
 class Curriculum extends React.Component {
   render() {
     let user = this.props.user;
     let weak_words_launchable = false;
 
     // TO DO :render cards only after the database call if user is logged in ?
-
     if (user.isAuthenticated && user.stats.globalProgress.studiedLessons) {
       weak_words_launchable = true;
     }
@@ -85,11 +78,7 @@ class Curriculum extends React.Component {
           <div className="curriculum greyBackground">
             <h1 className="menuTitle">{curriculum.title}</h1>
             {weak_words_launchable && (
-              <WeakWords
-                context="global"
-                reference={null}
-                startWeakWords={this.props.startWeakWords}
-              />
+              <WeakWords context="global" reference={null} />
             )}
             <div className="themeCards">{cards}</div>
           </div>

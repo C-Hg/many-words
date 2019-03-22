@@ -22,10 +22,6 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {};
-// };
-
 class Theme extends React.Component {
   render() {
     /* ----------------       preparing data    -------------- */

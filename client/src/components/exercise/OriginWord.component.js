@@ -5,14 +5,14 @@ function mapStateToProps(state) {
   return { exercise: state.exercise };
 }
 
-const OriginWord = function(props) {
+function OriginWord(props) {
   const exercise = props.exercise;
   const word =
     exercise.words[exercise.wordRank][
       exercise.words[exercise.wordRank].selectedForm[1]
     ][0];
   return <div className="originWord">{word}</div>;
-};
+}
 
 export default connect(
   mapStateToProps,

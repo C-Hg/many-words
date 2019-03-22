@@ -1,4 +1,4 @@
-import { randomPicker } from "../../common/randomPicker.function";
+import { randomPicker } from "../../../services/randomPicker.function";
 
 export default function pickFormRandomly(word) {
   let sourceLanguage = randomPicker(["fr", "en"]);

@@ -1,4 +1,4 @@
-import { shuffleArray } from "../../common/arrayShuffler.function";
+import { shuffleArray } from "../../../services/arrayShuffler.function";
 
 function makeBatches(weak_words) {
   // make batches of 10 weak words,shuffle after splitting in 10 !

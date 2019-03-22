@@ -1,4 +1,4 @@
-import { randomPicker } from "../../common/randomPicker.function";
+import { randomPicker } from "../../../services/randomPicker.function";
 
 // extract the source language and the form of the weakest word, or chooses one if several equally weak words
 export default function pickWeakForm(weakForms) {
