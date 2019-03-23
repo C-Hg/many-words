@@ -17,6 +17,7 @@ import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 
 import FR_EN_Lessons from "../exercises/lessons";
 import WeakWords from "../components/common/WeakWords.component";
+import Navbar from "../components/navbar/Navbar.component";
 
 function mapStateToProps(state) {
   return { user: state.user };
@@ -68,18 +69,21 @@ class Theme extends React.Component {
     /* -----------------    rendering component     -----------------  */
     if (lessons || !user.isAuthenticated) {
       return (
-        <div className="main-container greyBackground">
-          <ScrollToTopOnMount />
-          <div className="themeAndArrow">
-            <Link to={`/curriculum`}>
-              <BackArrow additionalClass="themePageArrow" />
-            </Link>
-            <ThemePageTitle theme={theme} />
+        <div className="app app-with-navbar-full-screen">
+          <Navbar />
+          <div className="main-container greyBackground">
+            <ScrollToTopOnMount />
+            <div className="themeAndArrow">
+              <Link to={`/curriculum`}>
+                <BackArrow additionalClass="themePageArrow" />
+              </Link>
+              <ThemePageTitle theme={theme} />
+            </div>
+            {user.isAuthenticated && weak_words_launchable && (
+              <WeakWords reference={theme} />
+            )}
+            <div className="lessonCards">{lessons}</div>
           </div>
-          {user.isAuthenticated && weak_words_launchable && (
-            <WeakWords reference={theme} />
-          )}
-          <div className="lessonCards">{lessons}</div>
         </div>
       );
     } else return null;

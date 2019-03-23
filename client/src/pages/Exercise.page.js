@@ -22,8 +22,8 @@ function Exercise(props) {
   if (exercise.words) {
     return (
       <div className="app">
-        <div className="main-container">
-          <div className="exercise whiteBackground">
+        <div className="main-container whiteBackground">
+          <div className="exercise">
             <div className="titleAndCross">
               <Close />
               <ExerciseTitle />

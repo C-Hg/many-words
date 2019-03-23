@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { actions as learnActions } from "../redux/reducers/learn";
 
 import "../styles/Learning.scss";
+import Navbar from "../components/navbar/Navbar.component";
 
 function mapStateToProps(state) {
   return { learn: state.learn };
@@ -42,14 +43,17 @@ class Learning extends React.Component {
       });
     }
     return (
-      <div className="main-container whiteBackground">
-        <div className="learning-container">
-          <Link to={`/${theme}`} className="arrowLink">
-            <BackArrow />
-          </Link>
-          <LearningTitle lesson={lesson} theme={theme} />
-          <div className="wordsToLearn">{wordsToLearn}</div>
-          <Switches />
+      <div className="app app-with-navbar-full-screen">
+        <Navbar />
+        <div className="main-container whiteBackground">
+          <div className="learning-container">
+            <Link to={`/${theme}`} className="arrowLink">
+              <BackArrow />
+            </Link>
+            <LearningTitle lesson={lesson} theme={theme} />
+            <div className="wordsToLearn">{wordsToLearn}</div>
+            <Switches />
+          </div>
         </div>
       </div>
     );

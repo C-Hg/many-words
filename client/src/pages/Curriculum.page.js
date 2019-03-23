@@ -12,6 +12,7 @@ import GoldLessons from "../components/curriculum/GoldLesson.component";
 
 import themes from "../exercises/themes";
 import WeakWords from "../components/common/WeakWords.component";
+import Navbar from "../components/navbar/Navbar.component";
 
 function mapStateToProps(state) {
   return { user: state.user };
@@ -75,10 +76,15 @@ class Curriculum extends React.Component {
     return (
       <LanguageContext.Consumer>
         {({ curriculum }) => (
-          <div className="curriculum greyBackground">
-            <h1 className="menuTitle">{curriculum.title}</h1>
-            {weak_words_launchable && <WeakWords reference="curriculum" />}
-            <div className="themeCards">{cards}</div>
+          <div className="app app-with-navbar-full-screen">
+            <Navbar />
+            <div className="main-container greyBackground">
+              <div className="curriculum ">
+                <h1 className="menuTitle">{curriculum.title}</h1>
+                {weak_words_launchable && <WeakWords reference="curriculum" />}
+                <div className="themeCards">{cards}</div>
+              </div>
+            </div>
           </div>
         )}
       </LanguageContext.Consumer>

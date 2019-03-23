@@ -11,7 +11,7 @@ import { actions as userActions } from "./redux/reducers/user";
 import { connect } from "react-redux";
 
 import { LanguageContext } from "./contexts/language-context";
-import MainRouter from "./router/MainRouter";
+import Router from "./router/Router";
 
 function mapStateToProps(state) {
   return { user: state.user };
@@ -55,7 +55,7 @@ class App extends Component {
     } else
       return (
         <LanguageContext.Provider value={this.props.user.languageContext}>
-          <MainRouter />
+          <Router />
         </LanguageContext.Provider>
       );
   }

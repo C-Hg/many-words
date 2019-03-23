@@ -10,6 +10,7 @@ import HomeLoggedIn from "../components/home/HomeLoggedIn.component";
 import HomeForGuestUser from "../components/home/HomeForGuestUser.component";
 import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirmation.component";
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
+import Navbar from "../components/navbar/Navbar.component";
 
 function mapStateToProps(state) {
   return { user: state.user, auth: state.auth };
@@ -22,11 +23,14 @@ function Home(props) {
     return <DeleteConfirmation />;
   } else {
     return (
-      <div className="main-container whiteBackground">
-        <div className="home whiteBackground">
-          <ScrollToTopOnMount />
-          {props.user.isAuthenticated && <HomeLoggedIn />}
-          {!props.user.isAuthenticated && <HomeForGuestUser />}
+      <div className="app app-with-navbar-full-screen">
+        <Navbar />
+        <div className="main-container whiteBackground">
+          <div className="home whiteBackground">
+            <ScrollToTopOnMount />
+            {props.user.isAuthenticated && <HomeLoggedIn />}
+            {!props.user.isAuthenticated && <HomeForGuestUser />}
+          </div>
         </div>
       </div>
     );
