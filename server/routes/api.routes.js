@@ -12,10 +12,7 @@ const prepareWeakWords = require("../controllers/content_fetching/prepareWeakWor
 
 router.get("/learn/:lesson", getWordsToLearn);
 router.get("/exercise/:lesson", getLesson);
-router.get(
-  ["/weak_words/:context", "/weak_words/:context/:reference"],
-  prepareWeakWords
-);
+router.get(["/weak_words/:reference"], prepareWeakWords);
 
 router.post(
   "/tracking/update_word_stats",

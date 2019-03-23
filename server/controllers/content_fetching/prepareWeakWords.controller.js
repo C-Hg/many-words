@@ -9,11 +9,7 @@ module.exports = async function prepareWeakWords(req, res) {
   let words = [];
 
   try {
-    wordStats = await getWeakWords(
-      req.params.context,
-      req.params.reference,
-      req.user._id
-    );
+    wordStats = await getWeakWords(req.params.reference, req.user._id);
   } catch (e) {
     console.log("error while getting weak words", e);
   }

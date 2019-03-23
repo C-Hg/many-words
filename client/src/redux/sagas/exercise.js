@@ -14,23 +14,17 @@ function* getWords({ lesson, theme }) {
   } catch (error) {}
 }
 
-function* getWeakWords({ context, reference = null }) {
+function* getWeakWords({ reference = "curriculum" }) {
   try {
     yield put({ type: "BEGIN_EXERCISE" });
-    const route = reference
-      ? `/api/weak_words/${context}/${reference}`
-      : `/api/weak_words/${context}`;
-    let redirectionTarget;
-    if (reference) {
-      redirectionTarget = `/${reference}`;
-    } else redirectionTarget = "/curriculum";
+    const route = `/api/weak_words/${reference}`;
+    const redirectionTarget = `/${reference}`;
     const rawWeakWords = yield call(fetch.getJSONResponse, route);
     const preparedWeakWords = FrEnWordSelector(rawWeakWords, false);
     const weakWordsBatches = makeBatches(preparedWeakWords);
     yield put({
       type: "SET_WEAK_WORDS",
       weakWordsBatches,
-      context,
       reference,
       redirectionTarget
     });
@@ -40,12 +34,11 @@ function* getWeakWords({ context, reference = null }) {
 function* continueWeakWords() {
   try {
     const exercise = yield select(state => state.exercise);
-    const context = exercise.weakWordsContext;
     const reference = exercise.weakWordsReference;
     if (exercise.weakWordsBatchesDone < exercise.weakWordsBatches.length - 1) {
       const nextBatch = exercise.weakWordsBatchesDone + 1;
       yield put({ type: "NEXT_BATCH", nextBatch });
-    } else yield put({ type: "GET_WEAK_WORDS", context, reference });
+    } else yield put({ type: "GET_WEAK_WORDS", reference });
   } catch (error) {}
 }
 

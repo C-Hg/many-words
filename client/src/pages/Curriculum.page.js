@@ -77,9 +77,7 @@ class Curriculum extends React.Component {
         {({ curriculum }) => (
           <div className="curriculum greyBackground">
             <h1 className="menuTitle">{curriculum.title}</h1>
-            {weak_words_launchable && (
-              <WeakWords context="global" reference={null} />
-            )}
+            {weak_words_launchable && <WeakWords reference="curriculum" />}
             <div className="themeCards">{cards}</div>
           </div>
         )}

@@ -10,8 +10,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getWeakWords: (context, reference) => {
-      dispatch(exerciseActions.getWeakWords(context, reference));
+    getWeakWords: reference => {
+      dispatch(exerciseActions.getWeakWords(reference));
     }
   };
 };
@@ -24,7 +24,7 @@ function WeakWords(props) {
       <LanguageContext.Consumer>
         {({ navigation }) => (
           <button
-            onClick={() => props.getWeakWords(props.context, props.reference)}
+            onClick={() => props.getWeakWords(props.reference)}
             className="weak_words_button"
           >
             {navigation.weak_words}

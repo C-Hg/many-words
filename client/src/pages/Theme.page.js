@@ -77,7 +77,7 @@ class Theme extends React.Component {
             <ThemePageTitle theme={theme} />
           </div>
           {user.isAuthenticated && weak_words_launchable && (
-            <WeakWords context="theme" reference={theme} />
+            <WeakWords reference={theme} />
           )}
           <div className="lessonCards">{lessons}</div>
         </div>

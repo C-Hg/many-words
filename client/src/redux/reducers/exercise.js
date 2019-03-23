@@ -2,7 +2,6 @@ const defaultState = {
   weakWordsMode: false,
   weakWordsBatches: [],
   weakWordsBatchesDone: 0,
-  weakWordsContext: null,
   weakWordsReference: null,
   status: "exercise",
   words: null,
@@ -54,7 +53,6 @@ const exerciseReducer = (state = defaultState, action) => {
         ...state,
         weakWordsBatches: action.weakWordsBatches,
         weakWordsMode: true,
-        weakWordsContext: action.context,
         weakWordsReference: action.reference,
         words: action.weakWordsBatches[0],
         redirectionTarget: action.redirectionTarget
@@ -127,8 +125,7 @@ const exerciseReducer = (state = defaultState, action) => {
         weakWordsMode: true,
         weakWordsBatches: state.weakWordsBatches,
         weakWordsBatchesDone: state.weakWordsBatchesDone + 1,
-        weakWordsContext: state.context,
-        weakWordsReference: state.reference,
+        weakWordsReference: state.weakWordsReference,
         words: state.weakWordsBatches[action.nextBatch],
         redirectionTarget: state.redirectionTarget
       };
@@ -150,10 +147,9 @@ const actions = {
     };
   },
 
-  getWeakWords: (context, reference) => {
+  getWeakWords: reference => {
     return {
       type: types.GET_WEAK_WORDS,
-      context,
       reference
     };
   },
