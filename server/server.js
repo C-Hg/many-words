@@ -1,5 +1,6 @@
-require("dotenv").config({ path: process.cwd() + "/.env" });
+require("dotenv").config({ path: `${process.cwd()}/.env` });
 const express = require("express");
+
 const app = express();
 const cors = require("cors");
 const session = require("express-session");
@@ -7,6 +8,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const mongoose = require("mongoose");
 
 const secrets = require("./config/secrets");
 
@@ -20,7 +22,7 @@ app.use(
     cookie: {
       secure: true,
       sameSite: true,
-      maxAge: 100 * 24 * 60 * 60 * 1000 //log in every 3 months
+      maxAge: 100 * 24 * 60 * 60 * 1000 // log in every 3 months
     },
     store: new MongoDBStore({
       uri: secrets.MONGO_URI,
@@ -36,25 +38,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 require("./auth/session/session.middlewares")(); // passport serializer and deserializer
 
 /* ----------------------     Mongoose setup     ------------*/
-const mongoose = require("mongoose");
+
 mongoose.connect(secrets.MONGO_URI, {
   useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
-//Get the default connection
-let db = mongoose.connection;
+// Get the default connection
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
   console.log("Connected to database");
-  //configuring the listening port
+  // configuring the listening port
   const listener = app.listen(3001, function() {
-    console.log("Many-words is listening on port " + listener.address().port);
+    console.log(`Many-words is listening on port ${listener.address().port}`);
   });
 });
 
 /* --------------------------      routing        ----------------- */
 const apiRoutes = require("./routes/api.routes");
 const authRoutes = require("./routes/auth.routes");
+
 app.use("/api/", apiRoutes);
 app.use("/auth/", authRoutes);
 

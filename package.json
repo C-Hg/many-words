@@ -4,6 +4,7 @@
   "description": "A WebApp to help you learn foreign languages vocabulary",
   "main": "index.js",
   "scripts": {
+    "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && nodemon server.js",
     "client": "cd client && npm start",
@@ -23,7 +24,16 @@
     "chai": "^4.2.0",
     "concurrently": "^4.1.0",
     "dotenv": "^6.2.0",
-    "mocha": "^5.2.0"
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "mocha": "^5.2.0",
+    "prettier": "^1.17.1"
   },
   "dependencies": {},
   "repository": {
