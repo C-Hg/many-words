@@ -1,5 +1,5 @@
 import { randomPicker } from "../../../services/randomPicker.function";
-import return_Selected_Words_With_Article from "./returnSelectedWords.function";
+import returnSelectedWordsWithArticle from "./returnSelectedWords.function";
 import { returnForms } from "./returnForms.function";
 import pickFormRandomly from "./pickFormRandomly.function";
 import pickWeakForm from "./pickWeakForm.function";
@@ -15,14 +15,14 @@ see getLesson.controller.js server side for a clearer understanding
 
 function FrEnWordSelector(wordsToSelect, shuffle) {
   let wordCounter = 0;
-  let preparedWords = []; //array of objects
+  let preparedWords = []; // array of objects
 
-  //main loop
+  // main loop
   while (wordCounter < wordsToSelect.words.length) {
-    let articleForm, fr_form, en_form;
+    let articleForm;
     let formDetails;
-    let word = wordsToSelect.words[wordCounter];
-    let weakForms = false; //contains the stats_by_form of the user for the current word
+    const word = wordsToSelect.words[wordCounter];
+    let weakForms = false; // contains the stats_by_form of the user for the current word
     if (wordsToSelect.stats_by_form) {
       weakForms = wordsToSelect.stats_by_form[wordCounter];
     }
@@ -34,24 +34,22 @@ function FrEnWordSelector(wordsToSelect, shuffle) {
       formDetails = pickWeakForm(weakForms);
     }
 
-    let sourceForm = formDetails.sourceForm;
-    let sourceLanguage = formDetails.sourceLanguage;
+    const { sourceForm, sourceLanguage } = formDetails;
+    const forms = returnForms(sourceForm, word.type, sourceLanguage);
+    const frForm = forms.fr;
+    const enForm = forms.en;
 
-    let forms = returnForms(sourceForm, word.type, sourceLanguage);
-    fr_form = forms.fr;
-    en_form = forms.en;
-
-    //only nouns accept articles, special cases when nouns have only certains articles -> hasUniqueForm = true
+    // only nouns accept articles, special cases when nouns have only certains articles -> hasUniqueForm = true
     if (word.type === "noun" && !word.hasUniqueForm) {
       articleForm = randomPicker(["definite", "indefinite"]);
     }
 
-    let selectedWords = return_Selected_Words_With_Article(
+    const selectedWords = returnSelectedWordsWithArticle(
       sourceLanguage,
       word.fr,
       word.en,
-      fr_form,
-      en_form,
+      frForm,
+      enForm,
       articleForm,
       word.en_name
     );

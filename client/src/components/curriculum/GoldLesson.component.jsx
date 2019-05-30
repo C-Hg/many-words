@@ -1,6 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function GoldLessons(props) {
+  const { goldLessons } = props;
   return (
     <div className="cardColumn">
       <i
@@ -9,9 +11,13 @@ function GoldLessons(props) {
       >
         grade
       </i>
-      <div className="cardNumbers">{props.gold}</div>
+      <div className="cardNumbers">{goldLessons}</div>
     </div>
   );
 }
+
+GoldLessons.propTypes = {
+  goldLessons: PropTypes.number.isRequired
+};
 
 export default GoldLessons;

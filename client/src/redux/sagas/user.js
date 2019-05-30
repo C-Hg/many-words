@@ -7,7 +7,9 @@ function* checkSession() {
   try {
     const stats = yield call(fetch.getJSONResponse, "/auth/session");
     yield put({ type: "LOGIN_SUCCESS", stats });
-  } catch (error) {}
+  } catch (error) {
+    console.warn(error);
+  }
 }
 
 function* defineLanguage() {

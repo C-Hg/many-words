@@ -1,6 +1,7 @@
 import getTranslationsWithoutArticles from "./getTranslationsWithoutArticles.function";
 
 function checkUserTranslation(userTranslation, words) {
+  let isUserTranslationCorrect = false;
   let correctTranslations;
   let correctTranslationsWithoutArticles;
   if (words.selectedForm[1] === "fr") {
@@ -13,26 +14,27 @@ function checkUserTranslation(userTranslation, words) {
       correctTranslationsWithoutArticles = getTranslationsWithoutArticles(
         correctTranslations
       );
-      for (let correctTranslation of correctTranslationsWithoutArticles) {
+      correctTranslationsWithoutArticles.forEach(correctTranslation => {
         if (correctTranslation === userTranslation.trim()) {
-          return [true];
+          isUserTranslationCorrect = true;
         }
-      }
+      });
     }
   }
 
-  //checks with articles
-  for (let correctTranslation of correctTranslations) {
+  // checks with articles
+  correctTranslations.forEach(correctTranslation => {
     if (correctTranslation === userTranslation.trim()) {
-      return [true];
+      isUserTranslationCorrect = true;
     }
-  }
-  return [false, correctTranslations[0]];
+  });
+
+  return [isUserTranslationCorrect, correctTranslations[0]];
 }
 
 export default checkUserTranslation;
 
-/*example form of words
+/* example form of words
 
 {
   selectedForm: ["wild"(en_name), "fr", "unique_form"]     

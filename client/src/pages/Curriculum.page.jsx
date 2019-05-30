@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 
 class Curriculum extends React.Component {
   render() {
-    let user = this.props.user;
+    const { user } = this.props;
     let weak_words_launchable = false;
 
     // TO DO :render cards only after the database call if user is logged in ?
@@ -63,10 +63,10 @@ class Curriculum extends React.Component {
           <div className="lessonsStats">
             {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
             {user.stats.themesStats && greenLessons > 0 && (
-              <GreenLessons green={greenLessons} />
+              <GreenLessons greenLessons={greenLessons} />
             )}
             {user.stats.themesStats && goldLessons > 0 && (
-              <GoldLessons gold={goldLessons} />
+              <GoldLessons goldLessons={goldLessons} />
             )}
           </div>
         </Link>

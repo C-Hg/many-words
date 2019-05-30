@@ -1,16 +1,20 @@
-let allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
-let separateWordfromArticleRegex = new RegExp(
-  "(?:les\\s|des\\s)((?:" + allLettersAndNumbers + "\\s?)*)",
+const allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
+const separateWordfromArticleRegex = new RegExp(
+  `(?:les\\s|des\\s)((?:${allLettersAndNumbers}\\s?)*)`,
   "i"
 );
 
 function getTranslationsWithoutArticles(correctTranslations) {
-  let translationsWithoutArticles = [];
-  for (let correctTranslation of correctTranslations) {
-    let translation = correctTranslation.match(separateWordfromArticleRegex);
-    translationsWithoutArticles.push(translation[1]);
-  }
-  return translationsWithoutArticles;
+  const correctTranslationsWithoutArticles = correctTranslations.map(
+    correctTranslation => {
+      const translation = correctTranslation.match(
+        separateWordfromArticleRegex
+      );
+      return translation[1];
+    }
+  );
+
+  return correctTranslationsWithoutArticles;
 }
 
 export default getTranslationsWithoutArticles;

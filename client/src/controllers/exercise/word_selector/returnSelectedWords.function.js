@@ -1,7 +1,8 @@
-import { returnFrArticle } from "./returnArticles.functions";
-import { returnEnArticle } from "./returnArticles.functions";
-import { associateFrWordWithArticle } from "./associateWordWithArticle.function";
-import { associateEnWordWithArticle } from "./associateWordWithArticle.function";
+import { returnFrArticle, returnEnArticle } from "./returnArticles.functions";
+import {
+  associateFrWordWithArticle,
+  associateEnWordWithArticle
+} from "./associateWordWithArticle.function";
 
 // this function returns the selected word with the matching article if necessary
 // it also returns the accepted translations for the selected word
@@ -16,60 +17,54 @@ import { associateEnWordWithArticle } from "./associateWordWithArticle.function"
 // return examples where source language is EN:
 // {fr: ["le chat", "la chatte"], en: ["the cat"]}
 
-function return_Selected_Words_With_Article(
+function returnSelectedWordsWithArticle(
   sourceLanguage,
   frWords,
   enWords,
-  fr_form,
-  en_form,
+  frForm,
+  enForm,
   articleForm,
-  en_name
+  enName
 ) {
-  let frResults = [];
-  let enResults = [];
+  const frResults = [];
+  const enResults = [];
 
-  let frLimit = sourceLanguage === "fr" ? 1 : frWords.length;
-  let enLimit = sourceLanguage === "en" ? 1 : enWords.length;
+  const frLimit = sourceLanguage === "fr" ? 1 : frWords.length;
+  const enLimit = sourceLanguage === "en" ? 1 : enWords.length;
 
-  //FR Loop, need to test the possibility of several fr_forms
+  // FR Loop, need to test the possibility of several frForms
   for (let a = 0; a < frLimit; a++) {
-    for (let b = 0; b < fr_form.length; b++) {
-      if (frWords[a][fr_form[b]]) {
-        let fr_article = "";
+    for (let b = 0; b < frForm.length; b++) {
+      if (frWords[a][frForm[b]]) {
+        let frArticle = "";
         if (articleForm) {
-          fr_article = returnFrArticle(
-            fr_form[b],
+          frArticle = returnFrArticle(
+            frForm[b],
             articleForm,
             frWords[a].isLApostrophe
           );
         }
         frResults.push(
-          associateFrWordWithArticle(fr_article, frWords[a][fr_form[b]])
+          associateFrWordWithArticle(frArticle, frWords[a][frForm[b]])
         );
       }
     }
   }
 
-  //EN loop, there is always only one EN form
+  // EN loop, there is always only one EN form
   for (let a = 0; a < enLimit; a++) {
-    let en_article = "";
+    let enArticle = "";
     if (articleForm) {
-      en_article = returnEnArticle(
-        en_form,
-        articleForm,
-        enWords[a].isArticleAn
-      );
+      enArticle = returnEnArticle(enForm, articleForm, enWords[a].isArticleAn);
     }
-    enResults.push(associateEnWordWithArticle(en_article, enWords[a][en_form]));
+    enResults.push(associateEnWordWithArticle(enArticle, enWords[a][enForm]));
   }
 
-  //gathering info for progress tracking
-  let selectedForm = [en_name, sourceLanguage];
-  sourceLanguage === "fr"
-    ? selectedForm.push(fr_form[0])
-    : selectedForm.push(en_form);
+  // gathering info for progress tracking
+  const selectedWord = sourceLanguage === "fr" ? frForm[0] : enForm;
+  const selectedForm = [enName, sourceLanguage, selectedWord];
 
   return { fr: frResults, en: enResults, selectedForm };
 }
 
-export default return_Selected_Words_With_Article;
+export default returnSelectedWordsWithArticle;

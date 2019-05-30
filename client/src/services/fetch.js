@@ -1,4 +1,4 @@
-import "whatwg-fetch";
+import { fetch } from "whatwg-fetch";
 
 const services = {
   async socialLogin(provider, token) {
@@ -10,17 +10,17 @@ const services = {
       }
     };
     const result = await fetch(`/auth/${provider}/token`, options);
-    return await result.json();
+    return result.json();
   },
 
   async getJSONResponse(url) {
     const result = await fetch(url);
-    return await result.json();
+    return result.json();
   },
 
   async getTextResponse(url) {
     const result = await fetch(url);
-    return await result.text();
+    return result.text();
   },
 
   async postJSONResponse(url, data) {
@@ -32,7 +32,7 @@ const services = {
       body: data
     };
     const result = await fetch(url, options);
-    return await result.json();
+    return result.json();
   }
 };
 

@@ -7,8 +7,8 @@ import "./styles/common/layouts.scss";
 import "./styles/common/buttons.scss";
 import "./styles/common/variables.scss";
 
-import { actions as userActions } from "./redux/reducers/user";
 import { connect } from "react-redux";
+import { actions as userActions } from "./redux/reducers/user";
 
 import { LanguageContext } from "./contexts/language-context";
 import Router from "./router/Router";
@@ -52,8 +52,7 @@ class App extends Component {
     // allows the language context to load before rendering children components, critical when loading other page than home first
     if (!this.state.isSessionChecked) {
       return null;
-    } else
-      return (
+    } return (
         <LanguageContext.Provider value={this.props.user.languageContext}>
           <Router />
         </LanguageContext.Provider>

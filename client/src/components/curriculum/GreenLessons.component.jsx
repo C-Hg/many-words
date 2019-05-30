@@ -1,6 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function GreenLessons(props) {
+  const { greenLessons } = props;
   return (
     <div className="cardColumn">
       <i
@@ -9,9 +11,13 @@ function GreenLessons(props) {
       >
         check_circle_outline
       </i>
-      <div className="cardNumbers">{props.green}</div>
+      <div className="cardNumbers">{greenLessons}</div>
     </div>
   );
 }
+
+GreenLessons.propTypes = {
+  greenLessons: PropTypes.number.isRequired
+};
 
 export default GreenLessons;

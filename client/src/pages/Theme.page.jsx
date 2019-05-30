@@ -29,7 +29,7 @@ class Theme extends React.Component {
     const user = this.props.user;
     const theme = this.props.match.params.themeId;
     let lessonsStats = null;
-    let lessonsData = FR_EN_Lessons[theme];
+    const lessonsData = FR_EN_Lessons[theme];
     let weak_words_launchable = false;
     let lessons = "";
     if (user.stats.lessonsStats && user.stats.lessonsStats[theme]) {
@@ -38,10 +38,10 @@ class Theme extends React.Component {
     }
 
     if (user.isAuthenticated) {
-      //map for each lesson of the theme
+      // map for each lesson of the theme
       lessons = lessonsData.map(val => {
         let progressColor = "";
-        let progress = lessonsStats ? lessonsStats[val[0]] : null;
+        const progress = lessonsStats ? lessonsStats[val[0]] : null;
         if (progress >= 0.8) {
           progressColor = "gold";
         } else if (progress >= 0.4) {
@@ -74,7 +74,7 @@ class Theme extends React.Component {
           <div className="main-container greyBackground">
             <ScrollToTopOnMount />
             <div className="themeAndArrow">
-              <Link to={`/curriculum`}>
+              <Link to="/curriculum">
                 <BackArrow additionalClass="themePageArrow" />
               </Link>
               <ThemePageTitle theme={theme} />
@@ -86,7 +86,8 @@ class Theme extends React.Component {
           </div>
         </div>
       );
-    } else return null;
+    }
+    return null;
   }
 }
 

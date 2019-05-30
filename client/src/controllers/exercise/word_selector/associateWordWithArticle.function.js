@@ -1,13 +1,13 @@
-exports.associateFrWordWithArticle = function(fr_article, fr_word) {
-  if (fr_article === "l'" || fr_article === "") {
-    return `${fr_article}${fr_word}`;
+exports.associateFrWordWithArticle = (frArticle, frWord) => {
+  if (frArticle === "l'" || frArticle === "") {
+    return `${frArticle}${frWord}`;
   }
-  return `${fr_article} ${fr_word}`;
+  return `${frArticle} ${frWord}`;
 };
 
-exports.associateEnWordWithArticle = function(en_article, en_word) {
-  if (en_article === "") {
-    return en_word;
+exports.associateEnWordWithArticle = (enArticle, enWord) => {
+  if (enArticle === "") {
+    return enWord;
   }
-  return `${en_article} ${en_word}`;
+  return `${enArticle} ${enWord}`;
 };
