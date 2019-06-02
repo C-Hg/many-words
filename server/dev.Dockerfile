@@ -1,6 +1,5 @@
 FROM node:11.7.0
 
-ADD . /server
 WORKDIR /server/
 COPY package*.json ./
 RUN npm install

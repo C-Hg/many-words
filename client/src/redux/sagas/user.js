@@ -1,6 +1,5 @@
 import { put, call, takeEvery } from "redux-saga/effects";
 import { types } from "../reducers/user";
-import { languages } from "../../contexts/language-context";
 import fetch from "../../services/fetch";
 
 function* checkSession() {
@@ -16,14 +15,12 @@ function* defineLanguage() {
   if (!/fr/i.test(window.navigator.language)) {
     yield put({
       type: "SET_LANGUAGE",
-      languageContext: languages.English,
-      language: "en"
+      language: "English"
     });
   } else {
     yield put({
       type: "SET_LANGUAGE",
-      languageContext: languages.French,
-      language: "fr"
+      language: "French"
     });
   }
 }

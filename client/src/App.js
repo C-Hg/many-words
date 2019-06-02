@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import "./App.scss";
 import "./styles/common/material_icons.css";
@@ -6,11 +6,9 @@ import "./styles/common/titles.scss";
 import "./styles/common/layouts.scss";
 import "./styles/common/buttons.scss";
 import "./styles/common/variables.scss";
-
 import { connect } from "react-redux";
 import { actions as userActions } from "./redux/reducers/user";
-
-import { LanguageContext } from "./contexts/language-context";
+import { languages, LanguageContext } from "./contexts/language-context";
 import Router from "./router/Router";
 
 function mapStateToProps(state) {
@@ -28,37 +26,31 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSessionChecked: false
-    };
-  }
+const App = props => {
+  const { user, checkSession, defineLanguage } = props;
+  const [isSessionChecked, setIsSessionChecked] = useState(false);
 
   // automatic language and session detection on first page rendering
-  async componentDidMount() {
-    if (!this.state.isSessionChecked) {
-      this.props.checkSession();
-      this.props.defineLanguage();
-      this.setState({
-        isSessionChecked: true
-      });
+  useEffect(() => {
+    if (!isSessionChecked) {
+      checkSession();
+      defineLanguage();
+      setIsSessionChecked(true);
     }
-  }
+  }, [checkSession, defineLanguage, isSessionChecked]);
 
-  render() {
-    // TO DO : waiting screen or animation ?
-    // allows the language context to load before rendering children components, critical when loading other page than home first
-    if (!this.state.isSessionChecked) {
-      return null;
-    } return (
-        <LanguageContext.Provider value={this.props.user.languageContext}>
-          <Router />
-        </LanguageContext.Provider>
-      );
+  // TO DO : waiting screen or animation ?
+  // allows the language context to load before rendering children components, critical when loading other page than home first
+  if (!isSessionChecked) {
+    return null;
   }
-}
+  return (
+    // the language context depends on the language value in the redux store
+    <LanguageContext.Provider value={languages[user.language]}>
+      <Router />
+    </LanguageContext.Provider>
+  );
+};
 
 export default withRouter(
   connect(

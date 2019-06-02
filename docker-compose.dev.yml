@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  client:
+    build:
+      context: ./client/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./client:/client
+    ports:
+      - 3000:3000
+
+  server:
+    build:
+      context: ./server/
+      dockerfile: dev.Dockerfile
+    environment:
+      NODE_ENV: "production"
+    volumes:
+      - ./server:/server
+    ports:
+      - 3001:3001
+      - 9229:9229
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ../data:/data/db
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081

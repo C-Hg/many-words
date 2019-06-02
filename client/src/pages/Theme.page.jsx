@@ -37,34 +37,32 @@ class Theme extends React.Component {
       weak_words_launchable = true;
     }
 
-    if (user.isAuthenticated) {
-      // map for each lesson of the theme
-      lessons = lessonsData.map(val => {
-        let progressColor = "";
-        const progress = lessonsStats ? lessonsStats[val[0]] : null;
-        if (progress >= 0.8) {
-          progressColor = "gold";
-        } else if (progress >= 0.4) {
-          progressColor = "green";
-        } else progressColor = "blue";
+    // map for each lesson of the theme
+    lessons = lessonsData.map(val => {
+      let progressColor = "";
+      const progress = lessonsStats ? lessonsStats[val[0]] : null;
+      if (progress >= 0.8) {
+        progressColor = "gold";
+      } else if (progress >= 0.4) {
+        progressColor = "green";
+      } else progressColor = "blue";
 
-        return (
-          <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
-            <LessonTitle lesson={val[0]} theme={theme} />
-            <ProgressCircle progress={progress} progressColor={progressColor} />
-            <ProgressPercentage
-              progress={progress}
-              progressColor={progressColor}
-            />
-            <GoldStar progress={progress} />
-            <div className="themeButtons">
-              <StartTestButton {...this.props} lesson={val[0]} theme={theme} />
-              <LearnWordsButton {...this.props} lesson={val[0]} />
-            </div>
+      return (
+        <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
+          <LessonTitle lesson={val[0]} theme={theme} />
+          <ProgressCircle progress={progress} progressColor={progressColor} />
+          <ProgressPercentage
+            progress={progress}
+            progressColor={progressColor}
+          />
+          <GoldStar progress={progress} />
+          <div className="themeButtons">
+            <StartTestButton {...this.props} lesson={val[0]} theme={theme} />
+            <LearnWordsButton {...this.props} lesson={val[0]} />
           </div>
-        );
-      });
-    }
+        </div>
+      );
+    });
 
     /* -----------------    rendering component     -----------------  */
     if (lessons || !user.isAuthenticated) {

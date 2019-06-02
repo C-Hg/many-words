@@ -1,6 +1,5 @@
 const defaultState = {
   isAuthenticated: false,
-  languageContext: "",
   language: "",
   stats: ""
 };
@@ -31,8 +30,7 @@ const userReducer = (state = defaultState, action) => {
     case types.SET_LANGUAGE:
       return {
         ...state,
-        language: action.language,
-        languageContext: action.languageContext
+        language: action.language
       };
 
     case types.UPDATE_STATS:

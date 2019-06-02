@@ -4,19 +4,21 @@
   "description": "A WebApp to help you learn foreign languages vocabulary",
   "main": "index.js",
   "scripts": {
-    "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && nodemon server.js",
+    "build_and_move": "cd client && npm run build && cd ../tools && node insert_build.js",
     "client": "cd client && npm start",
+    "configure:all": "cd tools && node prepare_all.js",
+    "counter": "cd tools && npm run word_counter",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
+    "prepare:all": "npm run configure:all && cd .. && npm run build_client_and_replace",
     "test": "npm run test:client && npm run test:seeder",
     "test:client": "cd client && npm run mocha-test",
     "test:seeder": "cd tools/database_seeder && mocha",
     "seeder": "cd tools && npm run database_seeder",
-    "counter": "cd tools && npm run word_counter",
-    "configure:all": "cd tools && node prepare_all.js",
-    "build_and_move": "cd client && npm run build && cd ../tools && node insert_build.js",
-    "prepare:all": "npm run configure:all && cd .. && npm run build_client_and_replace"
+    "server": "cd server && nodemon server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+    
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
