@@ -8,11 +8,12 @@ const {
 const {
   seedWordsInDatabase
 } = require("./database_seeder/database_controllers/seedWordsInDatabase.controller");
-const curriculumDirectory = "../exercises/FR-EN";
+// the exercises directory is accessible from this directory thanks to the docker-compose configuration
+const curriculumDirectory = "./exercises/FR-EN";
 
 //Mongoose setup
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/many-words" , {
+mongoose.connect(process.env.MONGO_URI || "mongodb://mongo:27017/many-words", {
   useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
@@ -41,22 +42,22 @@ async function seedDatabase() {
   } catch (e) {
     console.error(
       "\033[1;31m" +
-        "Error while gathering data from curriculum directory" +
-        "\033[0;0m"
+      "Error while gathering data from curriculum directory" +
+      "\033[0;0m"
     );
     return;
   }
   if (words) {
     console.log(
       "\033[1;32m" +
-        "Data successfully retrieved from Markdown documents ☺️" +
-        "\033[0;0m"
+      "Data successfully retrieved from Markdown documents ☺️" +
+      "\033[0;0m"
     );
   } else {
     console.error(
       "\033[1;31m" +
-        "There was a problem while retrieving data from Markdown documents, check the logs. 💣" +
-        "\033[0;0m"
+      "There was a problem while retrieving data from Markdown documents, check the logs. 💣" +
+      "\033[0;0m"
     );
     return;
   }

@@ -24,11 +24,28 @@ services:
     depends_on:
       - mongo
 
+  exercises:
+    build: 
+      context: ./exercises
+      dockerfile: Dockerfile
+    volumes:
+      - exercises:/exercises
+
+  database-seeder:
+    build:
+      context: ./tools
+      dockerfile: dev.Dockerfile
+    volumes:
+      - exercises:/exercises
+    depends_on:
+      - mongo
+      - exercises
+
   mongo:
     image: mongo
     restart: always
     volumes:
-      - ../data:/data/db
+      - dbdata:/data
     ports:
       - 27017:27017
 
@@ -37,3 +54,9 @@ services:
     restart: always
     ports:
       - 8081:8081
+    depends_on:
+      - mongo
+
+volumes: 
+  dbdata:
+  exercises:

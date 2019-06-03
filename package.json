@@ -18,7 +18,6 @@
     "seeder": "cd tools && npm run database_seeder",
     "server": "cd server && nodemon server.js",
     "start": "concurrently \"npm run server\" \"npm run client\""
-    
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
