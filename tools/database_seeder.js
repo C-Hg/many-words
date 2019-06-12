@@ -1,4 +1,3 @@
-require("dotenv").config({ path: process.cwd() + "/.env" });
 const {
   gatherData
 } = require("./database_seeder/markdown_fetching_functions/gatherData.function");
@@ -10,16 +9,24 @@ const {
 } = require("./database_seeder/database_controllers/seedWordsInDatabase.controller");
 // the exercises directory is accessible from this directory thanks to the docker-compose configuration
 const curriculumDirectory = "./exercises/FR-EN";
+const secrets = require("./secrets")
 
 //Mongoose setup
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URI || "mongodb://mongo:27017/many-words", {
-  useNewUrlParser: true
-});
+mongooseOptions = {
+  useNewUrlParser: true,
+  autoReconnect: true,
+  reconnectTries: 50,
+  reconnectInterval: 5 * 1000
+}
+mongoose.connect(secrets.MONGO_URI, mongooseOptions);
 mongoose.Promise = global.Promise;
 //Get the default connection
 let db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error"));
+db.on("error", () => {
+  console.error.bind(console, "MongoDB connection error")
+  setTimeout(() => { mongoose.connect(secrets.MONGO_URI, mongooseOptions);}, 10000)
+} );
 db.once("open", async () => {
   let startTime = new Date();
   console.log("Connected to database");

@@ -8,7 +8,10 @@
     "client": "cd client && npm start",
     "configure:all": "cd tools && node prepare_all.js",
     "counter": "cd tools && npm run word_counter",
-    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "docker:dev": "docker-compose -f docker-compose.development.yml up --build",
+    "docker:dev-down": "docker-compose -f docker-compose.development.yml down",
+    "docker:prod": "docker-compose -f docker-compose.production.yml up --build",
+    "docker:prod-down": "docker-compose -f docker-compose.production.yml down",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
     "prepare:all": "npm run configure:all && cd .. && npm run build_client_and_replace",
@@ -36,7 +39,9 @@
     "mocha": "^5.2.0",
     "prettier": "^1.17.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mongodb": "^3.2.7"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/C-Hg/many-words"

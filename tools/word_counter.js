@@ -1,12 +1,12 @@
-require("dotenv").config({ path: process.cwd() + "/.env" });
 const countWords = require("./word_counter/countWords.function");
 const fileExplorer = require("./common/fs_explorers/getFiles.function");
 const getLessonAndTheme = require("./common/getLessonAndTheme.function");
 const updateFiles = require("./word_counter/updateFiles.function");
+const secrets = require("./secrets")
 
 //Mongoose setup
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/many-words", {
+mongoose.connect(secrets.MONGO_URI || "mongodb://mongo:27017/many-words", {
   useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;

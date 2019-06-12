@@ -1,4 +1,10 @@
 // placeholders allow compiling without app secrets for social auth
+const {
+  NODE_ENV,
+  MONGODB_PASSWORD,
+  MONGODB_USER,
+  MONGO_INITDB_DATABASE
+} = process.env;
 
 module.exports = {
   SESSION_SECRET: process.env.SESSION_SECRET || "session_secret",
@@ -10,9 +16,8 @@ module.exports = {
   FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET || "no_secret",
 
   // mongo is the name of the docker image
-  MONGO_URI: "mongodb://mongo:27017/many-words"
+  MONGO_URI:
+    NODE_ENV === "production"
+      ? `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@mongo:27017/${MONGO_INITDB_DATABASE}`
+      : "mongodb://mongo:27017/many-words"
 };
-
-// `mongodb://${process.env.MONGO_USER}${
-//       process.env.MONGO_PASSWORD
-//     }@localhost:27017/many-words`

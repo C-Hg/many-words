@@ -44,6 +44,7 @@ mongoose.connect(secrets.MONGO_URI, {
 });
 mongoose.Promise = global.Promise;
 // Get the default connection
+// FIXME : catch correctly the errors, Webpack maybe?
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {

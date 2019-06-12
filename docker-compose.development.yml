@@ -15,7 +15,7 @@ services:
       context: ./server/
       dockerfile: dev.Dockerfile
     environment:
-      NODE_ENV: "production"
+      NODE_ENV: "development"
     volumes:
       - ./server:/server
     ports:
@@ -37,6 +37,8 @@ services:
       dockerfile: dev.Dockerfile
     volumes:
       - exercises:/exercises
+    environment:
+      NODE_ENV: "development"
     depends_on:
       - mongo
       - exercises
