@@ -24,8 +24,8 @@ mongoose.Promise = global.Promise;
 //Get the default connection
 let db = mongoose.connection;
 db.on("error", () => {
-  console.error.bind(console, "MongoDB connection error")
-  setTimeout(() => { mongoose.connect(secrets.MONGO_URI, mongooseOptions);}, 10000)
+  console.error("MongoDB connection error, retrying to connect in 20s.")
+  setTimeout(() => { mongoose.connect(secrets.MONGO_URI, mongooseOptions);}, 20000)
 } );
 db.once("open", async () => {
   let startTime = new Date();
@@ -38,6 +38,7 @@ db.once("open", async () => {
 
   db.close(() => {
     console.log("Connection to the database closed");
+    process.exit()
   });
 });
 
