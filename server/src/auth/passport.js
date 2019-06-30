@@ -4,7 +4,7 @@ const FacebookTokenStrategy = require("passport-facebook-token");
 const secrets = require("../config/secrets");
 
 const findOrCreateGoogleUser = require("./google/findOrCreateGoogleUser.controller");
-const findOrCreateFacebookUser = require("../auth/facebook/findOrCreateFacebookUser.controller");
+const findOrCreateFacebookUser = require("./facebook/findOrCreateFacebookUser.controller");
 
 module.exports = function() {
   passport.use(

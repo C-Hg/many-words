@@ -1,6 +1,6 @@
 const findUserWithEmail = require("../common/findUserWithEmail.function");
-const findUserWithFacebookId = require("../facebook/findUserWithFacebookId.function");
-const createUserWithFacebook = require("../facebook/createUserWithFacebook.function");
+const findUserWithFacebookId = require("./findUserWithFacebookId.function");
+const createUserWithFacebook = require("./createUserWithFacebook.function");
 
 module.exports = async function findOrCreateFacebookUser(facebookId, email) {
   let user = "";

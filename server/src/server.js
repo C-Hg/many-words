@@ -1,18 +1,19 @@
-require("dotenv").config({ path: `${process.cwd()}/.env` });
-const express = require("express");
+import express from "express";
+import cors from "cors";
+import session from "express-session";
+import connectMongoDBSession from "connect-mongodb-session";
+import passport from "passport";
+import bodyParser from "body-parser";
+import helmet from "helmet";
+import mongoose from "mongoose";
+import secrets from "./config/secrets";
+import apiRoutes from "./routes/api.routes";
+import authRoutes from "./routes/auth.routes";
 
 const app = express();
-const cors = require("cors");
-const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session")(session);
-const passport = require("passport");
-const bodyParser = require("body-parser");
-const helmet = require("helmet");
-const mongoose = require("mongoose");
-
-const secrets = require("./config/secrets");
 
 /*  -------------   login and session middlewares    -----------*/
+const MongoDBStore = connectMongoDBSession(session);
 app.set("trust proxy", 1);
 app.use(
   session({
@@ -38,27 +39,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 require("./auth/session/session.middlewares")(); // passport serializer and deserializer
 
 /* ----------------------     Mongoose setup     ------------*/
-
 mongoose.connect(secrets.MONGO_URI, {
   useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
 // Get the default connection
-// FIXME : catch correctly the errors, Webpack maybe?
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
-  console.log("Connected to database");
+  console.info("Connected to database");
   // configuring the listening port
   const listener = app.listen(3001, function() {
-    console.log(`Many-words is listening on port ${listener.address().port}`);
+    console.info(`Many-words is listening on port ${listener.address().port}`);
   });
 });
 
 /* --------------------------      routing        ----------------- */
-const apiRoutes = require("./routes/api.routes");
-const authRoutes = require("./routes/auth.routes");
-
 app.use("/api/", apiRoutes);
 app.use("/auth/", authRoutes);
 

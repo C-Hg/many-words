@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const bodyParser = require("body-parser");
 const {
@@ -12,7 +13,7 @@ const prepareWeakWords = require("../controllers/content_fetching/prepareWeakWor
 
 router.get("/learn/:lesson", getWordsToLearn);
 router.get("/exercise/:lesson", getLesson);
-router.get(["/weak_words/:reference"], prepareWeakWords);
+router.get("/weak_words/:reference", prepareWeakWords);
 
 router.post(
   "/tracking/update_word_stats",
