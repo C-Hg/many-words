@@ -1,4 +1,4 @@
-//session continues but the user is logged out i.e the session cookie contains no user ID
+// session continues but the user is logged out i.e the session cookie contains no user ID
 
 module.exports = function logoutUser(req, res) {
   if (req.user) {

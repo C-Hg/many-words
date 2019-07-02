@@ -1,12 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const bodyParser = require("body-parser");
-const passport = require("passport");
-const sendUserDetails = require("../auth/session/sendUserDetails.controller");
-const logoutUser = require("../auth/session/logoutUser.controller");
-const deleteUserAccount = require("../auth/account/deleteUserAccount.controller");
+import express from "express";
+import bodyParser from "body-parser";
+import passport from "passport";
+import sendUserDetails from "../auth/session/sendUserDetails.controller";
+import logoutUser from "../auth/session/logoutUser.controller";
+import deleteUserAccount from "../auth/account/deleteUserAccount.controller";
 
-require("../auth/passport")(); //importing passport strategies with iife
+const router = express.Router();
+require("../auth/passport")(); // importing passport strategies with iife
 
 router.get("/google/token", passport.authenticate("google-token"), function(
   req,

@@ -1,8 +1,8 @@
-const findUserWithEmail = require("../common/findUserWithEmail.function");
-const findUserWithGoogleId = require("./findUserWithGoogleId.function");
-const createUserWithGoogle = require("./createUserWithGoogle.function");
+import findUserWithEmail from "../common/findUserWithEmail.function";
+import findUserWithGoogleId from "./findUserWithGoogleId.function";
+import createUserWithGoogle from "./createUserWithGoogle.function";
 
-module.exports = async function findOrCreateGoogleUser(googleId, email) {
+const findOrCreateGoogleUser = async (googleId, email) => {
   let user = "";
 
   // searches user with email, allows cross auth with several providers
@@ -28,3 +28,5 @@ module.exports = async function findOrCreateGoogleUser(googleId, email) {
   user = await createUserWithGoogle(googleId, email[0].value);
   return user;
 };
+
+export default findOrCreateGoogleUser;

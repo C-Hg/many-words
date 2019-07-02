@@ -1,4 +1,4 @@
-const User = require("../../models/user.model");
+import User from "../../models/user.model";
 
 module.exports = async function createUserWithFacebook(facebookId, email) {
   try {

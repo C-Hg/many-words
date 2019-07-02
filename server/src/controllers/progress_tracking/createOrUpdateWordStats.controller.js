@@ -5,7 +5,7 @@ const updateThemesStats = require("./updateThemesStats.controller");
 const updateGlobalProgress = require("./updateGlobalProgress.controller");
 const calculateLessonsStats = require("./global_progress/assessGlobalLessonsStats.function");
 const replaceUserStats = require("./user_stats/replaceUserStats.function");
-
+  
 module.exports = async function createOrUpdateWordStats(req, res) {
   // data received in an array of arrays :
   // [ [en_name of the word, source_language, form name, answered correctly?], [...], ... ]

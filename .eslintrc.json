@@ -5,12 +5,13 @@
     "ecmaFeatures": {
         "jsx": true
     }
-},
+  },
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "node": true
   },
-  "extends": ["airbnb", "prettier/react", "plugin:prettier/recommended"],
+  "extends": ["airbnb", "prettier/react", "prettier/babel", "plugin:prettier/recommended"],
   "plugins": ["react", "react-hooks", "prettier" ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",

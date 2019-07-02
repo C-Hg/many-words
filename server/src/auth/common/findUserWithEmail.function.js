@@ -1,10 +1,10 @@
-const User = require("../../models/user.model");
+import User from "../../models/user.model";
 
 // searches a match with every emails sent, if any
 // Google and Facebook use the same format : array of email adresses of the form :
 // [{ value: email@adress }]
 
-module.exports = async function findUserWithEmail(email) {
+const findUserWithEmail = async email => {
   let user;
   for (let count = 0; count < email.length; count++) {
     try {
@@ -21,3 +21,5 @@ module.exports = async function findUserWithEmail(email) {
   }
   return user; // returns null if no match
 };
+
+export default findUserWithEmail;

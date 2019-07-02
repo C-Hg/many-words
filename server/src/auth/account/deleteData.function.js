@@ -1,7 +1,7 @@
-const User = require("../../models/user.model");
-const WordStats = require("../../models/wordStats.model");
+import User from "../../models/user.model";
+import WordStats from "../../models/wordStats.model";
 
-module.exports = async function deleteUserAccount(userId) {
+const deleteData = async (userId) => {
   try {
     await WordStats.deleteMany({ userId: userId });
   } catch (e) {
@@ -17,3 +17,5 @@ module.exports = async function deleteUserAccount(userId) {
 
   return true;
 };
+
+export default deleteData;

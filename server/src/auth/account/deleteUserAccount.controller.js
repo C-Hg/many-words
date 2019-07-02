@@ -1,6 +1,6 @@
-const deleteData = require("./deleteData.function");
+import deleteData from "./deleteData.function";
 
-module.exports = async function deleteUserAccount(req, res) {
+const deleteUserAccount = async (req, res) => {
   if (!req.user) {
     res.statusCode = 401;
     res.send("no active session");
@@ -24,3 +24,5 @@ module.exports = async function deleteUserAccount(req, res) {
   res.statusCode = 500;
   res.send("error while deleting user data");
 };
+
+export default deleteUserAccount;

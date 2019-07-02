@@ -1,8 +1,8 @@
-const User = require("../../models/user.model");
+import User from "../../models/user.model";
 
-module.exports = async function createUserWithGoogle(googleId, email) {
+const createUserWithGoogle = async (googleId, email) => {
   try {
-    let user = await User.create({ googleId: googleId, email: email });
+    const user = await User.create({ googleId, email });
     await new Promise((resolve, reject) => {
       user.save(function handleCreate(err) {
         if (err) reject(err);
@@ -14,3 +14,5 @@ module.exports = async function createUserWithGoogle(googleId, email) {
     console.log("error while registering user");
   }
 };
+
+export default createUserWithGoogle;
