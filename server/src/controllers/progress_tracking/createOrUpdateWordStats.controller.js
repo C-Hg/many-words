@@ -5,17 +5,17 @@ const updateThemesStats = require("./updateThemesStats.controller");
 const updateGlobalProgress = require("./updateGlobalProgress.controller");
 const calculateLessonsStats = require("./global_progress/assessGlobalLessonsStats.function");
 const replaceUserStats = require("./user_stats/replaceUserStats.function");
-  
+
 module.exports = async function createOrUpdateWordStats(req, res) {
   // data received in an array of arrays :
   // [ [en_name of the word, source_language, form name, answered correctly?], [...], ... ]
 
-  let exerciseResults = req.body;
-  let user_id = req.user._id;
-  let lessons = [];
+  const exerciseResults = req.body;
+  const user_id = req.user._id;
+  const lessons = [];
 
-  //iterating each word studied
-  for (let word of exerciseResults) {
+  // iterating each word studied
+  for (const word of exerciseResults) {
     let wordStats;
     try {
       wordStats = await getWordStats(word[0], user_id);
@@ -29,7 +29,7 @@ module.exports = async function createOrUpdateWordStats(req, res) {
       console.log("error while updating word stats", e);
     }
 
-    //gather lessons to update
+    // gather lessons to update
     if (!lessons.includes(wordStats.lesson)) {
       lessons.push(wordStats.lesson);
     }
@@ -38,7 +38,7 @@ module.exports = async function createOrUpdateWordStats(req, res) {
   // TO BE GATHERED AND OPTIMIZED in a controller ??? assess if parallel runs are possible
   // delete useless try/catch
   let user = req.user.toObject();
-  for (let lesson of lessons) {
+  for (const lesson of lessons) {
     try {
       user = await updateLessonStats(user, lesson);
     } catch (e) {

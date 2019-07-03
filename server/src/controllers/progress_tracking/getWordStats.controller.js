@@ -19,5 +19,3 @@ module.exports = async function getWordStats(word, user) {
   }
   return wordStats;
 };
-
-   

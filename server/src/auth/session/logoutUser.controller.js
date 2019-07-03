@@ -1,11 +1,11 @@
 // session continues but the user is logged out i.e the session cookie contains no user ID
 
-module.exports = function logoutUser(req, res) {
+const logoutUser = (req, res) => {
   if (req.user) {
     req.logout();
-    req.session.destroy(function(err) {
-      if (err) {
-        console.log("error while destroying session");
+    req.session.destroy(error => {
+      if (error) {
+        console.error("error while destroying session", error);
       }
     });
     res.status(200).send("user logged out");
@@ -13,3 +13,5 @@ module.exports = function logoutUser(req, res) {
     res.status(401).send("no active session");
   }
 };
+
+export default logoutUser;

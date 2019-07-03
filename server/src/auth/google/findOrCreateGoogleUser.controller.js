@@ -10,8 +10,8 @@ const findOrCreateGoogleUser = async (googleId, email) => {
   if (email) {
     try {
       user = await findUserWithEmail(email);
-    } catch (e) {
-      console.log("error while searching user with email");
+    } catch (error) {
+      console.error("error while searching user with email", error);
     }
   }
   if (user) return user;
@@ -20,8 +20,8 @@ const findOrCreateGoogleUser = async (googleId, email) => {
   try {
     user = await findUserWithGoogleId(googleId);
     if (user) return user;
-  } catch (e) {
-    console.log("error while searching user with googleId");
+  } catch (error) {
+    console.error("error while searching user with googleId", error);
   }
 
   // else creates new user

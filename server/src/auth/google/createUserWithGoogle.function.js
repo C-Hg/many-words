@@ -10,8 +10,8 @@ const createUserWithGoogle = async (googleId, email) => {
       });
     });
     return user;
-  } catch (e) {
-    console.log("error while registering user");
+  } catch (error) {
+    console.error("error while registering user", error);
   }
 };
 
