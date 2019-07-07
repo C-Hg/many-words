@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import secrets from "./config/secrets";
 import apiRoutes from "./routes/api.routes";
 import authRoutes from "./routes/auth.routes";
+import sessionMiddlewares from "./auth/session/session.middlewares";
 
 const app = express();
 
@@ -18,10 +19,12 @@ app.set("trust proxy", 1);
 app.use(
   session({
     secret: secrets.SESSION_SECRET,
+    name: "sessionId",
     resave: false, // prevents race condition
     saveUninitialized: false, // creates a session only if user logs in
     cookie: {
-      secure: true,
+      secure: false,
+      httpOnly: true,
       sameSite: true,
       maxAge: 100 * 24 * 60 * 60 * 1000 // log in every 3 months
     },
@@ -36,7 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
-require("./auth/session/session.middlewares")(); // passport serializer and deserializer
+sessionMiddlewares();
 
 /* ----------------------     Mongoose setup     ------------*/
 mongoose.connect(secrets.MONGO_URI, {
@@ -49,7 +52,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
   console.info("Connected to database");
   // configuring the listening port
-  const listener = app.listen(3001, function() {
+  const listener = app.listen(3001, () => {
     console.info(`Many-words is listening on port ${listener.address().port}`);
   });
 });
@@ -58,6 +61,7 @@ db.once("open", () => {
 app.use("/api/", apiRoutes);
 app.use("/auth/", authRoutes);
 
+// TODO: configure routing from server for production
 /* home routing, allows client-side routing on production
 app.use(express.static(path.join(__dirname, "build")));
 app.get("/*", function(req, res) {

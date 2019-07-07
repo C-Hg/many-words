@@ -84,7 +84,7 @@ function* updateStats() {
     // updates stats on server and get up-to-date user stats
     const stats = yield call(
       fetch.postJSONResponse,
-      `/api/tracking/update_word_stats`,
+      `/api/stats/update_word_stats`,
       data
     );
     yield put({ type: "UPDATE_STATS", stats });

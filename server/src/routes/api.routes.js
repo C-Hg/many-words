@@ -16,7 +16,7 @@ router.get("/exercise/:lesson", getLesson);
 router.get("/weak_words/:reference", prepareWeakWords);
 
 router.post(
-  "/tracking/update_word_stats",
+  "/stats/update_word_stats",
   bodyParser.json(),
   createOrUpdateWordStats
 );

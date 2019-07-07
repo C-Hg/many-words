@@ -9,7 +9,6 @@ const replaceUserStats = require("./user_stats/replaceUserStats.function");
 module.exports = async function createOrUpdateWordStats(req, res) {
   // data received in an array of arrays :
   // [ [en_name of the word, source_language, form name, answered correctly?], [...], ... ]
-
   const exerciseResults = req.body;
   const user_id = req.user._id;
   const lessons = [];
@@ -19,14 +18,14 @@ module.exports = async function createOrUpdateWordStats(req, res) {
     let wordStats;
     try {
       wordStats = await getWordStats(word[0], user_id);
-    } catch (e) {
-      console.log("error while fetching or creating word stats", e);
+    } catch (error) {
+      console.error("error while fetching or creating word stats", error);
     }
 
     try {
       await updateWordStats(wordStats, word);
-    } catch (e) {
-      console.log("error while updating word stats", e);
+    } catch (error) {
+      console.error("error while updating word stats", error);
     }
 
     // gather lessons to update
@@ -41,28 +40,28 @@ module.exports = async function createOrUpdateWordStats(req, res) {
   for (const lesson of lessons) {
     try {
       user = await updateLessonStats(user, lesson);
-    } catch (e) {
-      console.log("error while updating lesson stats", e);
+    } catch (error) {
+      console.error("error while updating lesson stats", error);
     }
   }
 
   try {
     user = await updateThemesStats(user);
-  } catch (e) {
-    console.log("error while updating themes stats", e);
+  } catch (error) {
+    console.error("error while updating themes stats", error);
   }
 
   try {
     user = await updateGlobalProgress(user);
-  } catch (e) {
-    console.log("error while updating global stats", e);
+  } catch (error) {
+    console.error("error while updating global stats", error);
   }
 
   // only one writing operation to the db
   try {
     await replaceUserStats(user);
-  } catch (e) {
-    console.log("error while replacing user stats", e);
+  } catch (error) {
+    console.error("error while replacing user stats", error);
   }
 
   res.send(user.stats);

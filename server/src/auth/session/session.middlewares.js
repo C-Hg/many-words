@@ -1,15 +1,17 @@
 import passport from "passport";
 import User from "../../models/user.model";
 
-module.exports = function() {
-  passport.serializeUser(function(user, done) {
+const sessionMiddlewares = () => {
+  passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+  passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
       if (err) return err;
       done(err, user);
     });
   });
 };
+
+export default sessionMiddlewares;
