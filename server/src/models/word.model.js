@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 
 const wordSchema = new Schema({
@@ -12,4 +13,4 @@ const wordSchema = new Schema({
   fr: { type: Array, required: true }
 });
 
-module.exports = mongoose.model("Word", wordSchema);
+export default mongoose.model("Word", wordSchema);

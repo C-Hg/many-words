@@ -1,12 +1,12 @@
-const getWeakWords = require("./functions/getWeakWords.function");
-const sortWordStats = require("./functions/sortWordStats.function");
-const mapWordScores = require("./functions/mapWordScores.function");
-const Word = require("../../models/word.model");
+import getWeakWords from "./functions/getWeakWords.function";
+import sortWordStats from "./functions/sortWordStats.function";
+import mapWordScores from "./functions/mapWordScores.function";
+import Word from "../../models/word.model";
 
-module.exports = async function prepareWeakWords(req, res) {
+const prepareWeakWords = async (req, res) => {
   let wordStats = "";
   let sortedWordStats;
-  let words = [];
+  const words = [];
 
   try {
     wordStats = await getWeakWords(req.params.reference, req.user._id);
@@ -19,8 +19,8 @@ module.exports = async function prepareWeakWords(req, res) {
   }
 
   sortedWordStats = sortWordStats(wordStats);
-  let slicedWordStats = sortedWordStats.slice(0, 50);
-  for (let word of slicedWordStats) {
+  const slicedWordStats = sortedWordStats.slice(0, 50);
+  for (const word of slicedWordStats) {
     try {
       words.push(
         await Word.findOne(
@@ -34,8 +34,10 @@ module.exports = async function prepareWeakWords(req, res) {
   }
 
   // filters out the stats of the weakest forms of each word
-  let weakestFormsStats = mapWordScores(slicedWordStats);
+  const weakestFormsStats = mapWordScores(slicedWordStats);
 
   // returns an array of the 50 weakest words (words and weak forms)
-  res.send(JSON.stringify({ words: words, stats_by_form: weakestFormsStats }));
+  res.send(JSON.stringify({ words, stats_by_form: weakestFormsStats }));
 };
+
+export default prepareWeakWords;

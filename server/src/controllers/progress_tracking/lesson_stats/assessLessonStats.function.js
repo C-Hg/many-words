@@ -1,8 +1,5 @@
-module.exports = function assessLessonStats(
-  wordProficiencies,
-  totalNumberOfWords
-) {
-  let score = wordProficiencies.reduce((acc, val) => {
+const assessLessonStats = (wordProficiencies, totalNumberOfWords) => {
+  const score = wordProficiencies.reduce((acc, val) => {
     if (val.global_score <= 0) {
       return acc;
     }
@@ -13,6 +10,8 @@ module.exports = function assessLessonStats(
   }, 0);
   return Number((score / (totalNumberOfWords * 5)).toFixed(3));
 };
+
+export default assessLessonStats;
 
 /*
 The lesson score is a percentage

@@ -1,7 +1,7 @@
-const getWordStatsByUser = require("./word_stats/getWordStatsByUser.function");
-const assessGlobalProgress = require("./global_progress/assessGlobalProgress.function");
+import getWordStatsByUser from "./word_stats/getWordStatsByUser.function";
+import assessGlobalProgress from "./global_progress/assessGlobalProgress.function";
 
-module.exports = async function getUserStats(user) {
+const getUserStats = async user => {
   let wordStats = null;
   let globalProgress = {};
 
@@ -15,6 +15,7 @@ module.exports = async function getUserStats(user) {
   }
 
   user.stats.globalProgress = globalProgress;
-
   return user;
 };
+
+export default getUserStats;

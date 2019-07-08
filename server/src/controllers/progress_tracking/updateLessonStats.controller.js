@@ -1,18 +1,18 @@
-const findWordStatsByLesson = require("./word_stats/findWordStatsByLesson.function");
-const wordCountByLesson = require("../../exercises/FR-EN/wordCountByLesson");
-const assessLessonStats = require("./lesson_stats/assessLessonStats.function");
+import findWordStatsByLesson from "./word_stats/findWordStatsByLesson.function";
+import wordCountByLesson from "../../exercises/FR-EN/wordCountByLesson";
+import assessLessonStats from "./lesson_stats/assessLessonStats.function";
 
-module.exports = async function updateLessonStats(user, lesson) {
+const updateLessonStats = async (user, lesson) => {
   let wordStats;
   let newScore;
 
-  //gather word stats of the given lesson
+  // gather word stats of the given lesson
   try {
     wordStats = await findWordStatsByLesson(user._id, lesson);
   } catch (e) {
     console.log("error while fetching or creating word stats");
   }
-  let theme = wordStats[0].theme;
+  const theme = wordStats[0].theme;
 
   // to calculate the lesson score
   newScore = assessLessonStats(wordStats, wordCountByLesson[lesson]);
@@ -25,3 +25,5 @@ module.exports = async function updateLessonStats(user, lesson) {
 
   return user;
 };
+
+export default updateLessonStats;

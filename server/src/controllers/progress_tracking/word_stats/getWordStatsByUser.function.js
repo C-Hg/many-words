@@ -1,11 +1,13 @@
-const WordStats = require("../../../models/wordStats.model");
+import WordStats from "../../../models/wordStats.model";
 
-module.exports = async function getWordStatsByUser(userId) {
+const getWordStatsByUser = async userId => {
   try {
     return await WordStats.find({
-      userId: userId
+      userId
     });
   } catch (e) {
     console.log("error while fetching word stats count");
   }
 };
+
+export default getWordStatsByUser;

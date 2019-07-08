@@ -1,12 +1,12 @@
-const findWordStatsByWord = require("./word_stats/findWordStatsByWord.function");
-const createWordStats = require("./word_stats/createWordStats.function");
+import findWordStatsByWord from "./word_stats/findWordStatsByWord.function";
+import createWordStats from "./word_stats/createWordStats.function";
 
-module.exports = async function getWordStats(word, user) {
+const getWordStats = async (word, user) => {
   let wordStats;
   try {
     wordStats = await findWordStatsByWord(word, user);
-  } catch (e) {
-    console.log("error while fetching word stats");
+  } catch (error) {
+    console.error("error while fetching word stats", error);
   }
   if (wordStats) {
     return wordStats;
@@ -14,8 +14,10 @@ module.exports = async function getWordStats(word, user) {
 
   try {
     wordStats = await createWordStats(word, user);
-  } catch (e) {
-    console.log("error while creating word stats");
+  } catch (error) {
+    console.error("error while creating word stats", error);
   }
   return wordStats;
 };
+
+export default getWordStats;

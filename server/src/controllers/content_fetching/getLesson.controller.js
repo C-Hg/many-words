@@ -1,8 +1,8 @@
-const Word = require("../../models/word.model");
-const findWordStatsByWord = require("../progress_tracking/word_stats/findWordStatsByWord.function");
-const mapWordScores = require("./functions/mapWordScores.function");
+import Word from "../../models/word.model";
+import findWordStatsByWord from "../progress_tracking/word_stats/findWordStatsByWord.function";
+import mapWordScores from "./functions/mapWordScores.function";
 
-exports.getLesson = async function(req, res) {
+const getLesson = async (req, res) => {
   let words;
 
   // fetches the words for the lesson
@@ -13,7 +13,7 @@ exports.getLesson = async function(req, res) {
     );
     // sends them as is if user is not logged in
     if (!req.user) {
-      res.send(JSON.stringify({ words: words }));
+      res.send(JSON.stringify({ words }));
       return;
     }
   } catch (e) {
@@ -25,7 +25,7 @@ exports.getLesson = async function(req, res) {
   // or "null", for each word
   let wordScores = [];
   try {
-    for (let word of words) {
+    for (const word of words) {
       wordScores = [
         ...wordScores,
         await findWordStatsByWord(word.en_name, req.user._id)
@@ -33,12 +33,12 @@ exports.getLesson = async function(req, res) {
     }
 
     // filters out the stats of the weakest forms of each word
-    let weakestFormsStats = mapWordScores(wordScores);
+    const weakestFormsStats = mapWordScores(wordScores);
 
-    res.send(
-      JSON.stringify({ words: words, stats_by_form: weakestFormsStats })
-    );
+    res.send(JSON.stringify({ words, stats_by_form: weakestFormsStats }));
   } catch (e) {
     console.log("error while fetching word scores");
   }
 };
+
+export default getLesson;

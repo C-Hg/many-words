@@ -1,6 +1,6 @@
-const Word = require("../../models/word.model");
+import Word from "../../models/word.model";
 
-exports.getWordsToLearn = async function(req, res) {
+const getWordsToLearn = async (req, res) => {
   let words;
   try {
     words = await Word.find(
@@ -8,8 +8,9 @@ exports.getWordsToLearn = async function(req, res) {
       "type hasUniqueForm en fr"
     );
     res.send(JSON.stringify(words));
-  } catch (e) {
-    console.log("Error while fetching words to learn (server side)");
-    return;
+  } catch (error) {
+    console.error("Error while fetching words to learn (server side)", error);
   }
 };
+
+export default getWordsToLearn;

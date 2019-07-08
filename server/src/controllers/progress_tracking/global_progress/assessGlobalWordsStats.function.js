@@ -1,8 +1,8 @@
-module.exports = function assessGlobalWordsStats(wordStats) {
+const assessGlobalWordsStats = wordStats => {
   let greenWords = 0;
   let goldWords = 0;
   const encounteredWords = wordStats.length;
-  let globalScore = wordStats.reduce((acc, val) => {
+  const globalScore = wordStats.reduce((acc, val) => {
     if (val.global_score <= 0) {
       return acc;
     }
@@ -24,3 +24,5 @@ module.exports = function assessGlobalWordsStats(wordStats) {
     globalScore
   };
 };
+
+export default assessGlobalWordsStats;

@@ -1,15 +1,13 @@
-const updateStatsByForm = require("./updateStatsByForm.function");
+import updateStatsByForm from "./updateStatsByForm.function";
 
-module.exports = async function updateWordStats(wordStats, exerciseResults) {
-  let updatedStats = updateStatsByForm(wordStats, exerciseResults);
+const updateWordStats = async (wordStats, exerciseResults) => {
+  const updatedStats = updateStatsByForm(wordStats, exerciseResults);
   try {
-    return await new Promise((resolve, reject) => {
-      updatedStats.save(function(err, updatedStats) {
-        if (err) reject(err);
-        resolve(updatedStats);
-      });
-    });
-  } catch (e) {
-    console.log("error while saving word stats");
+    const stats = await updatedStats.save();
+    return stats;
+  } catch (error) {
+    console.error("error while saving word stats", error);
   }
 };
+
+export default updateWordStats;

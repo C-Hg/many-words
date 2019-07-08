@@ -1,12 +1,12 @@
-const FR_EN_Lessons = require("../../exercises/FR-EN/lessons");
+import FR_EN_Lessons from "../../exercises/FR-EN/lessons";
 
 /*  ------   see FR_EN_Lessons format for a better understanding   -------- */
 
-module.exports = async function updateThemesStats(user) {
-  for (let theme in FR_EN_Lessons) {
+const updateThemesStats = async user => {
+  for (const theme in FR_EN_Lessons) {
     let green = 0;
     let gold = 0;
-    for (let lesson of FR_EN_Lessons[theme]) {
+    for (const lesson of FR_EN_Lessons[theme]) {
       // has user already a score for this lesson?
       if (
         user.stats.lessonsStats[theme] &&
@@ -29,3 +29,5 @@ module.exports = async function updateThemesStats(user) {
 
   return user;
 };
+
+export default updateThemesStats;

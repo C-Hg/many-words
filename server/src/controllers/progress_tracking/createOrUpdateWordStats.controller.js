@@ -1,23 +1,22 @@
-const getWordStats = require("./getWordStats.controller");
-const updateWordStats = require("./word_stats/updateWordStats.function");
-const updateLessonStats = require("./updateLessonStats.controller");
-const updateThemesStats = require("./updateThemesStats.controller");
-const updateGlobalProgress = require("./updateGlobalProgress.controller");
-const calculateLessonsStats = require("./global_progress/assessGlobalLessonsStats.function");
-const replaceUserStats = require("./user_stats/replaceUserStats.function");
+import getWordStats from "./getWordStats.controller";
+import updateWordStats from "./word_stats/updateWordStats.function";
+import updateLessonStats from "./updateLessonStats.controller";
+import updateThemesStats from "./updateThemesStats.controller";
+import updateGlobalProgress from "./updateGlobalProgress.controller";
+import replaceUserStats from "./user_stats/replaceUserStats.function";
 
-module.exports = async function createOrUpdateWordStats(req, res) {
+const createOrUpdateWordStats = async (req, res) => {
   // data received in an array of arrays :
   // [ [en_name of the word, source_language, form name, answered correctly?], [...], ... ]
   const exerciseResults = req.body;
-  const user_id = req.user._id;
+  const userId = req.user._id;
   const lessons = [];
 
   // iterating each word studied
   for (const word of exerciseResults) {
     let wordStats;
     try {
-      wordStats = await getWordStats(word[0], user_id);
+      wordStats = await getWordStats(word[0], userId);
     } catch (error) {
       console.error("error while fetching or creating word stats", error);
     }
@@ -66,3 +65,5 @@ module.exports = async function createOrUpdateWordStats(req, res) {
 
   res.send(user.stats);
 };
+
+export default createOrUpdateWordStats;

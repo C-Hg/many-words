@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 
 const wordStatsSchema = new Schema({
@@ -17,7 +18,7 @@ const wordStatsSchema = new Schema({
   updatedAt: { type: Date, default: Date.now(), required: true }
 });
 
-module.exports = mongoose.model("WordStats", wordStatsSchema);
+export default mongoose.model("WordStats", wordStatsSchema);
 
 /*
 stats_by_form is an array of objects

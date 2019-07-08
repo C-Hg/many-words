@@ -1,9 +1,11 @@
-const WordStats = require("../../../models/wordStats.model");
+import WordStats from "../../../models/wordStats.model";
 
-module.exports = async function findWordStatsByLesson(user, lesson) {
+const findWordStatsByLesson = async (user, lesson) => {
   try {
-    return await WordStats.find({ userId: user, lesson: lesson });
+    return await WordStats.find({ userId: user, lesson });
   } catch (e) {
     console.log("error while searching word stats by lesson");
   }
 };
+
+export default findWordStatsByLesson;

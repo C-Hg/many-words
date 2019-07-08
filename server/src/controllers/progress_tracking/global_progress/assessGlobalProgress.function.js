@@ -1,8 +1,8 @@
-const themes = require("../../../exercises/FR-EN/themes");
-const assessGlobalWordsStats = require("./assessGlobalWordsStats.function");
-const assessGlobalLessonsStats = require("./assessGlobalLessonsStats.function");
+import themes from "../../../exercises/FR-EN/themes";
+import assessGlobalWordsStats from "./assessGlobalWordsStats.function";
+import assessGlobalLessonsStats from "./assessGlobalLessonsStats.function";
 
-module.exports = function assessGlobalProgress(wordStats, user) {
+const assessGlobalProgress = (wordStats, user) => {
   const totalNumberOfWords = themes.reduce((acc, val) => {
     return acc + val[1];
   }, 0);
@@ -23,3 +23,5 @@ module.exports = function assessGlobalProgress(wordStats, user) {
     goldLessons: lessonsScores.goldLessons
   };
 };
+
+export default assessGlobalProgress;
