@@ -43,7 +43,8 @@ sessionMiddlewares();
 
 /* ----------------------     Mongoose setup     ------------*/
 mongoose.connect(secrets.MONGO_URI, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false
 });
 mongoose.Promise = global.Promise;
 // Get the default connection

@@ -37,7 +37,7 @@ export default checkUserTranslation;
 /* example form of words
 
 {
-  selectedForm: ["wild"(en_name), "fr", "unique_form"]     
+  selectedForm: ["wild"(enName), "fr", "unique_form"]     
   en: ["wild"], 
   fr: ["sauvage", "sauvages"]
 }

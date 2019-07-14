@@ -24,8 +24,8 @@ const prepareWeakWords = async (req, res) => {
     try {
       words.push(
         await Word.findOne(
-          { en_name: word.en_name },
-          "en_name fr_name lesson theme type hasUniqueForm en fr"
+          { enName: word.enName },
+          "enName frName lesson theme type hasUniqueForm en fr"
         )
       );
     } catch (e) {
@@ -37,7 +37,7 @@ const prepareWeakWords = async (req, res) => {
   const weakestFormsStats = mapWordScores(slicedWordStats);
 
   // returns an array of the 50 weakest words (words and weak forms)
-  res.send(JSON.stringify({ words, stats_by_form: weakestFormsStats }));
+  res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
 };
 
 export default prepareWeakWords;

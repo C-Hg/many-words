@@ -9,8 +9,8 @@ suite("FR/EN Word Selector function", function() {
       let result = FrEnWordSelector({
         words: [
           {
-            en_name: "walk",
-            fr_name: "marcher",
+            enName: "walk",
+            frName: "marcher",
             hasUniqueForm: true,
             type: "verb",
             fr: [
@@ -47,8 +47,8 @@ suite("FR/EN Word Selector function", function() {
       let result = FrEnWordSelector({
         words: [
           {
-            en_name: "cat",
-            fr_name: "chat",
+            enName: "cat",
+            frName: "chat",
             type: "noun",
             fr: [
               {
@@ -76,7 +76,7 @@ suite("FR/EN Word Selector function", function() {
       });
       assert.isArray(result, "the result should be an array");
       assert.lengthOf(result, 1, "the result array length should be one");
-      assert.equal(result[0].selectedForm[0], "cat", "en_name is cat");
+      assert.equal(result[0].selectedForm[0], "cat", "enName is cat");
       assert.match(
         result[0].selectedForm[1],
         /^fr$|^en$/,
@@ -172,8 +172,8 @@ suite("FR/EN Word Selector function", function() {
       let result = FrEnWordSelector({
         words: [
           {
-            en_name: "beautiful",
-            fr_name: "beau",
+            enName: "beautiful",
+            frName: "beau",
             type: "adjective",
             fr: [
               {
@@ -299,8 +299,8 @@ suite("FR/EN Word Selector function", function() {
       let result = FrEnWordSelector({
         words: [
           {
-            en_name: "smile",
-            fr_name: "sourire",
+            enName: "smile",
+            frName: "sourire",
             hasUniqueForm: true,
             type: "verb",
             fr: [
@@ -316,8 +316,8 @@ suite("FR/EN Word Selector function", function() {
             lessonId: "#aLongId"
           },
           {
-            en_name: "apple",
-            fr_name: "pomme",
+            enName: "apple",
+            frName: "pomme",
             hasUniqueForm: false,
             type: "noun",
             fr: [
@@ -338,8 +338,8 @@ suite("FR/EN Word Selector function", function() {
             lessonId: "#aLongId"
           },
           {
-            en_name: "plane",
-            fr_name: "avion",
+            enName: "plane",
+            frName: "avion",
             hasUniqueForm: false,
             type: "noun",
             fr: [
@@ -449,8 +449,8 @@ suite("FR/EN Word Selector function", function() {
         let result = FrEnWordSelector({
           words: [
             {
-              en_name: "smile",
-              fr_name: "sourire",
+              enName: "smile",
+              frName: "sourire",
               hasUniqueForm: true,
               type: "verb",
               fr: [
@@ -466,8 +466,8 @@ suite("FR/EN Word Selector function", function() {
               lessonId: "#aLongId"
             },
             {
-              en_name: "apple",
-              fr_name: "pomme",
+              enName: "apple",
+              frName: "pomme",
               hasUniqueForm: false,
               type: "noun",
               fr: [
@@ -488,7 +488,7 @@ suite("FR/EN Word Selector function", function() {
               lessonId: "#aLongId"
             }
           ],
-          stats_by_form: [
+          statsByForm: [
             [
               {
                 language: "en",

@@ -5,6 +5,7 @@ const {
 } = require("../markdown_fetching_functions/readMarkdownFile.function");
 const path = require("path");
 const chai = require("chai");
+
 const assert = chai.assert;
 
 const journeyPath = path.resolve(
@@ -22,14 +23,14 @@ const noTypePath = path.resolve(
   "./test/tested_Md_files/testing_subfolder_search/in_depth/no_type.md"
 );
 const noFrNamePath = path.resolve(
-  "./test/tested_Md_files/testing_subfolder_search/in_depth/no_fr_name.md"
+  "./test/tested_Md_files/testing_subfolder_search/in_depth/no_frName.md"
 );
 const noEnNamePath = path.resolve(
-  "./test/tested_Md_files/testing_subfolder_search/in_depth/no_en_name.md"
+  "./test/tested_Md_files/testing_subfolder_search/in_depth/no_enName.md"
 );
 
 suite("Extract data function", function() {
-  let journey, mouse, apple, voidTable, unique, noType, noFrName, noEnName;
+  let journey; let mouse; let apple; let voidTable; let unique; let noType; let noFrName; let noEnName;
   before(() => {
     return new Promise(async (resolve, reject) => {
       journey = await readMdFile(journeyPath);
@@ -45,17 +46,17 @@ suite("Extract data function", function() {
   });
 
   test("journey.md, error in tables", function() {
-    let result = extractData(journey);
+    const result = extractData(journey);
     assert.isFalse(result);
   });
 
   test("mouse.md, valid noun, ignored last columns", function() {
-    let result = extractData(mouse, ["testing_subfolder_search", "theme"]);
+    const result = extractData(mouse, ["testing_subfolder_search", "theme"]);
     console.log(result);
     assert.isObject(result);
     assert(Object.keys(result).length === 7);
-    assert.propertyVal(result, "en_name", "mouse");
-    assert.propertyVal(result, "fr_name", "souris");
+    assert.propertyVal(result, "enName", "mouse");
+    assert.propertyVal(result, "frName", "souris");
     assert.propertyVal(result, "lesson", "testing_subfolder_search");
     assert.propertyVal(result, "theme", "theme");
     assert.propertyVal(result, "type", "noun");
@@ -70,11 +71,11 @@ suite("Extract data function", function() {
   });
 
   test("apple.md, noun with 3 alternatives", function() {
-    let result = extractData(apple, ["in_depth", "theme"]);
+    const result = extractData(apple, ["in_depth", "theme"]);
     assert.isObject(result);
     assert(Object.keys(result).length === 7);
-    assert.propertyVal(result, "en_name", "apple");
-    assert.propertyVal(result, "fr_name", "âne");
+    assert.propertyVal(result, "enName", "apple");
+    assert.propertyVal(result, "frName", "âne");
     assert.propertyVal(result, "lesson", "in_depth");
     assert.propertyVal(result, "theme", "theme");
     assert.propertyVal(result, "type", "noun");
@@ -129,31 +130,31 @@ suite("Extract data function", function() {
   });
 
   test("void.md, void table error", function() {
-    let result = extractData(voidTable, "tested_Md_files");
+    const result = extractData(voidTable, "tested_Md_files");
     assert.isFalse(result);
   });
 
   test("no_type.md, no type found error", function() {
-    let result = extractData(noType, "in_depth");
+    const result = extractData(noType, "in_depth");
     assert.isFalse(result);
   });
 
-  test("no_fr_name.md, no fr_name found error", function() {
-    let result = extractData(noFrName, "in_depth");
+  test("no_frName.md, no frName found error", function() {
+    const result = extractData(noFrName, "in_depth");
     assert.isFalse(result);
   });
 
-  test("no_en_name.md, no en_name found error", function() {
-    let result = extractData(noEnName, "in_depth");
+  test("no_enName.md, no enName found error", function() {
+    const result = extractData(noEnName, "in_depth");
     assert.isFalse(result);
   });
 
   test("unique.md, valid unique forms", function() {
-    let result = extractData(unique, ["tested_Md_files", "theme"]);
+    const result = extractData(unique, ["tested_Md_files", "theme"]);
     assert.isObject(result);
     assert(Object.keys(result).length === 8);
-    assert.propertyVal(result, "en_name", "hello");
-    assert.propertyVal(result, "fr_name", "bonjour");
+    assert.propertyVal(result, "enName", "hello");
+    assert.propertyVal(result, "frName", "bonjour");
     assert.propertyVal(result, "lesson", "tested_Md_files");
     assert.propertyVal(result, "theme", "theme");
     assert.propertyVal(result, "type", "other");

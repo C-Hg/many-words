@@ -1,12 +1,12 @@
 const assessLessonStats = (wordProficiencies, totalNumberOfWords) => {
   const score = wordProficiencies.reduce((acc, val) => {
-    if (val.global_score <= 0) {
+    if (val.globalScore <= 0) {
       return acc;
     }
-    if (val.global_score >= 5) {
+    if (val.globalScore >= 5) {
       return acc + 5;
     }
-    return acc + val.global_score;
+    return acc + val.globalScore;
   }, 0);
   return Number((score / (totalNumberOfWords * 5)).toFixed(3));
 };

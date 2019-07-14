@@ -9,7 +9,7 @@ const getLesson = async (req, res) => {
   try {
     words = await Word.find(
       { lesson: req.params.lesson },
-      "en_name fr_name lesson theme type hasUniqueForm en fr"
+      "enName frName lesson theme type hasUniqueForm en fr"
     );
     // sends them as is if user is not logged in
     if (!req.user) {
@@ -28,14 +28,14 @@ const getLesson = async (req, res) => {
     for (const word of words) {
       wordScores = [
         ...wordScores,
-        await findWordStatsByWord(word.en_name, req.user._id)
+        await findWordStatsByWord(word.enName, req.user._id)
       ];
     }
 
     // filters out the stats of the weakest forms of each word
     const weakestFormsStats = mapWordScores(wordScores);
 
-    res.send(JSON.stringify({ words, stats_by_form: weakestFormsStats }));
+    res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
   } catch (e) {
     console.log("error while fetching word scores");
   }

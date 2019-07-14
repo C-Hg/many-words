@@ -1,39 +1,39 @@
 import Word from "../../../models/word.model";
-import WordStats from "../../../models/wordStats.model";
 
-const createWordStats = async (word, user) => {
+const createWordStats = async (word, userId) => {
   let wordData;
   try {
-    wordData = await Word.findOne({ en_name: word }, "en fr lesson theme");
-  } catch (e) {
-    console.log("error while fetching word data");
+    wordData = await Word.findOne({ enName: word }, "en fr lesson theme");
+  } catch (error) {
+    console.error("error while fetching word data", error);
   }
 
   // fills stats indexes for each form of the word
-  const stats_by_form = [];
-  for (const form of wordData.en[0].acceptedForms) {
-    stats_by_form.push({
-      language: "en",
-      form,
-      score: 0
-    });
-  }
-  for (const form of wordData.fr[0].acceptedForms) {
-    stats_by_form.push({
-      language: "fr",
-      form,
-      score: 0
-    });
-  }
+
+  const enStatsByForm = wordData.en[0].acceptedForms.map(form => ({
+    language: "en",
+    form,
+    score: 0
+  }));
+  const frStatsByForm = wordData.fr[0].acceptedForms.map(form => ({
+    language: "fr",
+    form,
+    score: 0
+  }));
+  const statsByForm = [...enStatsByForm, ...frStatsByForm];
+  const { lesson, theme } = wordData;
 
   // other data are completed by default
-  const wordStats = new WordStats({
-    userId: user,
-    en_name: word,
-    stats_by_form,
-    lesson: wordData.lesson,
-    theme: wordData.theme
-  });
+  const wordStats = {
+    userId,
+    enName: word,
+    statsByForm,
+    lesson,
+    theme,
+    globalScore: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0
+  };
   return wordStats;
 };
 

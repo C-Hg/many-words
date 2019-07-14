@@ -23,7 +23,7 @@ export default connect(
   words is an array of objects, containing
   { fr: [possible FR forms],
     en: [possible EN forms],
-    selectedForm: [en_name, source_language, selectedForm],
+    selectedForm: [enName, source_language, selectedForm],
     theme,
     lesson
   }

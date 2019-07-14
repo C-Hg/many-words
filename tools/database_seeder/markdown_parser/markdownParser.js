@@ -3,9 +3,9 @@ const regex = require("./markdownRegex");
 const { fetchEnWords } = require("./functions/fetchEnWords.function");
 const { fetchFrWords } = require("./functions/fetchFrWords.function");
 
-function word(en_name, fr_name, hasUniqueForm, lessonAndTheme, type, en, fr) {
-  this.en_name = en_name;
-  this.fr_name = fr_name;
+function word(enName, frName, hasUniqueForm, lessonAndTheme, type, en, fr) {
+  this.enName = enName;
+  this.frName = frName;
   this.lesson = lessonAndTheme[0];
   this.theme = lessonAndTheme[1];
   this.type = type;
@@ -25,18 +25,18 @@ exports.extractData = function(document, lessonAndTheme) {
   let hasUniqueForm = document.match(regex.uniqueForm);
 
   //EN data
-  let en_name = document.match(regex.enName);
+  let enName = document.match(regex.enName);
   let en_words = fetchEnWords(document); //gathering and validating data
 
   //FR data
-  let fr_name = document.match(regex.frName);
+  let frName = document.match(regex.frName);
   let fr_words = fetchFrWords(document);
 
   if (
     !en_words ||
     !fr_words ||
-    !en_name ||
-    !fr_name ||
+    !enName ||
+    !frName ||
     !type ||
     !lessonAndTheme[0] ||
     !lessonAndTheme[1]
@@ -46,8 +46,8 @@ exports.extractData = function(document, lessonAndTheme) {
   }
 
   let newWord = new word(
-    en_name[0],
-    fr_name[0],
+    enName[0],
+    frName[0],
     hasUniqueForm[0],
     lessonAndTheme,
     type[0],

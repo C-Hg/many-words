@@ -1,10 +1,16 @@
-import updateStatsByForm from "./updateStatsByForm.function";
+import WordStats from "../../../models/wordStats.model";
 
-const updateWordStats = async (wordStats, exerciseResults) => {
-  const updatedStats = updateStatsByForm(wordStats, exerciseResults);
+const updateWordStats = async (updatedWordStats, userId) => {
   try {
-    const stats = await updatedStats.save();
-    return stats;
+    updatedWordStats.forEach(async wordStats => {
+      await WordStats.replaceOne(
+        { enName: wordStats.enName, userId },
+        wordStats,
+        {
+          upsert: true
+        }
+      );
+    });
   } catch (error) {
     console.error("error while saving word stats", error);
   }

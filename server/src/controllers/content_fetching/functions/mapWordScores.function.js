@@ -5,7 +5,7 @@ module.exports = function mapWordScores(wordScores) {
     }
     let weakestForms = [];
     let lowestIndex = 100;
-    for (let form of val.stats_by_form) {
+    for (let form of val.statsByForm) {
       if (form.score < lowestIndex) {
         lowestIndex = form.score;
         weakestForms = [form];

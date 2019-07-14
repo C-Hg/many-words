@@ -4,17 +4,18 @@ const {
   gatherData
 } = require("../markdown_fetching_functions/gatherData.function");
 const chai = require("chai");
+
 const assert = chai.assert;
 
 const testRootDirectoryPath = path.resolve(
-  process.cwd() + "/test/tested_Md_files"
+  `${process.cwd()  }/test/tested_Md_files`
 );
 const validTestDirectoryPath = path.resolve(
-  process.cwd() + "/test/tested_Md_files/valid_files"
+  `${process.cwd()  }/test/tested_Md_files/valid_files`
 );
 
 suite("Gather data function", function() {
-  let testRoot, validTests;
+  let testRoot; let validTests;
   before(() => {
     return new Promise(async (resolve, reject) => {
       testRoot = await gatherData(testRootDirectoryPath);
@@ -31,10 +32,10 @@ suite("Gather data function", function() {
     assert.isArray(validTests);
     assert.lengthOf(validTests, 2);
 
-    //apple.md
+    // apple.md
     assert(Object.keys(validTests[0]).length === 7);
-    assert.propertyVal(validTests[0], "en_name", "apple");
-    assert.propertyVal(validTests[0], "fr_name", "âne");
+    assert.propertyVal(validTests[0], "enName", "apple");
+    assert.propertyVal(validTests[0], "frName", "âne");
     assert.propertyVal(validTests[0], "lesson", "valid_files");
     assert.propertyVal(validTests[0], "type", "noun");
     assert.deepEqual(validTests[0].fr, [
@@ -86,10 +87,10 @@ suite("Gather data function", function() {
       }
     ]);
 
-    //uique.md
+    // uique.md
     assert(Object.keys(validTests[1]).length === 8);
-    assert.propertyVal(validTests[1], "en_name", "hello");
-    assert.propertyVal(validTests[1], "fr_name", "bonjour");
+    assert.propertyVal(validTests[1], "enName", "hello");
+    assert.propertyVal(validTests[1], "frName", "bonjour");
     assert.propertyVal(validTests[1], "lesson", "subfolder_test");
     assert.propertyVal(validTests[1], "type", "other");
     assert.propertyVal(validTests[1], "hasUniqueForm", true);

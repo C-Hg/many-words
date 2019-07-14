@@ -9,7 +9,7 @@ const getWordStats = async (word, user) => {
     console.error("error while fetching word stats", error);
   }
   if (wordStats) {
-    return wordStats;
+    return wordStats.toObject();
   }
 
   try {
