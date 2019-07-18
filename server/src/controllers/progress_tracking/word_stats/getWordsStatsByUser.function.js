@@ -1,6 +1,6 @@
 import WordStats from "../../../models/wordStats.model";
 
-const getWordStatsByUser = async userId => {
+const getWordsStatsByUser = async userId => {
   try {
     return await WordStats.find({
       userId
@@ -10,4 +10,4 @@ const getWordStatsByUser = async userId => {
   }
 };
 
-export default getWordStatsByUser;
+export default getWordsStatsByUser;

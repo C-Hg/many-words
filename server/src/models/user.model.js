@@ -12,8 +12,8 @@ const userSchema = new Schema(
       type: Object,
       required: true,
       default: {
-        lessonsStats: {},
-        themesStats: {},
+        lessons: {},
+        themes: {},
         globalProgress: {}
       }
     }

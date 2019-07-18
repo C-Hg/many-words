@@ -18,29 +18,4 @@ const upsertWordStats = async (exerciseResults, userId) => {
   return lessonsToUpdate;
 };
 
-// TODO: split me here (wordStats and userStats)
-
-// try {
-//   user = await updateThemesStats(user);
-// } catch (error) {
-//   console.error("error while updating themes stats", error);
-// }
-
-// try {
-//   user = await updateGlobalProgress(user);
-// } catch (error) {
-//   console.error("error while updating global stats", error);
-// }
-
-// // only one writing operation to the db
-// try {
-//   await replaceUserStats(user);
-// } catch (error) {
-//   console.error("error while replacing user stats", error);
-// }
-
-// TODO : send user stats in response
-//   res.send("ok");
-// };
-
 export default upsertWordStats;

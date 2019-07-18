@@ -1,6 +1,6 @@
 const assessGlobalLessonsStats = user => {
-  const lessonsStats = user.stats.lessonsStats;
-  const themesStats = user.stats.themesStats;
+  const lessonsStats = user.stats.lessons;
+  const themesStats = user.stats.themes;
   let studiedLessons = 0;
   let greenLessons = 0;
   let goldLessons = 0;

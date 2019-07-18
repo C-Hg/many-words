@@ -32,8 +32,8 @@ class Theme extends React.Component {
     const lessonsData = FR_EN_Lessons[theme];
     let weak_words_launchable = false;
     let lessons = "";
-    if (user.stats.lessonsStats && user.stats.lessonsStats[theme]) {
-      lessonsStats = user.stats.lessonsStats[theme];
+    if (user.stats.lessons && user.stats.lessons[theme]) {
+      lessons = user.stats.lessons[theme];
       weak_words_launchable = true;
     }
 

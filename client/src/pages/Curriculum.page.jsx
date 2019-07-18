@@ -35,9 +35,9 @@ class Curriculum extends React.Component {
       let lessons = val[2];
       let borderColorClass = "";
 
-      if (user.isAuthenticated && user.stats.themesStats[val[0]]) {
-        greenLessons = user.stats.themesStats[val[0]].green;
-        goldLessons = user.stats.themesStats[val[0]].gold;
+      if (user.isAuthenticated && user.stats.themes[val[0]]) {
+        greenLessons = user.stats.themes[val[0]].green;
+        goldLessons = user.stats.themes[val[0]].gold;
         lessons -= greenLessons;
         lessons -= goldLessons;
       }
@@ -62,10 +62,10 @@ class Curriculum extends React.Component {
           </div>
           <div className="lessonsStats">
             {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
-            {user.stats.themesStats && greenLessons > 0 && (
+            {user.stats.themes && greenLessons > 0 && (
               <GreenLessons greenLessons={greenLessons} />
             )}
-            {user.stats.themesStats && goldLessons > 0 && (
+            {user.stats.themes && goldLessons > 0 && (
               <GoldLessons goldLessons={goldLessons} />
             )}
           </div>

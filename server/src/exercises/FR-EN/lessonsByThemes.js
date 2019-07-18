@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   animals: [
     ["animals_basics", 10],
     ["birds", 21],
