@@ -1,5 +1,5 @@
-import assessGlobalProgress from "./global_progress/assessGlobalProgress.function";
-import getWordsStatsByUser from "./word_stats/getWordsStatsByUser.function";
+import assessGlobalProgress from "./assessGlobalProgress.function";
+import getWordsStatsByUser from "../words/getWordsStatsByUser.function";
 
 const getUpdatedGlobalProgress = async user => {
   let wordStats = null;

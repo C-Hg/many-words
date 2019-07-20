@@ -1,4 +1,4 @@
-import getWordStats from "../getWordStats.controller";
+import getWordStats from "./getWordStats.controller";
 
 const getOrCreateWordStats = async (exerciseResults, userId) => {
   const allWordStats = exerciseResults.map(async wordResult => {

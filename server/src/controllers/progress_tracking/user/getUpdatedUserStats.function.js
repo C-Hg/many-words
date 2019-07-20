@@ -1,6 +1,6 @@
-import getUpdatedLessonsStats from "../getUpdatedLessonsStats.function";
-import getUpdatedThemesStats from "../getUpdatedThemesStats.function";
-import getUpdatedGlobalProgress from "../getUpdatedGlobalStats.function";
+import getUpdatedLessonsStats from "../lessons/getUpdatedLessonsStats.function";
+import getUpdatedThemesStats from "../themes/getUpdatedThemesStats.function";
+import getUpdatedGlobalProgress from "../global/getUpdatedGlobalStats.function";
 
 const getUpdatedUserStats = async (lessonsToUpdate, user) => {
   const updatedLessonsStats = await getUpdatedLessonsStats(

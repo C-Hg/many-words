@@ -1,4 +1,4 @@
-import frEnLessons from "../../exercises/FR-EN/lessonsByThemes";
+import frEnLessons from "../../../exercises/FR-EN/lessonsByThemes";
 
 // TODO: converts lessonsByThemes to objects
 const getUpdatedThemesStats = updatedLessonsStats => {

@@ -1,5 +1,5 @@
 import Word from "../../models/word.model";
-import findWordStatsByWord from "../progress_tracking/word_stats/findWordStatsByWord.function";
+import findWordStatsByWord from "../progress_tracking/words/findWordStatsByWord.function";
 import mapWordScores from "./functions/mapWordScores.function";
 
 const getLesson = async (req, res) => {

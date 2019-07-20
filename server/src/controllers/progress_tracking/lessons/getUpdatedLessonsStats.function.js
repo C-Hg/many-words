@@ -1,7 +1,8 @@
 import merge from "lodash.merge";
-import findWordStatsByLesson from "./word_stats/findWordStatsByLesson.function";
-import wordCountByLesson from "../../exercises/FR-EN/wordCountByLesson";
-import assessLessonStats from "./lesson_stats/assessLessonStats.function";
+import cloneDeep from "lodash.clonedeep";
+import findWordStatsByLesson from "../words/findWordStatsByLesson.function";
+import wordCountByLesson from "../../../exercises/FR-EN/wordCountByLesson";
+import assessLessonStats from "./assessLessonStats.function";
 
 const getUpdatedLessonsStats = async (lessons, user) => {
   let wordStats;
@@ -26,8 +27,9 @@ const getUpdatedLessonsStats = async (lessons, user) => {
     console.error("Error while getting updated lessons stats", error);
   }
 
-  merge(udpatedLessonsStats, user.stats.lessonsStats);
-  return udpatedLessonsStats;
+  const lessonsStats = cloneDeep(user.stats.lessons) || {};
+  merge(lessonsStats, udpatedLessonsStats);
+  return lessonsStats;
 };
 
 export default getUpdatedLessonsStats;

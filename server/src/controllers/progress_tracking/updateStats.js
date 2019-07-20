@@ -1,18 +1,19 @@
 import upsertWordStats from "./upsertWordStats.controller";
-import getUpdatedUserStats from "./user_stats/getUpdatedUserStats.function";
-import updateUserStats from "./user_stats/updateUserStats.function";
+import getUpdatedUserStats from "./user/getUpdatedUserStats.function";
+import updateUserStats from "./user/updateUserStats.function";
 
 const updateStats = async (req, res) => {
+  console.debug(`[updateStats] updating stats for user ${req.user._id}`);
   const exerciseResults = req.body;
   const userId = req.user._id;
   const user = req.user.toObject();
 
   const lessonsToUpdate = await upsertWordStats(exerciseResults, userId);
   const updatedUserStats = await getUpdatedUserStats(lessonsToUpdate, user);
-  console.log("updatedUserStats", updatedUserStats);
+
   await updateUserStats(user, updatedUserStats);
   res.status(200);
-  res.send(updateUserStats);
+  res.send(updatedUserStats);
 };
 
 export default updateStats;

@@ -79,6 +79,7 @@ function* nextWord() {
 
 function* updateStats() {
   try {
+    console.log("updating stats");
     const exercise = yield select(state => state.exercise);
     const data = JSON.stringify(exercise.result);
     // updates stats on server and get up-to-date user stats
@@ -87,6 +88,7 @@ function* updateStats() {
       `/api/stats/update_word_stats`,
       data
     );
+    console.log("stats", stats);
     yield put({ type: "UPDATE_STATS", stats });
   } catch (error) {}
 }

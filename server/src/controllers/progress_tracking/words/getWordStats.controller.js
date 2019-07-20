@@ -1,5 +1,5 @@
-import findWordStatsByWord from "./word_stats/findWordStatsByWord.function";
-import createWordStats from "./word_stats/createWordStats.function";
+import findWordStatsByWord from "./findWordStatsByWord.function";
+import createWordStats from "./createWordStats.function";
 
 const getWordStats = async (word, user) => {
   let wordStats;
