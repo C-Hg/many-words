@@ -2,13 +2,20 @@ import themes from "../../../exercises/FR-EN/themes";
 import assessGlobalWordsStats from "./assessGlobalWordsStats.function";
 import assessGlobalLessonsStats from "./assessGlobalLessonsStats.function";
 
-const assessGlobalProgress = (wordStats, user) => {
+const assessGlobalProgress = (
+  wordStats,
+  updatedLessonsStats,
+  updatedThemesStats
+) => {
   const totalNumberOfWords = themes.reduce((acc, val) => {
     return acc + val[1];
   }, 0);
 
   const wordsScores = assessGlobalWordsStats(wordStats);
-  const lessonsScores = assessGlobalLessonsStats(user);
+  const lessonsScores = assessGlobalLessonsStats(
+    updatedLessonsStats,
+    updatedThemesStats
+  );
   const globalPercentage = Number(
     wordsScores.globalScore / (totalNumberOfWords * 5)
   ).toFixed(3);

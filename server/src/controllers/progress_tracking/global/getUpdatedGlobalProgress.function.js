@@ -1,7 +1,11 @@
 import assessGlobalProgress from "./assessGlobalProgress.function";
 import getWordsStatsByUser from "../words/getWordsStatsByUser.function";
 
-const getUpdatedGlobalProgress = async user => {
+const getUpdatedGlobalProgress = async (
+  user,
+  updatedLessonsStats,
+  updatedThemesStats
+) => {
   let wordStats = null;
   let globalProgress = {};
 
@@ -11,7 +15,11 @@ const getUpdatedGlobalProgress = async user => {
     console.error("error while fetching word stats by user", error);
   }
   if (wordStats) {
-    globalProgress = assessGlobalProgress(wordStats, user);
+    globalProgress = assessGlobalProgress(
+      wordStats,
+      updatedLessonsStats,
+      updatedThemesStats
+    );
   }
 
   return globalProgress;

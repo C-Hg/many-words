@@ -1,6 +1,6 @@
 import getUpdatedLessonsStats from "../lessons/getUpdatedLessonsStats.function";
 import getUpdatedThemesStats from "../themes/getUpdatedThemesStats.function";
-import getUpdatedGlobalProgress from "../global/getUpdatedGlobalStats.function";
+import getUpdatedGlobalProgress from "../global/getUpdatedGlobalProgress.function";
 
 const getUpdatedUserStats = async (lessonsToUpdate, user) => {
   const updatedLessonsStats = await getUpdatedLessonsStats(
@@ -8,7 +8,11 @@ const getUpdatedUserStats = async (lessonsToUpdate, user) => {
     user
   );
   const updatedThemesStats = getUpdatedThemesStats(updatedLessonsStats);
-  const updatedGlobalProgress = await getUpdatedGlobalProgress(user);
+  const updatedGlobalProgress = await getUpdatedGlobalProgress(
+    user,
+    updatedLessonsStats,
+    updatedThemesStats
+  );
 
   const updatedUserStats = {
     ...user.stats,

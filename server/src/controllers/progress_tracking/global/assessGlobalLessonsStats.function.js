@@ -1,17 +1,15 @@
-const assessGlobalLessonsStats = user => {
-  const lessonsStats = user.stats.lessons;
-  const themesStats = user.stats.themes;
+const assessGlobalLessonsStats = (lessonsStats, themesStats) => {
   let studiedLessons = 0;
   let greenLessons = 0;
   let goldLessons = 0;
 
-  for (const theme in lessonsStats) {
+  Object.keys(lessonsStats).forEach(theme => {
     studiedLessons += Object.keys(lessonsStats[theme]).length;
-  }
-  for (const theme in themesStats) {
+  });
+  Object.keys(themesStats).forEach(theme => {
     greenLessons += themesStats[theme].green;
     goldLessons += themesStats[theme].gold;
-  }
+  });
 
   return { studiedLessons, greenLessons, goldLessons };
 };
