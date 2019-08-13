@@ -1,4 +1,4 @@
-FROM node:11.7.0
+FROM node:12.8.0
 
 WORKDIR /server/
 COPY package*.json ./

@@ -9,7 +9,7 @@
     "configure:all": "cd tools && node prepare_all.js",
     "counter": "cd tools && npm run word_counter",
     "docker:dev": "docker-compose -f docker-compose.development.yml up",
-    "docker:dev-detached": "docker-compose -f docker-compose.development.yml up --detach && npm run logs",
+    "docker:dev-detached": "docker-compose -f docker-compose.development.yml up --build --detach && npm run logs",
     "docker:dev-down": "docker-compose -f docker-compose.development.yml down",
     "docker:prod": "docker-compose -f docker-compose.production.yml up --build",
     "docker:prod-down": "docker-compose -f docker-compose.production.yml down",

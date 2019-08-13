@@ -65,5 +65,4 @@ services:
       - mongo
 
 volumes: 
-  dbdata:
   exercises:
