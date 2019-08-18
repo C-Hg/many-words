@@ -5,6 +5,9 @@ services:
     build:
       context: ./client/
       dockerfile: dev.Dockerfile
+    environment:
+      BROWSER: "none"
+      REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     volumes:
       - ./client:/client
     ports:
@@ -19,8 +22,6 @@ services:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       SESSION_SECRET: ${SESSION_SECRET}
-      MONGO_USER: ${MONGO_USER}
-      MONGO_PASSWORD: ${MONGO_PASSWORD}
     volumes:
       - ./server:/server
     ports:

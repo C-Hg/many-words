@@ -5,6 +5,9 @@ services:
     build:
       context: ./client/
       dockerfile: dev.Dockerfile
+    environment:
+      BROWSER: "none"
+      REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     volumes:
       - ./client:/client
     ports:

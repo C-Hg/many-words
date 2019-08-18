@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import assessGlobalProgress from "./assessGlobalProgress.function";
 import getWordsStatsByUser from "../words/getWordsStatsByUser.function";
 
@@ -12,7 +13,10 @@ const getUpdatedGlobalProgress = async (
   try {
     wordStats = await getWordsStatsByUser(user._id);
   } catch (error) {
-    console.error("error while fetching word stats by user", error);
+    console.error(
+      "[getUpdatedGlobalProgress] error while fetching word stats by user",
+      error
+    );
   }
   if (wordStats) {
     globalProgress = assessGlobalProgress(

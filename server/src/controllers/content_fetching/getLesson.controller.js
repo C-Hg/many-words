@@ -1,6 +1,6 @@
 import Word from "../../models/word.model";
 import findWordStatsByWord from "../progress_tracking/words/findWordStatsByWord.function";
-import mapWordScores from "./functions/mapWordScores.function";
+import getWeakForms from "./functions/getWeakForms.function";
 
 const getLesson = async (req, res) => {
   let words;
@@ -16,8 +16,11 @@ const getLesson = async (req, res) => {
       res.send(JSON.stringify({ words }));
       return;
     }
-  } catch (e) {
-    console.log("Error while fetching lesson data");
+  } catch (error) {
+    console.error(
+      "[getLesson.controller]: error while fetching lesson data",
+      error
+    );
     return;
   }
   // if user is registered, selects the weakest forms
@@ -33,11 +36,16 @@ const getLesson = async (req, res) => {
     }
 
     // filters out the stats of the weakest forms of each word
-    const weakestFormsStats = mapWordScores(wordScores);
-
+    const weakestFormsStats = getWeakForms(wordScores);
     res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
-  } catch (e) {
-    console.log("error while fetching word scores");
+    console.debug(
+      `[getLesson.controller]: sent words for lesson ${req.params.lesson}`
+    );
+  } catch (error) {
+    console.error(
+      "getLesson.controller: error while fetching word scores",
+      error
+    );
   }
 };
 

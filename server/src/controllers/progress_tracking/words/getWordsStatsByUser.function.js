@@ -1,13 +1,18 @@
 import WordStats from "../../../models/wordStats.model";
 
 const getWordsStatsByUser = async userId => {
+  let wordStats;
   try {
-    return await WordStats.find({
+    wordStats = await WordStats.find({
       userId
     });
-  } catch (e) {
-    console.log("error while fetching word stats count");
+  } catch (error) {
+    console.error(
+      "[getWordsStatsByUser] error while fetching word stats count",
+      error
+    );
   }
+  return wordStats;
 };
 
 export default getWordsStatsByUser;

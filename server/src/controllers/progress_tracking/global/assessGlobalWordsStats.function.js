@@ -7,10 +7,10 @@ const assessGlobalWordsStats = wordStats => {
       return acc;
     }
     if (val.globalScore >= 2 && val.globalScore < 4) {
-      greenWords++;
+      greenWords += 1;
     }
     if (val.globalScore >= 4) {
-      goldWords++;
+      goldWords += 1;
     }
     if (val.globalScore >= 5) {
       return acc + 5;

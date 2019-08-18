@@ -9,8 +9,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getWords: lesson => {
-      dispatch(exerciseActions.getWords(lesson));
+    getWords: (lesson, theme) => {
+      dispatch(exerciseActions.getWords(lesson, theme));
     },
     continueWeakWords: () => {
       dispatch(exerciseActions.continueWeakWords());
@@ -21,41 +21,37 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class ExitLinks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.restartLesson = this.restartLesson.bind(this);
-  }
+const ExitLinks = props => {
+  const { continueWeakWords, getWords, quitExercise, exercise } = props;
+  // gets the lesson and theme of the first word of the current batch
+  // this works only for classical lessons
+  const { lesson, theme } = exercise.words[0];
 
-  restartLesson() {
-    const lesson = this.props.exercise.words[0].lesson;
-    const theme = this.props.exercise.words[0].theme;
-    if (this.props.exercise.weakWordsMode) {
-      this.props.continueWeakWords();
+  const restartLesson = () => {
+    if (exercise.weakWordsMode) {
+      continueWeakWords();
     } else {
-      this.props.getWords(lesson, theme);
+      getWords(lesson, theme);
     }
-  }
+  };
 
-  render() {
-    return (
-      <LanguageContext.Consumer>
-        {({ navigation }) => (
-          <div className="links">
-            <button className="exitLink" onClick={this.restartLesson}>
-              {this.props.exercise.weakWordsMode
-                ? navigation.to_continue
-                : navigation.try_again}
-            </button>
-            <button className="exitLink" onClick={this.props.quitExercise}>
-              {navigation.quit}
-            </button>
-          </div>
-        )}
-      </LanguageContext.Consumer>
-    );
-  }
-}
+  return (
+    <LanguageContext.Consumer>
+      {({ navigation }) => (
+        <div className="links">
+          <button className="exitLink" onClick={restartLesson}>
+            {exercise.weakWordsMode
+              ? navigation.to_continue
+              : navigation.try_again}
+          </button>
+          <button className="exitLink" onClick={quitExercise}>
+            {navigation.quit}
+          </button>
+        </div>
+      )}
+    </LanguageContext.Consumer>
+  );
+};
 
 export default connect(
   mapStateToProps,
