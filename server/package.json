@@ -4,7 +4,7 @@
   "description": "Many-words server",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --opts ./mocha.opts",
+    "test": "export NODE_ENV=test && mocha --opts ./mocha.opts",
     "start": "nodemon --exec babel-node src/server.js",
     "build": "babel src -d lib",
     "serve": "node lib/server.js"

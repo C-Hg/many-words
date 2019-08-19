@@ -1,6 +1,7 @@
 /**
- * getWeakForms: for each word, returns the weakest forms
+ * getWeakForms: for each word, returns the weakest forms in an array of objects
  * @param {Array} wordScores
+ * @return {Array} weakForms
  */
 const getWeakForms = wordScores => {
   const wordsWeakForms = wordScores.map(val => {
@@ -20,7 +21,9 @@ const getWeakForms = wordScores => {
 
     return weakestForms;
   });
-  console.debug(`getWeakForms, weakestForms: ${wordsWeakForms}`);
+  // console.debug(
+  //   `[getWeakForms] weakestForms: ${JSON.stringify(wordsWeakForms)}`
+  // );
   return wordsWeakForms;
 };
 
