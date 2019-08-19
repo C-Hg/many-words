@@ -1,0 +1,6 @@
+--ui tdd
+--require @babel/register
+--reporter nyan
+
+# runs tests recursively in src, matching .test.js
+"src/**/*.test.js"

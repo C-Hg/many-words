@@ -4,7 +4,7 @@
   "description": "Many-words server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --opts ./mocha.opts",
     "start": "nodemon --exec babel-node src/server.js",
     "build": "babel src -d lib",
     "serve": "node lib/server.js"
@@ -20,8 +20,8 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "helmet": "^3.20.0",
-    "lodash.clonedeep": "^4.17.15",
-    "lodash.merge": "^4.17.15",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.merge": "^4.6.2",
     "mongodb": "^3.3.0",
     "mongoose": "^5.6.9",
     "passport": "^0.4.0",
@@ -34,6 +34,8 @@
     "@babel/node": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
     "nodemon": "^1.19.1"
   },
   "repository": {

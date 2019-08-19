@@ -11,7 +11,7 @@ const prepareWeakWords = async (req, res) => {
     wordStats = await getWeakWords(req.params.reference, req.user.id);
   } catch (error) {
     console.error(
-      "prepareWeakWord.controller: error while getting weak words",
+      "[prepareWeakWord.controller] error while getting weak words",
       error
     );
   }
@@ -31,7 +31,7 @@ const prepareWeakWords = async (req, res) => {
         )
       );
     } catch (error) {
-      "prepareWeakWord.controller: error while finding word",
+      "[prepareWeakWord.controller] error while finding word",
         console.error(error);
     }
   }
