@@ -4,12 +4,12 @@ services:
   client:
     build:
       context: ./client/
-      dockerfile: dev.Dockerfile
+      dockerfile: prod.Dockerfile
+    volumes:
+      - client-build:/client/build
     environment:
       BROWSER: "none"
       REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-    volumes:
-      - ./client:/client
     ports:
       - 3000:3000
 
@@ -26,27 +26,19 @@ services:
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
-      - ./server:/server
+      - client-build:/server/src/build
     ports:
       - 3001:3001
       - 9229:9229
     depends_on:
       - mongo
 
-  exercises:
-    build: 
-      context: ./exercises
-      dockerfile: Dockerfile
-    volumes:
-      - exercises:/exercises
-
   database-seeder:
     build:
       context: ./tools
-      dockerfile: dev.Dockerfile
     restart: on-failure
     volumes:
-      - exercises:/exercises
+      - ./exercises:/exercises
     environment:
       NODE_ENV: "production"
       MONGODB_USER: ${MONGODB_USER}
@@ -54,19 +46,18 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     depends_on:
       - mongo
-      - exercises
 
   mongo:
     image: mongo
     restart: always
     volumes:
-      - /mongo/data:/data/db
+      - /mongo/data:/data/dbs
       - ../mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
 
-volumes: 
-  exercises:
+volumes:
+  client-build:

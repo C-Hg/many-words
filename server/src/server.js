@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import session from "express-session";
 import connectMongoDBSession from "connect-mongodb-session";
 import passport from "passport";
@@ -62,10 +63,10 @@ db.once("open", () => {
 app.use("/api/", apiRoutes);
 app.use("/auth/", authRoutes);
 
-// TODO: configure routing from server for production
-/* home routing, allows client-side routing on production
-app.use(express.static(path.join(__dirname, "build")));
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-*/
+/* React bundle is served by the node server but allows client-side routing on production */
+if (secrets.NODE_ENV !== "development") {
+  app.use(express.static(path.join(__dirname, "build")));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}

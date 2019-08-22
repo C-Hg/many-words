@@ -18,6 +18,8 @@ module.exports = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID || "no_ID",
   FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET || "no_secret",
 
+  NODE_ENV,
+
   // mongo is the name of the docker image
   MONGO_URI:
     NODE_ENV === "production"

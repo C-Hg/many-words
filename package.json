@@ -12,6 +12,7 @@
     "docker:dev-detached": "docker-compose -f docker-compose.development.yml up --build --detach && npm run logs",
     "docker:dev-down": "docker-compose -f docker-compose.development.yml down",
     "docker:prod": "docker-compose -f docker-compose.production.yml up --build",
+    "docker:prod-detached": "docker-compose -f docker-compose.production.yml up --build --detach && npm run logs",
     "docker:prod-down": "docker-compose -f docker-compose.production.yml down",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
