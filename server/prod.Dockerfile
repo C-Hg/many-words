@@ -10,4 +10,4 @@ COPY . .
 EXPOSE 3001
 
 # Mongo must be ready when server.js start, we cannot retry connection because of connect-mongodb-session
-CMD ["./delay_startup.sh", "npm", "start"]
+CMD ["./delay_startup.sh", "npm", "run", "deploy"]

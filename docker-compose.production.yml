@@ -26,7 +26,7 @@ services:
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
-      - client-build:/server/src/build
+      - client-build:/server/lib/build
     ports:
       - 3001:3001
       - 9229:9229
