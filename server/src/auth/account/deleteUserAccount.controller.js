@@ -9,13 +9,16 @@ const deleteUserAccount = async (req, res) => {
   try {
     result = await deleteData(req.user.id);
   } catch (error) {
-    console.error("error while deleting user data", error);
+    console.error("[deleteUserAccount] error while deleting user data", error);
   }
   if (result) {
     req.logout();
     req.session.destroy(error => {
       if (error) {
-        console.error("error while destroying session", error);
+        console.error(
+          "[deleteUserAccount] error while destroying session",
+          error
+        );
       }
     });
     res.send("user deleted and logged out");

@@ -5,13 +5,13 @@ const deleteData = async userId => {
   try {
     await WordStats.deleteMany({ userId });
   } catch (error) {
-    console.error("error while removing wordStats", error);
+    console.error("[deleteData] error while removing wordStats", error);
     return false;
   }
   try {
     await User.deleteOne({ _id: userId });
   } catch (error) {
-    console.error("error while removing user", error);
+    console.error("[deleteData] error while removing user", error);
     return false;
   }
 

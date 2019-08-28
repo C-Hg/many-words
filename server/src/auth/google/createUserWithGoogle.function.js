@@ -1,18 +1,14 @@
 import User from "../../models/user.model";
 
 const createUserWithGoogle = async (googleId, email) => {
+  let user;
   try {
-    const user = await User.create({ googleId, email });
-    await new Promise((resolve, reject) => {
-      user.save(function handleCreate(err) {
-        if (err) reject(err);
-        resolve();
-      });
-    });
-    return user;
+    user = await User.create({ googleId, email });
+    console.info(`[createUserWithGoogle] created user ${user.id}`);
   } catch (error) {
-    console.error("error while registering user", error);
+    console.error("[createUserWithGoogle] error while registering user", error);
   }
+  return user;
 };
 
 export default createUserWithGoogle;

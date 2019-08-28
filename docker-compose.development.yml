@@ -8,6 +8,9 @@ services:
     environment:
       BROWSER: "none"
       REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+    # to allow hot reloading
+    volumes:
+      - ./client:/client
     ports:
       - 3000:3000
 
@@ -20,6 +23,9 @@ services:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       SESSION_SECRET: ${SESSION_SECRET}
+    # to allow hot reloading
+    volumes:
+      - ./server:/server
     ports:
       - 3001:3001
       - 9229:9229
@@ -31,8 +37,6 @@ services:
       context: ./tools
     volumes:
       - exercises:/exercises
-    environment:
-      NODE_ENV: "development"
     depends_on:
       - mongo
 
