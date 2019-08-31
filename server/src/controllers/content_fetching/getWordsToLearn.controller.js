@@ -9,7 +9,10 @@ const getWordsToLearn = async (req, res) => {
     );
     res.send(JSON.stringify(words));
   } catch (error) {
-    console.error("Error while fetching words to learn (server side)", error);
+    console.error(
+      "[getWordsToLearn] error while fetching words to learn",
+      error
+    );
   }
 };
 

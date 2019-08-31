@@ -15,9 +15,6 @@ module.exports = {
   GOOGLE_CLIENT_ID: GOOGLE_CLIENT_ID || "no_ID",
   GOOGLE_CLIENT_SECRET: GOOGLE_CLIENT_SECRET || "no_secret",
 
-  FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID || "no_ID",
-  FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET || "no_secret",
-
   NODE_ENV,
 
   // mongo is the name of the docker image

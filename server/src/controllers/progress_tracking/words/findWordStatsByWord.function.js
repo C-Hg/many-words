@@ -1,10 +1,13 @@
 import WordStats from "../../../models/wordStats.model";
 
-const findWordStatsByWord = async (word, user) => {
+const findWordStatsByWord = async (word, userId) => {
   try {
-    return await WordStats.findOne({ userId: user, enName: word });
-  } catch (e) {
-    console.log("error while searching word stats document");
+    return await WordStats.findOne({ userId, enName: word });
+  } catch (error) {
+    console.error(
+      "[findWordStatsByWord] error while searching word stats document",
+      error
+    );
   }
 };
 

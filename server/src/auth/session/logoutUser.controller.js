@@ -5,7 +5,7 @@ const logoutUser = (req, res) => {
     req.logout();
     req.session.destroy(error => {
       if (error) {
-        console.error("error while destroying session", error);
+        console.error("[logoutUser] error while destroying session", error);
       }
     });
     res.status(200).send("user logged out");

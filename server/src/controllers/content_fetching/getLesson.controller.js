@@ -18,7 +18,7 @@ const getLesson = async (req, res) => {
     }
   } catch (error) {
     console.error(
-      "[getLesson.controller]: error while fetching lesson data",
+      "[getLesson.controller] error while fetching lesson data",
       error
     );
     return;
@@ -26,24 +26,24 @@ const getLesson = async (req, res) => {
   // if user is registered, selects the weakest forms
   // wordScores is a parallel array containing scores if they exist,
   // or "null", for each word
-  let wordScores = [];
+
   try {
-    for (const word of words) {
-      wordScores = [
-        ...wordScores,
-        await findWordStatsByWord(word.enName, req.user._id)
-      ];
-    }
+    const wordScores = await Promise.all(
+      words.map(async word => {
+        const wordScore = await findWordStatsByWord(word.enName, req.user.id);
+        return wordScore;
+      })
+    );
 
     // filters out the stats of the weakest forms of each word
     const weakestFormsStats = getWeakForms(wordScores);
     res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
     console.debug(
-      `[getLesson.controller]: sent words for lesson ${req.params.lesson}`
+      `[getLesson.controller] sent words for lesson ${req.params.lesson}`
     );
   } catch (error) {
     console.error(
-      "getLesson.controller: error while fetching word scores",
+      "[getLesson.controller] error while fetching word scores",
       error
     );
   }
