@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 function WeakWords(props) {
-  if (props.exercise.weakWordsMode && !props.exercise.redirect) {
+  if (props.exercise.weakWordsMode) {
     return <Redirect to={`/weak_words`} />;
   } else
     return (

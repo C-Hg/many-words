@@ -12,7 +12,7 @@ const updateWordStats = async (updatedWordStats, userId) => {
       );
     });
   } catch (error) {
-    console.error("error while saving word stats", error);
+    console.error("[updateWordStats] error while saving word stats", error);
   }
 };
 

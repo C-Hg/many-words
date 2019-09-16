@@ -5,7 +5,7 @@ const createWordStats = async (word, userId) => {
   try {
     wordData = await Word.findOne({ enName: word }, "en fr lesson theme");
   } catch (error) {
-    console.error("error while fetching word data", error);
+    console.error("[createWordStats] error while fetching word data", error);
   }
 
   // fills stats indexes for each form of the word

@@ -6,7 +6,7 @@ const getWordStats = async (word, user) => {
   try {
     wordStats = await findWordStatsByWord(word, user);
   } catch (error) {
-    console.error("error while fetching word stats", error);
+    console.error("[getWordStats] error while fetching word stats", error);
   }
   if (wordStats) {
     return wordStats.toObject();
@@ -15,7 +15,7 @@ const getWordStats = async (word, user) => {
   try {
     wordStats = await createWordStats(word, user);
   } catch (error) {
-    console.error("error while creating word stats", error);
+    console.error("[getWordStats] error while creating word stats", error);
   }
   return wordStats;
 };

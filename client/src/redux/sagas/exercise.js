@@ -28,7 +28,9 @@ function* getWeakWords({ reference = "curriculum" }) {
       reference,
       redirectionTarget
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error("[getWeakWords]", error);
+  }
 }
 
 function* continueWeakWords() {

@@ -40,24 +40,8 @@ const prepareWeakWords = async (req, res) => {
     );
   }
 
-  // for (const word of slicedWordStats) {
-  //   try {
-  //     words.push(
-  //       await Word.findOne(
-  //         { enName: word.enName },
-  //         "enName frName lesson theme type hasUniqueForm en fr"
-  //       )
-  //     );
-  //   } catch (error) {
-  //     "[prepareWeakWord.controller] error while finding word",
-  //       console.error(error);
-  //   }
-  // }
-
   // filters out the stats of the weakest forms of each word
   const weakestFormsStats = getWeakForms(slicedWordsStats);
-  console.log("weakest", weakestFormsStats);
-  console.log("words", words);
 
   // returns an array of the 50 weakest words (words and weak forms)
   res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));

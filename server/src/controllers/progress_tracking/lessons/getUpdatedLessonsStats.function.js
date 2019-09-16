@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import merge from "lodash.merge";
 import cloneDeep from "lodash.clonedeep";
 import findWordStatsByLesson from "../words/findWordStatsByLesson.function";

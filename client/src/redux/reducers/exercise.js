@@ -44,6 +44,7 @@ const exerciseReducer = (state = defaultState, action) => {
     case types.SET_LESSON_WORDS:
       return {
         ...state,
+        redirect: false,
         words: action.lessonWords,
         redirectionTarget: `/${action.theme}`
       };
@@ -51,6 +52,7 @@ const exerciseReducer = (state = defaultState, action) => {
     case types.SET_WEAK_WORDS:
       return {
         ...state,
+        redirect: false,
         weakWordsBatches: action.weakWordsBatches,
         weakWordsMode: true,
         weakWordsReference: action.reference,

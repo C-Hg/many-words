@@ -1,6 +1,6 @@
 import frEnLessons from "../../../exercises/FR-EN/lessonsByThemes";
 
-// TODO: converts lessonsByThemes to objects
+// TODO: convert lessonsByThemes to objects
 const getUpdatedThemesStats = updatedLessonsStats => {
   const updatedThemesStats = {};
 
