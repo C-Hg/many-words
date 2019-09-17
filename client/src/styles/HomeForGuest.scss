@@ -157,31 +157,6 @@
   text-align: center;
 }
 
-.facebookButton {
-  @extend .auth-button;
-  color: #3b5998;
-  border-color: #3b5998;
-  &:hover {
-    animation-name: facebook-hover;
-    animation-duration: 0.3s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-  }
-}
-
-@keyframes facebook-hover {
-  100% {
-    color: white;
-    background-color: #3b5998;
-    border-color: black;
-  }
-}
-
-.fa-facebook {
-  width: 20px;
-  text-align: center;
-}
-
 .login-instructions-french {
   padding-left: 6%;
 }

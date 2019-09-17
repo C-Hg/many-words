@@ -39,7 +39,7 @@ const App = props => {
     }
   }, [checkSession, defineLanguage, isSessionChecked]);
 
-  // TO DO : waiting screen or animation ?
+  // TODO : waiting screen or animation ?
   // allows the language context to load before rendering children components, critical when loading other page than home first
   if (!isSessionChecked) {
     return null;

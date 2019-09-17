@@ -9,14 +9,12 @@ import { connect } from "react-redux";
 
 import "../styles/Exercise.scss";
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return { user: state.user, exercise: state.exercise };
-}
+};
 
-function Exercise(props) {
+const Exercise = props => {
   const { exercise } = props;
-  console.log(exercise.redirectionTarget);
-  console.log("redirect", exercise.redirect);
 
   if (exercise.redirect) {
     return <Redirect to={exercise.redirectionTarget} />;
@@ -38,10 +36,10 @@ function Exercise(props) {
       </div>
     );
   } else {
-    //TO DO : implement waiting animation
+    //TODO : implement waiting animation
     return null;
   }
-}
+};
 
 export default connect(
   mapStateToProps,

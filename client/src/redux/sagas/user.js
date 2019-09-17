@@ -5,9 +5,14 @@ import fetch from "../../services/fetch";
 function* checkSession() {
   try {
     const stats = yield call(fetch.getJSONResponse, "/auth/session");
-    yield put({ type: "LOGIN_SUCCESS", stats });
+    if (stats.response === "user not connected") {
+      console.debug("[checkSession] user not connected");
+    } else {
+      console.debug("[checkSession] successfully retrieved user stats");
+      yield put({ type: "LOGIN_SUCCESS", stats });
+    }
   } catch (error) {
-    console.warn(error);
+    console.error("[checkSession] error while checking session", error);
   }
 }
 

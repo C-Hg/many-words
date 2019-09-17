@@ -16,11 +16,23 @@ function mapStateToProps(state) {
   return { user: state.user, auth: state.auth };
 }
 
-function Home(props) {
-  if (props.auth.isDisconnecting) {
-    return <LogoutConfirmation />;
-  } else if (props.auth.isDeletingAccount) {
-    return <DeleteConfirmation />;
+const Home = props => {
+  const { auth, user } = props;
+  const { isDeletingAccount, isDisconnecting } = auth;
+  const { isAuthenticated } = user;
+
+  if (isDisconnecting) {
+    return (
+      <div className="app whiteBackground">
+        <LogoutConfirmation />
+      </div>
+    );
+  } else if (isDeletingAccount) {
+    return (
+      <div className="app whiteBackground">
+        <DeleteConfirmation />;
+      </div>
+    );
   } else {
     return (
       <div className="app app-with-navbar-full-screen">
@@ -28,14 +40,14 @@ function Home(props) {
         <div className="main-container whiteBackground">
           <div className="home whiteBackground">
             <ScrollToTopOnMount />
-            {props.user.isAuthenticated && <HomeLoggedIn />}
-            {!props.user.isAuthenticated && <HomeForGuestUser />}
+            {isAuthenticated && <HomeLoggedIn />}
+            {!isAuthenticated && <HomeForGuestUser />}
           </div>
         </div>
       </div>
     );
   }
-}
+};
 
 export default connect(
   mapStateToProps,
