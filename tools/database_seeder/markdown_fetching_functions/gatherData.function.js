@@ -9,9 +9,9 @@ exports.gatherData = async function(directory) {
   let arrayOfWords = [];
   try {
     wordFilesPaths = await fileExplorer.getFilesPaths(directory);
-  } catch (e) {
+  } catch (error) {
     console.error(
-      "\033[1;31m" + "Error while getting file paths" + "\033[0;0m"
+      "\033[1;31m" + "Error while getting file paths" + "\033[0;0m", error
     );
     return false;
   }
@@ -27,9 +27,9 @@ exports.gatherData = async function(directory) {
     let mdData;
     try {
       mdData = await readMdFile(path);
-    } catch (e) {
+    } catch (error) {
       console.error(
-        "\033[1;31m" + `Error while reading file ${path}` + "\033[0;0m"
+        "\033[1;31m" + `Error while reading file ${path}` + "\033[0;0m", error
       );
       return false;
     }

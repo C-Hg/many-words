@@ -5,6 +5,7 @@ services:
     build:
       context: ./client/
       dockerfile: prod.Dockerfile
+    container_name: many_words-client
     volumes:
       - client-build:/client/build
     environment:
@@ -17,6 +18,7 @@ services:
     build:
       context: ./server/
       dockerfile: prod.Dockerfile
+    container_name: many_words-server
     environment:
       NODE_ENV: "production"
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
@@ -36,6 +38,7 @@ services:
   database-seeder:
     build:
       context: ./tools
+    container_name: many_words-database-seeder
     restart: on-failure
     volumes:
       - ./exercises:/exercises
@@ -49,6 +52,7 @@ services:
 
   mongo:
     image: mongo
+    container_name: many_words-mongo
     restart: always
     volumes:
       - /mongo/data:/data/db

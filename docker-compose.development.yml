@@ -5,6 +5,7 @@ services:
     build:
       context: ./client/
       dockerfile: dev.Dockerfile
+    container_name: many_words-client
     environment:
       BROWSER: "none"
       REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
@@ -18,6 +19,7 @@ services:
     build:
       context: ./server/
       dockerfile: dev.Dockerfile
+    container_name: many_words-server
     environment:
       NODE_ENV: "development"
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
@@ -35,14 +37,16 @@ services:
   database-seeder:
     build:
       context: ./tools
+    container_name: many_words-database-seeder
     volumes:
-      - exercises:/exercises
+      - ./exercises:/exercises
     depends_on:
       - mongo
 
   mongo:
     image: mongo
     restart: always
+    container_name: many_words-mongo
     volumes:
       - /mongo/data:/data/db
     ports:
@@ -50,11 +54,10 @@ services:
 
   mongo-express:
     image: mongo-express
+    container_name: many_words-mongo-express
     restart: always
     ports:
       - 8081:8081
     depends_on:
       - mongo
 
-volumes: 
-  exercises:

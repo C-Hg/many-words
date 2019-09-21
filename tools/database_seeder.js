@@ -47,11 +47,11 @@ async function seedDatabase() {
   try {
     //returns an array of word objects
     words = await gatherData(curriculumDirectory);
-  } catch (e) {
+  } catch (error) {
     console.error(
       "\033[1;31m" +
       "Error while gathering data from curriculum directory" +
-      "\033[0;0m"
+      "\033[0;0m", error
     );
     return;
   }
@@ -72,15 +72,15 @@ async function seedDatabase() {
 
   try {
     await clearDatabase();
-  } catch (e) {
-    console.error("\033[1;31m" + "Error while clearing database" + "\033[0;0m");
+  } catch (error) {
+    console.error("\033[1;31m" + "Error while clearing database" + "\033[0;0m", error);
     return;
   }
 
   try {
     result = await seedWordsInDatabase(words);
-  } catch (e) {
-    console.error("\033[1;31m" + "Error while seeding database" + "\033[0;0m");
+  } catch (error) {
+    console.error("\033[1;31m" + "Error while seeding database" + "\033[0;0m", error);
     return;
   }
   if (result) {

@@ -8,17 +8,13 @@
 
 `npm run install:all`
 
-- launch a local instance of mongoDB:
+- launch all services with docker:
 
-`sudo service mongod start`
+`npm run docker-dev`
 
-- seed the database :
+- if you are under linux, you can enjoy separated logs with:
 
-`npm run seeder`
-
-- launch the app and the server :
-
-`npm start`
+`npm run docker-dev:detached`
 
 For obvious security reasons, the app IDs and passwords are kept private, so you cannot test the logged in features with social auth as is. If you wish to do so, register private keys for development use with Google or Facebook.
 

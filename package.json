@@ -17,7 +17,7 @@
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
     "prepare:all": "npm run configure:all && cd .. && npm run build_client_and_replace",
-    "logs": "gnome-terminal --tab -t client -- docker logs many-words_client_1 -f ; gnome-terminal --tab -t server -- docker logs many-words_server_1 -f ; gnome-terminal --tab -t mongo -- docker logs  many-words_mongo_1 -f ; gnome-terminal --tab -t database-seeder -- docker logs many-words_database-seeder_1 -f",
+    "logs": "gnome-terminal --tab -t client -- docker logs many_words-client -f ; gnome-terminal --tab -t server -- docker logs many_words-server -f ; gnome-terminal --tab -t mongo -- docker logs  many_words-mongo -f ; gnome-terminal --tab -t database-seeder -- docker logs many_words-database-seeder -f",
     "test": "npm run test:client && npm run test:seeder",
     "test:client": "cd client && npm run mocha-test",
     "test:seeder": "cd tools/database_seeder && mocha",
@@ -43,9 +43,6 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "mocha": "^5.2.0",
     "prettier": "^1.17.1"
-  },
-  "dependencies": {
-    "mongodb": "^3.2.7"
   },
   "repository": {
     "type": "git",
