@@ -56,7 +56,8 @@ services:
     restart: always
     volumes:
       - /mongo/data:/data/db
-      - ../mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
+      # the db is initialized only if no db is found
+      - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
     ports:
       - 27017:27017
     environment:
