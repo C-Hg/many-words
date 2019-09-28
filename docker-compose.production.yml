@@ -2,8 +2,6 @@ version: "3"
 
 services:
   client:
-    env_file:
-    - ../config_many-words.env
     build:
       context: ./client/
       dockerfile: prod.Dockerfile
@@ -17,8 +15,6 @@ services:
       - 3000:3000
 
   server:
-    env_file:
-    - ../config_many-words.env
     build:
       context: ./server/
       dockerfile: prod.Dockerfile
@@ -40,8 +36,6 @@ services:
       - mongo
 
   database-seeder:
-    env_file:
-    - ../config_many-words.env
     build:
       context: ./tools
     container_name: many_words-database-seeder
@@ -57,8 +51,6 @@ services:
       - mongo
 
   mongo:
-    env_file:
-    - ../config_many-words.env
     image: mongo
     container_name: many_words-mongo
     restart: always
