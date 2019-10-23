@@ -9,7 +9,7 @@ const defaultState = {
   userTranslation: "",
   expectedAnswer: "",
   checking: false,
-  correctAnswer: false,
+  isAnswerCorrect: false,
   activable: false,
   specialCharactersVisible: false,
   failedWords: [],
@@ -73,7 +73,7 @@ const exerciseReducer = (state = defaultState, action) => {
       return {
         ...state,
         checking: true,
-        correctAnswer: action.isUserTranslationCorrect,
+        isAnswerCorrect: action.isUserTranslationCorrect,
         result: [
           ...state.result,
           [
@@ -112,7 +112,7 @@ const exerciseReducer = (state = defaultState, action) => {
         wordRank: state.wordRank + 1,
         userTranslation: "",
         checking: false,
-        correctAnswer: false,
+        isAnswerCorrect: false,
         expectedAnswer: "",
         specialCharactersVisible: false
       };

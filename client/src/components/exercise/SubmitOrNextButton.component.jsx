@@ -1,6 +1,6 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
 import { connect } from "react-redux";
+import { LanguageContext } from "../../contexts/language-context";
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
 
 function mapStateToProps(state) {
@@ -20,16 +20,16 @@ const mapDispatchToProps = dispatch => {
 
 class SubmitOrNextButton extends React.Component {
   render() {
-    let language = this.context;
+    const language = this.context;
     let buttonClass = "";
-    const exercise = this.props.exercise;
+    const { exercise } = this.props;
     if (exercise.userTranslation === "") {
       buttonClass = "button-inactivable";
     } else {
       buttonClass = "button-activable";
     }
     if (exercise.checking) {
-      if (exercise.correctAnswer) {
+      if (exercise.isAnswerCorrect) {
         buttonClass = "button-correct";
       } else {
         buttonClass = "button-wrong";
@@ -38,7 +38,7 @@ class SubmitOrNextButton extends React.Component {
 
     return (
       <button
-        className={"exercise-button " + buttonClass}
+        className={`exercise-button ${buttonClass}`}
         onClick={
           exercise.checking
             ? this.props.nextWord
