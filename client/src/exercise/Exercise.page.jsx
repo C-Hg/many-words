@@ -1,13 +1,14 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
 import Close from "../components/exercise/Close.component";
 import ExerciseTitle from "../components/exercise/ExerciseTitle.component";
 import ExerciseContainer from "../components/exercise/ExerciseContainer.component";
 import ExerciseFooter from "../components/exercise/ExerciseFooter.component";
 import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
-import { connect } from "react-redux";
 
-import "../styles/Exercise.scss";
+import "./Exercise.scss";
 
 const mapStateToProps = state => {
   return { user: state.user, exercise: state.exercise };
@@ -35,10 +36,9 @@ const Exercise = props => {
         </div>
       </div>
     );
-  } else {
-    //TODO : implement waiting animation
-    return null;
   }
+  // TODO : implement waiting animation
+  return null;
 };
 
 export default connect(

@@ -1,7 +1,6 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
-
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import LogoutButton from "./home_logged_in/LogoutButton.component";
 import GlobalProgress from "./home_logged_in/GlobalProgress.component";
@@ -14,31 +13,33 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-class HomeLoggedIn extends React.Component {
-  render() {
-    let user = this.props.user;
-    if (user.activity === "weak_words") {
-      return <Redirect to="/weak_words" />;
-    }
+const HomeLoggedIn = props => {
+  const { user } = props;
+  const { stats } = user;
 
-    if (user.stats.hasOwnProperty("globalProgress")) {
-      return (
-        <div className="HomeLoggedIn">
-          {user.stats && <GlobalProgress stats={user.stats} />}
-          {!user.stats && <TimeToWork />}
-          <ResumeLearningButton />
-          <hr className="homeSeparator separatorLoggedIn" />
-          <div className="footerButtons">
-            <AboutButton contextualClass="homeFooterButton" />
-            <LogoutButton />
-            <DeleteAccountButton />
-          </div>
+  if (stats.globalProgress.globalPercentage) {
+    return (
+      <div className="HomeLoggedIn">
+        {stats && <GlobalProgress stats={stats} />}
+        {!stats && <TimeToWork />}
+        <ResumeLearningButton />
+        <hr className="homeSeparator separatorLoggedIn" />
+        <div className="footerButtons">
+          <AboutButton contextualClass="homeFooterButton" />
+          <LogoutButton />
+          <DeleteAccountButton />
         </div>
-      );
-    }
-    return null;
+      </div>
+    );
   }
-}
+  return null;
+};
+
+HomeLoggedIn.propTypes = {
+  user: PropTypes.shape({
+    stats: PropTypes.object.isRequired,
+  }).isRequired,
+};
 
 export default connect(
   mapStateToProps,

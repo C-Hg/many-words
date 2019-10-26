@@ -1,4 +1,5 @@
 import { put, call, select, takeEvery } from "redux-saga/effects";
+
 import { types } from "../reducers/exercise";
 import fetch from "../../services/fetch";
 import FrEnWordSelector from "../../controllers/exercise/word_selector/wordSelector.function";
@@ -11,7 +12,9 @@ function* getWords({ lesson, theme }) {
     const words = yield call(fetch.getJSONResponse, `/api/exercise/${lesson}`);
     const lessonWords = FrEnWordSelector(words, true);
     yield put({ type: "SET_LESSON_WORDS", lessonWords, theme });
-  } catch (error) {}
+  } catch (error) {
+    console.error("getWords", error);
+  }
 }
 
 function* getWeakWords({ reference = "curriculum" }) {
@@ -26,7 +29,7 @@ function* getWeakWords({ reference = "curriculum" }) {
       type: "SET_WEAK_WORDS",
       weakWordsBatches,
       reference,
-      redirectionTarget
+      redirectionTarget,
     });
   } catch (error) {
     console.error("[getWeakWords]", error);
@@ -41,7 +44,9 @@ function* continueWeakWords() {
       const nextBatch = exercise.weakWordsBatchesDone + 1;
       yield put({ type: "NEXT_BATCH", nextBatch });
     } else yield put({ type: "GET_WEAK_WORDS", reference });
-  } catch (error) {}
+  } catch (error) {
+    console.error("continueWeakWords", error);
+  }
 }
 
 function* submitUserTranslation() {
@@ -59,7 +64,25 @@ function* submitUserTranslation() {
       const expectedAnswer = result[1];
       yield put({ type: "UPDATE_FAILED_WORDS", expectedAnswer });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error("[submitUserTranslation]", error);
+  }
+}
+
+function* updateStats() {
+  try {
+    const exercise = yield select(state => state.exercise);
+    const data = JSON.stringify(exercise.result);
+    // updates stats on server and get up-to-date user stats
+    const stats = yield call(
+      fetch.postJSONResponse,
+      `/api/stats/update_word_stats`,
+      data
+    );
+    yield put({ type: "UPDATE_STATS", stats });
+  } catch (error) {
+    console.error("[updateStats]", error);
+  }
 }
 
 function* nextWord() {
@@ -76,21 +99,9 @@ function* nextWord() {
     } else {
       yield put({ type: "PREPARE_NEXT_WORD" });
     }
-  } catch (error) {}
-}
-
-function* updateStats() {
-  try {
-    const exercise = yield select(state => state.exercise);
-    const data = JSON.stringify(exercise.result);
-    // updates stats on server and get up-to-date user stats
-    const stats = yield call(
-      fetch.postJSONResponse,
-      `/api/stats/update_word_stats`,
-      data
-    );
-    yield put({ type: "UPDATE_STATS", stats });
-  } catch (error) {}
+  } catch (error) {
+    console.error("[nextWord]", error);
+  }
 }
 
 export default function* exerciseSaga() {

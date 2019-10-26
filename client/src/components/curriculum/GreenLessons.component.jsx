@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function GreenLessons(props) {
+const GreenLessons = props => {
   const { greenLessons } = props;
   return (
     <div className="cardColumn">
@@ -14,10 +14,10 @@ function GreenLessons(props) {
       <div className="cardNumbers">{greenLessons}</div>
     </div>
   );
-}
+};
 
 GreenLessons.propTypes = {
-  greenLessons: PropTypes.number.isRequired
+  greenLessons: PropTypes.number.isRequired,
 };
 
 export default GreenLessons;

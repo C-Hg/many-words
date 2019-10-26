@@ -11,11 +11,11 @@ const wordStatsSchema = new Schema({
   wrongAnswers: { type: Number, default: 0, required: true },
   statsByForm: {
     type: [{ language: String, form: String, score: Number, _id: false }],
-    required: true
+    required: true,
   },
   globalScore: { type: Number, default: 0, required: true },
   declineFactor: { type: Number, default: 1, required: true },
-  updatedAt: { type: Date, default: Date.now(), required: true }
+  updatedAt: { type: Date, default: Date.now(), required: true },
 });
 
 export default mongoose.model("WordStats", wordStatsSchema);

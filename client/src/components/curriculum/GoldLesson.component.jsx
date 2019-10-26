@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function GoldLessons(props) {
+const GoldLessons = props => {
   const { goldLessons } = props;
   return (
     <div className="cardColumn">
@@ -14,10 +14,10 @@ function GoldLessons(props) {
       <div className="cardNumbers">{goldLessons}</div>
     </div>
   );
-}
+};
 
 GoldLessons.propTypes = {
-  goldLessons: PropTypes.number.isRequired
+  goldLessons: PropTypes.number.isRequired,
 };
 
 export default GoldLessons;

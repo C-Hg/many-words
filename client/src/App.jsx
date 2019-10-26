@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import "./App.scss";
 import "./styles/common/material_icons.css";
 import "./styles/common/titles.scss";
@@ -22,7 +24,7 @@ const mapDispatchToProps = dispatch => {
     },
     checkSession: () => {
       dispatch(userActions.checkSession());
-    }
+    },
   };
 };
 
@@ -50,6 +52,14 @@ const App = props => {
       <Router />
     </LanguageContext.Provider>
   );
+};
+
+App.propTypes = {
+  user: PropTypes.shape({
+    language: PropTypes.string.isRequired,
+  }).isRequired,
+  checkSession: PropTypes.func.isRequired,
+  defineLanguage: PropTypes.func.isRequired,
 };
 
 export default withRouter(

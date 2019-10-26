@@ -9,6 +9,6 @@ export default function* rootSaga() {
     fork(authSaga),
     fork(userSaga),
     fork(exerciseSaga),
-    fork(learnSaga)
+    fork(learnSaga),
   ]);
 }

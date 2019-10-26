@@ -10,5 +10,5 @@ module.exports = [
   ["social_life", 51, 4],
   ["society", 42, 3],
   ["time", 79, 6],
-  ["vegetals", 35, 3]
+  ["vegetals", 35, 3],
 ];

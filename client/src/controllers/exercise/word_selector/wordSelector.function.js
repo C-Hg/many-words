@@ -1,6 +1,6 @@
 import { randomPicker } from "../../../services/randomPicker.function";
 import returnSelectedWordsWithArticle from "./returnSelectedWords.function";
-import { returnForms } from "./returnForms.function";
+import returnForms from "./returnForms.function";
 import pickFormRandomly from "./pickFormRandomly.function";
 import pickWeakForm from "./pickWeakForm.function";
 import { shuffleArray } from "../../../services/arrayShuffler.function";
@@ -10,7 +10,7 @@ this is the main function, it formats words for the client, with informations ga
 wordsToSelect contains either a single object "words", containing an array of the words to learn
 or two objects : "words" and "statsByForm", an array matching the words to learn, with 
 the stats of the user for each form of the words to learn
-see getLesson.controller.js server side for a clearer understanding 
+see getLesson.controller.js server side for a clearer understanding
 */
 
 function FrEnWordSelector(wordsToSelect, shuffle) {
@@ -58,9 +58,9 @@ function FrEnWordSelector(wordsToSelect, shuffle) {
       fr: selectedWords.fr,
       en: selectedWords.en,
       lesson: word.lesson,
-      theme: word.theme
+      theme: word.theme,
     });
-    wordCounter++;
+    wordCounter += 1;
   }
   if (shuffle) {
     preparedWords = shuffleArray(preparedWords);

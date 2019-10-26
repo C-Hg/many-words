@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   auth: authReducer,
   exercise: exerciseReducer,
-  learn: learnReducer
+  learn: learnReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));

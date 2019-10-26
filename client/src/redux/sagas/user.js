@@ -1,4 +1,5 @@
 import { put, call, takeEvery } from "redux-saga/effects";
+
 import { types } from "../reducers/user";
 import fetch from "../../services/fetch";
 
@@ -20,12 +21,12 @@ function* defineLanguage() {
   if (!/fr/i.test(window.navigator.language)) {
     yield put({
       type: "SET_LANGUAGE",
-      language: "English"
+      language: "English",
     });
   } else {
     yield put({
       type: "SET_LANGUAGE",
-      language: "French"
+      language: "French",
     });
   }
 }

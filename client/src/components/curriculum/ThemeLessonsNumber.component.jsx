@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function ThemeLessonsNumber(props) {
+const ThemeLessonsNumber = props => {
   const { lessons } = props;
   return (
     <div className="cardColumn">
@@ -14,10 +14,10 @@ function ThemeLessonsNumber(props) {
       <div className="cardNumbers">{lessons}</div>
     </div>
   );
-}
+};
 
 ThemeLessonsNumber.propTypes = {
-  lessons: PropTypes.number.isRequired
+  lessons: PropTypes.number.isRequired,
 };
 
 export default ThemeLessonsNumber;

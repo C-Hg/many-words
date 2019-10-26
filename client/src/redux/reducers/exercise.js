@@ -15,7 +15,7 @@ const defaultState = {
   failedWords: [],
   result: [],
   redirect: true,
-  redirectionTarget: ""
+  redirectionTarget: "",
 };
 
 const types = {
@@ -36,7 +36,7 @@ const types = {
   SET_LESSON_WORDS: "SET_LESSON_WORDS",
   SET_WEAK_WORDS: "SET_WEAK_WORDS",
   RESET_STATE: "RESET_STATE",
-  QUIT_EXERCISE: "QUIT_EXERCISE"
+  QUIT_EXERCISE: "QUIT_EXERCISE",
 };
 
 const exerciseReducer = (state = defaultState, action) => {
@@ -46,7 +46,7 @@ const exerciseReducer = (state = defaultState, action) => {
         ...state,
         redirect: false,
         words: action.lessonWords,
-        redirectionTarget: `/${action.theme}`
+        redirectionTarget: `/${action.theme}`,
       };
 
     case types.SET_WEAK_WORDS:
@@ -57,7 +57,7 @@ const exerciseReducer = (state = defaultState, action) => {
         weakWordsMode: true,
         weakWordsReference: action.reference,
         words: action.weakWordsBatches[0],
-        redirectionTarget: action.redirectionTarget
+        redirectionTarget: action.redirectionTarget,
       };
 
     case types.BEGIN_EXERCISE:
@@ -78,9 +78,9 @@ const exerciseReducer = (state = defaultState, action) => {
           ...state.result,
           [
             ...state.words[state.wordRank].selectedForm,
-            action.isUserTranslationCorrect
-          ]
-        ]
+            action.isUserTranslationCorrect,
+          ],
+        ],
       };
 
     case types.UPDATE_FAILED_WORDS:
@@ -93,9 +93,9 @@ const exerciseReducer = (state = defaultState, action) => {
             state.words[state.wordRank][
               state.words[state.wordRank].selectedForm[1]
             ][0],
-            action.expectedAnswer
-          ]
-        ]
+            action.expectedAnswer,
+          ],
+        ],
       };
 
     case types.PREPARE_RECAP:
@@ -103,7 +103,7 @@ const exerciseReducer = (state = defaultState, action) => {
         ...state,
         status: "recap",
         checking: false,
-        specialCharactersVisible: false
+        specialCharactersVisible: false,
       };
 
     case types.PREPARE_NEXT_WORD:
@@ -114,7 +114,7 @@ const exerciseReducer = (state = defaultState, action) => {
         checking: false,
         isAnswerCorrect: false,
         expectedAnswer: "",
-        specialCharactersVisible: false
+        specialCharactersVisible: false,
       };
 
     case types.RESET_STATE:
@@ -129,7 +129,7 @@ const exerciseReducer = (state = defaultState, action) => {
         weakWordsBatchesDone: state.weakWordsBatchesDone + 1,
         weakWordsReference: state.weakWordsReference,
         words: state.weakWordsBatches[action.nextBatch],
-        redirectionTarget: state.redirectionTarget
+        redirectionTarget: state.redirectionTarget,
       };
 
     case types.QUIT_EXERCISE:
@@ -145,59 +145,59 @@ const actions = {
     return {
       type: types.GET_WORDS,
       lesson,
-      theme
+      theme,
     };
   },
 
   getWeakWords: reference => {
     return {
       type: types.GET_WEAK_WORDS,
-      reference
+      reference,
     };
   },
 
   continueWeakWords: () => {
     return {
-      type: types.CONTINUE_WEAK_WORDS
+      type: types.CONTINUE_WEAK_WORDS,
     };
   },
 
   toggleSpecialCharacters: () => {
     return {
-      type: types.TOGGLE_SPECIAL_CHARACTERS
+      type: types.TOGGLE_SPECIAL_CHARACTERS,
     };
   },
 
   updateUserTranslation: userTranslation => {
     return {
       type: types.UPDATE_USER_TRANSLATION,
-      userTranslation
+      userTranslation,
     };
   },
 
   submitUserTranslation: () => {
     return {
-      type: types.SUBMIT_USER_TRANSLATION
+      type: types.SUBMIT_USER_TRANSLATION,
     };
   },
 
   nextWord: () => {
     return {
-      type: types.NEXT_WORD
+      type: types.NEXT_WORD,
     };
   },
 
   resetState: () => {
     return {
-      type: types.RESET_STATE
+      type: types.RESET_STATE,
     };
   },
 
   quitExercise: () => {
     return {
-      type: types.QUIT_EXERCISE
+      type: types.QUIT_EXERCISE,
     };
-  }
+  },
 };
 
 export default exerciseReducer;

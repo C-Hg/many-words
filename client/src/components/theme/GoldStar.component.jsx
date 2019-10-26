@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function GoldStar(props) {
+const GoldStar = props => {
   const { progress } = props;
   if (progress === 1) {
     return (
@@ -18,10 +18,10 @@ function GoldStar(props) {
       <i alt="Back" className="material-icons md-60 goldLessonsIcon" />
     </div>
   );
-}
+};
 
 GoldStar.propTypes = {
-  progress: PropTypes.number
+  progress: PropTypes.number.isRequired,
 };
 
 export default GoldStar;

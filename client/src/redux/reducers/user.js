@@ -1,7 +1,7 @@
 const defaultState = {
   isAuthenticated: false,
   language: "",
-  stats: ""
+  stats: "",
 };
 
 const types = {
@@ -11,11 +11,11 @@ const types = {
   DEFINE_LANGUAGE: "DEFINE_LANGUAGE",
   SET_LANGUAGE: "SET_LANGUAGE",
   UPDATE_STATS: "UPDATE_STATS",
-  RESET_ACTIVITY: "RESET_ACTIVITY"
+  RESET_ACTIVITY: "RESET_ACTIVITY",
 };
 
 const userReducer = (state = defaultState, action) => {
-  const stats = action.stats;
+  const { stats } = action;
   switch (action.type) {
     case types.LOGIN_SUCCESS:
       return { ...state, isAuthenticated: true, stats };
@@ -24,13 +24,13 @@ const userReducer = (state = defaultState, action) => {
       return {
         ...defaultState,
         languageContext: state.languageContext,
-        language: state.language
+        language: state.language,
       };
 
     case types.SET_LANGUAGE:
       return {
         ...state,
-        language: action.language
+        language: action.language,
       };
 
     case types.UPDATE_STATS:
@@ -48,27 +48,27 @@ const actions = {
   updateUserStats: stats => {
     return {
       type: types.UPDATE_STATS,
-      stats
+      stats,
     };
   },
 
   resetActivity: () => {
     return {
-      type: types.RESET_ACTIVITY
+      type: types.RESET_ACTIVITY,
     };
   },
 
   defineLanguage: () => {
     return {
-      type: types.DEFINE_LANGUAGE
+      type: types.DEFINE_LANGUAGE,
     };
   },
 
   checkSession: () => {
     return {
-      type: types.CHECK_SESSION
+      type: types.CHECK_SESSION,
     };
-  }
+  },
 };
 
 export default userReducer;

@@ -27,7 +27,7 @@ const assessGlobalProgress = (
     goldWords: wordsScores.goldWords,
     studiedLessons: lessonsScores.studiedLessons,
     greenLessons: lessonsScores.greenLessons,
-    goldLessons: lessonsScores.goldLessons
+    goldLessons: lessonsScores.goldLessons,
   };
 };
 

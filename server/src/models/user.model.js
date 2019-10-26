@@ -13,9 +13,9 @@ const userSchema = new Schema(
       default: {
         lessons: {},
         themes: {},
-        globalProgress: {}
-      }
-    }
+        globalProgress: {},
+      },
+    },
   },
   { minimize: false }
 );
