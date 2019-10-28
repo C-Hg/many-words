@@ -1,5 +1,5 @@
 const CONSTANTS = {
-  allowedCharacters: /^[a-zàéèùâêîôûäëïöüç'\\-]$/i
+  allowedCharacters: /^[a-zàéèùâêîôûäëïöüç'\\-]$/i,
 };
 
 export default CONSTANTS;

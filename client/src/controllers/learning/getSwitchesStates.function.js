@@ -1,18 +1,18 @@
 function getSwitchesStates(words) {
   let hasSingPlurSwitch = false;
   let hasMascFemSwitch = false;
-  let hasDefIndefSwitch = false;
+  let hasDefiniteOrIndefiniteSwitch = false;
 
-  for (let word of words) {
-    if (hasDefIndefSwitch) break;
+  for (const word of words) {
+    if (hasDefiniteOrIndefiniteSwitch) break;
     if (word.hasUniqueForm) continue;
     if (word.type === "noun") {
-      hasDefIndefSwitch = "definite";
+      hasDefiniteOrIndefiniteSwitch = "definite";
       hasSingPlurSwitch = "singular";
     }
   }
 
-  for (let word of words) {
+  for (const word of words) {
     if (hasSingPlurSwitch) break;
     if (word.hasUniqueForm) continue;
     if (word.type === "adjective") {
@@ -21,7 +21,7 @@ function getSwitchesStates(words) {
     }
   }
 
-  for (let word of words) {
+  for (const word of words) {
     if (hasMascFemSwitch) break;
     if (word.hasUniqueForm) continue;
     if (
@@ -34,7 +34,7 @@ function getSwitchesStates(words) {
     }
   }
 
-  return [hasSingPlurSwitch, hasMascFemSwitch, hasDefIndefSwitch];
+  return [hasSingPlurSwitch, hasMascFemSwitch, hasDefiniteOrIndefiniteSwitch];
 }
 
 export default getSwitchesStates;

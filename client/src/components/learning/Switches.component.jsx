@@ -1,22 +1,34 @@
 import React from "react";
-import SingPlurSwitch from "./SingPlurSwitch.component";
-import MascFemSwitch from "./MascFemSwitch.component";
-import DefIndefSwitch from "./DefIndefSwitch.component";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import NumberSwitch from "./NumberSwitch.component";
+import GenderSwitch from "./GenderSwitch.component";
+import DefiniteOrIndefiniteSwitch from "./DefiniteOrIndefiniteSwitch.component";
 
 function mapStateToProps(state) {
   return { learn: state.learn };
 }
 
-function Switches(props) {
+const Switches = props => {
+  const { learn } = props;
+  const { number, gender, isDefinite } = learn;
   return (
     <div className="switches">
-      {props.learn.number && <SingPlurSwitch />}
-      {props.learn.gender && <MascFemSwitch />}
-      {props.learn.definite && <DefIndefSwitch />}
+      {number && <NumberSwitch />}
+      {gender && <GenderSwitch />}
+      {isDefinite && <DefiniteOrIndefiniteSwitch />}
     </div>
   );
-}
+};
+
+Switches.propTypes = {
+  learn: {
+    number: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    isDefinite: PropTypes.bool.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,

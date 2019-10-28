@@ -1,13 +1,11 @@
 import { getFrForm } from "./getFrForm.function";
 import { getEnForm } from "./getEnForm.function";
 import {
-  returnFrArticle,
-  returnEnArticle
-} from "../exercise/word_selector/returnArticles.functions";
-import {
   associateFrWordWithArticle,
-  associateEnWordWithArticle
+  associateEnWordWithArticle,
 } from "../exercise/word_selector/associateWordWithArticle.function";
+import returnFrenchArticle from "../exercise/word_selector/returnFrenchArticle.function";
+import returnEnglishArticle from "../exercise/word_selector/returnEnglishArticle.function";
 
 function selectWordsToLearnForms(singOrPlur, mascOrFem, defOrIndef, words) {
   const formattedWords = words.map(word => {
@@ -23,13 +21,13 @@ function selectWordsToLearnForms(singOrPlur, mascOrFem, defOrIndef, words) {
       frForm = getFrForm(singOrPlur, mascOrFem, word.fr[0].acceptedForms);
       enForm = getEnForm(singOrPlur, word.en[0].acceptedForms);
       if (word.type === "noun") {
-        const frArticle = returnFrArticle(
+        const frArticle = returnFrenchArticle(
           frForm,
           defOrIndef,
           word.fr[0].isLApostrophe
         );
         frWord = associateFrWordWithArticle(frArticle, word.fr[0][frForm]);
-        const enArticle = returnEnArticle(
+        const enArticle = returnEnglishArticle(
           enForm,
           defOrIndef,
           word.en[0].isArticleAn

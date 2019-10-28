@@ -1,9 +1,9 @@
 const defaultState = {
   number: "",
   gender: "",
-  definite: "",
+  isDefinite: false,
   formattedWords: "",
-  words: ""
+  words: "",
 };
 
 const types = {
@@ -14,15 +14,11 @@ const types = {
   TOGGLE_DEFINITE: "TOGGLE_DEFINITE",
   SET_NUMBER: "SET_NUMBER",
   SET_GENDER: "SET_GENDER",
-  SET_DEFINITE: "SET_DEFINITE"
+  SET_DEFINITE: "SET_DEFINITE",
 };
 
 const learnReducer = (state = defaultState, action) => {
-  const words = action.words;
-  const formattedWords = action.formattedWords;
-  const number = action.number;
-  const gender = action.gender;
-  const definite = action.definite;
+  const { words, formattedWords, number, gender, isDefinite } = action;
 
   switch (action.type) {
     case types.SET_WORDS:
@@ -31,28 +27,28 @@ const learnReducer = (state = defaultState, action) => {
         formattedWords,
         number,
         gender,
-        definite
+        isDefinite,
       };
 
     case types.SET_NUMBER:
       return {
         ...state,
         number,
-        formattedWords
+        formattedWords,
       };
 
     case types.SET_GENDER:
       return {
         ...state,
         gender,
-        formattedWords
+        formattedWords,
       };
 
     case types.SET_DEFINITE:
       return {
         ...state,
-        definite,
-        formattedWords
+        isDefinite,
+        formattedWords,
       };
 
     default:
@@ -64,27 +60,27 @@ const actions = {
   getWordsToLearn: lesson => {
     return {
       type: types.GET_WORDS_TO_LEARN,
-      lesson
+      lesson,
     };
   },
 
   toggleNumber: () => {
     return {
-      type: types.TOGGLE_NUMBER
+      type: types.TOGGLE_NUMBER,
     };
   },
 
   toggleGender: () => {
     return {
-      type: types.TOGGLE_GENDER
+      type: types.TOGGLE_GENDER,
     };
   },
 
-  toggleDefinite: () => {
+  toggleIsDefinite: () => {
     return {
-      type: types.TOGGLE_DEFINITE
+      type: types.TOGGLE_IS_DEFINITE,
     };
-  }
+  },
 };
 
 export default learnReducer;

@@ -1,13 +1,20 @@
 import React from "react";
-import { LanguageContext } from "../../../contexts/language-context";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { LanguageContext } from "../../../contexts/language-context";
 
 function mapStateToProps(state) {
   return { user: state.user };
 }
 
-function LessonProgress(props) {
-  const globalProgress = props.user.stats.globalProgress;
+const LessonProgress = props => {
+  const { user } = props;
+  const {
+    studiedLessons,
+    greenLessons,
+    goldLessons,
+  } = user.stats.globalProgress;
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
@@ -19,28 +26,40 @@ function LessonProgress(props) {
               <i alt="seen" className="material-icons md-48 seenIcon">
                 search
               </i>
-              <div className="userStat">
-                {globalProgress.studiedLessons || 0}
-              </div>
+              <div className="userStat">{studiedLessons}</div>
             </div>
             <div className="iconAndStat">
               <i alt="green" className="material-icons md-48 greenIcon">
                 check_circle_outline
               </i>
-              <div className="userStat">{globalProgress.greenLessons || 0}</div>
+              <div className="userStat">{greenLessons}</div>
             </div>
             <div className="iconAndStat">
               <i alt="gold" className="material-icons md-48 goldIcon">
                 grade
               </i>
-              <div className="userStat">{globalProgress.goldLessons || 0}</div>
+              <div className="userStat">{goldLessons}</div>
             </div>
           </div>
         </div>
       )}
     </LanguageContext.Consumer>
   );
-}
+};
+
+LessonProgress.propTypes = {
+  user: {
+    stats: {
+      globalProgress: {
+        studiedLessons: PropTypes.number,
+        greenLessons: PropTypes.number,
+        goldLessons: PropTypes.number,
+      },
+    },
+  }.isRequired,
+};
+
+LessonProgress.defaultProps = {};
 
 export default connect(
   mapStateToProps,

@@ -1,8 +1,10 @@
-import { returnFrArticle, returnEnArticle } from "./returnArticles.functions";
+/* eslint-disable no-plusplus */
 import {
   associateFrWordWithArticle,
-  associateEnWordWithArticle
+  associateEnWordWithArticle,
 } from "./associateWordWithArticle.function";
+import returnFrenchArticle from "./returnFrenchArticle.function";
+import returnEnglishArticle from "./returnEnglishArticle.function";
 
 // this function returns the selected word with the matching article if necessary
 // it also returns the accepted translations for the selected word
@@ -38,7 +40,7 @@ function returnSelectedWordsWithArticle(
       if (frWords[a][frForm[b]]) {
         let frArticle = "";
         if (articleForm) {
-          frArticle = returnFrArticle(
+          frArticle = returnFrenchArticle(
             frForm[b],
             articleForm,
             frWords[a].isLApostrophe
@@ -55,7 +57,11 @@ function returnSelectedWordsWithArticle(
   for (let a = 0; a < enLimit; a++) {
     let enArticle = "";
     if (articleForm) {
-      enArticle = returnEnArticle(enForm, articleForm, enWords[a].isArticleAn);
+      enArticle = returnEnglishArticle(
+        enForm,
+        articleForm,
+        enWords[a].isArticleAn
+      );
     }
     enResults.push(associateEnWordWithArticle(enArticle, enWords[a][enForm]));
   }

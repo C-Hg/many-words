@@ -13,7 +13,11 @@ const userSchema = new Schema(
       default: {
         lessons: {},
         themes: {},
-        globalProgress: {},
+        globalProgress: {
+          studiedLessons: { type: Number, default: 0 },
+          greenLessons: { type: Number, default: 0 },
+          goldLessons: { type: Number, default: 0 },
+        },
       },
     },
   },

@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Home.scss";
 import "../styles/HomeForGuest.scss";
 import "../styles/HomeLoggedIn.scss";
-
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import LogoutConfirmation from "../components/home/home_logged_in/LogoutConfirmation.component";
@@ -17,9 +17,10 @@ function mapStateToProps(state) {
 }
 
 const Home = props => {
-  const { auth, user } = props;
-  const { isDeletingAccount, isDisconnecting } = auth;
-  const { isAuthenticated } = user;
+  const {
+    auth: { isDeletingAccount, isDisconnecting },
+    user: { isAuthenticated },
+  } = props;
 
   if (isDisconnecting) {
     return (
@@ -27,26 +28,36 @@ const Home = props => {
         <LogoutConfirmation />
       </div>
     );
-  } else if (isDeletingAccount) {
+  }
+  if (isDeletingAccount) {
     return (
       <div className="app whiteBackground">
         <DeleteConfirmation />;
       </div>
     );
-  } else {
-    return (
-      <div className="app app-with-navbar-full-screen">
-        <Navbar />
-        <div className="main-container whiteBackground">
-          <div className="home whiteBackground">
-            <ScrollToTopOnMount />
-            {isAuthenticated && <HomeLoggedIn />}
-            {!isAuthenticated && <HomeForGuestUser />}
-          </div>
+  }
+  return (
+    <div className="app app-with-navbar-full-screen">
+      <Navbar />
+      <div className="main-container whiteBackground">
+        <div className="home whiteBackground">
+          <ScrollToTopOnMount />
+          {isAuthenticated && <HomeLoggedIn />}
+          {!isAuthenticated && <HomeForGuestUser />}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+};
+
+Home.propTypes = {
+  user: {
+    isAuthenticated: PropTypes.bool.isRequired,
+  }.isRequired,
+  auth: {
+    isDeletingAccount: PropTypes.bool.isRequired,
+    isDisconnecting: PropTypes.bool.isRequired,
+  }.isRequired,
 };
 
 export default connect(
