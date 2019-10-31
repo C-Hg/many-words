@@ -5,23 +5,19 @@ import PropTypes from "prop-types";
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
 import CONSTANTS from "../../config/constants";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    submitUserTranslation: () => {
-      dispatch(exerciseActions.submitUserTranslation());
-    },
-    updateUserTranslation: value => {
-      dispatch(exerciseActions.updateUserTranslation(value));
-    },
-    nextWord: () => {
-      dispatch(exerciseActions.nextWord());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  submitUserTranslation: () => {
+    dispatch(exerciseActions.submitUserTranslation());
+  },
+  updateUserTranslation: value => {
+    dispatch(exerciseActions.updateUserTranslation(value));
+  },
+  nextWord: () => {
+    dispatch(exerciseActions.nextWord());
+  },
+});
 
 const UserTranslation = props => {
   const translationInput = useRef();
@@ -30,7 +26,7 @@ const UserTranslation = props => {
     exercise,
     nextWord,
     submitUserTranslation,
-    updateUserTranslation
+    updateUserTranslation,
   } = props;
   const { userTranslation, isAnswerCorrect } = exercise;
 
@@ -39,12 +35,12 @@ const UserTranslation = props => {
     event.preventDefault();
     // Enter key
     if (event.key === "Enter") {
-      if (exercise.checking) {
+      if (exercise.isChecking) {
         nextWord();
       } else {
         submitUserTranslation();
       }
-    } else if (!exercise.checking) {
+    } else if (!exercise.isChecking) {
       // White space
       if (/\s/.test(event.key)) {
         updateUserTranslation(`${userTranslation} `);
@@ -78,7 +74,7 @@ const UserTranslation = props => {
 
   let inputStatus;
   let readOnly = false;
-  if (exercise.checking) {
+  if (exercise.isChecking) {
     readOnly = true;
     if (isAnswerCorrect) {
       inputStatus = "input-correct";
@@ -106,13 +102,13 @@ const UserTranslation = props => {
 
 UserTranslation.propTypes = {
   exercise: PropTypes.shape({
-    checking: PropTypes.bool.isRequired,
+    isChecking: PropTypes.bool.isRequired,
     isAnswerCorrect: PropTypes.bool.isRequired,
-    userTranslation: PropTypes.string.isRequired
+    userTranslation: PropTypes.string.isRequired,
   }).isRequired,
   nextWord: PropTypes.func.isRequired,
   submitUserTranslation: PropTypes.func.isRequired,
-  updateUserTranslation: PropTypes.func.isRequired
+  updateUserTranslation: PropTypes.func.isRequired,
 };
 
 export default connect(

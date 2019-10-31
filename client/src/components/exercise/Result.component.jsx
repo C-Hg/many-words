@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { LanguageContext } from "../../contexts/language-context";
 
 function mapStateToProps(state) {
@@ -8,9 +9,10 @@ function mapStateToProps(state) {
 
 function Result(props) {
   const { exercise } = props;
+  const { isChecking, isAnswerCorrect, expectedAnswer } = exercise;
 
-  if (exercise.checking) {
-    if (exercise.isAnswerCorrect) {
+  if (isChecking) {
+    if (isAnswerCorrect) {
       const randomResponse = Math.floor(Math.random() * 17);
       return (
         <LanguageContext.Consumer>
@@ -22,12 +24,20 @@ function Result(props) {
     }
     return (
       <div className="result">
-        <div className="expectedAnswer">{exercise.expectedAnswer}</div>
+        <div className="expectedAnswer">{expectedAnswer}</div>
       </div>
     );
   }
   return null;
 }
+
+Result.propTypes = {
+  exercise: {
+    isChecking: PropTypes.bool.isRequired,
+    isAnswerCorrect: PropTypes.bool.isRequired,
+    expectedAnswer: PropTypes.string.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,

@@ -12,7 +12,7 @@ function ExerciseFooter(props) {
 
   let footerClass = "";
   //only if the exercise is active
-  if (exercise.checking) {
+  if (exercise.isChecking) {
     if (exercise.isAnswerCorrect) {
       footerClass = "exercise-footer-correct";
     } else {

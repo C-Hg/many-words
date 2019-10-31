@@ -5,7 +5,7 @@ export const languages = {
     language: "english",
     navbar: {
       home: "Home",
-      login: "Log in"
+      login: "Log in",
     },
     navigation: {
       login_with: "Log in with",
@@ -13,7 +13,7 @@ export const languages = {
       weak_words: "Weak words",
       try_again: "Try again",
       to_continue: "Continue",
-      quit: "Menu"
+      quit: "Menu",
     },
     about: {
       title: "About Many Words",
@@ -35,7 +35,7 @@ export const languages = {
       lgt_1: "Add a third language: Spanish most probably",
       lgt_2: "Learn the vocabulary of 2 or 3 languages at the same time",
       lgt_3: "Publish a smartphone app",
-      lgt_4: "Climb to 5 languages"
+      lgt_4: "Climb to 5 languages",
     },
     home: {
       main_title: "Improve your French vocabulary",
@@ -59,10 +59,10 @@ export const languages = {
       delete_success: "You account has been permanently deleted",
       delete_waiting: "Deletion in progress",
       logout_success: "You were successfully disconnected",
-      logout_progress: "Logging out"
+      logout_progress: "Logging out",
     },
     curriculum: {
-      title: "What do you want to learn?"
+      title: "What do you want to learn?",
     },
     themes: {
       animals: "Animals",
@@ -76,7 +76,7 @@ export const languages = {
       social_life: "Social life",
       society: "Society",
       time: "Time",
-      vegetals: "Vegetals"
+      vegetals: "Vegetals",
     },
     lessons: {
       animals: {
@@ -85,15 +85,15 @@ export const languages = {
         farm_animals: "Farm animals",
         insects: "Insects",
         mammals_1: "Mammals",
-        sea_animals: "Sea animals"
+        sea_animals: "Sea animals",
       },
       clothes: {
         accessories: "Accessories",
         clothes_basics: "Clothes 1",
-        more_clothes: "Clothes 2"
+        more_clothes: "Clothes 2",
       },
       colors: {
-        main_colors: "Main colors"
+        main_colors: "Main colors",
       },
       food: {
         agriculture: "Agriculture",
@@ -102,7 +102,7 @@ export const languages = {
         foods: "Foods",
         fruits: "Fruits",
         more_fruits_and_vegetables: "Fruits and Vegetables 2",
-        vegetables: "Vegetables"
+        vegetables: "Vegetables",
       },
       habitation: {
         construction_materials: "Materials",
@@ -110,14 +110,14 @@ export const languages = {
         furniture: "Furniture",
         house: "House",
         housing: "Housing",
-        rooms: "Rooms"
+        rooms: "Rooms",
       },
       human_body: {
         human_body_basics: "Human body",
         head: "Head",
         limbs: "Limbs",
         organs: "Organs",
-        senses: "Senses"
+        senses: "Senses",
       },
       nature: {
         earth: "Earth",
@@ -125,23 +125,23 @@ export const languages = {
         sea: "Sea",
         universe: "Universe",
         weather_1: "Weather 1",
-        weather_2: "Weather 2"
+        weather_2: "Weather 2",
       },
       numbers: {
         first_numbers: "First numbers",
         more_numbers: "More numbers",
-        large_numbers: "Large numbers"
+        large_numbers: "Large numbers",
       },
       social_life: {
         close_family: "Close family",
         human_beings: "Human beings",
         identity: "Identity",
-        introduction: "Introduction"
+        introduction: "Introduction",
       },
       society: {
         buildings: "Buildings",
         town: "Town",
-        transports: "Transports"
+        transports: "Transports",
       },
       time: {
         days: "Days",
@@ -149,19 +149,19 @@ export const languages = {
         time_basics: "Time 1",
         time_description_1: "Time 2",
         time_description_2: "Time 3",
-        time_divisions: "Time divisions"
+        time_divisions: "Time divisions",
       },
       vegetals: {
         plants: "Plants",
         trees: "Trees",
-        vegetals_basics: "Vegetals"
-      }
+        vegetals_basics: "Vegetals",
+      },
     },
     start_exercise: "test",
     start_learning: "learn",
     check_button: "Check",
     next_button: "Next",
-    translate_in: "Translate this word in",
+    translateIn: "Translate this word in",
     french: "French",
     english: "English",
     correct: [
@@ -181,19 +181,19 @@ export const languages = {
       "Wonderful",
       "Incredible",
       "Bravo",
-      "Et voilà"
+      "Et voilà",
     ],
-    no_mistake: "Congratulations, you've made no mistake !",
-    one_mistake: "Great, it is almost perfect !",
-    one_mistake_instructions: "Mind this word :",
-    more_mistakes: "Take a moment to memorize the words you missed :",
+    noMistake: "Congratulations, you've made no mistake !",
+    oneMistake: "Great, it is almost perfect !",
+    oneMistakeInstruction: "Mind this word :",
+    moreMistakes: "Take a moment to memorize the words you missed :",
     masculine: "masculine",
     feminine: "feminine",
     singular: "singular",
     plural: "plural",
     definite: "definite",
     indefinite: "indefinite",
-    revision: "Revision"
+    revision: "Revision",
   },
 
   /* --------------------        FRENCH     ------------------- */
@@ -202,7 +202,7 @@ export const languages = {
     language: "french",
     navbar: {
       home: "Accueil",
-      login: "Connexion"
+      login: "Connexion",
     },
     navigation: {
       login_with: "Connexion avec",
@@ -210,7 +210,7 @@ export const languages = {
       weak_words: "Mots faibles",
       to_continue: "Continuer",
       try_again: "Réessayer",
-      quit: "Menu"
+      quit: "Menu",
     },
     about: {
       title: "À propos de Many Words",
@@ -235,7 +235,7 @@ export const languages = {
       lgt_1: "Ajout d'une troisième langue: l'Espagnol très probablement",
       lgt_2: "Apprends le vocabulaire de 2 ou 3 langues simultanément",
       lgt_3: "Publication d'une application pour smartphone",
-      lgt_4: "Ajouter jusqu'à 5 languages"
+      lgt_4: "Ajouter jusqu'à 5 languages",
     },
     home: {
       main_title: "Enrichis ton vocabulaire anglais",
@@ -259,10 +259,10 @@ export const languages = {
       delete_success: "Ton compte a été définitivement supprimé",
       delete_waiting: "Suppression en cours",
       logout_success: "Tu es maintenant déconnecté",
-      logout_progress: "Déconnexion en cours"
+      logout_progress: "Déconnexion en cours",
     },
     curriculum: {
-      title: "Que veux-tu apprendre?"
+      title: "Que veux-tu apprendre?",
     },
     themes: {
       animals: "Animaux",
@@ -276,7 +276,7 @@ export const languages = {
       social_life: "Vie sociale",
       society: "Société",
       time: "Temps",
-      vegetals: "Végétaux"
+      vegetals: "Végétaux",
     },
     lessons: {
       animals: {
@@ -285,15 +285,15 @@ export const languages = {
         farm_animals: "Animaux de la ferme",
         insects: "Insectes",
         mammals_1: "Mammifères",
-        sea_animals: "Animaux marins"
+        sea_animals: "Animaux marins",
       },
       clothes: {
         accessories: "Accessoires",
         clothes_basics: "Vêtements 1",
-        more_clothes: "Vêtements 2"
+        more_clothes: "Vêtements 2",
       },
       colors: {
-        main_colors: "Couleurs 1"
+        main_colors: "Couleurs 1",
       },
       food: {
         agriculture: "Agriculture",
@@ -302,7 +302,7 @@ export const languages = {
         foods: "Aliments",
         fruits: "Fruits",
         more_fruits_and_vegetables: "Fruits et légumes 2",
-        vegetables: "Légumes"
+        vegetables: "Légumes",
       },
       habitation: {
         construction_materials: "Matériaux",
@@ -310,14 +310,14 @@ export const languages = {
         furniture: "Meubles",
         house: "Maison",
         housing: "Se loger",
-        rooms: "Pièces"
+        rooms: "Pièces",
       },
       human_body: {
         human_body_basics: "Corps humain",
         head: "Tête",
         limbs: "Membres",
         organs: "Organes",
-        senses: "Sens"
+        senses: "Sens",
       },
       nature: {
         earth: "La Terre",
@@ -325,23 +325,23 @@ export const languages = {
         sea: "Mer",
         universe: "Univers",
         weather_1: "Meteo 1",
-        weather_2: "Meteo 2"
+        weather_2: "Meteo 2",
       },
       numbers: {
         first_numbers: "Premiers nombres",
         more_numbers: "Nombres suivants",
-        large_numbers: "Grands nombres"
+        large_numbers: "Grands nombres",
       },
       social_life: {
         close_family: "Famille proche",
         human_beings: "Êtres humains",
         identity: "Identité",
-        introduction: "Rencontre"
+        introduction: "Rencontre",
       },
       society: {
         buildings: "Bâtiments",
         town: "Ville",
-        transports: "Transports"
+        transports: "Transports",
       },
       time: {
         days: "Jours",
@@ -349,19 +349,19 @@ export const languages = {
         time_basics: "Temps 1",
         time_description_1: "Temps 2",
         time_description_2: "Temps 3",
-        time_divisions: "Mesurer le temps"
+        time_divisions: "Mesurer le temps",
       },
       vegetals: {
         plants: "Plantes",
         trees: "Arbres",
-        vegetals_basics: "Végétaux"
-      }
+        vegetals_basics: "Végétaux",
+      },
     },
     start_exercise: "test",
     start_learning: "réviser",
     check_button: "Vérifier",
     next_button: "Suivant",
-    translate_in: "Traduis ce mot en ",
+    translateIn: "Traduis ce mot en ",
     french: "français",
     english: "anglais",
     correct: [
@@ -381,20 +381,20 @@ export const languages = {
       "Merveilleux",
       "Formidable",
       "Bravo",
-      "Et voilà"
+      "Et voilà",
     ],
-    no_mistake: "Félicitations, tu n'as fait aucune erreur !",
-    one_mistake: "Bravo, c'est presque parfait !",
-    one_mistake_instructions: "Fais attention à ce mot :",
-    more_mistakes: "Prends un moment pour apprendre ces mots :",
+    noMistake: "Félicitations, tu n'as fait aucune erreur !",
+    oneMistake: "Bravo, c'est presque parfait !",
+    oneMistakeInstruction: "Fais attention à ce mot :",
+    moreMistakes: "Prends un moment pour apprendre ces mots :",
     masculine: "masculin",
     feminine: "féminin",
     singular: "singulier",
     plural: "pluriel",
     definite: "défini",
     indefinite: "indéfini",
-    revision: "Révisions"
-  }
+    revision: "Révisions",
+  },
 };
 
 export const LanguageContext = React.createContext(

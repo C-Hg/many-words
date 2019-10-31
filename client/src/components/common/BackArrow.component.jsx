@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
+// TODO: use className
 const BackArrow = props => {
   const { additionalClass } = props;
   return (
@@ -11,6 +13,10 @@ const BackArrow = props => {
       arrow_back
     </i>
   );
+};
+
+BackArrow.propTypes = {
+  additionalClass: PropTypes.string.isRequired,
 };
 
 export default BackArrow;

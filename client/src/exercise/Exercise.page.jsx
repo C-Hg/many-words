@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import Close from "../components/exercise/Close.component";
 import ExerciseTitle from "../components/exercise/ExerciseTitle.component";
@@ -16,11 +17,12 @@ const mapStateToProps = state => {
 
 const Exercise = props => {
   const { exercise } = props;
+  const { redirect, redirectionTarget, words, status } = exercise;
 
-  if (exercise.redirect) {
-    return <Redirect to={exercise.redirectionTarget} />;
+  if (redirect) {
+    return <Redirect to={redirectionTarget} />;
   }
-  if (exercise.words) {
+  if (words) {
     return (
       <div className="app">
         <div className="main-container whiteBackground">
@@ -29,16 +31,25 @@ const Exercise = props => {
               <Close />
               <ExerciseTitle />
             </div>
-            {exercise.status === "exercise" && <ExerciseContainer />}
-            {exercise.status === "recap" && <ExerciseRecap />}
+            {status === "exercise" && <ExerciseContainer />}
+            {status === "recap" && <ExerciseRecap />}
             <ExerciseFooter />
           </div>
         </div>
       </div>
     );
   }
-  // TODO : implement waiting animation
+  // TODO: implement waiting animation
   return null;
+};
+
+Exercise.propTypes = {
+  exercise: {
+    redirect: PropTypes.bool.isRequired,
+    redirectionTarget: PropTypes.string.isRequired,
+    words: PropTypes.object.isRequired,
+    status: PropTypes.string.isRequired,
+  }.isRequired,
 };
 
 export default connect(

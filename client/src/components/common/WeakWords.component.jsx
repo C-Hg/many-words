@@ -1,38 +1,50 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
 import { Redirect } from "react-router-dom";
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function mapStateToProps(state) {
+import { LanguageContext } from "../../contexts/language-context";
+import { actions as exerciseActions } from "../../redux/reducers/exercise";
+
+const mapStateToProps = state => {
   return { exercise: state.exercise };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     getWeakWords: reference => {
       dispatch(exerciseActions.getWeakWords(reference));
-    }
+    },
   };
 };
 
-function WeakWords(props) {
-  if (props.exercise.weakWordsMode) {
-    return <Redirect to={`/weak_words`} />;
-  } else
-    return (
-      <LanguageContext.Consumer>
-        {({ navigation }) => (
-          <button
-            onClick={() => props.getWeakWords(props.reference)}
-            className="weak_words_button"
-          >
-            {navigation.weak_words}
-          </button>
-        )}
-      </LanguageContext.Consumer>
-    );
-}
+const WeakWords = props => {
+  const { exercise, reference, getWeakWords } = props;
+  if (exercise.isWeakWordsMode) {
+    return <Redirect to="/weak_words" />;
+  }
+  return (
+    <LanguageContext.Consumer>
+      {({ navigation }) => (
+        <button
+          onClick={() => getWeakWords(reference)}
+          className="weak_words_button"
+          type="button"
+        >
+          {navigation.weak_words}
+        </button>
+      )}
+    </LanguageContext.Consumer>
+  );
+};
+
+WeakWords.propTypes = {
+  exercise: {
+    isWeakWordsMode: PropTypes.bool.isRequired,
+  }.isRequired,
+  reference: PropTypes.string.isRequired,
+  getWeakWords: PropTypes.func.isRequired,
+};
 
 export default connect(
   mapStateToProps,

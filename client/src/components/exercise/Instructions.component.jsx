@@ -1,27 +1,34 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { LanguageContext } from "../../contexts/language-context";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-function Instructions(props) {
+const Instructions = props => {
+  const { exercise } = props;
+  const { words, wordRank } = exercise;
+
   let sourceLanguageIsFr = true;
-  const exercise = props.exercise;
-  if (exercise.words[exercise.wordRank].selectedForm[1] === "en") {
+  if (words[wordRank].selectedForm[1] === "en") {
     sourceLanguageIsFr = false;
   }
   return (
     <LanguageContext.Consumer>
-      {({ translate_in, french, english }) => (
+      {({ translateIn, french, english }) => (
         <div className="instructions">
-          {translate_in} {sourceLanguageIsFr ? english : french}
+          {translateIn} {sourceLanguageIsFr ? english : french}
         </div>
       )}
     </LanguageContext.Consumer>
   );
-}
+};
+
+Instructions.propTypes = {
+  exercise: {
+    wordRank: PropTypes.number.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,

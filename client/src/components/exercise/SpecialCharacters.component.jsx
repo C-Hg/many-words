@@ -1,148 +1,83 @@
 import React from "react";
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+import { actions as exerciseActions } from "../../redux/reducers/exercise";
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleSpecialCharacters: () => {
-      dispatch(exerciseActions.toggleSpecialCharacters());
-    },
-    updateUserTranslation: value => {
-      dispatch(exerciseActions.updateUserTranslation(value));
-    }
+const mapStateToProps = state => ({ exercise: state.exercise });
+
+const mapDispatchToProps = dispatch => ({
+  toggleSpecialCharacters: () => {
+    dispatch(exerciseActions.toggleSpecialCharacters());
+  },
+  updateUserTranslation: value => {
+    dispatch(exerciseActions.updateUserTranslation(value));
+  },
+});
+
+const characters = ["à", "â", "ç", "é", "è", "ê", "ë", "î", "ï", "ô", "ù", "û"];
+
+const SpecialCharacters = props => {
+  const { exercise, toggleSpecialCharacters, updateUserTranslation } = props;
+  const {
+    userTranslation,
+    areSpecialCharactersVisible,
+    words,
+    wordRank,
+  } = exercise;
+
+  const handleSpecialCharacter = event => {
+    const letter = event.target.name;
+    updateUserTranslation(userTranslation + letter);
   };
+
+  // TODO: transform each letter into a component
+  const characterButtons = characters.map(character => (
+    <button
+      className="specialCharacter"
+      onClick={handleSpecialCharacter}
+      name={character}
+      type="button"
+    >
+      {character}
+    </button>
+  ));
+
+  const isVisible = areSpecialCharactersVisible;
+  const visibilityClass = isVisible
+    ? "specialCharacters-visible"
+    : "specialCharacters-invisible";
+  // the element is rendered only for english speakers when translating to French
+  // space is reserved for better visual experience
+  if (words[wordRank].selectedForm[1] === "fr") {
+    return <div className="specialCharacters noborder" />; // reserving space
+  }
+
+  return (
+    <div className={`specialCharacters ${visibilityClass}`}>
+      {!isVisible && (
+        <button
+          className="toggleSpecialCharacters"
+          onClick={toggleSpecialCharacters}
+          type="button"
+        >
+          Special characters
+        </button>
+      )}
+      {isVisible && <div className="keys">{characterButtons}</div>}
+    </div>
+  );
 };
 
-class SpecialCharacters extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleSpecialCharacter = this.handleSpecialCharacter.bind(this);
-  }
-
-  handleSpecialCharacter(event) {
-    const letter = event.target.name;
-    this.props.updateUserTranslation(
-      this.props.exercise.userTranslation + letter
-    );
-  }
-
-  render() {
-    const exercise = this.props.exercise;
-    const visible = this.props.exercise.specialCharactersVisible;
-    const visibilityClass = visible
-      ? "specialCharacters-visible"
-      : "specialCharacters-invisible";
-    // the element is rendered only for english speakers when translating to French
-    // space is reserved for better visual experience
-    if (exercise.words[exercise.wordRank].selectedForm[1] === "fr") {
-      return <div className="specialCharacters noborder" />; //reserving space
-    } else
-      return (
-        <div className={"specialCharacters " + visibilityClass}>
-          {!visible && (
-            <button
-              className="toggleSpecialCharacters"
-              onClick={this.props.toggleSpecialCharacters}
-            >
-              Special characters
-            </button>
-          )}
-          {visible && (
-            <div className="keys">
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="é"
-              >
-                é
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="è"
-              >
-                è
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="ê"
-              >
-                ê
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="ë"
-              >
-                ë
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="à"
-              >
-                à
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="â"
-              >
-                â
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="î"
-              >
-                î
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="ï"
-              >
-                ï
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="ô"
-              >
-                ô
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="û"
-              >
-                û
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="ù"
-              >
-                ù
-              </button>
-              <button
-                className="specialCharacter"
-                onClick={this.handleSpecialCharacter}
-                name="ç"
-              >
-                ç
-              </button>
-            </div>
-          )}
-        </div>
-      );
-  }
-}
+SpecialCharacters.propTypes = {
+  exercise: {
+    userTranslation: PropTypes.string.isRequired,
+    areSpecialCharactersVisible: PropTypes.bool.isRequired,
+    wordRank: PropTypes.number.isRequired,
+  }.isRequired,
+  toggleSpecialCharacters: PropTypes.func.isRequired,
+  updateUserTranslation: PropTypes.func.isRequired,
+};
 
 export default connect(
   mapStateToProps,

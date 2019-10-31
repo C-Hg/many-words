@@ -1,34 +1,33 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { LanguageContext } from "../../contexts/language-context";
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getWords: (lesson, theme) => {
-      dispatch(exerciseActions.getWords(lesson, theme));
-    },
-    continueWeakWords: () => {
-      dispatch(exerciseActions.continueWeakWords());
-    },
-    quitExercise: () => {
-      dispatch(exerciseActions.quitExercise());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getWords: (lesson, theme) => {
+    dispatch(exerciseActions.getWords(lesson, theme));
+  },
+  continueWeakWords: () => {
+    dispatch(exerciseActions.continueWeakWords());
+  },
+  quitExercise: () => {
+    dispatch(exerciseActions.quitExercise());
+  },
+});
 
 const ExitLinks = props => {
   const { continueWeakWords, getWords, quitExercise, exercise } = props;
+  const { isWeakWordsMode, words } = exercise;
   // gets the lesson and theme of the first word of the current batch
   // this works only for classical lessons
-  const { lesson, theme } = exercise.words[0];
+  const { lesson, theme } = words[0];
 
   const restartLesson = () => {
-    if (exercise.weakWordsMode) {
+    if (exercise.isWeakWordsMode) {
       continueWeakWords();
     } else {
       getWords(lesson, theme);
@@ -39,18 +38,25 @@ const ExitLinks = props => {
     <LanguageContext.Consumer>
       {({ navigation }) => (
         <div className="links">
-          <button className="exitLink" onClick={restartLesson}>
-            {exercise.weakWordsMode
-              ? navigation.to_continue
-              : navigation.try_again}
+          <button className="exitLink" onClick={restartLesson} type="button">
+            {isWeakWordsMode ? navigation.to_continue : navigation.try_again}
           </button>
-          <button className="exitLink" onClick={quitExercise}>
+          <button className="exitLink" onClick={quitExercise} type="button">
             {navigation.quit}
           </button>
         </div>
       )}
     </LanguageContext.Consumer>
   );
+};
+
+ExitLinks.propTypes = {
+  exercise: {
+    isWeakWordsMode: PropTypes.bool.isRequired,
+  }.isRequired,
+  continueWeakWords: PropTypes.func.isRequired,
+  getWords: PropTypes.func.isRequired,
+  quitExercise: PropTypes.func.isRequired,
 };
 
 export default connect(

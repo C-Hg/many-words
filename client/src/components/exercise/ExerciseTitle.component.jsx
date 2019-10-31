@@ -1,27 +1,28 @@
-import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { LanguageContext } from "../../contexts/language-context";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-class ExerciseTitle extends React.Component {
-  render() {
-    const language = this.context;
-    const exercise = this.props.exercise;
-    const lesson = exercise.words[0].lesson;
-    const theme = exercise.words[0].theme;
+const ExerciseTitle = props => {
+  const language = useContext(LanguageContext);
+  const { exercise } = props;
+  const { words, isWeakWordsMode, status } = exercise;
+  const { lesson, theme } = words[0];
 
-    if (exercise.status === "recap" && exercise.weakWordsMode) {
-      return <h1 className="exerciseTitle">{language.revision}</h1>;
-    }
-    return <h1 className="exerciseTitle">{language.lessons[theme][lesson]}</h1>;
+  if (status === "recap" && isWeakWordsMode) {
+    return <h1 className="exerciseTitle">{language.revision}</h1>;
   }
-}
+  return <h1 className="exerciseTitle">{language.lessons[theme][lesson]}</h1>;
+};
 
-ExerciseTitle.contextType = LanguageContext;
-
+ExerciseTitle.propTypes = {
+  exercise: {
+    status: PropTypes.string.isRequired,
+    isWeakWordsMode: PropTypes.bool.isRequired,
+  }.isRequired,
+};
 export default connect(
   mapStateToProps,
   null

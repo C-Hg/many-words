@@ -1,5 +1,5 @@
 const defaultState = {
-  weakWordsMode: false,
+  isWeakWordsMode: false,
   weakWordsBatches: [],
   weakWordsBatchesDone: 0,
   weakWordsReference: null,
@@ -8,10 +8,10 @@ const defaultState = {
   wordRank: 0,
   userTranslation: "",
   expectedAnswer: "",
-  checking: false,
+  isChecking: false,
   isAnswerCorrect: false,
   activable: false,
-  specialCharactersVisible: false,
+  areSpecialCharactersVisible: false,
   failedWords: [],
   result: [],
   redirect: true,
@@ -54,7 +54,7 @@ const exerciseReducer = (state = defaultState, action) => {
         ...state,
         redirect: false,
         weakWordsBatches: action.weakWordsBatches,
-        weakWordsMode: true,
+        isWeakWordsMode: true,
         weakWordsReference: action.reference,
         words: action.weakWordsBatches[0],
         redirectionTarget: action.redirectionTarget,
@@ -64,7 +64,7 @@ const exerciseReducer = (state = defaultState, action) => {
       return { ...defaultState, redirect: false };
 
     case types.TOGGLE_SPECIAL_CHARACTERS:
-      return { ...state, specialCharactersVisible: true };
+      return { ...state, areSpecialCharactersVisible: true };
 
     case types.UPDATE_USER_TRANSLATION:
       return { ...state, userTranslation: action.userTranslation };
@@ -72,7 +72,7 @@ const exerciseReducer = (state = defaultState, action) => {
     case types.UPDATE_RESULT:
       return {
         ...state,
-        checking: true,
+        isChecking: true,
         isAnswerCorrect: action.isUserTranslationCorrect,
         result: [
           ...state.result,
@@ -102,8 +102,8 @@ const exerciseReducer = (state = defaultState, action) => {
       return {
         ...state,
         status: "recap",
-        checking: false,
-        specialCharactersVisible: false,
+        isChecking: false,
+        areSpecialCharactersVisible: false,
       };
 
     case types.PREPARE_NEXT_WORD:
@@ -111,10 +111,10 @@ const exerciseReducer = (state = defaultState, action) => {
         ...state,
         wordRank: state.wordRank + 1,
         userTranslation: "",
-        checking: false,
+        isChecking: false,
         isAnswerCorrect: false,
         expectedAnswer: "",
-        specialCharactersVisible: false,
+        areSpecialCharactersVisible: false,
       };
 
     case types.RESET_STATE:
@@ -124,7 +124,7 @@ const exerciseReducer = (state = defaultState, action) => {
       return {
         ...defaultState,
         redirect: false,
-        weakWordsMode: true,
+        isWeakWordsMode: true,
         weakWordsBatches: state.weakWordsBatches,
         weakWordsBatchesDone: state.weakWordsBatchesDone + 1,
         weakWordsReference: state.weakWordsReference,

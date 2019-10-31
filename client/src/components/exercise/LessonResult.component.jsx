@@ -1,41 +1,46 @@
 import React from "react";
-import { LanguageContext } from "../../contexts/language-context";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+import { LanguageContext } from "../../contexts/language-context";
 
-function LessonResult(props) {
-  const errors = props.exercise.failedWords.length;
+const mapStateToProps = state => ({ exercise: state.exercise });
+
+const LessonResult = props => {
+  const { exercise } = props;
+  const errors = exercise.failedWords.length;
+
   if (!errors) {
     return (
       <LanguageContext.Consumer>
-        {({ no_mistake }) => <div className="lessonResult">{no_mistake}</div>}
+        {({ noMistake }) => <div className="lessonResult">{noMistake}</div>}
       </LanguageContext.Consumer>
     );
   }
   if (errors === 1) {
     return (
       <LanguageContext.Consumer>
-        {({ one_mistake, one_mistake_instructions }) => (
+        {({ oneMistake, oneMistakeInstruction }) => (
           <div className="lessonResult">
-            <div>{one_mistake}</div>
-            <div>{one_mistake_instructions}</div>
+            <div>{oneMistake}</div>
+            <div>{oneMistakeInstruction}</div>
           </div>
         )}
       </LanguageContext.Consumer>
     );
-  } else {
-    return (
-      <LanguageContext.Consumer>
-        {({ more_mistakes }) => (
-          <div className="lessonResult">{more_mistakes}</div>
-        )}
-      </LanguageContext.Consumer>
-    );
   }
-}
+  return (
+    <LanguageContext.Consumer>
+      {({ moreMistakes }) => <div className="lessonResult">{moreMistakes}</div>}
+    </LanguageContext.Consumer>
+  );
+};
+
+LessonResult.propTypes = {
+  exercise: {
+    failedWords: PropTypes.array.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,

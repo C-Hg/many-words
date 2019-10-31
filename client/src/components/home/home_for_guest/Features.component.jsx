@@ -1,7 +1,7 @@
 import React from "react";
 import { LanguageContext } from "../../../contexts/language-context";
 
-function Features(props) {
+const Features = () => {
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
@@ -28,6 +28,6 @@ function Features(props) {
       )}
     </LanguageContext.Consumer>
   );
-}
+};
 
 export default Features;
