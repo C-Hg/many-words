@@ -3,7 +3,7 @@ const defaultState = {
   isDeletingAccount: false,
   hasConfirmedDeletion: false,
   hasProcedureSucceeded: false,
-  hasAcknowledgedAction: true
+  hasAcknowledgedAction: true,
 };
 
 const types = {
@@ -15,7 +15,7 @@ const types = {
   ABORT_DELETION: "ABORT_DELETION",
   CONFIRM_DELETION: "CONFIRM_DELETION",
   DELETION_SUCCESS: "DELETION_SUCCESS",
-  ACKNOWLEDGE_ACTION: "ACKNOWLEDGE_ACTION"
+  ACKNOWLEDGE_ACTION: "ACKNOWLEDGE_ACTION",
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -25,7 +25,7 @@ const authReducer = (state = defaultState, action) => {
       return {
         ...state,
         isDisconnecting: true,
-        hasAcknowledgedAction: false
+        hasAcknowledgedAction: false,
       };
 
     case types.LOGOUT_SUCCESS:
@@ -35,7 +35,7 @@ const authReducer = (state = defaultState, action) => {
       return {
         ...state,
         isDeletingAccount: true,
-        hasAcknowledgedAction: false
+        hasAcknowledgedAction: false,
       };
 
     case types.ABORT_DELETION:
@@ -44,7 +44,7 @@ const authReducer = (state = defaultState, action) => {
     case types.CONFIRM_DELETION:
       return {
         ...state,
-        hasConfirmedDeletion: true
+        hasConfirmedDeletion: true,
       };
 
     case types.ACKNOWLEDGE_ACTION:
@@ -60,39 +60,39 @@ const actions = {
     return {
       type: types.ATTEMPT_LOGIN,
       provider,
-      token
+      token,
     };
   },
 
   attemptLogout: () => {
     return {
-      type: types.ATTEMPT_LOGOUT
+      type: types.ATTEMPT_LOGOUT,
     };
   },
 
   beginAccountDeletion: () => {
     return {
-      type: types.BEGIN_ACCOUNT_DELETION
+      type: types.BEGIN_ACCOUNT_DELETION,
     };
   },
 
   confirmDeletion: () => {
     return {
-      type: types.CONFIRM_DELETION
+      type: types.CONFIRM_DELETION,
     };
   },
 
   abortDeletion: () => {
     return {
-      type: types.ABORT_DELETION
+      type: types.ABORT_DELETION,
     };
   },
 
   acknowledgeAction: () => {
     return {
-      type: types.ACKNOWLEDGE_ACTION
+      type: types.ACKNOWLEDGE_ACTION,
     };
-  }
+  },
 };
 
 export default authReducer;

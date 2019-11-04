@@ -6,8 +6,8 @@ const services = {
       method: "get",
       headers: {
         access_token: token,
-        "Content-type": "text/plain"
-      }
+        "Content-type": "text/plain",
+      },
     };
     const result = await fetch(`/auth/${provider}/token`, options);
     return result.json();
@@ -27,13 +27,13 @@ const services = {
     const options = {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: data
+      body: data,
     };
     const result = await fetch(url, options);
     return result.json();
-  }
+  },
 };
 
 export default services;

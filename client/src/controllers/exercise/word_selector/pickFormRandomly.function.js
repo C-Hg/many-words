@@ -1,7 +1,7 @@
 import { randomPicker } from "../../../services/randomPicker.function";
 
 export default function pickFormRandomly(word) {
-  let sourceLanguage = randomPicker(["fr", "en"]);
+  const sourceLanguage = randomPicker(["fr", "en"]);
   let sourceForm;
 
   if (word.hasUniqueForm) {
@@ -11,7 +11,7 @@ export default function pickFormRandomly(word) {
   }
 
   return {
-    sourceLanguage: sourceLanguage,
-    sourceForm: sourceForm
+    sourceLanguage,
+    sourceForm,
   };
 }

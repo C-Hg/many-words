@@ -6,7 +6,6 @@ import getSwitchesStates from "../../controllers/learning/getSwitchesStates.func
 
 function* getWordsToLearn({ lesson }) {
   try {
-    console.log("hello from getWords");
     const words = yield call(fetch.getJSONResponse, `/api/learn/${lesson}`);
     const switches = getSwitchesStates(words);
     const formattedWords = selectWordsToLearnForms(
@@ -21,9 +20,11 @@ function* getWordsToLearn({ lesson }) {
       gender: switches[1],
       definite: switches[2],
       formattedWords,
-      words
+      words,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error("[getWordsToLearn]", error);
+  }
 }
 
 function* toggleNumber() {
@@ -38,7 +39,9 @@ function* toggleNumber() {
       learn.words
     );
     yield put({ type: "SET_NUMBER", number, formattedWords });
-  } catch (error) {}
+  } catch (error) {
+    console.error("[toggleNumber]", error);
+  }
 }
 
 function* toggleGender() {
@@ -53,7 +56,9 @@ function* toggleGender() {
       learn.words
     );
     yield put({ type: "SET_GENDER", gender, formattedWords });
-  } catch (error) {}
+  } catch (error) {
+    console.error("[toggleGender]", error);
+  }
 }
 
 function* toggleDefinite() {
@@ -68,7 +73,9 @@ function* toggleDefinite() {
       learn.words
     );
     yield put({ type: "SET_DEFINITE", definite, formattedWords });
-  } catch (error) {}
+  } catch (error) {
+    console.error("[toggleDefinite]", error);
+  }
 }
 
 export default function* learnSaga() {

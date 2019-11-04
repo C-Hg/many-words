@@ -1,23 +1,29 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import LessonResult from "./LessonResult.component";
 import WordsToRemember from "./WordsToRemember.component";
 import ExitLinks from "./ExitLinks.component";
-import { connect } from "react-redux";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-function ExerciseRecap(props) {
+const ExerciseRecap = props => {
+  const { exercise } = props;
   return (
     <div className="exerciseRecap">
       <LessonResult />
-      {props.exercise.failedWords.length > 0 && <WordsToRemember />}
+      {exercise.failedWords.length > 0 && <WordsToRemember />}
       <ExitLinks />
     </div>
   );
-}
+};
+
+ExerciseRecap.propTypes = {
+  exercise: {
+    failedWords: PropTypes.array.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,

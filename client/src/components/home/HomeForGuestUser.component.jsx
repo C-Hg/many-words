@@ -5,17 +5,15 @@ import Features from "./home_for_guest/Features.component";
 import Register from "./home_for_guest/Register.component";
 import Discover from "./home_for_guest/Discover.component";
 
-function HomeForGuestUser(props) {
-  return (
-    <div className="homeForGuestUser whiteBackground">
-      <Welcome />
-      <Features />
-      <Register />
-      <LoginButtons />
-      <hr className="homeSeparator" />
-      <Discover />
-    </div>
-  );
-}
+const HomeForGuestUser = () => (
+  <div className="homeForGuestUser whiteBackground">
+    <Welcome />
+    <Features />
+    <Register />
+    <LoginButtons />
+    <hr className="homeSeparator" />
+    <Discover />
+  </div>
+);
 
 export default HomeForGuestUser;

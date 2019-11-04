@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-function WordsToRemember(props) {
-  const words = props.exercise.failedWords.map(val => {
+const WordsToRemember = props => {
+  const { exercise } = props;
+  const words = exercise.failedWords.map(val => {
     return (
       <div key={`${val[0]}`}>
         {val[0]} : {val[1]}
@@ -14,7 +14,13 @@ function WordsToRemember(props) {
     );
   });
   return <div className="missedWords">{words}</div>;
-}
+};
+
+WordsToRemember.propTypes = {
+  exercise: {
+    failedWords: PropTypes.array.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,

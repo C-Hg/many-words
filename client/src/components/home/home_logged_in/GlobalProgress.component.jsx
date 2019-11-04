@@ -4,7 +4,7 @@ import ProgressBar from "./ProgressBar.component";
 import WordProgress from "./WordProgress.component";
 import LessonProgress from "./LessonProgress.component";
 
-function GlobalProgress(props) {
+const GlobalProgress = () => {
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
@@ -21,6 +21,6 @@ function GlobalProgress(props) {
       )}
     </LanguageContext.Consumer>
   );
-}
+};
 
 export default GlobalProgress;

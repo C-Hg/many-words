@@ -1,4 +1,4 @@
-import { shuffleArray } from "../../../services/arrayShuffler.function";
+import shuffleArray from "../../../services/arrayShuffler.function";
 
 const makeBatches = weakWords => {
   // make batches of 10 weak words,shuffle after splitting in 10 !

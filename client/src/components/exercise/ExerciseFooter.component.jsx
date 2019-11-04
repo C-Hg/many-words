@@ -1,30 +1,35 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import Result from "./Result.component";
 import Score from "./Score.component";
-import { connect } from "react-redux";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-function ExerciseFooter(props) {
-  const exercise = props.exercise;
-
+const ExerciseFooter = props => {
+  const { exercise } = props;
+  const {
+    isChecking,
+    isAnswerCorrect,
+    failedWords,
+    wordRank,
+    status,
+  } = exercise;
   let footerClass = "";
-  //only if the exercise is active
-  if (exercise.isChecking) {
-    if (exercise.isAnswerCorrect) {
+
+  // only if the exercise is active
+  if (isChecking) {
+    if (isAnswerCorrect) {
       footerClass = "exercise-footer-correct";
     } else {
       footerClass = "exercise-footer-incorrect";
     }
   }
 
-  //only during recap
-  if (exercise.status === "recap") {
-    const successRatio =
-      (exercise.wordRank + 1 - exercise.failedWords.length) /
-      (exercise.wordRank + 1);
+  // only during recap
+  if (status === "recap") {
+    const successRatio = (wordRank + 1 - failedWords.length) / (wordRank + 1);
     if (successRatio > 0.8) {
       footerClass = "exercise-footer-correct";
     } else if (successRatio > 0.5) {
@@ -36,13 +41,23 @@ function ExerciseFooter(props) {
 
   return (
     <div className={`exercise-footer ${footerClass}`}>
-      <div className={`footer-content`}>
-        {exercise.status === "exercise" && <Result />}
-        {exercise.status === "recap" && <Score />}
+      <div className="footer-content">
+        {status === "exercise" && <Result />}
+        {status === "recap" && <Score />}
       </div>
     </div>
   );
-}
+};
+
+ExerciseFooter.propTypes = {
+  exercise: {
+    status: PropTypes.string.isRequired,
+    wordRank: PropTypes.number.isRequired,
+    failedWords: PropTypes.array.isRequired,
+    isChecking: PropTypes.bool.isRequired,
+    isAnswerCorrect: PropTypes.bool.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,

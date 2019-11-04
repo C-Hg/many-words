@@ -1,15 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function ProgressPercentage(props) {
-  if (props.progress === 1 || !props.progress) {
-    return <div className="progressPercentage circleStats">{""}</div>;
+const ProgressPercentage = props => {
+  const { progress } = props;
+  if (progress === 1 || !progress) {
+    return <div className="progressPercentage circleStats"></div>;
   }
   return (
     <div className="progressPercentage circleStats">
-      {Math.floor(props.progress * 100)}
+      {Math.floor(progress * 100)}
     </div>
   );
-}
+};
+
+ProgressPercentage.propTypes = {
+  progress: PropTypes.number.isRequired,
+};
 
 export default ProgressPercentage;
 

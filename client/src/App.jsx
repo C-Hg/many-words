@@ -13,20 +13,15 @@ import { actions as userActions } from "./redux/reducers/user";
 import { languages, LanguageContext } from "./contexts/language-context";
 import Router from "./router/Router";
 
-function mapStateToProps(state) {
-  return { user: state.user };
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    defineLanguage: () => {
-      dispatch(userActions.defineLanguage());
-    },
-    checkSession: () => {
-      dispatch(userActions.checkSession());
-    },
-  };
-};
+const mapStateToProps = state => ({ user: state.user });
+const mapDispatchToProps = dispatch => ({
+  defineLanguage: () => {
+    dispatch(userActions.defineLanguage());
+  },
+  checkSession: () => {
+    dispatch(userActions.checkSession());
+  },
+});
 
 const App = props => {
   const { user, checkSession, defineLanguage } = props;

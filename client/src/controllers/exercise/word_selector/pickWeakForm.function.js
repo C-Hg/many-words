@@ -6,12 +6,12 @@ export default function pickWeakForm(weakForms) {
   if (weakForms.length > 1) {
     chosenForm = randomPicker(weakForms);
   } else {
-    chosenForm = weakForms[0];
+    [chosenForm] = weakForms;
   }
 
   return {
     sourceLanguage: chosenForm.language,
-    sourceForm: chosenForm.form
+    sourceForm: chosenForm.form,
   };
 }
 

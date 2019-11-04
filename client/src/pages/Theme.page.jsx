@@ -18,9 +18,7 @@ import frenchEnglishLessons from "../exercises/lessons";
 import WeakWords from "../components/common/WeakWords.component";
 import Navbar from "../components/navbar/Navbar.component";
 
-function mapStateToProps(state) {
-  return { user: state.user };
-}
+const mapStateToProps = state => ({ user: state.user });
 
 const Theme = props => {
   /* ----------------       preparing data    -------------- */
@@ -52,8 +50,8 @@ const Theme = props => {
         <ProgressPercentage progress={progress} progressColor={progressColor} />
         <GoldStar progress={progress} />
         <div className="themeButtons">
-          <StartTestButton {...props} lesson={val[0]} theme={theme} />
-          <LearnWordsButton {...props} lesson={val[0]} />
+          <StartTestButton match={match} lesson={val[0]} theme={theme} />
+          <LearnWordsButton match={match} lesson={val[0]} />
         </div>
       </div>
     );

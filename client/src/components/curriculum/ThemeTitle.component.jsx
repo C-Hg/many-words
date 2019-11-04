@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { LanguageContext } from "../../contexts/language-context";
 
-class ThemeTitle extends React.Component {
-  render() {
-    let language = this.context;
+const ThemeTitle = props => {
+  const { theme } = props;
+  const language = useContext(LanguageContext);
+  return <div className="themeTitle">{language.themes[theme]}</div>;
+};
 
-    return (
-      <div className="themeTitle">{language.themes[this.props.theme]}</div>
-    );
-  }
-}
+ThemeTitle.propTypes = {
+  theme: PropTypes.string.isRequired,
+};
 
 export default ThemeTitle;
-
-ThemeTitle.contextType = LanguageContext;
