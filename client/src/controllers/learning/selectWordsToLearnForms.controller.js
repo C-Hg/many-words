@@ -1,44 +1,50 @@
-import { getFrForm } from "./getFrForm.function";
-import { getEnForm } from "./getEnForm.function";
+import getFrenchForm from "./getFrenchForm.function";
+import getEnglishForm from "./getEnglishForm.function";
 import {
-  associateFrWordWithArticle,
-  associateEnWordWithArticle,
+  associatefrenchWordWithArticle,
+  associateenglishWordWithArticle,
 } from "../exercise/word_selector/associateWordWithArticle.function";
 import returnFrenchArticle from "../exercise/word_selector/returnFrenchArticle.function";
 import returnEnglishArticle from "../exercise/word_selector/returnEnglishArticle.function";
 
-function selectWordsToLearnForms(singOrPlur, mascOrFem, defOrIndef, words) {
+function selectWordsToLearnForms(number, gender, defOrIndef, words) {
   const formattedWords = words.map(word => {
-    let enWord;
-    let frWord;
-    let enForm;
-    let frForm;
+    let englishWord;
+    let frenchWord;
+    let englishForm;
+    let frenchForm;
 
     if (word.hasUniqueForm) {
-      enWord = word.en[0].uniqueForm;
-      frWord = word.fr[0].uniqueForm;
+      englishWord = word.en[0].uniqueForm;
+      frenchWord = word.fr[0].uniqueForm;
     } else {
-      frForm = getFrForm(singOrPlur, mascOrFem, word.fr[0].acceptedForms);
-      enForm = getEnForm(singOrPlur, word.en[0].acceptedForms);
+      frenchForm = getFrenchForm(number, gender, word.fr[0].acceptedForms);
+      englishForm = getEnglishForm(number, word.en[0].acceptedForms);
       if (word.type === "noun") {
         const frArticle = returnFrenchArticle(
-          frForm,
+          frenchForm,
           defOrIndef,
           word.fr[0].isLApostrophe
         );
-        frWord = associateFrWordWithArticle(frArticle, word.fr[0][frForm]);
+        frenchWord = associatefrenchWordWithArticle(
+          frArticle,
+          word.fr[0][frenchForm]
+        );
         const enArticle = returnEnglishArticle(
-          enForm,
+          englishForm,
           defOrIndef,
           word.en[0].isArticleAn
         );
-        enWord = associateEnWordWithArticle(enArticle, word.en[0][enForm]);
+        englishWord = associateenglishWordWithArticle(
+          enArticle,
+          word.en[0][englishForm]
+        );
       } else {
-        enWord = word.en[0][enForm];
-        frWord = word.fr[0][frForm];
+        englishWord = word.en[0][englishForm];
+        frenchWord = word.fr[0][frenchForm];
       }
     }
-    return { en: enWord, fr: frWord };
+    return { en: englishWord, fr: frenchWord };
   });
 
   return formattedWords;

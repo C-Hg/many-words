@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import { randomPicker } from "../../src/controllers/common/randomPicker.function";
+import randomPicker  from "../../src/controllers/common/randomPicker.function";
 import chai from "chai";
 const assert = chai.assert;
 

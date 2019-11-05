@@ -1,4 +1,4 @@
-import { randomPicker } from "../../../services/randomPicker.function";
+import randomPicker from "../../../services/randomPicker.function";
 import returnSelectedWordsWithArticle from "./returnSelectedWords.function";
 import returnForms from "./returnForms.function";
 import pickFormRandomly from "./pickFormRandomly.function";

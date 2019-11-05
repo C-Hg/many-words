@@ -1,18 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-function OriginWord(props) {
-  const exercise = props.exercise;
-  const word =
-    exercise.words[exercise.wordRank][
-      exercise.words[exercise.wordRank].selectedForm[1]
-    ][0];
+const OriginWord = props => {
+  const { exercise } = props;
+  const { words, wordRank } = exercise;
+  const word = words[wordRank][words[wordRank].selectedForm[1]][0];
   return <div className="originWord">{word}</div>;
-}
+};
+
+OriginWord.propTypes = {
+  exercise: {
+    words: PropTypes.shape([
+      {
+        selectedForm: PropTypes.array.isRequired,
+      },
+    ]),
+    wordRank: PropTypes.number.isRequired,
+  }.isRequired,
+};
 
 export default connect(
   mapStateToProps,
