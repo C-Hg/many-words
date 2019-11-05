@@ -21,7 +21,11 @@ const GoldStar = props => {
 };
 
 GoldStar.propTypes = {
-  progress: PropTypes.number.isRequired,
+  progress: PropTypes.number,
+};
+
+GoldStar.defaultProps = {
+  progress: 0,
 };
 
 export default GoldStar;

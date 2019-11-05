@@ -37,9 +37,9 @@ const Navbar = props => {
 };
 
 Navbar.propTypes = {
-  user: {
+  user: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

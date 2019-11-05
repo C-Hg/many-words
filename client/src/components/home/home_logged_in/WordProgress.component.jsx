@@ -1,14 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { LanguageContext } from "../../../contexts/language-context";
 
-function mapStateToProps(state) {
-  return { user: state.user };
-}
+const mapStateToProps = state => ({ user: state.user });
 
 const WordProgress = props => {
-  const user = { props };
+  const { user } = props;
   const { encounteredWords, greenWords, goldWords } = user.stats.globalProgress;
 
   return (
@@ -41,6 +40,18 @@ const WordProgress = props => {
       )}
     </LanguageContext.Consumer>
   );
+};
+
+WordProgress.propTypes = {
+  user: PropTypes.shape({
+    stats: PropTypes.shape({
+      globalProgress: PropTypes.shape({
+        encounteredWords: PropTypes.number.isRequired,
+        greenWords: PropTypes.number.isRequired,
+        goldWords: PropTypes.number.isRequired,
+      }),
+    }),
+  }).isRequired,
 };
 
 export default connect(

@@ -20,7 +20,7 @@ const SVGCircle = props => {
 };
 
 SVGCircle.propTypes = {
-  strokeDashoffset: PropTypes.number.isRequired,
+  strokeDashoffset: PropTypes.string.isRequired,
   style: PropTypes.string.isRequired,
 };
 

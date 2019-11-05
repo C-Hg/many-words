@@ -57,15 +57,15 @@ const Learning = props => {
 
 Learning.propTypes = {
   getWordsToLearn: PropTypes.func.isRequired,
-  match: {
-    params: {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
       lessonId: PropTypes.string.isRequired,
       themeId: PropTypes.string.isRequired,
-    },
-  }.isRequired,
-  learn: {
-    formattedWords: PropTypes.array.isRequired,
-  }.isRequired,
+    }),
+  }).isRequired,
+  learn: PropTypes.shape({
+    formattedWords: PropTypes.array,
+  }).isRequired,
 };
 
 export default connect(

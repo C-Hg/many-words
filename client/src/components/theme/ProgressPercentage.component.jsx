@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const ProgressPercentage = props => {
   const { progress } = props;
   if (progress === 1 || !progress) {
+    // do not display progress number
     return <div className="progressPercentage circleStats"></div>;
   }
   return (
@@ -14,7 +15,11 @@ const ProgressPercentage = props => {
 };
 
 ProgressPercentage.propTypes = {
-  progress: PropTypes.number.isRequired,
+  progress: PropTypes.number,
+};
+
+ProgressPercentage.defaultProps = {
+  progress: 0,
 };
 
 export default ProgressPercentage;

@@ -6,9 +6,7 @@ import NumberSwitch from "./NumberSwitch.component";
 import GenderSwitch from "./GenderSwitch.component";
 import DefiniteOrIndefiniteSwitch from "./DefiniteOrIndefiniteSwitch.component";
 
-function mapStateToProps(state) {
-  return { learn: state.learn };
-}
+const mapStateToProps = state => ({ learn: state.learn });
 
 const Switches = props => {
   const { learn } = props;
@@ -23,11 +21,11 @@ const Switches = props => {
 };
 
 Switches.propTypes = {
-  learn: {
+  learn: PropTypes.shape({
     number: PropTypes.string.isRequired,
     gender: PropTypes.string.isRequired,
     isDefinite: PropTypes.bool.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

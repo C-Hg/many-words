@@ -1,19 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import LoginWithGoogle from "./LoginWithGoogle.component";
 
-const LoginButtons = props => {
-  const { loginUser } = props;
+const LoginButtons = () => {
   return (
     <div className="loginButtons">
-      <LoginWithGoogle loginUser={loginUser} />
+      <LoginWithGoogle />
     </div>
   );
-};
-
-LoginButtons.propTypes = {
-  loginUser: PropTypes.func.isRequired,
 };
 
 export default LoginButtons;

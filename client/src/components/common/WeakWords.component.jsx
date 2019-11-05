@@ -6,17 +6,13 @@ import PropTypes from "prop-types";
 import { LanguageContext } from "../../contexts/language-context";
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
 
-const mapStateToProps = state => {
-  return { exercise: state.exercise };
-};
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getWeakWords: reference => {
-      dispatch(exerciseActions.getWeakWords(reference));
-    },
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getWeakWords: reference => {
+    dispatch(exerciseActions.getWeakWords(reference));
+  },
+});
 
 const WeakWords = props => {
   const { exercise, reference, getWeakWords } = props;
@@ -39,9 +35,9 @@ const WeakWords = props => {
 };
 
 WeakWords.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     isWeakWordsMode: PropTypes.bool.isRequired,
-  }.isRequired,
+  }).isRequired,
   reference: PropTypes.string.isRequired,
   getWeakWords: PropTypes.func.isRequired,
 };

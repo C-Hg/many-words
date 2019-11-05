@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -6,21 +6,17 @@ import PropTypes from "prop-types";
 import { LanguageContext } from "../../contexts/language-context";
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
 
-function mapStateToProps(state) {
-  return { exercise: state.exercise };
-}
+const mapStateToProps = state => ({ exercise: state.exercise });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getWords: (lesson, theme) => {
-      dispatch(exerciseActions.getWords(lesson, theme));
-    },
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getWords: (lesson, theme) => {
+    dispatch(exerciseActions.getWords(lesson, theme));
+  },
+});
 
 const StartTestButton = props => {
   const { match, lesson, theme, getWords } = props;
-  const language = context;
+  const language = useContext(LanguageContext);
   return (
     <Link
       to={`${match.url}/${lesson}/test`}
@@ -36,9 +32,9 @@ const StartTestButton = props => {
 };
 
 StartTestButton.propTypes = {
-  match: {
+  match: PropTypes.shape({
     url: PropTypes.string.isRequired,
-  }.isRequired,
+  }).isRequired,
   lesson: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired,
   getWords: PropTypes.func.isRequired,
@@ -48,5 +44,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(StartTestButton);
-
-StartTestButton.contextType = LanguageContext;

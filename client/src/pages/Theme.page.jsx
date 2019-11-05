@@ -84,14 +84,14 @@ const Theme = props => {
 Theme.propTypes = {
   user: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
-    stats: {
+    stats: PropTypes.shape({
       lessons: PropTypes.object,
-    },
+    }),
   }).isRequired,
   match: PropTypes.shape({
-    params: {
+    params: PropTypes.shape({
       themeId: PropTypes.string.isRequired,
-    },
+    }),
   }).isRequired,
 };
 

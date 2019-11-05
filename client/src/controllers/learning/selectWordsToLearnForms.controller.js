@@ -7,7 +7,7 @@ import {
 import returnFrenchArticle from "../exercise/word_selector/returnFrenchArticle.function";
 import returnEnglishArticle from "../exercise/word_selector/returnEnglishArticle.function";
 
-function selectWordsToLearnForms(number, gender, defOrIndef, words) {
+function selectWordsToLearnForms(number, gender, isDefinite, words) {
   const formattedWords = words.map(word => {
     let englishWord;
     let frenchWord;
@@ -23,7 +23,7 @@ function selectWordsToLearnForms(number, gender, defOrIndef, words) {
       if (word.type === "noun") {
         const frArticle = returnFrenchArticle(
           frenchForm,
-          defOrIndef,
+          isDefinite,
           word.fr[0].isLApostrophe
         );
         frenchWord = associatefrenchWordWithArticle(
@@ -32,7 +32,7 @@ function selectWordsToLearnForms(number, gender, defOrIndef, words) {
         );
         const enArticle = returnEnglishArticle(
           englishForm,
-          defOrIndef,
+          isDefinite,
           word.en[0].isArticleAn
         );
         englishWord = associateenglishWordWithArticle(

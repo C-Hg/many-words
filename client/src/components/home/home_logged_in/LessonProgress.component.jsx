@@ -4,9 +4,7 @@ import PropTypes from "prop-types";
 
 import { LanguageContext } from "../../../contexts/language-context";
 
-function mapStateToProps(state) {
-  return { user: state.user };
-}
+const mapStateToProps = state => ({ user: state.user });
 
 const LessonProgress = props => {
   const { user } = props;
@@ -48,15 +46,15 @@ const LessonProgress = props => {
 };
 
 LessonProgress.propTypes = {
-  user: {
-    stats: {
-      globalProgress: {
+  user: PropTypes.shape({
+    stats: PropTypes.shape({
+      globalProgress: PropTypes.shape({
         studiedLessons: PropTypes.number,
         greenLessons: PropTypes.number,
         goldLessons: PropTypes.number,
-      },
-    },
-  }.isRequired,
+      }),
+    }),
+  }).isRequired,
 };
 
 LessonProgress.defaultProps = {};

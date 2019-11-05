@@ -1,14 +1,15 @@
 import frenchArticles from "../../../content/articles/frenchArticles";
 
-const returnFrenchArticle = (frenchForm, articleForm, isLApostrophe) => {
+const returnFrenchArticle = (frenchForm, isDefinite, isLApostrophe) => {
   if (
     isLApostrophe &&
-    articleForm === "definite" &&
+    isDefinite &&
     (frenchForm === "masc_sing" || frenchForm === "fem_sing")
   ) {
     return "l'";
   }
-  return frenchArticles[articleForm][frenchForm];
+  const articleFrom = isDefinite ? "definite" : "indefinite";
+  return frenchArticles[articleFrom][frenchForm];
 };
 
 export default returnFrenchArticle;

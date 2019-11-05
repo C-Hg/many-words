@@ -16,7 +16,11 @@ const BackArrow = props => {
 };
 
 BackArrow.propTypes = {
-  additionalClass: PropTypes.string.isRequired,
+  additionalClass: PropTypes.string,
+};
+
+BackArrow.defaultProps = {
+  additionalClass: "",
 };
 
 export default BackArrow;

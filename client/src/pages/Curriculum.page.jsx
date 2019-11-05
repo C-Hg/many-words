@@ -20,9 +20,10 @@ const Curriculum = props => {
   let areWeakWordsLaunchable = false;
 
   // TO DO :render cards only after the database call if user is logged in ?
-  if (user.isAuthenticated && user.stats.globalProgress.studiedLessons) {
+  if (user.isAuthenticated && user.stats.globalProgress.studiedLessons > 5) {
     areWeakWordsLaunchable = true;
   }
+  console.info(user);
 
   // lesson name, words/theme, lessons/theme
   const cards = themes.map(val => {
@@ -88,15 +89,15 @@ const Curriculum = props => {
 };
 
 Curriculum.propTypes = {
-  user: {
+  user: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
-    stats: {
-      themes: PropTypes.object.isRequired,
-      globalProgress: {
+    stats: PropTypes.shape({
+      themes: PropTypes.object,
+      globalProgress: PropTypes.shape({
         studiedLessons: PropTypes.number.isRequired,
-      },
-    },
-  }.isRequired,
+      }),
+    }),
+  }).isRequired,
 };
 
 export default connect(

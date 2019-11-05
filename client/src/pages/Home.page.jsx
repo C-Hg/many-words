@@ -12,9 +12,7 @@ import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirma
 import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
 import Navbar from "../components/navbar/Navbar.component";
 
-function mapStateToProps(state) {
-  return { user: state.user, auth: state.auth };
-}
+const mapStateToProps = state => ({ user: state.user, auth: state.auth });
 
 const Home = props => {
   const {
@@ -51,13 +49,13 @@ const Home = props => {
 };
 
 Home.propTypes = {
-  user: {
+  user: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
-  }.isRequired,
-  auth: {
+  }).isRequired,
+  auth: PropTypes.shape({
     isDeletingAccount: PropTypes.bool.isRequired,
     isDisconnecting: PropTypes.bool.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

@@ -1,7 +1,7 @@
 const defaultState = {
   isAuthenticated: false,
   language: "",
-  stats: "",
+  stats: {},
 };
 
 const types = {

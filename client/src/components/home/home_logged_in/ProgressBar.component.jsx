@@ -23,7 +23,7 @@ const ProgressBar = props => {
   let strokeDashoffset = 300;
 
   if (progress && isBarVisible) {
-    strokeDashoffset = 300 - 300 * progress;
+    strokeDashoffset = 300 - 300 * Number(progress);
   }
 
   return (
@@ -56,11 +56,11 @@ const ProgressBar = props => {
 
 ProgressBar.propTypes = {
   user: PropTypes.shape({
-    stats: {
-      globalProgress: {
-        globalPercentage: PropTypes.number.isRequired,
-      },
-    },
+    stats: PropTypes.shape({
+      globalProgress: PropTypes.shape({
+        globalPercentage: PropTypes.string.isRequired,
+      }),
+    }),
   }).isRequired,
 };
 

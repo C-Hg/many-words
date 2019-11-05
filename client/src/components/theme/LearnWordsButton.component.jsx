@@ -18,9 +18,9 @@ const LearnWordsButton = props => {
 };
 
 LearnWordsButton.propTypes = {
-  match: {
+  match: PropTypes.shape({
     url: PropTypes.string.isRequired,
-  }.isRequired,
+  }).isRequired,
   lesson: PropTypes.string.isRequired,
 };
 

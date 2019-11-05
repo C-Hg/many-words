@@ -2,7 +2,7 @@ const defaultState = {
   number: "",
   gender: "",
   isDefinite: false,
-  formattedWords: "",
+  formattedWords: null,
   words: "",
 };
 
