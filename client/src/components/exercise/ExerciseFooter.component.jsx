@@ -50,13 +50,13 @@ const ExerciseFooter = props => {
 };
 
 ExerciseFooter.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     status: PropTypes.string.isRequired,
     wordRank: PropTypes.number.isRequired,
     failedWords: PropTypes.array.isRequired,
     isChecking: PropTypes.bool.isRequired,
     isAnswerCorrect: PropTypes.bool.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

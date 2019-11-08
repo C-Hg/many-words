@@ -18,10 +18,11 @@ const ExerciseTitle = props => {
 };
 
 ExerciseTitle.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     status: PropTypes.string.isRequired,
     isWeakWordsMode: PropTypes.bool.isRequired,
-  }.isRequired,
+    words: PropTypes.array.isRequired,
+  }).isRequired,
 };
 export default connect(
   mapStateToProps,

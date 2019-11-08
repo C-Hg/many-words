@@ -4,8 +4,8 @@ import {
   associatefrenchWordWithArticle,
   associateenglishWordWithArticle,
 } from "../exercise/word_selector/associateWordWithArticle.function";
-import returnFrenchArticle from "../exercise/word_selector/returnFrenchArticle.function";
-import returnEnglishArticle from "../exercise/word_selector/returnEnglishArticle.function";
+import getFrenchArticle from "../exercise/word_selector/getFrenchArticle.function";
+import getEnglishArticle from "../exercise/word_selector/getEnglishArticle.function";
 
 function selectWordsToLearnForms(number, gender, isDefinite, words) {
   const formattedWords = words.map(word => {
@@ -21,7 +21,7 @@ function selectWordsToLearnForms(number, gender, isDefinite, words) {
       frenchForm = getFrenchForm(number, gender, word.fr[0].acceptedForms);
       englishForm = getEnglishForm(number, word.en[0].acceptedForms);
       if (word.type === "noun") {
-        const frArticle = returnFrenchArticle(
+        const frArticle = getFrenchArticle(
           frenchForm,
           isDefinite,
           word.fr[0].isLApostrophe
@@ -30,7 +30,7 @@ function selectWordsToLearnForms(number, gender, isDefinite, words) {
           frArticle,
           word.fr[0][frenchForm]
         );
-        const enArticle = returnEnglishArticle(
+        const enArticle = getEnglishArticle(
           englishForm,
           isDefinite,
           word.en[0].isArticleAn

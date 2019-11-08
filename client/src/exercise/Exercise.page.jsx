@@ -44,12 +44,18 @@ const Exercise = props => {
 };
 
 Exercise.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     redirect: PropTypes.bool.isRequired,
     redirectionTarget: PropTypes.string.isRequired,
-    words: PropTypes.object.isRequired,
+    words: PropTypes.array,
     status: PropTypes.string.isRequired,
-  }.isRequired,
+  }),
+};
+
+Exercise.defaultProps = {
+  exercise: {
+    words: [],
+  },
 };
 
 export default connect(

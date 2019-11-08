@@ -51,9 +51,10 @@ const ExitLinks = props => {
 };
 
 ExitLinks.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     isWeakWordsMode: PropTypes.bool.isRequired,
-  }.isRequired,
+    words: PropTypes.array.isRequired,
+  }).isRequired,
   continueWeakWords: PropTypes.func.isRequired,
   getWords: PropTypes.func.isRequired,
   quitExercise: PropTypes.func.isRequired,

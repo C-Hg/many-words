@@ -34,6 +34,7 @@ const Home = props => {
       </div>
     );
   }
+  // TODO: implement waiting animation while retrieving auth status
   return (
     <div className="app app-with-navbar-full-screen">
       <Navbar />

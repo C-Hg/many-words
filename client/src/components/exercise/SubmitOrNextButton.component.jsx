@@ -48,11 +48,11 @@ const SubmitOrNextButton = props => {
 };
 
 SubmitOrNextButton.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     userTranslation: PropTypes.string.isRequired,
     isChecking: PropTypes.bool.isRequired,
     isAnswerCorrect: PropTypes.bool.isRequired,
-  }.isRequired,
+  }).isRequired,
   nextWord: PropTypes.func.isRequired,
   submitUserTranslation: PropTypes.func.isRequired,
 };

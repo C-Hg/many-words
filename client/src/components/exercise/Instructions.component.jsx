@@ -25,9 +25,10 @@ const Instructions = props => {
 };
 
 Instructions.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     wordRank: PropTypes.number.isRequired,
-  }.isRequired,
+    words: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 export default connect(

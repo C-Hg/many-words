@@ -17,10 +17,10 @@ const Score = props => {
 };
 
 Score.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     wordRank: PropTypes.number.isRequired,
     failedWords: PropTypes.array.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

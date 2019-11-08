@@ -32,11 +32,11 @@ function Result(props) {
 }
 
 Result.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     isChecking: PropTypes.bool.isRequired,
     isAnswerCorrect: PropTypes.bool.isRequired,
     expectedAnswer: PropTypes.string.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

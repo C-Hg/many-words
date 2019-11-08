@@ -12,14 +12,14 @@ const OriginWord = props => {
 };
 
 OriginWord.propTypes = {
-  exercise: {
-    words: PropTypes.shape([
-      {
+  exercise: PropTypes.shape({
+    words: PropTypes.arrayOf(
+      PropTypes.shape({
         selectedForm: PropTypes.array.isRequired,
-      },
-    ]),
+      })
+    ),
     wordRank: PropTypes.number.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

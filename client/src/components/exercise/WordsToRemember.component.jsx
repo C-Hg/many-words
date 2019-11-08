@@ -17,9 +17,9 @@ const WordsToRemember = props => {
 };
 
 WordsToRemember.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     failedWords: PropTypes.array.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(
