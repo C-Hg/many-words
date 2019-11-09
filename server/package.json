@@ -20,11 +20,11 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
-    "helmet": "^3.20.0",
+    "helmet": "^3.21.2",
     "lodash.clonedeep": "^4.5.0",
     "lodash.merge": "^4.6.2",
     "mongodb": "^3.3.0",
-    "mongoose": "^5.6.9",
+    "mongoose": "^5.7.5",
     "passport": "^0.4.0",
     "passport-google-token": "^0.1.2"
   },
