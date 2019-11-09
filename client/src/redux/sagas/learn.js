@@ -2,23 +2,32 @@ import { put, call, select, takeEvery } from "redux-saga/effects";
 import { types } from "../reducers/learn";
 import fetch from "../../services/fetch";
 import selectWordsToLearnForms from "../../controllers/learning/selectWordsToLearnForms.controller";
-import getSwitchesStates from "../../controllers/learning/getSwitchesStates.function";
+import getAvailableSwitches from "../../controllers/learning/getAvailableSwitches.function";
 
 function* getWordsToLearn({ lesson }) {
   try {
     const words = yield call(fetch.getJSONResponse, `/api/learn/${lesson}`);
-    const switches = getSwitchesStates(words);
-    const formattedWords = selectWordsToLearnForms(
-      switches[0],
-      switches[1],
-      switches[2],
-      words
-    );
+    const availableSwitches = getAvailableSwitches(words);
+    const {
+      hasNumberSwitch,
+      hasGenderSwitch,
+      hasDefiniteSwitch,
+    } = availableSwitches;
+    const switchesStates = {
+      number: "singular",
+      gender: "masculine",
+      isDefinite: true,
+    };
+    const formattedWords = selectWordsToLearnForms(switchesStates, words);
+    const { number, gender, isDefinite } = switchesStates;
     yield put({
       type: "SET_WORDS",
-      number: switches[0],
-      gender: switches[1],
-      definite: switches[2],
+      hasNumberSwitch,
+      hasGenderSwitch,
+      hasDefiniteSwitch,
+      number,
+      gender,
+      isDefinite,
       formattedWords,
       words,
     });
@@ -31,13 +40,12 @@ function* toggleNumber() {
   try {
     const learn = yield select(state => state.learn);
     const number = learn.number === "singular" ? "plural" : "singular";
-    const formattedWords = yield call(
-      selectWordsToLearnForms,
+    const switchesStates = {
       number,
-      learn.gender,
-      learn.definite,
-      learn.words
-    );
+      gender: learn.gender,
+      isDefinite: learn.isDefinite,
+    };
+    const formattedWords = selectWordsToLearnForms(switchesStates, learn.words);
     yield put({ type: "SET_NUMBER", number, formattedWords });
   } catch (error) {
     console.error("[toggleNumber]", error);
@@ -48,13 +56,12 @@ function* toggleGender() {
   try {
     const learn = yield select(state => state.learn);
     const gender = learn.gender === "masculine" ? "feminine" : "masculine";
-    const formattedWords = yield call(
-      selectWordsToLearnForms,
-      learn.number,
+    const switchesStates = {
+      number: learn.number,
       gender,
-      learn.definite,
-      learn.words
-    );
+      isDefinite: learn.isDefinite,
+    };
+    const formattedWords = selectWordsToLearnForms(switchesStates, learn.words);
     yield put({ type: "SET_GENDER", gender, formattedWords });
   } catch (error) {
     console.error("[toggleGender]", error);
@@ -64,15 +71,15 @@ function* toggleGender() {
 function* toggleDefinite() {
   try {
     const learn = yield select(state => state.learn);
-    const definite = learn.definite === "definite" ? "indefinite" : "definite";
-    const formattedWords = yield call(
-      selectWordsToLearnForms,
-      learn.number,
-      learn.gender,
-      definite,
-      learn.words
-    );
-    yield put({ type: "SET_DEFINITE", definite, formattedWords });
+    const isDefinite =
+      learn.isDefinite === "definite" ? "indefinite" : "definite";
+    const switchesStates = {
+      number: learn.number,
+      gender: learn.gender,
+      isDefinite,
+    };
+    const formattedWords = selectWordsToLearnForms(switchesStates, learn.words);
+    yield put({ type: "SET_DEFINITE", isDefinite, formattedWords });
   } catch (error) {
     console.error("[toggleDefinite]", error);
   }

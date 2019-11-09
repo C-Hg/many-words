@@ -1,39 +1,40 @@
 /* eslint-env mocha */
-import getSwitchesStates from "../../src/controllers/learning_fetcher/getSwitchesStates.function";
 import chai from "chai";
-const assert = chai.assert;
+import getSwitchesStates from "../../src/controllers/learning/getSwitchesStates.function";
+
+const { assert } = chai;
 
 suite("Get switches states function", function() {
   test("No switches", function() {
-    let result = getSwitchesStates([
+    const result = getSwitchesStates([
       {
         type: "verb",
         hasUniqueForm: true,
         fr: [
           {
-            uniqueForm: "marcher"
-          }
+            uniqueForm: "marcher",
+          },
         ],
         en: [
           {
-            uniqueForm: "to walk"
-          }
-        ]
+            uniqueForm: "to walk",
+          },
+        ],
       },
       {
         type: "verb",
         hasUniqueForm: true,
         fr: [
           {
-            uniqueForm: "courir"
-          }
+            uniqueForm: "courir",
+          },
         ],
         en: [
           {
-            uniqueForm: "to run"
-          }
-        ]
-      }
+            uniqueForm: "to run",
+          },
+        ],
+      },
     ]);
     assert.isArray(result);
     assert.lengthOf(result, 3);
@@ -43,34 +44,34 @@ suite("Get switches states function", function() {
   });
 
   test("All switches", function() {
-    let result = getSwitchesStates([
+    const result = getSwitchesStates([
       {
         type: "verb",
         hasUniqueForm: true,
         fr: [
           {
-            uniqueForm: "marcher"
-          }
+            uniqueForm: "marcher",
+          },
         ],
         en: [
           {
-            uniqueForm: "to walk"
-          }
-        ]
+            uniqueForm: "to walk",
+          },
+        ],
       },
       {
         type: "verb",
         hasUniqueForm: true,
         fr: [
           {
-            uniqueForm: "courir"
-          }
+            uniqueForm: "courir",
+          },
         ],
         en: [
           {
-            uniqueForm: "to run"
-          }
-        ]
+            uniqueForm: "to run",
+          },
+        ],
       },
       {
         type: "noun",
@@ -80,17 +81,17 @@ suite("Get switches states function", function() {
             masc_sing: "chat",
             masc_plur: "chats",
             fem_sing: "chatte",
-            fem_plur: "chattes"
-          }
+            fem_plur: "chattes",
+          },
         ],
         en: [
           {
             acceptedForms: ["sing", "plur"],
             sing: "cat",
-            plur: "cats"
-          }
-        ]
-      }
+            plur: "cats",
+          },
+        ],
+      },
     ]);
     assert.isArray(result);
     assert.lengthOf(result, 3);

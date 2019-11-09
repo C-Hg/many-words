@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
-function mapStateToProps(state) {
-  return { user: state.user };
-}
 
 const ProgressBar = props => {
   const [isBarVisible, setIsBarVisible] = useState(false);
-  const { user } = props;
+  const { progress } = props; // from 0 to 1
 
   const delayBarApparition = () => {
     setIsBarVisible(true);
@@ -19,7 +14,6 @@ const ProgressBar = props => {
     return () => clearTimeout(timer);
   }, []);
 
-  const progress = user.stats.globalProgress.globalPercentage; // from 0 to 1 or falsy
   let strokeDashoffset = 300;
 
   if (progress && isBarVisible) {
@@ -55,16 +49,7 @@ const ProgressBar = props => {
 };
 
 ProgressBar.propTypes = {
-  user: PropTypes.shape({
-    stats: PropTypes.shape({
-      globalProgress: PropTypes.shape({
-        globalPercentage: PropTypes.string.isRequired,
-      }),
-    }),
-  }).isRequired,
+  progress: PropTypes.number.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(ProgressBar);
+export default ProgressBar;

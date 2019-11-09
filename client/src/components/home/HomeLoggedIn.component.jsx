@@ -17,22 +17,19 @@ const HomeLoggedIn = props => {
   const { user } = props;
   const { stats } = user;
 
-  if (stats.globalProgress.globalPercentage) {
-    return (
-      <div className="HomeLoggedIn">
-        {stats && <GlobalProgress stats={stats} />}
-        {!stats && <TimeToWork />}
-        <ResumeLearningButton />
-        <hr className="homeSeparator separatorLoggedIn" />
-        <div className="footerButtons">
-          <AboutButton contextualClass="homeFooterButton" />
-          <LogoutButton />
-          <DeleteAccountButton />
-        </div>
+  return (
+    <div className="HomeLoggedIn">
+      {stats && <GlobalProgress stats={stats} />}
+      {!stats && <TimeToWork />}
+      <ResumeLearningButton />
+      <hr className="homeSeparator separatorLoggedIn" />
+      <div className="footerButtons">
+        <AboutButton contextualClass="homeFooterButton" />
+        <LogoutButton />
+        <DeleteAccountButton />
       </div>
-    );
-  }
-  return null;
+    </div>
+  );
 };
 
 HomeLoggedIn.propTypes = {

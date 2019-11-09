@@ -32,9 +32,9 @@ const GenderSwitch = props => {
 
 GenderSwitch.propTypes = {
   toggleGender: PropTypes.func.isRequired,
-  learn: {
+  learn: PropTypes.shape({
     gender: PropTypes.string.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

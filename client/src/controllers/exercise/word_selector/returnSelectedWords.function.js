@@ -1,10 +1,8 @@
 /* eslint-disable no-plusplus */
-import {
-  associateFrWordWithArticle,
-  associateEnWordWithArticle,
-} from "./associateWordWithArticle.function";
+import associateFrenchWordWithArticle from "./associateFrenchWordWithArticle.function";
 import getFrenchArticle from "./getFrenchArticle.function";
 import getEnglishArticle from "./getEnglishArticle.function";
+import associateEnglishWordWithArticle from "./associateEnglishWorkWithArticle.function";
 
 // this function returns the selected word with the matching article if necessary
 // it also returns the accepted translations for the selected word
@@ -21,54 +19,58 @@ import getEnglishArticle from "./getEnglishArticle.function";
 
 function returnSelectedWordsWithArticle(
   sourceLanguage,
-  frWords,
-  enWords,
-  frForm,
-  enForm,
-  articleForm,
-  enName
+  frenchWords,
+  englishWords,
+  frenchForm,
+  englishForm,
+  hasArticle,
+  isDefinite,
+  englishName
 ) {
   const frResults = [];
   const enResults = [];
 
-  const frLimit = sourceLanguage === "fr" ? 1 : frWords.length;
-  const enLimit = sourceLanguage === "en" ? 1 : enWords.length;
+  const numberOfFrenchWords = sourceLanguage === "fr" ? 1 : frenchWords.length;
+  const numberOfEnglishWords =
+    sourceLanguage === "en" ? 1 : englishWords.length;
 
   // FR Loop, need to test the possibility of several frForms
-  for (let a = 0; a < frLimit; a++) {
-    for (let b = 0; b < frForm.length; b++) {
-      if (frWords[a][frForm[b]]) {
-        let frArticle = "";
-        if (articleForm) {
-          frArticle = getFrenchArticle(
-            frForm[b],
-            articleForm,
-            frWords[a].isLApostrophe
+  for (let a = 0; a < numberOfFrenchWords; a++) {
+    for (let b = 0; b < frenchForm.length; b++) {
+      if (frenchWords[a][frenchForm[b]]) {
+        let article = "";
+        if (hasArticle) {
+          article = getFrenchArticle(
+            frenchForm[b],
+            isDefinite,
+            frenchWords[a].isLApostrophe
           );
         }
         frResults.push(
-          associateFrWordWithArticle(frArticle, frWords[a][frForm[b]])
+          associateFrenchWordWithArticle(article, frenchWords[a][frenchForm[b]])
         );
       }
     }
   }
 
   // EN loop, there is always only one EN form
-  for (let a = 0; a < enLimit; a++) {
+  for (let a = 0; a < numberOfEnglishWords; a++) {
     let enArticle = "";
-    if (articleForm) {
+    if (hasArticle) {
       enArticle = getEnglishArticle(
-        enForm,
-        articleForm,
-        enWords[a].isArticleAn
+        englishForm,
+        isDefinite,
+        englishWords[a].isArticleAn
       );
     }
-    enResults.push(associateEnWordWithArticle(enArticle, enWords[a][enForm]));
+    enResults.push(
+      associateEnglishWordWithArticle(enArticle, englishWords[a][englishForm])
+    );
   }
 
   // gathering info for progress tracking
-  const selectedWord = sourceLanguage === "fr" ? frForm[0] : enForm;
-  const selectedForm = [enName, sourceLanguage, selectedWord];
+  const selectedWord = sourceLanguage === "fr" ? frenchForm[0] : englishForm;
+  const selectedForm = [englishName, sourceLanguage, selectedWord];
 
   return { fr: frResults, en: enResults, selectedForm };
 }

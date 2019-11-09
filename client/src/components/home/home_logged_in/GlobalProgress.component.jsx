@@ -1,10 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import { LanguageContext } from "../../../contexts/language-context";
 import ProgressBar from "./ProgressBar.component";
 import WordProgress from "./WordProgress.component";
 import LessonProgress from "./LessonProgress.component";
 
-const GlobalProgress = () => {
+const mapStateToProps = state => ({ user: state.user });
+
+const GlobalProgress = props => {
+  const { user } = props;
+  const { globalPercentage } = user.stats.globalProgress;
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
@@ -12,7 +19,7 @@ const GlobalProgress = () => {
           <h1 className="menuTitle globalProgressTitle">
             {home.progress_title}
           </h1>
-          <ProgressBar />
+          {globalPercentage && <ProgressBar progress={globalPercentage} />}
           <div className="wordAndLessonProgress">
             <WordProgress />
             <LessonProgress />
@@ -23,4 +30,17 @@ const GlobalProgress = () => {
   );
 };
 
-export default GlobalProgress;
+GlobalProgress.propTypes = {
+  user: PropTypes.shape({
+    stats: PropTypes.shape({
+      globalProgress: PropTypes.shape({
+        globalPercentage: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(GlobalProgress);

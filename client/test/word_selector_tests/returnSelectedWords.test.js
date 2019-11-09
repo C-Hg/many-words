@@ -1,11 +1,12 @@
 /* eslint-env mocha */
-import return_Selected_Words_With_Article from "../../src/controllers/exercise_fetcher/word_selector/returnSelectedWords.function";
 import chai from "chai";
-const assert = chai.assert;
+import returnSelectedWords from "../../src/controllers/exercise/word_selector/returnSelectedWords.function";
+
+const { assert } = chai;
 
 suite("Return selected words with article function", function() {
   test("unique form, no alternative, FR source language", function() {
-    let result = return_Selected_Words_With_Article(
+    const result = returnSelectedWords(
       "fr",
       [{ uniqueForm: "marcher" }],
       [{ uniqueForm: "to walk" }],
@@ -31,7 +32,7 @@ suite("Return selected words with article function", function() {
   });
 
   test("unique form, no alternative, EN source language", function() {
-    let result = return_Selected_Words_With_Article(
+    const result = returnSelectedWords(
       "en",
       [{ uniqueForm: "marcher" }],
       [{ uniqueForm: "to walk" }],
@@ -57,7 +58,7 @@ suite("Return selected words with article function", function() {
   });
 
   test("Unique form, 1 alternative, FR source language", function() {
-    let result = return_Selected_Words_With_Article(
+    const result = returnSelectedWords(
       "fr",
       [{ uniqueForm: "voyage" }],
       [{ uniqueForm: "journey" }, { uniqueForm: "travel" }],
@@ -83,7 +84,7 @@ suite("Return selected words with article function", function() {
     assert.equal(result.en[1], "travel", "second EN result should be travel");
   });
   test("2 forms, no alternative, EN source language : sing form, definite", function() {
-    let result = return_Selected_Words_With_Article(
+    const result = returnSelectedWords(
       "en",
       [{ fem_sing: "vache", fem_plur: "vaches" }],
       [{ sing: "cow", plur: "cows" }],
@@ -108,7 +109,7 @@ suite("Return selected words with article function", function() {
     assert.equal(result.en[0], "the cow", "EN result should be 'the cow'");
   });
   test("2 forms, no alternative, FR source language : fem_plur form, indefinite", function() {
-    let result = return_Selected_Words_With_Article(
+    const result = returnSelectedWords(
       "en",
       [{ fem_sing: "vache", fem_plur: "vaches" }],
       [{ sing: "cow", plur: "cows" }],
@@ -133,21 +134,21 @@ suite("Return selected words with article function", function() {
     assert.equal(result.en[0], "cows", "EN result should be 'the cow'");
   });
   test("adjective, 1 alternative each, EN source language", function() {
-    let result = return_Selected_Words_With_Article(
+    const result = returnSelectedWords(
       "en",
       [
         {
           masc_sing: "beau",
           fem_sing: "belle",
           masc_plur: "beaux",
-          fem_plur: "belles"
+          fem_plur: "belles",
         },
         {
           masc_sing: "joli",
           fem_sing: "jolie",
           masc_plur: "jolis",
-          fem_plur: "jolies"
-        }
+          fem_plur: "jolies",
+        },
       ],
       [{ uniqueForm: "beautiful" }, { uniqueForm: "pretty" }],
       ["masc_sing", "masc_plur", "fem_sing", "fem_plur"],
@@ -186,21 +187,21 @@ suite("Return selected words with article function", function() {
     );
   });
   test("adjective, 1 alternative each, FR source language, masc_plur", function() {
-    let result = return_Selected_Words_With_Article(
+    const result = returnSelectedWords(
       "fr",
       [
         {
           masc_sing: "beau",
           fem_sing: "belle",
           masc_plur: "beaux",
-          fem_plur: "belles"
+          fem_plur: "belles",
         },
         {
           masc_sing: "joli",
           fem_sing: "jolie",
           masc_plur: "jolis",
-          fem_plur: "jolies"
-        }
+          fem_plur: "jolies",
+        },
       ],
       [{ uniqueForm: "beautiful" }, { uniqueForm: "pretty" }],
       ["masc_plur"],

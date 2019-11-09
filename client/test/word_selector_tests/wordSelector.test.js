@@ -1,12 +1,13 @@
 /* eslint-env mocha */
-import FrEnWordSelector from "../../src/controllers/exercise_fetcher/word_selector/wordSelector.function";
 import chai from "chai";
-const assert = chai.assert;
+import wordSelector from "../../src/controllers/exercise/word_selector/wordSelector.function";
+
+const { assert } = chai;
 
 suite("FR/EN Word Selector function", function() {
   suite("No previous stats", function() {
     test("Unique form, verb", function() {
-      let result = FrEnWordSelector({
+      const result = wordSelector({
         words: [
           {
             enName: "walk",
@@ -15,21 +16,21 @@ suite("FR/EN Word Selector function", function() {
             type: "verb",
             fr: [
               {
-                uniqueForm: "marcher"
-              }
+                uniqueForm: "marcher",
+              },
             ],
             en: [
               {
-                uniqueForm: "to walk"
-              }
-            ]
-          }
-        ]
+                uniqueForm: "to walk",
+              },
+            ],
+          },
+        ],
       });
-      //expected response :
-      //[{sourceLanguage: "fr" or "en",
-      //fr: ["marcher"],
-      //en: ["to walk"]}]
+      // expected response :
+      // [{sourceLanguage: "fr" or "en",
+      // fr: ["marcher"],
+      // en: ["to walk"]}]
       assert.isArray(result, "the result should be an array");
       assert.lengthOf(result, 1, "the result array length should be one");
       assert.match(
@@ -44,7 +45,7 @@ suite("FR/EN Word Selector function", function() {
     });
 
     test("Noun, 4 forms with article, no alternative", function() {
-      let result = FrEnWordSelector({
+      const result = wordSelector({
         words: [
           {
             enName: "cat",
@@ -56,23 +57,23 @@ suite("FR/EN Word Selector function", function() {
                   "masc_sing",
                   "masc_plur",
                   "fem_sing",
-                  "fem_plur"
+                  "fem_plur",
                 ],
                 masc_sing: "chat",
                 masc_plur: "chats",
                 fem_sing: "chatte",
-                fem_plur: "chattes"
-              }
+                fem_plur: "chattes",
+              },
             ],
             en: [
               {
                 acceptedForms: ["sing", "plur"],
                 sing: "cat",
-                plur: "cats"
-              }
-            ]
-          }
-        ]
+                plur: "cats",
+              },
+            ],
+          },
+        ],
       });
       assert.isArray(result, "the result should be an array");
       assert.lengthOf(result, 1, "the result array length should be one");
@@ -169,7 +170,7 @@ suite("FR/EN Word Selector function", function() {
       }
     });
     test("Adjective, 4 forms, 1 alternative each", function() {
-      let result = FrEnWordSelector({
+      const result = wordSelector({
         words: [
           {
             enName: "beautiful",
@@ -181,38 +182,38 @@ suite("FR/EN Word Selector function", function() {
                   "masc_sing",
                   "masc_plur",
                   "fem_sing",
-                  "fem_plur"
+                  "fem_plur",
                 ],
                 masc_sing: "beau",
                 masc_plur: "beaux",
                 fem_sing: "belle",
-                fem_plur: "belles"
+                fem_plur: "belles",
               },
               {
                 acceptedForms: [
                   "masc_sing",
                   "masc_plur",
                   "fem_sing",
-                  "fem_plur"
+                  "fem_plur",
                 ],
                 masc_sing: "joli",
                 masc_plur: "jolis",
                 fem_sing: "jolie",
-                fem_plur: "jolies"
-              }
+                fem_plur: "jolies",
+              },
             ],
             en: [
               {
                 acceptedForms: ["uniqueForm"],
-                uniqueForm: "beautiful"
+                uniqueForm: "beautiful",
               },
               {
                 acceptedForms: ["uniqueForm"],
-                uniqueForm: "pretty"
-              }
-            ]
-          }
-        ]
+                uniqueForm: "pretty",
+              },
+            ],
+          },
+        ],
       });
       assert.isArray(result, "the result should be an array");
       assert.lengthOf(result, 1, "the result array length should be one");
@@ -296,7 +297,7 @@ suite("FR/EN Word Selector function", function() {
       }
     });
     test("Combination of a verb an 2 words", function() {
-      let result = FrEnWordSelector({
+      const result = wordSelector({
         words: [
           {
             enName: "smile",
@@ -305,15 +306,15 @@ suite("FR/EN Word Selector function", function() {
             type: "verb",
             fr: [
               {
-                uniqueForm: "sourire"
-              }
+                uniqueForm: "sourire",
+              },
             ],
             en: [
               {
-                uniqueForm: "to smile"
-              }
+                uniqueForm: "to smile",
+              },
             ],
-            lessonId: "#aLongId"
+            lessonId: "#aLongId",
           },
           {
             enName: "apple",
@@ -324,18 +325,18 @@ suite("FR/EN Word Selector function", function() {
               {
                 acceptedForms: ["fem_sing", "fem_plur"],
                 fem_sing: "pomme",
-                fem_plur: "pommes"
-              }
+                fem_plur: "pommes",
+              },
             ],
             en: [
               {
                 acceptedForms: ["sing", "plur"],
                 sing: "apple",
                 plur: "apples",
-                isArticleAn: true
-              }
+                isArticleAn: true,
+              },
             ],
-            lessonId: "#aLongId"
+            lessonId: "#aLongId",
           },
           {
             enName: "plane",
@@ -347,24 +348,24 @@ suite("FR/EN Word Selector function", function() {
                 acceptedForms: ["masc_sing", "masc_plur"],
                 masc_sing: "avion",
                 masc_plur: "avions",
-                isLApostrophe: true
-              }
+                isLApostrophe: true,
+              },
             ],
             en: [
               {
                 acceptedForms: ["sing", "plur"],
                 sing: "plane",
-                plur: "planes"
-              }
+                plur: "planes",
+              },
             ],
-            lessonId: "#aLongId"
-          }
-        ]
+            lessonId: "#aLongId",
+          },
+        ],
       });
       assert.isArray(result, "the result should be an array");
       assert.lengthOf(result, 3, "the result array length should be three");
 
-      //first word assessments
+      // first word assessments
       assert.match(
         result[0].selectedForm[1],
         /^fr$|^en$/,
@@ -446,7 +447,7 @@ suite("FR/EN Word Selector function", function() {
 
     suite("Efficiency stats given", function() {
       test("Combination of a verb and a noun", function() {
-        let result = FrEnWordSelector({
+        const result = wordSelector({
           words: [
             {
               enName: "smile",
@@ -455,15 +456,15 @@ suite("FR/EN Word Selector function", function() {
               type: "verb",
               fr: [
                 {
-                  uniqueForm: "sourire"
-                }
+                  uniqueForm: "sourire",
+                },
               ],
               en: [
                 {
-                  uniqueForm: "to smile"
-                }
+                  uniqueForm: "to smile",
+                },
               ],
-              lessonId: "#aLongId"
+              lessonId: "#aLongId",
             },
             {
               enName: "apple",
@@ -474,46 +475,46 @@ suite("FR/EN Word Selector function", function() {
                 {
                   acceptedForms: ["fem_sing", "fem_plur"],
                   fem_sing: "pomme",
-                  fem_plur: "pommes"
-                }
+                  fem_plur: "pommes",
+                },
               ],
               en: [
                 {
                   acceptedForms: ["sing", "plur"],
                   sing: "apple",
                   plur: "apples",
-                  isArticleAn: true
-                }
+                  isArticleAn: true,
+                },
               ],
-              lessonId: "#aLongId"
-            }
+              lessonId: "#aLongId",
+            },
           ],
           statsByForm: [
             [
               {
                 language: "en",
                 form: "uniqueForm",
-                stats: -0.5
-              }
+                stats: -0.5,
+              },
             ],
             [
               {
                 language: "en",
                 form: "sing",
-                stats: -1
+                stats: -1,
               },
               {
                 language: "en",
                 form: "plur",
-                stats: -1
-              }
-            ]
-          ]
+                stats: -1,
+              },
+            ],
+          ],
         });
         assert.isArray(result, "the result should be an array");
         assert.lengthOf(result, 2, "the result array length should be two");
 
-        //first word assessments
+        // first word assessments
         assert.equal(result[0].selectedForm[1], "en", "EN should be picked");
         assert.isArray(result[0].fr, "FR word should be inside an array");
         assert.isArray(result[0].en, "EN word should be inside an array");

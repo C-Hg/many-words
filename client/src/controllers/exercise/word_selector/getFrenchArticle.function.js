@@ -1,3 +1,4 @@
+// TODO: split gender and number
 const frenchArticles = {
   definite: {
     masc_sing: "le",
@@ -21,8 +22,8 @@ const getFrenchArticle = (frenchForm, isDefinite, isLApostrophe) => {
   ) {
     return "l'";
   }
-  const articleFrom = isDefinite ? "definite" : "indefinite";
-  return frenchArticles[articleFrom][frenchForm];
+  const articleForm = isDefinite ? "definite" : "indefinite";
+  return frenchArticles[articleForm][frenchForm];
 };
 
 export default getFrenchArticle;

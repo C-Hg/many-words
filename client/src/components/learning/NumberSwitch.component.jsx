@@ -32,9 +32,9 @@ const NumberSwitch = props => {
 
 NumberSwitch.propTypes = {
   toggleNumber: PropTypes.func.isRequired,
-  learn: {
+  learn: PropTypes.shape({
     number: PropTypes.string.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

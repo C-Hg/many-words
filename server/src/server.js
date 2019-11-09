@@ -27,12 +27,12 @@ app.use(
       secure: false,
       httpOnly: true,
       sameSite: true,
-      maxAge: 100 * 24 * 60 * 60 * 1000 // log in every 3 months
+      maxAge: 100 * 24 * 60 * 60 * 1000, // log in every 3 months
     },
     store: new MongoDBStore({
       uri: secrets.MONGO_URI,
-      collection: "sessions"
-    })
+      collection: "sessions",
+    }),
   })
 );
 app.use(helmet());
@@ -45,7 +45,8 @@ sessionMiddlewares();
 /* ----------------------     Mongoose setup     ------------*/
 mongoose.connect(secrets.MONGO_URI, {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true,
 });
 mongoose.Promise = global.Promise;
 // Get the default connection

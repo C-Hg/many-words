@@ -25,7 +25,7 @@ const Learning = props => {
 
   useEffect(() => {
     getWordsToLearn(match.params.lessonId);
-  });
+  }, [getWordsToLearn, match.params.lessonId]);
 
   let wordsToLearn;
   // cannot do it if data is not fetched from the database

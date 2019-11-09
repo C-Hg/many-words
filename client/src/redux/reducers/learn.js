@@ -1,7 +1,10 @@
 const defaultState = {
-  number: "",
-  gender: "",
-  isDefinite: false,
+  hasNumberSwitch: false,
+  hasGenderSwitch: false,
+  hasDefiniteSwitch: false,
+  number: "singular",
+  gender: "masculine",
+  isDefinite: true,
   formattedWords: null,
   words: "",
 };
@@ -18,11 +21,23 @@ const types = {
 };
 
 const learnReducer = (state = defaultState, action) => {
-  const { words, formattedWords, number, gender, isDefinite } = action;
+  const {
+    words,
+    formattedWords,
+    number,
+    gender,
+    isDefinite,
+    hasNumberSwitch,
+    hasGenderSwitch,
+    hasDefiniteSwitch,
+  } = action;
 
   switch (action.type) {
     case types.SET_WORDS:
       return {
+        hasNumberSwitch,
+        hasGenderSwitch,
+        hasDefiniteSwitch,
         words,
         formattedWords,
         number,

@@ -32,9 +32,9 @@ const DefiniteOrIndefiniteSwitch = props => {
 
 DefiniteOrIndefiniteSwitch.propTypes = {
   toggleIsDefinite: PropTypes.func.isRequired,
-  learn: {
+  learn: PropTypes.shape({
     isDefinite: PropTypes.bool.isRequired,
-  }.isRequired,
+  }).isRequired,
 };
 
 export default connect(

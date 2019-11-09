@@ -54,10 +54,20 @@ LessonProgress.propTypes = {
         goldLessons: PropTypes.number,
       }),
     }),
-  }).isRequired,
+  }),
 };
 
-LessonProgress.defaultProps = {};
+LessonProgress.defaultProps = {
+  user: {
+    stats: {
+      globalProgress: {
+        studiedLessons: 0,
+        greenLessons: 0,
+        goldLessons: 0,
+      },
+    },
+  },
+};
 
 export default connect(
   mapStateToProps,

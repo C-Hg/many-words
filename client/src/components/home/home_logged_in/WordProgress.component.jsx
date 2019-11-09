@@ -21,19 +21,19 @@ const WordProgress = props => {
               <i alt="seen" className="material-icons md-48 seenIcon">
                 search
               </i>
-              <div className="userStat">{encounteredWords || 0}</div>
+              <div className="userStat">{encounteredWords}</div>
             </div>
             <div className="iconAndStat">
               <i alt="green" className="material-icons md-48 greenIcon">
                 check_circle_outline
               </i>
-              <div className="userStat">{greenWords || 0}</div>
+              <div className="userStat">{greenWords}</div>
             </div>
             <div className="iconAndStat">
               <i alt="gold" className="material-icons md-48 goldIcon">
                 grade
               </i>
-              <div className="userStat">{goldWords || 0}</div>
+              <div className="userStat">{goldWords}</div>
             </div>
           </div>
         </div>

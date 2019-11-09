@@ -19,7 +19,6 @@ function FrEnWordSelector(wordsToSelect, shuffle) {
 
   // main loop
   while (wordCounter < wordsToSelect.words.length) {
-    let articleForm;
     let formDetails;
     const word = wordsToSelect.words[wordCounter];
     let weakForms = false; // contains the statsByForm of the user for the current word
@@ -36,21 +35,25 @@ function FrEnWordSelector(wordsToSelect, shuffle) {
 
     const { sourceForm, sourceLanguage } = formDetails;
     const forms = returnForms(sourceForm, word.type, sourceLanguage);
-    const frForm = forms.fr;
-    const enForm = forms.en;
+    const frenchForm = forms.fr;
+    const englishForm = forms.en;
 
     // only nouns accept articles, special cases when nouns have only certains articles -> hasUniqueForm = true
+    let isDefinite = true;
+    let hasArticle = false;
     if (word.type === "noun" && !word.hasUniqueForm) {
-      articleForm = randomPicker(["definite", "indefinite"]);
+      isDefinite = randomPicker([true, false]);
+      hasArticle = true;
     }
 
     const selectedWords = returnSelectedWordsWithArticle(
       sourceLanguage,
       word.fr,
       word.en,
-      frForm,
-      enForm,
-      articleForm,
+      frenchForm,
+      englishForm,
+      hasArticle,
+      isDefinite,
       word.enName
     );
     preparedWords.push({

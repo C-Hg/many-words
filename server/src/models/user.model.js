@@ -8,15 +8,17 @@ const userSchema = new Schema(
     name: { type: String, required: false },
     googleId: { type: String, required: false },
     stats: {
-      type: Object,
-      required: true,
+      type: Schema.Types.Mixed,
       default: {
         lessons: {},
         themes: {},
         globalProgress: {
-          studiedLessons: { type: Number, default: 0 },
-          greenLessons: { type: Number, default: 0 },
-          goldLessons: { type: Number, default: 0 },
+          studiedLessons: 0,
+          greenLessons: 0,
+          goldLessons: 0,
+          encounteredWords: 0,
+          greenWords: 0,
+          goldWords: 0,
         },
       },
     },

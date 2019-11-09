@@ -10,21 +10,21 @@ const mapStateToProps = state => ({ learn: state.learn });
 
 const Switches = props => {
   const { learn } = props;
-  const { number, gender, isDefinite } = learn;
+  const { hasNumberSwitch, hasGenderSwitch, hasDefiniteSwitch } = learn;
   return (
     <div className="switches">
-      {number && <NumberSwitch />}
-      {gender && <GenderSwitch />}
-      {isDefinite && <DefiniteOrIndefiniteSwitch />}
+      {hasNumberSwitch && <NumberSwitch />}
+      {hasGenderSwitch && <GenderSwitch />}
+      {hasDefiniteSwitch && <DefiniteOrIndefiniteSwitch />}
     </div>
   );
 };
 
 Switches.propTypes = {
   learn: PropTypes.shape({
-    number: PropTypes.string.isRequired,
-    gender: PropTypes.string.isRequired,
-    isDefinite: PropTypes.bool.isRequired,
+    hasNumberSwitch: PropTypes.bool.isRequired,
+    hasGenderSwitch: PropTypes.bool.isRequired,
+    hasDefiniteSwitch: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
