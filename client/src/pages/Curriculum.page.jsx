@@ -23,7 +23,6 @@ const Curriculum = props => {
   if (user.isAuthenticated && user.stats.globalProgress.studiedLessons > 5) {
     areWeakWordsLaunchable = true;
   }
-  console.info(user);
 
   // lesson name, words/theme, lessons/theme
   const cards = themes.map(val => {

@@ -49,7 +49,7 @@ const ProgressBar = props => {
 };
 
 ProgressBar.propTypes = {
-  progress: PropTypes.number.isRequired,
+  progress: PropTypes.string.isRequired,
 };
 
 export default ProgressBar;

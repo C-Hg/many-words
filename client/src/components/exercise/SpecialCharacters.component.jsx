@@ -38,6 +38,7 @@ const SpecialCharacters = props => {
       onClick={handleSpecialCharacter}
       name={character}
       type="button"
+      key={character}
     >
       {character}
     </button>
@@ -49,6 +50,7 @@ const SpecialCharacters = props => {
     : "specialCharacters-invisible";
   // the element is rendered only for english speakers when translating to French
   // space is reserved for better visual experience
+  // TODO: refactor the selectedForm array to transform it into an object
   if (words[wordRank].selectedForm[1] === "fr") {
     return <div className="specialCharacters noborder" />; // reserving space
   }
@@ -70,11 +72,16 @@ const SpecialCharacters = props => {
 };
 
 SpecialCharacters.propTypes = {
-  exercise: {
+  exercise: PropTypes.shape({
     userTranslation: PropTypes.string.isRequired,
     areSpecialCharactersVisible: PropTypes.bool.isRequired,
     wordRank: PropTypes.number.isRequired,
-  }.isRequired,
+    words: PropTypes.arrayOf(
+      PropTypes.shape({
+        selectedForm: PropTypes.array.isRequired,
+      })
+    ),
+  }).isRequired,
   toggleSpecialCharacters: PropTypes.func.isRequired,
   updateUserTranslation: PropTypes.func.isRequired,
 };

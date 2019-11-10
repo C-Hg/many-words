@@ -7,12 +7,11 @@ import getAvailableSwitches from "../../controllers/learning/getAvailableSwitche
 function* getWordsToLearn({ lesson }) {
   try {
     const words = yield call(fetch.getJSONResponse, `/api/learn/${lesson}`);
-    const availableSwitches = getAvailableSwitches(words);
     const {
       hasNumberSwitch,
       hasGenderSwitch,
       hasDefiniteSwitch,
-    } = availableSwitches;
+    } = getAvailableSwitches(words);
     const switchesStates = {
       number: "singular",
       gender: "masculine",
@@ -68,11 +67,10 @@ function* toggleGender() {
   }
 }
 
-function* toggleDefinite() {
+function* toggleIsDefinite() {
   try {
     const learn = yield select(state => state.learn);
-    const isDefinite =
-      learn.isDefinite === "definite" ? "indefinite" : "definite";
+    const isDefinite = !learn.isDefinite;
     const switchesStates = {
       number: learn.number,
       gender: learn.gender,
@@ -81,13 +79,13 @@ function* toggleDefinite() {
     const formattedWords = selectWordsToLearnForms(switchesStates, learn.words);
     yield put({ type: "SET_DEFINITE", isDefinite, formattedWords });
   } catch (error) {
-    console.error("[toggleDefinite]", error);
+    console.error("[toggleIsDefinite]", error);
   }
 }
 
 export default function* learnSaga() {
   yield takeEvery(types.TOGGLE_NUMBER, toggleNumber);
   yield takeEvery(types.TOGGLE_GENDER, toggleGender);
-  yield takeEvery(types.TOGGLE_DEFINITE, toggleDefinite);
+  yield takeEvery(types.TOGGLE_IS_DEFINITE, toggleIsDefinite);
   yield takeEvery(types.GET_WORDS_TO_LEARN, getWordsToLearn);
 }
