@@ -1,4 +1,4 @@
-@import "./styles/common/variables.scss";
+@import "../styles/common/variables.scss";
 
 html,
 body {
@@ -82,6 +82,7 @@ h2 {
   -webkit-tap-highlight-color: transparent;
 }
 
+// moved to Button.js
 //remove dotted outline on button click
 button::-moz-focus-outer {
   outline: none;
@@ -115,6 +116,7 @@ button::-moz-focus-inner {
   border: 0;
 }
 
+// link: not moved
 a {
   text-align: center;
   color: $main-font-color;

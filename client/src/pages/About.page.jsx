@@ -2,7 +2,7 @@ import React from "react";
 import { LanguageContext } from "../contexts/language-context";
 import "../styles/About.scss";
 import AboutIcons from "../components/about/AboutIcons.component";
-import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
+import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import Navbar from "../components/navbar/Navbar.component";
 
 function About() {

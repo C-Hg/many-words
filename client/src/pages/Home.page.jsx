@@ -9,8 +9,9 @@ import LogoutConfirmation from "../components/home/home_logged_in/LogoutConfirma
 import HomeLoggedIn from "../components/home/HomeLoggedIn.component";
 import HomeForGuestUser from "../components/home/HomeForGuestUser.component";
 import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirmation.component";
-import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
+import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import Navbar from "../components/navbar/Navbar.component";
+import Container from "../app/Container.styled";
 
 const mapStateToProps = state => ({ user: state.user, auth: state.auth });
 
@@ -36,16 +37,12 @@ const Home = props => {
   }
   // TODO: implement waiting animation while retrieving auth status
   return (
-    <div className="app app-with-navbar-full-screen">
+    <Container withNavbar backgroundColor="white">
       <Navbar />
-      <div className="main-container whiteBackground">
-        <div className="home whiteBackground">
-          <ScrollToTopOnMount />
-          {isAuthenticated && <HomeLoggedIn />}
-          {!isAuthenticated && <HomeForGuestUser />}
-        </div>
-      </div>
-    </div>
+      <ScrollToTopOnMount />
+      {isAuthenticated && <HomeLoggedIn />}
+      {!isAuthenticated && <HomeForGuestUser />}
+    </Container>
   );
 };
 

@@ -3,15 +3,17 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import "./App.scss";
-import "./styles/common/material_icons.css";
-import "./styles/common/titles.scss";
-import "./styles/common/layouts.scss";
-import "./styles/common/buttons.scss";
-import "./styles/common/variables.scss";
+import "../styles/common/material_icons.css";
+import "../styles/common/titles.scss";
+import "../styles/common/layouts.scss";
+import "../styles/common/buttons.scss";
+import "../styles/common/variables.scss";
 import { connect } from "react-redux";
-import { actions as userActions } from "./redux/reducers/user";
-import { languages, LanguageContext } from "./contexts/language-context";
-import Router from "./router/Router";
+import { ThemeProvider } from "styled-components";
+import { actions as userActions } from "../redux/reducers/user";
+import { languages, LanguageContext } from "../contexts/language-context";
+import Router from "./Router";
+import theme from "./theme";
 
 const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
@@ -44,7 +46,9 @@ const App = props => {
   return (
     // the language context depends on the language value in the redux store
     <LanguageContext.Provider value={languages[user.language]}>
-      <Router />
+      <ThemeProvider theme={theme}>
+        <Router />
+      </ThemeProvider>
     </LanguageContext.Provider>
   );
 };

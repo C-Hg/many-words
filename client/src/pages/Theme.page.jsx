@@ -13,7 +13,7 @@ import LessonTitle from "../components/theme/LessonTitle.component";
 import ThemePageTitle from "../components/theme/ThemePageTitle.component";
 import ProgressPercentage from "../components/theme/ProgressPercentage.component";
 import GoldStar from "../components/theme/GoldStar.component";
-import ScrollToTopOnMount from "../router/ScrollToTopOnMount.component";
+import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import frenchEnglishLessons from "../exercises/lessons";
 import WeakWords from "../components/common/WeakWords.component";
 import Navbar from "../components/navbar/Navbar.component";
