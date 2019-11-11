@@ -1,13 +1,5 @@
 @import "./common/variables.scss";
 
-.navbar {
-  height: 65px;
-  margin-top: -65px;
-  background-color: $navbar-background;
-  width: 100%;
-  position: fixed;
-}
-
 .navbar-links {
   display: flex;
   flex-direction: row;

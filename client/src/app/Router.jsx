@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import About from "../pages/About.page";
-import Home from "../pages/Home.page";
+import Home from "../home/Home.page";
 import Theme from "../pages/Theme.page";
 import Curriculum from "../pages/Curriculum.page";
 import Learning from "../pages/Learning.page";

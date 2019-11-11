@@ -10,7 +10,7 @@ import GoldLessons from "../components/curriculum/GoldLesson.component";
 import { LanguageContext } from "../contexts/language-context";
 import themes from "../exercises/themes";
 import WeakWords from "../components/common/WeakWords.component";
-import Navbar from "../components/navbar/Navbar.component";
+import Navbar from "../home/Home.navbar";
 import "../styles/Curriculum.scss";
 
 const mapStateToProps = state => ({ user: state.user });

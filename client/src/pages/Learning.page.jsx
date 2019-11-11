@@ -8,7 +8,7 @@ import Switches from "../components/learning/Switches.component";
 import LearningTitle from "../components/learning/LearningTitle.component";
 import { actions as learnActions } from "../redux/reducers/learn";
 import "../styles/Learning.scss";
-import Navbar from "../components/navbar/Navbar.component";
+import Navbar from "../home/Home.navbar";
 
 const mapStateToProps = state => ({ learn: state.learn });
 const mapDispatchToProps = dispatch => {

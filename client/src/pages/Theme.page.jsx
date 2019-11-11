@@ -16,7 +16,7 @@ import GoldStar from "../components/theme/GoldStar.component";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import frenchEnglishLessons from "../exercises/lessons";
 import WeakWords from "../components/common/WeakWords.component";
-import Navbar from "../components/navbar/Navbar.component";
+import Navbar from "../home/Home.navbar";
 
 const mapStateToProps = state => ({ user: state.user });
 

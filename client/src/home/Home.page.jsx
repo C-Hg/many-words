@@ -10,7 +10,7 @@ import HomeLoggedIn from "../components/home/HomeLoggedIn.component";
 import HomeForGuestUser from "../components/home/HomeForGuestUser.component";
 import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirmation.component";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
-import Navbar from "../components/navbar/Navbar.component";
+import Navbar from "./Home.navbar";
 import Container from "../app/Container.styled";
 
 const mapStateToProps = state => ({ user: state.user, auth: state.auth });

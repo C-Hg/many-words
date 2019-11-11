@@ -1,19 +1,20 @@
 import React from "react";
-import "../../styles/Navbar.scss";
+import "../styles/Navbar.scss";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { LanguageContext } from "../../contexts/language-context";
+import { LanguageContext } from "../contexts/language-context";
+import Navbar from "../components/navbar/Navbar.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
-const Navbar = props => {
+const HomeNavbar = props => {
   const { user } = props;
   return (
     <LanguageContext.Consumer>
       {({ navbar }) => (
-        <header className="navbar">
+        <Navbar>
           <div className="navbar-links">
             <NavLink
               to="/curriculum"
@@ -30,13 +31,13 @@ const Navbar = props => {
               <div>{user.isAuthenticated ? navbar.home : navbar.login}</div>
             </NavLink>
           </div>
-        </header>
+        </Navbar>
       )}
     </LanguageContext.Consumer>
   );
 };
 
-Navbar.propTypes = {
+HomeNavbar.propTypes = {
   user: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }).isRequired,
@@ -45,4 +46,4 @@ Navbar.propTypes = {
 export default connect(
   mapStateToProps,
   null
-)(Navbar);
+)(HomeNavbar);
