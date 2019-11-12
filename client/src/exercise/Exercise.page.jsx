@@ -10,7 +10,6 @@ import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
 
 import "./Exercise.scss";
 import Container from "../app/Container.styled";
-import theme from "../app/theme";
 import ExerciseNavbar from "./Exercise.navbar";
 
 const mapStateToProps = state => {
@@ -26,7 +25,7 @@ const Exercise = props => {
   }
   if (words) {
     return (
-      <Container backgroundColor={theme.colors.white} withNavbar>
+      <Container withNavbar>
         <ExerciseNavbar />
         <div className="exercise">
           <div className="titleAndCross">

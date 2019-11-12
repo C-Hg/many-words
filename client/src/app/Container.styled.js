@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 const Container = styled.div`
   font-family: ${props => props.theme.fonts.main};
-  width: 100%;
   color: ${props => props.theme.colors.darkGrey};
-  background-color: ${props => props.backgroundColor || "transparent"};
+  background-color: ${props =>
+    props.backgroundColor || props.theme.colors.white};
   position: absolute;
+  width: 100%;
   top: 0;
   bottom: 0;
   left: 0;

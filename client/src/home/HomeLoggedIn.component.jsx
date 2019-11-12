@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import LogoutButton from "./home_logged_in/LogoutButton.component";
-import GlobalProgress from "./home_logged_in/GlobalProgress.component";
-import TimeToWork from "./home_logged_in/TimeToWork.component";
-import ResumeLearningButton from "./home_logged_in/ResumeLearningButton.component";
-import AboutButton from "./AboutButton.component";
-import DeleteAccountButton from "./home_logged_in/DeleteAccountButton.component";
+import LogoutButton from "../components/home/home_logged_in/LogoutButton.component";
+import GlobalProgress from "../components/home/home_logged_in/GlobalProgress.component";
+import TimeToWork from "../components/home/home_logged_in/TimeToWork.component";
+import ResumeLearningButton from "../components/home/home_logged_in/ResumeLearningButton.component";
+import AboutButton from "../components/home/AboutButton.component";
+import DeleteAccountButton from "../components/home/home_logged_in/DeleteAccountButton.component";
 
 function mapStateToProps(state) {
   return { user: state.user };
