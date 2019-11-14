@@ -9,7 +9,7 @@ import ExerciseFooter from "../components/exercise/ExerciseFooter.component";
 import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
 
 import "./Exercise.scss";
-import Container from "../app/Container.styled";
+import AppContainer from "../app/AppContainer.styled";
 import ExerciseNavbar from "./Exercise.navbar";
 
 const mapStateToProps = state => {
@@ -25,7 +25,7 @@ const Exercise = props => {
   }
   if (words) {
     return (
-      <Container withNavbar>
+      <AppContainer withNavbar>
         <ExerciseNavbar />
         <div className="exercise">
           <div className="titleAndCross">
@@ -35,7 +35,7 @@ const Exercise = props => {
           {status === "recap" && <ExerciseRecap />}
           <ExerciseFooter />
         </div>
-      </Container>
+      </AppContainer>
     );
   }
   // TODO: implement waiting animation

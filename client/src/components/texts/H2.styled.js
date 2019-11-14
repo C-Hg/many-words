@@ -11,7 +11,7 @@ const H2 = styled.p`
     font-size: 28px;
   }
   @media (max-width: ${breakpoints.horizontalMid}) {
-    font-size: 20px;
+    font-size: 22px;
   }
 `;
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const AppContainer = styled.div`
   font-family: ${props => props.theme.fonts.main};
   color: ${props => props.theme.colors.darkGrey};
   background-color: ${props =>
@@ -15,4 +15,4 @@ const Container = styled.div`
   overflow-y: auto;
 `;
 
-export default Container;
+export default AppContainer;

@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { LanguageContext } from "../../../contexts/language-context";
 import StyledFeatures from "./Features.styled";
 import StyledFeature from "./Feature.styled";
+import H2 from "../../texts/H2.styled";
 
 const Features = props => {
   const { theme } = props;
@@ -17,15 +18,15 @@ const Features = props => {
         <StyledFeatures>
           <StyledFeature>
             <AllInclusive title="free" size={iconSize} color={darkBlue} />
-            <h2 className="features_title">{home.features_free}</h2>
+            <H2>{home.features_free}</H2>
           </StyledFeature>
           <StyledFeature>
             <Spellcheck title="check" size={iconSize} color={darkBlue} />
-            <h2 className="features_title">{home.features_words}</h2>
+            <H2>{home.features_words}</H2>
           </StyledFeature>
           <StyledFeature>
             <Stars title="stars" size={iconSize} color={darkBlue} />
-            <h2 className="features_title">{home.features_progress}</h2>
+            <H2>{home.features_progress}</H2>
           </StyledFeature>
         </StyledFeatures>
       )}

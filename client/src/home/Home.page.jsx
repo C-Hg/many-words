@@ -11,8 +11,8 @@ import HomeLoggedIn from "./HomeLoggedIn.component";
 import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirmation.component";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import Navbar from "./Home.navbar";
-import Container from "../app/Container.styled";
-import LandingPage from "../components/Landing/Landing.page";
+import AppContainer from "../app/AppContainer.styled";
+import LandingPage from "../components/landing/Landing.page";
 
 const mapStateToProps = state => ({ user: state.user, auth: state.auth });
 
@@ -24,28 +24,28 @@ const Home = props => {
 
   if (isDisconnecting) {
     return (
-      <Container>
+      <AppContainer>
         <LogoutConfirmation />
-      </Container>
+      </AppContainer>
     );
   }
   if (isDeletingAccount) {
     return (
-      <Container>
+      <AppContainer>
         <DeleteConfirmation />;
-      </Container>
+      </AppContainer>
     );
   }
   // TODO: implement waiting animation while retrieving auth status
   // TODO: split pages : landing page / login / home (logged or not) and adapt router
-  // and move containers down in each page
+  // and move Appcontainers down in each page
   return (
-    <Container withNavbar>
+    <AppContainer withNavbar>
       <Navbar />
       <ScrollToTopOnMount />
       {isAuthenticated && <HomeLoggedIn />}
       {!isAuthenticated && <LandingPage />}
-    </Container>
+    </AppContainer>
   );
 };
 
