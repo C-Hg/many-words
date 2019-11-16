@@ -6,7 +6,6 @@ import LogoutButton from "../components/home/home_logged_in/LogoutButton.compone
 import GlobalProgress from "../components/home/home_logged_in/GlobalProgress.component";
 import TimeToWork from "../components/home/home_logged_in/TimeToWork.component";
 import ResumeLearningButton from "../components/home/home_logged_in/ResumeLearningButton.component";
-import AboutButton from "../components/home/AboutButton.component";
 import DeleteAccountButton from "../components/home/home_logged_in/DeleteAccountButton.component";
 
 function mapStateToProps(state) {
@@ -24,7 +23,8 @@ const HomeLoggedIn = props => {
       <ResumeLearningButton />
       <hr className="homeSeparator separatorLoggedIn" />
       <div className="footerButtons">
-        <AboutButton contextualClass="homeFooterButton" />
+        {/* TODO: replace me with MainButton */}
+        {/* <AboutButton contextualClass="homeFooterButton" /> */}
         <LogoutButton />
         <DeleteAccountButton />
       </div>

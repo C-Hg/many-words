@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
 import { GoogleLogin } from "react-google-login";
 import { connect } from "react-redux";
+import { Google } from "styled-icons/fa-brands";
+import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
 
-import secrets from "../../../config/secrets";
-import { LanguageContext } from "../../../contexts/language-context";
-import { actions as authActions } from "../../../redux/reducers/auth";
+import secrets from "../../config/secrets";
+import { LanguageContext } from "../../contexts/language-context";
+import { actions as authActions } from "../../redux/reducers/auth";
+import ButtonContainer from "../buttons/ButtonContainer.styled";
+import MainButton from "../buttons/MainButton.styled";
 
 const mapDispatchToProps = dispatch => ({
   attemptLogin: (provider, token) => {
@@ -15,6 +19,7 @@ const mapDispatchToProps = dispatch => ({
 
 const LoginWithGoogle = props => {
   const language = useContext(LanguageContext);
+  const theme = useContext(ThemeContext);
   const { attemptLogin } = props;
 
   const responseGoogle = response => {
@@ -26,31 +31,20 @@ const LoginWithGoogle = props => {
     console.error(response);
   };
 
-  let languageClass;
-  let loginInstructions;
-  if (language.language === "english") {
-    languageClass = "login-button-english";
-    loginInstructions = "login-instructions-english";
-  } else {
-    languageClass = "login-button-french";
-    loginInstructions = "login-instructions-french";
-  }
   return (
     <GoogleLogin
       clientId={secrets.GOOGLE_CLIENT_ID}
       render={renderProps => (
-        <button
-          onClick={renderProps.onClick}
-          className="googleButton"
-          type="button"
-        >
-          <div className={`loginButtonContent ${languageClass}`}>
-            <i className="fa fa-google" />
-            <p className={loginInstructions}>
-              {`${language.navigation.login_with} Google`}
-            </p>
-          </div>
-        </button>
+        <ButtonContainer large>
+          <MainButton
+            onClick={renderProps.onClick}
+            type="button"
+            color={theme.colors.googleRed}
+          >
+            <Google size="18" />
+            {`${language.navigation.login_with} Google`}
+          </MainButton>
+        </ButtonContainer>
       )}
       onSuccess={responseGoogle}
       onFailure={responseError}
