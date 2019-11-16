@@ -2,10 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { LanguageContext } from "../../../contexts/language-context";
+import { LanguageContext } from "../../contexts/language-context";
 import ProgressBar from "./ProgressBar.component";
-import WordProgress from "./WordProgress.component";
-import LessonProgress from "./LessonProgress.component";
+import WordProgress from "../../components/home/home_logged_in/WordProgress.component";
+import LessonProgress from "../../components/home/home_logged_in/LessonProgress.component";
+import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import H1 from "../../components/texts/H1.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -15,16 +17,14 @@ const GlobalProgress = props => {
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
-        <div className="globalProgress">
-          <h1 className="menuTitle globalProgressTitle">
-            {home.progress_title}
-          </h1>
+        <VerticalFlexbox>
+          <H1 margin="30px 0 20px 0">{home.progress_title}</H1>
           {globalPercentage && <ProgressBar progress={globalPercentage} />}
           <div className="wordAndLessonProgress">
             <WordProgress />
             <LessonProgress />
           </div>
-        </div>
+        </VerticalFlexbox>
       )}
     </LanguageContext.Consumer>
   );

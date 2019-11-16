@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import Container from "../../components/div/Container.styled";
+import EmptyBar from "./EmptyBar.styled";
+import FilledBar from "./FilledBar.styled";
 
 const ProgressBar = props => {
   const [isBarVisible, setIsBarVisible] = useState(false);
@@ -21,7 +24,7 @@ const ProgressBar = props => {
   }
 
   return (
-    <div className="barsContainer">
+    <Container width="330px">
       <svg
         width="350"
         height="40"
@@ -29,22 +32,10 @@ const ProgressBar = props => {
         version="1.1"
         strokeDashoffset={strokeDashoffset}
       >
-        <line
-          x1="15"
-          x2="315"
-          y1="15"
-          y2="15"
-          className="progressBar emptyBar"
-        />
-        <line
-          x1="15"
-          x2="315"
-          y1="15"
-          y2="15"
-          className="progressBar filledBar"
-        />
+        <EmptyBar x1="15" x2="315" y1="15" y2="15" />
+        <FilledBar x1="15" x2="315" y1="15" y2="15" />
       </svg>
-    </div>
+    </Container>
   );
 };
 

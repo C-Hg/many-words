@@ -5,7 +5,7 @@ const Container = styled.div`
   color: ${props => props.theme.colors.darkGrey};
   background-color: ${props =>
     props.backgroundColor || props.theme.colors.white};
-  width: 100%;
+  width: ${props => props.width || "100%"};
 `;
 
 export default Container;

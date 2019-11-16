@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import LogoutButton from "../components/home/home_logged_in/LogoutButton.component";
-import GlobalProgress from "../components/home/home_logged_in/GlobalProgress.component";
+import GlobalProgress from "./progress/GlobalProgress.component";
 import TimeToWork from "../components/home/home_logged_in/TimeToWork.component";
 import ResumeLearningButton from "../components/home/home_logged_in/ResumeLearningButton.component";
 import DeleteAccountButton from "../components/home/home_logged_in/DeleteAccountButton.component";
+import AppContainer from "../app/AppContainer.styled";
 
 function mapStateToProps(state) {
   return { user: state.user };
@@ -17,7 +18,7 @@ const HomeLoggedIn = props => {
   const { stats } = user;
 
   return (
-    <div className="HomeLoggedIn">
+    <AppContainer>
       {stats && <GlobalProgress stats={stats} />}
       {!stats && <TimeToWork />}
       <ResumeLearningButton />
@@ -28,7 +29,7 @@ const HomeLoggedIn = props => {
         <LogoutButton />
         <DeleteAccountButton />
       </div>
-    </div>
+    </AppContainer>
   );
 };
 
