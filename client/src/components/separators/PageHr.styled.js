@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import breakpoints from "../../app/breakpoints";
 
 const PageHr = styled.hr`
   width: 90%;
@@ -9,13 +8,7 @@ const PageHr = styled.hr`
   background-color: ${props => props.theme.colors.darkBlue};
   border: 0;
   border-radius: 5px;
-  @media (min-width: ${breakpoints.horizontalMid}) {
-    margin-top: 100px;
-  }
-  @media (max-width: ${breakpoints.horizontalMid}),
-    (max-height: ${breakpoints.verticalMid}) {
-    margin-top: 60px;
-  }
+  margin-top: 40px;
 `;
 
 export default PageHr;

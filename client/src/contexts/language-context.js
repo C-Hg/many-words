@@ -24,20 +24,20 @@ export const languages = {
       If you have questions, suggestions, or have noticed a bug or a mistake, please contact me via Twitter or Github.
       The codebase is open-source under the MIT license, any help is welcome!`,
       roadmap: "Roadmap",
-      roadmap_short: "Short term",
-      roadmap_long: "Long term",
-      sht_1: "More content: from 2000 to 3000 words (scaling is easy now)",
-      sht_2:
+      roadmapShortTerm: "Short term",
+      roadmapLongTerm: "Long term",
+      shortTerm1: "More content: from 2000 to 3000 words",
+      shortTerm2:
         "Weak words: focus on the hardest words for you, globally or by theme",
-      sht_3: "Lesson levels: 3 differents levels of difficulty",
-      sht_4: "Progressive learning: unlock lessons progressively",
-      sht_5:
+      shortTerm3: "Lesson levels: 3 differents levels of difficulty",
+      shortTerm4: "Progressive learning: unlock lessons progressively",
+      shortTerm5:
         "Continuous learning: learn without leaving the exercise screen, the app selects your weak words and next lesson.",
-      sht_6: "We're out of beta!",
-      lgt_1: "Add a third language: Spanish most probably",
-      lgt_2: "Learn the vocabulary of 2 or 3 languages at the same time",
-      lgt_3: "Publish a smartphone app",
-      lgt_4: "Climb to 5 languages",
+      shortTerm6: "We're out of beta!",
+      longTerm1: "Add a third language: Spanish most probably",
+      longTerm2: "Learn the vocabulary of 2 or 3 languages at the same time",
+      longTerm3: "Publish a smartphone app",
+      longTerm4: "Climb to 5 languages",
     },
     home: {
       main_title: "Improve your French vocabulary",
@@ -223,21 +223,21 @@ export const languages = {
        ou si tu souhaites signaler des bugs, contacte-moi via Twitter ou Github. 
        Le code est open-source sous licence MIT, toute aide est la bienvenue!`,
       roadmap: "Fonctionnalités futures",
-      roadmap_short: "Court terme",
-      roadmap_long: "Long terme",
-      sht_1:
-        "Plus de contenu: entre 2000 et 3000 mots (facile à augmenter maintenant)",
-      sht_2:
+      roadmapShort: "Court terme",
+      roadmapLong: "Long terme",
+      shortTerm1: "Plus de contenu: entre 2000 et 3000 mots",
+      shortTerm2:
         "Mots faibles: concentre-toi sur tes points faibles, globalement ou par thème",
-      sht_3: "Niveaux de leçons: 3 niveaux de difficulté",
-      sht_4: "Apprentissage progressif: débloque les leçons au fur et à mesure",
-      sht_5:
+      shortTerm3: "Niveaux de leçons: 3 niveaux de difficulté",
+      shortTerm4:
+        "Apprentissage progressif: débloque les leçons au fur et à mesure",
+      shortTerm5:
         "Apprentissage continu: apprends sans revenir au menu, l'application sélectionne tes points faibles et les prochaines leçons",
-      sht_6: "Fin de la beta!",
-      lgt_1: "Ajout d'une troisième langue: l'Espagnol très probablement",
-      lgt_2: "Apprends le vocabulaire de 2 ou 3 langues simultanément",
-      lgt_3: "Publication d'une application pour smartphone",
-      lgt_4: "Ajouter jusqu'à 5 languages",
+      shortTerm6: "Fin de la beta!",
+      longTerm1: "Ajout d'une troisième langue: l'Espagnol très probablement",
+      longTerm2: "Apprends le vocabulaire de 2 ou 3 langues simultanément",
+      longTerm3: "Publication d'une application pour smartphone",
+      longTerm4: "Ajouter jusqu'à 5 languages",
     },
     home: {
       main_title: "Enrichis ton vocabulaire anglais",

@@ -82,41 +82,7 @@ h2 {
   -webkit-tap-highlight-color: transparent;
 }
 
-// moved to Button.js
-//remove dotted outline on button click
-button::-moz-focus-outer {
-  outline: none;
-}
-
-button {
-  &:hover {
-    cursor: pointer;
-    outline: none;
-    &:focus {
-      outline: none;
-    }
-  }
-  &:focus {
-    outline: none;
-  }
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  //prevents shifting on click
-  margin: 0;
-  padding: 0;
-}
-
-input:hover,
-input:focus,
-input:hover:focus {
-  outline: none;
-}
-
-button::-moz-focus-inner {
-  border: 0;
-}
-
-// link: not moved
+// link: moved to DefaultLink
 a {
   text-align: center;
   color: $main-font-color;

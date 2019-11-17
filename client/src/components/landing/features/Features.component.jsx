@@ -6,27 +6,27 @@ import PropTypes from "prop-types";
 import { LanguageContext } from "../../../contexts/language-context";
 import StyledFeatures from "./Features.styled";
 import StyledFeature from "./Feature.styled";
-import H2 from "../../texts/H2.styled";
+import H3 from "../../texts/H3.styled";
 
 const Features = props => {
   const { theme } = props;
   const { darkBlue } = theme.colors;
-  const iconSize = "72";
+  const iconSize = "80";
   return (
     <LanguageContext.Consumer>
       {({ home }) => (
         <StyledFeatures>
           <StyledFeature>
             <AllInclusive title="free" size={iconSize} color={darkBlue} />
-            <H2>{home.features_free}</H2>
+            <H3>{home.features_free}</H3>
           </StyledFeature>
           <StyledFeature>
             <Spellcheck title="check" size={iconSize} color={darkBlue} />
-            <H2>{home.features_words}</H2>
+            <H3>{home.features_words}</H3>
           </StyledFeature>
           <StyledFeature>
             <Stars title="stars" size={iconSize} color={darkBlue} />
-            <H2>{home.features_progress}</H2>
+            <H3>{home.features_progress}</H3>
           </StyledFeature>
         </StyledFeatures>
       )}
