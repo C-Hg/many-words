@@ -6,16 +6,17 @@ const getAnimation = color => {
     100% {
       color: white;
       background-color: ${color};
-      border-color: black;
+      border-color: ${color};
     }
   `;
 };
 
 const MainButton = styled(DefaultButton)`
-  border-color: ${props => props.color || "inherit"};
-  color: ${props => props.color || "inherit"};
+  border-color: ${props => props.borderColor || props.color};
+  color: ${props => props.color};
+  font-family: ${props => props.theme.fonts.secondary};
   text-align: center;
-  font-weight: normal;
+  font-weight: 600;
   border-radius: 8px;
   border: 2px solid;
   background-color: inherit;
@@ -26,7 +27,7 @@ const MainButton = styled(DefaultButton)`
   justify-content: space-evenly;
   font-size: 18px;
   &:hover {
-    animation: ${props => getAnimation(props.color)} 0.3s forwards 1;
+    animation: ${props => getAnimation(props.color)} 0.5s forwards 1;
   }
 `;
 

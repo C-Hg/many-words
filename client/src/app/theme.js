@@ -5,6 +5,7 @@ const theme = {
     cursive: '"Handlee", cursive',
   },
   colors: {
+    black: "black",
     white: "white",
     darkGrey: "#404040",
     darkBlue: "rgba(0, 80, 255, 0.8)",

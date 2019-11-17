@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import breakpoints from "../../app/breakpoints";
 
-const HomeHr = styled.hr`
+const PageHr = styled.hr`
   width: 90%;
   margin-bottom: -10px auto;
   height: 5px;
@@ -18,4 +18,4 @@ const HomeHr = styled.hr`
   }
 `;
 
-export default HomeHr;
+export default PageHr;

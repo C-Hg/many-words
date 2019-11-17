@@ -1,5 +1,7 @@
 import React from "react";
 
+// TODO: use camelCase
+
 export const languages = {
   English: {
     language: "english",
@@ -46,12 +48,12 @@ export const languages = {
       discover: "Or start learning without registering",
       discover_button: "Let's go !",
       progress_title: "Global completion",
-      no_stats: "It's time to start learning !",
+      noStats: "It's time to start learning !",
       words: "Words",
       lessons: "Lessons",
       resume_learning: "Resume learning",
       about: "About",
-      delete_account: "Delete my account",
+      deleteAccount: "Delete my account",
       confirm_deletion:
         "All your data will be permanently deleted. Are you sure?",
       confirm: "Confirm",
@@ -246,12 +248,12 @@ export const languages = {
       discover: "Ou commence ton apprentissage sans te connecter",
       discover_button: "C'est parti !",
       progress_title: "Avancement global",
-      no_stats: "C'est l'heure d'apprendre !",
+      noStats: "C'est l'heure d'apprendre !",
       words: "Mots",
       lessons: "Leçons",
       resume_learning: "Apprendre",
       about: "À propos",
-      delete_account: "Supprimer mon compte",
+      deleteAccount: "Supprimer mon compte",
       confirm_deletion:
         "Toutes tes données seront supprimées définitivement. Es-tu sûr?",
       confirm: "Confirmer",

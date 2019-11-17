@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Container from "../../components/div/Container.styled";
+import Container from "../../../components/div/Container.styled";
 import EmptyBar from "./EmptyBar.styled";
 import FilledBar from "./FilledBar.styled";
 
