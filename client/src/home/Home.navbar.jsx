@@ -1,11 +1,13 @@
 import React from "react";
 import "../styles/Navbar.scss";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { LanguageContext } from "../contexts/language-context";
 import Navbar from "../components/navbar/Navbar.styled";
+import NavbarLinksContainer from "../components/navbar/NavbarLinksContainer.styled";
+import NavbarLink from "../components/navbar/NavbarLink.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -15,22 +17,16 @@ const HomeNavbar = props => {
     <LanguageContext.Consumer>
       {({ navbar }) => (
         <Navbar>
-          <div className="navbar-links">
-            <NavLink
-              to="/curriculum"
-              className="navbar-link inactive-link"
-              activeClassName="active-link"
-            >
-              <div className="manyWords">Many Words</div>
-            </NavLink>
-            <NavLink
-              to="/home"
-              className="navbar-link inactive-link"
-              activeClassName="active-link"
-            >
+          <NavbarLinksContainer>
+            <NavbarLink>
+              <Link to="/curriculum">
+                <div className="manyWords">Many Words</div>
+              </Link>
+            </NavbarLink>
+            <NavbarLink to="/home">
               <div>{user.isAuthenticated ? navbar.home : navbar.login}</div>
-            </NavLink>
-          </div>
+            </NavbarLink>
+          </NavbarLinksContainer>
         </Navbar>
       )}
     </LanguageContext.Consumer>

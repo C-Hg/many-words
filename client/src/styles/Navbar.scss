@@ -37,7 +37,7 @@
 
 .inactive-link {
   &:hover {
-    color: $active;
+    color: "$active";
     background-color: white;
   }
 }

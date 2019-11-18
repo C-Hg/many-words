@@ -11,7 +11,7 @@ const AppContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  margin-top: ${props => (props.withNavbar ? "65px" : "0px")};
+  margin-top: ${props => (props.withNavbar ? "60px" : "0px")};
   overflow-y: auto;
 `;
 

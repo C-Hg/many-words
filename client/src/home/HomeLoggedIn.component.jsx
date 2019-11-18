@@ -54,7 +54,7 @@ const HomeLoggedIn = props => {
         </ButtonContainer>
       </Link>
       <PageHr />
-      <VerticalFlexbox margin="30px auto 0 auto">
+      <VerticalFlexbox margin="30px auto 50px auto">
         <ButtonContainer large>
           <MainButton onClick={attemptLogout} color={grey} type="button">
             {language.navigation.logout}

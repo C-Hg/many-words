@@ -40,6 +40,7 @@ const DetailledProgress = props => {
         <VerticalFlexbox
           padding="15px"
           width="200px"
+          height="130px"
           border={`3px solid ${darkBlue}`}
           borderRadius="15px"
         >
