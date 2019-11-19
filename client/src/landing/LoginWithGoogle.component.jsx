@@ -5,11 +5,11 @@ import { Google } from "styled-icons/fa-brands";
 import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
 
-import secrets from "../../config/secrets";
-import { LanguageContext } from "../../contexts/language-context";
-import { actions as authActions } from "../../redux/reducers/auth";
-import ButtonContainer from "../buttons/ButtonContainer.styled";
-import MainButton from "../buttons/MainButton.styled";
+import secrets from "../config/secrets";
+import { LanguageContext } from "../contexts/language-context";
+import { actions as authActions } from "../redux/reducers/auth";
+import ButtonContainer from "../components/buttons/ButtonContainer.styled";
+import MainButton from "../components/buttons/MainButton.styled";
 
 const mapDispatchToProps = dispatch => ({
   attemptLogin: (provider, token) => {

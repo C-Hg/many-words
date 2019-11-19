@@ -16,7 +16,7 @@ import UpcomingContainer from "./upcoming/UpcomingContainer.styled";
 import Li from "./upcoming/Li.styled";
 import Span from "./upcoming/Span.styled";
 
-const boxSize = "36";
+const boxSize = "24";
 
 const About = () => {
   const theme = useContext(ThemeContext);
@@ -26,8 +26,8 @@ const About = () => {
       title,
       description,
       roadmap,
-      roadmapShort,
-      roadmapLong,
+      roadmapShortTerm,
+      roadmapLongTerm,
       shortTerm1,
       shortTerm2,
       shortTerm3,
@@ -54,7 +54,7 @@ const About = () => {
       <UpcomingContainer>
         <H1>{roadmap}</H1>
         <H2 textAlign="left" margin="30px 0 20px 50px">
-          {roadmapShort}
+          {roadmapShortTerm}
         </H2>
         <Ul>
           <Li>
@@ -103,7 +103,7 @@ const About = () => {
           </Li>
         </Ul>
         <H2 textAlign="left" margin="30px 0 20px 50px">
-          {roadmapLong}
+          {roadmapLongTerm}
         </H2>
         <Ul>
           <Li>

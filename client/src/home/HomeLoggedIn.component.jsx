@@ -13,6 +13,8 @@ import ButtonContainer from "../components/buttons/ButtonContainer.styled";
 import PageHr from "../components/separators/PageHr.styled";
 import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import H2 from "../components/texts/H2.styled";
+import HomeNavbar from "./Home.navbar";
+import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -39,8 +41,11 @@ const HomeLoggedIn = props => {
     colors: { green, grey },
   } = theme;
 
+  // TODO: remove double AppContainer
   return (
-    <AppContainer>
+    <AppContainer withNavbar>
+      <HomeNavbar />
+      <ScrollToTopOnMount />
       {globalPercentage ? (
         <GlobalProgress stats={stats} />
       ) : (

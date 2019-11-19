@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/Navbar.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";

@@ -223,8 +223,8 @@ export const languages = {
        ou si tu souhaites signaler des bugs, contacte-moi via Twitter ou Github. 
        Le code est open-source sous licence MIT, toute aide est la bienvenue!`,
       roadmap: "Fonctionnalités futures",
-      roadmapShort: "Court terme",
-      roadmapLong: "Long terme",
+      roadmapShortTerm: "Court terme",
+      roadmapLongTerm: "Long terme",
       shortTerm1: "Plus de contenu: entre 2000 et 3000 mots",
       shortTerm2:
         "Mots faibles: concentre-toi sur tes points faibles, globalement ou par thème",

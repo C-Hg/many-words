@@ -1,7 +1,4 @@
 import React from "react";
-import "../styles/Home.scss";
-import "../styles/HomeForGuest.scss";
-import "../styles/HomeLoggedIn.scss";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -9,10 +6,8 @@ import LogoutConfirmation from "../components/home/home_logged_in/LogoutConfirma
 import HomeLoggedIn from "./HomeLoggedIn.component";
 
 import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirmation.component";
-import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
-import Navbar from "./Home.navbar";
 import AppContainer from "../app/AppContainer.styled";
-import LandingPage from "../components/landing/Landing.page";
+import LandingPage from "../landing/Landing.page";
 
 const mapStateToProps = state => ({ user: state.user, auth: state.auth });
 
@@ -38,15 +33,7 @@ const Home = props => {
   }
   // TODO: implement waiting animation while retrieving auth status
   // TODO: split pages : landing page / login / home (logged or not) and adapt router
-  // and move Appcontainers down in each page
-  return (
-    <AppContainer withNavbar>
-      <Navbar />
-      <ScrollToTopOnMount />
-      {isAuthenticated && <HomeLoggedIn />}
-      {!isAuthenticated && <LandingPage />}
-    </AppContainer>
-  );
+  return isAuthenticated ? <HomeLoggedIn /> : <LandingPage />;
 };
 
 Home.propTypes = {
