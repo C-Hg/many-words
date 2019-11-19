@@ -5,9 +5,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { LanguageContext } from "../contexts/language-context";
-import Navbar from "../components/navbar/Navbar.styled";
-import NavbarLinksContainer from "../components/navbar/NavbarLinksContainer.styled";
-import NavbarLink from "../components/navbar/NavbarLink.styled";
+import Navbar from "../navbar/Navbar.styled";
+import NavbarLinksContainer from "../navbar/NavbarLinksContainer.styled";
+import NavbarLink from "../navbar/NavbarLink.styled";
+import ManyWords from "../navbar/ManyWords.styled";
+import H2 from "../components/texts/H2.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -20,11 +22,15 @@ const HomeNavbar = props => {
           <NavbarLinksContainer>
             <NavbarLink>
               <Link to="/curriculum">
-                <div className="manyWords">Many Words</div>
+                <ManyWords>Many Words</ManyWords>
               </Link>
             </NavbarLink>
-            <NavbarLink to="/home">
-              <div>{user.isAuthenticated ? navbar.home : navbar.login}</div>
+            <NavbarLink>
+              <Link to="/home">
+                <H2 fontWeight="400" fontSize="22px">
+                  {user.isAuthenticated ? navbar.home : navbar.login}
+                </H2>
+              </Link>
             </NavbarLink>
           </NavbarLinksContainer>
         </Navbar>

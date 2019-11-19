@@ -16,7 +16,7 @@ const NavbarLinksContainer = styled.div`
     width: 95%;
   }
   @media (min-width: 700px) {
-    width: 650px;
+    width: 750px;
   }
 `;
 

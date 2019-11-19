@@ -8,7 +8,7 @@ const theme = {
     black: "black",
     white: "white",
 
-    darkBlue: "rgba(0, 80, 255, 0.8)",
+    darkBlue: "#2676FF",
     lightBlue: "rgba(0, 165, 255, 0.3)",
     twitterBlue: "#08a0e9",
 

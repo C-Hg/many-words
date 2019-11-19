@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import H1 from "../components/texts/H1.styled";
 import { LanguageContext } from "../contexts/language-context";
 import theme from "../app/theme";
-import Navbar from "../components/navbar/Navbar.styled";
+import Navbar from "../navbar/Navbar.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
