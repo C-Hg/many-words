@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import "../styles/Theme.scss";
+import "./Theme.scss";
 import "../styles/common/titles.scss";
 import BackArrow from "../components/common/BackArrow.component";
 import ProgressCircle from "../components/theme/ProgressCircle.component";
@@ -20,7 +20,7 @@ import Navbar from "../home/Home.navbar";
 
 const mapStateToProps = state => ({ user: state.user });
 
-const Theme = props => {
+const Topic = props => {
   /* ----------------       preparing data    -------------- */
   const { user, match } = props;
   const { stats, isAuthenticated } = user;
@@ -45,6 +45,9 @@ const Theme = props => {
 
     return (
       <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
+        {/* <div className="cardTitleContainer">
+          <h2 className="lessonTitle">{language.lessons[theme][lesson]}</h2>
+        </div> */}
         <LessonTitle lesson={val[0]} theme={theme} />
         <ProgressCircle progress={progress} progressColor={progressColor} />
         <ProgressPercentage progress={progress} progressColor={progressColor} />
@@ -81,7 +84,7 @@ const Theme = props => {
   return null;
 };
 
-Theme.propTypes = {
+Topic.propTypes = {
   user: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
     stats: PropTypes.shape({
@@ -98,4 +101,4 @@ Theme.propTypes = {
 export default connect(
   mapStateToProps,
   null
-)(Theme);
+)(Topic);
