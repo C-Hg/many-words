@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import ThemeLessonsNumber from "../components/curriculum/ThemeLessonsNumber.component";
+import TopicLessonsNumber from "./TopicLessonsNumber.component";
 import GreenLessons from "../components/curriculum/GreenLessons.component";
 import GoldLessons from "../components/curriculum/GoldLesson.component";
 import { LanguageContext } from "../contexts/language-context";
@@ -17,6 +17,7 @@ import H3 from "../components/texts/H3.styled";
 import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import CardsContainer from "../cards/CardsContainer.styled";
 import Card from "../cards/Card.styled";
+import HorizontalFlexbox from "../components/div/HorizontalFlexbox.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -51,19 +52,22 @@ const Curriculum = props => {
       borderColor = "darkBlue";
     }
 
+    // TODO: use a single component for TopicLessonsNumber, GreenLessons and GoldLessons
     return (
       <Link key={val[0]} to={`../${val[0]}`}>
         <Card borderColor={borderColor}>
-          <H3 fontWeight="400">{language.themes[val[0]]}</H3>
-          <div className="lessonsStats">
-            {lessons > 0 && <ThemeLessonsNumber lessons={lessons} />}
+          <H3 fontWeight="400" fontSize="18px" margin="5px 0 0 0">
+            {language.themes[val[0]]}
+          </H3>
+          <HorizontalFlexbox width="auto">
+            {lessons > 0 && <TopicLessonsNumber lessons={lessons} />}
             {user.stats.themes && greenLessons > 0 && (
               <GreenLessons greenLessons={greenLessons} />
             )}
             {user.stats.themes && goldLessons > 0 && (
               <GoldLessons goldLessons={goldLessons} />
             )}
-          </div>
+          </HorizontalFlexbox>
         </Card>
       </Link>
     );

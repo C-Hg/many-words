@@ -12,6 +12,7 @@ const HorizontalFlexbox = styled(Container)`
   border-radius: ${props => props.borderRadius || "0"};
   padding: ${props => props.padding || "0"};
   margin: ${props => props.margin || "auto"};
+  z-index: ${props => props.zIndex || 1};
 `;
 
 export default HorizontalFlexbox;

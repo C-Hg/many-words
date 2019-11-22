@@ -48,7 +48,7 @@ const About = () => {
       <Navbar />
       <ScrollToTopOnMount />
       <H1 margin="30px auto 40px auto">{title}</H1>
-      <P>{description}</P>
+      <P textAlign="justify">{description}</P>
       <SocialLinks />
       <PageHr />
       <UpcomingContainer>

@@ -4,8 +4,8 @@ import breakpoints from "../../app/breakpoints";
 const P = styled.p`
   margin: ${props => props.margin || "20px auto 0 auto"};
   font-family: ${props => props.theme.fonts.main};
-  font-weight: 400;
-  text-align: justify;
+  font-weight: ${props => props.fontWeight || "400"};
+  text-align: ${props => props.textAlign || "center"};
   font-size: 18px;
   @media (min-width: ${breakpoints.horizontalMid}) {
     width: 80%;
