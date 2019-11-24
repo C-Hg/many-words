@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import BackArrow from "../components/common/BackArrow.component";
+import BackArrow from "../components/backArrow/BackArrow.styled";
 import Switches from "../components/learning/Switches.component";
 import LearningTitle from "../components/learning/LearningTitle.component";
 import { actions as learnActions } from "../redux/reducers/learn";
 import "../styles/Learning.scss";
-import Navbar from "../home/Home.navbar";
+import Navbar from "../navbar/Main.navbar";
 
 const mapStateToProps = state => ({ learn: state.learn });
 const mapDispatchToProps = dispatch => {

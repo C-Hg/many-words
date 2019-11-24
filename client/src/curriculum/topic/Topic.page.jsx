@@ -1,30 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import "./Theme.scss";
-import "../styles/common/titles.scss";
-import BackArrow from "../components/common/BackArrow.component";
-import ProgressCircle from "../components/theme/ProgressCircle.component";
-import StartTestButton from "../components/theme/StartTestButton.component";
-import LearnWordsButton from "../components/theme/LearnWordsButton.component";
-import LessonTitle from "../components/theme/LessonTitle.component";
-import ThemePageTitle from "../components/theme/ThemePageTitle.component";
-import ProgressPercentage from "../components/theme/ProgressPercentage.component";
-import GoldStar from "../components/theme/GoldStar.component";
-import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
-import frenchEnglishLessons from "../exercises/lessons";
-import WeakWords from "../components/common/WeakWords.component";
-import Navbar from "../home/Home.navbar";
+
+import ProgressCircle from "../../components/theme/ProgressCircle.component";
+import StartTestButton from "../../components/theme/StartTestButton.component";
+import LearnWordsButton from "../../components/theme/LearnWordsButton.component";
+import ProgressPercentage from "../../components/theme/ProgressPercentage.component";
+import GoldStar from "../../components/theme/GoldStar.component";
+import ScrollToTopOnMount from "../../app/ScrollToTopOnMount.component";
+import frenchEnglishLessons from "../../exercises/lessons";
+import WeakWords from "../../components/common/WeakWords.component";
+import Navbar from "../../navbar/Main.navbar";
+import AppContainer from "../../app/AppContainer.styled";
+import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import GoBack from "../../components/buttons/GoBack/GoBack.component";
+import { LanguageContext } from "../../contexts/language-context";
+import H2 from "../../components/texts/H2.styled";
+import Card from "../../components/cards/Card.styled";
+import H3 from "../../components/texts/H3.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
 const Topic = props => {
-  /* ----------------       preparing data    -------------- */
+  const language = useContext(LanguageContext);
   const { user, match } = props;
   const { stats, isAuthenticated } = user;
   const theme = match.params.themeId;
+
+  /* ----------------       preparing data    -------------- */
+
   let lessonsStats = null;
   const lessonsData = frenchEnglishLessons[theme];
   let isWeakWordsModeLaunchable = false;
@@ -33,22 +39,20 @@ const Topic = props => {
     isWeakWordsModeLaunchable = true;
   }
 
-  // map for each lesson of the theme
+  // TODO: upgrade data structure: val[0] is not intelligible, use object instead
+  // map each lesson of the theme
   const lessons = lessonsData.map(val => {
-    let progressColor = "";
+    let progressColor;
     const progress = lessonsStats ? lessonsStats[val[0]] : null;
     if (progress >= 0.8) {
       progressColor = "gold";
     } else if (progress >= 0.4) {
       progressColor = "green";
-    } else progressColor = "blue";
+    } else progressColor = "darkBlue";
 
     return (
-      <div className={`lessonCard ${progressColor}Border`} key={val[0]}>
-        {/* <div className="cardTitleContainer">
-          <h2 className="lessonTitle">{language.lessons[theme][lesson]}</h2>
-        </div> */}
-        <LessonTitle lesson={val[0]} theme={theme} />
+      <Card borderColor={progressColor} key={val[0]}>
+        <H3 margin="10px 0 0 0">{language.lessons[theme][val[0]]}</H3>
         <ProgressCircle progress={progress} progressColor={progressColor} />
         <ProgressPercentage progress={progress} progressColor={progressColor} />
         <GoldStar progress={progress} />
@@ -56,29 +60,25 @@ const Topic = props => {
           <StartTestButton match={match} lesson={val[0]} theme={theme} />
           <LearnWordsButton match={match} lesson={val[0]} />
         </div>
-      </div>
+      </Card>
     );
   });
 
   /* -----------------    rendering component     -----------------  */
   if (lessons || !isAuthenticated) {
     return (
-      <div className="app app-with-navbar-full-screen">
+      <AppContainer withNavbar>
         <Navbar />
-        <div className="main-container greyBackground">
-          <ScrollToTopOnMount />
-          <div className="themeAndArrow">
-            <Link to="/curriculum">
-              <BackArrow additionalClass="themePageArrow" />
-            </Link>
-            <ThemePageTitle theme={theme} />
-          </div>
+        <ScrollToTopOnMount />
+        <VerticalFlexbox>
+          <GoBack to="/curriculum" />
+          <H2 margin="30px 0 30px 0">{language.themes[theme]}</H2>
           {isAuthenticated && isWeakWordsModeLaunchable && (
             <WeakWords reference={theme} />
           )}
           <div className="lessonCards">{lessons}</div>
-        </div>
-      </div>
+        </VerticalFlexbox>
+      </AppContainer>
     );
   }
   return null;

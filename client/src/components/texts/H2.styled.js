@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const H2 = styled.p`
-  color: ${props => props.color};
+  color: ${props => props.color || props.theme.colors.darkGrey};
   font-family: ${props => props.fontFamily};
   font-weight: ${props => props.fontWeight || "600"};
   margin: ${props => props.margin || "0"};

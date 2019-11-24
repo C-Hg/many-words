@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
 
 import { LanguageContext } from "../contexts/language-context";
-import Navbar from "../navbar/Navbar.styled";
-import NavbarLinksContainer from "../navbar/NavbarLinksContainer.styled";
-import NavbarLink from "../navbar/NavbarLink.styled";
-import ManyWords from "../navbar/ManyWords.styled";
+import Navbar from "./Navbar.styled";
+import NavbarLinksContainer from "./NavbarLinksContainer.styled";
+import NavbarLink from "./NavbarLink.styled";
+import ManyWords from "./ManyWords.styled";
 import H2 from "../components/texts/H2.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
-const HomeNavbar = props => {
+const MainNavbar = props => {
+  const theme = useContext(ThemeContext);
   const { user } = props;
   return (
     <LanguageContext.Consumer>
@@ -26,7 +28,7 @@ const HomeNavbar = props => {
             </NavbarLink>
             <NavbarLink>
               <Link to="/home">
-                <H2 fontWeight="400" fontSize="22px">
+                <H2 fontWeight="400" fontSize="22px" color={theme.colors.white}>
                   {user.isAuthenticated ? navbar.home : navbar.login}
                 </H2>
               </Link>
@@ -38,7 +40,7 @@ const HomeNavbar = props => {
   );
 };
 
-HomeNavbar.propTypes = {
+MainNavbar.propTypes = {
   user: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }).isRequired,
@@ -47,4 +49,4 @@ HomeNavbar.propTypes = {
 export default connect(
   mapStateToProps,
   null
-)(HomeNavbar);
+)(MainNavbar);

@@ -13,7 +13,7 @@ const theme = {
     twitterBlue: "#08a0e9",
 
     grey: "#818e96",
-    darkGrey: "#404040",
+    darkGrey: "#404040", // main text color
     lightGrey: "#b3b8bb",
     lightestGrey: "#cdd3d6",
     githubGrey: "#211f1f",

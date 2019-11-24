@@ -4,7 +4,7 @@ import { ThemeContext } from "styled-components";
 
 import { LanguageContext } from "../contexts/language-context";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
-import Navbar from "../home/Home.navbar";
+import Navbar from "../navbar/Main.navbar";
 import AppContainer from "../app/AppContainer.styled";
 import H1 from "../components/texts/H1.styled";
 import H2 from "../components/texts/H2.styled";

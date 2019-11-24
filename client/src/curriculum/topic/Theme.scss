@@ -1,14 +1,8 @@
-@import "../styles/common/variables.scss";
-@import "../styles/common/layouts.scss";
-@import "../styles/common/buttons.scss";
+@import "../../styles/common/variables.scss";
+@import "../../styles/common/layouts.scss";
+@import "../../styles/common/buttons.scss";
 
 /*   --------------------      title and back arrow      ----------------------- */
-.themeAndArrow {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
 
 .themePageArrow {
   @media (min-width: $break-small-horizontal) {
