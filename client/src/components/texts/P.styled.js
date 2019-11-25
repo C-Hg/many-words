@@ -2,6 +2,7 @@ import styled from "styled-components";
 import breakpoints from "../../app/breakpoints";
 
 const P = styled.p`
+  position: ${props => props.position};
   margin: ${props => props.margin || "20px auto 0 auto"};
   font-family: ${props => props.theme.fonts.main};
   font-weight: ${props => props.fontWeight || "400"};

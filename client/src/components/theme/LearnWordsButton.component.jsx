@@ -1,18 +1,15 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
-
-import { LanguageContext } from "../../contexts/language-context";
+import { Loupe } from "styled-icons/material";
 
 const LearnWordsButton = props => {
-  const language = useContext(LanguageContext);
+  const styleTheme = useContext(ThemeContext);
   const { match, lesson } = props;
   return (
-    <Link to={`${match.url}/${lesson}/learn`} className="startLearning">
-      <i alt="Learn words" className="material-icons md-36">
-        add
-      </i>
-      <p className="startButtonTitle">{language.start_learning}</p>
+    <Link to={`${match.url}/${lesson}/learn`}>
+      <Loupe alt="Learn words" size="36" color={styleTheme.colors.darkBlue} />
     </Link>
   );
 };

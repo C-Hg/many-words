@@ -56,7 +56,7 @@ const Curriculum = props => {
     // TODO: move this card to its own component taking as props: val[0], borderColor, lessons
     return (
       <Link key={val[0]} to={`../${val[0]}`}>
-        <Card borderColor={borderColor}>
+        <Card borderColor={borderColor} width="140px" height="120px">
           <H3 margin="10px 0 0 0">{language.themes[val[0]]}</H3>
           <HorizontalFlexbox width="auto">
             {lessons > 0 && (

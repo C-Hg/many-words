@@ -4,25 +4,6 @@
 
 /*   --------------------      title and back arrow      ----------------------- */
 
-.themePageArrow {
-  @media (min-width: $break-small-horizontal) {
-    margin-right: -112px; //compensates to center the title
-    padding-left: 40px;
-    font-size: 72px;
-  }
-  @media (max-width: $break-small-horizontal),
-    (max-height: $break-small-vertical) {
-    font-size: 48px !important;
-    margin-right: -56px;
-    padding-left: 10px;
-  }
-}
-
-.themePageTitle {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* ---------------------------      main container        ------------------ */
 .lessonCards {
   @extend .cardContainer;

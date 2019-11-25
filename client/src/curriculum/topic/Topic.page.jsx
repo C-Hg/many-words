@@ -4,11 +4,6 @@ import PropTypes from "prop-types";
 
 import "./Theme.scss";
 
-import ProgressCircle from "../../components/theme/ProgressCircle.component";
-import StartTestButton from "../../components/theme/StartTestButton.component";
-import LearnWordsButton from "../../components/theme/LearnWordsButton.component";
-import ProgressPercentage from "../../components/theme/ProgressPercentage.component";
-import GoldStar from "../../components/theme/GoldStar.component";
 import ScrollToTopOnMount from "../../app/ScrollToTopOnMount.component";
 import frenchEnglishLessons from "../../exercises/lessons";
 import WeakWords from "../../components/common/WeakWords.component";
@@ -18,8 +13,8 @@ import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 import GoBack from "../../components/buttons/GoBack/GoBack.component";
 import { LanguageContext } from "../../contexts/language-context";
 import H2 from "../../components/texts/H2.styled";
-import Card from "../../components/cards/Card.styled";
-import H3 from "../../components/texts/H3.styled";
+import LessonCard from "./lessonCard/LessonCard.component";
+import CardsContainer from "../../components/cards/CardsContainer.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -42,25 +37,24 @@ const Topic = props => {
   // TODO: upgrade data structure: val[0] is not intelligible, use object instead
   // map each lesson of the theme
   const lessons = lessonsData.map(val => {
-    let progressColor;
-    const progress = lessonsStats ? lessonsStats[val[0]] : null;
+    const lessonName = val[0];
+    let progressColor = "darkBlue";
+    const progress = lessonsStats ? lessonsStats[lessonName] : null;
     if (progress >= 0.8) {
       progressColor = "gold";
     } else if (progress >= 0.4) {
       progressColor = "green";
-    } else progressColor = "darkBlue";
+    }
 
     return (
-      <Card borderColor={progressColor} key={val[0]}>
-        <H3 margin="10px 0 0 0">{language.lessons[theme][val[0]]}</H3>
-        <ProgressCircle progress={progress} progressColor={progressColor} />
-        <ProgressPercentage progress={progress} progressColor={progressColor} />
-        <GoldStar progress={progress} />
-        <div className="themeButtons">
-          <StartTestButton match={match} lesson={val[0]} theme={theme} />
-          <LearnWordsButton match={match} lesson={val[0]} />
-        </div>
-      </Card>
+      <LessonCard
+        color={progressColor}
+        theme={theme}
+        lesson={lessonName}
+        progress={progress}
+        match={match}
+        key={lessonName}
+      />
     );
   });
 
@@ -76,7 +70,7 @@ const Topic = props => {
           {isAuthenticated && isWeakWordsModeLaunchable && (
             <WeakWords reference={theme} />
           )}
-          <div className="lessonCards">{lessons}</div>
+          <CardsContainer>{lessons}</CardsContainer>
         </VerticalFlexbox>
       </AppContainer>
     );

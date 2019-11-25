@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import BackArrow from "../components/backArrow/BackArrow.styled";
 import Switches from "../components/learning/Switches.component";
 import LearningTitle from "../components/learning/LearningTitle.component";
 import { actions as learnActions } from "../redux/reducers/learn";
@@ -44,7 +43,7 @@ const Learning = props => {
       <div className="main-container whiteBackground">
         <div className="learning-container">
           <Link to={`/${themeId}`} className="arrowLink">
-            <BackArrow />
+            {/* <BackArrow /> */}
           </Link>
           <LearningTitle lesson={lessonId} theme={themeId} />
           <div className="wordsToLearn">{wordsToLearn}</div>
