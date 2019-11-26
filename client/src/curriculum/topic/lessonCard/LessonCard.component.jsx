@@ -6,7 +6,7 @@ import Card from "../../../components/cards/Card.styled";
 import H3 from "../../../components/texts/H3.styled";
 import { LanguageContext } from "../../../contexts/language-context";
 import ProgressCircle from "./ProgressCircle.component";
-import StartTestButtonComponent from "./StartTestButton.component";
+import StartTestButton from "./StartTestButton.component";
 import LearnWordsButton from "./LearnWordsButton.component";
 import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled";
 import GoldStar from "./styled/GoldStar.styled";
@@ -35,7 +35,7 @@ const LessonCard = props => {
         height="50px"
         backgroundColor="sand"
       >
-        <StartTestButtonComponent match={match} lesson={lesson} theme={theme} />
+        <StartTestButton match={match} lesson={lesson} theme={theme} />
         <LearnWordsButton match={match} lesson={lesson} />
       </HorizontalFlexbox>
     </Card>

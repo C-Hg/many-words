@@ -12,6 +12,8 @@ const VerticalFlexbox = styled(Container)`
   border: ${props => props.border || "0"};
   border-radius: ${props => props.borderRadius || "0"};
   padding: ${props => props.padding || "0"};
+  background-color: ${props =>
+    props.sand ? props.theme.colors.sand : undefined};
 `;
 
 export default VerticalFlexbox;

@@ -8,6 +8,7 @@ const CardsContainer = styled.div`
   justify-content: center;
   height: auto;
   margin: auto;
+  margin-bottom: 50px;
   @media (min-width: ${breakpoints.horizontalMid}) {
     width: 65%;
   }

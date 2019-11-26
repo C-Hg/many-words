@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import LessonsStats from "./LessonsStats.component";
 import { LanguageContext } from "../contexts/language-context";
 import themes from "../exercises/themes";
-import WeakWords from "../components/common/WeakWords.component";
+import WeakWords from "./WeakWords.component";
 import Navbar from "../navbar/Main.navbar";
 import AppContainer from "../app/AppContainer.styled";
 import H2 from "../components/texts/H2.styled";
@@ -84,12 +84,12 @@ const Curriculum = props => {
   });
 
   return (
-    <AppContainer withNavbar>
+    <AppContainer withNavbar sand>
       <Navbar />
-      <VerticalFlexbox margin="0 auto 50px auto">
+      <VerticalFlexbox margin="0 auto 50px auto" sand>
         <H2 margin="30px 0 30px 0">{curriculum.title}</H2>
-        {areWeakWordsLaunchable && <WeakWords reference="curriculum" />}
         <CardsContainer>{cards}</CardsContainer>
+        {areWeakWordsLaunchable && <WeakWords reference="curriculum" />}
       </VerticalFlexbox>
     </AppContainer>
   );

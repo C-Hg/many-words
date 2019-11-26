@@ -1,13 +1,10 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { ThemeContext } from "styled-components";
-
-import "./Theme.scss";
 
 import ScrollToTopOnMount from "../../app/ScrollToTopOnMount.component";
 import frenchEnglishLessons from "../../exercises/lessons";
-import WeakWords from "../../components/common/WeakWords.component";
+import WeakWords from "../WeakWords.component";
 import Navbar from "../../navbar/Main.navbar";
 import AppContainer from "../../app/AppContainer.styled";
 import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
@@ -21,7 +18,6 @@ const mapStateToProps = state => ({ user: state.user });
 
 const Topic = props => {
   const language = useContext(LanguageContext);
-  const styleTheme = useContext(ThemeContext);
   const { user, match } = props;
   const { stats, isAuthenticated } = user;
   const theme = match.params.themeId;
@@ -63,19 +59,16 @@ const Topic = props => {
   /* -----------------    rendering component     -----------------  */
   if (lessons || !isAuthenticated) {
     return (
-      <AppContainer withNavbar>
+      <AppContainer withNavbar sand>
         <Navbar />
         <ScrollToTopOnMount />
-        <VerticalFlexbox
-          backgroundColor={styleTheme.colors.sand}
-          margin="0 0 50px"
-        >
+        <VerticalFlexbox margin="0 0 50px" sand>
           <GoBack to="/curriculum" />
           <H2 margin="30px 0 30px 0">{language.themes[theme]}</H2>
+          <CardsContainer>{lessons}</CardsContainer>
           {isAuthenticated && isWeakWordsModeLaunchable && (
             <WeakWords reference={theme} />
           )}
-          <CardsContainer>{lessons}</CardsContainer>
         </VerticalFlexbox>
       </AppContainer>
     );
