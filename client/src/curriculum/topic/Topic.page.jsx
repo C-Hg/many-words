@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
 
 import "./Theme.scss";
 
@@ -20,6 +21,7 @@ const mapStateToProps = state => ({ user: state.user });
 
 const Topic = props => {
   const language = useContext(LanguageContext);
+  const styleTheme = useContext(ThemeContext);
   const { user, match } = props;
   const { stats, isAuthenticated } = user;
   const theme = match.params.themeId;
@@ -64,7 +66,10 @@ const Topic = props => {
       <AppContainer withNavbar>
         <Navbar />
         <ScrollToTopOnMount />
-        <VerticalFlexbox>
+        <VerticalFlexbox
+          backgroundColor={styleTheme.colors.sand}
+          margin="0 0 50px"
+        >
           <GoBack to="/curriculum" />
           <H2 margin="30px 0 30px 0">{language.themes[theme]}</H2>
           {isAuthenticated && isWeakWordsModeLaunchable && (

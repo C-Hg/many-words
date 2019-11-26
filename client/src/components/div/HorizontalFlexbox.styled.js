@@ -7,7 +7,7 @@ const HorizontalFlexbox = styled(Container)`
   align-items: center;
   justify-content: ${props => props.justifyContent || "center"};
   width: ${props => props.width || "100%"};
-  height: ${props => props.width || "auto"};
+  height: ${props => props.height || "auto"};
   border: ${props => props.border || "0"};
   border-radius: ${props => props.borderRadius || "0"};
   padding: ${props => props.padding || "0"};

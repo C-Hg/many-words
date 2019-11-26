@@ -8,10 +8,10 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   border-style: solid;
   border-radius: 16px;
-  background-color: white;
+  background-color: ${props => props.theme.colors.white};
   margin: 12px 12px 12px;
   border-width: 2px;
 `;

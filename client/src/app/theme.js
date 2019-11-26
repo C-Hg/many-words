@@ -28,6 +28,7 @@ const theme = {
     lightRed: "rgba(255, 50, 50, 0.3)",
 
     gold: "#ffcd1f",
+    sand: "#FFFBF0",
   },
 };
 

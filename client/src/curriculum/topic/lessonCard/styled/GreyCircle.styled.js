@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const GreyCircle = styled.circle`
-  stroke-width: 14;
+  stroke-width: 13;
   fill: transparent;
   stroke: ${props => props.theme.colors.lightestGrey};
 `;

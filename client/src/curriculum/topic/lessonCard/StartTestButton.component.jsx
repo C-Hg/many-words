@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { PlayCircleOutline } from "styled-icons/material";
+import { Play } from "styled-icons/evil";
 import { ThemeContext } from "styled-components";
 
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
+import { actions as exerciseActions } from "../../../redux/reducers/exercise";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -23,11 +23,7 @@ const StartTestButton = props => {
       to={`${match.url}/${lesson}/test`}
       onClick={() => getWords(lesson, theme)}
     >
-      <PlayCircleOutline
-        size="36"
-        alt="Start exercise"
-        color={styleTheme.colors.green}
-      />
+      <Play size="48" alt="Start exercise" color={styleTheme.colors.green} />
     </Link>
   );
 };

@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import P from "../../../components/texts/P.styled";
 
 const fadeIn = keyframes`
   100% {
@@ -7,15 +6,10 @@ const fadeIn = keyframes`
   }
 `;
 
-const ProgressPercentage = styled(P)`
+const ProgressPercentage = styled.text`
   font-weight: 600;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  height: 0;
   opacity: 0;
-  top: -80px;
-  z-index: 5;
+  fill: ${props => props.theme.colors.darkGrey};
   animation: ${fadeIn} 800ms ease 450ms forwards;
 `;
 

@@ -10,7 +10,7 @@ const colorCircleAnimation = keyframes`
 const ColoredCircle = styled.circle`
   stroke: ${props => props.theme.colors[props.color]};
   stroke-dasharray: 251.5px;
-  stroke-width: ${props => (props.theme.colors === "gold" ? 14 : 13)};
+  stroke-width: 14;
   fill: transparent;
   stroke-linecap: round;
   animation: ${colorCircleAnimation} 1000ms ease forwards;
