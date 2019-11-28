@@ -9,6 +9,7 @@ import ProgressCircle from "./ProgressCircle.component";
 import StartTestButton from "./StartTestButton.component";
 import LearnWordsButton from "./LearnWordsButton.component";
 import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled";
+import VerticalFlexbox from "../../../components/div/VerticalFlexbox.styled";
 import GoldStar from "./styled/GoldStar.styled";
 
 const LessonCard = props => {
@@ -18,11 +19,15 @@ const LessonCard = props => {
     <Card
       borderColor="darkGrey"
       key={lesson}
-      width="140px"
-      height="200px"
+      width="150px"
+      height="220px"
       backgroundColor="sand"
     >
-      <H3 margin="10px 0 10px 0">{language.lessons[theme][lesson]}</H3>
+      <VerticalFlexbox height="50px" width="90%">
+        <H3 verticalAlign="center" margin="auto">
+          {language.lessons[theme][lesson]}
+        </H3>
+      </VerticalFlexbox>
       <ProgressCircle progress={progress} color={color} />
       {progress === 1 && (
         <GoldStar>

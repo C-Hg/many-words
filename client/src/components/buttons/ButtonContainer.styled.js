@@ -2,8 +2,24 @@ import styled from "styled-components";
 
 const ButtonContainer = styled.div`
   margin: ${props => props.margin || "auto"};
-  width: ${props => (props.large ? "280px" : "100%")};
-  height: ${props => (props.large ? "50px" : "100%")};
+  width: ${props => {
+    if (props.large) {
+      return "280px";
+    }
+    if (props.mid) {
+      return "180px";
+    }
+    return "100%";
+  }};
+  height: ${props => {
+    if (props.large) {
+      return "50px";
+    }
+    if (props.mid) {
+      return "45px";
+    }
+    return "50px";
+  }};
 `;
 
 export default ButtonContainer;

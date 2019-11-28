@@ -4,9 +4,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../home/Home.page";
 import Topic from "../curriculum/topic/Topic.page";
 import Curriculum from "../curriculum/Curriculum.page";
-import Learning from "../pages/Learning.page";
 import Exercise from "../exercise/Exercise.page";
 import About from "../about/About.page";
+import Learn from "../learn/Learn.page";
 
 // TODO: clean the router, add a level so :themeId is not confused with about, home...
 function Router() {
@@ -18,7 +18,7 @@ function Router() {
       <Route exact path="/curriculum" component={Curriculum} />
       <Route exact path="/weak_words" component={Exercise} />
       <Route exact path="/:themeId" component={Topic} />
-      <Route exact path="/:themeId/:lessonId/learn" component={Learning} />
+      <Route exact path="/:themeId/:lessonId/learn" component={Learn} />
       <Route exact path="/:themeId/:lessonId/test" component={Exercise} />
     </Switch>
   );

@@ -10,10 +10,10 @@ const P = styled.p`
   font-size: 18px;
   color: ${props => props.color || props.theme.colors.darkGrey};
   @media (min-width: ${breakpoints.horizontalMid}) {
-    width: 80%;
+    width: ${props => props.width || "80%"};
   }
   @media (max-width: ${breakpoints.horizontalMid}) {
-    width: 90%;
+    width: ${props => props.width || "90%"};
   }
 `;
 

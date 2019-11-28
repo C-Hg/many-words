@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
 
-import Switches from "../components/learning/Switches.component";
-import LearningTitle from "../components/learning/LearningTitle.component";
+import AppContainer from "../app/AppContainer.styled";
+import Switches from "./Switches.component";
 import { actions as learnActions } from "../redux/reducers/learn";
-import "../styles/Learning.scss";
 import Navbar from "../navbar/Main.navbar";
+import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
+import GoBack from "../components/buttons/GoBack/GoBack.component";
+import { LanguageContext } from "../contexts/language-context";
+import H2 from "../components/texts/H2.styled";
+import P from "../components/texts/P.styled";
 
 const mapStateToProps = state => ({ learn: state.learn });
 const mapDispatchToProps = dispatch => {
@@ -20,6 +24,8 @@ const mapDispatchToProps = dispatch => {
 
 const Learning = props => {
   const { getWordsToLearn, match, learn } = props;
+  const theme = useContext(ThemeContext);
+  const language = useContext(LanguageContext);
   const { lessonId, themeId } = match.params;
 
   useEffect(() => {
@@ -31,26 +37,31 @@ const Learning = props => {
   if (learn.formattedWords) {
     wordsToLearn = learn.formattedWords.map(val => {
       return (
-        <div key={`twoWords${val.en}`} className="twoWords">
+        <P
+          textAlign="left"
+          width="auto"
+          margin="0 0 10px"
+          key={`twoWords${val.en}`}
+        >
           {val.en} : {val.fr}
-        </div>
+        </P>
       );
     });
   }
   return (
-    <div className="app app-with-navbar-full-screen">
+    <AppContainer sand withNavbar>
       <Navbar />
-      <div className="main-container whiteBackground">
-        <div className="learning-container">
-          <Link to={`/${themeId}`} className="arrowLink">
-            {/* <BackArrow /> */}
-          </Link>
-          <LearningTitle lesson={lessonId} theme={themeId} />
-          <div className="wordsToLearn">{wordsToLearn}</div>
-          <Switches />
-        </div>
-      </div>
-    </div>
+      <VerticalFlexbox sand width="auto">
+        <GoBack to={`/${themeId}`} />
+        <H2 margin="30px 0 30px 0" fontFamily={theme.fonts.cursive}>
+          {language.lessons[themeId][lessonId]}
+        </H2>
+        <VerticalFlexbox sand margin="0 0 50px 0">
+          {wordsToLearn}
+        </VerticalFlexbox>
+        <Switches />
+      </VerticalFlexbox>
+    </AppContainer>
   );
 };
 
