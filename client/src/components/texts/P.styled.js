@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import breakpoints from "../../app/breakpoints";
+import unstyledLink from "../links/DefaultLink";
 
 const P = styled.p`
   position: ${props => props.position};
@@ -14,6 +15,10 @@ const P = styled.p`
   }
   @media (max-width: ${breakpoints.horizontalMid}) {
     width: ${props => props.width || "90%"};
+  }
+
+  > a {
+    ${unstyledLink}
   }
 `;
 

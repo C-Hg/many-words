@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import "./App.scss";
 import "../styles/common/material_icons.css";
 import "../styles/common/titles.scss";
 import "../styles/common/layouts.scss";

@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import DefaultButton from "./DefaultButton.styled";
+import unstyledLink from "../links/DefaultLink";
 
 const getAnimation = color => {
   return keyframes`
@@ -28,6 +29,10 @@ const MainButton = styled(DefaultButton)`
   font-size: 18px;
   &:hover {
     animation: ${props => getAnimation(props.color)} 0.5s forwards 1;
+  }
+
+  > a {
+    ${unstyledLink}
   }
 `;
 

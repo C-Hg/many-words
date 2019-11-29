@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import H1 from "../components/texts/H1.styled";
 import { LanguageContext } from "../contexts/language-context";
 import theme from "../app/theme";
 import Navbar from "../navbar/Navbar.styled";
+import H2 from "../components/texts/H2.styled";
+import Quit from "./Quit/Quit.component";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -22,9 +23,10 @@ const ExerciseNavbar = props => {
 
   return (
     <Navbar>
-      <H1 color={theme.colors.white} font={theme.fonts.cursive}>
+      <Quit />
+      <H2 color={theme.colors.white} fontFamily={theme.fonts.cursive}>
         {title}
-      </H1>
+      </H2>
     </Navbar>
   );
 };

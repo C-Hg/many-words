@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
@@ -8,6 +7,7 @@ import { LanguageContext } from "../contexts/language-context";
 import { actions as exerciseActions } from "../redux/reducers/exercise";
 import MainButton from "../components/buttons/MainButton.styled";
 import ButtonContainer from "../components/buttons/ButtonContainer.styled";
+import NavigationLink from "../components/links/NavigationLink.styled";
 
 const mapDispatchToProps = dispatch => ({
   getWeakWords: reference => {
@@ -21,7 +21,7 @@ const WeakWords = props => {
   const theme = useContext(ThemeContext);
 
   return (
-    <Link to="/weak_words">
+    <NavigationLink to="/weak_words">
       <ButtonContainer large>
         <MainButton
           onClick={() => getWeakWords(reference)}
@@ -31,7 +31,7 @@ const WeakWords = props => {
           {language.navigation.weak_words}
         </MainButton>
       </ButtonContainer>
-    </Link>
+    </NavigationLink>
   );
 };
 

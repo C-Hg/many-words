@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -15,6 +14,7 @@ import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import H2 from "../components/texts/H2.styled";
 import Navbar from "../navbar/Main.navbar";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
+import NavigationLink from "../components/links/NavigationLink.styled";
 
 const mapStateToProps = state => ({ user: state.user });
 
@@ -51,13 +51,13 @@ const HomeLoggedIn = props => {
       ) : (
         <H2>{language.home.noStats}</H2>
       )}
-      <Link to="/curriculum">
+      <NavigationLink to="/curriculum">
         <ButtonContainer large margin="80px auto 0 auto">
           <MainButton color={green} type="button">
             {language.home.resume_learning}
           </MainButton>
         </ButtonContainer>
-      </Link>
+      </NavigationLink>
       <PageHr />
       <VerticalFlexbox margin="30px auto 50px auto">
         <ButtonContainer large>

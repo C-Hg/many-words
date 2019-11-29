@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -16,6 +15,7 @@ import CardsContainer from "../components/cards/CardsContainer.styled";
 import Card from "../components/cards/Card.styled";
 import HorizontalFlexbox from "../components/div/HorizontalFlexbox.styled";
 import CONSTANTS from "../config/constants";
+import NavigationLink from "../components/links/NavigationLink.styled";
 
 const { lessonTypes } = CONSTANTS;
 
@@ -55,7 +55,7 @@ const Curriculum = props => {
 
     // TODO: move this card to its own component taking as props: val[0], borderColor, lessons
     return (
-      <Link key={val[0]} to={`../${val[0]}`}>
+      <NavigationLink key={val[0]} to={`../${val[0]}`}>
         <Card borderColor={borderColor} width="140px" height="120px">
           <H3 margin="10px 0 0 0">{language.themes[val[0]]}</H3>
           <HorizontalFlexbox width="auto">
@@ -79,7 +79,7 @@ const Curriculum = props => {
             )}
           </HorizontalFlexbox>
         </Card>
-      </Link>
+      </NavigationLink>
     );
   });
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import unstyledLink from "../links/DefaultLink";
 
 const Button = styled.button`
   /* general styling */
@@ -28,6 +29,10 @@ const Button = styled.button`
   padding: 0;
   width: 100%;
   height: 100%;
+
+  > a {
+    ${unstyledLink}
+  }
 `;
 
 export default Button;

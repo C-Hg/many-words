@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
 
-import { Link } from "react-router-dom";
 import { LanguageContext } from "../contexts/language-context";
 import AppContainer from "../app/AppContainer.styled";
 import LandingTitle from "./LandingTitle.styled";
@@ -15,6 +14,7 @@ import ButtonContainer from "../components/buttons/ButtonContainer.styled";
 import MainButton from "../components/buttons/MainButton.styled";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import HomeNavbar from "../navbar/Main.navbar";
+import NavigationLink from "../components/links/NavigationLink.styled";
 
 const Landing = () => {
   const language = useContext(LanguageContext);
@@ -37,20 +37,20 @@ const Landing = () => {
       <PageHr />
       <VerticalFlexbox margin="0 auto 40px auto">
         <H2 margin="30px 15px 0 15px">{home.discover}</H2>
-        <Link to="/curriculum">
+        <NavigationLink to="/curriculum">
           <ButtonContainer large margin="40px 0 0 0">
             <MainButton color={darkBlue} type="button">
               {home.discover_button}
             </MainButton>
           </ButtonContainer>
-        </Link>
-        <Link to="/about">
+        </NavigationLink>
+        <NavigationLink to="/about">
           <ButtonContainer large margin="10px 0 0 0">
             <MainButton color={darkBlue} type="button">
               {home.about}
             </MainButton>
           </ButtonContainer>
-        </Link>
+        </NavigationLink>
       </VerticalFlexbox>
     </AppContainer>
   );

@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import Close from "../components/exercise/Close.component";
 import ExerciseContainer from "../components/exercise/ExerciseContainer.component";
 import ExerciseFooter from "../components/exercise/ExerciseFooter.component";
 import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
@@ -11,6 +10,7 @@ import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
 import "./Exercise.scss";
 import AppContainer from "../app/AppContainer.styled";
 import ExerciseNavbar from "./Exercise.navbar";
+import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 
 const mapStateToProps = state => {
   return { user: state.user, exercise: state.exercise };
@@ -27,14 +27,11 @@ const Exercise = props => {
     return (
       <AppContainer withNavbar>
         <ExerciseNavbar />
-        <div className="exercise">
-          <div className="titleAndCross">
-            <Close />
-          </div>
+        <VerticalFlexbox width="100%" height="100%">
           {status === "exercise" && <ExerciseContainer />}
           {status === "recap" && <ExerciseRecap />}
           <ExerciseFooter />
-        </div>
+        </VerticalFlexbox>
       </AppContainer>
     );
   }
