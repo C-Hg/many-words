@@ -17,6 +17,7 @@ const theme = {
     lightGrey: "#b3b8bb",
     lightestGrey: "#cdd3d6",
     githubGrey: "#211f1f",
+    flagGrey: "#fffefa",
 
     green: "#1aab00",
     lightGreen: "rgba(175, 255, 125, 0.7)",
@@ -26,6 +27,7 @@ const theme = {
     lightPaleRed: "rgba(255, 97, 0, 0.3)",
     red: "rgba(255, 50, 50, 1)",
     lightRed: "rgba(255, 50, 50, 0.3)",
+    flagRed: "#FF594A",
 
     gold: "#ffcd1f",
     sand: "#FFFCF5",
