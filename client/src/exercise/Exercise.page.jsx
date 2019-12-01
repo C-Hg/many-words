@@ -25,9 +25,9 @@ const Exercise = props => {
   }
   if (words) {
     return (
-      <AppContainer withNavbar>
+      <AppContainer withNavbar sand>
         <ExerciseNavbar />
-        <VerticalFlexbox width="100%" height="100%">
+        <VerticalFlexbox width="100%" height="100%" sand>
           {status === "exercise" && <ExerciseContainer />}
           {status === "recap" && <ExerciseRecap />}
           <ExerciseFooter />

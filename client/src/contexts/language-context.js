@@ -163,7 +163,7 @@ export const languages = {
     start_learning: "learn",
     check_button: "Check",
     next_button: "Next",
-    translateIn: "Translate this word in",
+    translateIn: "Translate in",
     french: "French",
     english: "English",
     correct: [
@@ -363,7 +363,7 @@ export const languages = {
     start_learning: "réviser",
     check_button: "Vérifier",
     next_button: "Suivant",
-    translateIn: "Traduis ce mot en ",
+    translateIn: "Traduis en ",
     french: "français",
     english: "anglais",
     correct: [
