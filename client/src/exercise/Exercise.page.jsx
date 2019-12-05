@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import ExerciseContainer from "../components/exercise/ExerciseContainer.component";
 import ExerciseFooter from "../components/exercise/ExerciseFooter.component";
 import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
 
@@ -11,6 +10,7 @@ import "./Exercise.scss";
 import AppContainer from "../app/AppContainer.styled";
 import ExerciseNavbar from "./Exercise.navbar";
 import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
+import ExerciseContainer from "./container/ExerciseContainer.component";
 
 const mapStateToProps = state => {
   return { user: state.user, exercise: state.exercise };

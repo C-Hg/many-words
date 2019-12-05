@@ -4,6 +4,12 @@ import PropTypes from "prop-types";
 
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
 import CONSTANTS from "../../config/constants";
+import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
+import FlagContainer from "../../components/div/FlagContainer.styled";
+import Flag from "../../components/images/Flag.styled";
+import UserTextInput from "./UserTextInput.styled";
+import frenchFlag from "../../images/flags/France.png";
+import ukFlag from "../../images/flags/UK.png";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -28,7 +34,9 @@ const UserTranslation = props => {
     submitUserTranslation,
     updateUserTranslation,
   } = props;
-  const { userTranslation, isAnswerCorrect } = exercise;
+  const { userTranslation, isChecking, words, wordRank } = exercise;
+  const language = words[wordRank].selectedForm[1];
+  const flag = language === "fr" ? ukFlag : frenchFlag;
 
   // this makes the focus facultative to answer
   const handleKeyDown = event => {
@@ -72,31 +80,23 @@ const UserTranslation = props => {
     }
   };
 
-  let inputStatus;
-  let readOnly = false;
-  if (exercise.isChecking) {
-    readOnly = true;
-    if (isAnswerCorrect) {
-      inputStatus = "input-correct";
-    } else {
-      inputStatus = "input-wrong";
-    }
-  } else {
-    inputStatus = "input-active";
-  }
   return (
-    <input
-      type="text"
-      autoComplete="off"
-      autoCorrect="off"
-      autoCapitalize="off"
-      spellCheck="false"
-      className={`userInput ${inputStatus}`}
-      value={userTranslation}
-      onChange={userTranslationChange}
-      ref={translationInput}
-      readOnly={readOnly}
-    />
+    <HorizontalFlexbox justifyContent="flex-start" sand>
+      <FlagContainer alignSelf="flex-start" marginTop="6px" marginRight="25px">
+        <Flag src={flag} alt="flag" />
+      </FlagContainer>
+      <UserTextInput
+        type="text"
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
+        value={userTranslation}
+        onChange={userTranslationChange}
+        ref={translationInput}
+        readOnly={isChecking}
+      />
+    </HorizontalFlexbox>
   );
 };
 
@@ -105,6 +105,12 @@ UserTranslation.propTypes = {
     isChecking: PropTypes.bool.isRequired,
     isAnswerCorrect: PropTypes.bool.isRequired,
     userTranslation: PropTypes.string.isRequired,
+    words: PropTypes.arrayOf(
+      PropTypes.shape({
+        selectedForm: PropTypes.array.isRequired,
+      })
+    ),
+    wordRank: PropTypes.number.isRequired,
   }).isRequired,
   nextWord: PropTypes.func.isRequired,
   submitUserTranslation: PropTypes.func.isRequired,

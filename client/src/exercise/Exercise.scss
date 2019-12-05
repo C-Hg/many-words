@@ -2,64 +2,7 @@
 @import "../styles/common/buttons.scss";
 
 
-// instructions, words, input, special characters and submit button
-// are grouped in .exercise_container
-.exercise_container {
-  margin: auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: auto;
-  height: auto;
-  padding: 0 15px 0 15px;
-}
 
-.exercise_container_french {
-  @media (min-width: $break-mid-horizontal) {
-    width: 510px;
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    width: 370px;
-  }
-  @media (max-width: $break-small-horizontal),
-    (max-height: $break-small-vertical) {
-    width: 300px;
-  }
-}
-
-.exercise_container_english {
-  @media (min-width: $break-mid-horizontal) {
-    width: 580px;
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    width: 430px;
-  }
-  @media (max-width: $break-small-horizontal),
-    (max-height: $break-small-vertical) {
-    width: 330px;
-  }
-}
-
-/*    ----------------    word to translate   ---------------- */
-.originWord {
-  font-weight: 400;
-  text-align: center;
-  color: black;
-  @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large;
-    margin-top: 45px;
-  }
-  @media (max-width: $break-mid-horizontal), (max-height: $break-mid-vertical) {
-    font-size: $h2-mid;
-    margin-top: 25px;
-  }
-  @media (max-width: $break-small-horizontal),
-    (max-height: $break-small-vertical) {
-    font-size: $h2-small;
-    margin-top: 15px;
-  }
-}
 
 /*    ----------------    special characters   ---------------- */
 .specialCharacters {
@@ -187,47 +130,6 @@
   border-color: $white-background;
 }
 
-/*    ----------------    user translation input   ---------------- */
-input {
-  background-color: inherit;
-  font-weight: 400;
-  text-align: center;
-  margin-top: 20px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 3.5px solid $inactive;
-  height: 25px;
-  @media (min-width: $break-mid-horizontal) {
-    font-size: $h2-large;
-    padding-bottom: 7px;
-    width: 450px;
-  }
-  @media (max-width: $break-mid-horizontal) {
-    font-size: $h2-small;
-    padding-bottom: 3px;
-    width: 350px;
-  }
-  @media (max-width: $break-small-horizontal) {
-    width: 260px;
-  }
-}
-
-.input-active {
-  color: $active;
-  border-color: $active;
-}
-
-.input-correct {
-  color: $correct;
-  font-weight: bold;
-  border-bottom-color: $correct;
-}
-
-.input-wrong {
-  color: $wrong;
-  font-weight: bold;
-}
 
 /*  -----------------    next or check button     --------------------- */
 .exercise-button {

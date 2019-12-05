@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 
 import OriginWord from "./OriginWord.component";
 import UserTranslation from "./UserTranslation.component";
-import SubmitOrNextButton from "./SubmitOrNextButton.component";
-import SpecialCharacters from "./SpecialCharacters.component";
+import SpecialCharacters from "../../components/exercise/SpecialCharacters.component";
 import { LanguageContext } from "../../contexts/language-context";
-import H2 from "../texts/H2.styled";
-import VerticalFlexbox from "../div/VerticalFlexbox.styled";
+import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import ExerciseTitle from "./ExerciseTitle.styled";
+import ContinueButton from "./ContinueButton.component";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -24,19 +24,14 @@ const ExerciseContainer = props => {
   }
 
   return (
-    <VerticalFlexbox sand width="450px">
-      <H2
-        textAlign="left"
-        alignSelf="flex-start"
-        margin="0 0 50px"
-        fontSize="26px"
-      >
+    <VerticalFlexbox padding="0 10px 0 10px" width="auto" sand>
+      <ExerciseTitle>
         {translateIn} {sourceLanguageIsFr ? english : french}
-      </H2>
+      </ExerciseTitle>
       <OriginWord />
       <UserTranslation />
       {language.language === "english" && <SpecialCharacters />}
-      <SubmitOrNextButton />
+      <ContinueButton />
     </VerticalFlexbox>
   );
 };

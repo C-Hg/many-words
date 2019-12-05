@@ -28,7 +28,8 @@ const MainButton = styled(DefaultButton)`
   justify-content: space-evenly;
   font-size: 18px;
   &:hover {
-    animation: ${props => getAnimation(props.color)} 0.5s forwards 1;
+    animation: ${props => getAnimation(props.color)}
+      ${props => (props.fast ? "0.3s" : "0.5s")} forwards 1;
   }
 
   > a {

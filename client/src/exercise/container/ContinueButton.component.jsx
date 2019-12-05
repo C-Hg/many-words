@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
 
 import { LanguageContext } from "../../contexts/language-context";
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
+import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
+import MainButton from "../../components/buttons/MainButton.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -16,38 +19,27 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const SubmitOrNextButton = props => {
+const ContinueButton = props => {
   const language = useContext(LanguageContext);
-  let buttonClass = "";
+  const theme = useContext(ThemeContext);
   const { exercise, nextWord, submitUserTranslation } = props;
-  const { userTranslation, isChecking, isAnswerCorrect } = exercise;
-
-  // TODO: use classnames
-  if (userTranslation === "") {
-    buttonClass = "button-inactivable";
-  } else {
-    buttonClass = "button-activable";
-  }
-  if (isChecking) {
-    if (isAnswerCorrect) {
-      buttonClass = "button-correct";
-    } else {
-      buttonClass = "button-wrong";
-    }
-  }
+  const { isChecking } = exercise;
 
   return (
-    <button
-      className={`exercise-button ${buttonClass}`}
-      onClick={isChecking ? nextWord : submitUserTranslation}
-      type="button"
-    >
-      {isChecking ? language.next_button : language.check_button}
-    </button>
+    <ButtonContainer alignSelf="flex-end" margin="20px auto 0 auto" mid>
+      <MainButton
+        onClick={isChecking ? nextWord : submitUserTranslation}
+        color={theme.colors.darkBlue}
+        type="button"
+        fast
+      >
+        {isChecking ? language.next_button : language.check_button}
+      </MainButton>
+    </ButtonContainer>
   );
 };
 
-SubmitOrNextButton.propTypes = {
+ContinueButton.propTypes = {
   exercise: PropTypes.shape({
     userTranslation: PropTypes.string.isRequired,
     isChecking: PropTypes.bool.isRequired,
@@ -60,4 +52,4 @@ SubmitOrNextButton.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SubmitOrNextButton);
+)(ContinueButton);
