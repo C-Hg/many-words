@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import ExerciseFooter from "../components/exercise/ExerciseFooter.component";
 import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
 
 import "./Exercise.scss";
@@ -30,7 +29,6 @@ const Exercise = props => {
         <VerticalFlexbox width="100%" height="100%" sand>
           {status === "exercise" && <ExerciseContainer />}
           {status === "recap" && <ExerciseRecap />}
-          <ExerciseFooter />
         </VerticalFlexbox>
       </AppContainer>
     );

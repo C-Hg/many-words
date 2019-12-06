@@ -6,7 +6,7 @@ const UserTextInput = styled.textarea`
   font-size: 19px;
   font-weight: 500;
   font-family: ${props => props.theme.fonts.main};
-  color: ${props => props.theme.colors.darkBlue};
+  color: ${props => props.theme.colors.black};
   background-color: ${props => props.theme.colors.white};
   border: 2px solid ${props => props.theme.colors.grey};
   padding-top: 5px;

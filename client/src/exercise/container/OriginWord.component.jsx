@@ -22,8 +22,8 @@ const OriginWord = props => {
   return (
     <HorizontalFlexbox
       justifyContent="flex-start"
-      height="40px"
-      margin="10px auto 20px auto"
+      height="30px"
+      margin="16px auto"
       sand
     >
       <FlagContainer marginRight="35px">

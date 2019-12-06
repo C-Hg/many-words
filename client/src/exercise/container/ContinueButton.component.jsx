@@ -26,7 +26,7 @@ const ContinueButton = props => {
   const { isChecking } = exercise;
 
   return (
-    <ButtonContainer alignSelf="flex-end" margin="20px auto 0 auto" mid>
+    <ButtonContainer margin="30px auto 0 auto" mid>
       <MainButton
         onClick={isChecking ? nextWord : submitUserTranslation}
         color={theme.colors.darkBlue}
