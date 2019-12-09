@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 export default function useWindowDimensions() {
   const getWindowDimensions = () => {
     const { innerWidth: width, innerHeight: height } = window;
+    const deviceRatio = width / height;
     return {
       width,
       height,
+      deviceRatio,
     };
   };
   const [windowDimensions, setWindowDimensions] = useState(

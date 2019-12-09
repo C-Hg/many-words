@@ -3,7 +3,7 @@ const breakpoints = {
   horizontalMid: "820px",
   horizontalLarge: "1024px",
   verticalSmall: "495px",
-  verticalMid: "650px",
+  verticalMid: "750px",
   verticalLarge: "900px",
 };
 

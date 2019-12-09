@@ -15,7 +15,7 @@ const HorizontalFlexbox = styled(Container)`
   margin: ${props => props.margin || "auto"};
   z-index: ${props => props.zIndex || 1};
   background-color: ${props =>
-    props.sand ? props.theme.colors.sand : props.theme.colors.white};
+    props.sand ? props.theme.colors.sand : props.backgroundColor};
 `;
 
 export default HorizontalFlexbox;

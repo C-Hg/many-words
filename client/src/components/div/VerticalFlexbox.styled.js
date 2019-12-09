@@ -5,7 +5,7 @@ const VerticalFlexbox = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: ${props => props.justifyContent || "center"};
   margin: ${props => props.margin || "auto"};
   width: ${props => props.width || "100%"};
   height: ${props => props.height || "auto"};

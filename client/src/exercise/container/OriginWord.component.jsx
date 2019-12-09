@@ -2,12 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
 import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
 import H3 from "../../components/texts/H3.styled";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
+import InnerContainer from "./InnerContainer.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -18,12 +19,13 @@ const OriginWord = props => {
   const word = words[wordRank][words[wordRank].selectedForm[1]];
   const language = words[wordRank].selectedForm[1];
   const flag = language === "fr" ? frenchFlag : ukFlag;
+  const { width: screenWidth } = useWindowDimensions();
 
   return (
-    <HorizontalFlexbox
-      justifyContent="flex-start"
+    <InnerContainer
       height="30px"
       margin="16px auto"
+      screenWidth={screenWidth}
       sand
     >
       <FlagContainer marginRight="35px">
@@ -32,7 +34,7 @@ const OriginWord = props => {
       <H3 margin="0" textAlign="left" fontWeight="400" fontSize="19px" sand>
         {word}
       </H3>
-    </HorizontalFlexbox>
+    </InnerContainer>
   );
 };
 

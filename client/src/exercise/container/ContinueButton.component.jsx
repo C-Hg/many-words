@@ -8,12 +8,7 @@ import { actions as exerciseActions } from "../../redux/reducers/exercise";
 import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
 import MainButton from "../../components/buttons/MainButton.styled";
 
-const mapStateToProps = state => ({ exercise: state.exercise });
-
 const mapDispatchToProps = dispatch => ({
-  nextWord: () => {
-    dispatch(exerciseActions.nextWord());
-  },
   submitUserTranslation: () => {
     dispatch(exerciseActions.submitUserTranslation());
   },
@@ -22,34 +17,27 @@ const mapDispatchToProps = dispatch => ({
 const ContinueButton = props => {
   const language = useContext(LanguageContext);
   const theme = useContext(ThemeContext);
-  const { exercise, nextWord, submitUserTranslation } = props;
-  const { isChecking } = exercise;
+  const { submitUserTranslation } = props;
 
   return (
-    <ButtonContainer margin="30px auto 0 auto" mid>
+    <ButtonContainer margin="0 0 0 auto" mid>
       <MainButton
-        onClick={isChecking ? nextWord : submitUserTranslation}
+        onClick={submitUserTranslation}
         color={theme.colors.darkBlue}
         type="button"
         fast
       >
-        {isChecking ? language.next_button : language.check_button}
+        {language.check_button}
       </MainButton>
     </ButtonContainer>
   );
 };
 
 ContinueButton.propTypes = {
-  exercise: PropTypes.shape({
-    userTranslation: PropTypes.string.isRequired,
-    isChecking: PropTypes.bool.isRequired,
-    isAnswerCorrect: PropTypes.bool.isRequired,
-  }).isRequired,
-  nextWord: PropTypes.func.isRequired,
   submitUserTranslation: PropTypes.func.isRequired,
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(ContinueButton);

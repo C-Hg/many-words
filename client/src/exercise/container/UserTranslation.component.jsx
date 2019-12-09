@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
 import CONSTANTS from "../../config/constants";
-import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
 import UserTextInput from "./UserTextInput.styled";
 import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
+import InnerContainer from "./InnerContainer.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -37,6 +38,7 @@ const UserTranslation = props => {
   const { userTranslation, isChecking, words, wordRank } = exercise;
   const language = words[wordRank].selectedForm[1];
   const flag = language === "fr" ? ukFlag : frenchFlag;
+  const { width: screenWidth } = useWindowDimensions();
 
   // this makes the focus facultative to answer
   const handleKeyDown = event => {
@@ -81,7 +83,7 @@ const UserTranslation = props => {
   };
 
   return (
-    <HorizontalFlexbox justifyContent="flex-start" sand>
+    <InnerContainer screenWidth={screenWidth} sand>
       <FlagContainer alignSelf="flex-start" marginTop="6px" marginRight="25px">
         <Flag src={flag} alt="flag" />
       </FlagContainer>
@@ -96,7 +98,7 @@ const UserTranslation = props => {
         ref={translationInput}
         readOnly={isChecking}
       />
-    </HorizontalFlexbox>
+    </InnerContainer>
   );
 };
 

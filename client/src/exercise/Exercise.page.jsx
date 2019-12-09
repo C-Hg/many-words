@@ -26,7 +26,12 @@ const Exercise = props => {
     return (
       <AppContainer withNavbar sand>
         <ExerciseNavbar />
-        <VerticalFlexbox width="100%" height="100%" sand>
+        <VerticalFlexbox
+          width="100%"
+          height="100%"
+          justifyContent="flex-start"
+          sand
+        >
           {status === "exercise" && <ExerciseContainer />}
           {status === "recap" && <ExerciseRecap />}
         </VerticalFlexbox>

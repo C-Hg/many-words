@@ -14,16 +14,13 @@ const UserTextInput = styled.textarea`
   border-radius: 8px;
   resize: none;
   height: 80px;
-  @media (min-width: ${breakpoints.horizontalMid}) {
+  @media (min-width: ${breakpoints.horizontalSmall}) {
     padding-bottom: 7px;
-    width: 400px;
-  }
-  @media (max-width: ${breakpoints.horizontalMid}) {
-    padding-bottom: 3px;
     width: 350px;
   }
   @media (max-width: ${breakpoints.horizontalSmall}) {
-    width: 100%;
+    padding-bottom: 3px;
+    width: 75%;
   }
   &:focus {
     outline: none;

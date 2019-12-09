@@ -20,12 +20,12 @@ const theme = {
     flagGrey: "#fffefa",
 
     green: "#1aab00",
-    lightGreen: "rgba(175, 255, 125, 0.7)",
+    lightGreen: "#68C251",
 
     googleRed: "#d34836",
-    paleRed: "rgba(255, 97, 0, 1)",
+    paleRed: "#FF6E6B",
     lightPaleRed: "rgba(255, 97, 0, 0.3)",
-    red: "rgba(255, 50, 50, 1)",
+    red: "#FF3232",
     lightRed: "rgba(255, 50, 50, 0.3)",
     flagRed: "#FF594A",
 
