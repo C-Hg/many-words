@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Close } from "styled-icons/evil";
 
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
-import StyledClose from "./Close.styled";
+import IconButton from "../../components/buttons/IconButton.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -18,9 +18,14 @@ const Quit = props => {
   const { quitExercise } = props;
 
   return (
-    <StyledClose onClick={quitExercise} className="QuitButton" type="button">
+    <IconButton
+      onClick={quitExercise}
+      left="20px"
+      className="QuitButton"
+      type="button"
+    >
       <Close alt="Quit" size="40" />
-    </StyledClose>
+    </IconButton>
   );
 };
 

@@ -7,7 +7,7 @@ const InnerContainer = styled(HorizontalFlexbox)`
   padding: 0 10px 0 10px;
 
   @media (min-width: ${breakpoints.horizontalSmall}) {
-    width: 500px;
+    width: 480px;
   }
   @media (max-width: ${breakpoints.horizontalSmall}) {
     width: ${props => {

@@ -1,43 +1,22 @@
-import React, { useContext } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import PropTypes from "prop-types";
-import { ThemeContext } from "styled-components";
 
-import { LanguageContext } from "../../contexts/language-context";
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
-import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
-import MainButton from "../../components/buttons/MainButton.styled";
-
-const mapDispatchToProps = dispatch => ({
-  submitUserTranslation: () => {
-    dispatch(exerciseActions.submitUserTranslation());
-  },
-});
+import { ArrowRight } from "styled-icons/evil";
+import IconButton from "../../components/buttons/IconButton.styled";
 
 const ContinueButton = props => {
-  const language = useContext(LanguageContext);
-  const theme = useContext(ThemeContext);
-  const { submitUserTranslation } = props;
+  const { onClick, arrowColor } = props;
 
   return (
-    <ButtonContainer margin="0 0 0 auto" mid>
-      <MainButton
-        onClick={submitUserTranslation}
-        color={theme.colors.darkBlue}
-        type="button"
-        fast
-      >
-        {language.check_button}
-      </MainButton>
-    </ButtonContainer>
+    <IconButton right="20px" onClick={onClick} color={arrowColor} type="button">
+      <ArrowRight size="60px" />
+    </IconButton>
   );
 };
 
 ContinueButton.propTypes = {
-  submitUserTranslation: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  arrowColor: PropTypes.string.isRequired,
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(ContinueButton);
+export default ContinueButton;

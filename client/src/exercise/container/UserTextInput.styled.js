@@ -16,7 +16,7 @@ const UserTextInput = styled.textarea`
   height: 80px;
   @media (min-width: ${breakpoints.horizontalSmall}) {
     padding-bottom: 7px;
-    width: 350px;
+    width: 75%;
   }
   @media (max-width: ${breakpoints.horizontalSmall}) {
     padding-bottom: 3px;
