@@ -9,7 +9,7 @@ import "./Exercise.scss";
 import AppContainer from "../app/AppContainer.styled";
 import ExerciseNavbar from "./Exercise.navbar";
 import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
-import ExerciseContainer from "./container/ExerciseContainer.component";
+import ExerciseContainer from "./container/Exercise.container";
 
 const mapStateToProps = state => {
   return { user: state.user, exercise: state.exercise };
@@ -19,6 +19,7 @@ const Exercise = props => {
   const { exercise } = props;
   const { redirect, redirectionTarget, words, status } = exercise;
 
+  // TODO: use links instead of Redirect
   if (redirect) {
     return <Redirect to={redirectionTarget} />;
   }

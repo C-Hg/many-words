@@ -4,11 +4,10 @@ import PropTypes from "prop-types";
 
 import OriginWord from "./OriginWord.component";
 import UserTranslation from "./UserTranslation.component";
-import SpecialCharacters from "../../components/exercise/SpecialCharacters.component";
 import { LanguageContext } from "../../contexts/language-context";
-import ExerciseTitle from "./ExerciseTitle.styled";
+import ExerciseTitle from "./styled/ExerciseTitle.styled";
 import Validation from "./Validation.component";
-import StyledContainer from "../ExerciseContainer.styled";
+import StyledContainer from "./styled/ExerciseContainer.styled";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
@@ -32,7 +31,6 @@ const ExerciseContainer = props => {
       </ExerciseTitle>
       <OriginWord />
       <UserTranslation />
-      {language.language === "english" && <SpecialCharacters />}
       <Validation />
     </StyledContainer>
   );

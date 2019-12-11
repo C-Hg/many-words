@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 
 import { LanguageContext } from "../../contexts/language-context";
-import H3 from "../../components/texts/H3.styled";
-import ValidationContainer from "./ValidationContainer.styled";
+import ValidationContainer from "./styled/ValidationContainer.styled";
 import ContinueButton from "./ContinueButton.component";
 import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
 import { actions as exerciseActions } from "../../redux/reducers/exercise";
+import ValidationText from "./styled/ValidationText.styled";
+// import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 const mapDispatchToProps = dispatch => ({
@@ -40,17 +41,26 @@ const Validation = props => {
 
   return (
     <ValidationContainer backgroundColor={color} isChecking={isChecking}>
-      <HorizontalFlexbox backgroundColor={color} justifyContent="flex-start">
-        <H3
-          textAlign="left"
-          fontWeight="400"
-          padding="0 0 0 20px"
-          margin="15px"
-          backgroundColor={color}
-          color={white}
-        >
-          {isAnswerCorrect ? correct[randomCongrats] : `${expectedAnswer}`}
-        </H3>
+      <HorizontalFlexbox
+        height="100%"
+        backgroundColor="transparent"
+        justifyContent="flex-start"
+      >
+        {isChecking &&
+          (isAnswerCorrect ? (
+            <ValidationText fontWeight="600" top="-16px" left="40px">
+              {correct[randomCongrats]}
+            </ValidationText>
+          ) : (
+            <ValidationText fontWeight="600" top="-16px" left="40px">
+              {`${language.correctAnswer}:`}
+              <ValidationText
+                top="24px"
+                left="6px"
+                fontSize="16px"
+              >{`${expectedAnswer}`}</ValidationText>
+            </ValidationText>
+          ))}
         <ContinueButton onClick={onClick} arrowColor={arrowColor} />
       </HorizontalFlexbox>
     </ValidationContainer>

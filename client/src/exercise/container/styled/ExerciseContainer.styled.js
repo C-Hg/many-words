@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
-import breakpoints from "../app/breakpoints";
+import VerticalFlexbox from "../../../components/div/VerticalFlexbox.styled";
+import breakpoints from "../../../app/breakpoints";
 
 const ExerciseContainer = styled(VerticalFlexbox)`
   align-self: flex-start;

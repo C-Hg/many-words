@@ -6,11 +6,11 @@ import { actions as exerciseActions } from "../../redux/reducers/exercise";
 import CONSTANTS from "../../config/constants";
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
-import UserTextInput from "./UserTextInput.styled";
+import UserTextInput from "./styled/UserTextInput.styled";
 import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import InnerContainer from "./InnerContainer.styled";
+import InnerContainer from "./styled/InnerContainer.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 

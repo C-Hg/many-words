@@ -8,7 +8,7 @@ import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
 import H3 from "../../components/texts/H3.styled";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import InnerContainer from "./InnerContainer.styled";
+import InnerContainer from "./styled/InnerContainer.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 

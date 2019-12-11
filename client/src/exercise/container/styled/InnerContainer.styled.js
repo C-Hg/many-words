@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
-import breakpoints from "../../app/breakpoints";
+import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled";
+import breakpoints from "../../../app/breakpoints";
 
 const InnerContainer = styled(HorizontalFlexbox)`
   justify-content: flex-start;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import H2 from "../../components/texts/H2.styled";
-import breakpoints from "../../app/breakpoints";
+import H2 from "../../../components/texts/H2.styled";
+import breakpoints from "../../../app/breakpoints";
 
 const ExerciseTitle = styled(H2)`
   text-align: left;
