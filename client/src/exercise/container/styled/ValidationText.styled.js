@@ -8,8 +8,8 @@ const ValidationText = styled(P)`
   font-weight: ${props => props.fontWeight || "400"};
   font-size: ${props => props.fontSize || "18px"};
   margin: 0;
-  width: 80%;
-  min-width: 80%;
+  width: auto;
+  max-width: 70%;
   color: ${props => props.theme.colors.white};
   text-align: left;
 `;

@@ -12,6 +12,7 @@ const ValidationContainer = styled(HorizontalFlexbox)`
   top: 20px;
   color: ${props => props.theme.colors.white};
   margin: 0;
+  margin-bottom: 40px;
   @media (min-width: ${breakpoints.horizontalSmall}) {
     border-radius: 12px;
   }

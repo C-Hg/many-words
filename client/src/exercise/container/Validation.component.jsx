@@ -38,7 +38,7 @@ const Validation = props => {
   }
   const onClick = isChecking ? nextWord : submitUserTranslation;
   const arrowColor = isChecking ? white : darkBlue;
-
+  // TODO: better management of margin-bottom under validationContainer
   return (
     <ValidationContainer backgroundColor={color} isChecking={isChecking}>
       <HorizontalFlexbox
@@ -48,7 +48,7 @@ const Validation = props => {
       >
         {isChecking &&
           (isAnswerCorrect ? (
-            <ValidationText fontWeight="600" top="-16px" left="40px">
+            <ValidationText fontWeight="600" left="40px">
               {correct[randomCongrats]}
             </ValidationText>
           ) : (
