@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
+import { actions as exerciseActions } from "../exercise.reducer";
 import CONSTANTS from "../../config/constants";
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";

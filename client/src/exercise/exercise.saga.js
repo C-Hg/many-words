@@ -1,10 +1,10 @@
 import { put, call, select, takeEvery } from "redux-saga/effects";
 
-import { types } from "../reducers/exercise";
-import fetch from "../../services/fetch";
-import FrEnWordSelector from "../../controllers/exercise/word_selector/wordSelector.function";
-import checkUserTranslation from "../../controllers/exercise/checkUserTranslation.function";
-import makeBatches from "../../controllers/exercise/weak_words/makeBatches.function";
+import { types } from "./exercise.reducer";
+import fetch from "../services/fetch";
+import FrEnWordSelector from "../controllers/exercise/word_selector/wordSelector.function";
+import checkUserTranslation from "../controllers/exercise/checkUserTranslation.function";
+import makeBatches from "../controllers/exercise/weak_words/makeBatches.function";
 
 function* getWords({ lesson, theme }) {
   try {

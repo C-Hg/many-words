@@ -10,6 +10,7 @@ import Validation from "./Validation.component";
 import StyledContainer from "./styled/ExerciseContainer.styled";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import SpecialCharacters from "./SpecialCharacters.component";
+import AzertyKeyboard from "./AzertyKeyboard.component";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -34,6 +35,7 @@ const ExerciseContainer = props => {
       <UserTranslation />
       <Validation />
       <SpecialCharacters />
+      <AzertyKeyboard />
     </StyledContainer>
   );
 };

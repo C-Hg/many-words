@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { LanguageContext } from "../../contexts/language-context";
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
+import { actions as exerciseActions } from "../exercise.reducer";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 

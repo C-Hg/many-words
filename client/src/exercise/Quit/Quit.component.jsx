@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Close } from "styled-icons/evil";
 
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
+import { actions as exerciseActions } from "../exercise.reducer";
 import IconButton from "../../components/buttons/IconButton.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });

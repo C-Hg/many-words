@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 
 import { LanguageContext } from "../contexts/language-context";
-import { actions as exerciseActions } from "../redux/reducers/exercise";
+import { actions as exerciseActions } from "../exercise/exercise.reducer";
 import MainButton from "../components/buttons/MainButton.styled";
 import ButtonContainer from "../components/buttons/ButtonContainer.styled";
 import NavigationLink from "../components/links/NavigationLink.styled";

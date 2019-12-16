@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Play } from "styled-icons/evil";
 import { ThemeContext } from "styled-components";
 
-import { actions as exerciseActions } from "../../../redux/reducers/exercise";
+import { actions as exerciseActions } from "../../../exercise/exercise.reducer";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 

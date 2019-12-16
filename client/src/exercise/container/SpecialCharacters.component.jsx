@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
-import Character from "./styled/Character.styled";
+import { actions as exerciseActions } from "../exercise.reducer";
 import CharactersLine from "./styled/CharactersLine.styled";
 import MainButton from "../../components/buttons/MainButton.styled";
 import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
+import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import useCharacters from "./useCharacters";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -15,34 +16,18 @@ const mapDispatchToProps = dispatch => ({
   toggleSpecialCharacters: () => {
     dispatch(exerciseActions.toggleSpecialCharacters());
   },
-  updateUserTranslation: value => {
-    dispatch(exerciseActions.updateUserTranslation(value));
-  },
 });
 
-const characters = ["à", "â", "ç", "é", "è", "ê", "ë", "î", "ï", "ô", "ù", "û"];
+const line1 = ["à", "â", "æ", "œ", "ç"];
+const line2 = ["é", "è", "ê", "ë", "î", "ï", "ô", "ù", "û", "ü"];
 
 const SpecialCharacters = props => {
   const theme = useContext(ThemeContext);
-  const { exercise, toggleSpecialCharacters, updateUserTranslation } = props;
-  const { userTranslation, areSpecialCharactersVisible } = exercise;
+  const { exercise, toggleSpecialCharacters } = props;
+  const { areSpecialCharactersVisible } = exercise;
 
-  const handleSpecialCharacter = event => {
-    const letter = event.target.name;
-    updateUserTranslation(userTranslation + letter);
-  };
-
-  // TODO: transform each letter into a component
-  const characterButtons = characters.map(character => (
-    <Character
-      onClick={handleSpecialCharacter}
-      name={character}
-      type="button"
-      key={character}
-    >
-      {character}
-    </Character>
-  ));
+  const charactersLine1 = useCharacters(line1);
+  const charactersLine2 = useCharacters(line2);
 
   const isVisible = areSpecialCharactersVisible;
   // the element is rendered only for english speakers when translating to French
@@ -50,7 +35,14 @@ const SpecialCharacters = props => {
   // TODO: refactor the selectedForm array to transform it into an object
 
   if (isVisible) {
-    return <CharactersLine>{characterButtons}</CharactersLine>;
+    return (
+      <VerticalFlexbox>
+        <CharactersLine justifyContent="center">
+          {charactersLine1}
+        </CharactersLine>
+        <CharactersLine>{charactersLine2}</CharactersLine>
+      </VerticalFlexbox>
+    );
   }
 
   return (
@@ -78,7 +70,6 @@ SpecialCharacters.propTypes = {
     ),
   }).isRequired,
   toggleSpecialCharacters: PropTypes.func.isRequired,
-  updateUserTranslation: PropTypes.func.isRequired,
 };
 
 export default connect(

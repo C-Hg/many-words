@@ -3,8 +3,8 @@ import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled"
 import breakpoints from "../../../app/breakpoints";
 
 const CharactersLine = styled(HorizontalFlexbox)`
-  justify-content: space-around;
-  height: 46px;
+  justify-content: ${props => props.justifyContent || "space-around"};
+  height: 42px;
   min-height: 40px;
   width: 100%;
   max-width: 400px;

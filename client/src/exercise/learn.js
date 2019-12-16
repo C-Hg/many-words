@@ -1,8 +1,8 @@
 import { put, call, select, takeEvery } from "redux-saga/effects";
-import { types } from "../reducers/learn";
-import fetch from "../../services/fetch";
-import selectWordsToLearnForms from "../../controllers/learning/selectWordsToLearnForms.controller";
-import getAvailableSwitches from "../../controllers/learning/getAvailableSwitches.function";
+import { types } from "../redux/reducers/learn";
+import fetch from "../services/fetch";
+import selectWordsToLearnForms from "../controllers/learning/selectWordsToLearnForms.controller";
+import getAvailableSwitches from "../controllers/learning/getAvailableSwitches.function";
 
 function* getWordsToLearn({ lesson }) {
   try {

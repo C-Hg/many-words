@@ -12,6 +12,7 @@ const defaultState = {
   isAnswerCorrect: false,
   activable: false,
   areSpecialCharactersVisible: false,
+  capitalized: true,
   failedWords: [],
   result: [],
   redirect: true,
@@ -115,6 +116,7 @@ const exerciseReducer = (state = defaultState, action) => {
         isAnswerCorrect: false,
         expectedAnswer: "",
         areSpecialCharactersVisible: false,
+        capitalized: true,
       };
 
     case types.RESET_STATE:

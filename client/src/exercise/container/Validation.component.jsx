@@ -7,9 +7,8 @@ import { LanguageContext } from "../../contexts/language-context";
 import ValidationContainer from "./styled/ValidationContainer.styled";
 import ContinueButton from "./ContinueButton.component";
 import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
-import { actions as exerciseActions } from "../../redux/reducers/exercise";
+import { actions as exerciseActions } from "../exercise.reducer";
 import ValidationText from "./styled/ValidationText.styled";
-// import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 const mapDispatchToProps = dispatch => ({
