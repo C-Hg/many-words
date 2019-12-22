@@ -13,7 +13,7 @@ const Character = styled(DefaultButton)`
   max-width: 10%;
   margin-left: 0.5%;
   margin-right: 0.5%;
-  height: 40px;
+  height: 92%;
 
   &:hover {
     background-color: ${props => props.theme.colors.lightestGrey};

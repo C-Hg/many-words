@@ -40,7 +40,7 @@ const UserTranslation = props => {
   const flag = language === "fr" ? ukFlag : frenchFlag;
   const { width: screenWidth } = useWindowDimensions();
 
-  // this makes the focus facultative to answer
+  // this makes the focus facultative to answer on desktop
   const handleKeyDown = event => {
     event.preventDefault();
     // Enter key

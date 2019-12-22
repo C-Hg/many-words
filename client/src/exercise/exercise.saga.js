@@ -49,6 +49,19 @@ function* continueWeakWords() {
   }
 }
 
+function* addLetter(letter) {
+  try {
+    const exercise = yield select(state => state.exercise);
+    const newUserTranslation = exercise.userTranslation + letter.value;
+    yield put({
+      type: "UPDATE_USER_TRANSLATION",
+      userTranslation: newUserTranslation,
+    });
+  } catch (error) {
+    console.error("addLetter", error);
+  }
+}
+
 function* submitUserTranslation() {
   try {
     const exercise = yield select(state => state.exercise);
@@ -105,6 +118,7 @@ function* nextWord() {
 }
 
 export default function* exerciseSaga() {
+  yield takeEvery(types.ADD_LETTER, addLetter);
   yield takeEvery(types.GET_WORDS, getWords);
   yield takeEvery(types.GET_WEAK_WORDS, getWeakWords);
   yield takeEvery(types.CONTINUE_WEAK_WORDS, continueWeakWords);

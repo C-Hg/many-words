@@ -1,18 +1,13 @@
 import styled from "styled-components";
 import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled";
-import breakpoints from "../../../app/breakpoints";
 
 const CharactersLine = styled(HorizontalFlexbox)`
   justify-content: ${props => props.justifyContent || "space-around"};
-  height: 42px;
-  min-height: 40px;
+  height: 44px;
   width: 100%;
   max-width: 400px;
-  background-color: ${props => props.theme.colors.grey};
+  background-color: transparent;
   border-width: 0px;
-  @media (min-width: ${breakpoints.horizontalSmall}) {
-    border: 1px solid ${props => props.theme.colors.grey};
-  }
 `;
 
 export default CharactersLine;

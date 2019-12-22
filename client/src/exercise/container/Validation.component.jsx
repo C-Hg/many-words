@@ -9,6 +9,7 @@ import ContinueButton from "./ContinueButton.component";
 import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
 import { actions as exerciseActions } from "../exercise.reducer";
 import ValidationText from "./styled/ValidationText.styled";
+import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 const mapDispatchToProps = dispatch => ({
@@ -44,6 +45,7 @@ const Validation = props => {
         height="100%"
         backgroundColor="transparent"
         justifyContent="flex-start"
+        alignItems="flex-start"
       >
         {isChecking &&
           (isAnswerCorrect ? (
@@ -51,14 +53,21 @@ const Validation = props => {
               {correct[randomCongrats]}
             </ValidationText>
           ) : (
-            <ValidationText fontWeight="600" top="-16px" left="40px">
-              {`${language.correctAnswer}:`}
+            <VerticalFlexbox
+              alignSelf="flex-start"
+              height="80%"
+              backgroundColor="transparent"
+              alignItems="flex-start"
+              justifyContent="space-evenly"
+            >
+              <ValidationText fontWeight="600">
+                {`${language.correctAnswer} :`}
+              </ValidationText>
               <ValidationText
-                top="24px"
-                left="6px"
+                paddingLeft="10px"
                 fontSize="16px"
               >{`${expectedAnswer}`}</ValidationText>
-            </ValidationText>
+            </VerticalFlexbox>
           ))}
         <ContinueButton onClick={onClick} arrowColor={arrowColor} />
       </HorizontalFlexbox>

@@ -3,13 +3,12 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import ExerciseRecap from "../components/exercise/ExerciseRecap.component";
-
 import "./Exercise.scss";
 import AppContainer from "../app/AppContainer.styled";
 import ExerciseNavbar from "./Exercise.navbar";
 import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import ExerciseContainer from "./container/Exercise.container";
+import ExerciseRecap from "./recap/ExerciseRecap.container";
 
 const mapStateToProps = state => {
   return { user: state.user, exercise: state.exercise };

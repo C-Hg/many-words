@@ -19,6 +19,8 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
+// TODO: have a single component per button with useDispatch, and conditionnally display them
+// TODO: then finally delete css and node-sass :)
 const ExitLinks = props => {
   const { continueWeakWords, getWords, quitExercise, exercise } = props;
   const { isWeakWordsMode, words } = exercise;

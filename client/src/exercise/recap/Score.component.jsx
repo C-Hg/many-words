@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
+// TODO: delete me if not used anymore
 const Score = props => {
   const { exercise } = props;
   const { wordRank, failedWords } = exercise;

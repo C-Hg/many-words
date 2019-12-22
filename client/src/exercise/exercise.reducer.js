@@ -20,6 +20,7 @@ const defaultState = {
 };
 
 const types = {
+  ADD_LETTER: "ADD_LETTER",
   BEGIN_EXERCISE: "BEGIN_EXERCISE",
   GET_WORDS: "GET_WORDS",
   GET_WEAK_WORDS: "GET_WEAK_WORDS",
