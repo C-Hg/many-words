@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import "./Exercise.scss";
 import AppContainer from "../app/AppContainer.styled";
 import ExerciseNavbar from "./Exercise.navbar";
 import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";

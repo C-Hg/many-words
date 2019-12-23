@@ -13,8 +13,8 @@ export const languages = {
       login_with: "Log in with",
       logout: "Log out",
       weak_words: "Weak words",
-      try_again: "Try again",
-      to_continue: "Continue",
+      tryAgain: "Try again",
+      toContinue: "Continue",
       quit: "Menu",
     },
     about: {
@@ -211,8 +211,8 @@ export const languages = {
       login_with: "Connexion avec",
       logout: "Déconnexion",
       weak_words: "Mots faibles",
-      to_continue: "Continuer",
-      try_again: "Réessayer",
+      toContinue: "Continuer",
+      tryAgain: "Réessayer",
       quit: "Menu",
     },
     about: {

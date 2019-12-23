@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import "../styles/common/material_icons.css";
-import "../styles/common/titles.scss";
-import "../styles/common/layouts.scss";
-import "../styles/common/buttons.scss";
-import "../styles/common/variables.scss";
 import { connect } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import { actions as userActions } from "../redux/reducers/user";

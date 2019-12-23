@@ -31,6 +31,3 @@ https://nodejs.org/en/download/
 - install mongodb locally :
   https://docs.mongodb.com/manual/installation/
 
-- if you encounter errors with node-sass, this might help :
-
-`sudo npm install --unsafe-perm -g node-sass`

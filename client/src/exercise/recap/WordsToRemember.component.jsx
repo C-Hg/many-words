@@ -17,7 +17,7 @@ const WordsToRemember = props => {
     );
   });
   return (
-    <VerticalFlexbox width="50%" margin="0 0 30px">
+    <VerticalFlexbox width="70%" margin="0 0 30px">
       {words}
     </VerticalFlexbox>
   );

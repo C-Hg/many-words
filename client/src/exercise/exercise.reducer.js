@@ -159,12 +159,6 @@ const actions = {
     };
   },
 
-  continueWeakWords: () => {
-    return {
-      type: types.CONTINUE_WEAK_WORDS,
-    };
-  },
-
   toggleSpecialCharacters: () => {
     return {
       type: types.TOGGLE_SPECIAL_CHARACTERS,
@@ -193,12 +187,6 @@ const actions = {
   resetState: () => {
     return {
       type: types.RESET_STATE,
-    };
-  },
-
-  quitExercise: () => {
-    return {
-      type: types.QUIT_EXERCISE,
     };
   },
 };

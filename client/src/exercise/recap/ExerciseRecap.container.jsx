@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 
 import LessonResult from "./LessonResult.component";
 import WordsToRemember from "./WordsToRemember.component";
-import ExitLinks from "./ExitLinks.component";
 import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import ExitButton from "./ExitButton.component ";
+import ContinueButton from "./ContinueButton.component";
 
 const mapStateToProps = state => ({ exercise: state.exercise });
 
@@ -15,7 +16,10 @@ const ExerciseRecap = props => {
     <VerticalFlexbox>
       <LessonResult />
       {exercise.failedWords.length > 0 && <WordsToRemember />}
-      <ExitLinks />
+      <VerticalFlexbox>
+        <ContinueButton />
+        <ExitButton />
+      </VerticalFlexbox>
     </VerticalFlexbox>
   );
 };
