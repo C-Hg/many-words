@@ -6,12 +6,10 @@
 
 // void objects are impossible because not returned from checkFrAlternative function
 // checks that mutually exclusive properties are not present
-exports.checkFrFormat = function(wordObject) {
+const checkFrenchFormat = wordObject => {
   if (!wordObject.hasOwnProperty("acceptedForms")) {
-    console.log(
-      "\033[1;31m" +
-        "Error : no 'acceptedForms' property in FR word object" +
-        "\033[0;0m"
+    console.error(
+      `\\033[1;31mError : no 'acceptedForms' property in French word object\\033[0;0m`
     );
     return false;
   }
@@ -22,10 +20,8 @@ exports.checkFrFormat = function(wordObject) {
       wordObject.hasOwnProperty("fem_plur")) &&
     wordObject.hasOwnProperty("uniqueForm")
   ) {
-    console.log(
-      "\033[1;31m" +
-        "Error : a FR word cannot have a unique form AND another form" +
-        "\033[0;0m"
+    console.error(
+      `\\033[1;31mError : a FR word cannot have a unique form AND another form\\033[0;0m`
     );
     return false;
   }
@@ -37,26 +33,20 @@ exports.checkFrFormat = function(wordObject) {
       !wordObject.hasOwnProperty("masc_plur") &&
       !wordObject.hasOwnProperty("fem_sing")
     ) {
-      console.log(
-        "\033[1;31m" + "Error : property masc_sing alone" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : property masc_sing alone\\033[0;0m`);
       return false;
     }
     if (
       !wordObject.acceptedForms.includes("masc_sing") ||
       wordObject.acceptedForms.length < 2
     ) {
-      console.log(
-        "\033[1;31m" +
-          "Error : acceptedForms property not matching masc_sing" +
-          "\033[0;0m"
+      console.error(
+        `\\033[1;31mError: acceptedForms property not matching masc_sing\\033[0;0m`
       );
       return false;
     }
     if (wordObject.masc_sing === "") {
-      console.log(
-        "\033[1;31m" + "Error : empty 'masc_sing' property" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : empty 'masc_sing' property\\033[0;0m`);
       return false;
     }
   }
@@ -66,24 +56,20 @@ exports.checkFrFormat = function(wordObject) {
       !wordObject.hasOwnProperty("fem_plur") &&
       !wordObject.hasOwnProperty("masc_sing")
     ) {
-      console.log(
-        "\033[1;31m" + "Error : property fem_sing alone" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : property fem_sing alone\\033[0;0m`);
       return false;
     }
     if (
       !wordObject.acceptedForms.includes("fem_sing") ||
       wordObject.acceptedForms.length < 2
     ) {
-      console.log(
-        "\033[1;31m" + "Error on acceptedForms property" + "\033[0;0m"
+      console.error(
+        "\\033[1;31m" + "Error on acceptedForms property" + "\\033[0;0m"
       );
       return false;
     }
     if (wordObject.fem_sing === "") {
-      console.log(
-        "\033[1;31m" + "Error : empty 'fem_sing' property" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : empty 'fem_sing' property\\033[0;0m`);
       return false;
     }
   }
@@ -93,24 +79,18 @@ exports.checkFrFormat = function(wordObject) {
       !wordObject.hasOwnProperty("masc_sing") &&
       !wordObject.hasOwnProperty("fem_plur")
     ) {
-      console.log(
-        "\033[1;31m" + "Error : property masc_plur alone" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : property masc_plur alone\\033[0;0m`);
       return false;
     }
     if (
       !wordObject.acceptedForms.includes("masc_plur") ||
       wordObject.acceptedForms.length < 2
     ) {
-      console.log(
-        "\033[1;31m" + "Error on acceptedForms property" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError on acceptedForms property\\033[0;0m`);
       return false;
     }
     if (wordObject.masc_plur === "") {
-      console.log(
-        "\033[1;31m" + "Error : empty 'masc_plur' property" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : empty 'masc_plur' property\\033[0;0m`);
       return false;
     }
   }
@@ -120,24 +100,18 @@ exports.checkFrFormat = function(wordObject) {
       !wordObject.hasOwnProperty("masc_plur") &&
       !wordObject.hasOwnProperty("fem_sing")
     ) {
-      console.log(
-        "\033[1;31m" + "Error : property fem_plur alone" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : property fem_plur alone\\033[0;0m`);
       return false;
     }
     if (
       !wordObject.acceptedForms.includes("fem_plur") ||
       wordObject.acceptedForms.length < 2
     ) {
-      console.log(
-        "\033[1;31m" + "Error on acceptedForms property" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError on acceptedForms property\\033[0;0m`);
       return false;
     }
     if (wordObject.fem_plur === "") {
-      console.log(
-        "\033[1;31m" + "Error : empty 'fem_plur' property" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : empty 'fem_plur' property\\033[0;0m`);
       return false;
     }
   }
@@ -147,19 +121,17 @@ exports.checkFrFormat = function(wordObject) {
       wordObject.acceptedForms[0] != "uniqueForm" ||
       wordObject.acceptedForms[0] > 1
     ) {
-      console.log(
-        "\033[1;31m" +
-          "Error : acceptedForms not matching uniqueForm " +
-          "\033[0;0m"
+      console.error(
+        `\\033[1;31mError : acceptedForms not matching uniqueForm\\033[0;0m`
       );
       return false;
     }
     if (wordObject.uniqueForm === "") {
-      console.log(
-        "\033[1;31m" + "Error : empty 'uniqueForm' property" + "\033[0;0m"
-      );
+      console.error(`\\033[1;31mError : empty 'uniqueForm' property\\033[0;0m`);
       return false;
     }
   }
   return true;
 };
+
+export default checkFrenchFormat;

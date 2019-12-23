@@ -1,16 +1,20 @@
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const wordSchema = new Schema({
-  enName: { type: String, required: true },
-  frName: { type: String, required: true },
+  english: {
+    name: { type: String, required: true },
+    words: { type: Array, required: true },
+  },
+  french: {
+    name: { type: String, required: true },
+    words: { type: Array, required: true },
+  },
   hasUniqueForm: { type: Boolean, required: false },
   type: { type: String, required: true },
   lesson: { type: String, required: true },
-  theme: { type: String, required: true },
-  en: { type: Array, required: true },
-  fr: { type: Array, required: true }
+  topic: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Word", wordSchema);

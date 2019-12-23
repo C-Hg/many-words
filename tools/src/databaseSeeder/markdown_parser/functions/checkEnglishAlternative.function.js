@@ -4,21 +4,21 @@ const regex = require("../markdownRegex");
 // if data is not null, returns an object with properly formatted data
 // however data still needs validation, done by checkEnFormat function
 
-exports.checkEnAlternative = function(altName, document) {
-  let singRegex = regex["enSing" + altName];
-  let plurRegex = regex["enPlur" + altName];
-  let uniqueFormRegex = regex["enUnique" + altName];
-  let isAnRegex = regex["isAn" + altName];
-  let acceptedForms = [];
-  let result = {};
+const checkEnglishAlternative = (altName, document) => {
+  const singRegex = regex[`enSing${altName}`];
+  const plurRegex = regex[`enPlur${altName}`];
+  const uniqueFormRegex = regex[`enUnique${altName}`];
+  const isAnRegex = regex[`isAn${altName}`];
+  const acceptedForms = [];
+  const result = {};
 
-  let forms = [
+  const forms = [
     ["sing", singRegex],
     ["plur", plurRegex],
-    ["uniqueForm", uniqueFormRegex]
+    ["uniqueForm", uniqueFormRegex],
   ];
-  for (let [form, formRegex] of forms) {
-    let match = document.match(formRegex);
+  for (const [form, formRegex] of forms) {
+    const match = document.match(formRegex);
     if (match) {
       acceptedForms.push(form);
       result[form] = match[0];
@@ -26,7 +26,7 @@ exports.checkEnAlternative = function(altName, document) {
   }
 
   if (Object.keys(result).length) {
-    let anMatch = document.match(isAnRegex);
+    const anMatch = document.match(isAnRegex);
     if (anMatch) {
       result.isArticleAn = true;
     }
@@ -35,3 +35,5 @@ exports.checkEnAlternative = function(altName, document) {
   }
   return false;
 };
+
+export default checkEnglishAlternative;

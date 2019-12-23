@@ -37,13 +37,13 @@ const regex = {
   type: new RegExp(`(?<=type\\s\\:\\s*)${words}(?=\\s*\\n*\\-\\-\\-)`, "ig"),
 
   // EN data
-  enName: new RegExp(
+  englishName: new RegExp(
     `(?<=##\\sEnglish\\sdata\\n*Name\\s*\\:\\s*)${words}`,
     "ig"
   ),
 
   // FR data
-  frName: new RegExp(
+  frenchName: new RegExp(
     `(?<=##\\sFrench\\sdata\\n*Name\\s*\\:\\s*)${words}`,
     "ig"
   ),
@@ -52,26 +52,29 @@ const regex = {
   // e.g. frMascSingMain, frMascSingAlt1 ...
   createRegex(name, pattern) {
     let newName;
-    for (let a = 0; a < 4; a++) {
+    for (let a = 0; a < 4; a += 1) {
       switch (a) {
         case 0:
-          newName = `${name  }Main`;
-          this[newName] = new RegExp(`${pattern  })${  words}`, "ig");
+          newName = `${name}Main`;
+          this[newName] = new RegExp(`${pattern})${words}`, "ig");
           break;
 
         case 1:
-          newName = `${name  }Alt1`;
+          newName = `${name}Alt1`;
           this[newName] = new RegExp(pattern + oneColumn + words, "ig");
           break;
 
         case 2:
-          newName = `${name  }Alt2`;
+          newName = `${name}Alt2`;
           this[newName] = new RegExp(pattern + twoColumns + words, "ig");
           break;
 
         case 3:
-          newName = `${name  }Alt3`;
+          newName = `${name}Alt3`;
           this[newName] = new RegExp(pattern + threeColumns + words, "ig");
+          break;
+
+        default:
           break;
       }
     }

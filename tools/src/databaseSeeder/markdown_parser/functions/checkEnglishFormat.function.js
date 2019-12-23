@@ -6,7 +6,7 @@
 
 // void objects are impossible because not returned from checkEnAlternative function
 
-exports.checkEnFormat = function(wordObject) {
+const checkEnglishFormat = (wordObject) => {
   if (
     !wordObject.hasOwnProperty("acceptedForms") ||
     !wordObject.acceptedForms.length
@@ -97,3 +97,5 @@ exports.checkEnFormat = function(wordObject) {
   }
   return true;
 };
+
+export default checkEnglishFormat

@@ -4,12 +4,12 @@ const { Schema } = mongoose;
 
 const wordSchema = new Schema({
   english: {
-    reference: { type: String, required: true },
-    forms: { type: Array, required: true },
+    name: { type: String, required: true },
+    words: { type: Array, required: true },
   },
   french: {
-    reference: { type: String, required: true },
-    forms: { type: Array, required: true },
+    name: { type: String, required: true },
+    words: { type: Array, required: true },
   },
   hasUniqueForm: { type: Boolean, required: false },
   type: { type: String, required: true },

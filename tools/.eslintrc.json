@@ -1,0 +1,19 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": ["eslint:recommended", "airbnb", "prettier/babel", "plugin:mocha/recommended", "plugin:prettier/recommended"],
+  "plugins": ["mocha", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    // "consistent-return": "off",
+    "no-console": ["error", { "allow": ["warn", "info", "error", "debug"] }]
+  }
+}

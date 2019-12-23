@@ -4,25 +4,25 @@ const regex = require("../markdownRegex");
 // if data is not null, returns an object with properly formatted data
 // however data still needs validation, done by checkFrFormat function
 
-exports.checkFrAlternative = function(altName, document) {
-  let mascSingRegex = regex["frMascSing" + altName];
-  let mascPlurRegex = regex["frMascPlur" + altName];
-  let femSingRegex = regex["frFemSing" + altName];
-  let femPlurRegex = regex["frFemPlur" + altName];
-  let uniqueFormRegex = regex["frUnique" + altName];
-  let isLApostropheRegex = regex["LApostrophe" + altName];
-  let acceptedForms = [];
-  let result = {};
+const checkFrenchAlternative = (altName, document) => {
+  const mascSingRegex = regex[`frMascSing${altName}`];
+  const mascPlurRegex = regex[`frMascPlur${altName}`];
+  const femSingRegex = regex[`frFemSing${altName}`];
+  const femPlurRegex = regex[`frFemPlur${altName}`];
+  const uniqueFormRegex = regex[`frUnique${altName}`];
+  const isLApostropheRegex = regex[`LApostrophe${altName}`];
+  const acceptedForms = [];
+  const result = {};
 
-  let forms = [
+  const forms = [
     ["masc_sing", mascSingRegex],
     ["masc_plur", mascPlurRegex],
     ["fem_sing", femSingRegex],
     ["fem_plur", femPlurRegex],
-    ["uniqueForm", uniqueFormRegex]
+    ["uniqueForm", uniqueFormRegex],
   ];
-  for (let [form, formRegex] of forms) {
-    let match = document.match(formRegex);
+  for (const [form, formRegex] of forms) {
+    const match = document.match(formRegex);
     if (match) {
       acceptedForms.push(form);
       result[form] = match[0];
@@ -30,7 +30,7 @@ exports.checkFrAlternative = function(altName, document) {
   }
 
   if (Object.keys(result).length) {
-    let lApostropheMatch = document.match(isLApostropheRegex);
+    const lApostropheMatch = document.match(isLApostropheRegex);
     if (lApostropheMatch) {
       result.isLApostrophe = true;
     }
@@ -39,3 +39,5 @@ exports.checkFrAlternative = function(altName, document) {
   }
   return false;
 };
+
+export default checkFrenchAlternative;
