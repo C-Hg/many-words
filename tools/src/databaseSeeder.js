@@ -1,12 +1,12 @@
 import {
   gatherData
-} from "./database_seeder/markdown_fetching_functions/gatherData.function";
+} from "./databaseSeeder/markdown_fetching_functions/gatherData.function";
 import {
   clearDatabase
-} from "./database_seeder/database_controllers/clearDatabase.controller";
+} from "./databaseSeeder/database_controllers/clearDatabase.controller";
 import {
   seedWordsInDatabase
-} from "./database_seeder/database_controllers/seedWordsInDatabase.controller";
+} from "./databaseSeeder/database_controllers/seedWordsInDatabase.controller";
 // the exercises directory is accessible from this directory thanks to the docker-compose configuration
 import curriculumDirectory from "./exercises/FR-EN";
 import secrets from "./secrets"
@@ -34,13 +34,13 @@ db.once("open", async () => {
   let endTime = new Date();
   console.log(
     "\033[1;32m" + `Completion time : ${endTime - startTime} ms.` + "\033[0;0m"
-  )
+  );
 
   db.close(() => {
     console.log("Connection to the database closed");
     process.exit()
-  });
-});
+  })
+})
 
 const seedDatabase = async () =>{
   let words, result;

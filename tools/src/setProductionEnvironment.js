@@ -9,7 +9,7 @@ fs.copyFile("../../config_many-words/.env", "../.env", error => {
       "\033[1;31m"
       + "[setProductionEnvironment] cannot copy .env file"
       + "\033[0;0m\n", error
-    );
+    )
     return
   }
   console.info(

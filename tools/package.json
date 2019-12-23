@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node database_seeder.js",
-    "database_seeder": "node databaseSeeder.js",
-    "word_counter": "node wordCounter.js"
+    "set_production_env": "cd src && node setProductionEnvironment",
+    "database_seeder": "cd src && node databaseSeeder.js",
+    "word_counter": "cd src && node wordCounter.js"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",

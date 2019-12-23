@@ -1,4 +1,4 @@
-const Word = require("../../common/models/word.model");
+import Word from "../../common/models/word.model";
 
 exports.clearDatabase = async function() {
   try {
@@ -8,6 +8,6 @@ exports.clearDatabase = async function() {
     if (e)
       console.log(
         "\033[1;31m" + "Error while clearing the database" + "\033[0;0m"
-      );
+      )
   }
 };

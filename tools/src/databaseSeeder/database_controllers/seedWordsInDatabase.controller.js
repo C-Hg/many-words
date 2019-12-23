@@ -1,4 +1,4 @@
-const Word = require("../../common/models/word.model");
+import Word from "../../common/models/word.model";
 
 exports.seedWordsInDatabase = async function(arrayOfWords) {
   try {

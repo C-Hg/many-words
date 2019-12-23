@@ -12,7 +12,7 @@ const getLessonAndTopic = path => {
     );
   }
 
-  return { lesson: matchedLesson[0], topic: matchedTopic[0]};
+  return { lesson: matchedLesson[0], topic: matchedTopic[0]}
 };
 
 export default getLessonAndTopic;
