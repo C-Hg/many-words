@@ -5,16 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "node database_seeder.js",
-    "database_seeder": "node database_seeder.js",
-    "word_counter": "node word_counter.js"
+    "database_seeder": "node databaseSeeder.js",
+    "word_counter": "node wordCounter.js"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.7.7",
     "mongodb": "^3.3.0",
     "mongoose": "^5.6.9"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/node": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
     "dotenv": "^6.2.0"
   }
 }

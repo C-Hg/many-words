@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 
 // copy server secrets for production from the config folder
 // docker-compose needs a .env file at runtime

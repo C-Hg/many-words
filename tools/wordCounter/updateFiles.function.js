@@ -8,13 +8,13 @@ module.exports = async function updateFiles(
   // destination directories
   const directories = [
     "../server/exercises/FR-EN/",
-    "../client/src/exercises/"
+    "../client/src/exercises/",
   ];
 
   const data = {
     lessonsByThemes,
     themes,
-    wordCountByLesson
+    wordCountByLesson,
   };
 
   // write the 3 files necessary to the client and server

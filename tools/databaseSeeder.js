@@ -1,15 +1,15 @@
-const {
+import {
   gatherData
-} = require("./database_seeder/markdown_fetching_functions/gatherData.function");
-const {
+} from "./database_seeder/markdown_fetching_functions/gatherData.function";
+import {
   clearDatabase
-} = require("./database_seeder/database_controllers/clearDatabase.controller");
-const {
+} from "./database_seeder/database_controllers/clearDatabase.controller";
+import {
   seedWordsInDatabase
-} = require("./database_seeder/database_controllers/seedWordsInDatabase.controller");
+} from "./database_seeder/database_controllers/seedWordsInDatabase.controller";
 // the exercises directory is accessible from this directory thanks to the docker-compose configuration
-const curriculumDirectory = "./exercises/FR-EN";
-const secrets = require("./secrets")
+import curriculumDirectory from "./exercises/FR-EN";
+import secrets from "./secrets"
 
 //Mongoose setup
 const mongoose = require("mongoose");
@@ -34,7 +34,7 @@ db.once("open", async () => {
   let endTime = new Date();
   console.log(
     "\033[1;32m" + `Completion time : ${endTime - startTime} ms.` + "\033[0;0m"
-  );
+  )
 
   db.close(() => {
     console.log("Connection to the database closed");
@@ -42,7 +42,7 @@ db.once("open", async () => {
   });
 });
 
-async function seedDatabase() {
+const seedDatabase = async () =>{
   let words, result;
   try {
     //returns an array of word objects

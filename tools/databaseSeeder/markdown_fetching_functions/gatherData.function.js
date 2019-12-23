@@ -1,7 +1,7 @@
 const { extractData } = require("../markdown_parser/markdownParser");
 const fileExplorer = require("../../common/fs_explorers/getFiles.function");
 const { readMdFile } = require("./readMarkdownFile.function");
-const getLessonAndTheme = require("../../common/getLessonAndTheme.function");
+const getLessonAndTopic = require("../../common/getLessonAndTopic.function");
 
 //returns an array of word objects from markdown documents
 exports.gatherData = async function(directory) {
@@ -17,7 +17,7 @@ exports.gatherData = async function(directory) {
   }
 
   for (const path of wordFilesPaths) {
-    let lessonAndTheme = getLessonAndTheme(path);
+    const { lesson, topic } = getLessonAndTopic(path);
     if (!lessonAndTheme[0] || !lessonAndTheme[1]) {
       console.log(
         "\033[1;31m" + "Error while getting lesson or theme name" + "\033[0;0m"

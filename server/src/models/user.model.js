@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 const userSchema = new Schema(
   {
     email: { type: String, required: true },
-    name: { type: String, required: false },
     googleId: { type: String, required: false },
     stats: {
       type: Schema.Types.Mixed,

@@ -8,7 +8,7 @@ const englishArticles = {
     plur: "",
   },
 };
-// TODO: use CONSTANTS for definite e.g. ?
+
 const getEnglishArticle = (englishForm, isDefinite, isAn) => {
   if (isAn && !isDefinite && englishForm === "sing") {
     return "an";

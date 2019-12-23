@@ -1,8 +1,8 @@
-const countWords = require("./word_counter/countWords.function");
-const fileExplorer = require("./common/fs_explorers/getFiles.function");
-const getLessonAndTheme = require("./common/getLessonAndTheme.function");
-const updateFiles = require("./word_counter/updateFiles.function");
-const secrets = require("./secrets")
+import fileExplorer from "./common/fs_explorers/getFiles.function";
+import countWords from "./wordCounter/countWords.function";
+import getLessonAndTheme from "./common/getLessonAndTheme.function";
+import updateFiles from "./wordCounter/updateFiles.function";
+import secrets from "./secrets"
 
 //Mongoose setup
 const mongoose = require("mongoose");
@@ -20,13 +20,13 @@ db.once("open", async () => {
   let endTime = new Date();
   console.log(
     "\033[1;32m" + `Completion time : ${endTime - startTime} ms.` + "\033[0;0m"
-  );
+  )
   db.close(() => {
     console.log("Connection to the database closed");
   });
 });
 
-async function countLessonsAndThemes() {
+const countLessonsAndThemes = async () => {
   const curriculumDirectory = "../exercises/FR-EN";
   let wordFilesPaths;
   let lessons = {};
@@ -80,7 +80,7 @@ async function countLessonsAndThemes() {
   }
 
   console.log("-----------   themes   -------------");
-  console.log(themes);
+  console.log(themes)
 
   //counting words for each lesson, inside a single object
   for (let theme in lessons) {

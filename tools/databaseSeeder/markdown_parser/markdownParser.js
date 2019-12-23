@@ -3,11 +3,11 @@ const regex = require("./markdownRegex");
 const { fetchEnWords } = require("./functions/fetchEnWords.function");
 const { fetchFrWords } = require("./functions/fetchFrWords.function");
 
-function word(enName, frName, hasUniqueForm, lessonAndTheme, type, en, fr) {
+function word(enName, frName, hasUniqueForm, lessonAndTopic, type, en, fr) {
   this.enName = enName;
   this.frName = frName;
-  this.lesson = lessonAndTheme[0];
-  this.theme = lessonAndTheme[1];
+  this.lesson = lessonAndTopic[0];
+  this.theme = lessonAndTopic[1];
   this.type = type;
   this.en = en;
   this.fr = fr;
@@ -19,7 +19,7 @@ function word(enName, frName, hasUniqueForm, lessonAndTheme, type, en, fr) {
 
 // this function is the main controller that retrieves data from a markdown document
 
-exports.extractData = function(document, lessonAndTheme) {
+const extractData = (document, lessonAndTopic) => {
   //general data : regex fetching
   let type = document.match(regex.type);
   let hasUniqueForm = document.match(regex.uniqueForm);
@@ -38,8 +38,8 @@ exports.extractData = function(document, lessonAndTheme) {
     !enName ||
     !frName ||
     !type ||
-    !lessonAndTheme[0] ||
-    !lessonAndTheme[1]
+    !lessonAndTopic[0] ||
+    !lessonAndTopic[1]
   ) {
     console.error("\033[1;31m" + "Required parameter missing" + "\033[0;0m");
     return false;
@@ -49,10 +49,12 @@ exports.extractData = function(document, lessonAndTheme) {
     enName[0],
     frName[0],
     hasUniqueForm[0],
-    lessonAndTheme,
+    lessonAndTopic,
     type[0],
     en_words,
     fr_words
   );
   return newWord;
 };
+
+export default extractData

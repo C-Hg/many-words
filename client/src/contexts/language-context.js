@@ -1,7 +1,6 @@
 import React from "react";
 
-// TODO: use camelCase
-
+// TODO: use camelCase for lessons and topics
 export const languages = {
   English: {
     language: "english",
