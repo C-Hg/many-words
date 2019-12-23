@@ -28,7 +28,7 @@ const WeakWords = props => {
           type="button"
           color={theme.colors.green}
         >
-          {language.navigation.weak_words}
+          {language.navigation.weakWords}
         </MainButton>
       </ButtonContainer>
     </NavigationLink>

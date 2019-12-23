@@ -27,7 +27,7 @@ const DeleteConfirmation = props => {
       <LanguageContext.Consumer>
         {({ home }) => (
           <div className="logoutInfo">
-            <h3 className="logoutText">{home.confirm_deletion}</h3>
+            <h3 className="logoutText">{home.confirmDeletion}</h3>
             <div className="deleteButtons">
               <button
                 onClick={confirmDeletion}
@@ -54,7 +54,7 @@ const DeleteConfirmation = props => {
       <LanguageContext.Consumer>
         {({ home }) => (
           <div className="logoutInfo">
-            <h3 className="logoutText">{home.delete_success}</h3>
+            <h3 className="logoutText">{home.deleteSuccess}</h3>
             <button
               onClick={acknowledgeAction}
               className="acknowledgeLogout ok"
@@ -71,7 +71,7 @@ const DeleteConfirmation = props => {
     <LanguageContext.Consumer>
       {({ home }) => (
         <div className="logoutInfo">
-          <h3 className="logoutText">{home.delete_waiting}</h3>
+          <h3 className="logoutText">{home.deleteWaiting}</h3>
         </div>
       )}
     </LanguageContext.Consumer>

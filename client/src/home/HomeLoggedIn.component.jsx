@@ -54,7 +54,7 @@ const HomeLoggedIn = props => {
       <NavigationLink to="/curriculum">
         <ButtonContainer large margin="80px auto 0 auto">
           <MainButton color={green} type="button">
-            {language.home.resume_learning}
+            {language.home.resumeLearning}
           </MainButton>
         </ButtonContainer>
       </NavigationLink>

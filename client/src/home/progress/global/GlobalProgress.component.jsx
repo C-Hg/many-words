@@ -18,7 +18,7 @@ const GlobalProgress = props => {
     <LanguageContext.Consumer>
       {({ home }) => (
         <VerticalFlexbox margin="30px 0 0 0">
-          <H1 margin="0 0 20px 0">{home.progress_title}</H1>
+          <H1 margin="0 0 20px 0">{home.progressTitle}</H1>
           {globalPercentage && <ProgressBar progress={globalPercentage} />}
           <DetailledStatsContainer>
             <DetailledProgress statsToShow="words" />

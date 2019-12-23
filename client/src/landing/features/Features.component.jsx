@@ -18,15 +18,15 @@ const Features = props => {
         <StyledFeatures>
           <StyledFeature>
             <AllInclusive title="free" size={iconSize} color={darkBlue} />
-            <H3>{home.features_free}</H3>
+            <H3>{home.featuresFree}</H3>
           </StyledFeature>
           <StyledFeature>
             <Spellcheck title="check" size={iconSize} color={darkBlue} />
-            <H3>{home.features_words}</H3>
+            <H3>{home.featuresWords}</H3>
           </StyledFeature>
           <StyledFeature>
             <Stars title="stars" size={iconSize} color={darkBlue} />
-            <H3>{home.features_progress}</H3>
+            <H3>{home.featuresProgress}</H3>
           </StyledFeature>
         </StyledFeatures>
       )}

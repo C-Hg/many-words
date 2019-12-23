@@ -28,7 +28,7 @@ const Landing = () => {
     <AppContainer withNavbar>
       <HomeNavbar />
       <ScrollToTopOnMount />
-      <LandingTitle>{home.main_title}</LandingTitle>
+      <LandingTitle>{home.mainTitle}</LandingTitle>
       <Features />
       <H2 margin="30px 15px 0 15px">{home.register}</H2>
       <Centered margin="40px 0 0 0">
@@ -40,7 +40,7 @@ const Landing = () => {
         <NavigationLink to="/curriculum">
           <ButtonContainer large margin="40px 0 0 0">
             <MainButton color={darkBlue} type="button">
-              {home.discover_button}
+              {home.discoverButton}
             </MainButton>
           </ButtonContainer>
         </NavigationLink>

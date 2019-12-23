@@ -20,7 +20,7 @@ const LogoutConfirmation = props => {
       <LanguageContext.Consumer>
         {({ home }) => (
           <div className="logoutInfo">
-            <h3 className="logoutText">{home.logout_success}</h3>
+            <h3 className="logoutText">{home.logoutSuccess}</h3>
             <button
               onClick={acknowledgeAction}
               className="acknowledgeLogout ok"
@@ -37,7 +37,7 @@ const LogoutConfirmation = props => {
     <LanguageContext.Consumer>
       {({ home }) => (
         <div className="logoutInfo">
-          <h3 className="logoutText">{home.logout_progress}</h3>
+          <h3 className="logoutText">{home.logoutProgress}</h3>
         </div>
       )}
     </LanguageContext.Consumer>

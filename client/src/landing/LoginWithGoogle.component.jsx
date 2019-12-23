@@ -42,7 +42,7 @@ const LoginWithGoogle = props => {
             color={theme.colors.googleRed}
           >
             <Google size="18" />
-            {`${language.navigation.login_with} Google`}
+            {`${language.navigation.loginWith} Google`}
           </MainButton>
         </ButtonContainer>
       )}
