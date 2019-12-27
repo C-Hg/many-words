@@ -6,15 +6,12 @@ import fs from "fs";
 fs.copyFile("../../config_many-words/.env", "../.env", error => {
   if (error) {
     console.error(
-      "\033[1;31m"
-      + "[setProductionEnvironment] cannot copy .env file"
-      + "\033[0;0m\n", error
-    )
-    return
+      `\\033[1;31m[setProductionEnvironment] cannot copy .env file\\033[0;0m\n`,
+      error
+    );
+    return;
   }
   console.info(
-    "\033[1;32m" +
-    "[setProductionEnvironment] successfully set .env file" +
-    "\033[0;0m"
+    `\\033[1;32m[setProductionEnvironment] successfully set .env file\\033[0;0m`
   );
 });

@@ -1,96 +1,95 @@
 import fileExplorer from "./common/fs_explorers/getFiles.function";
 import countWords from "./wordCounter/countWords.function";
-import getLessonAndTheme from "./common/getLessonAndTheme.function";
+import getLessonAndTopic from "./common/getLessonAndTopic.function";
 import updateFiles from "./wordCounter/updateFiles.function";
-import secrets from "./secrets"
+import secrets from "./secrets";
 
-//Mongoose setup
+// Mongoose setup
 const mongoose = require("mongoose");
+
 mongoose.connect(secrets.MONGO_URI || "mongodb://mongo:27017/many-words", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
 });
 mongoose.Promise = global.Promise;
-//Get the default connection
-let db = mongoose.connection;
+// Get the default connection
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 db.once("open", async () => {
-  let startTime = new Date();
-  console.log("Connected to database");
+  const startTime = new Date();
+  console.info("Connected to database");
   await countLessonsAndThemes();
-  let endTime = new Date();
-  console.log(
-    "\033[1;32m" + `Completion time : ${endTime - startTime} ms.` + "\033[0;0m"
-  )
+  const endTime = new Date();
+  console.info(
+    `\\033[1;32mCompletion time : ${endTime - startTime} ms.\\033[0;0m`
+  );
   db.close(() => {
-    console.log("Connection to the database closed");
+    console.info("Connection to the database closed");
   });
 });
 
 const countLessonsAndThemes = async () => {
   const curriculumDirectory = "../exercises/FR-EN";
   let wordFilesPaths;
-  let lessons = {};
-  let themes = [];
-  let wordCountByLesson = {};
+  const lessons = {};
+  const themes = [];
+  const wordCountByLesson = {};
 
   try {
     wordFilesPaths = await fileExplorer.getFilesPaths(curriculumDirectory);
   } catch (e) {
-    console.error(
-      "\033[1;31m" + "Error while getting file paths" + "\033[0;0m"
-    );
+    console.error(`\\033[1;31mError while getting file paths\\033[0;0m`);
     return;
   }
 
   for (const path of wordFilesPaths) {
-    let lessonAndTheme = getLessonAndTheme(path);
+    const lessonAndTheme = getLessonAndTopic(path);
     if (!lessonAndTheme[0] || !lessonAndTheme[1]) {
-      console.log(
-        "\033[1;31m" + "Error while getting lesson or theme name" + "\033[0;0m"
+      console.info(
+        `\\033[1;31mError while getting lesson or theme name\\033[0;0m`
       );
       return;
     }
 
     /*   ----- gathers lessons and themes with their word counts    ------ */
-    //lessons first
+    // lessons first
     if (!lessons.hasOwnProperty(lessonAndTheme[1])) {
       lessons[lessonAndTheme[1]] = [];
     } else {
       let lessonFound = false;
-      for (let lesson of lessons[lessonAndTheme[1]]) {
+      for (const lesson of lessons[lessonAndTheme[1]]) {
         if (lesson.includes(lessonAndTheme[0])) {
           lessonFound = true;
         }
       }
       if (!lessonFound) {
-        let wordCount = await countWords(lessonAndTheme[0]);
+        const wordCount = await countWords(lessonAndTheme[0]);
         lessons[lessonAndTheme[1]].push([lessonAndTheme[0], wordCount]);
       }
     }
   }
   // TO DO : not automatically updating the file in server package : copy-paste for now
-  console.log(lessons);
+  console.info(lessons);
 
-  //then reducing to themes, outside of the getLessonAndTheme for loop
-  for (let theme in lessons) {
-    let totalCount = lessons[theme].reduce((acc, val) => {
+  // then reducing to themes, outside of the getLessonAndTopic for loop
+  for (const theme in lessons) {
+    const totalCount = lessons[theme].reduce((acc, val) => {
       return acc + val[1];
     }, 0);
     themes.push([theme, totalCount, lessons[theme].length]);
   }
 
-  console.log("-----------   themes   -------------");
-  console.log(themes)
+  console.info("-----------   themes   -------------");
+  console.info(themes);
 
-  //counting words for each lesson, inside a single object
-  for (let theme in lessons) {
-    for (let lesson of lessons[theme]) {
+  // counting words for each lesson, inside a single object
+  for (const theme in lessons) {
+    for (const lesson of lessons[theme]) {
       wordCountByLesson[lesson[0]] = lesson[1];
     }
   }
 
-  console.log("-----------   word counts  -------------");
-  console.log(wordCountByLesson);
+  console.info("-----------   word counts  -------------");
+  console.info(wordCountByLesson);
 
   updateFiles(lessons, themes, wordCountByLesson);
-}
+};

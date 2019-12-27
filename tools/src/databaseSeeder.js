@@ -1,4 +1,4 @@
-import { gatherData } from "./databaseSeeder/gatherData.function";
+import gatherData from "./databaseSeeder/gatherData.function";
 import clearDatabase from "./databaseSeeder/clearDatabase.function";
 import seedWordsInDatabase from "./databaseSeeder/seedWordsInDatabase.function";
 import secrets from "./secrets";

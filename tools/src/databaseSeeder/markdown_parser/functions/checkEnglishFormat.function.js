@@ -6,55 +6,42 @@
 
 // void objects are impossible because not returned from checkEnAlternative function
 
-const checkEnglishFormat = (wordObject) => {
-  if (
-    !wordObject.hasOwnProperty("acceptedForms") ||
-    !wordObject.acceptedForms.length
-  ) {
+const checkEnglishFormat = englishWord => {
+  const { acceptedForms, singular, plural, uniqueForm } = englishWord;
+  if (!acceptedForms || !acceptedForms.length) {
     console.error(
-      "\033[1;31m" +
-        "Error : no 'acceptedForms' property in EN word object" +
-        "\033[0;0m"
+      `\\033[1;31m[CheckEnglishFormat] : no 'acceptedForms' property for ${englishWord}\\033[0;0m`
     );
     return false;
   }
-  if (
-    (wordObject.hasOwnProperty("sing") || wordObject.hasOwnProperty("plur")) &&
-    wordObject.hasOwnProperty("uniqueForm")
-  ) {
+  if ((!singular || !plural) && !uniqueForm) {
     console.error(
-      "\033[1;31m" +
-        "Error : a EN word cannot have a unique form AND sing and/or plur form" +
-        "\033[0;0m"
+      `\\033[1;31m[CheckEnglishFormat] : an English word cannot have a unique form AND sing and/or plur form, ${englishWord}\\033[0;0m`
     );
     return false;
   }
 
   // checks that fields are not empty
-  if (wordObject.hasOwnProperty("sing")) {
-    if (!wordObject.hasOwnProperty("plur")) {
+  if (singular) {
+    if (plural) {
       console.error(
-        "\033[1;31m" +
-          "Error : property sing but no property plur" +
-          "\033[0;0m"
+        `\\033[1;31m[CheckEnglishFormat] : singular without plural ${englishWord}\\033[0;0m`
       );
       return false;
     }
     if (
-      !wordObject.acceptedForms.includes("sing") ||
-      !wordObject.acceptedForms.includes("plur") ||
-      wordObject.acceptedForms.length != 2
+      !acceptedForms.includes("singular") ||
+      !acceptedForms.includes("plural") ||
+      acceptedForms.length !== 2
     ) {
       console.error(
-        "\033[1;31m" +
-          "Error : acceptedForms property not matching sing/plur" +
-          "\033[0;0m"
+        `\\033[1;31m[CheckEnglishFormat] acceptedForms property not matching singular/plural, ${englishWord}\\033[0;0m`
       );
       return false;
     }
-    if (wordObject.sing === "") {
+    if (singular === "") {
       console.error(
-        "\033[1;31m" + "Error : empty 'sing' property" + "\033[0;0m"
+        `\\033[1;31m[CheckEnglishFormat] empty 'singular' property, ${englishWord}\\033[0;0m`
       );
       return false;
     }
@@ -62,35 +49,30 @@ const checkEnglishFormat = (wordObject) => {
 
   // checks that mutually exclusive properties are not present
   // and that acceptedForms matches the registered forms
-  if (wordObject.hasOwnProperty("plur")) {
-    if (!wordObject.hasOwnProperty("sing")) {
+  if (plural) {
+    if (!singular) {
       console.error(
-        "\033[1;31m" + "Error : property plur but no propert sing" + "\033[0;0m"
+        `\\033[1;31m[CheckEnglishFormat] plural without singular, ${englishWord}\\033[0;0m`
       );
       return false;
     }
-    if (wordObject.plur === "") {
+    if (plural === "") {
       console.error(
-        "\033[1;31m" + "Error : empty 'plur' property" + "\033[0;0m"
+        `\\033[1;31m[CheckEnglishFormat] empty 'plural' property, ${englishWord}\\033[0;0m`
       );
       return false;
     }
   }
-  if (wordObject.hasOwnProperty("uniqueForm")) {
-    if (
-      wordObject.acceptedForms[0] != "uniqueForm" ||
-      wordObject.acceptedForms[0] > 1
-    ) {
+  if (uniqueForm) {
+    if (acceptedForms[0] !== "uniqueForm" || acceptedForms[0] > 1) {
       console.error(
-        "\033[1;31m" +
-          "Error : acceptedForms not matching uniqueForm" +
-          "\033[0;0m"
+        `\\033[1;31m[CheckEnglishFormat] acceptedForms not matching uniqueForm, ${englishWord}\\033[0;0m`
       );
       return false;
     }
-    if (wordObject.uniqueForm === "") {
+    if (uniqueForm === "") {
       console.error(
-        "\033[1;31m" + "Error : empty 'uniqueForm' property" + "\033[0;0m"
+        `\\033[1;31m[CheckEnglishFormat] empty 'uniqueForm' property, ${englishWord}\\033[0;0m`
       );
       return false;
     }
@@ -98,4 +80,4 @@ const checkEnglishFormat = (wordObject) => {
   return true;
 };
 
-export default checkEnglishFormat
+export default checkEnglishFormat;

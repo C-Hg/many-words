@@ -15,7 +15,6 @@ Name :
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
 | unique form |      |       |       |       |
-| \*an        |      |       |       |       |
 
 ---
 
@@ -30,7 +29,6 @@ Name :
 | fem_sing    |      |       |       |       |
 | fem_plur    |      |       |       |       |
 | unique_form |      |       |       |       |
-| \*l'        |      |       |       |       |
 
 ---
 

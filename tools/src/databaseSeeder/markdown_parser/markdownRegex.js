@@ -21,7 +21,6 @@ const threeColumns = wordsOrNot + columnOpen + twoColumns;
 const singular = "(?<=singular\\s*\\|\\s*";
 const plural = "(?<=plural\\s*\\|\\s*";
 const enUnique = "(?<=unique\\sform\\s*\\|\\s*";
-const isAn = "(?<=\\\\*an\\s*\\|\\s*";
 
 // FR
 const frMascSing = "(?<=masc_sing\\s*\\|\\s*";
@@ -29,7 +28,6 @@ const frMascPlur = "(?<=masc_plur\\s*\\|\\s*";
 const frFemSing = "(?<=fem_sing\\s*\\|\\s*";
 const frFemPlur = "(?<=fem_plur\\s*\\|\\s*";
 const frUnique = "(?<=unique_form\\s*\\|\\s*";
-const LApostrophe = "(?<=\\\\*l'\\s*\\|\\s*";
 
 const regex = {
   // general data
@@ -85,7 +83,6 @@ const regex = {
 regex.createRegex("enSing", singular);
 regex.createRegex("enPlur", plural);
 regex.createRegex("enUnique", enUnique);
-regex.createRegex("isAn", isAn);
 
 // FR
 regex.createRegex("frMascSing", frMascSing);
@@ -93,6 +90,5 @@ regex.createRegex("frMascPlur", frMascPlur);
 regex.createRegex("frFemSing", frFemSing);
 regex.createRegex("frFemPlur", frFemPlur);
 regex.createRegex("frUnique", frUnique);
-regex.createRegex("LApostrophe", LApostrophe);
 
 module.exports = regex;

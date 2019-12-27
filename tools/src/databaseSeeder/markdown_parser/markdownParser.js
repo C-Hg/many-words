@@ -1,7 +1,7 @@
 // fr.isLApostrophe and en.isArticleAn should be written ONLY IF TRUE
 import regex from "./markdownRegex";
-import { fetchEnWords } from "./functions/fetchEnWords.function";
-import { fetchFrWords } from "./functions/fetchFrWords.function";
+import fetchEnglishWords from "./functions/fetchEnglishWords.function";
+import fetchFrenchWords from "./functions/fetchFrenchWords.function";
 
 // this function is the main controller that retrieves data from a markdown document
 
@@ -12,11 +12,11 @@ const extractData = (document, lesson, topic) => {
 
   // EN data
   const englishName = document.match(regex.englishName);
-  const englishWords = fetchEnWords(document); // gathering and validating data
+  const englishWords = fetchEnglishWords(document); // gathering and validating data
 
   // FR data
   const frenchName = document.match(regex.frenchName);
-  const frenchWords = fetchFrWords(document);
+  const frenchWords = fetchFrenchWords(document);
 
   if (
     !englishWords ||

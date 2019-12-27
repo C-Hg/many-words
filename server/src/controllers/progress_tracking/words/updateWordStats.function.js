@@ -7,7 +7,7 @@ const updateWordStats = async (updatedWordStats, userId) => {
         { enName: wordStats.enName, userId },
         wordStats,
         {
-          upsert: true
+          upsert: true,
         }
       );
     });

@@ -5,31 +5,27 @@ const regex = require("../markdownRegex");
 // however data still needs validation, done by checkEnFormat function
 
 const checkEnglishAlternative = (altName, document) => {
-  const singRegex = regex[`enSing${altName}`];
-  const plurRegex = regex[`enPlur${altName}`];
+  const singularRegex = regex[`enSing${altName}`];
+  const pluralRegex = regex[`enPlur${altName}`];
   const uniqueFormRegex = regex[`enUnique${altName}`];
-  const isAnRegex = regex[`isAn${altName}`];
   const acceptedForms = [];
   const result = {};
 
   const forms = [
-    ["sing", singRegex],
-    ["plur", plurRegex],
+    ["singular", singularRegex],
+    ["plural", pluralRegex],
     ["uniqueForm", uniqueFormRegex],
   ];
-  for (const [form, formRegex] of forms) {
+  forms.forEach(([form, formRegex]) => {
     const match = document.match(formRegex);
     if (match) {
       acceptedForms.push(form);
+      // eslint-disable-next-line prefer-destructuring
       result[form] = match[0];
     }
-  }
+  });
 
   if (Object.keys(result).length) {
-    const anMatch = document.match(isAnRegex);
-    if (anMatch) {
-      result.isArticleAn = true;
-    }
     result.acceptedForms = acceptedForms;
     return result;
   }
