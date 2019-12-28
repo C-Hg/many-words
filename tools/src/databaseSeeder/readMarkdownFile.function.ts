@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 
 const readMdFile = async path => {
   return new Promise((resolve, reject) => {

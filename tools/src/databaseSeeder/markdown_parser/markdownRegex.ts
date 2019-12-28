@@ -6,6 +6,8 @@
  the regex 'words' allow us to do so without limit, though it should not exceed 3 or 4
 */
 
+// TODO: clean this file
+
 // common
 const allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
 const words = `${allLettersAndNumbers}(?:\\s${allLettersAndNumbers})*`;
@@ -48,7 +50,7 @@ const regex = {
 
   // creates the regex to match the word inside the column
   // e.g. frMascSingMain, frMascSingAlt1 ...
-  createRegex(name, pattern) {
+  createRegex(name: string, pattern: string): void {
     let newName;
     for (let a = 0; a < 4; a += 1) {
       switch (a) {
@@ -91,4 +93,4 @@ regex.createRegex("frFemSing", frFemSing);
 regex.createRegex("frFemPlur", frFemPlur);
 regex.createRegex("frUnique", frUnique);
 
-module.exports = regex;
+export default regex;

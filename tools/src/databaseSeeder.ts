@@ -1,12 +1,14 @@
-import gatherData from "./databaseSeeder/gatherData.function";
+import mongoose from "mongoose";
+
 import clearDatabase from "./databaseSeeder/clearDatabase.function";
 import seedWordsInDatabase from "./databaseSeeder/seedWordsInDatabase.function";
 import secrets from "./secrets";
+import gatherData from "./databaseSeeder/gatherData.function";
 
 // the exercises directory is accessible from this directory thanks to the docker-compose configuration
 const curriculumDirectory = "./exercises/FR-EN";
 
-const seedDatabase = async () => {
+const seedDatabase = async (): Promise<void> => {
   let words;
   let result;
   try {
@@ -61,7 +63,6 @@ const seedDatabase = async () => {
 };
 
 // Mongoose setup
-const mongoose = require("mongoose");
 
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -80,10 +81,10 @@ db.on("error", () => {
   }, 20000);
 });
 db.once("open", async () => {
-  const startTime = new Date();
+  const startTime = Date.now();
   console.info("Connected to database");
   await seedDatabase();
-  const endTime = new Date();
+  const endTime = Date.now();
   console.info(
     `\\033[1;32m` +
       `Completion time : ${endTime - startTime} ms.` +

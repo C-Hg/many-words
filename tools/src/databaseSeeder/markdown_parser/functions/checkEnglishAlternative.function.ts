@@ -1,4 +1,4 @@
-const regex = require("../markdownRegex");
+import regex from "../markdownRegex";
 
 // this function fetches the data from a given column in the EN table of the Markdown document
 // if data is not null, returns an object with properly formatted data

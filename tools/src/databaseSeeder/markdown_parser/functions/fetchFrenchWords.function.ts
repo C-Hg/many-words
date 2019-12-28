@@ -1,5 +1,5 @@
-const { checkFrenchAlternative } = require("./checkFrenchAlternative.function");
-const { checkFrenchFormat } = require("./checkFrenchFormat.function");
+import checkFrenchAlternative from "./checkFrenchAlternative.function";
+import checkFrenchFormat from "./checkFrenchFormat.function";
 
 // successively collects the words from the FR columns
 // however if the main column is valid, there is no way to distinguish a formatting error

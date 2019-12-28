@@ -1,4 +1,4 @@
-import Word from "../common/models/word.model";
+import Word from "../common/models/word.model"
 
 const seedWordsInDatabase = async arrayOfWords => {
   try {
@@ -9,7 +9,7 @@ const seedWordsInDatabase = async arrayOfWords => {
       error
     );
   }
-  return null;
+  return null
 };
 
 export default seedWordsInDatabase;

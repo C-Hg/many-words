@@ -4,10 +4,10 @@
   "description": "Tools suite for managing Many-Words server and exercises",
   "main": "index.js",
   "scripts": {
-    "start": "node database_seeder.js",
-    "set_production_env": "cd src && node setProductionEnvironment",
-    "database_seeder": "cd src && node databaseSeeder.js",
-    "word_counter": "cd src && node wordCounter.js"
+    "start": "cd src && babel-node --extensions '.ts' databaseSeeder.ts",
+    "set_production_env": "cd src && babel-node --extensions '.ts' setProductionEnvironment",
+    "database_seeder": "cd src && babel-node --extensions '.ts' databaseSeeder.js",
+    "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.js"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
@@ -22,6 +22,12 @@
     "@babel/node": "^7.7.7",
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.7",
-    "dotenv": "^6.2.0"
+    "@babel/preset-typescript": "^7.7.7",
+    "@types/mongoose": "^5.5.36",
+    "@types/node": "^13.1.1",
+    "@typescript-eslint/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/parser": "^2.13.0",
+    "dotenv": "^6.2.0",
+    "typescript": "^3.7.4"
   }
 }

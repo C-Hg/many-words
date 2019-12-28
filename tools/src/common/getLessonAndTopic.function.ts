@@ -1,4 +1,5 @@
-const getLessonAndTopic = path => {
+// TODO: create interface for return type
+const getLessonAndTopic = (path: string) => {
   const lessonRegex = /\w+(?=\/[\w]+\.md)/gi;
   const topicRegex = /\w+(?=\/[\w]+\/[\w]+\.md)/gi;
   const matchedLesson = path.match(lessonRegex);

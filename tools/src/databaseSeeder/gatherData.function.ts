@@ -1,7 +1,7 @@
-const { extractData } = require("./markdown_parser/markdownParser");
-const fileExplorer = require("../common/fs_explorers/getFiles.function");
-const { readMdFile } = require("./readMarkdownFile.function");
-const getLessonAndTopic = require("../common/getLessonAndTopic.function");
+import extractData from "./markdown_parser/markdownParser";
+import fileExplorer from "../common/fs_explorers/getFiles.function";
+import readMdFile from "./readMarkdownFile.function";
+import getLessonAndTopic from "../common/getLessonAndTopic.function";
 
 // returns an array of word objects from markdown documents
 const gatherData = async directory => {

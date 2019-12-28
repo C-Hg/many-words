@@ -5,9 +5,11 @@ const {
   MONGO_INITDB_DATABASE,
 } = process.env;
 
-module.exports = {
+const secrets = {
   MONGO_URI:
     NODE_ENV === "production"
       ? `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@mongo:27017/${MONGO_INITDB_DATABASE}`
       : "mongodb://mongo:27017/many-words",
 };
+
+export default secrets
