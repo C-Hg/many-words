@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd src && babel-node --extensions '.ts' databaseSeeder.ts",
+    "check-types:dbSeeder": "cd src && npx ts-node databaseSeeder.ts",
     "set_production_env": "cd src && babel-node --extensions '.ts' setProductionEnvironment",
     "database_seeder": "cd src && babel-node --extensions '.ts' databaseSeeder.js",
     "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.js"
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "dotenv": "^6.2.0",
+    "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   }
 }

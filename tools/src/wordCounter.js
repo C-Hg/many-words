@@ -1,12 +1,11 @@
-import fileExplorer from "./common/fs_explorers/getFiles.function";
+import mongoose from "mongoose";
 import countWords from "./wordCounter/countWords.function";
 import getLessonAndTopic from "./common/getLessonAndTopic.function";
 import updateFiles from "./wordCounter/updateFiles.function";
 import secrets from "./secrets";
+import getFilesPaths from "./common/fs_explorers/getFiles.function";
 
 // Mongoose setup
-const mongoose = require("mongoose");
-
 mongoose.connect(secrets.MONGO_URI || "mongodb://mongo:27017/many-words", {
   useNewUrlParser: true,
 });
@@ -35,7 +34,7 @@ const countLessonsAndThemes = async () => {
   const wordCountByLesson = {};
 
   try {
-    wordFilesPaths = await fileExplorer.getFilesPaths(curriculumDirectory);
+    wordFilesPaths = await getFilesPaths(curriculumDirectory);
   } catch (e) {
     console.error(`\\033[1;31mError while getting file paths\\033[0;0m`);
     return;

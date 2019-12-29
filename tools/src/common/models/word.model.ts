@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import Word from "./word.interface";
 
 const { Schema } = mongoose;
 
-const wordSchema = new Schema({
+const WordSchema = new Schema({
   english: {
     name: { type: String, required: true },
     words: { type: Array, required: true },
@@ -11,10 +12,10 @@ const wordSchema = new Schema({
     name: { type: String, required: true },
     words: { type: Array, required: true },
   },
-  hasUniqueForm: { type: Boolean, required: false },
+  hasUniqueForm: { type: Boolean, required: true, default: false },
   type: { type: String, required: true },
   lesson: { type: String, required: true },
   topic: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Word", wordSchema);
+export default mongoose.model<Word>("Word", WordSchema);

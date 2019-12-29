@@ -1,9 +1,8 @@
 import Word from "../common/models/word.model";
 
-const clearDatabase = async () => {
+const clearDatabase = async (): Promise<void> => {
   try {
-    await Word.deleteMany();
-    return;
+    await Word.deleteMany({});
   } catch (error) {
     if (error)
       console.error(

@@ -25,7 +25,8 @@ const checkFrenchAlternative = (altName, document) => {
     if (match) {
       acceptedForms.push(form);
       if (form === "uniqueForm") {
-        [result[form]] = match;
+        // eslint-disable-next-line prefer-destructuring
+        result.uniqueForm = match[0];
       } else {
         const { number, gender } = form;
         if (result[number] === undefined) {
