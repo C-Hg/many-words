@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
+import FrenchForms from "./frenchForms.interface";
 
-// TODO: add an enum for accepted forms to allow strong typing, different for French/English
 export default interface FrenchWords extends Document {
   uniqueForm?: string;
   singular?: {
@@ -11,5 +11,5 @@ export default interface FrenchWords extends Document {
     masculine?: string;
     feminine?: string;
   };
-  acceptedForms: string[];
+  acceptedForms: (keyof FrenchForms)[];
 }

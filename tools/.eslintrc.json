@@ -18,6 +18,7 @@
     "prettier/babel",
     "prettier/@typescript-eslint",
     "plugin:@typescript-eslint/recommended",
+    "plugin:mocha/recommended",
     "plugin:prettier/recommended"],
   "plugins": ["mocha", "@typescript-eslint", "prettier"]
 }

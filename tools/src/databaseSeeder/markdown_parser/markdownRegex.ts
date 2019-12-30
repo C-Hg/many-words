@@ -6,7 +6,7 @@
  the regex 'words' allow us to do so without limit, though it should not exceed 3 or 4
 */
 
-// TODO: clean this file
+// TODO: clean this file and allow type infering
 
 // common
 const allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
