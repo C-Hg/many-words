@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 import FrenchForms from "./frenchForms.interface";
 
-export default interface FrenchWords extends Document {
+export default interface FrenchWord extends Document {
   uniqueForm?: string;
   singular?: {
     masculine?: string;

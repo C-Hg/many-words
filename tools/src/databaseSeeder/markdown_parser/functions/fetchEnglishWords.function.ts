@@ -5,11 +5,9 @@ import checkEnglishFormat from "./checkEnglishFormat.function";
 // however if the main column is valid, there is no way to distinguish a formatting error
 // in the following columns from void columns
 
-const recursivelyCheckAltColumns = (i, document, result) => {
-  const isAlternativeColumnFilled = checkEnglishAlternative(
-    `Alt${i}`,
-    document
-  );
+const recursivelyCheckAltColumns = (i: 1 | 2 | 3, document, result) => {
+  const column = `alt${i.toString()}`;
+  const isAlternativeColumnFilled = checkEnglishAlternative(column, document);
   if (isAlternativeColumnFilled) {
     if (checkEnglishFormat(isAlternativeColumnFilled)) {
       result.push(isAlternativeColumnFilled);
@@ -23,9 +21,9 @@ const recursivelyCheckAltColumns = (i, document, result) => {
 
 const fetchEnglishWords = document => {
   const enWords = [];
-  const main = checkEnglishAlternative("Main", document);
-  if (!main) return false;
-  if (!checkEnglishFormat(main)) return false;
+  const mainWord = checkEnglishAlternative("main", document);
+  if (!mainWord) return null;
+  if (!checkEnglishFormat(mainWord)) return false;
   enWords.push(main);
 
   const altWords = recursivelyCheckAltColumns(1, document, []);

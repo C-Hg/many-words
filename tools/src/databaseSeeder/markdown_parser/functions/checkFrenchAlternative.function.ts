@@ -1,24 +1,29 @@
-import regex from "../markdownRegex";
+import FrenchWord from "../../../common/models/frenchWord.interface";
+import getRegex from "../markdownRegex";
+import MarkdownColumns from "../markdownColumns.interface";
 
 // this function fetches the data from a given column in the FR table of the Markdown document
 // if data is not null, returns an object with properly formatted data
 // however data still needs validation, done by checkFrFormat function
 
-const checkFrenchAlternative = (altName, document) => {
-  const mascSingRegex = regex[`frMascSing${altName}`];
-  const mascPlurRegex = regex[`frMascPlur${altName}`];
-  const femSingRegex = regex[`frFemSing${altName}`];
-  const femPlurRegex = regex[`frFemPlur${altName}`];
-  const uniqueFormRegex = regex[`frUnique${altName}`];
+const checkFrenchAlternative = (
+  column: keyof MarkdownColumns,
+  document: string
+): Partial<FrenchWord> => {
+  const singularMasculineRegex = getRegex("frenchSingularMasculine", column);
+  const singularFeminineRegex = getRegex("frenchSingularFeminine", column);
+  const pluralMasculineRegex = getRegex("frenchPluralMasculine", column);
+  const pluralFeminineRegex = getRegex("frenchPluralFeminine", column);
+  const uniqueFormRegex = getRegex("frenchUniqueForm", column);
   const acceptedForms = [];
-  const result = {};
+  const result: Partial<FrenchWord> = {};
 
   const forms = [
     ["uniqueForm", uniqueFormRegex],
-    [{ number: "singular", gender: "masculine" }, mascSingRegex],
-    [{ number: "singular", gender: "feminine" }, femSingRegex],
-    [{ number: "plural", gender: "masculine" }, mascPlurRegex],
-    [{ number: "plural", gender: "feminine" }, femPlurRegex],
+    [{ number: "singular", gender: "masculine" }, singularMasculineRegex],
+    [{ number: "singular", gender: "feminine" }, singularFeminineRegex],
+    [{ number: "plural", gender: "masculine" }, pluralMasculineRegex],
+    [{ number: "plural", gender: "feminine" }, pluralFeminineRegex],
   ];
   forms.forEach(([form, formRegex]) => {
     const match = document.match(formRegex);
