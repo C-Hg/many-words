@@ -1,15 +1,15 @@
 import { Document } from "mongoose";
-import EnglishWords from "./englishWord.interface";
-import FrenchWords from "./frenchWord.interface";
+import EnglishWord from "./englishWord.interface";
+import FrenchWord from "./frenchWord.interface";
 
 export default interface Word extends Document {
   english: {
     name: string;
-    words: EnglishWords[];
+    words: EnglishWord[];
   };
   french: {
     name: string;
-    words: FrenchWords[];
+    words: FrenchWord[];
   };
   hasUniqueForm: boolean;
   type: string;

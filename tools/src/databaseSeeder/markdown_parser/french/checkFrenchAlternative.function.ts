@@ -1,5 +1,5 @@
 import FrenchWord from "../../../common/models/frenchWord.interface";
-import getRegex from "../markdownRegex";
+import getRegex from "../getRegex";
 import MarkdownColumns from "../markdownColumns.interface";
 
 // this function fetches the data from a given column in the FR table of the Markdown document
@@ -10,28 +10,41 @@ const checkFrenchAlternative = (
   column: keyof MarkdownColumns,
   document: string
 ): Partial<FrenchWord> => {
-  const singularMasculineRegex = getRegex("frenchSingularMasculine", column);
-  const singularFeminineRegex = getRegex("frenchSingularFeminine", column);
-  const pluralMasculineRegex = getRegex("frenchPluralMasculine", column);
-  const pluralFeminineRegex = getRegex("frenchPluralFeminine", column);
-  const uniqueFormRegex = getRegex("frenchUniqueForm", column);
+  const singularMasculineRegex = getRegex("frenchSingularMasculine");
+  const singularFeminineRegex = getRegex("frenchSingularFeminine");
+  const pluralMasculineRegex = getRegex("frenchPluralMasculine");
+  const pluralFeminineRegex = getRegex("frenchPluralFeminine");
+  const uniqueFormRegex = getRegex("frenchUniqueForm");
   const acceptedForms = [];
   const result: Partial<FrenchWord> = {};
 
   const forms = [
     ["uniqueForm", uniqueFormRegex],
-    [{ number: "singular", gender: "masculine" }, singularMasculineRegex],
-    [{ number: "singular", gender: "feminine" }, singularFeminineRegex],
-    [{ number: "plural", gender: "masculine" }, pluralMasculineRegex],
-    [{ number: "plural", gender: "feminine" }, pluralFeminineRegex],
+    [
+      { name: "singularMasculine", number: "singular", gender: "masculine" },
+      singularMasculineRegex,
+    ],
+    [
+      { name: "singularFeminine", number: "singular", gender: "feminine" },
+      singularFeminineRegex,
+    ],
+    [
+      { name: "pluralMasculine", number: "plural", gender: "masculine" },
+      pluralMasculineRegex,
+    ],
+    [
+      { name: "pluralMasculine", number: "plural", gender: "feminine" },
+      pluralFeminineRegex,
+    ],
   ];
+  // TODO: make this common with english as it is the same!
   forms.forEach(([form, formRegex]) => {
     const match = document.match(formRegex);
     if (match) {
       acceptedForms.push(form);
       if (form === "uniqueForm") {
         // eslint-disable-next-line prefer-destructuring
-        result.uniqueForm = match[0];
+        result.uniqueForm = match[1];
       } else {
         const { number, gender } = form;
         if (result[number] === undefined) {

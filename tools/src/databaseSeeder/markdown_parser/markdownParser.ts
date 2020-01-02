@@ -1,5 +1,5 @@
-import fetchEnglishWords from "./functions/fetchEnglishWords.function";
-import fetchFrenchWords from "./functions/fetchFrenchWords.function";
+import fetchEnglishWords from "./english/fetchEnglishWords.function";
+import fetchFrenchWords from "./french/fetchFrenchWords.function";
 import markdownRegex from "./constantRegex";
 import Word from "../../common/models/word.interface";
 

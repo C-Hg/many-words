@@ -3,13 +3,9 @@ import FrenchForms from "./frenchForms.interface";
 
 export default interface FrenchWord extends Document {
   uniqueForm?: string;
-  singular?: {
-    masculine?: string;
-    feminine?: string;
-  };
-  plural?: {
-    masculine?: string;
-    feminine?: string;
-  };
+  singularMasculine?: string;
+  singularFeminine?: string;
+  pluralMasculine?: string;
+  pluralFeminine?: string;
   acceptedForms: (keyof FrenchForms)[];
 }
