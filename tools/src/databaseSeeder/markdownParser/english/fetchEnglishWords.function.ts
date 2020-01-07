@@ -1,4 +1,4 @@
-import EnglishWord from "../../../common/models/englishWord.interface";
+import EnglishWord from "./englishWord.interface";
 import checkEnglishFormat from "./checkEnglishFormat.function";
 import getEnglishWordsFromMarkdown from "./getEnglishWordsFromMarkdown.function";
 

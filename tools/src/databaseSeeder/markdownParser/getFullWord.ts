@@ -1,11 +1,12 @@
 import fetchEnglishWords from "./english/fetchEnglishWords.function";
 import fetchFrenchWords from "./french/fetchFrenchWords.function";
-import markdownRegex from "./constantRegex";
-import Word from "../../common/models/word.interface";
+import markdownRegex from "./markdownRegex";
+import Word from "../models/word.interface";
 
-// this function is the main controller that retrieves data from a markdown document
-
-const extractData = (document: string, lesson: string, topic: string): Word => {
+/**
+ * gathers data from one markdown document
+ */
+const getFullWord = (document: string, lesson: string, topic: string): Word => {
   const {
     type: typeRegex,
     uniqueForm: uniqueFormRegex,
@@ -16,11 +17,11 @@ const extractData = (document: string, lesson: string, topic: string): Word => {
   const [type] = document.match(typeRegex);
   const [hasUniqueForm] = document.match(uniqueFormRegex);
 
-  // EN data
+  // English data
   const englishName = document.match(englishNameRegex);
   const englishWords = fetchEnglishWords(document); // gathering and validating data
 
-  // FR data
+  // French data
   const frenchName = document.match(frenchNameRegex);
   const frenchWords = fetchFrenchWords(document);
 
@@ -33,7 +34,9 @@ const extractData = (document: string, lesson: string, topic: string): Word => {
     !lesson ||
     !topic
   ) {
-    throw new Error(`\\033[1;31mRequired parameter missing\\033[0;0m`);
+    throw new Error(
+      `\\033[1;31m[getFullWord] Required parameter missing\\033[0;0m`
+    );
   }
 
   const newWord = {
@@ -53,4 +56,4 @@ const extractData = (document: string, lesson: string, topic: string): Word => {
   return newWord;
 };
 
-export default extractData;
+export default getFullWord;

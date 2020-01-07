@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
-import EnglishWord from "./englishWord.interface";
-import FrenchWord from "./frenchWord.interface";
+import EnglishWord from "../markdownParser/english/englishWord.interface";
+import FrenchWord from "../markdownParser/french/frenchWord.interface";
 
 export default interface Word extends Document {
   english: {

@@ -1,4 +1,4 @@
-import Word from "../common/models/word.model"
+import Word from "./models/word.model"
 
 const seedWordsInDatabase = async arrayOfWords => {
   try {

@@ -1,4 +1,4 @@
-import EnglishWord from "../../../common/models/englishWord.interface";
+import EnglishWord from "./englishWord.interface";
 
 // this function checks that the informations retrieved from the markdown file
 // are not mutually exclusive for a specific word

@@ -1,4 +1,4 @@
-import Word from "../common/models/word.model";
+import Word from "./models/word.model";
 
 const clearDatabase = async (): Promise<void> => {
   try {
@@ -6,7 +6,7 @@ const clearDatabase = async (): Promise<void> => {
   } catch (error) {
     if (error)
       console.error(
-        `\\033[1;31m Error while clearing the database\\033[0;0m`,
+        `\\033[1;31m[clearDatabase] Error while clearing the database\\033[0;0m`,
         error
       );
   }

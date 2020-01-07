@@ -1,5 +1,5 @@
-import extractData from "./markdown_parser/markdownParser";
-import fileExplorer from "../common/fs_explorers/getFiles.function";
+import extractData from "./markdownParser/getFullWord";
+import fileExplorer from "../common/getFiles.function";
 import readMdFile from "./readMarkdownFile.function";
 import getLessonAndTopic from "../common/getLessonAndTopic.function";
 

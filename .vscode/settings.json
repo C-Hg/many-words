@@ -1,0 +1,29 @@
+{
+    "cSpell.enabled": true,
+    "cSpell.showStatus": true,
+    "cSpell.language": "en,fr-FR",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+      ],
+    "eslint.alwaysShowStatus": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "git.confirmSync": false,
+    "todo-tree.highlights.enabled": true,
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "alert",
+        "type": "text",
+        "foreground": "white",
+        "background": "green",
+        "opacity": 50,
+        "iconColour": "green"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "explorer.confirmDelete": false,
+    "vsicons.dontShowNewVersionMessage": true,
+}

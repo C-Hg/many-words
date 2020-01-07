@@ -1,7 +1,7 @@
 /* descriptions of these regex
  the regex 'allLetters' allows to capture french accents like é, è or î 
  and composed words like 'après-midi'
- 
+
  we also want to capture words in several parts like 'to work'
  the regex 'words' allow us to do so without limit, though it should not exceed 3 or 4
 */
@@ -14,16 +14,20 @@ const oneColumn = words + columnSeparator;
 const matchFourWords = oneColumn.repeat(3) + words;
 
 // English
-const englishSingular = "(?<=singular\\s*\\|\\s*";
-const englishPlural = "(?<=plural\\s*\\|\\s*";
-const englishUniqueForm = "(?<=unique\\sform\\s*\\|\\s*";
+const englishFormsRegex = {
+  singular: RegExp(`(?<=singular\\s*\\|\\s*${matchFourWords}`, "i"),
+  plural: RegExp(`(?<=plural\\s*\\|\\s*${matchFourWords}`, "i"),
+  uniqueForm: RegExp(`(?<=unique\\sform\\s*\\|\\s*${matchFourWords}`, "i"),
+};
 
 // French
-const frenchSingularMasculine = "(?<=masc_sing\\s*\\|\\s*";
-const frenchSingularFeminine = "(?<=fem_sing\\s*\\|\\s*";
-const frenchPluralMasculine = "(?<=masc_plur\\s*\\|\\s*";
-const frenchPluralFeminine = "(?<=fem_plur\\s*\\|\\s*";
-const frenchUniqueform = "(?<=unique_form\\s*\\|\\s*";
+const frenchFormsRegex = {
+  singularMasculine: RegExp(`(?<=masc_sing\\s*\\|\\s*${matchFourWords}`, "i"),
+  singularFeminine: RegExp(`(?<=fem_sing\\s*\\|\\s*${matchFourWords}`, "i"),
+  pluralMasculine: RegExp(`(?<=masc_plur\\s*\\|\\s*${matchFourWords}`, "i"),
+  pluralFeminine: RegExp(`(?<=fem_plur\\s*\\|\\s*${matchFourWords}`, "i"),
+  uniqueForm: RegExp(`(?<=unique_form\\s*\\|\\s*${matchFourWords}`, "i"),
+};
 
 const uniqueForm = RegExp(`(?<=unique\\sform\\s*\\:\\s*)${words}`, "ig");
 const type = RegExp(`(?<=type\\s\\:\\s*)${words}(?=\\s*\\n*\\-\\-\\-)`, "ig");
@@ -37,14 +41,8 @@ const frenchName = RegExp(
 );
 
 const markdownRegex = {
-  englishSingular,
-  englishPlural,
-  englishUniqueForm,
-  frenchSingularMasculine,
-  frenchSingularFeminine,
-  frenchPluralMasculine,
-  frenchPluralFeminine,
-  frenchUniqueform,
+  englishFormsRegex,
+  frenchFormsRegex,
   matchFourWords,
   uniqueForm,
   type,
