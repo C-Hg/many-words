@@ -6,23 +6,38 @@ import Word from "../models/word.interface";
 /**
  * gathers data from one markdown document
  */
-const getFullWord = (document: string, lesson: string, topic: string): Word => {
+const getFullWord = (
+  document: string,
+  lesson: string,
+  topic: string
+): Partial<Word> => {
   const {
     type: typeRegex,
     uniqueForm: uniqueFormRegex,
     englishName: englishNameRegex,
     frenchName: frenchNameRegex,
   } = markdownRegex;
-  // general data : regex fetching
-  const [type] = document.match(typeRegex);
-  const [hasUniqueForm] = document.match(uniqueFormRegex);
+
+  let type;
+  let englishName;
+  let frenchName;
+  try {
+    const [matchType] = document.match(typeRegex);
+    const [matchEnglishName] = document.match(englishNameRegex);
+    const [matchFrenchName] = document.match(frenchNameRegex);
+    type = matchType;
+    englishName = matchEnglishName;
+    frenchName = matchFrenchName;
+  } catch (error) {
+    console.error(`[getFullWord] missing property, ${document}`);
+  }
+
+  // hasUniqueForm is optional in the markdown document, default to false
+  const matchHasUniqueForm = document.match(uniqueFormRegex);
+  const hasUniqueForm = matchHasUniqueForm !== null;
 
   // English data
-  const englishName = document.match(englishNameRegex);
   const englishWords = fetchEnglishWords(document); // gathering and validating data
-
-  // French data
-  const frenchName = document.match(frenchNameRegex);
   const frenchWords = fetchFrenchWords(document);
 
   if (
