@@ -7,7 +7,7 @@ import FrenchWord from "./frenchWord.interface";
 // void objects are impossible because not returned from checkFrAlternative function
 // checks that mutually exclusive properties are not present
 
-const checkFrenchFormat = (frenchWords: Partial<FrenchWord>[]): boolean => {
+const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
   frenchWords.forEach(frenchWord => {
     const {
       uniqueForm,

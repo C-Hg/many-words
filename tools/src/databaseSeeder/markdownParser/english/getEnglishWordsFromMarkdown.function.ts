@@ -12,11 +12,9 @@ const englishForms: (keyof EnglishForms)[] = [
  * Fetches the data from all columns in the English table of the Markdown document
  * Data still needs validation, done by checkEnglishFormat function
  */
-const getEnglishWordsFromMarkdown = (
-  document: string
-): Partial<EnglishWord>[] => {
+const getEnglishWordsFromMarkdown = (document: string): EnglishWord[] => {
   const { englishFormsRegex } = markdownRegex;
-  const englishWords: Partial<EnglishWord>[] = [];
+  const englishWords: EnglishWord[] = [];
 
   englishForms.forEach(form => {
     const words = document.match(englishFormsRegex[form]);

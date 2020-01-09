@@ -6,7 +6,7 @@ import EnglishWord from "./englishWord.interface";
 
 // void objects are impossible because not returned from checkEnAlternative function
 
-const checkEnglishFormat = (englishWords: Partial<EnglishWord>[]): boolean => {
+const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
   englishWords.forEach(englishWord => {
     const { acceptedForms, singular, plural, uniqueForm } = englishWord;
     if (!acceptedForms || !acceptedForms.length) {

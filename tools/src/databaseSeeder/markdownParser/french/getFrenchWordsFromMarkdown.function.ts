@@ -14,11 +14,9 @@ const frenchForms: (keyof FrenchForms)[] = [
  * Fetches the data from all columns in the French table of the Markdown document
  * Data still needs validation, done by checkFrenchFormat function
  */
-const getFrenchWordsFromMarkdown = (
-  document: string
-): Partial<FrenchWord>[] => {
+const getFrenchWordsFromMarkdown = (document: string): FrenchWord[] => {
   const { frenchFormsRegex } = markdownRegex;
-  const frenchWords: Partial<FrenchWord>[] = [];
+  const frenchWords: FrenchWord[] = [];
 
   frenchForms.forEach(form => {
     const words = document.match(frenchFormsRegex[form]);

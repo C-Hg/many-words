@@ -2,15 +2,12 @@ import fetchEnglishWords from "./english/fetchEnglishWords.function";
 import fetchFrenchWords from "./french/fetchFrenchWords.function";
 import markdownRegex from "./markdownRegex";
 import Word from "../models/word.interface";
+import WordModel from "../models/word.model";
 
 /**
  * gathers data from one markdown document
  */
-const getFullWord = (
-  document: string,
-  lesson: string,
-  topic: string
-): Partial<Word> => {
+const getFullWord = (document: string, lesson: string, topic: string): Word => {
   const {
     type: typeRegex,
     uniqueForm: uniqueFormRegex,
@@ -54,7 +51,7 @@ const getFullWord = (
     );
   }
 
-  const newWord = {
+  const newWord = new WordModel({
     english: {
       name: englishName,
       words: englishWords,
@@ -67,7 +64,7 @@ const getFullWord = (
     lesson,
     topic,
     type,
-  };
+  });
   return newWord;
 };
 

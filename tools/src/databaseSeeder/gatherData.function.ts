@@ -1,16 +1,20 @@
-import extractData from "./markdownParser/getFullWord";
-import fileExplorer from "../common/getFiles.function";
 import readMdFile from "./readMarkdownFile.function";
 import getLessonAndTopic from "../common/getLessonAndTopic.function";
+import Word from "./models/word.interface";
+import getFullWord from "./markdownParser/getFullWord";
+import getFilesPaths from "../common/getFilesPaths.function";
 
 // returns an array of word objects from markdown documents
-const gatherData = async directory => {
+const gatherData = async (directory: string): Promise<Word> => {
   let wordsFilesPaths;
   try {
-    wordsFilesPaths = await fileExplorer.getFilesPaths(directory);
+    wordsFilesPaths = await getFilesPaths(directory);
   } catch (error) {
-    console.error(`\\033[1;31mError while getting file paths\\033[0;0m`, error);
-    return false;
+    console.error(
+      `\\033[1;31mCannot get file paths for directory ${directory}\\033[0;0m`,
+      error
+    );
+    return null;
   }
 
   const wordsFilesPromises = wordsFilesPaths.map(
@@ -25,9 +29,9 @@ const gatherData = async directory => {
           reject(error);
         }
 
-        let mdData;
+        let document;
         try {
-          mdData = await readMdFile(path);
+          document = await readMdFile(path);
         } catch (error) {
           console.error(
             `\\033[1;31mError while reading file ${path}\\033[0;0m`,
@@ -37,7 +41,7 @@ const gatherData = async directory => {
         }
 
         try {
-          const word = extractData(mdData, lesson, topic);
+          const word = getFullWord(document, lesson, topic);
           resolve(word);
         } catch (error) {
           console.error(

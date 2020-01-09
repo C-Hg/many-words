@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const readMdFile = async path => {
+const readFile = async (path: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     fs.readFile(path, "utf8", (error, data) => {
       if (error) {
@@ -11,4 +11,4 @@ const readMdFile = async path => {
   });
 };
 
-export default readMdFile;
+export default readFile;

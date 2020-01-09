@@ -2,8 +2,8 @@ import path from "path";
 import readDirectory from "./readDirectory.function";
 
 // a recursive file explorer that returns the paths for all word files
-const getFilesPaths = async directory => {
-  let results = [];
+const getFilesPaths = async (directory: string): Promise<string[]> => {
+  let results: string[] = [];
   let files;
   try {
     files = await readDirectory(directory);
