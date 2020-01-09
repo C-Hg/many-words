@@ -6,7 +6,7 @@ import secrets from "./secrets";
 import gatherData from "./databaseSeeder/gatherData.function";
 
 // the exercises directory is accessible from this directory thanks to the docker-compose configuration
-const curriculumDirectory = "./exercises/FR-EN";
+const curriculumDirectory = "/exercises/FR-EN";
 
 const seedDatabase = async (): Promise<void> => {
   let words;

@@ -1,4 +1,4 @@
-import readMdFile from "./readMarkdownFile.function";
+import readFile from "./readFile.function";
 import getLessonAndTopic from "../common/getLessonAndTopic.function";
 import Word from "./models/word.interface";
 import getFullWord from "./markdownParser/getFullWord";
@@ -31,7 +31,7 @@ const gatherData = async (directory: string): Promise<Word> => {
 
         let document;
         try {
-          document = await readMdFile(path);
+          document = await readFile(path);
         } catch (error) {
           console.error(
             `\\033[1;31mError while reading file ${path}\\033[0;0m`,

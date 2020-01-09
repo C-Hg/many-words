@@ -7,8 +7,8 @@
     "start": "cd src && babel-node --extensions '.ts' databaseSeeder.ts",
     "check-types:dbSeeder": "cd src && npx ts-node databaseSeeder.ts",
     "set_production_env": "cd src && babel-node --extensions '.ts' setProductionEnvironment",
-    "database_seeder": "cd src && babel-node --extensions '.ts' databaseSeeder.js",
-    "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.js"
+    "database_seeder": "cd src && babel-node --extensions '.ts' databaseSeeder.ts",
+    "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.ts"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",

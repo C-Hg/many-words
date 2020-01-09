@@ -11,22 +11,22 @@ const allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
 const words = `(${allLettersAndNumbers}(?:\\s${allLettersAndNumbers})*)`;
 const columnSeparator = "\\s*\\|\\s*";
 const oneColumn = words + columnSeparator;
-const matchFourWords = oneColumn.repeat(3) + words;
+const matchFourWords = oneColumn.repeat(4);
 
 // English
 const englishFormsRegex = {
-  singular: RegExp(`(?<=singular\\s*\\|\\s*${matchFourWords}`, "i"),
-  plural: RegExp(`(?<=plural\\s*\\|\\s*${matchFourWords}`, "i"),
-  uniqueForm: RegExp(`(?<=unique\\sform\\s*\\|\\s*${matchFourWords}`, "i"),
+  singular: RegExp(`(?<=singular\\s*\\|\\s*${matchFourWords})`, "i"),
+  plural: RegExp(`(?<=plural\\s*\\|\\s*${matchFourWords})`, "i"),
+  uniqueForm: RegExp(`(?<=unique\\sform\\s*\\|\\s*${matchFourWords})`, "i"),
 };
 
 // French
 const frenchFormsRegex = {
-  singularMasculine: RegExp(`(?<=masc_sing\\s*\\|\\s*${matchFourWords}`, "i"),
-  singularFeminine: RegExp(`(?<=fem_sing\\s*\\|\\s*${matchFourWords}`, "i"),
-  pluralMasculine: RegExp(`(?<=masc_plur\\s*\\|\\s*${matchFourWords}`, "i"),
-  pluralFeminine: RegExp(`(?<=fem_plur\\s*\\|\\s*${matchFourWords}`, "i"),
-  uniqueForm: RegExp(`(?<=unique_form\\s*\\|\\s*${matchFourWords}`, "i"),
+  singularMasculine: RegExp(`(?<=masc_sing\\s*\\|\\s*${matchFourWords})`, "i"),
+  singularFeminine: RegExp(`(?<=fem_sing\\s*\\|\\s*${matchFourWords})`, "i"),
+  pluralMasculine: RegExp(`(?<=masc_plur\\s*\\|\\s*${matchFourWords})`, "i"),
+  pluralFeminine: RegExp(`(?<=fem_plur\\s*\\|\\s*${matchFourWords})`, "i"),
+  uniqueForm: RegExp(`(?<=unique_form\\s*\\|\\s*${matchFourWords})`, "i"),
 };
 
 const uniqueForm = RegExp(`(?<=unique\\sform\\s*\\:\\s*)${words}`, "ig");
