@@ -15,8 +15,11 @@ const englishForms: (keyof EnglishForms)[] = [
 const getEnglishWordsFromMarkdown = (document: string): EnglishWord[] => {
   const { englishFormsRegex } = markdownRegex;
   const englishWords: EnglishWord[] = [];
+
   englishForms.forEach(form => {
+    const startTime = Date.now();
     const words = document.match(englishFormsRegex[form]);
+    const step1 = Date.now();
     if (words) {
       // the first match contains all the alternatives, remove it
       words.shift();
@@ -32,6 +35,9 @@ const getEnglishWordsFromMarkdown = (document: string): EnglishWord[] => {
         }
       });
     }
+    const step2 = Date.now();
+    console.info(`Completion time : ${step1 - startTime} ms.`);
+    console.info(`Completion time : ${step2 - startTime} ms.`);
   });
 
   if (englishWords.length > 0) {

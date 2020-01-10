@@ -9,7 +9,7 @@ const frenchForms: (keyof FrenchForms)[] = [
   "pluralFeminine",
   "uniqueForm",
 ];
-
+// TODO: iterate getFrenchWords by column ++++
 /**
  * Fetches the data from all columns in the French table of the Markdown document
  * Data still needs validation, done by checkFrenchFormat function

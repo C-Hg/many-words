@@ -31,14 +31,11 @@ const getFullWord = (document: string, lesson: string, topic: string): Word => {
 
   // hasUniqueForm is optional in the markdown document, default to false
   const matchHasUniqueForm = document.match(uniqueFormRegex);
-  console.info("matchHasUniqueForm", matchHasUniqueForm);
   const hasUniqueForm = matchHasUniqueForm !== null;
 
   // English data
   const englishWords = fetchEnglishWords(document); // gathering and validating data
   const frenchWords = fetchFrenchWords(document);
-
-  console.info(hasUniqueForm);
 
   if (
     !englishWords ||

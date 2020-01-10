@@ -8,6 +8,7 @@ import FrenchWord from "./frenchWord.interface";
 // checks that mutually exclusive properties are not present
 
 const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
+  console.info(frenchWords);
   frenchWords.forEach(frenchWord => {
     const {
       uniqueForm,
