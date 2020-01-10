@@ -3,10 +3,7 @@
 ## General data
 
 unique form : true
-
 type : other
-
----
 
 ## English data
 
@@ -17,9 +14,6 @@ Name : hello
 | singular    |           |        |        |                     |
 | plural      |           |        |        |                     |
 | unique form | hello you |   my   |  dear  | and greatest friend |
-| \*an        |           |        |        |                     |
-
----
 
 ## French data
 
@@ -32,7 +26,6 @@ Name: bonjour
 | fem_sing    |         |        |                |       |
 | fem_plur    |         |        |                |       |
 | unique_form | Bonjour | à vous | mes très chers | amis  |
-| \*l'        |         |        |                |       |
 
 ---
 

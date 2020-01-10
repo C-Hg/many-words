@@ -10,10 +10,7 @@ const gatherData = async (directory: string): Promise<Word> => {
   try {
     wordsFilesPaths = await getFilesPaths(directory);
   } catch (error) {
-    console.error(
-      `\\033[1;31mCannot get file paths for directory ${directory}\\033[0;0m`,
-      error
-    );
+    console.error(`Cannot get file paths for directory ${directory}`, error);
     return null;
   }
 
@@ -33,10 +30,7 @@ const gatherData = async (directory: string): Promise<Word> => {
         try {
           document = await readFile(path);
         } catch (error) {
-          console.error(
-            `\\033[1;31mError while reading file ${path}\\033[0;0m`,
-            error
-          );
+          console.error(`Error while reading file ${path}`, error);
           reject(error);
         }
 
@@ -44,10 +38,7 @@ const gatherData = async (directory: string): Promise<Word> => {
           const word = getFullWord(document, lesson, topic);
           resolve(word);
         } catch (error) {
-          console.error(
-            `\\033[1;31mError while extracting data from ${path}\\033[0;0m`,
-            error
-          );
+          console.error(`Error while extracting data from ${path}`, error);
           reject(error);
         }
       })

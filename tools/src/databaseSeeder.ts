@@ -16,24 +16,16 @@ const seedDatabase = async (): Promise<void> => {
     words = await gatherData(curriculumDirectory);
   } catch (error) {
     console.error(
-      `\\033[1;31m` +
-        "Error while gathering data from curriculum directory" +
-        `\\033[0;0m\n`,
+      "Error while gathering data from curriculum directory\n",
       error
     );
     return;
   }
   if (words) {
-    console.info(
-      `\\033[1;32m` +
-        "Data successfully retrieved from Markdown documents ☺️" +
-        `\\033[0;0m`
-    );
+    console.info("Data successfully retrieved from Markdown documents ☺️");
   } else {
     console.error(
-      `\\033[1;31m` +
-        "There was a problem while retrieving data from Markdown documents, check the logs. 💣" +
-        `\\033[0;0m`
+      "There was a problem while retrieving data from Markdown documents, check the logs. 💣"
     );
     return;
   }
@@ -41,24 +33,18 @@ const seedDatabase = async (): Promise<void> => {
   try {
     await clearDatabase();
   } catch (error) {
-    console.error(
-      `\\033[1;31m\n Error while clearing database \\033[0;0m\n`,
-      error
-    );
+    console.error(`\n Error while clearing database \n`, error);
     return;
   }
 
   try {
     result = await seedWordsInDatabase(words);
   } catch (error) {
-    console.error(
-      `\\033[1;31m Error while seeding database\\033[0;0m\n`,
-      error
-    );
+    console.error(` Error while seeding database\n`, error);
     return;
   }
   if (result) {
-    console.info(`\\033[1;32m Database successfully seeded 😎\\033[0;0m`);
+    console.info(`Database successfully seeded 😎`);
   }
 };
 
@@ -85,11 +71,7 @@ db.once("open", async () => {
   console.info("Connected to database");
   await seedDatabase();
   const endTime = Date.now();
-  console.info(
-    `\\033[1;32m` +
-      `Completion time : ${endTime - startTime} ms.` +
-      `\\033[0;0m`
-  );
+  console.info(`Completion time : ${endTime - startTime} ms.`);
 
   db.close(() => {
     console.info("Connection to the database closed");

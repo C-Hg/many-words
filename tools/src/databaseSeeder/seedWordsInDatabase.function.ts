@@ -1,15 +1,12 @@
-import Word from "./models/word.model"
+import Word from "./models/word.model";
 
 const seedWordsInDatabase = async arrayOfWords => {
   try {
     return await Word.insertMany(arrayOfWords);
   } catch (error) {
-    console.error(
-      `\\033[1;31mError while inserting words to database\\033[0;0m`,
-      error
-    );
+    console.error(`Error while inserting words to database`, error);
   }
-  return null
+  return null;
 };
 
 export default seedWordsInDatabase;

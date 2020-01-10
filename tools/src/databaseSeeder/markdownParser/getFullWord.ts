@@ -31,11 +31,14 @@ const getFullWord = (document: string, lesson: string, topic: string): Word => {
 
   // hasUniqueForm is optional in the markdown document, default to false
   const matchHasUniqueForm = document.match(uniqueFormRegex);
+  console.info("matchHasUniqueForm", matchHasUniqueForm);
   const hasUniqueForm = matchHasUniqueForm !== null;
 
   // English data
   const englishWords = fetchEnglishWords(document); // gathering and validating data
   const frenchWords = fetchFrenchWords(document);
+
+  console.info(hasUniqueForm);
 
   if (
     !englishWords ||
@@ -46,9 +49,7 @@ const getFullWord = (document: string, lesson: string, topic: string): Word => {
     !lesson ||
     !topic
   ) {
-    throw new Error(
-      `\\033[1;31m[getFullWord] Required parameter missing\\033[0;0m`
-    );
+    throw new Error(`[getFullWord] Required parameter missing`);
   }
 
   const newWord = new WordModel({

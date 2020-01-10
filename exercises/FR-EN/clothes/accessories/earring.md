@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : earring
 | singular    | earring  |       |       |       |
 | plural      | earrings |       |       |       |
 | unique form |          |       |       |       |
-| \*an        |          |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : boucle d'oreille
 | fem_sing    | boucle d'oreille  |       |       |       |
 | fem_plur    | boucles d'oreille |       |       |       |
 | unique_form |                   |       |       |       |
-| \*l'        |                   |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

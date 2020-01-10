@@ -18,9 +18,7 @@ db.once("open", async () => {
   console.info("Connected to database");
   await countLessonsAndThemes();
   const endTime = new Date();
-  console.info(
-    `\\033[1;32mCompletion time : ${endTime - startTime} ms.\\033[0;0m`
-  );
+  console.info(`\\033[1;32mCompletion time : ${endTime - startTime} ms.`);
   db.close(() => {
     console.info("Connection to the database closed");
   });
@@ -36,16 +34,14 @@ const countLessonsAndThemes = async () => {
   try {
     wordFilesPaths = await getFilesPaths(curriculumDirectory);
   } catch (e) {
-    console.error(`\\033[1;31mError while getting file paths\\033[0;0m`);
+    console.error(`Error while getting file paths`);
     return;
   }
 
   for (const path of wordFilesPaths) {
     const lessonAndTheme = getLessonAndTopic(path);
     if (!lessonAndTheme[0] || !lessonAndTheme[1]) {
-      console.info(
-        `\\033[1;31mError while getting lesson or theme name\\033[0;0m`
-      );
+      console.info(`Error while getting lesson or theme name`);
       return;
     }
 

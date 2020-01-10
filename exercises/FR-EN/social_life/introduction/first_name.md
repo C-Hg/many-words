@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : my first name
 | singular    |               |             |       |       |
 | plural      |               |             |       |       |
 | unique form | my first name | my forename |       |       |
-| \*an        |               |             |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : mon prénom
 | fem_sing    |            |       |       |       |
 | fem_plur    |            |       |       |       |
 | unique_form | mon prénom |       |       |       |
-| \*l'        |            |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

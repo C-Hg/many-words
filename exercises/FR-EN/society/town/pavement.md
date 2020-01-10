@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : the pavement
 | singular    |              |          |              |          |
 | plural      |              |          |              |          |
 | unique form | the pavement | pavement | the sidewalk | sidewalk |
-| \*an        |              |          |              |          |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : le trottoir
 | fem_sing    |             |       |       |       |
 | fem_plur    |             |       |       |       |
 | unique_form | le trottoir |       |       |       |
-| \*l'        |             |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

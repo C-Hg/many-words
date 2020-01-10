@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : coffee table
 | singular    | coffee table  |       |       |       |
 | plural      | coffee tables |       |       |       |
 | unique form |               |       |       |       |
-| \*an        |               |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : table basse
 | fem_sing    |  table basse  |       |       |       |
 | fem_plur    | tables basses |       |       |       |
 | unique_form |               |       |       |       |
-| \*l'        |               |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

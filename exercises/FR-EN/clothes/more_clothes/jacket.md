@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : jacket
 | singular    | jacket  | vest  |       |       |
 | plural      | jackets | vests |       |       |
 | unique form |         |       |       |       |
-| \*an        |         |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : veste
 | fem_sing    | veste  |       |       |       |
 | fem_plur    | vestes |       |       |       |
 | unique_form |        |       |       |       |
-| \*l'        |        |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

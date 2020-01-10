@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : verb
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : to kneel
 | singular    |          |       |       |       |
 | plural      |          |       |       |       |
 | unique form | to kneel | kneel |       |       |
-| \*an        |          |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : s'agenouiller
 | fem_sing    |               |       |       |       |
 | fem_plur    |               |       |       |       |
 | unique_form | s'agenouiller |       |       |       |
-| \*l'        |               |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

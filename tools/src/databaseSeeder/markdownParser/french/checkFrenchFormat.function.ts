@@ -20,7 +20,9 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
 
     if (!acceptedForms || !acceptedForms.length) {
       throw new Error(
-        `\\033[1;31m[CheckFrenchFormat] no 'acceptedForms' property for ${frenchWord}\\033[0;0m`
+        `[CheckFrenchFormat] no 'acceptedForms' property for ${JSON.stringify(
+          frenchWord
+        )}`
       );
     }
     if (
@@ -31,7 +33,9 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
       uniqueForm
     ) {
       throw new Error(
-        `\\033[1;31m[CheckFrenchFormat] a French word cannot have a unique form AND another form, ${frenchWord}\\033[0;0m`
+        `[CheckFrenchFormat] a French word cannot have a unique form AND another form, ${JSON.stringify(
+          frenchWord
+        )}`
       );
     }
 
@@ -40,7 +44,9 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
     if (singularMasculine) {
       if (!singularFeminine && !pluralMasculine) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] singularMasculine form alone, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] singularMasculine form alone, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (
@@ -48,12 +54,16 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
         acceptedForms.length < 2
       ) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] acceptedForms property not matching singularMasculine, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] acceptedForms property not matching singularMasculine, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (singularMasculine === "") {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] empty singularMasculine, ${frenchWord} \\033[0;0m`
+          `[CheckFrenchFormat] empty singularMasculine, ${JSON.stringify(
+            frenchWord
+          )} `
         );
       }
     }
@@ -61,7 +71,9 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
     if (singularFeminine) {
       if (!pluralFeminine && !singularMasculine) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] singularFeminine alone, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] singularFeminine alone, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (
@@ -69,12 +81,16 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
         acceptedForms.length < 2
       ) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] missing acceptedForms, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] missing acceptedForms, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (singularFeminine === "") {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] empty singularFeminine, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] empty singularFeminine, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
     }
@@ -82,7 +98,9 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
     if (pluralMasculine) {
       if (!singularMasculine && !pluralFeminine) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] pluralMasculine alone, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] pluralMasculine alone, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (
@@ -90,12 +108,16 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
         acceptedForms.length < 2
       ) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] missing acceptedForms property, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] missing acceptedForms property, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (pluralMasculine === "") {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] empty pluralMasculine, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] empty pluralMasculine, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
     }
@@ -103,7 +125,9 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
     if (pluralFeminine) {
       if (!pluralMasculine && !singularFeminine) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] pluralFeminine alone, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] pluralFeminine alone, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (
@@ -111,12 +135,16 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
         acceptedForms.length < 2
       ) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] missing acceptedForms property, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] missing acceptedForms property, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (pluralFeminine === "") {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] empty pluralFeminine, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] empty pluralFeminine, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
     }
@@ -124,12 +152,14 @@ const checkFrenchFormat = (frenchWords: FrenchWord[]): boolean => {
     if (uniqueForm) {
       if (acceptedForms[0] !== "uniqueForm" || acceptedForms.length > 1) {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] acceptedForms not matching uniqueForm, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] acceptedForms not matching uniqueForm, ${JSON.stringify(
+            frenchWord
+          )}`
         );
       }
       if (uniqueForm === "") {
         throw new Error(
-          `\\033[1;31m[CheckFrenchFormat] empty uniqueForm, ${frenchWord}\\033[0;0m`
+          `[CheckFrenchFormat] empty uniqueForm, ${JSON.stringify(frenchWord)}`
         );
       }
     }

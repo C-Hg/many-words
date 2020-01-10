@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : verb
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : to prune
 | singular    |          |       |        |       |
 | plural      |          |       |        |       |
 | unique form | to prune | prune | to cut | cut   |
-| \*an        |          |       |        |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : tailler
 | fem_sing    |         |       |       |       |
 | fem_plur    |         |       |       |       |
 | unique_form | tailler |       |       |       |
-| \*l'        |         |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

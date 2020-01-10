@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : number
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : seventy-two
 | singular    |             |       |       |       |
 | plural      |             |       |       |       |
 | unique form | seventy-two |       |       |       |
-| \*an        |             |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name: soixante-douze
 | fem_sing    |                |       |       |       |
 | fem_plur    |                |       |       |       |
 | unique_form | soixante-douze |       |       |       |
-| \*l'        |                |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

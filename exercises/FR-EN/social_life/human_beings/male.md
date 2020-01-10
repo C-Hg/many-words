@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : adjective
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : male
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
 | unique form | male |       |       |       |
-| \*an        |      |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : masculin
 | fem_sing    | masculine  | de sexe masculin |       |       |
 | fem_plur    | masculines | de sexe masculin |       |       |
 | unique_form |            |                  |       |       |
-| \*l'        |            |                  |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

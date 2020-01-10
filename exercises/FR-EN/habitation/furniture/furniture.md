@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : furniture
 | singular    |           |               |       |       |
 | plural      |           |               |       |       |
 | unique form | furniture | the furniture |       |       |
-| \*an        |           |               |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : les meubles
 | fem_sing    |             |         |       |       |
 | fem_plur    |             |         |       |       |
 | unique_form | les meubles | meubles |       |       |
-| \*l'        |             |         |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

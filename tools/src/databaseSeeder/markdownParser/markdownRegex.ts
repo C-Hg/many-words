@@ -8,10 +8,11 @@
 
 // common
 const allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
-const words = `(${allLettersAndNumbers}(?:\\s${allLettersAndNumbers})*)`;
+const words = `(${allLettersAndNumbers}(?:\\s${allLettersAndNumbers})*)*`;
+const words2 = `(${allLettersAndNumbers}(?:\\s${allLettersAndNumbers})*)`;
+const singleword = `[a-z]+`;
 const columnSeparator = "\\s*\\|\\s*";
-const oneColumn = words + columnSeparator;
-const matchFourWords = oneColumn.repeat(4);
+const matchFourWords = (words + columnSeparator).repeat(4);
 
 // English
 const englishFormsRegex = {
@@ -29,15 +30,18 @@ const frenchFormsRegex = {
   uniqueForm: RegExp(`(?<=unique_form\\s*\\|\\s*${matchFourWords})`, "i"),
 };
 
-const uniqueForm = RegExp(`(?<=unique\\sform\\s*\\:\\s*)${words}`, "ig");
-const type = RegExp(`(?<=type\\s\\:\\s*)${words}(?=\\s*\\n*\\-\\-\\-)`, "ig");
+const uniqueForm = RegExp(`(?<=unique\\sform\\s*\\:\\s*)${singleword}`, "i");
+const type = RegExp(
+  `(?<=type\\s\\:\\s*)${singleword}(?=\\s*\\n*\\-\\-\\-)`,
+  "i"
+);
 const englishName = RegExp(
-  `(?<=##\\sEnglish\\sdata\\n*Name\\s*\\:\\s*)${words}`,
-  "ig"
+  `(?<=##\\sEnglish\\sdata\\n*Name\\s*\\:\\s*)${words2}`,
+  "i"
 );
 const frenchName = RegExp(
-  `(?<=##\\sFrench\\sdata\\n*Name\\s*\\:\\s*)${words}`,
-  "ig"
+  `(?<=##\\sFrench\\sdata\\n*Name\\s*\\:\\s*)${words2}`,
+  "i"
 );
 
 const markdownRegex = {

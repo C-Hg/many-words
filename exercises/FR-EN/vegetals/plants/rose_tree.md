@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : noun
-
----
 
 ## English data
 
@@ -14,9 +11,6 @@ Name : rosebush
 | singular | rosebush | rose bush | rose tree | |
 | plural | rosebushes | rose bushes | rose trees | |
 | unique form | | | | |
-| \*an | | | | |
-
----
 
 ## French data
 
@@ -29,11 +23,5 @@ Name : rosier
 | fem_sing    |         |       |       |       |
 | fem_plur    |         |       |       |       |
 | unique_form |         |       |       |       |
-| \*l'        |         |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

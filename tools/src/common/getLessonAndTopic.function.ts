@@ -8,7 +8,7 @@ const getLessonAndTopic = (path: string): { [key in string]: string } => {
   if (matchedLesson === null || matchedTopic === null) {
     console.error(`${+""}`);
     throw new Error(
-      `\\033[1;31mError : cannot parse lesson or topic ${matchedLesson}, ${matchedTopic}\\033[0;0m`
+      `Error : cannot parse lesson or topic ${matchedLesson}, ${matchedTopic}`
     );
   }
 

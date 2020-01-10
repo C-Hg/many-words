@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : adjective
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : dark
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
 | unique form | dark |       |       |       |
-| \*an        |      |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : sombre
 | fem_sing    | sombre  | noire  | foncée  |       |
 | fem_plur    | sombres | noires | foncées |       |
 | unique_form |         |        |         |       |
-| \*l'        |         |        |         |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

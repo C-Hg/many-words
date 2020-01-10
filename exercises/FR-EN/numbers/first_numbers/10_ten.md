@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : number
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : ten
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
 | unique form | ten  |       |       |       |
-| \*an        |      |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name: dix
 | fem_sing    |      |       |       |       |
 | fem_plur    |      |       |       |       |
 | unique_form | dix  |       |       |       |
-| \*l'        |      |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

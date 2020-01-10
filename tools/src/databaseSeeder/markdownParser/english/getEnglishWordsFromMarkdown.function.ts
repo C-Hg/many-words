@@ -15,19 +15,20 @@ const englishForms: (keyof EnglishForms)[] = [
 const getEnglishWordsFromMarkdown = (document: string): EnglishWord[] => {
   const { englishFormsRegex } = markdownRegex;
   const englishWords: EnglishWord[] = [];
-
   englishForms.forEach(form => {
     const words = document.match(englishFormsRegex[form]);
     if (words) {
       // the first match contains all the alternatives, remove it
       words.shift();
-      words.forEach((alternative, index) => {
-        if (englishWords[index] === undefined) {
-          englishWords[index] = { acceptedForms: [] };
-        }
-        englishWords[index][form] = alternative;
-        if (!englishWords[index].acceptedForms.includes(form)) {
-          englishWords[index].acceptedForms.push(form);
+      words.forEach((word, index) => {
+        if (word !== undefined) {
+          if (englishWords[index] === undefined) {
+            englishWords[index] = { acceptedForms: [] };
+          }
+          englishWords[index][form] = word;
+          if (!englishWords[index].acceptedForms.includes(form)) {
+            englishWords[index].acceptedForms.push(form);
+          }
         }
       });
     }

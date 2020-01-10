@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : other
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : sparkling water
 | singular    |                 |             |                  |       |
 | plural      |                 |             |                  |       |
 | unique form | sparkling water | fizzy water | carbonated water |       |
-| \*an        |                 |             |                  |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : eau gazeuse
 | fem_sing    |             |                  |                |                     |
 | fem_plur    |             |                  |                |                     |
 | unique_form | eau gazeuse | de l'eau gazeuse | eau pétillante | de l'eau pétillante |
-| \*l'        |             |                  |                |                     |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

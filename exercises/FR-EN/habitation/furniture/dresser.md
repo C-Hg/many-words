@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : dresser
 | singular    | dresser  | chest of drawers  |       |       |
 | plural      | dressers | chests of drawers |       |       |
 | unique form |          |                   |       |       |
-| \*an        |          |                   |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : commode
 | fem_sing    | commode  |       |       |       |
 | fem_plur    | commodes |       |       |       |
 | unique_form |          |       |       |       |
-| \*l'        |          |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

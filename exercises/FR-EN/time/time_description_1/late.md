@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : other
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : late
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
 | unique form | late |       |       |       |
-| \*an        |      |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : tard
 | fem_sing    |      |           |       |       |
 | fem_plur    |      |           |       |       |
 | unique_form | tard | en retard |       |       |
-| \*l'        |      |           |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

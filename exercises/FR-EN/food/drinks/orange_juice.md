@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : other
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : orange juice
 | singular    |              |       |       |       |
 | plural      |              |       |       |       |
 | unique form | orange juice |       |       |       |
-| \*an        |              |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : jus d'orange
 | fem_sing    |              |                 |       |       |
 | fem_plur    |              |                 |       |       |
 | unique_form | jus d'orange | du jus d'orange |       |       |
-| \*l'        |              |                 |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

@@ -6,8 +6,6 @@ unique form : false
 
 type : noun
 
----
-
 ## English data
 
 Name : mouse
@@ -18,9 +16,6 @@ Name : mouse
 | plural      | mice  |        |   me   |        |
 | unique form |       |        |        |  and   |
 | \*an        |       |        |        |   me   |
-
----
-
 ## French data
 
 Name: souris
@@ -33,7 +28,6 @@ Name: souris
 | fem_plur    | souris |       |        |       |
 | unique_form |        |       |        |  and  |
 | \*l'        |        |       |        |  me   |
-
 ---
 
 \* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false

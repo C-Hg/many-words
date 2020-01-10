@@ -12,7 +12,7 @@ const getFilesPaths = (directory: string): string[] => {
     files = fs.readdirSync(directory, { withFileTypes: true });
   } catch (error) {
     console.error(
-      `\\033[1;31m[fileExplorer] error while reading directory ${directory}\\033[0;0m`,
+      `[fileExplorer] error while reading directory ${directory}`,
       error
     );
   }

@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : lightning
 | singular    |               |           |       |       |
 | plural      |               |           |       |       |
 | unique form | the lightning | lightning |       |       |
-| \*an        |               |           |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : la foudre
 | fem_sing    |           |          |       |       |
 | fem_plur    |           |          |       |       |
 | unique_form | la foudre | l'éclair |       |       |
-| \*l'        |           |          |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : number
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : two hundred
 | singular    |             |       |       |       |
 | plural      |             |       |       |       |
 | unique form | two hundred |       |       |       |
-| \*an        |             |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name: deux-cents
 | fem_sing    |            |       |       |       |
 | fem_plur    |            |       |       |       |
 | unique_form | deux-cents |       |       |       |
-| \*l'        |            |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

@@ -25,12 +25,14 @@ const getFrenchWordsFromMarkdown = (document: string): FrenchWord[] => {
       words.shift();
       // one accepted word per column
       words.forEach((word, index) => {
-        if (frenchWords[index] === undefined) {
-          frenchWords[index] = { acceptedForms: [] };
-        }
-        frenchWords[index][form] = word;
-        if (!frenchWords[index].acceptedForms.includes(form)) {
-          frenchWords[index].acceptedForms.push(form);
+        if (word !== undefined) {
+          if (frenchWords[index] === undefined) {
+            frenchWords[index] = { acceptedForms: [] };
+          }
+          frenchWords[index][form] = word;
+          if (!frenchWords[index].acceptedForms.includes(form)) {
+            frenchWords[index].acceptedForms.push(form);
+          }
         }
       });
     }

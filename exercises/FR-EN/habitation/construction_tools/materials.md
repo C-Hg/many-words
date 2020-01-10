@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : materials
 | singular    |           |       |       |       |
 | plural      |           |       |       |       |
 | unique form | materials |       |       |       |
-| \*an        |           |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : des matériaux
 | fem_sing    |               |           |       |       |
 | fem_plur    |               |           |       |       |
 | unique_form | des matériaux | matériaux |       |       |
-| \*l'        |               |           |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

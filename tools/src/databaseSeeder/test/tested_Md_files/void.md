@@ -6,6 +6,7 @@ unique form : false
 
 ## type : noun
 
+
 ## English data
 
 Name : journey
@@ -15,9 +16,6 @@ Name : journey
 | singular    |      |        |        |        |
 | plural      |      |        |        |        |
 | unique form |      |        |        |        |
-| \*an        |      |        |        |        |
-
----
 
 ## French data
 
@@ -30,7 +28,6 @@ Name: voyage
 | fem_sing    |      |       |       |       |
 | fem_plur    |      |       |       |       |
 | unique_form |      |       |       |       |
-| \*l'        |      |       |       |       |
 
 ---
 

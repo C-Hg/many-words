@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : noun/adjective/verb/other
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name :
 | singular    |      |       |       |       |
 | plural      |      |       |       |       |
 | unique form |      |       |       |       |
-
----
-
 ## French data
 
 Name :
@@ -30,9 +24,3 @@ Name :
 | fem_plur    |      |       |       |       |
 | unique_form |      |       |       |       |
 
----
-
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

@@ -6,8 +6,6 @@ unique form : false
 
 type : noun
 
----
-
 ## English data
 
 Name : journey
@@ -18,9 +16,6 @@ Name : journey
 | plural      | journeys |      travels       |        |        |
 | unique form |  world   |                    |        | world  |
 | \*an        |    x     |                    |  true  |   x    |
-
----
-
 ## French data
 
 Name: voyage
@@ -33,7 +28,6 @@ Name: voyage
 | fem_plur    |  fleurs   |               |       |         îles          |
 | unique_form | voyageons |     monde     |       |        mondes         |
 | \*l'        |           |               |   x   |         true          |
-
 ---
 
 \* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false

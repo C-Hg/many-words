@@ -7,24 +7,34 @@ import EnglishWord from "./englishWord.interface";
 // void objects are impossible because not returned from checkEnAlternative function
 
 const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
+  if (!englishWords) {
+    throw new Error(`[CheckEnglishFormat] : void English Word`);
+  }
+
   englishWords.forEach(englishWord => {
     const { acceptedForms, singular, plural, uniqueForm } = englishWord;
     if (!acceptedForms || !acceptedForms.length) {
       throw new Error(
-        `\\033[1;31m[CheckEnglishFormat] : no 'acceptedForms' property for ${englishWord}\\033[0;0m`
+        `[CheckEnglishFormat] : no 'acceptedForms' property for ${JSON.stringify(
+          englishWord
+        )}`
       );
     }
     if ((!singular || !plural) && !uniqueForm) {
       throw new Error(
-        `\\033[1;31m[CheckEnglishFormat] : an English word cannot have a unique form AND sing and/or plur form, ${englishWord}\\033[0;0m`
+        `[CheckEnglishFormat] : an English word cannot have a unique form AND sing and/or plur form, ${JSON.stringify(
+          englishWord
+        )}`
       );
     }
 
     // checks that fields are not empty
     if (singular) {
-      if (plural) {
+      if (!plural) {
         throw new Error(
-          `\\033[1;31m[CheckEnglishFormat] : singular without plural ${englishWord}\\033[0;0m`
+          `[CheckEnglishFormat] : singular without plural ${JSON.stringify(
+            englishWord
+          )}`
         );
       }
       if (
@@ -33,12 +43,16 @@ const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
         acceptedForms.length !== 2
       ) {
         throw new Error(
-          `\\033[1;31m[CheckEnglishFormat] acceptedForms property not matching singular/plural, ${englishWord}\\033[0;0m`
+          `[CheckEnglishFormat] acceptedForms property not matching singular/plural, ${JSON.stringify(
+            englishWord
+          )}`
         );
       }
       if (singular === "") {
         throw new Error(
-          `\\033[1;31m[CheckEnglishFormat] empty 'singular' property, ${englishWord}\\033[0;0m`
+          `[CheckEnglishFormat] empty 'singular' property, ${JSON.stringify(
+            englishWord
+          )}`
         );
       }
     }
@@ -48,24 +62,32 @@ const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
     if (plural) {
       if (!singular) {
         throw new Error(
-          `\\033[1;31m[CheckEnglishFormat] plural without singular, ${englishWord}\\033[0;0m`
+          `[CheckEnglishFormat] plural without singular, ${JSON.stringify(
+            englishWord
+          )}`
         );
       }
       if (plural === "") {
         throw new Error(
-          `\\033[1;31m[CheckEnglishFormat] empty 'plural' property, ${englishWord}\\033[0;0m`
+          `[CheckEnglishFormat] empty 'plural' property, ${JSON.stringify(
+            englishWord
+          )}`
         );
       }
     }
     if (uniqueForm) {
       if (acceptedForms[0] !== "uniqueForm" || acceptedForms.length > 1) {
         throw new Error(
-          `\\033[1;31m[CheckEnglishFormat] acceptedForms not matching uniqueForm, ${englishWord}\\033[0;0m`
+          `[CheckEnglishFormat] acceptedForms not matching uniqueForm, ${JSON.stringify(
+            englishWord
+          )}`
         );
       }
       if (uniqueForm === "") {
         throw new Error(
-          `\\033[1;31m[CheckEnglishFormat] empty 'uniqueForm' property, ${englishWord}\\033[0;0m`
+          `[CheckEnglishFormat] empty 'uniqueForm' property, ${JSON.stringify(
+            englishWord
+          )}`
         );
       }
     }

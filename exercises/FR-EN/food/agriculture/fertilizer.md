@@ -1,10 +1,7 @@
 ## General data
 
 unique form : true
-
 type : noun
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : fertilizer
 | singular    |            |       |       |       |
 | plural      |            |       |       |       |
 | unique form | fertilizer |       |       |       |
-| \*an        |            |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : engrais
 | fem_sing    |         |              |       |       |
 | fem_plur    |         |              |       |       |
 | unique_form | engrais | de l'engrais |       |       |
-| \*l'        |         |              |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

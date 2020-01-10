@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : adjective
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : spicy
 | singular    |       |       |       |       |
 | plural      |       |       |       |       |
 | unique form | spicy |       |       |       |
-| \*an        |       |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : épicé
 | fem_sing    | épicée  |       |       |       |
 | fem_plur    | épicées |       |       |       |
 | unique_form |         |       |       |       |
-| \*l'        |         |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

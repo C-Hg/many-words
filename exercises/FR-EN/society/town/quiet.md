@@ -1,10 +1,7 @@
 ## General data
 
 unique form :
-
 type : adjective
-
----
 
 ## English data
 
@@ -15,9 +12,6 @@ Name : quiet
 | singular    |       |       |       |       |
 | plural      |       |       |       |       |
 | unique form | quiet |       |       |       |
-| \*an        |       |       |       |       |
-
----
 
 ## French data
 
@@ -30,11 +24,5 @@ Name : tranquille
 | fem_sing    | tranquille  |       |       |       |
 | fem_plur    | tranquilles |       |       |       |
 | unique_form |             |       |       |       |
-| \*l'        |             |       |       |       |
 
----
 
-\* : only for the nouns, mention 'true' or 'x' if true, else leave blank if false (most common case)
-
-- is the indefinite article in English **an** ?
-- is the definite article in French **l'** ?

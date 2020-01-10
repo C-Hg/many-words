@@ -27,7 +27,8 @@ type
 - noun means that the word can be preceded by an article, definite or indefinite;
   if it is not the case, please use the unique form field (e.g. meat can only be preceded by _the_ and not _a_)
 
-### English data
+#
+## English data
 
 name
 
