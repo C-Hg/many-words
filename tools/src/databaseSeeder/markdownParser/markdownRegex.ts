@@ -9,42 +9,47 @@
 // common
 const allLettersAndNumbers = "[0-9a-zàéèùâêîôûäëïöüç'\\-]+";
 const words = `(${allLettersAndNumbers}(?:\\s${allLettersAndNumbers})*)`;
-const words2 = `(${allLettersAndNumbers}(?:\\s${allLettersAndNumbers})*)`;
-const singleword = `[a-z]*`;
 const columnSeparator = "\\s*\\|\\s*";
-const matchFourWords = (words + columnSeparator).repeat(4);
+const firstColumn = `)${words}`;
+const secondColumn = `${words + columnSeparator})${words}`;
+const thirdColumn = `${(words + columnSeparator).repeat(2)})${words}`;
+const fourthColumn = `${(words + columnSeparator).repeat(3)})${words}`;
+const singleword = `[a-z]*`;
 
 // English
 const englishFormsRegex = {
-  singular: RegExp(`(?<=singular\\s*\\|\\s*${words})`, "i"),
-  plural: RegExp(`(?<=plural\\s*\\|\\s*${words})`, "i"),
-  uniqueForm: RegExp(`(?<=unique\\sform\\s*\\|\\s*${words})`, "i"),
+  singular: "(?<=singular\\s*\\|\\s*",
+  plural: "(?<=plural\\s*\\|\\s*",
+  uniqueForm: "(?<=unique\\sform\\s*\\|\\s*",
 };
 
 // French
 const frenchFormsRegex = {
-  singularMasculine: RegExp(`(?<=masc_sing\\s*\\|\\s*${words})`, "i"),
-  singularFeminine: RegExp(`(?<=fem_sing\\s*\\|\\s*${words})`, "i"),
-  pluralMasculine: RegExp(`(?<=masc_plur\\s*\\|\\s*${words})`, "i"),
-  pluralFeminine: RegExp(`(?<=fem_plur\\s*\\|\\s*${words})`, "i"),
-  uniqueForm: RegExp(`(?<=unique_form\\s*\\|\\s*${words})`, "i"),
+  singularMasculine: "(?<=masc_sing\\s*\\|\\s*",
+  singularFeminine: "(?<=fem_sing\\s*\\|\\s*",
+  pluralMasculine: "(?<=masc_plur\\s*\\|\\s*",
+  pluralFeminine: "(?<=fem_plur\\s*\\|\\s*",
+  uniqueForm: "(?<=unique_form\\s*\\|\\s*",
 };
 
-const uniqueForm = RegExp(`(?<=unique\\sform\\s*\\:\\s*)true(?=\\ntype)`, "ig");
-const type = RegExp(`(?<=type\\s\\:\\s*)${singleword}(?=\\s*\\n*##)`, "ig");
+const uniqueForm = RegExp(`(?<=unique\\sform\\s*\\:\\s*)true(?=\\ntype)`, "i");
+const type = RegExp(`(?<=type\\s\\:\\s*)${singleword}(?=\\s*\\n*##)`, "i");
 const englishName = RegExp(
-  `(?<=##\\sEnglish\\sdata\\n*Name\\s*\\:\\s*)${words2}`,
-  "ig"
+  `(?<=##\\sEnglish\\sdata\\n*Name\\s*\\:\\s*)${words}`,
+  "i"
 );
 const frenchName = RegExp(
-  `(?<=##\\sFrench\\sdata\\n*Name\\s*\\:\\s*)${words2}`,
-  "ig"
+  `(?<=##\\sFrench\\sdata\\n*Name\\s*\\:\\s*)${words}`,
+  "i"
 );
 
 const markdownRegex = {
   englishFormsRegex,
   frenchFormsRegex,
-  matchFourWords,
+  firstColumn,
+  secondColumn,
+  thirdColumn,
+  fourthColumn,
   uniqueForm,
   type,
   englishName,

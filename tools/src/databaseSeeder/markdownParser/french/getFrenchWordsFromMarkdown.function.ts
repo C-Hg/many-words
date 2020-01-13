@@ -1,6 +1,7 @@
 import markdownRegex from "../markdownRegex";
 import FrenchForms from "./frenchForms.interface";
 import FrenchWord from "./frenchWord.interface";
+import getWordsFromMarkdownLine from "../getWordsFromMarkdownLine.function";
 
 const frenchForms: (keyof FrenchForms)[] = [
   "singularMasculine",
@@ -19,10 +20,8 @@ const getFrenchWordsFromMarkdown = (document: string): FrenchWord[] => {
   const frenchWords: FrenchWord[] = [];
 
   frenchForms.forEach(form => {
-    const words = document.match(frenchFormsRegex[form]);
+    const words = getWordsFromMarkdownLine(document, frenchFormsRegex[form]);
     if (words) {
-      // the first match contains all the alternatives together, remove it
-      words.shift();
       // one accepted word per column
       words.forEach((word, index) => {
         if (word !== undefined) {
