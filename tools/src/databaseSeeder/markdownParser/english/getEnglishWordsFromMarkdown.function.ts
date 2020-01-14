@@ -1,7 +1,7 @@
 import EnglishWord from "./englishWord.interface";
 import EnglishForms from "./englishForms.interface";
 import markdownRegex from "../markdownRegex";
-import getWordsFromMarkdownLine from "../getWordsFromMarkdownLine.function";
+import getWordsFromMarkdownByLine from "../getWordsFromMarkdownByLine.function";
 
 const englishForms: (keyof EnglishForms)[] = [
   "singular",
@@ -14,13 +14,14 @@ const englishForms: (keyof EnglishForms)[] = [
  * Data still needs validation, done by checkEnglishFormat function
  */
 const getEnglishWordsFromMarkdown = (document: string): EnglishWord[] => {
-  const { englishFormsRegex } = markdownRegex;
+  const { formsRegex } = markdownRegex;
   const englishWords: EnglishWord[] = [];
 
   englishForms.forEach(form => {
-    const startTime = Date.now();
-    const words = getWordsFromMarkdownLine(document, englishFormsRegex[form]);
-    const step1 = Date.now();
+    const words = getWordsFromMarkdownByLine(
+      document,
+      formsRegex.english[form]
+    );
     if (words) {
       words.forEach((word, index) => {
         if (word !== undefined) {
@@ -34,9 +35,6 @@ const getEnglishWordsFromMarkdown = (document: string): EnglishWord[] => {
         }
       });
     }
-    const step2 = Date.now();
-    console.info(`Completion time : ${step1 - startTime} ms.`);
-    console.info(`Completion time : ${step2 - startTime} ms.`);
   });
 
   if (englishWords.length > 0) {

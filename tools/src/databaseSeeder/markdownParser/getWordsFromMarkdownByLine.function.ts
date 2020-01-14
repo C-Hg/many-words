@@ -1,10 +1,15 @@
 import markdownRegex from "./markdownRegex";
 
-const columns = ["firstColumn", "secondColumn", "thirdColumn", "fourthColumn"];
+const columns = [
+  "firstColumn",
+  "secondColumn",
+  "thirdColumn",
+  "fourthColumn",
+] as const;
 
 const getFormFromColumn = (
   document: string,
-  column: string,
+  column: typeof columns[number],
   formRegex: string
 ): string => {
   const regex = RegExp(formRegex + markdownRegex[column], "i");
@@ -15,7 +20,7 @@ const getFormFromColumn = (
   return null;
 };
 
-const getWordsFromMarkdownLine = (
+const getWordsFromMarkdownByLine = (
   document: string,
   formRegex: string
 ): string[] => {
@@ -37,4 +42,4 @@ const getWordsFromMarkdownLine = (
   return results;
 };
 
-export default getWordsFromMarkdownLine;
+export default getWordsFromMarkdownByLine;
