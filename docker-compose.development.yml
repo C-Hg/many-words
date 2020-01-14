@@ -38,6 +38,8 @@ services:
     build:
       context: ./tools
     container_name: many_words-database-seeder
+    environment:
+      NODE_ENV: "development"
     volumes:
       - ./exercises:/exercises
     depends_on:

@@ -1,3 +1,4 @@
+import logger from "../logger";
 import readFile from "./readFile.function";
 import getLessonAndTopic from "../common/getLessonAndTopic.function";
 import Word from "./models/word.interface";
@@ -28,7 +29,7 @@ const gatherData = async (directory: string): Promise<Word[]> => {
         try {
           document = await readFile(path);
         } catch (error) {
-          console.error(`Error while reading file ${path}`, error);
+          logger.error(`Error while reading file ${path}`, error);
           reject(error);
         }
 
@@ -36,7 +37,7 @@ const gatherData = async (directory: string): Promise<Word[]> => {
           const word = getFullWord(document, lesson, topic);
           resolve(word);
         } catch (error) {
-          console.error(`Error while extracting data from ${path}`, error);
+          logger.error(`Error while extracting data from ${path}`, error);
           reject(error);
         }
       })

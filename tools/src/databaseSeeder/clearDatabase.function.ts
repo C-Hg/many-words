@@ -1,3 +1,4 @@
+import logger from "../logger";
 import Word from "./models/word.model";
 
 const clearDatabase = async (): Promise<void> => {
@@ -5,7 +6,9 @@ const clearDatabase = async (): Promise<void> => {
     await Word.deleteMany({});
   } catch (error) {
     if (error)
-      console.error(`[clearDatabase] Error while clearing the database`, error);
+      logger.error(
+        `[clearDatabase] Error while clearing the database - ${error}`
+      );
   }
 };
 

@@ -1,3 +1,4 @@
+import logger from "../../logger";
 import fetchEnglishWords from "./english/fetchEnglishWords.function";
 import fetchFrenchWords from "./french/fetchFrenchWords.function";
 import markdownRegex from "./markdownRegex";
@@ -26,7 +27,7 @@ const getFullWord = (document: string, lesson: string, topic: string): Word => {
     englishName = matchEnglishName;
     frenchName = matchFrenchName;
   } catch (error) {
-    console.error(`[getFullWord] missing property, ${document}`);
+    logger.error(`[getFullWord] missing property, ${document}`);
   }
 
   // hasUniqueForm is optional in the markdown document, default to false

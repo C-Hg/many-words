@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+import logger from "./logger";
 import clearDatabase from "./databaseSeeder/clearDatabase.function";
 import seedWordsInDatabase from "./databaseSeeder/seedWordsInDatabase.function";
 import secrets from "./secrets";
@@ -15,16 +16,20 @@ const seedDatabase = async (): Promise<void> => {
     // returns an array of word objects
     words = await gatherData(curriculumDirectory);
   } catch (error) {
-    console.error(
+    logger.error(
       "Error while gathering data from curriculum directory\n",
       error
     );
     return;
   }
   if (words) {
-    console.info("Data successfully retrieved from Markdown documents ☺️");
+    logger.info(
+      "Data successfully retrieved from Markdown documents ☺️",
+      "hello",
+      "again"
+    );
   } else {
-    console.error(
+    logger.error(
       "There was a problem while retrieving data from Markdown documents, check the logs. 💣"
     );
     return;
@@ -33,18 +38,18 @@ const seedDatabase = async (): Promise<void> => {
   try {
     await clearDatabase();
   } catch (error) {
-    console.error(`\n Error while clearing database \n`, error);
+    logger.error(`\n Error while clearing database \n`, error);
     return;
   }
 
   try {
     result = await seedWordsInDatabase(words);
   } catch (error) {
-    console.error(` Error while seeding database\n`, error);
+    logger.error(`Error while seeding database\n`, error);
     return;
   }
   if (result) {
-    console.info(`Database successfully seeded 😎`);
+    logger.info(`Database successfully seeded 😎`);
   }
 };
 
@@ -61,20 +66,20 @@ mongoose.Promise = global.Promise;
 // Get the default connection
 const db = mongoose.connection;
 db.on("error", () => {
-  console.error("MongoDB connection error, retrying to connect in 20s.");
+  logger.error("MongoDB connection error, retrying to connect in 20s.");
   setTimeout(() => {
     mongoose.connect(secrets.MONGO_URI, mongooseOptions);
   }, 20000);
 });
 db.once("open", async () => {
   const startTime = Date.now();
-  console.info("Connected to database");
+  logger.info("Connected to database");
   await seedDatabase();
   const endTime = Date.now();
-  console.info(`Completion time : ${endTime - startTime} ms.`);
+  logger.info(`Completion time : ${endTime - startTime} ms.`);
 
   db.close(() => {
-    console.info("Connection to the database closed");
+    logger.info("Connection to the database closed");
     process.exit();
   });
 });
