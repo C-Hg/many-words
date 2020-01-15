@@ -2,8 +2,8 @@ import logger from "../../logger";
 import fetchEnglishWords from "./english/fetchEnglishWords.function";
 import fetchFrenchWords from "./french/fetchFrenchWords.function";
 import markdownRegex from "./markdownRegex";
-import Word from "../models/word.interface";
-import WordModel from "../models/word.model";
+import Word from "../../common/models/word.interface";
+import WordModel from "../../common/models/word.model";
 
 /**
  * gathers data from one markdown document

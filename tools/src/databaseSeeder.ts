@@ -23,11 +23,7 @@ const seedDatabase = async (): Promise<void> => {
     return;
   }
   if (words) {
-    logger.info(
-      "Data successfully retrieved from Markdown documents ☺️",
-      "hello",
-      "again"
-    );
+    logger.info("Data successfully retrieved from Markdown documents ☺️");
   } else {
     logger.error(
       "There was a problem while retrieving data from Markdown documents, check the logs. 💣"

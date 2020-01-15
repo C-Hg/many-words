@@ -1,6 +1,6 @@
 import logger from "../logger";
-import Word from "./models/word.model";
-import WordInterface from "./models/word.interface";
+import Word from "../common/models/word.model";
+import WordInterface from "../common/models/word.interface";
 
 const seedWordsInDatabase = async (
   arrayOfWords: WordInterface[]

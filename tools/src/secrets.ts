@@ -12,4 +12,4 @@ const secrets = {
       : "mongodb://mongo:27017/many-words",
 };
 
-export default secrets
+export default secrets;

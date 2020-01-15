@@ -1,12 +1,12 @@
 import winston from "winston";
 
+const myFormat = winston.format.printf(({ level, message }) => {
+  return `${level} - ${message}`;
+});
+
 const logger = winston.createLogger({
   level: "debug",
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.json()
-  ),
-  defaultMeta: { service: "user-service" },
+  format: winston.format.combine(winston.format.colorize(), myFormat),
   transports: [
     //
     // - Write all logs with level `error` and below to `error.log`
@@ -20,7 +20,12 @@ const logger = winston.createLogger({
 if (process.env.NODE_ENV !== "production") {
   logger.add(
     new winston.transports.Console({
-      format: winston.format.simple(),
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.padLevels(),
+        winston.format.prettyPrint(),
+        myFormat
+      ),
     })
   );
 }

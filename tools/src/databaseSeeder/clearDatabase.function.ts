@@ -1,5 +1,5 @@
 import logger from "../logger";
-import Word from "./models/word.model";
+import Word from "../common/models/word.model";
 
 const clearDatabase = async (): Promise<void> => {
   try {

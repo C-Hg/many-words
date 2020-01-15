@@ -6,7 +6,6 @@ const getLessonAndTopic = (path: string): { [key in string]: string } => {
   const matchedTopic = path.match(topicRegex);
 
   if (matchedLesson === null || matchedTopic === null) {
-    console.error(`${+""}`);
     throw new Error(
       `Error : cannot parse lesson or topic ${matchedLesson}, ${matchedTopic}`
     );

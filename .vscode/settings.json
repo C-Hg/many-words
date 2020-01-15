@@ -2,6 +2,7 @@
     "cSpell.enabled": true,
     "cSpell.showStatus": true,
     "cSpell.language": "en,fr-FR",
+    "cSpell.logLevel": "Warning",
     "eslint.validate": [
         "javascript",
         "javascriptreact",

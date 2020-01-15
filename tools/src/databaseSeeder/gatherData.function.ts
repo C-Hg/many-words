@@ -1,7 +1,7 @@
 import logger from "../logger";
 import readFile from "./readFile.function";
 import getLessonAndTopic from "../common/getLessonAndTopic.function";
-import Word from "./models/word.interface";
+import Word from "../common/models/word.interface";
 import getFullWord from "./markdownParser/getFullWord";
 import getFilesPaths from "../common/getFilesPaths.function";
 
