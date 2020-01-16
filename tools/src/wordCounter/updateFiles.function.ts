@@ -1,38 +1,64 @@
 import fs from "fs";
 import logger from "../logger";
 
-const updateFiles = async (lessonsByThemes, themes, wordsByLesson) => {
-  // destination directories
-  const directories = [
-    "../server/exercises/FR-EN/",
-    "../client/src/exercises/",
+interface Topic {
+  name: string;
+  lessonsCount: number;
+}
+
+interface GlobalStats {
+  wordsCount: number;
+  lessonsCount: number;
+  topicsCount: number;
+}
+
+const updateFiles = async (
+  lessonsByTopic: { [k: string]: string[] },
+  topicsWithLessonsCount: Topic[],
+  wordCountByLesson: { [k: string]: number },
+  globalStats: GlobalStats
+): Promise<void> => {
+  const startTime = Date.now();
+  logger.info("preparing to write files");
+
+  const dataFiles = [
+    { name: "lessonsByTopic", data: lessonsByTopic },
+    { name: "topicsWithLessonsCount", data: topicsWithLessonsCount },
+    { name: "wordCountByLesson", data: wordCountByLesson },
+    { name: "globalStats", data: globalStats },
   ];
 
-  const dataFiles = [lessonsByThemes, themes, wordsByLesson];
+  // destination directories
+  const clientFolderPath = "../../client/src/data/";
+  const serverFolderPath = "../../server/src/exercises/";
 
-  // write the 3 files necessary to the client and server
-  dataFiles.forEach(file => {
-    const buffer = Buffer.from(`export default ${JSON.stringify(file)};`);
-    fs.writeFile(`${[file].toString()}.js`, buffer, err => {
-      if (err) throw err;
-      logger.info(`${file.toString()}.js has been saved!`);
-      // then copies them in the appropriate directories
-      // for (const destination in directories) {
-      //   fs.copyFile(
-      //     `${entry.toString()}.js`,
-      //     `${directories[destination] + entry.toString()}.js`,
-      //     err => {
-      //       if (err) throw err;
-      //       console.log(
-      //         `${entry.toString()}.js was copied to ${
-      //           directories[destination]
-      //         }${entry.toString()}.js`
-      //       );
-      //     }
-      //   );
-      // }
+  // write the 4 files
+  const writeFiles = async (
+    extension: "ts" | "js",
+    destination: string
+  ): Promise<void[]> => {
+    logger.info(`writing in ${destination}\n`);
+    const promises = dataFiles.map(file => {
+      const buffer = Buffer.from(
+        `const ${file.name} = ${JSON.stringify(file.data)};
+
+        export default ${file.name}`
+      );
+      return new Promise<void>(done => {
+        fs.writeFile(`${destination}${file.name}.${extension}`, buffer, err => {
+          if (err) throw err;
+          done();
+          logger.info(`${file.name}.${extension}`);
+        });
+      });
     });
-  });
+    return Promise.all(promises);
+  };
+
+  await writeFiles("js", clientFolderPath);
+  await writeFiles("ts", serverFolderPath);
+  const duration = Date.now() - startTime;
+  logger.info(`Wrote files in ${duration}ms`);
 };
 
 export default updateFiles;

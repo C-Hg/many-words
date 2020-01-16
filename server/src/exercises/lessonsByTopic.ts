@@ -1,0 +1,52 @@
+const lessonsByTopic = {
+  animals: [
+    "animals_basics",
+    "birds",
+    "farm_animals",
+    "insects",
+    "mammals_1",
+    "sea_animals",
+  ],
+  clothes: ["accessories", "clothes_basics", "more_clothes"],
+  colors: ["main_colors"],
+  food: [
+    "agriculture",
+    "drinks",
+    "food_basics",
+    "foods",
+    "fruits",
+    "more_fruits_and_vegetables",
+    "vegetables",
+  ],
+  habitation: [
+    "construction_materials",
+    "construction_tools",
+    "furniture",
+    "house",
+    "housing",
+    "rooms",
+  ],
+  human_body: ["head", "human_body_basics", "limbs", "organs", "senses"],
+  nature: [
+    "earth",
+    "nature_basics",
+    "sea",
+    "universe",
+    "weather_1",
+    "weather_2",
+  ],
+  numbers: ["first_numbers", "more_numbers"],
+  social_life: ["close_family", "human_beings", "identity", "introduction"],
+  society: ["buildings", "town", "transports"],
+  time: [
+    "days",
+    "months",
+    "time_basics",
+    "time_description_1",
+    "time_description_2",
+    "time_divisions",
+  ],
+  vegetals: ["plants", "trees", "vegetals_basics"],
+};
+
+export default lessonsByTopic;

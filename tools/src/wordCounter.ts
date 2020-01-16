@@ -1,17 +1,12 @@
 /* eslint-disable no-prototype-builtins */
-import mongoose from "mongoose";
 import getLessonAndTopic from "./common/getLessonAndTopic.function";
 import updateFiles from "./wordCounter/updateFiles.function";
 import getFilesPaths from "./common/getFilesPaths.function";
 import logger from "./logger";
 
-// TODO: add a description
-
-const countLessonsAndTopics = async () => {
+const countLessonsAndTopics = async (): Promise<void> => {
   const curriculumDirectory = "../../exercises/FR-EN";
   let wordsFilesPaths;
-  const lessons = {};
-  const wordCountByLesson = {};
 
   try {
     wordsFilesPaths = await getFilesPaths(curriculumDirectory);
@@ -94,7 +89,7 @@ const countLessonsAndTopics = async () => {
   /**
    * Gets all lessons with wordCount
    */
-  const lessonsWithWordCount = allWords.reduce(
+  const wordCountByLesson = allWords.reduce(
     (lessonsFound: { [k in string]: number }, word) => {
       const { lesson: currentLesson } = word;
       if (!lessonsFound.hasOwnProperty(currentLesson)) {
@@ -110,13 +105,13 @@ const countLessonsAndTopics = async () => {
   );
 
   console.info("\n----------------      lessons      ----------------\n");
-  console.info(lessonsWithWordCount);
+  console.info(wordCountByLesson);
 
   /**
    * Global stats
    */
   const wordsCount = allWords.length;
-  const lessonsCount = Object.keys(lessonsWithWordCount).length;
+  const lessonsCount = Object.keys(wordCountByLesson).length;
   const topicsCount = Object.keys(topics).length;
   const globalStats = { wordsCount, lessonsCount, topicsCount };
 
@@ -150,24 +145,19 @@ const countLessonsAndTopics = async () => {
   // console.info("\n-----------   complete exercises data   -------------");
   // console.info(JSON.stringify(completeExercisesData));
 
-  // updateFiles(lessonsByTopic, topicsWithLessonsCount, wordCountByLessonxx);
+  await updateFiles(
+    lessonsByTopic,
+    topicsWithLessonsCount,
+    wordCountByLesson,
+    globalStats
+  );
 };
 
-// Mongoose setup
-mongoose.connect("mongodb://localhost:27017/many-words", {
-  useNewUrlParser: true,
-});
-mongoose.Promise = global.Promise;
-// Get the default connection
-const db = mongoose.connection;
-db.on("error", logger.error.bind(console, "MongoDB connection error"));
-db.once("open", async () => {
+const wordCounter = async (): Promise<void> => {
   const startTime = Date.now();
-  logger.info("Connected to database");
   await countLessonsAndTopics();
   const endTime = Date.now();
   logger.info(`Completion time : ${endTime - startTime} ms.`);
-  db.close(() => {
-    logger.info("Connection to the database closed");
-  });
-});
+};
+
+wordCounter();

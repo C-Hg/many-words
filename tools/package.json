@@ -8,7 +8,8 @@
     "check-types:dbSeeder": "cd src && npx ts-node databaseSeeder.ts",
     "set_production_env": "cd src && babel-node --extensions '.ts' setProductionEnvironment",
     "database_seeder": "cd src && babel-node --extensions '.ts' databaseSeeder.ts",
-    "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.ts"
+    "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.ts && npm run lint_data_files",
+    "lint_data_files": "eslint --fix --ext .js,.ts ../client/src/data/ ../server/src/exercises/"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
