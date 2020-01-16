@@ -40,15 +40,13 @@ const countLessonsAndTopics = async () => {
   /**
    * Extracts the topics
    */
-  const topics = allWords.reduce((topicsFound, word): string[] => {
+  const topics: string[] = allWords.reduce((topicsFound, word): string[] => {
     const { topic } = word;
     if (!topicsFound.includes(topic)) {
       topicsFound.push(topic);
     }
     return topicsFound;
   }, []);
-  console.info("\n-----------   topics   -------------");
-  console.info(topics);
 
   /**
    * Adds lessonsCount to each topic
@@ -69,61 +67,90 @@ const countLessonsAndTopics = async () => {
     return fullTopic;
   });
 
-  console.info("\n-----------   topics   -------------");
+  console.info("\n---------------        topics      -----------------\n");
   console.info(topicsWithLessonsCount);
 
   /**
    * Adds lessons to each topic
    */
-  const topicsWithLessons = topics.map(topic => {
-    const topicLessons = allWords.reduce((lessonsFound, word): string[] => {
-      const { topic: currentTopic, lesson } = word;
-      if (currentTopic === topic && !lessonsFound.includes(lesson)) {
-        lessonsFound.push(lesson);
-      }
-      return lessonsFound;
-    }, []);
-    const fullTopic = {
-      topic,
-      lessons: topicLessons,
-    };
-    return fullTopic;
+  const lessonsByTopic: { [k in string]: string[] } = {};
+  topics.forEach(topic => {
+    const topicLessons: string[] = allWords.reduce(
+      (lessonsFound, word): string[] => {
+        const { topic: currentTopic, lesson } = word;
+        if (currentTopic === topic && !lessonsFound.includes(lesson)) {
+          lessonsFound.push(lesson);
+        }
+        return lessonsFound;
+      },
+      []
+    );
+    lessonsByTopic[topic] = topicLessons;
   });
 
-  console.info("\n-----------   topics with lessons   -------------");
-  console.info(topicsWithLessons);
+  console.info("\n---------------     lessons by topic      --------------\n");
+  console.info(lessonsByTopic);
 
   /**
-   * Add word count to each lesson
+   * Gets all lessons with wordCount
    */
-  const completeExercisesData = topicsWithLessons.map(topic => {
-    const { lessons: lessonsNames } = topic;
-    const lessonsWithWordCount = lessonsNames.map(lessonName => {
-      const wordsCount = allWords.reduce((wordCount, word): number => {
-        const { lesson: currentLesson } = word;
-        if (lessonName === currentLesson) {
-          return wordCount + 1;
-        }
-        return wordCount;
-      }, 0);
-      return { lesson: lessonName, wordsCount };
-    });
+  const lessonsWithWordCount = allWords.reduce(
+    (lessonsFound: { [k in string]: number }, word) => {
+      const { lesson: currentLesson } = word;
+      if (!lessonsFound.hasOwnProperty(currentLesson)) {
+        // eslint-disable-next-line no-param-reassign
+        lessonsFound[currentLesson] = 0;
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        lessonsFound[currentLesson] += 1;
+      }
+      return lessonsFound;
+    },
+    {}
+  );
 
-    const topicWithWordCount = {
-      ...topic,
-      lessons: lessonsWithWordCount,
-    };
-    return topicWithWordCount;
-  });
+  console.info("\n----------------      lessons      ----------------\n");
+  console.info(lessonsWithWordCount);
 
-  console.info("\n-----------   complete exercises data   -------------");
-  console.info(JSON.stringify(completeExercisesData));
+  /**
+   * Global stats
+   */
+  const wordsCount = allWords.length;
+  const lessonsCount = Object.keys(lessonsWithWordCount).length;
+  const topicsCount = Object.keys(topics).length;
+  const globalStats = { wordsCount, lessonsCount, topicsCount };
 
-  // TODO: get topics in an array of objects, with topicName + number of lessons
-  // TODO: get wordCountByLesson
-  // TODO: get lessonsByTopic without WordCount
-  // TODO: get global stats: number of topics, lessons and words
-  //updateFiles(lessonsxx, topicsWithLessonsCount, wordCountByLessonxx);
+  console.info("\n----------------------------------------------------\n");
+  logger.info(
+    `${topicsCount} topics, ${lessonsCount} lessons and ${wordsCount} words`
+  );
+  /**
+   * Complete data
+   */
+  // const completeExercisesData = topicsWithLessons.map(topic => {
+  //   const { lessons: lessonsNames } = topic;
+  //   const lessonsWithWordCount = lessonsNames.map(lessonName => {
+  //     const wordsCount = allWords.reduce((wordCount, word): number => {
+  //       const { lesson: currentLesson } = word;
+  //       if (lessonName === currentLesson) {
+  //         return wordCount + 1;
+  //       }
+  //       return wordCount;
+  //     }, 0);
+  //     return { lesson: lessonName, wordsCount };
+  //   });
+
+  //   const topicWithWordCount = {
+  //     ...topic,
+  //     lessons: lessonsWithWordCount,
+  //   };
+  //   return topicWithWordCount;
+  // });
+
+  // console.info("\n-----------   complete exercises data   -------------");
+  // console.info(JSON.stringify(completeExercisesData));
+
+  // updateFiles(lessonsByTopic, topicsWithLessonsCount, wordCountByLessonxx);
 };
 
 // Mongoose setup

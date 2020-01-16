@@ -1,1 +1,0 @@
-export default [["animals",0,0],["clothes",0,0],["colors",0,0],["food",0,0],["habitation",0,0],["human_body",0,0],["nature",0,0],["numbers",0,0],["social_life",0,0],["society",0,0],["time",0,0],["vegetals",0,0]];
