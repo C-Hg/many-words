@@ -1,11 +1,6 @@
 import { Document } from "mongoose";
 import { ObjectId } from "mongodb";
-
-interface FormStats {
-  language: string;
-  form: string;
-  score: number;
-}
+import FormStats from "./words/formStats.interface";
 
 export default interface WordStats extends Document {
   userId: ObjectId;
@@ -18,9 +13,3 @@ export default interface WordStats extends Document {
   globalScore: number;
   updatedAt: Date;
 }
-
-/*
-statsByForm is an array of objects
-[{language, acceptedForm, statsIndex}, {...}]
-
-*/
