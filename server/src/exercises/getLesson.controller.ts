@@ -1,8 +1,9 @@
+import { Request, Response } from "express";
 import Word from "../models/word.model";
 import findWordStatsByWord from "../user/stats/words/findWordStatsByWord.function";
 import getWeakForms from "./functions/getWeakForms.function";
 
-const getLesson = async (req, res) => {
+const getLesson = async (req: Request, res: Response): Promise<void> => {
   let words;
 
   // fetches the words for the lesson
@@ -30,7 +31,10 @@ const getLesson = async (req, res) => {
   try {
     const wordScores = await Promise.all(
       words.map(async word => {
-        const wordScore = await findWordStatsByWord(word.enName, req.user.id);
+        const wordScore = await findWordStatsByWord(
+          word.english.name,
+          req.user.id
+        );
         return wordScore;
       })
     );

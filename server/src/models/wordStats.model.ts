@@ -18,7 +18,7 @@ const wordStatsSchema = new Schema({
   updatedAt: { type: Date, default: Date.now(), required: true },
 });
 
-export default mongoose.model("WordStats", wordStatsSchema);
+export default mongoose.model<WordStatsInterface>("WordStats", wordStatsSchema);
 
 /*
 statsByForm is an array of objects
