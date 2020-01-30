@@ -1,5 +1,5 @@
-import User from "../../models/user.model";
-import WordStats from "../../models/wordStats.model";
+import User from "../models/user.model";
+import WordStats from "../../exercises/models/words/wordStats.model";
 
 const deleteData = async (userId: string): Promise<boolean> => {
   try {

@@ -1,5 +1,8 @@
 {
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "settings": {
     "import/resolver": {
       "node": {
@@ -14,11 +17,17 @@
   },
   "extends": [
     "eslint:recommended",
-    "airbnb",
-    "prettier/babel",
-    "prettier/@typescript-eslint",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended",
     "plugin:mocha/recommended",
-    "plugin:prettier/recommended"],
-  "plugins": ["mocha", "@typescript-eslint", "prettier"]
+    "prettier/babel",
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": ["mocha", "@typescript-eslint", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": ["error", { "allow": ["warn", "info", "error", "debug"] }]
+  }
 }

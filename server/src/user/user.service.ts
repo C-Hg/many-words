@@ -1,7 +1,9 @@
-import User from "../models/user.model";
+import User from "./models/user.model";
+import UserInterface from "./models/user.interface";
+import WordStats from "../exercises/models/words/wordStats.interface";
 
 const userService = {
-  updateStats: async (user, updatedUserStats) => {
+  updateStats: async (user: UserInterface, updatedUserStats: WordStats) => {
     try {
       await User.findByIdAndUpdate(user._id, { stats: updatedUserStats });
     } catch (error) {

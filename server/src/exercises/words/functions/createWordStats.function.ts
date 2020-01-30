@@ -1,4 +1,4 @@
-import Word from "../../../models/word.model";
+import Word from "../../models/words/word.model";
 
 const createWordStats = async (word, userId) => {
   let wordData;
@@ -13,12 +13,12 @@ const createWordStats = async (word, userId) => {
   const enStatsByForm = wordData.en[0].acceptedForms.map(form => ({
     language: "en",
     form,
-    score: 0
+    score: 0,
   }));
   const frStatsByForm = wordData.fr[0].acceptedForms.map(form => ({
     language: "fr",
     form,
-    score: 0
+    score: 0,
   }));
   const statsByForm = [...enStatsByForm, ...frStatsByForm];
   const { lesson, theme } = wordData;
@@ -32,7 +32,7 @@ const createWordStats = async (word, userId) => {
     theme,
     globalScore: 0,
     correctAnswers: 0,
-    wrongAnswers: 0
+    wrongAnswers: 0,
   };
   return wordStats;
 };

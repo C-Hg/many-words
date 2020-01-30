@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import getUpdatedLessonsStats from "./stats/lessons/getUpdatedLessonsStats.function";
+import getUpdatedLessonsStats from "../exercises/lessons/getUpdatedLessonsStats.function";
 import getUpdatedThemesStats from "./stats/themes/getUpdatedThemesStats.function";
 import getUpdatedGlobalProgress from "./stats/global/getUpdatedGlobalProgress.function";
 import upsertWordStats from "./stats/upsertWordStats.controller";
@@ -7,7 +7,7 @@ import getUpdatedUserStats from "./stats/getUpdatedUserStats.function";
 import userService from "./user.service";
 
 const userController = {
-  getUser: async (req: Request, res: Response) => {
+  getUser: async (req: Request, res: Response): Promise<void> => {
     if (req.user) {
       res.status(200).send(req.user.stats);
     } else {
@@ -35,7 +35,7 @@ const userController = {
     return updatedUserStats;
   },
 
-  updateStats: async (req, res) => {
+  updateStats: async (req: Request, res: Response): Promise<void> => {
     console.debug(`[updateStats] updating stats for user ${req.user.id}`);
     const exerciseResults = req.body;
     const userId = req.user.id;

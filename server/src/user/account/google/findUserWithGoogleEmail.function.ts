@@ -1,5 +1,5 @@
-import User from "../../../models/user.model";
-import UserDocument from "../../../models/user.interface";
+import User from "../../models/user.model";
+import UserDocument from "../../models/user.interface";
 
 // searches a match with every emails sent, if any
 // Google sends an array of email adresses of the form :

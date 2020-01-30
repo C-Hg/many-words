@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import assessGlobalProgress from "./assessGlobalProgress.function";
-import getWordsStatsByUser from "../words/getWordsStatsByUser.function";
+import getWordsStatsByUser from "../../../exercises/words/functions/getWordsStatsByUser.function";
 
 const getUpdatedGlobalProgress = async (
   user,

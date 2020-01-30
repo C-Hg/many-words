@@ -1,6 +1,6 @@
 import passport from "passport";
-import User from "../models/user.model";
-import UserDocument from "../models/user.interface";
+import User from "../user/models/user.model";
+import UserDocument from "../user/models/user.interface";
 
 const sessionMiddlewares = (): void => {
   passport.serializeUser((user, done) => {

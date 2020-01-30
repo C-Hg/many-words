@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import WordStatsInterface from "./wordStats.interface";
 
 const { Schema } = mongoose;
 
@@ -19,9 +20,3 @@ const wordStatsSchema = new Schema({
 });
 
 export default mongoose.model<WordStatsInterface>("WordStats", wordStatsSchema);
-
-/*
-statsByForm is an array of objects
-[{language, acceptedForm, statsIndex}, {...}]
-
-*/

@@ -1,11 +1,12 @@
 import { Document } from "mongoose";
 import { ObjectId } from "mongodb";
-import FormStats from "./words/formStats.interface";
+import FormStats from "./formStats.interface";
+import { Lesson } from "../../../lessons/models/lessons.type";
 
 export default interface WordStats extends Document {
   userId: ObjectId;
   englishName: string;
-  lesson: string;
+  lesson: Lesson;
   topic: string;
   correctAnswers: number;
   wrongAnswers: number;

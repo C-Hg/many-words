@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Word from "../models/word.model";
+import Word from "./models/words/word.model";
 
 const getWordsToLearn = async (req: Request, res: Response): Promise<void> => {
   let words;

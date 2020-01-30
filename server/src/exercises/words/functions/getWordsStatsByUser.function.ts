@@ -1,10 +1,10 @@
-import WordStats from "../../../models/wordStats.model";
+import WordStats from "../../models/words/wordStats.model";
 
 const getWordsStatsByUser = async userId => {
   let wordStats;
   try {
     wordStats = await WordStats.find({
-      userId
+      userId,
     });
   } catch (error) {
     console.error(
