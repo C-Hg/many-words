@@ -1,7 +1,6 @@
-import { Lesson } from "./models/lessons.type";
+import { Lesson } from "./models/lesson.type";
 import WordStats from "../words/models/words/wordStats.interface";
 
-// TODO: strong typing with lessons
 const getLessonsToUpdate = (wordsStats: WordStats[]): Lesson[] => {
   const lessons: Lesson[] = [];
   wordsStats.forEach(wordStats => {

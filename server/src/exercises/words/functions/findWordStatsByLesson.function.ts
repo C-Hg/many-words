@@ -1,8 +1,14 @@
-import WordStats from "../../models/words/wordStats.model";
+import User from "../../../user/models/user.interface";
+import { Lesson } from "../../lessons/models/lesson.type";
+import WordStatsInterface from "../models/words/wordStats.interface";
+import wordStatsModel from "../models/words/wordStats.model";
 
-const findWordStatsByLesson = async (user, lesson) => {
+const findWordStatsByLesson = async (
+  user: User,
+  lesson: Lesson
+): Promise<WordStatsInterface[]> => {
   try {
-    return await WordStats.find({ userId: user, lesson });
+    return await wordStatsModel.find({ userId: user, lesson });
   } catch (error) {
     console.error(
       "[findWordStatsByLesson] error while searching word stats by lesson",

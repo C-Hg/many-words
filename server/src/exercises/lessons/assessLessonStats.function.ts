@@ -1,5 +1,15 @@
-const assessLessonStats = (wordProficiencies, totalNumberOfWords) => {
-  const score = wordProficiencies.reduce((acc, val) => {
+import WordStats from "../words/models/words/wordStats.interface";
+
+/**
+ * Calculates the user score for one lesson, depending on the words' scores
+ * @param wordsStats: the user stats for every word in this lesson
+ * @param wordsByLesson: the total number of words in this lesson
+ */
+const assessLessonStats = (
+  wordsStats: WordStats[],
+  wordsByLesson: number
+): number => {
+  const score = wordsStats.reduce((acc, val) => {
     if (val.globalScore <= 0) {
       return acc;
     }
@@ -8,7 +18,7 @@ const assessLessonStats = (wordProficiencies, totalNumberOfWords) => {
     }
     return acc + val.globalScore;
   }, 0);
-  return Number((score / (totalNumberOfWords * 5)).toFixed(3));
+  return Number((score / (wordsByLesson * 5)).toFixed(3));
 };
 
 export default assessLessonStats;
