@@ -7,7 +7,7 @@ type LessonScore = {
 };
 
 // LessonsStats groups the score of each lesson, by topic
-// { lessonstats: { myTopic: { myLesson: 3 } } }
+// { lessonStats: { myTopic: { myLesson: 3 } } }
 export type LessonsStats = {
   [k in keyof typeof lessonsByTopic]: Partial<LessonScore>;
 };

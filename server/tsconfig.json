@@ -2,9 +2,13 @@
     "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "esnext",
     "lib": ["ES2018","ScriptHost"],
+    // Don't emit; allow Babel to transform files.
+    "noEmit": true,
+    "strict": true,
     "noImplicitAny": true,
+    "isolatedModules": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",

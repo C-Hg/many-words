@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import WordStatsInterface from "./wordStats.interface";
+import WordStatsInterface from "../../interfaces/wordStats.interface";
 
 const { Schema } = mongoose;
 
@@ -19,4 +19,8 @@ const wordStatsSchema = new Schema({
   updatedAt: { type: Date, default: Date.now(), required: true },
 });
 
-export default mongoose.model<WordStatsInterface>("WordStats", wordStatsSchema);
+const WordStatsModel = mongoose.model<WordStatsInterface>(
+  "WordStats",
+  wordStatsSchema
+);
+export default WordStatsModel;

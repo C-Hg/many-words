@@ -15,6 +15,9 @@ const getFullWord = (document: string, lesson: string, topic: string): Word => {
     englishName: englishNameRegex,
     frenchName: frenchNameRegex,
   } = markdownRegex;
+  if (!lesson || !topic) {
+    throw new Error(`[getFullWord] Required parameter missing`);
+  }
 
   let type;
   let englishName;
@@ -35,19 +38,13 @@ const getFullWord = (document: string, lesson: string, topic: string): Word => {
   const hasUniqueForm = matchHasUniqueForm !== null;
 
   // English data
-  const englishWords = fetchEnglishWords(document); // gathering and validating data
-  const frenchWords = fetchFrenchWords(document);
-
-  if (
-    !englishWords ||
-    !frenchWords ||
-    !englishName ||
-    !frenchName ||
-    !type ||
-    !lesson ||
-    !topic
-  ) {
-    throw new Error(`[getFullWord] Required parameter missing`);
+  let englishWords
+  let frenchWords
+  try {
+    englishWords = fetchEnglishWords(document); // gathering and validating data
+    frenchWords = fetchFrenchWords(document);
+  } catch (error) {
+    logger.error(`[getFullWord] error while fetching words, ${document}`);
   }
 
   const newWord = new WordModel({

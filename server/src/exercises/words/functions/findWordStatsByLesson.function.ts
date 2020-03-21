@@ -1,6 +1,6 @@
 import User from "../../../user/models/user.interface";
 import { Lesson } from "../../lessons/models/lesson.type";
-import WordStatsInterface from "../models/words/wordStats.interface";
+import WordStatsInterface from "../interfaces/wordStats.interface";
 import wordStatsModel from "../models/words/wordStats.model";
 
 const findWordStatsByLesson = async (

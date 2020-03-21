@@ -1,7 +1,8 @@
-import WordStats from "../../models/words/wordStats.model";
+import WordStats from "../models/words/wordStats.model";
 
 const updateWordStats = async (updatedWordStats, userId) => {
   try {
+    // TODO: Promise.all
     updatedWordStats.forEach(async wordStats => {
       await WordStats.replaceOne(
         { enName: wordStats.enName, userId },

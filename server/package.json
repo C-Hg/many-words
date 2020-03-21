@@ -4,11 +4,12 @@
   "description": "Many-words server",
   "main": "server.js",
   "scripts": {
-    "test": "export NODE_ENV=test && mocha --opts ./mocha.opts",
-    "start": "nodemon --exec babel-node src/server.js",
-    "deploy": "npm run build && npm run serve",
     "build": "babel src -d lib",
-    "serve": "node lib/server.js"
+    "check-types": "tsc",
+    "deploy": "npm run build && npm run serve",
+    "serve": "node lib/server.js",
+    "start": "nodemon --exec babel-node --extensions '.ts' src/server.ts",
+    "test": "export NODE_ENV=test && mocha --opts ./mocha.opts"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
@@ -34,6 +35,7 @@
     "@babel/node": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.9.0",
     "@types/connect-mongodb-session": "0.0.2",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",

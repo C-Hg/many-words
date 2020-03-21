@@ -2,11 +2,12 @@
 import merge from "lodash.merge";
 import cloneDeep from "lodash.clonedeep";
 import findWordStatsByLesson from "../words/functions/findWordStatsByLesson.function";
-import wordCountByLesson from "../../../exercises/FR-EN/wordCountByLesson";
+
 import assessLessonStats from "./assessLessonStats.function";
 import { Lesson } from "./models/lesson.type";
 import User from "../../user/models/user.interface";
 import { LessonsStats } from "./models/lessonsStats.interface";
+import wordCountByLesson from "../data/wordCountByLesson";
 
 const getUpdatedLessonsStats = async (
   lessons: Lesson[],

@@ -1,9 +1,9 @@
-import WordStats from "../models/words/wordStats.model";
+import WordStats from "../words/models/words/wordStats.model";
 
 const getWeakWords = async (reference, userId) => {
   // fetches the weak words for logged user, depending on the reference selected
   // (i.e one theme or globally)
-  let wordStats = "";
+  let wordStats = null;
   if (reference === "curriculum") {
     try {
       wordStats = await WordStats.find({ userId });

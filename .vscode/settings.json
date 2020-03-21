@@ -28,4 +28,8 @@
     "typescript.updateImportsOnFileMove.enabled": "always",
     "explorer.confirmDelete": false,
     "vsicons.dontShowNewVersionMessage": true,
+    "cSpell.words": [
+        "clonedeep",
+        "upsert"
+    ],
 }

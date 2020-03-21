@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import getUpdatedLessonsStats from "../exercises/lessons/getUpdatedLessonsStats.function";
 import getUpdatedThemesStats from "./stats/themes/getUpdatedThemesStats.function";
 import getUpdatedGlobalProgress from "./stats/global/getUpdatedGlobalProgress.function";
-import upsertWordStats from "./stats/upsertWordStats.controller";
-import getUpdatedUserStats from "./stats/getUpdatedUserStats.function";
+import wordsController from "../exercises/words/words.controller";
 import userService from "./user.service";
 
 const userController = {
@@ -41,8 +40,14 @@ const userController = {
     const userId = req.user.id;
     const user = req.user.toObject();
 
-    const lessonsToUpdate = await upsertWordStats(exerciseResults, userId);
-    const updatedUserStats = await getUpdatedUserStats(lessonsToUpdate, user);
+    const lessonsToUpdate = await wordsController.upsertWordStats(
+      exerciseResults,
+      userId
+    );
+    const updatedUserStats = await userController.getUpdatedUserStats(
+      lessonsToUpdate,
+      user
+    );
 
     await userService.updateStats(user, updatedUserStats);
     res.status(200);

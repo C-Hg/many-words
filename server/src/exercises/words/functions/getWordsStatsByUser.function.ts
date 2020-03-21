@@ -1,4 +1,4 @@
-import WordStats from "../../models/words/wordStats.model";
+import WordStats from "../models/words/wordStats.model";
 
 const getWordsStatsByUser = async userId => {
   let wordStats;

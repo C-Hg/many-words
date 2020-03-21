@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import Word from "./models/words/word.model";
+
 import findWordStatsByWord from "./words/functions/findWordStatsByWord.function";
 import getWeakForms from "./functions/getWeakForms.function";
+import Word from "./words/models/words/word.model";
 
 const getLesson = async (req: Request, res: Response): Promise<void> => {
   let words;

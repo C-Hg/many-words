@@ -1,4 +1,4 @@
-import WordStats from "../words/models/words/wordStats.interface";
+import WordStats from "../words/interfaces/wordStats.interface";
 
 /**
  * Calculates the user score for one lesson, depending on the words' scores

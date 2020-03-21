@@ -8,7 +8,7 @@ const fetchFrenchWords = (document: string): FrenchWord[] => {
   if (areWordsProperlyFormatted) {
     return frenchWords;
   }
-  return null;
+  throw new Error()
 };
 
 export default fetchFrenchWords;

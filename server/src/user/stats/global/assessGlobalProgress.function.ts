@@ -1,13 +1,13 @@
-import themes from "../../../exercises/FR-EN/themes";
 import assessGlobalWordsStats from "./assessGlobalWordsStats.function";
 import assessGlobalLessonsStats from "./assessGlobalLessonsStats.function";
+import topicsWithLessonsCount from "../../../exercises/data/topicsWithLessonsCount";
 
 const assessGlobalProgress = (
   wordStats,
   updatedLessonsStats,
   updatedThemesStats
 ) => {
-  const totalNumberOfWords = themes.reduce((acc, val) => {
+  const totalNumberOfWords = topicsWithLessonsCount.reduce((acc, val) => {
     return acc + val[1];
   }, 0);
 
