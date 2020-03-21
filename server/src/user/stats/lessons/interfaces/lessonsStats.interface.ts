@@ -1,5 +1,5 @@
 import lessonsByTopic from "../../data/lessonsByTopic";
-import { Lesson } from "./lesson.type";
+import { Lesson } from "../models/lesson.type";
 
 // myLesson: 5
 type LessonScore = {

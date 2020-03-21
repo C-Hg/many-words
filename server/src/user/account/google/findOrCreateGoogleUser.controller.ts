@@ -1,4 +1,4 @@
-import UserDocument from "../../models/user.interface";
+import UserDocument from "../../interfaces/user.interface";
 import findUserWithGoogleEmail from "./findUserWithGoogleEmail.function";
 import findUserWithGoogleId from "./findUserWithGoogleId.function";
 import createUserWithGoogle from "./createUserWithGoogle.function";

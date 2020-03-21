@@ -37,7 +37,7 @@ const getUpdatedWordStats = async (allWordStats, exerciseResults) => {
       statsByForm: updatedStatsByForm,
       globalScore: updatedGlobalScore,
       correctAnswers: updatedCorrectAnswers,
-      wrongAnswers: updatedWrongAnswers
+      wrongAnswers: updatedWrongAnswers,
     };
   });
 

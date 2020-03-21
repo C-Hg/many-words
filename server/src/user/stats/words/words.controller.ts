@@ -1,6 +1,6 @@
-import getOrCreateWordStats from "./functions/getOrCreateWordStats.function";
-import getUpdatedWordStats from "./functions/getUpdatedWordStats.function";
-import updateWordStats from "./functions/updateWordStats.function";
+import getOrCreateWordStats from "./helpers/getOrCreateWordStats.function";
+import getUpdatedWordStats from "./helpers/getUpdatedWordStats.function";
+import updateWordStats from "./helpers/updateWordStats.function";
 import getLessonsToUpdate from "../lessons/getLessonsToUpdate.function";
 
 const wordsController = {
@@ -13,7 +13,7 @@ const wordsController = {
       allWordsStats,
       exerciseResults
     );
-    updateWordStats(updatedWordStats, userId);
+    await updateWordStats(updatedWordStats, userId);
 
     const lessonsToUpdate = getLessonsToUpdate(allWordsStats);
     return lessonsToUpdate;

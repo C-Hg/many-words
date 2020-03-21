@@ -1,19 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 import merge from "lodash.merge";
 import cloneDeep from "lodash.clonedeep";
-import findWordStatsByLesson from "../words/functions/findWordStatsByLesson.function";
 
+import findWordStatsByLesson from "../words/helpers/findWordStatsByLesson.function";
 import assessLessonStats from "./assessLessonStats.function";
 import { Lesson } from "./models/lesson.type";
-import User from "../../user/models/user.interface";
-import { LessonsStats } from "./models/lessonsStats.interface";
+import User from "../../user/interfaces/user.interface";
+import { LessonsStats } from "./interfaces/lessonsStats.interface";
 import wordCountByLesson from "../data/wordCountByLesson";
 
 const getUpdatedLessonsStats = async (
   lessons: Lesson[],
   user: User
 ): Promise<Partial<LessonsStats>> => {
-  const udpatedLessonsStats: Partial<LessonsStats> = {};
+  const updatedLessonsStats: Partial<LessonsStats> = {};
 
   const updatingLessons = lessons.map(async lesson => {
     // gather word stats of the given lesson
@@ -23,10 +23,11 @@ const getUpdatedLessonsStats = async (
     // we're mapping through each lesson, gets the topic from the first word of this lesson
     const { topic } = wordsStats[0];
     // creates topic entry if necessary
-    if (!udpatedLessonsStats[topic]) {
-      udpatedLessonsStats[topic] = {};
+    if (updatedLessonsStats[topic] === undefined) {
+      updatedLessonsStats[topic] = {};
     }
-    udpatedLessonsStats[topic][lesson] = newScore;
+    // updates the lesson score
+    updatedLessonsStats[topic][lesson] = newScore;
   });
   try {
     await Promise.all(updatingLessons);
@@ -35,7 +36,7 @@ const getUpdatedLessonsStats = async (
   }
 
   const lessonsStats = cloneDeep(user.stats.lessons) || {};
-  merge(lessonsStats, udpatedLessonsStats);
+  merge(lessonsStats, updatedLessonsStats);
   return lessonsStats;
 };
 

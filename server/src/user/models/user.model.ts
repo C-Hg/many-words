@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { ObjectID } from "mongodb";
 
-import UserDocument from "./user.interface";
+import UserDocument from "../interfaces/user.interface";
 
 const { Schema } = mongoose;
 
@@ -14,7 +14,7 @@ const userSchema = new Schema(
       type: Schema.Types.Mixed,
       default: {
         lessons: {},
-        themes: {},
+        topics: {},
         globalProgress: {
           studiedLessons: 0,
           greenLessons: 0,

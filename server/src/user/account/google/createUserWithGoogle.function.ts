@@ -1,4 +1,4 @@
-import UserDocument from "../../models/user.interface";
+import UserDocument from "../../interfaces/user.interface";
 import User from "../../models/user.model";
 
 const createUserWithGoogle = async (

@@ -1,4 +1,4 @@
-import User from "../../../user/models/user.interface";
+import User from "../../../user/interfaces/user.interface";
 import { Lesson } from "../../lessons/models/lesson.type";
 import WordStatsInterface from "../interfaces/wordStats.interface";
 import wordStatsModel from "../models/words/wordStats.model";
@@ -15,6 +15,7 @@ const findWordStatsByLesson = async (
       error
     );
   }
+  return [];
 };
 
 export default findWordStatsByLesson;

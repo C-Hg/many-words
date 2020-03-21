@@ -1,5 +1,5 @@
 import User from "./models/user.model";
-import UserInterface from "./models/user.interface";
+import UserInterface from "./interfaces/user.interface";
 import WordStats from "../exercises/models/words/wordStats.interface";
 
 const userService = {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import WordInterface from "../../interfaces/word.interface";
+import WordInterface from "../interfaces/word.interface";
 
 const { Schema } = mongoose;
 
