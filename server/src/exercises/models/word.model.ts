@@ -18,6 +18,6 @@ const WordSchema = new Schema({
   topic: { type: String, required: true },
 });
 
-const Word = mongoose.model<WordInterface>("Word", WordSchema);
+const WordModel = mongoose.model<WordInterface>("Word", WordSchema);
 
-export default Word;
+export default WordModel;

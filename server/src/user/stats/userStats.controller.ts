@@ -3,15 +3,7 @@ import getUpdatedLessonsStats from "./lessons/getUpdatedLessonsStats.function";
 import getUpdatedTopicsStats from "./topics/getUpdatedThemesStats.function";
 import getUpdatedGlobalProgress from "./global/getUpdatedGlobalProgress.function";
 
-const userController = {
-  getUser: (req: Request, res: Response): void => {
-    if (req.user) {
-      res.status(200).send(req.user.stats);
-    } else {
-      res.status(200).send({ response: "user not connected" });
-    }
-  },
-
+const userStatsController = {
   getUpdatedUserStats: async (lessonsToUpdate, user) => {
     const updatedLessonsStats = await getUpdatedLessonsStats(
       lessonsToUpdate,
@@ -43,7 +35,7 @@ const userController = {
       exerciseResults,
       userId
     );
-    const updatedUserStats = await userController.getUpdatedUserStats(
+    const updatedUserStats = await userStatsController.getUpdatedUserStats(
       lessonsToUpdate,
       user
     );
@@ -54,4 +46,4 @@ const userController = {
   },
 };
 
-export default userController;
+export default userStatsController;

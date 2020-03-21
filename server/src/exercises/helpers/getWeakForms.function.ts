@@ -1,16 +1,20 @@
+import WordStats from "../../user/stats/words/interfaces/wordStats.interface";
+import FormStats from "../../user/stats/words/interfaces/formStats.interface";
+import logger from "../../logger";
+
 /**
  * getWeakForms: for each word, returns the weakest forms in an array of objects
  * @param {Array} wordScores
  * @return {Array} weakForms
  */
-const getWeakForms = wordScores => {
-  const wordsWeakForms = wordScores.map(val => {
-    if (val === null) {
+const getWeakForms = (wordScores: WordStats[]): (FormStats[] | null)[] => {
+  const wordsWeakForms = wordScores.map(wordScore => {
+    if (!wordScore) {
       return null;
     }
-    let weakestForms = [];
+    let weakestForms: FormStats[] = [];
     let lowestIndex = 10000;
-    val.statsByForm.forEach(form => {
+    wordScore.statsByForm.forEach(form => {
       if (form.score < lowestIndex) {
         lowestIndex = form.score;
         weakestForms = [form];
@@ -18,10 +22,9 @@ const getWeakForms = wordScores => {
         weakestForms.push(form);
       }
     });
-
     return weakestForms;
   });
-  // console.debug(
+  // logger.debug(
   //   `[getWeakForms] weakestForms: ${JSON.stringify(wordsWeakForms)}`
   // );
   return wordsWeakForms;

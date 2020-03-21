@@ -1,4 +1,4 @@
-import WordStats from "../words/models/words/wordStats.model";
+import WordStats from "../../user/stats/words/models/wordStats.model";
 
 const getWeakWords = async (reference, userId) => {
   // fetches the weak words for logged user, depending on the reference selected

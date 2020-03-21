@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import getWeakWords from "./functions/getWeakWords.function";
-import sortWordStats from "./functions/sortWordStats.function";
-import getWeakForms from "./functions/getWeakForms.function";
+import getWeakWords from "./helpers/getWeakWords.function";
+import sortWordStats from "./helpers/sortWordStats.function";
+import getWeakForms from "./helpers/getWeakForms.function";
 import Word from "./models/word.model";
 
 const prepareWeakWords = async (req: Request, res: Response): Promise<void> => {
