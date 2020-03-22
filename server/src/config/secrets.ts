@@ -9,7 +9,7 @@ const {
   SESSION_SECRET,
 } = process.env;
 
-module.exports = {
+const secrets = {
   SESSION_SECRET: SESSION_SECRET || "session_secret",
 
   GOOGLE_CLIENT_ID: GOOGLE_CLIENT_ID || "no_ID",
@@ -23,3 +23,5 @@ module.exports = {
       ? `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@mongo:27017/${MONGO_INITDB_DATABASE}`
       : "mongodb://mongo:27017/many-words",
 };
+
+export default secrets;

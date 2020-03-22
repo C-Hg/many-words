@@ -1,5 +1,6 @@
 import User from "../../models/user.model";
 import UserDocument from "../../interfaces/user.interface";
+import logger from "../../../logger";
 
 const findUserWithGoogleId = async (
   googleId: string
@@ -8,7 +9,7 @@ const findUserWithGoogleId = async (
   try {
     user = await User.findOne({ googleId });
   } catch (error) {
-    console.error("[findUserWithGoogleId] error while checking db", error);
+    logger.error("[findUserWithGoogleId] error while checking db", error);
   }
   return user; // returns null if no match
 };

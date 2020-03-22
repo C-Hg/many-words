@@ -1,5 +1,6 @@
 import User from "../../models/user.model";
 import UserDocument from "../../interfaces/user.interface";
+import logger from "../../../logger";
 
 // searches a match with every emails sent, if any
 // Google sends an array of email adresses of the form :
@@ -13,7 +14,7 @@ const findUserWithGoogleEmail = async (
   try {
     user = await User.findOne({ email: { $in: arrayOfEmails } });
   } catch (error) {
-    console.error("[findUserWithEmail] error while checking db", error);
+    logger.error("[findUserWithEmail] error while checking db", error);
   }
   return user; // returns null if no match
 };

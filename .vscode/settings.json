@@ -30,6 +30,8 @@
     "vsicons.dontShowNewVersionMessage": true,
     "cSpell.words": [
         "clonedeep",
+        "deserialize",
+        "middlewares",
         "printf",
         "upsert"
     ],

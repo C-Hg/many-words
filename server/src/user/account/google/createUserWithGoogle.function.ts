@@ -1,5 +1,6 @@
 import UserDocument from "../../interfaces/user.interface";
 import User from "../../models/user.model";
+import logger from "../../../logger";
 
 const createUserWithGoogle = async (
   googleId: string,
@@ -8,9 +9,9 @@ const createUserWithGoogle = async (
   let user;
   try {
     user = await User.create({ googleId, email });
-    console.info(`[createUserWithGoogle] created user ${user.id}`);
+    logger.info(`[createUserWithGoogle] created user ${user.id}`);
   } catch (error) {
-    console.error("[createUserWithGoogle] error while registering user", error);
+    logger.error("[createUserWithGoogle] error while registering user", error);
   }
   return user;
 };
