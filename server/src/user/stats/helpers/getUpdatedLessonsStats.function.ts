@@ -2,11 +2,11 @@
 import merge from "lodash.merge";
 import cloneDeep from "lodash.clonedeep";
 
-import findWordStatsByLesson from "../words/helpers/findWordStatsByLesson.function";
+import findWordStatsByLesson from "./findWordStatsByLesson.function";
 import assessLessonStats from "./assessLessonStats.function";
 import { Lesson } from "./models/lesson.type";
 import User from "../../user/interfaces/user.interface";
-import { LessonsStats } from "./interfaces/lessonsStats.interface";
+import { LessonsStats } from "../interfaces/lessonsStats.interface";
 import wordCountByLesson from "../data/wordCountByLesson";
 
 const getUpdatedLessonsStats = async (

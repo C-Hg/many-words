@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
-import getWeakForms from "./helpers/getWeakForms.function";
 import exercisesService from "./exercises.service";
 import logger from "../logger";
 import userStatsService from "../user/stats/userStats.service";
 import sortWordStats from "./helpers/sortWordStats.function";
+import appendWeakestForms from "./helpers/appendWeakestForms.function";
 
 const exercisesController = {
   getLesson: async (req: Request, res: Response): Promise<void> => {
@@ -24,7 +24,7 @@ const exercisesController = {
     }
 
     // if user is registered, selects the weakest forms
-    // wordScores is a parallel array containing scores if they exist,
+    // wordStats is a parallel array containing scores if they exist,
     // or "null", for each word
     try {
       const wordsStats = await Promise.all(
@@ -37,8 +37,9 @@ const exercisesController = {
         })
       );
 
+      // TODO: get W
       // gets the weakest forms of each word
-      const weakestFormsStats = getWeakForms(wordsStats);
+      const weakestFormsStats = appendWeakestForms(wordsStats);
       res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
       logger.debug(
         `[getLesson] sent words for lesson ${req.params.lesson}, user ${req.user
@@ -71,7 +72,10 @@ const exercisesController = {
 
       // TODO: common function to do it with getLesson
       // filters out the stats of the weakest forms of each word
-      const weakestFormsStats = getWeakForms(slicedWordsStats);
+      const wordsWithWeakestFormsStats = appendWeakestForms(
+        slicedWordsStats,
+        words
+      );
 
       // TODO: append weak forms directly to the word object, so that get WeakForms return Word[]
       // TODO: and not (FormStats[] | null)[]

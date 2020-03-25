@@ -1,6 +1,7 @@
 import { Document } from "mongoose";
 import EnglishWord from "./englishWord.interface";
 import FrenchWord from "./frenchWord.interface";
+import FormStats from "../../user/stats/interfaces/formStats.interface";
 
 export default interface Word extends Document {
   english: {
@@ -15,4 +16,5 @@ export default interface Word extends Document {
   type: string;
   lesson: string;
   topic: string;
+  weakestForms?: FormStats[];
 }

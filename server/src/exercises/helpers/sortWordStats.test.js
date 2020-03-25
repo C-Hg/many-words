@@ -9,7 +9,7 @@ const wordStats3 = [
   { globalScore: -2 },
 ];
 
-test("sortWordStats function", () => {
+test("sortWordStats", () => {
   expect(sortWordStats(wordStats0)).toStrictEqual(wordStats0);
   expect(sortWordStats(wordStats1)).toStrictEqual(wordStats1);
   expect(sortWordStats(wordStats2)).toStrictEqual([

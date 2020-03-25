@@ -1,5 +1,5 @@
-import { Lesson } from "../../../../exercises/models/lesson.type";
-import User from "../../../interfaces/user.interface";
+import { Lesson } from "../../../exercises/models/lesson.type";
+import User from "../../interfaces/user.interface";
 import WordStats from "../interfaces/wordStats.interface";
 import WordStatsModel from "../models/wordStats.model";
 

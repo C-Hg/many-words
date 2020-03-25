@@ -1,7 +1,7 @@
 import getOrCreateWordStats from "./helpers/getOrCreateWordStats.function";
 import getUpdatedWordStats from "./helpers/getUpdatedWordStats.function";
 import updateWordStats from "./helpers/updateWordStats.function";
-import getLessonsToUpdate from "../lessons/getLessonsToUpdate.function";
+import getLessonsToUpdate from "./helpers/getLessonsToUpdate.function";
 
 const wordsController = {
   upsertWordStats: async (exerciseResults, userId: string) => {

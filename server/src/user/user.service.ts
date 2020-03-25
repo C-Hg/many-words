@@ -1,6 +1,6 @@
 import User from "./models/user.model";
 import UserInterface from "./interfaces/user.interface";
-import WordStats from "./stats/words/interfaces/wordStats.interface";
+import WordStats from "./stats/interfaces/wordStats.interface";
 
 const userService = {
   updateStats: async (

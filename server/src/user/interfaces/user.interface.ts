@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { LessonsStats } from "../stats/lessons/interfaces/lessonsStats.interface";
+import { LessonsStats } from "../stats/interfaces/lessonsStats.interface";
 
 export default interface User extends Document {
   email: string;

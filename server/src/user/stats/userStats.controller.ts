@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import getUpdatedLessonsStats from "./lessons/getUpdatedLessonsStats.function";
-import getUpdatedTopicsStats from "./topics/getUpdatedThemesStats.function";
-import getUpdatedGlobalProgress from "./global/getUpdatedGlobalProgress.function";
+import getUpdatedLessonsStats from "./helpers/getUpdatedLessonsStats.function";
+import getUpdatedTopicsStats from "./helpers/getUpdatedThemesStats.function";
+import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.function";
 
 const userStatsController = {
   getUpdatedUserStats: async (lessonsToUpdate, user) => {

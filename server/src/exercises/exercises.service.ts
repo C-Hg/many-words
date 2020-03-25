@@ -1,8 +1,8 @@
 import Word from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
-import WordStatsModel from "../user/stats/words/models/wordStats.model";
+import WordStatsModel from "../user/stats/models/wordStats.model";
 import { ObjectID } from "mongodb";
-import WordStats from "../user/stats/words/interfaces/wordStats.interface";
+import WordStats from "../user/stats/interfaces/wordStats.interface";
 
 const exercisesService = {
   /**
