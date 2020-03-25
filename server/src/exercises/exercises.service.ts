@@ -32,7 +32,7 @@ const exercisesService = {
 
   /**
    * Fetches the weak words for a logged user, depending on the reference selected
-   * TODO: strong typing for references
+   * // TODO: strong typing for references
    */
   getWordsStats: async (
     reference: string,
