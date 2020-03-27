@@ -1,36 +1,44 @@
-import Word from "../models/words/word.model";
-import WordStatsModel from "../models/words/wordStats.model";
+import { Types } from "mongoose";
+import WordStats from "../interfaces/wordStats.interface";
+import WordStatsModel from "../models/wordStats.model";
+import FormStats, { Languages } from "../interfaces/formStats.interface";
+import exercisesService from "../../../exercises/exercises.service";
 
-const createWordStats = async (word, userId) => {
-  let wordData;
-  try {
-    wordData = await Word.findOne({ enName: word }, "en fr lesson theme");
-  } catch (error) {
-    console.error("[createWordStats] error while fetching word data", error);
-  }
-  if (!wordData) {
-    console.error(`[createWordStats] cannot fetch word data for ${word}`);
-    return;
-  }
+// TODO: seed database with default wordStats objects for each word?
+/**
+ * Creates a new wordStats object for a given word
+ */
+const createWordStats = async (
+  userId: Types.ObjectId,
+  englishName: string
+): Promise<WordStats> => {
+  const wordData = await exercisesService.findWordByEnglishName(englishName);
 
   // fills stats indexes for each form of the word
-  const enStatsByForm = wordData.english.words[0].acceptedForms.map(form => ({
-    language: "english",
-    form,
-    score: 0,
-  }));
-  const frStatsByForm = wordData.french.words[0].acceptedForms.map(form => ({
-    language: "french",
-    form,
-    score: 0,
-  }));
-  const statsByForm = [...enStatsByForm, ...frStatsByForm];
+  const englishStatsByForm = wordData.english.words[0].acceptedForms.map(
+    form => ({
+      form,
+      language: Languages.English,
+      score: 0,
+    })
+  );
+  const frenchStatsByForm = wordData.french.words[0].acceptedForms.map(
+    form => ({
+      form,
+      language: Languages.French,
+      score: 0,
+    })
+  );
+  const statsByForm: FormStats[] = [
+    ...englishStatsByForm,
+    ...frenchStatsByForm,
+  ];
   const { lesson, topic } = wordData;
 
   // other data are completed by default
-  const wordStats = new WordStatsModel({
+  const wordStats: WordStats = new WordStatsModel({
     userId,
-    enName: word,
+    englishName,
     statsByForm,
     lesson,
     topic,

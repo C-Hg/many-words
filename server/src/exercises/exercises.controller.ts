@@ -29,7 +29,7 @@ const exercisesController = {
     try {
       const wordsStats = await Promise.all(
         words.map(async word => {
-          const wordStats = await userStatsService.findWordStatsByEnglishReference(
+          const wordStats = await userStatsService.findWordStatsByEnglishName(
             req.user._id,
             word.english.name
           );
@@ -37,9 +37,8 @@ const exercisesController = {
         })
       );
 
-      // TODO: get W
       // gets the weakest forms of each word
-      const weakestFormsStats = appendWeakestForms(wordsStats);
+      const weakestFormsStats = appendWeakestForms(words, wordsStats);
       res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
       logger.debug(
         `[getLesson] sent words for lesson ${req.params.lesson}, user ${req.user
@@ -73,14 +72,12 @@ const exercisesController = {
       // TODO: common function to do it with getLesson
       // filters out the stats of the weakest forms of each word
       const wordsWithWeakestFormsStats = appendWeakestForms(
-        slicedWordsStats,
-        words
+        words,
+        slicedWordsStats
       );
 
-      // TODO: append weak forms directly to the word object, so that get WeakForms return Word[]
-      // TODO: and not (FormStats[] | null)[]
-      // returns an array of the 50 weakest words (words and weak forms)
-      res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
+      // returns an array of the 50 weakest words with their weakest forms
+      res.send(JSON.stringify({ words: wordsWithWeakestFormsStats }));
     } catch (error) {
       logger.error(`[getWeakWord] cannot get weak words - ${error}`);
     }

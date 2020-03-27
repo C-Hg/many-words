@@ -1,4 +1,4 @@
-const getUpdatedWordStats = async (allWordStats, exerciseResults) => {
+const getUpdatedWordStats = (allWordStats, exerciseResults) => {
   // TODO: replace array positions by object in exerciseResults
   const updatedWordStats = allWordStats.map((wordStats, wordIndex) => {
     const wasUserCorrect = exerciseResults[wordIndex][3];

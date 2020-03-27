@@ -3,11 +3,11 @@ import WordStats from "./interfaces/wordStats.interface";
 import { ObjectID } from "mongodb";
 
 const userStatsService = {
-  findWordStatsByEnglishReference: async (
+  findWordStatsByEnglishName: async (
     userId: ObjectID,
-    word: string
+    englishName: string
   ): Promise<WordStats | null> => {
-    return WordStatsModel.findOne({ userId, englishReference: word });
+    return WordStatsModel.findOne({ userId, englishName });
   },
 };
 

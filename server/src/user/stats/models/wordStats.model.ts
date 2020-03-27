@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const wordStatsSchema = new Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  englishReference: { type: String, required: true },
+  englishName: { type: String, required: true },
   lesson: { type: String, required: true },
   topic: { type: String, required: true },
   correctAnswers: { type: Number, default: 0, required: true },

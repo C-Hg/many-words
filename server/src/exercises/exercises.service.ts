@@ -46,6 +46,17 @@ const exercisesService = {
       return WordStatsModel.find({ userId, topic: reference });
     }
   },
+
+  /**
+   * Finds a word by its english reference
+   */
+  findWordByEnglishName: async (englishName: string): Promise<Word> => {
+    const word = await WordModel.findOne({ "english.name": englishName });
+    if (!word) {
+      throw new Error(`Word ${englishName} not found`);
+    }
+    return word;
+  },
 };
 
 export default exercisesService;

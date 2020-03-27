@@ -2,8 +2,40 @@ import { Request, Response } from "express";
 import getUpdatedLessonsStats from "./helpers/getUpdatedLessonsStats.function";
 import getUpdatedTopicsStats from "./helpers/getUpdatedThemesStats.function";
 import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.function";
+import logger from "../../logger";
+import userService from "../user.service";
+import createWordStats from "./helpers/createWordStats.function";
+import Word from "../../exercises/interfaces/word.interface";
+import User from "../interfaces/user.interface";
+import userStatsService from "./userStats.service";
+import WordStats from "./interfaces/wordStats.interface";
 
 const userStatsController = {
+  getOrCreateWordStats: async (
+    exerciseResults,
+    userId
+  ): Promise<WordStats[]> => {
+    const allWordStats: Promise<WordStats>[] = exerciseResults.map(
+      async wordResult => {
+        return userStatsController.getWordStats(wordResult[0], userId);
+      }
+    );
+    return Promise.all(allWordStats);
+  },
+
+  getWordStats: async (word: Word, user: User): Promise<WordStats> => {
+    const englishName = word.english.name;
+    const existingWordStats = await userStatsService.findWordStatsByEnglishName(
+      user._id,
+      englishName
+    );
+    if (existingWordStats) {
+      return existingWordStats.toObject();
+    }
+    const createdWordStats = await createWordStats(user._id, englishName);
+    return createdWordStats;
+  },
+
   getUpdatedUserStats: async (lessonsToUpdate, user) => {
     const updatedLessonsStats = await getUpdatedLessonsStats(
       lessonsToUpdate,
@@ -25,12 +57,14 @@ const userStatsController = {
   },
 
   updateStats: async (req: Request, res: Response): Promise<void> => {
-    console.debug(`[updateStats] updating stats for user ${req.user.id}`);
+    logger.debug(`[updateStats] updating stats for user ${req.user.id}`);
     const exerciseResults = req.body;
     const userId = req.user.id;
     const user = req.user.toObject();
 
     // TODO: return updated word stats, used to update user stats
+    // TODO: move upsertWordStats here
+    // 1) upsert wordStats and return upsertedWordStats
     const lessonsToUpdate = await wordsController.upsertWordStats(
       exerciseResults,
       userId
