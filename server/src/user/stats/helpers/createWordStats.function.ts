@@ -14,7 +14,7 @@ const createWordStats = async (
 ): Promise<WordStats> => {
   const wordData = await exercisesService.findWordByEnglishName(englishName);
 
-  // fills stats indexes for each form of the word
+  // fills statsByForm for each form of the word
   const englishStatsByForm = wordData.english.words[0].acceptedForms.map(
     form => ({
       form,

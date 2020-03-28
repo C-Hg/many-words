@@ -11,6 +11,7 @@ import userStatsService from "./userStats.service";
 import WordStats from "./interfaces/wordStats.interface";
 
 const userStatsController = {
+  // TODO: rename me +/- reorganize
   getOrCreateWordStats: async (
     exerciseResults,
     userId

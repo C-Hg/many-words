@@ -21,7 +21,7 @@ const assessGlobalWordsStats = wordStats => {
     encounteredWords,
     greenWords,
     goldWords,
-    globalScore
+    globalScore,
   };
 };
 
