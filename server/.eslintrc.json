@@ -17,7 +17,9 @@
   },
   "extends": [
     "eslint:recommended",
-    "airbnb-typescript/base",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -25,11 +27,18 @@
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
   "rules": {
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "no-console": ["error", { "allow": ["warn", "info", "error", "debug"] }],
     "no-return-await": "error",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],    
     "prettier/prettier": "error",
-    "no-console": ["error", { "allow": ["warn", "info", "error", "debug"] }]
+    "import/order": ["error", {
+        "groups": ["external", "builtin", "sibling", "parent", "internal", "index"],
+        "newlines-between": "always",
+        "alphabetize": {"order": "ignore", "caseInsensitive": false} 
+    }],
+    "import/no-cycle": "error",
+    "import/newline-after-import": "error"
   }
 }

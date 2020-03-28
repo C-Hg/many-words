@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 
 import exercisesService from "./exercises.service";
-import logger from "../logger";
-import userStatsService from "../user/stats/userStats.service";
 import sortWordStats from "./helpers/sortWordStats.function";
 import appendWeakestForms from "./helpers/appendWeakestForms.function";
+
+import logger from "../logger";
+import userStatsService from "../user/stats/userStats.service";
 
 const exercisesController = {
   getLesson: async (req: Request, res: Response): Promise<void> => {
@@ -28,7 +29,7 @@ const exercisesController = {
     // or "null", for each word
     try {
       const wordsStats = await Promise.all(
-        words.map(async word => {
+        words.map(async (word) => {
           const wordStats = await userStatsService.findWordStatsByEnglishName(
             req.user._id,
             word.english.name
@@ -41,8 +42,9 @@ const exercisesController = {
       const weakestFormsStats = appendWeakestForms(words, wordsStats);
       res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
       logger.debug(
-        `[getLesson] sent words for lesson ${req.params.lesson}, user ${req.user
-          ._id || "anonymous"}`
+        `[getLesson] sent words for lesson ${req.params.lesson}, user ${
+          req.user._id || "anonymous"
+        }`
       );
     } catch (error) {
       logger.error(`[getLesson] error while preparing weak forms ${error}`);

@@ -1,12 +1,13 @@
 import express from "express";
 import cors from "cors";
-import path from "path";
 import session from "express-session";
 import connectMongoDBSession from "connect-mongodb-session";
 import passport from "passport";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import mongoose from "mongoose";
+
+import path from "path";
 
 import secrets from "./config/secrets";
 import apiRoutes from "./routes/api.routes";

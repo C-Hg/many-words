@@ -1,14 +1,16 @@
 import { Request, Response } from "express";
+
+import createWordStats from "./helpers/createWordStats.function";
+import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.function";
 import getUpdatedLessonsStats from "./helpers/getUpdatedLessonsStats.function";
 import getUpdatedTopicsStats from "./helpers/getUpdatedThemesStats.function";
-import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.function";
-import logger from "../../logger";
-import userService from "../user.service";
-import createWordStats from "./helpers/createWordStats.function";
-import Word from "../../exercises/interfaces/word.interface";
-import User from "../interfaces/user.interface";
 import userStatsService from "./userStats.service";
 import WordStats from "./interfaces/wordStats.interface";
+
+import logger from "../../logger";
+import userService from "../user.service";
+import User from "../interfaces/user.interface";
+import Word from "../../exercises/interfaces/word.interface";
 
 const userStatsController = {
   // TODO: rename me +/- reorganize
@@ -17,7 +19,7 @@ const userStatsController = {
     userId
   ): Promise<WordStats[]> => {
     const allWordStats: Promise<WordStats>[] = exerciseResults.map(
-      async wordResult => {
+      async (wordResult) => {
         return userStatsController.getWordStats(wordResult[0], userId);
       }
     );

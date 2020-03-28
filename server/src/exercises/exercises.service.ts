@@ -1,7 +1,9 @@
+import { ObjectID } from "mongodb";
+
 import Word from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
+
 import WordStatsModel from "../user/stats/models/wordStats.model";
-import { ObjectID } from "mongodb";
 import WordStats from "../user/stats/interfaces/wordStats.interface";
 
 const exercisesService = {
@@ -17,7 +19,7 @@ const exercisesService = {
    */
   getWordsFromWordsStats: async (wordsStats: WordStats[]): Promise<Word[]> => {
     return Promise.all(
-      wordsStats.map(async wordStats => {
+      wordsStats.map(async (wordStats) => {
         const { englishName } = wordStats;
         const word = await WordModel.findOne({ englishName });
         if (!word) {
