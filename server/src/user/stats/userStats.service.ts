@@ -1,6 +1,7 @@
-import WordStatsModel from "./models/wordStats.model";
-import WordStats from "./interfaces/wordStats.interface";
 import { ObjectID } from "mongodb";
+
+import WordStats from "./interfaces/wordStats.interface";
+import WordStatsModel from "./models/wordStats.model";
 
 const userStatsService = {
   findWordStatsByEnglishName: async (

@@ -3,8 +3,8 @@ import { ObjectID } from "mongodb";
 import Word from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
-import WordStatsModel from "../user/stats/models/wordStats.model";
 import WordStats from "../user/stats/interfaces/wordStats.interface";
+import WordStatsModel from "../user/stats/models/wordStats.model";
 
 const exercisesService = {
   /**

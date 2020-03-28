@@ -36,7 +36,7 @@
     "import/order": ["error", {
         "groups": ["external", "builtin", "sibling", "parent", "internal", "index"],
         "newlines-between": "always",
-        "alphabetize": {"order": "ignore", "caseInsensitive": false} 
+        "alphabetize": {"order": "asc", "caseInsensitive": false} 
     }],
     "import/no-cycle": "error",
     "import/newline-after-import": "error"

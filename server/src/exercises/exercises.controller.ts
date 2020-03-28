@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
 import exercisesService from "./exercises.service";
-import sortWordStats from "./helpers/sortWordStats.function";
 import appendWeakestForms from "./helpers/appendWeakestForms.function";
+import sortWordStats from "./helpers/sortWordStats.function";
 
 import logger from "../logger";
 import userStatsService from "../user/stats/userStats.service";
