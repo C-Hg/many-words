@@ -1,18 +1,17 @@
-import express from "express";
-import cors from "cors";
-import session from "express-session";
-import connectMongoDBSession from "connect-mongodb-session";
-import passport from "passport";
 import bodyParser from "body-parser";
+import connectMongoDBSession from "connect-mongodb-session";
+import express from "express";
+import session from "express-session";
 import helmet from "helmet";
 import mongoose from "mongoose";
+import passport from "passport";
 
 import path from "path";
 
 import secrets from "./config/secrets";
+import sessionMiddlewares from "./middlewares/session.middlewares";
 import apiRoutes from "./routes/api.routes";
 import authRoutes from "./routes/auth.routes";
-import sessionMiddlewares from "./middlewares/session.middlewares";
 
 const app = express();
 
@@ -40,7 +39,6 @@ app.use(
 app.use(helmet());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 sessionMiddlewares();
 
