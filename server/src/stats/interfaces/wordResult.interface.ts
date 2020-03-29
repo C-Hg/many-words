@@ -1,6 +1,6 @@
-import WordStats from "./wordStats.interface";
+import { WordStats } from "./wordStats.interface";
 
-export default interface WordStatsToUpdate {
+export default interface WordResult {
   wordStats: WordStats;
   isNew?: boolean;
   isNowGreen?: boolean;

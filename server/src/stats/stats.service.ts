@@ -1,13 +1,13 @@
 import { ObjectID } from "mongodb";
 
-import WordStats from "./interfaces/wordStats.interface";
+import { WordStatsDocument } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
 const userStatsService = {
   findWordStatsByEnglishName: async (
     userId: ObjectID,
     englishName: string
-  ): Promise<WordStats | null> => {
+  ): Promise<WordStatsDocument | null> => {
     return WordStatsModel.findOne({ userId, englishName });
   },
 };

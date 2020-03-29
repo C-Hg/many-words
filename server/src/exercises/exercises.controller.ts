@@ -5,7 +5,7 @@ import appendWeakestForms from "./helpers/appendWeakestForms.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 
 import logger from "../logger";
-import userStatsService from "../user/stats/userStats.service";
+import userStatsService from "../stats/stats.service";
 
 const exercisesController = {
   getLesson: async (req: Request, res: Response): Promise<void> => {
@@ -59,7 +59,7 @@ const exercisesController = {
         req.user._id
       );
       if (!wordsStats) {
-        res.send(JSON.stringify(null));
+        throw new Error(`No word stats found for user ${req.user._id}`);
       }
 
       // sort words stats and keep only the first 50

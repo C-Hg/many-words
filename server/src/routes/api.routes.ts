@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 
-import updateWordStats from "../user/stats/helpers/updateWordStats.function";
+import updateWordStats from "../stats/helpers/updateWordStats.function";
 import exercisesController from "../exercises/exercises.controller";
 
 const router = express.Router();

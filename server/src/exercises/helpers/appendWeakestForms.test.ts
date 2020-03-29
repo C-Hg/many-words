@@ -1,8 +1,8 @@
 import appendWeakestForms from "./appendWeakestForms.function";
-import WordStats from "../../user/stats/interfaces/wordStats.interface";
-import { Languages } from "../../user/stats/interfaces/formStats.interface";
+import WordStats from "../../stats/interfaces/wordStats.interface";
+import { Languages } from "../../stats/interfaces/formStats.interface";
 import { Types } from "mongoose";
-import WordStatsModel from "../../user/stats/models/wordStats.model";
+import WordStatsModel from "../../stats/models/wordStats.model";
 import Word from "../interfaces/word.interface";
 import WordModel from "../models/word.model";
 

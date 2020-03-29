@@ -1,8 +1,8 @@
 import { Document } from "mongoose";
 
-import { LessonsStats } from "../stats/interfaces/lessonsStats.interface";
+import { LessonsStats } from "../../stats/interfaces/lessonsStats.interface";
 
-export default interface User extends Document {
+export interface User {
   email: string;
   googleId?: string;
   stats: {
@@ -18,3 +18,5 @@ export default interface User extends Document {
     };
   };
 }
+
+export interface UserDocument extends Document, User {}

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import WordInterface from "../interfaces/word.interface";
+
+import { WordDocument } from "../interfaces/word.interface";
 
 const { Schema } = mongoose;
 
@@ -18,6 +19,6 @@ const WordSchema = new Schema({
   topic: { type: String, required: true },
 });
 
-const WordModel = mongoose.model<WordInterface>("Word", WordSchema);
+const WordModel = mongoose.model<WordDocument>("Word", WordSchema);
 
 export default WordModel;

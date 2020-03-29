@@ -1,8 +1,8 @@
 import FormStats from "./formStats.interface";
 
-interface ExerciseResult extends FormStats {
+interface FormResult extends FormStats {
   englishName: string;
   isAnswerCorrect: boolean;
 }
 
-export default ExerciseResult;
+export default FormResult;

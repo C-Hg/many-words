@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
 import { ObjectID } from "mongodb";
+import mongoose from "mongoose";
 
-import UserDocument from "../interfaces/user.interface";
+import { UserDocument } from "../interfaces/user.interface";
 
 const { Schema } = mongoose;
 
@@ -26,7 +26,11 @@ const userSchema = new Schema(
       },
     },
   },
-  { minimize: false }
+  {
+    minimize: false,
+    toObject: { getters: true },
+    timestamps: { createdAt: true, updatedAt: true },
+  }
 );
 
 const User = mongoose.model<UserDocument>("User", userSchema);

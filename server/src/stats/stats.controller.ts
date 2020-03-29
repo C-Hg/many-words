@@ -6,23 +6,23 @@ import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.functio
 import getUpdatedLessonsStats from "./helpers/getUpdatedLessonsStats.function";
 import getUpdatedTopicsStats from "./helpers/getUpdatedThemesStats.function";
 import getUpdatedWordStats from "./helpers/getUpdatedWordStats.function";
-import ExerciseResult from "./interfaces/exerciseResult.interface";
-import WordStats from "./interfaces/wordStats.interface";
-import WordStatsToUpdate from "./interfaces/wordStatsToUpdate.interface";
-import userStatsService from "./userStats.service";
+import FormResult from "./interfaces/formResult.interface";
+import WordResult from "./interfaces/wordResult.interface";
+import { WordStats } from "./interfaces/wordStats.interface";
+import userStatsService from "./stats.service";
 
-import logger from "../../logger";
-import userService from "../user.service";
+import logger from "../logger";
+import userService from "../user/user.service";
 
 const userStatsController = {
   getWordStats: async (
-    exerciseResults: ExerciseResult[],
+    formResults: FormResult[],
     userId: Types.ObjectId
-  ): Promise<WordStatsToUpdate[]> => {
+  ): Promise<WordResult[]> => {
     return Promise.all(
-      exerciseResults.map(async (exerciseResult) => {
+      formResults.map(async (formResult) => {
         return userStatsController.getOrCreateWordStats(
-          exerciseResult.englishName,
+          formResult.englishName,
           userId
         );
       })
@@ -32,14 +32,13 @@ const userStatsController = {
   getOrCreateWordStats: async (
     englishName: string,
     userId: Types.ObjectId
-  ): Promise<WordStatsToUpdate> => {
+  ): Promise<WordResult> => {
     const existingWordStats = await userStatsService.findWordStatsByEnglishName(
       userId,
       englishName
     );
     if (existingWordStats) {
-      // TODO: test for real if it works with the option toObject() set in the schema directly
-      return { wordStats: existingWordStats, isNew: true };
+      return { wordStats: existingWordStats.toObject(), isNew: true };
     }
     const createdWordStats = await createWordStats(userId, englishName);
     return { wordStats: createdWordStats, isNew: false };
@@ -67,7 +66,7 @@ const userStatsController = {
 
   updateStats: async (req: Request, res: Response): Promise<void> => {
     logger.debug(`[updateStats] updating stats for user ${req.user._id}`);
-    const exerciseResults = req.body;
+    const formResults = req.body;
     const userId = req.user._id;
     const user = req.user.toObject();
 
@@ -76,7 +75,7 @@ const userStatsController = {
     // 1) upsert wordStats and return upsertedWordStats
     try {
       const updatedWordsStats = await userStatsController.upsertWordStats(
-        exerciseResults,
+        formResults,
         userId
       );
       // 2) get updated user stats in here, without await
@@ -98,14 +97,14 @@ const userStatsController = {
   },
 
   upsertWordStats: async (
-    exerciseResults: ExerciseResult[],
+    formResults: FormResult[],
     userId: Types.ObjectId
   ): Promise<WordStats[]> => {
-    const wordsStatsToUpdate = await userStatsController.getWordStats(
-      exerciseResults,
+    const wordsStats = await userStatsController.getWordStats(
+      formResults,
       userId
     );
-    const updatedWordStats = getUpdatedWordStats(wordsStats, exerciseResults);
+    const updatedWordStats = getUpdatedWordStats(wordsStats, formResults);
     await updateWordStats(updatedWordStats, userId);
     return updatedWordStats;
 

@@ -1,10 +1,13 @@
 import { ObjectID } from "mongodb";
 
-import Word from "./interfaces/word.interface";
+import { Word, WordDocument } from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
-import WordStats from "../user/stats/interfaces/wordStats.interface";
-import WordStatsModel from "../user/stats/models/wordStats.model";
+import {
+  WordStats,
+  WordStatsDocument,
+} from "../stats/interfaces/wordStats.interface";
+import WordStatsModel from "../stats/models/wordStats.model";
 
 const exercisesService = {
   /**
@@ -39,7 +42,7 @@ const exercisesService = {
   getWordsStats: async (
     reference: string,
     userId: ObjectID
-  ): Promise<WordStats[]> => {
+  ): Promise<WordStatsDocument[]> => {
     if (reference === "curriculum") {
       // gets all wordStats
       return WordStatsModel.find({ userId });
@@ -52,12 +55,12 @@ const exercisesService = {
   /**
    * Finds a word by its english reference
    */
-  findWordByEnglishName: async (englishName: string): Promise<Word> => {
+  findWordByEnglishName: async (englishName: string): Promise<WordDocument> => {
     const word = await WordModel.findOne({ "english.name": englishName });
     if (!word) {
       throw new Error(`Word ${englishName} not found`);
     }
-    return word;
+    return word.toObject();
   },
 };
 

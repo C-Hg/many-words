@@ -1,5 +1,5 @@
-import WordStats from "../../user/stats/interfaces/wordStats.interface";
-import FormStats from "../../user/stats/interfaces/formStats.interface";
+import FormStats from "../../stats/interfaces/formStats.interface";
+import { WordStats } from "../../stats/interfaces/wordStats.interface";
 import Word from "../interfaces/word.interface";
 
 /**
@@ -15,7 +15,7 @@ const appendWeakestForms = (
     let weakestForms: FormStats[] = [];
     if (wordStats !== null) {
       let lowestIndex = 10000;
-      wordStats.statsByForm.forEach(form => {
+      wordStats.statsByForm.forEach((form) => {
         if (form.score < lowestIndex) {
           lowestIndex = form.score;
           weakestForms = [form];

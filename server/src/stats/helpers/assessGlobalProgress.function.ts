@@ -1,6 +1,7 @@
-import assessGlobalWordsStats from "./assessGlobalWordsStats.function";
 import assessGlobalLessonsStats from "./assessGlobalLessonsStats.function";
-import topicsWithLessonsCount from "../../../exercises/data/topicsWithLessonsCount";
+import assessGlobalWordsStats from "./assessGlobalWordsStats.function";
+
+import topicsWithLessonsCount from "../../exercises/data/topicsWithLessonsCount";
 
 const assessGlobalProgress = (
   wordStats,
