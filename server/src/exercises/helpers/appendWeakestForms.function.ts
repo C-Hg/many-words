@@ -15,7 +15,7 @@ const appendWeakestForms = (
     let weakestForms: FormStats[] = [];
     if (wordStats !== null) {
       let lowestIndex = 10000;
-      wordStats.statsByForm.forEach((form) => {
+      wordStats.formsStats.forEach((form) => {
         if (form.score < lowestIndex) {
           lowestIndex = form.score;
           weakestForms = [form];

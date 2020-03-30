@@ -12,7 +12,7 @@ const wordStatsSchema = new Schema(
     topic: { type: String, required: true },
     correctAnswers: { type: Number, default: 0, required: true },
     wrongAnswers: { type: Number, default: 0, required: true },
-    statsByForm: {
+    formsStats: {
       type: [{ language: String, form: String, score: Number, _id: false }],
       required: true,
     },

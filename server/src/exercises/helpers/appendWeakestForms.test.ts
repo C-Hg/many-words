@@ -1,9 +1,11 @@
-import appendWeakestForms from "./appendWeakestForms.function";
-import WordStats from "../../stats/interfaces/wordStats.interface";
-import { Languages } from "../../stats/interfaces/formStats.interface";
 import { Types } from "mongoose";
+
+import appendWeakestForms from "./appendWeakestForms.function";
+
+import { Languages } from "../../stats/interfaces/formStats.interface";
+import { WordStats } from "../../stats/interfaces/wordStats.interface";
 import WordStatsModel from "../../stats/models/wordStats.model";
-import Word from "../interfaces/word.interface";
+import { Word } from "../interfaces/word.interface";
 import WordModel from "../models/word.model";
 
 const words: Word[] = [
@@ -67,7 +69,7 @@ describe("appendWeakestForms", () => {
     const wordStats1: WordStats[] = [
       new WordStatsModel({
         englishName: "black",
-        statsByForm: [
+        formsStats: [
           { language: "english", form: "uniqueForm", score: 1 },
           { language: Languages.French, form: "singularMasculine", score: 0 },
           {
@@ -83,7 +85,7 @@ describe("appendWeakestForms", () => {
       }),
       new WordStatsModel({
         englishName: "red",
-        statsByForm: [
+        formsStats: [
           { language: Languages.English, form: "uniqueForm", score: 2 },
           { language: Languages.French, form: "singularMasculine", score: 2 },
           { language: Languages.French, form: "pluralMasculine", score: 2 },
@@ -112,11 +114,11 @@ describe("appendWeakestForms", () => {
     ]);
   });
 
-  test("should select several equally weak forms for each word", function() {
+  test("should select several equally weak forms for each word", function () {
     const wordStats2 = [
       new WordStatsModel({
         englishName: "black",
-        statsByForm: [
+        formsStats: [
           { language: Languages.English, form: "uniqueForm", score: -1 },
           { language: Languages.French, form: "singularMasculine", score: 2 },
           { language: Languages.French, form: "pluralMasculine", score: 2 },
@@ -127,7 +129,7 @@ describe("appendWeakestForms", () => {
       new WordStatsModel({
         userId: Types.ObjectId("5d594f138d651a002b6fd29c"),
         englishName: "red",
-        statsByForm: [
+        formsStats: [
           { language: Languages.English, form: "uniqueForm", score: 2 },
           { language: Languages.French, form: "singularMasculine", score: 0 },
           { language: Languages.French, form: "pluralMasculine", score: 0 },
@@ -150,7 +152,7 @@ describe("appendWeakestForms", () => {
     ]);
   });
 
-  test("should produce an empty array if no wordStats are provided", function() {
+  test("should produce an empty array if no wordStats are provided", function () {
     const words3: Word[] = [
       new WordModel({
         english: {
@@ -189,7 +191,7 @@ describe("appendWeakestForms", () => {
     const wordStats3 = [
       null,
       new WordStatsModel({
-        statsByForm: [
+        formsStats: [
           { language: Languages.English, form: "uniqueForm", score: 1 },
           { language: Languages.French, form: "singularMasculine", score: 2 },
           { language: Languages.French, form: "pluralMasculine", score: 2 },

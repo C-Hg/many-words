@@ -489,7 +489,7 @@ suite("FR/EN Word Selector function", function() {
               lessonId: "#aLongId",
             },
           ],
-          statsByForm: [
+          formsStats: [
             [
               {
                 language: "en",

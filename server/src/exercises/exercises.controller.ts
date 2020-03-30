@@ -40,7 +40,7 @@ const exercisesController = {
 
       // gets the weakest forms of each word
       const weakestFormsStats = appendWeakestForms(words, wordsStats);
-      res.send(JSON.stringify({ words, statsByForm: weakestFormsStats }));
+      res.send(JSON.stringify({ words, formsStats: weakestFormsStats }));
       logger.debug(
         `[getLesson] sent words for lesson ${req.params.lesson}, user ${
           req.user._id || "anonymous"

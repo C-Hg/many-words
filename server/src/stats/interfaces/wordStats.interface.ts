@@ -13,7 +13,7 @@ export interface WordStats {
   topic: Topic;
   correctAnswers: number;
   wrongAnswers: number;
-  statsByForm: FormStats[];
+  formsStats: FormStats[];
   globalScore: number;
 }
 

@@ -1,3 +1,6 @@
+import updateFormsStats from "./updateFormsStats.function";
+import updateWordStats from "./updateWordStats.function";
+
 import FormResult from "../interfaces/formResult.interface";
 import WordResult from "../interfaces/wordResult.interface";
 import { WordStats } from "../interfaces/wordStats.interface";
@@ -5,31 +8,23 @@ import { WordStats } from "../interfaces/wordStats.interface";
 // TODO: test me :)
 // TODO: remove Partial as a return type once passport-session is removed, or maybe this is a bad type matching between model and interface
 // note that the WordStats object is fetched as an object from mongo (is it?)
+/**
+ * Updates the stats of an array of wordsResults, after an exercise
+ */
 const getUpdatedWordStats = (
-  wordsStatsToUpdate: WordResult[],
+  wordsResults: WordResult[],
   formResults: FormResult[]
 ): WordStats[] => {
-  const updatedWordStats = wordsStatsToUpdate.map((wordResult, wordIndex) => {
+  // TODO: change schema and interfaces formsStats -> formsStats
+  const updatedWordStats = wordsResults.map((wordResult, wordIndex) => {
+    // for the wordResult of each word
+    const formResult = formResults[wordIndex];
     const { isAnswerCorrect } = formResults[wordIndex];
     const { wordStats } = wordResult;
+    const { formsStats } = wordStats;
 
-    // TODO: move to its own file
     // updates the score by form
-    const updatedStatsByForm = wordStats.statsByForm.map((statsByForm) => {
-      if (
-        statsByForm.language === formResults[wordIndex].language &&
-        statsByForm.form === formResults[wordIndex].form
-      ) {
-        let updatedScore;
-        if (isAnswerCorrect) {
-          updatedScore = statsByForm.score + 1;
-        } else {
-          updatedScore = statsByForm.score - 0.5;
-        }
-        return { ...statsByForm, score: updatedScore };
-      }
-      return statsByForm;
-    });
+    const updatedFormsStats = updateFormsStats(formsStats, formResult);
 
     // updates the global scores for the word
     let updatedGlobalScore = wordStats.globalScore;
@@ -47,7 +42,7 @@ const getUpdatedWordStats = (
 
     return {
       ...wordStats,
-      statsByForm: updatedStatsByForm,
+      formsStats: updatedFormsStats,
       globalScore: updatedGlobalScore,
       correctAnswers: updatedCorrectAnswers,
       wrongAnswers: updatedWrongAnswers,

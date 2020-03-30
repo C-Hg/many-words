@@ -13,32 +13,29 @@ const createWordStats = async (
 ): Promise<WordStats> => {
   const wordData = await exercisesService.findWordByEnglishName(englishName);
 
-  // fills statsByForm for each form of the word
-  const englishStatsByForm = wordData.english.words[0].acceptedForms.map(
+  // fills formsStats for each form of the word
+  const englishFormsStats = wordData.english.words[0].acceptedForms.map(
     (form) => ({
       form,
       language: Languages.English,
       score: 0,
     })
   );
-  const frenchStatsByForm = wordData.french.words[0].acceptedForms.map(
+  const frenchFormsStats = wordData.french.words[0].acceptedForms.map(
     (form) => ({
       form,
       language: Languages.French,
       score: 0,
     })
   );
-  const statsByForm: FormStats[] = [
-    ...englishStatsByForm,
-    ...frenchStatsByForm,
-  ];
+  const formsStats: FormStats[] = [...englishFormsStats, ...frenchFormsStats];
   const { lesson, topic } = wordData;
 
   // other data are completed by default
   const wordStats: WordStats = {
     userId,
     englishName,
-    statsByForm,
+    formsStats,
     lesson,
     topic,
     globalScore: 0,
