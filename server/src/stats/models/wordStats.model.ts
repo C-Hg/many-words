@@ -17,7 +17,6 @@ const wordStatsSchema = new Schema(
       required: true,
     },
     globalScore: { type: Number, default: 0, required: true },
-    declineFactor: { type: Number, default: 1, required: true },
     updatedAt: { type: Date, default: Date.now(), required: true },
   },
   {

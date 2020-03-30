@@ -13,8 +13,8 @@ export interface WordStats {
   topic: Topic;
   correctAnswers: number;
   wrongAnswers: number;
-  formsStats: FormStats[];
   globalScore: number;
+  formsStats: FormStats[];
 }
 
 export interface WordStatsDocument extends Document, WordStats {}

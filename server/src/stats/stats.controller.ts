@@ -8,24 +8,20 @@ import getUpdatedTopicsStats from "./helpers/getUpdatedThemesStats.function";
 import getUpdatedWordStats from "./helpers/getUpdatedWordStats.function";
 import FormResult from "./interfaces/formResult.interface";
 import WordResult from "./interfaces/wordResult.interface";
-import { WordStats } from "./interfaces/wordStats.interface";
 import userStatsService from "./stats.service";
 
 import logger from "../logger";
 import userService from "../user/user.service";
 
 const userStatsController = {
-  getWordStats: async (
+  getWordResults: async (
     formResults: FormResult[],
     userId: Types.ObjectId
   ): Promise<WordResult[]> => {
     return Promise.all(
-      formResults.map(async (formResult) => {
-        return userStatsController.getOrCreateWordStats(
-          formResult.englishName,
-          userId
-        );
-      })
+      formResults.map(async (formResult) =>
+        userStatsController.getOrCreateWordStats(formResult.englishName, userId)
+      )
     );
   },
 
@@ -99,12 +95,12 @@ const userStatsController = {
   upsertWordStats: async (
     formResults: FormResult[],
     userId: Types.ObjectId
-  ): Promise<WordStats[]> => {
-    const wordsStats = await userStatsController.getWordStats(
+  ): Promise<WordResult[]> => {
+    const wordsResults = await userStatsController.getWordResults(
       formResults,
       userId
     );
-    const updatedWordStats = getUpdatedWordStats(wordsStats, formResults);
+    const updatedWordStats = getUpdatedWordStats(wordsResults, formResults);
     await updateWordStats(updatedWordStats, userId);
     return updatedWordStats;
 

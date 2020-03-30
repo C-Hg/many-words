@@ -30,6 +30,7 @@
   "plugins": ["@typescript-eslint", "import", "prettier"],
   "rules": {
     "no-console": ["error", { "allow": ["warn", "info", "error", "debug"] }],
+    "no-param-reassign": "error",
     "no-return-await": "error",
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],    
     "prettier/prettier": "error",
