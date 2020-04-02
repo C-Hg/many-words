@@ -8,7 +8,7 @@ import WordResult from "../interfaces/wordResult.interface";
 /**
  * Updates the stats of an array of wordsResults, after an exercise
  */
-const getUpdatedWordResults = (
+const getUpdatedWordsResults = (
   wordsResults: WordResult[],
   formResults: FormResult[]
 ): WordResult[] => {
@@ -53,4 +53,4 @@ const getUpdatedWordResults = (
   return updatedWordsResults;
 };
 
-export default getUpdatedWordResults;
+export default getUpdatedWordsResults;

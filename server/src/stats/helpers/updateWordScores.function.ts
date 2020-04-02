@@ -3,7 +3,6 @@ import WordScores, {
   UpdatedWordScores,
 } from "../interfaces/wordScores.interface";
 
-// TODO: better typing to avoid type checking
 /**
  * Given global scores of a word and the result of the exercise for one word,
  * produces a wordResult object to update the user stats
