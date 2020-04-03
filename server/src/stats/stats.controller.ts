@@ -73,16 +73,13 @@ const statsController = {
     const user = req.user.toObject();
 
     // TODO: return updated word stats, used to update user stats
-    // TODO: move upsertWordStats here
-    // 1) upsert wordStats and return upsertedWordStats
     try {
-      const wordsResults = await statsController.upsertWordsStats(
+      const wordsResults = await statsController.updateWordsStats(
         formResults,
         userId
       );
 
-      const lessonsToUpdate = getLessonsToUpdate(wordsStats);
-      return lessonsToUpdate;
+      const updatedLessonsStats = updateLessonsStats(wordsResults, user);
       // 2) get updated user stats in here, without await
       const updatedUserStats = await statsController.getUpdatedUserStats(
         lessonsToUpdate,
@@ -104,7 +101,7 @@ const statsController = {
   /**
    * Update the wordsStats after an exercise, and return the corresponding wordsResults
    */
-  upsertWordsStats: async (
+  updateWordsStats: async (
     formResults: FormResult[],
     userId: Types.ObjectId
   ): Promise<WordResult[]> => {

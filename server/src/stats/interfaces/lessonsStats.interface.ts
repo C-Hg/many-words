@@ -1,5 +1,6 @@
-import lessonsByTopic from "../../data/lessonsByTopic";
-import { Lesson } from "../models/lesson.type";
+import lessonsByTopic from "../../exercises/data/lessonsByTopic";
+import { Lesson } from "../../exercises/models/lesson.type";
+import { Topic } from "../../exercises/models/topic.type";
 
 // myLesson: 5
 type LessonScore = {
@@ -10,4 +11,10 @@ type LessonScore = {
 // { lessonStats: { myTopic: { myLesson: 3 } } }
 export type LessonsStats = {
   [k in keyof typeof lessonsByTopic]: Partial<LessonScore>;
+};
+
+export type NewLessonsStats = {
+  lesson: Lesson;
+  topic: Topic;
+  scoreVariation: number;
 };

@@ -10,4 +10,5 @@ export interface UpdatedWordScores {
   updatedGlobalScore: number;
   greenCount: number;
   goldCount: number;
+  globalScoreVariation: number;
 }

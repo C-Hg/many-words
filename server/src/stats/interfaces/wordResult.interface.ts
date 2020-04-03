@@ -5,4 +5,5 @@ export default interface WordResult {
   isNew?: boolean;
   greenCount?: number;
   goldCount?: number;
+  globalScoreVariation?: number;
 }

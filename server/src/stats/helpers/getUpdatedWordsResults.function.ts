@@ -30,6 +30,7 @@ const getUpdatedWordsResults = (
       updatedWrongAnswers,
       greenCount,
       goldCount,
+      globalScoreVariation,
     } = updatedWordScores;
 
     // construct the new wordStats object
@@ -47,6 +48,7 @@ const getUpdatedWordsResults = (
       isNew,
       greenCount,
       goldCount,
+      globalScoreVariation,
     };
   });
 

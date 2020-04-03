@@ -14,6 +14,8 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
     "git.confirmSync": false,
     "todo-tree.highlights.enabled": true,
     "todo-tree.highlights.defaultHighlight": {

@@ -18,11 +18,13 @@ const updateWordScores = (
   let updatedWrongAnswers = wrongAnswers;
   let greenCount = 0;
   let goldCount = 0;
+  let globalScoreVariation;
 
   // the user answered correctly
   if (isAnswerCorrect) {
     updatedGlobalScore = globalScore + 1;
     updatedCorrectAnswers = correctAnswers + 1;
+    globalScoreVariation = 1;
     if (
       updatedGlobalScore >= CONSTANTS.GREEN_THRESHOLD &&
       updatedGlobalScore < CONSTANTS.GOLD_THRESHOLD &&
@@ -42,6 +44,7 @@ const updateWordScores = (
   } else {
     updatedGlobalScore = globalScore - 0.5;
     updatedWrongAnswers = wrongAnswers + 1;
+    globalScoreVariation = -0.5;
     if (
       updatedGlobalScore >= CONSTANTS.GREEN_THRESHOLD &&
       updatedGlobalScore < CONSTANTS.GOLD_THRESHOLD &&
@@ -65,6 +68,7 @@ const updateWordScores = (
     updatedWrongAnswers,
     greenCount,
     goldCount,
+    globalScoreVariation,
   };
 };
 
