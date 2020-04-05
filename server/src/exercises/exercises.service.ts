@@ -1,5 +1,7 @@
 import { ObjectID } from "mongodb";
 
+import { Lesson } from "./interfaces/lesson.type";
+import { Topic } from "./interfaces/topic.type";
 import { Word, WordDocument } from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
@@ -13,7 +15,7 @@ const exercisesService = {
   /**
    * Gets all words in a lesson
    */
-  getLessonWords: async (lesson: string): Promise<Word[]> => {
+  getLessonWords: async (lesson: Lesson): Promise<Word[]> => {
     return WordModel.find({ lesson });
   },
 
@@ -40,7 +42,7 @@ const exercisesService = {
    * // TODO: strong typing for references
    */
   getWordsStats: async (
-    reference: string,
+    reference: "curriculum" | Topic,
     userId: ObjectID
   ): Promise<WordStatsDocument[]> => {
     if (reference === "curriculum") {

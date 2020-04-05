@@ -5,10 +5,25 @@ import WordResult from "./interfaces/wordResult.interface";
 import { WordStatsDocument, WordStats } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
+import { Word } from "../exercises/interfaces/word.interface";
 import { UserDocument } from "../user/interfaces/user.interface";
 import User from "../user/models/user.model";
 
 const statsService = {
+  findWordsStatsForWords: async (
+    words: Word[]
+  ): Promise<(WordStatsDocument | null)[]> => {
+    return Promise.all(
+      words.map(async (word) => {
+        const wordStats = await statsService.findWordStatsByEnglishName(
+          req.user._id,
+          word.english.name
+        );
+        return wordStats;
+      })
+    );
+  },
+
   findWordStatsByEnglishName: async (
     userId: ObjectID,
     englishName: string

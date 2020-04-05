@@ -5,49 +5,34 @@ import appendWeakestForms from "./helpers/appendWeakestForms.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 
 import logger from "../logger";
-import userStatsService from "../stats/stats.service";
+import statsService from "../stats/stats.service";
 
 const exercisesController = {
+  /**
+   * fetches the words for the lesson
+   */
   getLesson: async (req: Request, res: Response): Promise<void> => {
-    let words;
-
-    // fetches the words for the lesson
     try {
-      words = await exercisesService.getLessonWords(req.params.lesson);
+      const words = await exercisesService.getLessonWords(req.params.lesson);
       // sends them as is if user is not logged in
       if (!req.user) {
         res.send(JSON.stringify({ words }));
         return;
       }
-    } catch (error) {
-      logger.error(`[getLesson] error while fetching lesson data ${error}`);
-      return;
-    }
 
-    // if user is registered, selects the weakest forms
-    // wordStats is a parallel array containing scores if they exist,
-    // or "null", for each word
-    try {
-      const wordsStats = await Promise.all(
-        words.map(async (word) => {
-          const wordStats = await userStatsService.findWordStatsByEnglishName(
-            req.user._id,
-            word.english.name
-          );
-          return wordStats;
-        })
-      );
+      // if the user is registered, get the wordStats for the words of this lesson
+      const wordsStats = await statsService.findWordsStatsForWords(words);
 
-      // gets the weakest forms of each word
-      const weakestFormsStats = appendWeakestForms(words, wordsStats);
-      res.send(JSON.stringify({ words, formsStats: weakestFormsStats }));
+      // appends the weakest forms for each word, or [] if the word has never been encountered
+      const wordsWithWeakestFormsStats = appendWeakestForms(words, wordsStats);
+      res.send(JSON.stringify({ words: wordsWithWeakestFormsStats }));
       logger.debug(
         `[getLesson] sent words for lesson ${req.params.lesson}, user ${
           req.user._id || "anonymous"
         }`
       );
     } catch (error) {
-      logger.error(`[getLesson] error while preparing weak forms ${error}`);
+      logger.error(`[getLesson] error while fetching lesson data ${error}`);
     }
   },
 
@@ -71,7 +56,6 @@ const exercisesController = {
         slicedWordsStats
       );
 
-      // TODO: common function to do it with getLesson
       // filters out the stats of the weakest forms of each word
       const wordsWithWeakestFormsStats = appendWeakestForms(
         words,

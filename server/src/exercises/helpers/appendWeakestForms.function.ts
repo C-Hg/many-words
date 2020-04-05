@@ -1,11 +1,9 @@
 import FormStats from "../../stats/interfaces/formStats.interface";
 import { WordStats } from "../../stats/interfaces/wordStats.interface";
-import Word from "../interfaces/word.interface";
+import { Word } from "../interfaces/word.interface";
 
 /**
  * For each word, append its weakest forms
- * @param {Array} wordStats
- * @return {Array} weakForms
  */
 const appendWeakestForms = (
   words: Word[],
