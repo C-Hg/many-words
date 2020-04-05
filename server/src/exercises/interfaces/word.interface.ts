@@ -2,10 +2,10 @@ import { Document } from "mongoose";
 
 import EnglishWord from "./englishWord.interface";
 import FrenchWord from "./frenchWord.interface";
+import { Lesson } from "./lesson.type";
+import { Topic } from "./topic.type";
 
 import FormStats from "../../stats/interfaces/formStats.interface";
-import { Lesson } from "../models/lesson.type";
-import { Topic } from "../models/topic.type";
 
 export interface Word {
   english: {

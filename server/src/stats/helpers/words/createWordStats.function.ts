@@ -1,8 +1,8 @@
 import { Types } from "mongoose";
 
-import exercisesService from "../../exercises/exercises.service";
-import FormStats, { Languages } from "../interfaces/formStats.interface";
-import { WordStats } from "../interfaces/wordStats.interface";
+import exercisesService from "../../../exercises/exercises.service";
+import FormStats, { Languages } from "../../interfaces/formStats.interface";
+import { WordStats } from "../../interfaces/wordStats.interface";
 
 /**
  * Creates a new wordStats object for a given word

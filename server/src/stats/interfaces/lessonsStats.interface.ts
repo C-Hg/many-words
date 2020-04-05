@@ -1,6 +1,6 @@
 import lessonsByTopic from "../../exercises/data/lessonsByTopic";
-import { Lesson } from "../../exercises/models/lesson.type";
-import { Topic } from "../../exercises/models/topic.type";
+import { Lesson } from "../../exercises/interfaces/lesson.type";
+import { Topic } from "../../exercises/interfaces/topic.type";
 
 // myLesson: 5
 type LessonScore = {

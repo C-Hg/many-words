@@ -1,5 +1,5 @@
-import { NewLessonsStats } from "../interfaces/lessonsStats.interface";
-import WordResult from "../interfaces/wordResult.interface";
+import { NewLessonsStats } from "../../interfaces/lessonsStats.interface";
+import WordResult from "../../interfaces/wordResult.interface";
 
 /**
  * Extract newLessonsStats from wordResults

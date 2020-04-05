@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 
-import createWordStats from "./helpers/createWordStats.function";
 import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.function";
-import getUpdatedWordsResults from "./helpers/getUpdatedWordsResults.function";
-import updateLessonsStats from "./helpers/updateLessonsStats.function";
-import getUpdatedTopicsStats from "./helpers/updateTopicsStats.function";
+import updateLessonsStats from "./helpers/lessons/updateLessonsStats.function";
+import updateTopicsStats from "./helpers/topics/updateTopicsStats.function";
+import createWordStats from "./helpers/words/createWordStats.function";
+import getUpdatedWordsResults from "./helpers/words/getUpdatedWordsResults.function";
 import FormResult from "./interfaces/formResult.interface";
 import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
 import logger from "../logger";
-import userService from "../user/user.service";
 
 const statsController = {
   /**
@@ -52,12 +51,7 @@ const statsController = {
       updatedLessonsStats,
       updatedThemesStats
     );
-    const updatedUserStats = {
-      ...user.stats,
-      lessons: updatedLessonsStats,
-      themes: updatedThemesStats,
-      globalProgress: updatedGlobalProgress,
-    };
+
     return updatedUserStats;
   },
 
@@ -85,12 +79,14 @@ const statsController = {
       // Update topics stats
       const updatedTopicsStats = updateTopicsStats(updatedLessonsStats);
 
-      const updatedUserStats = await statsController.getUpdatedUserStats(
-        lessonsToUpdate,
-        user
-      );
+      // TODO: global progress with minimal parameters
+      const updatedUserStats = {
+        lessons: updatedLessonsStats,
+        topics: updatedTopicsStats,
+        globalProgress: updatedGlobalProgress,
+      };
 
-      await userService.updateStats(user, updatedUserStats);
+      await statsService.updateStats(user, updatedUserStats);
       res.status(200);
       res.send(updatedUserStats);
 

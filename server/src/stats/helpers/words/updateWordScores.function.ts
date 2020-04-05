@@ -1,5 +1,5 @@
-import { GREEN_THRESHOLD, GOLD_THRESHOLD } from "../constants";
-import { UpdatedWordScores } from "../interfaces/wordScores.interface";
+import { WORD_GREEN_THRESHOLD, WORD_GOLD_THRESHOLD } from "../../constants";
+import { UpdatedWordScores } from "../../interfaces/wordScores.interface";
 
 /**
  * Given global scores of a word and the result of the exercise for one word,
@@ -22,15 +22,15 @@ const updateWordScores = (
     updatedGlobalScore = globalScore + 1;
     updatedCorrectAnswers = correctAnswers + 1;
     if (
-      updatedGlobalScore >= GREEN_THRESHOLD &&
-      updatedGlobalScore < GOLD_THRESHOLD &&
-      globalScore < GREEN_THRESHOLD
+      updatedGlobalScore >= WORD_GREEN_THRESHOLD &&
+      updatedGlobalScore < WORD_GOLD_THRESHOLD &&
+      globalScore < WORD_GREEN_THRESHOLD
     ) {
       // this word is now green
       greenCount = 1;
     } else if (
-      updatedGlobalScore >= GOLD_THRESHOLD &&
-      globalScore < GOLD_THRESHOLD
+      updatedGlobalScore >= WORD_GOLD_THRESHOLD &&
+      globalScore < WORD_GOLD_THRESHOLD
     ) {
       // this word was green and is now gold
       greenCount = -1;
@@ -41,16 +41,16 @@ const updateWordScores = (
     updatedGlobalScore = globalScore - 0.5;
     updatedWrongAnswers = wrongAnswers + 1;
     if (
-      updatedGlobalScore >= GREEN_THRESHOLD &&
-      updatedGlobalScore < GOLD_THRESHOLD &&
-      globalScore >= GOLD_THRESHOLD
+      updatedGlobalScore >= WORD_GREEN_THRESHOLD &&
+      updatedGlobalScore < WORD_GOLD_THRESHOLD &&
+      globalScore >= WORD_GOLD_THRESHOLD
     ) {
       // this word was gold and is now green
       greenCount = 1;
       goldCount = -1;
     } else if (
-      updatedGlobalScore < GREEN_THRESHOLD &&
-      globalScore >= GREEN_THRESHOLD
+      updatedGlobalScore < WORD_GREEN_THRESHOLD &&
+      globalScore >= WORD_GREEN_THRESHOLD
     ) {
       // this word was green and is not any more
       greenCount = -1;

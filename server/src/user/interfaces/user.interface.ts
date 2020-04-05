@@ -1,13 +1,14 @@
 import { Document } from "mongoose";
 
 import { LessonsStats } from "../../stats/interfaces/lessonsStats.interface";
+import { TopicsStats } from "../../stats/interfaces/topicsStats.interface";
 
 export interface User {
   email: string;
   googleId?: string;
   stats: {
     lessons: Partial<LessonsStats>;
-    topics: {};
+    topics: Partial<TopicsStats>;
     globalProgress: {
       studiedLessons: number;
       greenLessons: number;

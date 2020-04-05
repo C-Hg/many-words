@@ -1,4 +1,4 @@
-import updateWordScores from "../updateWordScores.function";
+import updateWordScores from "./updateWordScores.function";
 
 describe("updateWordScores", () => {
   test("first correct answer", () => {

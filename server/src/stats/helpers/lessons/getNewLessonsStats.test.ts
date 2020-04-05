@@ -1,12 +1,8 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { ObjectID } from "mongodb";
 
-import wordCountByLesson from "../../../exercises/data/wordCountByLesson";
-import { LESSON_SCORE_PRECISION, MAX_WORD_SCORE } from "../../constants";
-import WordResult from "../../interfaces/wordResult.interface";
-import updateLessonsStats from "../updateLessonsStats.function";
+import getNewLessonsStats from "./getNewLessonsStats.function";
 
-// main_colors lesson: 9 words total
+import WordResult from "../../interfaces/wordResult.interface";
 
 const WordResults0: WordResult[] = [
   {
@@ -144,105 +140,41 @@ const WordResults1: WordResult[] = [
   },
 ];
 
-const user0 = {
-  _id: new ObjectID("55153a8014829a865bbf700d"),
-  email: "myemail",
-  googleId: "18613",
-  stats: {
-    lessons: {},
-    topics: {},
-    globalProgress: {
-      studiedLessons: 0,
-      greenLessons: 0,
-      goldLessons: 0,
-      encounteredWords: 0,
-      greenWords: 0,
-      goldWords: 0,
-    },
-  },
-};
-
-const user1 = {
-  _id: new ObjectID("55153a8014829a865bbf700d"),
-  email: "myemail",
-  googleId: "18613",
-  stats: {
-    lessons: {
-      colors: {
-        main_colors: 0.4,
+describe("getNewLessonsStats", () => {
+  test("same lesson", () => {
+    const newLessonsStats = getNewLessonsStats(WordResults0);
+    expect(newLessonsStats).toEqual([
+      {
+        topic: "colors",
+        lesson: "main_colors",
+        scoreVariation: 2,
       },
-      animals: {
-        animals_basics: 0.6,
-        insects: 0.1,
-        birds: 0.2,
-      },
-    },
-    topics: {},
-    globalProgress: {
-      studiedLessons: 0,
-      greenLessons: 0,
-      goldLessons: 0,
-      encounteredWords: 0,
-      greenWords: 0,
-      goldWords: 0,
-    },
-  },
-};
-
-describe("updateLessonsStats", () => {
-  test("first lesson", () => {
-    const updatedLessonsStats = updateLessonsStats(WordResults0, user0);
-    expect(updatedLessonsStats).toEqual({
-      colors: {
-        main_colors: (
-          2 /
-          (MAX_WORD_SCORE * wordCountByLesson.main_colors)
-        ).toFixed(LESSON_SCORE_PRECISION),
-      },
-    });
+    ]);
   });
 
-  test("update single lesson in topic", () => {
-    const updatedLessonsStats = updateLessonsStats(WordResults0, user1);
-    // testing object entries separately because order is not guaranteed
-    expect(updatedLessonsStats).toEqual({
-      colors: {
-        main_colors: (
-          2 / (MAX_WORD_SCORE * wordCountByLesson.main_colors) +
-          0.4
-        ).toFixed(LESSON_SCORE_PRECISION),
+  test("different lessons and topics", () => {
+    const newLessonsStats = getNewLessonsStats(WordResults1);
+    expect(newLessonsStats).toEqual([
+      {
+        topic: "colors",
+        lesson: "main_colors",
+        scoreVariation: 1,
       },
-      animals: {
-        // this should not be modified
-        animals_basics: 0.6,
-        insects: 0.1,
-        birds: 0.2,
+      {
+        topic: "animals",
+        lesson: "animals_basics",
+        scoreVariation: 2,
       },
-    });
-  });
-
-  test("update several lessons in 2 topics", () => {
-    const updatedLessonsStats = updateLessonsStats(WordResults1, user1);
-    expect(updatedLessonsStats).toEqual({
-      colors: {
-        main_colors: (
-          1 / (MAX_WORD_SCORE * wordCountByLesson.main_colors) +
-          0.4
-        ).toFixed(LESSON_SCORE_PRECISION),
+      {
+        topic: "animals",
+        lesson: "insects",
+        scoreVariation: -0.5,
       },
-      animals: {
-        animals_basics: (
-          2 / (MAX_WORD_SCORE * wordCountByLesson.animals_basics) +
-          0.6
-        ).toFixed(LESSON_SCORE_PRECISION),
-        insects: (
-          -0.5 / (MAX_WORD_SCORE * wordCountByLesson.insects) +
-          0.1
-        ).toFixed(LESSON_SCORE_PRECISION),
-        birds: (1 / (MAX_WORD_SCORE * wordCountByLesson.birds) + 0.2).toFixed(
-          LESSON_SCORE_PRECISION
-        ),
+      {
+        topic: "animals",
+        lesson: "birds",
+        scoreVariation: 1,
       },
-    });
+    ]);
   });
 });

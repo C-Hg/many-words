@@ -2,8 +2,11 @@ import { ObjectID } from "mongodb";
 import { Query } from "mongoose";
 
 import WordResult from "./interfaces/wordResult.interface";
-import { WordStatsDocument } from "./interfaces/wordStats.interface";
+import { WordStatsDocument, WordStats } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
+
+import { UserDocument } from "../user/interfaces/user.interface";
+import User from "../user/models/user.model";
 
 const statsService = {
   findWordStatsByEnglishName: async (
@@ -26,6 +29,13 @@ const statsService = {
       );
     });
     return Promise.all(replacePromises);
+  },
+
+  updateStats: async (
+    user: UserDocument,
+    updatedUserStats: WordStats
+  ): Promise<UserDocument | null> => {
+    return User.findByIdAndUpdate(user._id, { stats: updatedUserStats });
   },
 };
 

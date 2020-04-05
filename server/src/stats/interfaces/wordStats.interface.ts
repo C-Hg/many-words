@@ -3,8 +3,8 @@ import { Document } from "mongoose";
 
 import FormStats from "./formStats.interface";
 
-import { Lesson } from "../../exercises/models/lesson.type";
-import { Topic } from "../../exercises/models/topic.type";
+import { Lesson } from "../../exercises/interfaces/lesson.type";
+import { Topic } from "../../exercises/interfaces/topic.type";
 
 export interface WordStats {
   userId: ObjectId;

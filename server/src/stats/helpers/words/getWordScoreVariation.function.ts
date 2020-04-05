@@ -1,4 +1,4 @@
-import { MAX_WORD_SCORE } from "../constants";
+import { MAX_WORD_SCORE } from "../../constants";
 
 /**
  * Produces the score variation to update the lesson score

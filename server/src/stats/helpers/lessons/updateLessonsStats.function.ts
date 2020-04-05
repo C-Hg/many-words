@@ -3,11 +3,11 @@ import set from "lodash.set";
 
 import getNewLessonsStats from "./getNewLessonsStats.function";
 
-import wordCountByLesson from "../../exercises/data/wordCountByLesson";
-import { User } from "../../user/interfaces/user.interface";
-import { MAX_WORD_SCORE, LESSON_SCORE_PRECISION } from "../constants";
-import { LessonsStats } from "../interfaces/lessonsStats.interface";
-import WordResult from "../interfaces/wordResult.interface";
+import wordCountByLesson from "../../../exercises/data/wordCountByLesson";
+import { User } from "../../../user/interfaces/user.interface";
+import { MAX_WORD_SCORE, LESSON_SCORE_PRECISION } from "../../constants";
+import { LessonsStats } from "../../interfaces/lessonsStats.interface";
+import WordResult from "../../interfaces/wordResult.interface";
 
 /**
  * Produces an updated LessonsStats object from a wordResults array
@@ -44,10 +44,10 @@ The lesson score is a percentage
 >80% is considered golden
 >40% is considered ok (green)
 
-the percentage is calculated by summing the general proficiencies of each word
+the percentage is calculated by summing the scores of each word
 a score of 5 for all words must be achieved to reach 100%
 a mean score of 4 equals to golden
-a mean score of 2  equals to green
+a mean score of 2 equals to green
 
 word scores below zero count for 0
 word scores superior to 5 count for 5

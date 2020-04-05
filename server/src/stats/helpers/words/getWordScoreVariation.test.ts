@@ -1,5 +1,6 @@
+import getWordScoreVariation from "./getWordScoreVariation.function";
+
 import { MAX_WORD_SCORE } from "../../constants";
-import getWordScoreVariation from "../getWordScoreVariation.function";
 
 describe("getWordScoreVariation", () => {
   test("positive variation unaccounted for", () => {
