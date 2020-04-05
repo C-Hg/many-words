@@ -3,9 +3,9 @@ import { Types } from "mongoose";
 
 import createWordStats from "./helpers/createWordStats.function";
 import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.function";
-import getUpdatedLessonsStats from "./helpers/getUpdatedLessonsStats.function";
-import getUpdatedTopicsStats from "./helpers/getUpdatedThemesStats.function";
 import getUpdatedWordsResults from "./helpers/getUpdatedWordsResults.function";
+import updateLessonsStats from "./helpers/updateLessonsStats.function";
+import getUpdatedTopicsStats from "./helpers/updateTopicsStats.function";
 import FormResult from "./interfaces/formResult.interface";
 import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
@@ -47,11 +47,6 @@ const statsController = {
   },
 
   getUpdatedUserStats: async (lessonsToUpdate, user) => {
-    const updatedLessonsStats = await getUpdatedLessonsStats(
-      lessonsToUpdate,
-      user
-    );
-    const updatedThemesStats = getUpdatedTopicsStats(updatedLessonsStats);
     const updatedGlobalProgress = await getUpdatedGlobalProgress(
       user,
       updatedLessonsStats,
@@ -72,15 +67,24 @@ const statsController = {
     const userId = req.user._id;
     const user = req.user.toObject();
 
-    // TODO: return updated word stats, used to update user stats
     try {
-      const wordsResults = await statsController.updateWordsStats(
+      // Update word stats first
+      const wordsResults = await statsController.getWordsResults(
         formResults,
         userId
       );
+      const updatedWordResults = getUpdatedWordsResults(
+        wordsResults,
+        formResults
+      );
+      await statsService.replaceWordsStats(userId, updatedWordResults);
 
+      // Update lessons stats
       const updatedLessonsStats = updateLessonsStats(wordsResults, user);
-      // 2) get updated user stats in here, without await
+
+      // Update topics stats
+      const updatedTopicsStats = updateTopicsStats(updatedLessonsStats);
+
       const updatedUserStats = await statsController.getUpdatedUserStats(
         lessonsToUpdate,
         user
@@ -94,27 +98,8 @@ const statsController = {
         `[updateStats] successfully updated stats for user ${req.user._id}`
       );
     } catch (error) {
-      logger.error(`[upsertWordStats] cannot get words stats - ${error}`);
+      logger.error(`[upsertWordStats] cannot update user stats - ${error}`);
     }
-  },
-
-  /**
-   * Update the wordsStats after an exercise, and return the corresponding wordsResults
-   */
-  updateWordsStats: async (
-    formResults: FormResult[],
-    userId: Types.ObjectId
-  ): Promise<WordResult[]> => {
-    const wordsResults = await statsController.getWordsResults(
-      formResults,
-      userId
-    );
-    const updatedWordResults = getUpdatedWordsResults(
-      wordsResults,
-      formResults
-    );
-    await statsService.replaceWordsStats(userId, updatedWordResults);
-    return updatedWordResults;
   },
 };
 

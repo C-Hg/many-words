@@ -1,3 +1,4 @@
+import getWordScoreVariation from "./getWordScoreVariation.function";
 import updateFormsStats from "./updateFormsStats.function";
 import updateWordScores from "./updateWordScores.function";
 
@@ -17,21 +18,29 @@ const getUpdatedWordsResults = (
     const formResult = formResults[wordIndex];
     const { isAnswerCorrect } = formResults[wordIndex];
     const { wordStats, isNew } = wordResult;
-    const { formsStats } = wordStats;
+    const { globalScore, correctAnswers, wrongAnswers, formsStats } = wordStats;
 
     // updates the score by form
     const updatedFormsStats = updateFormsStats(formsStats, formResult);
 
     // updates the global scores for the word
-    const updatedWordScores = updateWordScores(wordStats, isAnswerCorrect);
+    const updatedWordScores = updateWordScores(
+      globalScore,
+      correctAnswers,
+      wrongAnswers,
+      isAnswerCorrect
+    );
     const {
       updatedGlobalScore,
       updatedCorrectAnswers,
       updatedWrongAnswers,
       greenCount,
       goldCount,
-      globalScoreVariation,
     } = updatedWordScores;
+    const globalScoreVariation = getWordScoreVariation(
+      wordStats.globalScore,
+      updatedGlobalScore
+    );
 
     // construct the new wordStats object
     const updatedWordStats = {

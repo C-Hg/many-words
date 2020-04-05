@@ -1,35 +1,54 @@
 import cloneDeep from "lodash.clonedeep";
+import set from "lodash.set";
+
+import getNewLessonsStats from "./getNewLessonsStats.function";
 
 import wordCountByLesson from "../../exercises/data/wordCountByLesson";
 import { User } from "../../user/interfaces/user.interface";
-import CONSTANTS from "../constants";
-import {
-  LessonsStats,
-  NewLessonsStats,
-} from "../interfaces/lessonsStats.interface";
+import { MAX_WORD_SCORE, LESSON_SCORE_PRECISION } from "../constants";
+import { LessonsStats } from "../interfaces/lessonsStats.interface";
 import WordResult from "../interfaces/wordResult.interface";
-import getNewLessonsStats from "./getNewLessonsStats.function";
 
+/**
+ * Produces an updated LessonsStats object from a wordResults array
+ */
 const updateLessonsStats = (
   wordsResults: WordResult[],
   user: User
-): LessonsStats => {
+): Partial<LessonsStats> => {
   const { lessons: lessonsStats } = user.stats;
-  const updateLessonsStats = cloneDeep(lessonsStats);
-  const gewLessonsStats = getNewLessonsStats(wordsResults);
+  const newLessonsStats = getNewLessonsStats(wordsResults);
+  const updatedLessonsStats = cloneDeep(lessonsStats);
 
+  newLessonsStats.forEach((newLessonStats) => {
+    const { lesson, topic, scoreVariation } = newLessonStats;
+    const previousScore = lessonsStats?.[topic]?.[lesson] || 0;
     const wordsInLesson = wordCountByLesson[lesson];
 
-    const previousScore = lessonsStats?.[topic]?.[lesson] || 0;
+    // convert and apply the score variation of this word to the previous total score
+    const newScore =
+      scoreVariation / (MAX_WORD_SCORE * wordsInLesson) + previousScore;
+    const formattedScore = newScore.toFixed(LESSON_SCORE_PRECISION);
 
-    // convert the displayed score to the sum of all words' global scores in this lesson
-    const previousTotalScore =
-      previousScore * wordsInLesson * CONSTANTS.MAX_WORD_SCORE;
-    // apply the score variation of this word to the previous total score
-    const newTotalScore = previousTotalScore + globalScoreVariation;
-    // save the score to display in the lessonsStats object
-    const newScore = newTotalScore / (wordsInLesson * 5);
+    // update the value
+    set(updatedLessonsStats, [topic, lesson], formattedScore);
   });
+
+  return updatedLessonsStats;
 };
 
 export default updateLessonsStats;
+
+/*
+The lesson score is a percentage
+>80% is considered golden
+>40% is considered ok (green)
+
+the percentage is calculated by summing the general proficiencies of each word
+a score of 5 for all words must be achieved to reach 100%
+a mean score of 4 equals to golden
+a mean score of 2  equals to green
+
+word scores below zero count for 0
+word scores superior to 5 count for 5
+*/

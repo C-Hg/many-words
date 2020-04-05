@@ -1,6 +1,9 @@
 import { NewLessonsStats } from "../interfaces/lessonsStats.interface";
 import WordResult from "../interfaces/wordResult.interface";
 
+/**
+ * Extract newLessonsStats from wordResults
+ */
 const getNewLessonsStats = (wordsResults: WordResult[]): NewLessonsStats[] => {
   const statsGroupedByLesson: NewLessonsStats[] = [];
 

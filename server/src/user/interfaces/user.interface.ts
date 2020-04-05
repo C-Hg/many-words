@@ -6,7 +6,7 @@ export interface User {
   email: string;
   googleId?: string;
   stats: {
-    lessons: LessonsStats;
+    lessons: Partial<LessonsStats>;
     topics: {};
     globalProgress: {
       studiedLessons: number;
