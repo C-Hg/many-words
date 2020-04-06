@@ -1,6 +1,7 @@
+import updateFormsStats from "./updateFormsStats.function";
+
 import FormResult from "../../interfaces/formResult.interface";
 import FormStats, { Languages } from "../../interfaces/formStats.interface";
-import updateFormsStats from "../updateFormsStats.function";
 
 const formsStats0: FormStats[] = [
   {

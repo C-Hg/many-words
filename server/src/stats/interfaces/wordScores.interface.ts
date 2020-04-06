@@ -11,3 +11,9 @@ export interface UpdatedWordScores {
   greenCount: number;
   goldCount: number;
 }
+
+export interface WordsVariation {
+  studiedWordsVariation: number;
+  greenWordsVariation: number;
+  goldWordsVariation: number;
+}

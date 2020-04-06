@@ -145,54 +145,22 @@ const WordResults1: WordResult[] = [
   },
 ];
 
-const user0 = {
-  _id: new ObjectID("55153a8014829a865bbf700d"),
-  email: "myemail",
-  googleId: "18613",
-  stats: {
-    lessons: {},
-    topics: {},
-    globalProgress: {
-      studiedLessons: 0,
-      greenLessons: 0,
-      goldLessons: 0,
-      encounteredWords: 0,
-      greenWords: 0,
-      goldWords: 0,
-    },
-  },
-};
+const lessonStats0 = {};
 
-const user1 = {
-  _id: new ObjectID("55153a8014829a865bbf700d"),
-  email: "myemail",
-  googleId: "18613",
-  stats: {
-    lessons: {
-      colors: {
-        main_colors: 0.4,
-      },
-      animals: {
-        animals_basics: 0.6,
-        insects: 0.1,
-        birds: 0.2,
-      },
-    },
-    topics: {},
-    globalProgress: {
-      studiedLessons: 0,
-      greenLessons: 0,
-      goldLessons: 0,
-      encounteredWords: 0,
-      greenWords: 0,
-      goldWords: 0,
-    },
+const lessonStats1 = {
+  colors: {
+    main_colors: 0.4,
+  },
+  animals: {
+    animals_basics: 0.6,
+    insects: 0.1,
+    birds: 0.2,
   },
 };
 
 describe("updateLessonsStats", () => {
   test("first lesson", () => {
-    const updatedLessonsStats = updateLessonsStats(WordResults0, user0);
+    const updatedLessonsStats = updateLessonsStats(WordResults0, lessonStats0);
     expect(updatedLessonsStats).toEqual({
       colors: {
         main_colors: (
@@ -204,7 +172,7 @@ describe("updateLessonsStats", () => {
   });
 
   test("update single lesson in topic", () => {
-    const updatedLessonsStats = updateLessonsStats(WordResults0, user1);
+    const updatedLessonsStats = updateLessonsStats(WordResults0, lessonStats1);
     // testing object entries separately because order is not guaranteed
     expect(updatedLessonsStats).toEqual({
       colors: {
@@ -223,7 +191,7 @@ describe("updateLessonsStats", () => {
   });
 
   test("update several lessons in 2 topics", () => {
-    const updatedLessonsStats = updateLessonsStats(WordResults1, user1);
+    const updatedLessonsStats = updateLessonsStats(WordResults1, lessonStats1);
     expect(updatedLessonsStats).toEqual({
       colors: {
         main_colors: (

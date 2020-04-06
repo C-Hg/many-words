@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 
-import getUpdatedGlobalProgress from "./helpers/getUpdatedGlobalProgress.function";
 import updateLessonsStats from "./helpers/lessons/updateLessonsStats.function";
 import updateTopicsStats from "./helpers/topics/updateTopicsStats.function";
 import createWordStats from "./helpers/words/createWordStats.function";
@@ -11,6 +10,7 @@ import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
 import logger from "../logger";
+import { User, UserDocument } from "../user/interfaces/user.interface";
 
 const statsController = {
   /**
@@ -45,21 +45,11 @@ const statsController = {
     return { wordStats: createdWordStats, isNew: false };
   },
 
-  getUpdatedUserStats: async (lessonsToUpdate, user) => {
-    const updatedGlobalProgress = await getUpdatedGlobalProgress(
-      user,
-      updatedLessonsStats,
-      updatedThemesStats
-    );
-
-    return updatedUserStats;
-  },
-
   updateStats: async (req: Request, res: Response): Promise<void> => {
     logger.debug(`[updateStats] updating stats for user ${req.user._id}`);
     const formResults = req.body;
     const userId = req.user._id;
-    const user = req.user.toObject();
+    const user: UserDocument = req.user.toObject();
 
     try {
       // Update word stats first
@@ -74,16 +64,26 @@ const statsController = {
       await statsService.replaceWordsStats(userId, updatedWordResults);
 
       // Update lessons stats
-      const updatedLessonsStats = updateLessonsStats(wordsResults, user);
+      const updatedLessonsStats = updateLessonsStats(
+        wordsResults,
+        user.stats.lessons
+      );
 
       // Update topics stats
       const updatedTopicsStats = updateTopicsStats(updatedLessonsStats);
+
+      // Update global stats
+      const updatedGlobalStats = updateGlobalStats(
+        updatedWordResults,
+        updatedTopicsStats,
+        user.stats.global
+      );
 
       // TODO: global progress with minimal parameters
       const updatedUserStats = {
         lessons: updatedLessonsStats,
         topics: updatedTopicsStats,
-        globalProgress: updatedGlobalProgress,
+        global: updatedGlobalStats,
       };
 
       await statsService.updateStats(user, updatedUserStats);

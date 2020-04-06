@@ -4,7 +4,6 @@ import set from "lodash.set";
 import getNewLessonsStats from "./getNewLessonsStats.function";
 
 import wordCountByLesson from "../../../exercises/data/wordCountByLesson";
-import { User } from "../../../user/interfaces/user.interface";
 import { MAX_WORD_SCORE, LESSON_SCORE_PRECISION } from "../../constants";
 import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
@@ -14,9 +13,8 @@ import WordResult from "../../interfaces/wordResult.interface";
  */
 const updateLessonsStats = (
   wordsResults: WordResult[],
-  user: User
+  lessonsStats: Partial<LessonsStats>
 ): Partial<LessonsStats> => {
-  const { lessons: lessonsStats } = user.stats;
   const newLessonsStats = getNewLessonsStats(wordsResults);
   const updatedLessonsStats = cloneDeep(lessonsStats);
 
