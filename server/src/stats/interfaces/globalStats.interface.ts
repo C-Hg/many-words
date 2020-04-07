@@ -8,8 +8,8 @@ export default interface GlobalStats {
   globalProgress: number;
 }
 
-export interface UpdatedGlobalLessonsStats {
-  updatedStudiedLessons: number;
-  updatedGreenLessons: number;
-  updatedGoldLessons: number;
+export interface GlobalLessonsStats {
+  studiedLessons: number;
+  greenLessons: number;
+  goldLessons: number;
 }

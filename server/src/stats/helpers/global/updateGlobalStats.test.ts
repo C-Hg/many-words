@@ -5,7 +5,6 @@ import updateGlobalStats from "./updateGlobalStats.function";
 
 import globalStats from "../../../exercises/data/globalStats";
 import {
-  GLOBAL_PROGRESS_PRECISION,
   GOLD_WORD_SCORE,
   MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS,
   GREEN_WORD_SCORE,
@@ -258,10 +257,9 @@ describe("updateGlobalStats", () => {
       studiedWords: 61,
       greenWords: 15,
       goldWords: 2,
-      globalProgress: (
+      globalProgress:
         (61 + GREEN_WORD_SCORE * 15 + GOLD_WORD_SCORE * 2) /
-        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS)
-      ).toFixed(GLOBAL_PROGRESS_PRECISION),
+        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS),
     });
   });
 
@@ -275,13 +273,12 @@ describe("updateGlobalStats", () => {
       studiedLessons: 4,
       greenLessons: 1,
       goldLessons: 1,
-      studiedWords: 58,
-      greenWords: 18,
+      studiedWords: 59,
+      greenWords: 17,
       goldWords: 1,
-      globalProgress: (
-        (58 + GREEN_WORD_SCORE * 18 + GOLD_WORD_SCORE * 1) /
-        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS)
-      ).toFixed(GLOBAL_PROGRESS_PRECISION),
+      globalProgress:
+        (59 + GREEN_WORD_SCORE * 17 + GOLD_WORD_SCORE * 1) /
+        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS),
     });
   });
 
@@ -298,10 +295,9 @@ describe("updateGlobalStats", () => {
       studiedWords: 56,
       greenWords: 17,
       goldWords: 17,
-      globalProgress: (
+      globalProgress:
         (56 + GREEN_WORD_SCORE * 17 + GOLD_WORD_SCORE * 17) /
-        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS)
-      ).toFixed(GLOBAL_PROGRESS_PRECISION),
+        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS),
     });
   });
 });

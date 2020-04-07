@@ -12,21 +12,15 @@ const GREEN_WORD_SCORE = 1;
 const GOLD_WORD_SCORE = 1;
 // the maximum score of a word for global stats
 const MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS = STUDIED_WORD_SCORE + GOLD_WORD_SCORE;
-// the precision for the lessons stats (max number of decimals)
-const GLOBAL_PROGRESS_PRECISION = 3;
 
 // the global score percentage for a lesson, above which the lesson is "green" = known
 const LESSON_GREEN_THRESHOLD = 0.4;
 // the global score for a lesson, above which the lesson is "gold" = known well
 const LESSON_GOLD_THRESHOLD = 0.8;
-// the precision for the lessons stats (max number of decimals)
-const LESSON_SCORE_PRECISION = 5;
 
 export {
-  GLOBAL_PROGRESS_PRECISION,
   GOLD_WORD_SCORE,
   GREEN_WORD_SCORE,
-  LESSON_SCORE_PRECISION,
   LESSON_GOLD_THRESHOLD,
   LESSON_GREEN_THRESHOLD,
   MAX_WORD_SCORE_IN_LESSON,

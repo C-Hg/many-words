@@ -166,10 +166,8 @@ describe("updateLessonsStats", () => {
     const updatedLessonsStats = updateLessonsStats(WordResults0, lessonStats0);
     expect(updatedLessonsStats).toEqual({
       colors: {
-        main_colors: (
-          2 /
-          (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.main_colors)
-        ).toFixed(LESSON_SCORE_PRECISION),
+        main_colors:
+          2 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.main_colors),
       },
     });
   });
@@ -179,10 +177,8 @@ describe("updateLessonsStats", () => {
     // testing object entries separately because order is not guaranteed
     expect(updatedLessonsStats).toEqual({
       colors: {
-        main_colors: (
-          2 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.main_colors) +
-          0.4
-        ).toFixed(LESSON_SCORE_PRECISION),
+        main_colors:
+          2 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.main_colors) + 0.4,
       },
       animals: {
         // this should not be modified
@@ -197,24 +193,16 @@ describe("updateLessonsStats", () => {
     const updatedLessonsStats = updateLessonsStats(WordResults1, lessonStats1);
     expect(updatedLessonsStats).toEqual({
       colors: {
-        main_colors: (
-          1 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.main_colors) +
-          0.4
-        ).toFixed(LESSON_SCORE_PRECISION),
+        main_colors:
+          1 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.main_colors) + 0.4,
       },
       animals: {
-        animals_basics: (
+        animals_basics:
           2 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.animals_basics) +
-          0.6
-        ).toFixed(LESSON_SCORE_PRECISION),
-        insects: (
-          -0.5 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.insects) +
-          0.1
-        ).toFixed(LESSON_SCORE_PRECISION),
-        birds: (
-          1 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.birds) +
-          0.2
-        ).toFixed(LESSON_SCORE_PRECISION),
+          0.6,
+        insects:
+          -0.5 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.insects) + 0.1,
+        birds: 1 / (MAX_WORD_SCORE_IN_LESSON * wordCountByLesson.birds) + 0.2,
       },
     });
   });

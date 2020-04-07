@@ -44,27 +44,27 @@ describe("updateGlobalLessonsStats", () => {
   test("first lesson", () => {
     const updatedStats = updateGlobalLessonsStats(lessonsStats0);
     expect(updatedStats).toMatchObject({
-      updatedStudiedLessons: 1,
-      updatedGreenLessons: 0,
-      updatedGoldLessons: 0,
+      studiedLessons: 1,
+      greenLessons: 0,
+      goldLessons: 0,
     });
   });
 
   test("new lesson", () => {
     const updatedStats = updateGlobalLessonsStats(lessonsStats1);
     expect(updatedStats).toMatchObject({
-      updatedStudiedLessons: 4,
-      updatedGreenLessons: 2,
-      updatedGoldLessons: 0,
+      studiedLessons: 4,
+      greenLessons: 2,
+      goldLessons: 0,
     });
   });
 
-  test("new lesson", () => {
+  test("new lesson 2", () => {
     const updatedStats = updateGlobalLessonsStats(lessonsStats2);
     expect(updatedStats).toMatchObject({
-      updatedStudiedLessons: 11,
-      updatedGreenLessons: 3,
-      updatedGoldLessons: 3,
+      studiedLessons: 11,
+      greenLessons: 3,
+      goldLessons: 3,
     });
   });
 });

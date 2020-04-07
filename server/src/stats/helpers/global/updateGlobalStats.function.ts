@@ -1,8 +1,8 @@
 import reduceWordsVariation from "./reduceWordsVariation.function";
+import updateGlobalLessonsStats from "./updateGlobalLessonsStats.function";
 
 import exercisesStats from "../../../exercises/data/globalStats";
 import {
-  GLOBAL_PROGRESS_PRECISION,
   GOLD_WORD_SCORE,
   GREEN_WORD_SCORE,
   MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS,
@@ -33,25 +33,29 @@ const updateGlobalStats = (
   const updatedGreenWords = greenWords + greenWordsVariation;
   const updatedGoldWords = goldWords + goldWordsVariation;
 
-  // TODO: global progress and lessons global stats
   // update global progress
-  const updatedGlobalProgress = (
+  const globalProgressAsString =
     (STUDIED_WORD_SCORE * updatedStudiedWords +
       GREEN_WORD_SCORE * updatedGreenWords +
       GOLD_WORD_SCORE * updatedGoldWords) /
-    (exercisesStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS)
-  ).toFixed(GLOBAL_PROGRESS_PRECISION);
+    (exercisesStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS);
+  const globalProgress = Number(globalProgressAsString);
 
   // update lessons global stats
+  const {
+    studiedLessons,
+    greenLessons,
+    goldLessons,
+  } = updateGlobalLessonsStats(lessonsStats);
 
   return {
-    globalPercentage,
-    encounteredWords: wordsScores.encounteredWords,
-    greenWords: wordsScores.greenWords,
-    goldWords: wordsScores.goldWords,
-    studiedLessons: lessonsScores.studiedLessons,
-    greenLessons: lessonsScores.greenLessons,
-    goldLessons: lessonsScores.goldLessons,
+    globalProgress,
+    studiedWords: updatedStudiedWords,
+    greenWords: updatedGreenWords,
+    goldWords: updatedGoldWords,
+    studiedLessons,
+    greenLessons,
+    goldLessons,
   };
 };
 
