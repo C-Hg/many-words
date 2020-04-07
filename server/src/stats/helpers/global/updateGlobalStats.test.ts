@@ -3,6 +3,13 @@ import { ObjectID } from "mongodb";
 
 import updateGlobalStats from "./updateGlobalStats.function";
 
+import globalStats from "../../../exercises/data/globalStats";
+import {
+  GLOBAL_PROGRESS_PRECISION,
+  GOLD_WORD_SCORE,
+  MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS,
+  GREEN_WORD_SCORE,
+} from "../../constants";
 import GlobalStats from "../../interfaces/globalStats.interface";
 import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
@@ -72,6 +79,7 @@ const globalStats0: GlobalStats = {
   studiedWords: 0,
   greenWords: 0,
   goldWords: 0,
+  globalProgress: 0,
 };
 
 const wordResults1: WordResult[] = [
@@ -148,6 +156,7 @@ const globalStats1: GlobalStats = {
   studiedWords: 56,
   greenWords: 15,
   goldWords: 2,
+  globalProgress: 0.2,
 };
 
 const wordResults2: WordResult[] = [
@@ -214,6 +223,7 @@ const globalStats2: GlobalStats = {
   studiedWords: 56,
   greenWords: 22,
   goldWords: 15,
+  globalProgress: 0.2,
 };
 
 describe("updateGlobalStats", () => {
@@ -230,6 +240,8 @@ describe("updateGlobalStats", () => {
       studiedWords: 5,
       greenWords: 0,
       goldWords: 0,
+      globalProgress:
+        5 / (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS),
     });
   });
 
@@ -246,6 +258,10 @@ describe("updateGlobalStats", () => {
       studiedWords: 61,
       greenWords: 15,
       goldWords: 2,
+      globalProgress: (
+        (61 + GREEN_WORD_SCORE * 15 + GOLD_WORD_SCORE * 2) /
+        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS)
+      ).toFixed(GLOBAL_PROGRESS_PRECISION),
     });
   });
 
@@ -262,6 +278,10 @@ describe("updateGlobalStats", () => {
       studiedWords: 58,
       greenWords: 18,
       goldWords: 1,
+      globalProgress: (
+        (58 + GREEN_WORD_SCORE * 18 + GOLD_WORD_SCORE * 1) /
+        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS)
+      ).toFixed(GLOBAL_PROGRESS_PRECISION),
     });
   });
 
@@ -278,6 +298,10 @@ describe("updateGlobalStats", () => {
       studiedWords: 56,
       greenWords: 17,
       goldWords: 17,
+      globalProgress: (
+        (56 + GREEN_WORD_SCORE * 17 + GOLD_WORD_SCORE * 17) /
+        (globalStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS)
+      ).toFixed(GLOBAL_PROGRESS_PRECISION),
     });
   });
 });

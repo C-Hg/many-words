@@ -4,7 +4,7 @@ import set from "lodash.set";
 import getNewLessonsStats from "./getNewLessonsStats.function";
 
 import wordCountByLesson from "../../../exercises/data/wordCountByLesson";
-import { MAX_WORD_SCORE, LESSON_SCORE_PRECISION } from "../../constants";
+import { MAX_WORD_SCORE_IN_LESSON, LESSON_SCORE_PRECISION } from "../../constants";
 import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 
@@ -25,7 +25,7 @@ const updateLessonsStats = (
 
     // convert and apply the score variation of this word to the previous total score
     const newScore =
-      scoreVariation / (MAX_WORD_SCORE * wordsInLesson) + previousScore;
+      scoreVariation / (MAX_WORD_SCORE_IN_LESSON * wordsInLesson) + previousScore;
     const formattedScore = newScore.toFixed(LESSON_SCORE_PRECISION);
 
     // update the value

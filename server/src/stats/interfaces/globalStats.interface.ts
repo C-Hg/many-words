@@ -7,3 +7,9 @@ export default interface GlobalStats {
   goldWords: number;
   globalProgress: number;
 }
+
+export interface UpdatedGlobalLessonsStats {
+  updatedStudiedLessons: number;
+  updatedGreenLessons: number;
+  updatedGoldLessons: number;
+}
