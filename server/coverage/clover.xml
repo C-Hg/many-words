@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1586415440684" clover="3.2.0">
+  <project timestamp="1586415440684" name="All files">
+    <metrics statements="169" coveredstatements="162" conditionals="74" coveredconditionals="68" methods="27" coveredmethods="27" elements="270" coveredelements="257" complexity="0" loc="169" ncloc="169" packages="11" files="20" classes="20"/>
+    <package name="exercises.data">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="globalStats.ts" path="/home/camille/repos/many-words/server/src/exercises/data/globalStats.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="lessonsByTopic.ts" path="/home/camille/repos/many-words/server/src/exercises/data/lessonsByTopic.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+      <file name="wordCountByLesson.ts" path="/home/camille/repos/many-words/server/src/exercises/data/wordCountByLesson.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="exercises.helpers">
+      <metrics statements="17" coveredstatements="17" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
+      <file name="appendWeakestForms.function.ts" path="/home/camille/repos/many-words/server/src/exercises/helpers/appendWeakestForms.function.ts">
+        <metrics statements="14" coveredstatements="14" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="14" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="9" type="stmt"/>
+        <line num="19" count="9" type="stmt"/>
+        <line num="20" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="7" type="stmt"/>
+        <line num="25" count="8" type="stmt"/>
+        <line num="26" count="8" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+      </file>
+      <file name="sortWordStats.function.ts" path="/home/camille/repos/many-words/server/src/exercises/helpers/sortWordStats.function.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="9" type="stmt"/>
+      </file>
+    </package>
+    <package name="exercises.interfaces">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="lesson.type.ts" path="/home/camille/repos/many-words/server/src/exercises/interfaces/lesson.type.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="156" type="stmt"/>
+      </file>
+      <file name="topic.type.ts" path="/home/camille/repos/many-words/server/src/exercises/interfaces/topic.type.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="36" type="stmt"/>
+      </file>
+    </package>
+    <package name="exercises.models">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="word.model.ts" path="/home/camille/repos/many-words/server/src/exercises/models/word.model.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="stats">
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.ts" path="/home/camille/repos/many-words/server/src/stats/constants.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="17" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="stats.helpers.global">
+      <metrics statements="40" coveredstatements="39" conditionals="12" coveredconditionals="11" methods="8" coveredmethods="8"/>
+      <file name="reduceWordsVariation.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/global/reduceWordsVariation.function.ts">
+        <metrics statements="14" coveredstatements="14" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="8" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="21" type="stmt"/>
+        <line num="11" count="18" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="16" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="21" type="stmt"/>
+        <line num="19" count="18" type="stmt"/>
+        <line num="24" count="7" type="stmt"/>
+        <line num="26" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="33" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="34" count="7" type="stmt"/>
+      </file>
+      <file name="updateGlobalLessonsStats.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/global/updateGlobalLessonsStats.function.ts">
+        <metrics statements="16" coveredstatements="15" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="3"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="16" count="7" type="stmt"/>
+        <line num="18" count="7" type="stmt"/>
+        <line num="19" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="23" count="14" type="stmt"/>
+        <line num="25" count="14" type="stmt"/>
+        <line num="28" count="14" type="stmt"/>
+        <line num="29" count="33" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="7" type="stmt"/>
+        <line num="31" count="26" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="9" type="stmt"/>
+        <line num="37" count="7" type="stmt"/>
+      </file>
+      <file name="updateGlobalStats.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/global/updateGlobalStats.function.ts">
+        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="33" count="4" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="38" count="4" type="stmt"/>
+        <line num="42" count="4" type="stmt"/>
+        <line num="49" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="stats.helpers.lessons">
+      <metrics statements="23" coveredstatements="22" conditionals="6" coveredconditionals="5" methods="5" coveredmethods="5"/>
+      <file name="getNewLessonsStats.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/lessons/getNewLessonsStats.function.ts">
+        <metrics statements="13" coveredstatements="12" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="25" type="stmt"/>
+        <line num="12" count="25" type="stmt"/>
+        <line num="15" count="25" type="cond" truecount="1" falsecount="1"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="23" count="25" type="stmt"/>
+        <line num="24" count="28" type="stmt"/>
+        <line num="26" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="14" type="stmt"/>
+        <line num="33" count="11" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+      </file>
+      <file name="updateLessonsStats.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/lessons/updateLessonsStats.function.ts">
+        <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="23" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="6" type="stmt"/>
+        <line num="28" count="6" type="stmt"/>
+        <line num="32" count="6" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="stats.helpers.topics">
+      <metrics statements="22" coveredstatements="20" conditionals="10" coveredconditionals="8" methods="3" coveredmethods="3"/>
+      <file name="updateTopicsStats.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/topics/updateTopicsStats.function.ts">
+        <metrics statements="22" coveredstatements="20" conditionals="10" coveredconditionals="8" methods="3" coveredmethods="3"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="36" type="cond" truecount="1" falsecount="1"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="36" type="stmt"/>
+        <line num="24" count="36" type="stmt"/>
+        <line num="25" count="36" type="stmt"/>
+        <line num="28" count="36" type="stmt"/>
+        <line num="29" count="156" type="cond" truecount="1" falsecount="1"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="32" count="156" type="stmt"/>
+        <line num="33" count="156" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="138" type="stmt"/>
+        <line num="37" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="6" type="stmt"/>
+        <line num="45" count="36" type="stmt"/>
+        <line num="46" count="36" type="stmt"/>
+        <line num="47" count="36" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="stats.helpers.words">
+      <metrics statements="45" coveredstatements="42" conditionals="40" coveredconditionals="38" methods="4" coveredmethods="4"/>
+      <file name="getWordScoreVariation.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/words/getWordScoreVariation.function.ts">
+        <metrics statements="15" coveredstatements="12" conditionals="14" coveredconditionals="12" methods="1" coveredmethods="1"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="11" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="9" type="cond" truecount="4" falsecount="0"/>
+        <line num="20" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="23" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="4" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="31" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+      </file>
+      <file name="updateFormsStats.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/words/updateFormsStats.function.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
+        <line num="14" count="9" type="cond" truecount="4" falsecount="0"/>
+        <line num="16" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="23" count="6" type="stmt"/>
+      </file>
+      <file name="updateWordScores.function.ts" path="/home/camille/repos/many-words/server/src/stats/helpers/words/updateWordScores.function.ts">
+        <metrics statements="21" coveredstatements="21" conditionals="20" coveredconditionals="20" methods="1" coveredmethods="1"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="15" count="8" type="stmt"/>
+        <line num="16" count="8" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+        <line num="18" count="8" type="stmt"/>
+        <line num="21" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="24" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="41" count="4" type="stmt"/>
+        <line num="42" count="4" type="stmt"/>
+        <line num="43" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="60" count="8" type="stmt"/>
+      </file>
+    </package>
+    <package name="stats.interfaces">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="formStats.interface.ts" path="/home/camille/repos/many-words/server/src/stats/interfaces/formStats.interface.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="stats.models">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="wordStats.model.ts" path="/home/camille/repos/many-words/server/src/stats/models/wordStats.model.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

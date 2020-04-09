@@ -21,7 +21,10 @@ const exercisesController = {
       }
 
       // if the user is registered, get the wordStats for the words of this lesson
-      const wordsStats = await statsService.findWordsStatsForWords(words);
+      const wordsStats = await statsService.findWordsStatsForWords(
+        req.user._id,
+        words
+      );
 
       // appends the weakest forms for each word, or [] if the word has never been encountered
       const wordsWithWeakestFormsStats = appendWeakestForms(words, wordsStats);
@@ -32,7 +35,7 @@ const exercisesController = {
         }`
       );
     } catch (error) {
-      logger.error(`[getLesson] error while fetching lesson data ${error}`);
+      logger.error(`[getLesson] error while fetching lesson data - ${error}`);
     }
   },
 

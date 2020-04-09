@@ -1,9 +1,10 @@
-import express from "express";
 import bodyParser from "body-parser";
+import express from "express";
 import passport from "passport";
-import logoutUser from "../user/account/logoutUser.controller";
-import deleteUserAccount from "../user/account/deleteUserAccount.controller";
+
 import passportStrategies from "../middlewares/passport";
+import deleteUserAccount from "../user/account/deleteUserAccount.controller";
+import logoutUser from "../user/account/logoutUser.controller";
 import userController from "../user/user.controller";
 
 const router = express.Router();

@@ -10,7 +10,7 @@
     "serve": "node lib/server.js",
     "start": "nodemon --exec babel-node --extensions '.ts' src/server.ts",
     "test:ci": "jest",
-    "test:local": "jest || true"
+    "test:local": "jest --coverage || true"
   },
   "author": "Camille HAGENBOURGER",
   "license": "MIT",

@@ -1,11 +1,11 @@
 import getWordScoreVariation from "./getWordScoreVariation.function";
+import updateFormsStats from "./updateFormsStats.function";
 import updateWordScores from "./updateWordScores.function";
 
 import FormResult from "../../interfaces/formResult.interface";
 import WordResult from "../../interfaces/wordResult.interface";
-import updateFormsStats from "../updateFormsStats.function";
 
-// TODO: test me :)
+// TODO: test me with apollo server integration module
 /**
  * Updates the stats of an array of wordsResults, after an exercise
  */

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 
+import updateGlobalStats from "./helpers/global/updateGlobalStats.function";
 import updateLessonsStats from "./helpers/lessons/updateLessonsStats.function";
 import updateTopicsStats from "./helpers/topics/updateTopicsStats.function";
 import createWordStats from "./helpers/words/createWordStats.function";
@@ -10,7 +11,7 @@ import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
 import logger from "../logger";
-import { User, UserDocument } from "../user/interfaces/user.interface";
+import { UserDocument } from "../user/interfaces/user.interface";
 
 const statsController = {
   /**
@@ -75,11 +76,10 @@ const statsController = {
       // Update global stats
       const updatedGlobalStats = updateGlobalStats(
         updatedWordResults,
-        updatedTopicsStats,
+        updatedLessonsStats,
         user.stats.global
       );
 
-      // TODO: global progress with minimal parameters
       const updatedUserStats = {
         lessons: updatedLessonsStats,
         topics: updatedTopicsStats,

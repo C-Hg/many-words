@@ -11,12 +11,13 @@ import User from "../user/models/user.model";
 
 const statsService = {
   findWordsStatsForWords: async (
+    userId: ObjectID,
     words: Word[]
   ): Promise<(WordStatsDocument | null)[]> => {
     return Promise.all(
       words.map(async (word) => {
         const wordStats = await statsService.findWordStatsByEnglishName(
-          req.user._id,
+          userId,
           word.english.name
         );
         return wordStats;
