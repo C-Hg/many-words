@@ -3,11 +3,11 @@ version: "3"
 services:
   client:
     build:
-      context: ./client/
+      context: ./web-app/
       dockerfile: prod.Dockerfile
-    container_name: many_words-client
+    container_name: manywords-web-app
     volumes:
-      - client-build:/client/build
+      - web-app-build:/web-app/build
     environment:
       BROWSER: "none"
       REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
@@ -18,7 +18,7 @@ services:
     build:
       context: ./server/
       dockerfile: prod.Dockerfile
-    container_name: many_words-server
+    container_name: manywords-server
     environment:
       NODE_ENV: "production"
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
@@ -28,9 +28,9 @@ services:
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
-      - client-build:/server/lib/build
+      - web-app-build:/server/lib/build
     ports:
-      - 3001:3001
+      - 3010:3010
       - 9229:9229
     depends_on:
       - mongo
@@ -38,7 +38,7 @@ services:
   database-seeder:
     build:
       context: ./tools
-    container_name: many_words-database-seeder
+    container_name: manywords-database-seeder
     restart: on-failure
     volumes:
       - ./exercises:/exercises
@@ -52,7 +52,7 @@ services:
 
   mongo:
     image: mongo
-    container_name: many_words-mongo
+    container_name: manywords-mongo
     restart: always
     volumes:
       - /mongo/data:/data/db

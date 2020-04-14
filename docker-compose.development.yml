@@ -1,25 +1,26 @@
 version: "3"
 
 services:
-  client:
+  web-app:
     build:
-      context: ./client/
+      context: ./web-app/
       dockerfile: dev.Dockerfile
-    container_name: many_words-client
+    container_name: manywords-web-app
     environment:
-      BROWSER: "none"
+      EXTEND_ESLINT: "true"
       REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-    # to allow hot reloading
     volumes:
-      - ./client:/client
+      # to allow hot reloading
+      - ./web-app:/web-app
     ports:
       - 3000:3000
+    stdin_open: true
 
   server:
     build:
       context: ./server/
       dockerfile: dev.Dockerfile
-    container_name: many_words-server
+    container_name: manywords-server
     environment:
       NODE_ENV: "development"
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
@@ -37,7 +38,7 @@ services:
   database-seeder:
     build:
       context: ./tools
-    container_name: many_words-database-seeder
+    container_name: manywords-database-seeder
     environment:
       NODE_ENV: "development"
     volumes:
@@ -48,7 +49,7 @@ services:
   mongo:
     image: mongo
     restart: always
-    container_name: many_words-mongo
+    container_name: manywords-mongo
     volumes:
       - /mongo/data:/data/db
     ports:
@@ -56,7 +57,7 @@ services:
 
   mongo-express:
     image: mongo-express
-    container_name: many_words-mongo-express
+    container_name: manywords-mongo-express
     restart: always
     ports:
       - 8081:8081

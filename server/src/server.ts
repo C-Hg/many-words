@@ -55,7 +55,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
   console.info("Connected to database");
   // configuring the listening port
-  const listener = app.listen(3001, () => {
+  const listener = app.listen(3010, () => {
     console.info(`Many-words is listening on port ${listener.address().port}`);
   });
 });

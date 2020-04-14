@@ -1,0 +1,11 @@
+{
+  "short_name": "Many Words",
+  "name": "Many Words",
+  "description": "Improve your French and English vocabulary.",
+  "icons": [{}],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "rgba(0, 80, 255, 0.8)",
+  "background_color": "white",
+  "displayModeType": "fullscreen"
+}

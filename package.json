@@ -16,7 +16,7 @@
     "docker:prod-down": "docker-compose -f docker-compose.production.yml down",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
-    "logs": "gnome-terminal --tab -t client -- docker logs many_words-client -f ; gnome-terminal --tab -t server -- docker logs many_words-server -f ; gnome-terminal --tab -t mongo -- docker logs  many_words-mongo -f ; gnome-terminal --tab -t database-seeder -- docker logs many_words-database-seeder -f",
+    "logs": "gnome-terminal --tab -t web-app -- docker logs manywords-web-app -f ; gnome-terminal --tab -t server -- docker logs manywords-server -f ; gnome-terminal --tab -t mongo -- docker logs  manywords-mongo -f ; gnome-terminal --tab -t database-seeder -- docker logs manywords-database-seeder -f",
     "test": "npm run test:server",
     "test:server": "cd server && npm run test:local",
     "test:client": "cd client && npm run mocha-test",

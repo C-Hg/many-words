@@ -140,7 +140,7 @@ module.exports = {
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
       {
-        test: /\.(js|mjs|jsx)$/,
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
         enforce: "pre",
         use: [
           {
@@ -227,58 +227,6 @@ module.exports = {
               sourceMaps: false,
             },
           },
-          // "postcss" loader applies autoprefixer to our CSS.
-          // "css" loader resolves paths in CSS and adds assets as dependencies.
-          // "style" loader turns CSS into JS modules that inject <style> tags.
-          // In production, we use a plugin to extract that CSS to a file, but
-          // in development "style" loader enables hot editing of CSS.
-          // By default we support CSS Modules with the extension .module.css
-          // Disabled since styled-components!
-          // {
-          //   test: cssRegex,
-          //   exclude: cssModuleRegex,
-          //   use: getStyleLoaders({
-          //     importLoaders: 1,
-          //   }),
-          // },
-          // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
-          // using the extension .module.css
-          // {
-          //   test: cssModuleRegex,
-          //   use: getStyleLoaders({
-          //     importLoaders: 1,
-          //     modules: true,
-          //     getLocalIdent: getCSSModuleLocalIdent,
-          //   }),
-          // },
-          // Opt-in support for SASS (using .scss or .sass extensions).
-          // Chains the sass-loader with the css-loader and the style-loader
-          // to immediately apply all styles to the DOM.
-          // By default we support SASS Modules with the
-          // extensions .module.scss or .module.sass
-          // {
-          //   test: sassRegex,
-          //   exclude: sassModuleRegex,
-          //   use: getStyleLoaders({ importLoaders: 2 }, "sass-loader"),
-          // },
-          // Adds support for CSS Modules, but using SASS
-          // using the extension .module.scss or .module.sass
-          // {
-          //   test: sassModuleRegex,
-          //   use: getStyleLoaders(
-          //     {
-          //       importLoaders: 2,
-          //       modules: true,
-          //       getLocalIdent: getCSSModuleLocalIdent,
-          //     },
-          //     "sass-loader"
-          //   ),
-          // },
-          // "file" loader makes sure those assets get served by WebpackDevServer.
-          // When you `import` an asset, you get its (virtual) filename.
-          // In production, they would get copied to the `build` folder.
-          // This loader doesn't use a "test" so it will catch all modules
-          // that fall through the other loaders.
           {
             // Exclude `js` files to keep "css" loader working as it injects
             // its runtime that would otherwise be processed through "file" loader.
