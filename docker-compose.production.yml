@@ -30,7 +30,7 @@ services:
     volumes:
       - web-app-build:/server/lib/build
     ports:
-      - 3010:3010
+      - 4000:4000
       - 9229:9229
     depends_on:
       - mongo

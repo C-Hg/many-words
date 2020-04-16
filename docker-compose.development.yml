@@ -30,7 +30,7 @@ services:
     volumes:
       - ./server:/server
     ports:
-      - 3001:3001
+      - 4000:4000
       - 9229:9229
     depends_on:
       - mongo

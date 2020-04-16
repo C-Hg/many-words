@@ -1,46 +1,23 @@
-import bodyParser from "body-parser";
-import connectMongoDBSession from "connect-mongodb-session";
 import express from "express";
-import session from "express-session";
 import helmet from "helmet";
 import mongoose from "mongoose";
-import passport from "passport";
 
 import path from "path";
 
 import secrets from "./config/secrets";
-import sessionMiddlewares from "./middlewares/session.middlewares";
-import apiRoutes from "./routes/api.routes";
-import authRoutes from "./routes/auth.routes";
+import server from "./graphql";
+import logger from "./logger";
+import authentication from "./middlewares/authentication";
 
 const app = express();
+// applies graphql server
 
-/*  -------------   login and session middlewares    -----------*/
-const MongoDBStore = connectMongoDBSession(session);
+// TODO: delete?
 app.set("trust proxy", 1);
-app.use(
-  session({
-    secret: secrets.SESSION_SECRET,
-    name: "sessionId",
-    resave: false, // prevents race condition
-    saveUninitialized: false, // creates a session only if user logs in
-    cookie: {
-      secure: false,
-      httpOnly: true,
-      sameSite: true,
-      maxAge: 100 * 24 * 60 * 60 * 1000, // log in every 3 months
-    },
-    store: new MongoDBStore({
-      uri: secrets.MONGO_URI,
-      collection: "sessions",
-    }),
-  })
-);
 app.use(helmet());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(bodyParser.urlencoded({ extended: false }));
-sessionMiddlewares();
+app.use(authentication);
+
+server.applyMiddleware({ app });
 
 /* ----------------------     Mongoose setup     ------------*/
 mongoose.connect(secrets.MONGO_URI, {
@@ -51,18 +28,20 @@ mongoose.connect(secrets.MONGO_URI, {
 mongoose.Promise = global.Promise;
 // Get the default connection
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.on("error", (error) => logger.error(`MongoDB connection error - ${error}`));
 db.once("open", () => {
-  console.info("Connected to database");
+  logger.info("Connected to database");
   // configuring the listening port
-  const listener = app.listen(3010, () => {
-    console.info(`Many-words is listening on port ${listener.address().port}`);
+  app.listen({ port: 4000 }, () => {
+    logger.info(
+      `🚀 Many-words is ready at http://localhost:4000${server.graphqlPath}`
+    );
   });
 });
 
 /* --------------------------      routing        ----------------- */
-app.use("/api/", apiRoutes);
-app.use("/auth/", authRoutes);
+// app.use("/api/", apiRoutes);
+// app.use("/auth/", authRoutes);
 
 /* React bundle is served by the node server but allows client-side routing on production */
 if (secrets.NODE_ENV !== "development") {
