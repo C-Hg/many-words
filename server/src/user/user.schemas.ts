@@ -1,11 +1,9 @@
-import { gql, makeExecutableSchema } from "apollo-server-express";
+import { gql } from "apollo-server-express";
 import { Request } from "express";
 
-import lessonsByTopic from "../exercises/data/lessonsByTopic";
-import wordCountByLesson from "../exercises/data/wordCountByLesson";
-import { User, Lesson } from "../graphql/types";
+import { User } from "../graphql/types";
 
-const typeDefs = gql`
+export const typeDefs = gql`
   type Query {
     user: User
   }
@@ -13,26 +11,10 @@ const typeDefs = gql`
   type User {
     _id: String!
     email: String!
-    stats: Stats
-  }
-
-  type Stats {
-    lessons: LessonStats
-    topics: String
-    global: Stats
-  }
-
-  type LessonScore {
-    ${Object.keys(wordCountByLesson).map((lesson) => `${lesson}: Int`)}
-  }
-
-  type LessonStats {
-    ${Object.keys(lessonsByTopic).map((topic) => `${topic}: LessonScore`)}
   }
 `;
 
-// Provide resolver functions for your schema fields
-const resolvers = {
+export const resolvers = {
   Query: {
     user: (parent: {}, args: {}, { req }: { req: Request }): User => {
       if (!req.user) {
@@ -42,7 +24,3 @@ const resolvers = {
     },
   },
 };
-
-const userSchema = makeExecutableSchema({ typeDefs, resolvers });
-
-export default userSchema;

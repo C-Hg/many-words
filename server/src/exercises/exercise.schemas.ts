@@ -1,9 +1,9 @@
-import { gql, makeExecutableSchema } from "apollo-server-express";
+import { gql } from "apollo-server-express";
 
 import lessonsByTopic from "./data/lessonsByTopic";
 import wordCountByLesson from "./data/wordCountByLesson";
 
-const typeDefs = gql`
+export const typeDefs = gql`
 
   enum Lessons {
     ${Object.keys(wordCountByLesson)}
@@ -16,8 +16,4 @@ const typeDefs = gql`
 `;
 
 // Provide resolver functions for your schema fields
-const resolvers = {};
-
-const exerciseSchema = makeExecutableSchema({ typeDefs });
-
-export default exerciseSchema;
+export const resolvers = {};

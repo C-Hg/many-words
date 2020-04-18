@@ -18,8 +18,8 @@
       "node": true,
       "mocha": true
     },
-    "extends": ["eslint:recommended", "airbnb", "prettier/react", "prettier/babel", "plugin:mocha/recommended", "plugin:prettier/recommended"],
-    "plugins": ["react", "react-hooks", "mocha", "prettier"],
+    "extends": ["eslint:recommended", "airbnb", "prettier/react", "prettier/babel", "plugin:prettier/recommended"],
+    "plugins": ["react", "react-hooks", "prettier"],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",

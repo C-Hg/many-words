@@ -6,7 +6,7 @@
   "scripts": {
     "build_and_move": "cd client && npm run build && cd ../tools && node insert_build.js",
     "client": "cd client && npm start",
-    "counter": "cd tools && npm run word_counter",
+    "counter": "cd tools && npm run word_counter && cd .. && npm run lint:web-app-exercises && npm run lint:server-exercises",
     "set-prod-env": "cd tools && node setProductionEnvironment.js",
     "docker:dev": "docker-compose -f docker-compose.development.yml up",
     "docker:dev-detached": "docker-compose -f docker-compose.development.yml up --build --detach && npm run logs",
@@ -16,6 +16,9 @@
     "docker:prod-down": "docker-compose -f docker-compose.production.yml down",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
+    "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.ts",
+    "lint:server-exercises": "cd server && eslint --fix --ext .js,.ts src/exercises/data/",
+    "lint:web-app-exercises": "cd web-app && eslint --fix --ext .js,.ts src/data/",
     "logs": "gnome-terminal --tab -t web-app -- docker logs manywords-web-app -f ; gnome-terminal --tab -t server -- docker logs manywords-server -f ; gnome-terminal --tab -t mongo -- docker logs  manywords-mongo -f ; gnome-terminal --tab -t database-seeder -- docker logs manywords-database-seeder -f",
     "test": "npm run test:server",
     "test:server": "cd server && npm run test:local",
@@ -34,5 +37,8 @@
     "type": "git",
     "url": "https://github.com/C-Hg/many-words"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "eslintConfig": {
+    "root": true
+  }
 }

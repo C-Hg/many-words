@@ -29,15 +29,16 @@ const updateFiles = async (
   ];
 
   // destination directories
-  const clientFolderPath = "../../client/src/data/";
-  const serverFolderPath = "../../server/src/exercises/";
+  const clientFolderPath = "../../web-app/src/data/";
+  const serverFolderPath = "../../server/src/exercises/data/";
 
   // write the 4 files
   const writeFiles = async (
     extension: "ts" | "js",
     destination: string
   ): Promise<void[]> => {
-    logger.info(`writing in ${destination}\n`);
+    logger.info(`---------------------------------------------`);
+    logger.info(`writing in ${destination}`);
     const promises = dataFiles.map(file => {
       const buffer = Buffer.from(
         `const ${file.name} = ${JSON.stringify(file.data)};
@@ -58,6 +59,7 @@ const updateFiles = async (
   await writeFiles("js", clientFolderPath);
   await writeFiles("ts", serverFolderPath);
   const duration = Date.now() - startTime;
+  logger.info(`---------------------------------------------`);
   logger.info(`Wrote files in ${duration}ms`);
 };
 
