@@ -1,6 +1,6 @@
+import { LessonsStats } from "../../../graphql/types";
 import { LESSON_GOLD_THRESHOLD, LESSON_GREEN_THRESHOLD } from "../../constants";
 import { GlobalLessonsStats } from "../../interfaces/globalStats.interface";
-import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 
 /**
  * Produces the global lessons stats from lessonsStats

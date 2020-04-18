@@ -1,23 +1,22 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { ObjectID } from "mongodb";
 
 import updateGlobalStats from "./updateGlobalStats.function";
 
 import globalStats from "../../../exercises/data/globalStats";
+import { LessonsStats } from "../../../graphql/types";
 import {
   GOLD_WORD_SCORE,
   MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS,
   GREEN_WORD_SCORE,
 } from "../../constants";
 import GlobalStats from "../../interfaces/globalStats.interface";
-import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 import { WordStats } from "../../interfaces/wordStats.interface";
 
 const wordStatsMock: WordStats = {
   userId: new ObjectID("55153a8014829a865bbf700d"),
   englishName: "cat",
-  lesson: "animals_basics",
+  lesson: "animalsBasics",
   topic: "animals",
   correctAnswers: 1,
   wrongAnswers: 0,
@@ -67,7 +66,7 @@ const wordResults0: WordResult[] = [
 
 const lessonsStats0: Partial<LessonsStats> = {
   colors: {
-    main_colors: 0.1666,
+    mainColors: 0.1666,
   },
 };
 
@@ -139,10 +138,10 @@ const wordResults1: WordResult[] = [
 
 const lessonsStats1: Partial<LessonsStats> = {
   colors: {
-    main_colors: 0.1666,
+    mainColors: 0.1666,
   },
   animals: {
-    animals_basics: 0.2,
+    animalsBasics: 0.2,
     insects: 0.9,
     birds: 0.5,
   },
@@ -200,17 +199,17 @@ const wordResults2: WordResult[] = [
 
 const lessonsStats2: Partial<LessonsStats> = {
   colors: {
-    main_colors: 0.1666,
+    mainColors: 0.1666,
   },
   animals: {
-    animals_basics: 0.2,
+    animalsBasics: 0.2,
     insects: 0.9,
     birds: 0.5,
-    farm_animals: 0.4,
-    mammals_1: 0.8,
+    farmAnimals: 0.4,
+    mammals1: 0.8,
   },
   food: {
-    food_basics: 0.2,
+    foodBasics: 0.2,
     fruits: 0.35,
   },
 };

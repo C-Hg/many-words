@@ -4,8 +4,8 @@ import set from "lodash.set";
 import getNewLessonsStats from "./getNewLessonsStats.function";
 
 import wordCountByLesson from "../../../exercises/data/wordCountByLesson";
+import { LessonsStats } from "../../../graphql/types";
 import { MAX_WORD_SCORE_IN_LESSON } from "../../constants";
-import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 
 /**

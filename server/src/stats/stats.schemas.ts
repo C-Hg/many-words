@@ -9,7 +9,7 @@ export const typeDefs = gql`
   }
 
   type Stats {
-    lessons: LessonStats
+    lessons: LessonsStats
     # topics: Object
     global: GlobalStats
   }
@@ -28,11 +28,11 @@ export const typeDefs = gql`
     ${Object.keys(wordCountByLesson).map((lesson) => `${lesson}: Int`)}
   }
 
-  type LessonStats {
+  type LessonsStats {
     ${Object.keys(lessonsByTopic).map((topic) => `${topic}: LessonScore`)}
   }
 
-  
+
 `;
 
 // Provide resolver functions for your schema fields

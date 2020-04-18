@@ -105,7 +105,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "LessonStats",
+              "name": "LessonsStats",
               "ofType": null
             },
             "isDeprecated": false,
@@ -131,7 +131,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "LessonStats",
+        "name": "LessonsStats",
         "description": null,
         "fields": [
           {
@@ -195,7 +195,7 @@
             "deprecationReason": null
           },
           {
-            "name": "human_body",
+            "name": "humanBody",
             "description": null,
             "args": [],
             "type": {
@@ -231,7 +231,7 @@
             "deprecationReason": null
           },
           {
-            "name": "social_life",
+            "name": "socialLife",
             "description": null,
             "args": [],
             "type": {
@@ -267,7 +267,7 @@
             "deprecationReason": null
           },
           {
-            "name": "vegetals",
+            "name": "vegetal",
             "description": null,
             "args": [],
             "type": {
@@ -290,7 +290,7 @@
         "description": null,
         "fields": [
           {
-            "name": "animals_basics",
+            "name": "animalsBasics",
             "description": null,
             "args": [],
             "type": {
@@ -314,7 +314,7 @@
             "deprecationReason": null
           },
           {
-            "name": "farm_animals",
+            "name": "farmAnimals",
             "description": null,
             "args": [],
             "type": {
@@ -338,7 +338,7 @@
             "deprecationReason": null
           },
           {
-            "name": "mammals_1",
+            "name": "mammals1",
             "description": null,
             "args": [],
             "type": {
@@ -350,7 +350,7 @@
             "deprecationReason": null
           },
           {
-            "name": "sea_animals",
+            "name": "seaAnimals",
             "description": null,
             "args": [],
             "type": {
@@ -374,7 +374,7 @@
             "deprecationReason": null
           },
           {
-            "name": "clothes_basics",
+            "name": "clothesBasics",
             "description": null,
             "args": [],
             "type": {
@@ -386,7 +386,7 @@
             "deprecationReason": null
           },
           {
-            "name": "more_clothes",
+            "name": "moreClothes",
             "description": null,
             "args": [],
             "type": {
@@ -398,7 +398,7 @@
             "deprecationReason": null
           },
           {
-            "name": "main_colors",
+            "name": "mainColors",
             "description": null,
             "args": [],
             "type": {
@@ -434,7 +434,7 @@
             "deprecationReason": null
           },
           {
-            "name": "food_basics",
+            "name": "foodBasics",
             "description": null,
             "args": [],
             "type": {
@@ -470,7 +470,7 @@
             "deprecationReason": null
           },
           {
-            "name": "more_fruits_and_vegetables",
+            "name": "moreFruitsAndVegetables",
             "description": null,
             "args": [],
             "type": {
@@ -494,7 +494,7 @@
             "deprecationReason": null
           },
           {
-            "name": "construction_materials",
+            "name": "constructionMaterials",
             "description": null,
             "args": [],
             "type": {
@@ -506,7 +506,7 @@
             "deprecationReason": null
           },
           {
-            "name": "construction_tools",
+            "name": "constructionTools",
             "description": null,
             "args": [],
             "type": {
@@ -578,7 +578,7 @@
             "deprecationReason": null
           },
           {
-            "name": "human_body_basics",
+            "name": "humanBodyBasics",
             "description": null,
             "args": [],
             "type": {
@@ -638,7 +638,7 @@
             "deprecationReason": null
           },
           {
-            "name": "nature_basics",
+            "name": "natureBasics",
             "description": null,
             "args": [],
             "type": {
@@ -674,7 +674,7 @@
             "deprecationReason": null
           },
           {
-            "name": "weather_1",
+            "name": "weather1",
             "description": null,
             "args": [],
             "type": {
@@ -686,7 +686,7 @@
             "deprecationReason": null
           },
           {
-            "name": "weather_2",
+            "name": "weather2",
             "description": null,
             "args": [],
             "type": {
@@ -698,7 +698,7 @@
             "deprecationReason": null
           },
           {
-            "name": "first_numbers",
+            "name": "firstNumbers",
             "description": null,
             "args": [],
             "type": {
@@ -710,7 +710,7 @@
             "deprecationReason": null
           },
           {
-            "name": "more_numbers",
+            "name": "moreNumbers",
             "description": null,
             "args": [],
             "type": {
@@ -722,7 +722,7 @@
             "deprecationReason": null
           },
           {
-            "name": "close_family",
+            "name": "closeFamily",
             "description": null,
             "args": [],
             "type": {
@@ -734,7 +734,7 @@
             "deprecationReason": null
           },
           {
-            "name": "human_beings",
+            "name": "humanBeings",
             "description": null,
             "args": [],
             "type": {
@@ -830,7 +830,7 @@
             "deprecationReason": null
           },
           {
-            "name": "time_basics",
+            "name": "timeBasics",
             "description": null,
             "args": [],
             "type": {
@@ -842,7 +842,7 @@
             "deprecationReason": null
           },
           {
-            "name": "time_description_1",
+            "name": "timeDescription1",
             "description": null,
             "args": [],
             "type": {
@@ -854,7 +854,7 @@
             "deprecationReason": null
           },
           {
-            "name": "time_description_2",
+            "name": "timeDescription2",
             "description": null,
             "args": [],
             "type": {
@@ -866,7 +866,7 @@
             "deprecationReason": null
           },
           {
-            "name": "time_divisions",
+            "name": "timeDivisions",
             "description": null,
             "args": [],
             "type": {
@@ -902,7 +902,7 @@
             "deprecationReason": null
           },
           {
-            "name": "vegetals_basics",
+            "name": "vegetalBasics",
             "description": null,
             "args": [],
             "type": {
@@ -1849,7 +1849,7 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "animals_basics",
+            "name": "animalsBasics",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1861,7 +1861,7 @@
             "deprecationReason": null
           },
           {
-            "name": "farm_animals",
+            "name": "farmAnimals",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1873,13 +1873,13 @@
             "deprecationReason": null
           },
           {
-            "name": "mammals_1",
+            "name": "mammals1",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sea_animals",
+            "name": "seaAnimals",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1891,19 +1891,19 @@
             "deprecationReason": null
           },
           {
-            "name": "clothes_basics",
+            "name": "clothesBasics",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "more_clothes",
+            "name": "moreClothes",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "main_colors",
+            "name": "mainColors",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1921,7 +1921,7 @@
             "deprecationReason": null
           },
           {
-            "name": "food_basics",
+            "name": "foodBasics",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1939,7 +1939,7 @@
             "deprecationReason": null
           },
           {
-            "name": "more_fruits_and_vegetables",
+            "name": "moreFruitsAndVegetables",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1951,13 +1951,13 @@
             "deprecationReason": null
           },
           {
-            "name": "construction_materials",
+            "name": "constructionMaterials",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "construction_tools",
+            "name": "constructionTools",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1993,7 +1993,7 @@
             "deprecationReason": null
           },
           {
-            "name": "human_body_basics",
+            "name": "humanBodyBasics",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2023,7 +2023,7 @@
             "deprecationReason": null
           },
           {
-            "name": "nature_basics",
+            "name": "natureBasics",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2041,37 +2041,37 @@
             "deprecationReason": null
           },
           {
-            "name": "weather_1",
+            "name": "weather1",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "weather_2",
+            "name": "weather2",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "first_numbers",
+            "name": "firstNumbers",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "more_numbers",
+            "name": "moreNumbers",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "close_family",
+            "name": "closeFamily",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "human_beings",
+            "name": "humanBeings",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2119,25 +2119,25 @@
             "deprecationReason": null
           },
           {
-            "name": "time_basics",
+            "name": "timeBasics",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "time_description_1",
+            "name": "timeDescription1",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "time_description_2",
+            "name": "timeDescription2",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "time_divisions",
+            "name": "timeDivisions",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2155,7 +2155,7 @@
             "deprecationReason": null
           },
           {
-            "name": "vegetals_basics",
+            "name": "vegetalBasics",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2202,7 +2202,7 @@
             "deprecationReason": null
           },
           {
-            "name": "human_body",
+            "name": "humanBody",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2220,7 +2220,7 @@
             "deprecationReason": null
           },
           {
-            "name": "social_life",
+            "name": "socialLife",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2238,7 +2238,7 @@
             "deprecationReason": null
           },
           {
-            "name": "vegetals",
+            "name": "vegetal",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

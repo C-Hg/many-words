@@ -17,7 +17,7 @@ const words: Word[] = [
       name: "noir",
     },
     hasUniqueForm: false,
-    lesson: "main_colors",
+    lesson: "mainColors",
     topic: "colors",
   }),
   new WordModel({
@@ -30,7 +30,7 @@ const words: Word[] = [
       words: [],
     },
     hasUniqueForm: false,
-    lesson: "main_colors",
+    lesson: "mainColors",
     topic: "colors",
   }),
 ];
@@ -46,7 +46,7 @@ describe("appendWeakestForms", () => {
           name: "noir",
         },
         hasUniqueForm: false,
-        lesson: "main_colors",
+        lesson: "mainColors",
         topic: "colors",
         type: "adjective",
       }),
@@ -60,7 +60,7 @@ describe("appendWeakestForms", () => {
     expect(wordsWithWeakForms[0].french.name).toEqual("noir");
     expect(wordsWithWeakForms[0].hasUniqueForm).toEqual(false);
     expect(wordsWithWeakForms[0].type).toEqual("adjective");
-    expect(wordsWithWeakForms[0].lesson).toEqual("main_colors");
+    expect(wordsWithWeakForms[0].lesson).toEqual("mainColors");
     expect(wordsWithWeakForms[0].topic).toEqual("colors");
     expect(wordsWithWeakForms[0].weakestForms).toEqual([]);
   });
@@ -80,7 +80,7 @@ describe("appendWeakestForms", () => {
           { language: Languages.French, form: "singularFeminine", score: 1 },
           { language: Languages.French, form: "pluralFeminine", score: 1 },
         ],
-        lesson: "main_colors",
+        lesson: "mainColors",
         topic: "colors",
       }),
       new WordStatsModel({
@@ -92,7 +92,7 @@ describe("appendWeakestForms", () => {
           { language: Languages.French, form: "singularFeminine", score: 1 },
           { language: Languages.French, form: "pluralFeminine", score: 2 },
         ],
-        lesson: "main_colors",
+        lesson: "mainColors",
         topic: "colors",
       }),
     ];
@@ -136,7 +136,7 @@ describe("appendWeakestForms", () => {
           { language: Languages.French, form: "singularFeminine", score: 1 },
           { language: Languages.French, form: "pluralFeminine", score: 2 },
         ],
-        lesson: "main_colors",
+        lesson: "mainColors",
         topic: "colors",
       }),
     ];
@@ -162,7 +162,7 @@ describe("appendWeakestForms", () => {
           name: "noir",
         },
         hasUniqueForm: false,
-        lesson: "main_colors",
+        lesson: "mainColors",
         topic: "colors",
       }),
       new WordModel({
@@ -173,7 +173,7 @@ describe("appendWeakestForms", () => {
           name: "bleu",
         },
         hasUniqueForm: false,
-        lesson: "main_colors",
+        lesson: "mainColors",
         topic: "colors",
       }),
       new WordModel({
@@ -184,7 +184,7 @@ describe("appendWeakestForms", () => {
           name: "rouge",
         },
         hasUniqueForm: false,
-        lesson: "main_colors",
+        lesson: "mainColors",
         topic: "colors",
       }),
     ];

@@ -1,54 +1,52 @@
 import updateTopicsStats from "./updateTopicsStats.function";
 
-import { LessonsStats } from "../../interfaces/lessonsStats.interface";
-
-/* eslint-disable @typescript-eslint/camelcase */
+import { LessonsStats } from "../../../graphql/types";
 
 const lessonsStats0: Partial<LessonsStats> = {
   colors: {
-    main_colors: 0.4,
+    mainColors: 0.4,
   },
 };
 
 const lessonsStats1: Partial<LessonsStats> = {
   colors: {
-    main_colors: 0.2,
+    mainColors: 0.2,
   },
   animals: {
-    animals_basics: 0.6,
+    animalsBasics: 0.6,
     insects: 0.1,
     birds: 0.2,
-    // "farm_animals",
-    // "mammals_1",
+    // "farmAnimals",
+    // "mammals1",
     // "sea_animals",
   },
 };
 
 const lessonsStats2: Partial<LessonsStats> = {
   colors: {
-    main_colors: 1,
+    mainColors: 1,
   },
   animals: {
-    animals_basics: 0.8,
+    animalsBasics: 0.8,
     insects: 0.4,
     birds: 0.41,
-    // "farm_animals",
-    // "mammals_1",
+    // "farmAnimals",
+    // "mammals1",
     // "sea_animals",
   },
   // all lessons taken
   food: {
     agriculture: 1,
     drinks: 0.8,
-    food_basics: 0.9,
+    foodBasics: 0.9,
     foods: 0.5,
     fruits: 0.1,
-    more_fruits_and_vegetables: 0.15,
+    moreFruitsAndVegetables: 0.15,
     vegetables: 0.34444,
   },
   habitation: {
-    construction_materials: 0.1,
-    construction_tools: 0.4,
+    constructionMaterials: 0.1,
+    constructionTools: 0.4,
     // furniture: ,
     // house: ,
     // housing: ,

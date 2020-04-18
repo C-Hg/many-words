@@ -9,7 +9,7 @@ const WordResults0: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "black",
-      lesson: "main_colors",
+      lesson: "mainColors",
       topic: "colors",
       correctAnswers: 1,
       wrongAnswers: 0,
@@ -22,7 +22,7 @@ const WordResults0: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "blue",
-      lesson: "main_colors",
+      lesson: "mainColors",
       topic: "colors",
       correctAnswers: 1,
       wrongAnswers: 0,
@@ -35,7 +35,7 @@ const WordResults0: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "pink",
-      lesson: "main_colors",
+      lesson: "mainColors",
       topic: "colors",
       correctAnswers: 0,
       wrongAnswers: 1,
@@ -48,7 +48,7 @@ const WordResults0: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "purple",
-      lesson: "main_colors",
+      lesson: "mainColors",
       topic: "colors",
       correctAnswers: 0,
       wrongAnswers: 1,
@@ -61,7 +61,7 @@ const WordResults0: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "green",
-      lesson: "main_colors",
+      lesson: "mainColors",
       topic: "colors",
       correctAnswers: 1,
       wrongAnswers: 0,
@@ -77,7 +77,7 @@ const WordResults1: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "black",
-      lesson: "main_colors",
+      lesson: "mainColors",
       topic: "colors",
       correctAnswers: 1,
       wrongAnswers: 0,
@@ -90,7 +90,7 @@ const WordResults1: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "cat",
-      lesson: "animals_basics",
+      lesson: "animalsBasics",
       topic: "animals",
       correctAnswers: 1,
       wrongAnswers: 0,
@@ -103,7 +103,7 @@ const WordResults1: WordResult[] = [
     wordStats: {
       userId: new ObjectID("55153a8014829a865bbf700d"),
       englishName: "dog",
-      lesson: "animals_basics",
+      lesson: "animalsBasics",
       topic: "animals",
       correctAnswers: 3,
       wrongAnswers: 1,
@@ -146,7 +146,7 @@ describe("getNewLessonsStats", () => {
     expect(newLessonsStats).toEqual([
       {
         topic: "colors",
-        lesson: "main_colors",
+        lesson: "mainColors",
         scoreVariation: 2,
       },
     ]);
@@ -157,12 +157,12 @@ describe("getNewLessonsStats", () => {
     expect(newLessonsStats).toEqual([
       {
         topic: "colors",
-        lesson: "main_colors",
+        lesson: "mainColors",
         scoreVariation: 1,
       },
       {
         topic: "animals",
-        lesson: "animals_basics",
+        lesson: "animalsBasics",
         scoreVariation: 2,
       },
       {

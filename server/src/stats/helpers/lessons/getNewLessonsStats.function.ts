@@ -1,4 +1,4 @@
-import { NewLessonsStats } from "../../interfaces/lessonsStats.interface";
+import { NewLessonsStats } from "../../interfaces/newLessonsStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 
 /**

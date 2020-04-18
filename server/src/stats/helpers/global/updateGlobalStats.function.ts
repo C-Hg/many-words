@@ -2,6 +2,7 @@ import reduceWordsVariation from "./reduceWordsVariation.function";
 import updateGlobalLessonsStats from "./updateGlobalLessonsStats.function";
 
 import exercisesStats from "../../../exercises/data/globalStats";
+import { LessonsStats } from "../../../graphql/types";
 import {
   GOLD_WORD_SCORE,
   GREEN_WORD_SCORE,
@@ -9,7 +10,6 @@ import {
   STUDIED_WORD_SCORE,
 } from "../../constants";
 import GlobalStats from "../../interfaces/globalStats.interface";
-import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 
 /**

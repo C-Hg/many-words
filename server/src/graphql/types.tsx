@@ -23,44 +23,44 @@ export type GlobalStats = {
 };
 
 export enum Lessons {
-  AnimalsBasics = "animals_basics",
+  AnimalsBasics = "animalsBasics",
   Birds = "birds",
-  FarmAnimals = "farm_animals",
+  FarmAnimals = "farmAnimals",
   Insects = "insects",
-  Mammals_1 = "mammals_1",
-  SeaAnimals = "sea_animals",
+  Mammals1 = "mammals1",
+  SeaAnimals = "seaAnimals",
   Accessories = "accessories",
-  ClothesBasics = "clothes_basics",
-  MoreClothes = "more_clothes",
-  MainColors = "main_colors",
+  ClothesBasics = "clothesBasics",
+  MoreClothes = "moreClothes",
+  MainColors = "mainColors",
   Agriculture = "agriculture",
   Drinks = "drinks",
-  FoodBasics = "food_basics",
+  FoodBasics = "foodBasics",
   Foods = "foods",
   Fruits = "fruits",
-  MoreFruitsAndVegetables = "more_fruits_and_vegetables",
+  MoreFruitsAndVegetables = "moreFruitsAndVegetables",
   Vegetables = "vegetables",
-  ConstructionMaterials = "construction_materials",
-  ConstructionTools = "construction_tools",
+  ConstructionMaterials = "constructionMaterials",
+  ConstructionTools = "constructionTools",
   Furniture = "furniture",
   House = "house",
   Housing = "housing",
   Rooms = "rooms",
   Head = "head",
-  HumanBodyBasics = "human_body_basics",
+  HumanBodyBasics = "humanBodyBasics",
   Limbs = "limbs",
   Organs = "organs",
   Senses = "senses",
   Earth = "earth",
-  NatureBasics = "nature_basics",
+  NatureBasics = "natureBasics",
   Sea = "sea",
   Universe = "universe",
-  Weather_1 = "weather_1",
-  Weather_2 = "weather_2",
-  FirstNumbers = "first_numbers",
-  MoreNumbers = "more_numbers",
-  CloseFamily = "close_family",
-  HumanBeings = "human_beings",
+  Weather1 = "weather1",
+  Weather2 = "weather2",
+  FirstNumbers = "firstNumbers",
+  MoreNumbers = "moreNumbers",
+  CloseFamily = "closeFamily",
+  HumanBeings = "humanBeings",
   Identity = "identity",
   Introduction = "introduction",
   Buildings = "buildings",
@@ -68,55 +68,55 @@ export enum Lessons {
   Transports = "transports",
   Days = "days",
   Months = "months",
-  TimeBasics = "time_basics",
-  TimeDescription_1 = "time_description_1",
-  TimeDescription_2 = "time_description_2",
-  TimeDivisions = "time_divisions",
+  TimeBasics = "timeBasics",
+  TimeDescription1 = "timeDescription1",
+  TimeDescription2 = "timeDescription2",
+  TimeDivisions = "timeDivisions",
   Plants = "plants",
   Trees = "trees",
-  VegetalsBasics = "vegetals_basics",
+  VegetalBasics = "vegetalBasics",
 }
 
 export type LessonScore = {
   __typename?: "LessonScore";
-  animals_basics?: Maybe<Scalars["Int"]>;
+  animalsBasics?: Maybe<Scalars["Int"]>;
   birds?: Maybe<Scalars["Int"]>;
-  farm_animals?: Maybe<Scalars["Int"]>;
+  farmAnimals?: Maybe<Scalars["Int"]>;
   insects?: Maybe<Scalars["Int"]>;
-  mammals_1?: Maybe<Scalars["Int"]>;
-  sea_animals?: Maybe<Scalars["Int"]>;
+  mammals1?: Maybe<Scalars["Int"]>;
+  seaAnimals?: Maybe<Scalars["Int"]>;
   accessories?: Maybe<Scalars["Int"]>;
-  clothes_basics?: Maybe<Scalars["Int"]>;
-  more_clothes?: Maybe<Scalars["Int"]>;
-  main_colors?: Maybe<Scalars["Int"]>;
+  clothesBasics?: Maybe<Scalars["Int"]>;
+  moreClothes?: Maybe<Scalars["Int"]>;
+  mainColors?: Maybe<Scalars["Int"]>;
   agriculture?: Maybe<Scalars["Int"]>;
   drinks?: Maybe<Scalars["Int"]>;
-  food_basics?: Maybe<Scalars["Int"]>;
+  foodBasics?: Maybe<Scalars["Int"]>;
   foods?: Maybe<Scalars["Int"]>;
   fruits?: Maybe<Scalars["Int"]>;
-  more_fruits_and_vegetables?: Maybe<Scalars["Int"]>;
+  moreFruitsAndVegetables?: Maybe<Scalars["Int"]>;
   vegetables?: Maybe<Scalars["Int"]>;
-  construction_materials?: Maybe<Scalars["Int"]>;
-  construction_tools?: Maybe<Scalars["Int"]>;
+  constructionMaterials?: Maybe<Scalars["Int"]>;
+  constructionTools?: Maybe<Scalars["Int"]>;
   furniture?: Maybe<Scalars["Int"]>;
   house?: Maybe<Scalars["Int"]>;
   housing?: Maybe<Scalars["Int"]>;
   rooms?: Maybe<Scalars["Int"]>;
   head?: Maybe<Scalars["Int"]>;
-  human_body_basics?: Maybe<Scalars["Int"]>;
+  humanBodyBasics?: Maybe<Scalars["Int"]>;
   limbs?: Maybe<Scalars["Int"]>;
   organs?: Maybe<Scalars["Int"]>;
   senses?: Maybe<Scalars["Int"]>;
   earth?: Maybe<Scalars["Int"]>;
-  nature_basics?: Maybe<Scalars["Int"]>;
+  natureBasics?: Maybe<Scalars["Int"]>;
   sea?: Maybe<Scalars["Int"]>;
   universe?: Maybe<Scalars["Int"]>;
-  weather_1?: Maybe<Scalars["Int"]>;
-  weather_2?: Maybe<Scalars["Int"]>;
-  first_numbers?: Maybe<Scalars["Int"]>;
-  more_numbers?: Maybe<Scalars["Int"]>;
-  close_family?: Maybe<Scalars["Int"]>;
-  human_beings?: Maybe<Scalars["Int"]>;
+  weather1?: Maybe<Scalars["Int"]>;
+  weather2?: Maybe<Scalars["Int"]>;
+  firstNumbers?: Maybe<Scalars["Int"]>;
+  moreNumbers?: Maybe<Scalars["Int"]>;
+  closeFamily?: Maybe<Scalars["Int"]>;
+  humanBeings?: Maybe<Scalars["Int"]>;
   identity?: Maybe<Scalars["Int"]>;
   introduction?: Maybe<Scalars["Int"]>;
   buildings?: Maybe<Scalars["Int"]>;
@@ -124,29 +124,29 @@ export type LessonScore = {
   transports?: Maybe<Scalars["Int"]>;
   days?: Maybe<Scalars["Int"]>;
   months?: Maybe<Scalars["Int"]>;
-  time_basics?: Maybe<Scalars["Int"]>;
-  time_description_1?: Maybe<Scalars["Int"]>;
-  time_description_2?: Maybe<Scalars["Int"]>;
-  time_divisions?: Maybe<Scalars["Int"]>;
+  timeBasics?: Maybe<Scalars["Int"]>;
+  timeDescription1?: Maybe<Scalars["Int"]>;
+  timeDescription2?: Maybe<Scalars["Int"]>;
+  timeDivisions?: Maybe<Scalars["Int"]>;
   plants?: Maybe<Scalars["Int"]>;
   trees?: Maybe<Scalars["Int"]>;
-  vegetals_basics?: Maybe<Scalars["Int"]>;
+  vegetalBasics?: Maybe<Scalars["Int"]>;
 };
 
-export type LessonStats = {
-  __typename?: "LessonStats";
+export type LessonsStats = {
+  __typename?: "LessonsStats";
   animals?: Maybe<LessonScore>;
   clothes?: Maybe<LessonScore>;
   colors?: Maybe<LessonScore>;
   food?: Maybe<LessonScore>;
   habitation?: Maybe<LessonScore>;
-  human_body?: Maybe<LessonScore>;
+  humanBody?: Maybe<LessonScore>;
   nature?: Maybe<LessonScore>;
   numbers?: Maybe<LessonScore>;
-  social_life?: Maybe<LessonScore>;
+  socialLife?: Maybe<LessonScore>;
   society?: Maybe<LessonScore>;
   time?: Maybe<LessonScore>;
-  vegetals?: Maybe<LessonScore>;
+  vegetal?: Maybe<LessonScore>;
 };
 
 export type Query = {
@@ -156,7 +156,7 @@ export type Query = {
 
 export type Stats = {
   __typename?: "Stats";
-  lessons?: Maybe<LessonStats>;
+  lessons?: Maybe<LessonsStats>;
   global?: Maybe<GlobalStats>;
 };
 
@@ -166,13 +166,13 @@ export enum Topics {
   Colors = "colors",
   Food = "food",
   Habitation = "habitation",
-  HumanBody = "human_body",
+  HumanBody = "humanBody",
   Nature = "nature",
   Numbers = "numbers",
-  SocialLife = "social_life",
+  SocialLife = "socialLife",
   Society = "society",
   Time = "time",
-  Vegetals = "vegetals",
+  Vegetal = "vegetal",
 }
 
 export type User = {
@@ -294,7 +294,7 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   String: ResolverTypeWrapper<Scalars["String"]>;
   Stats: ResolverTypeWrapper<Stats>;
-  LessonStats: ResolverTypeWrapper<LessonStats>;
+  LessonsStats: ResolverTypeWrapper<LessonsStats>;
   LessonScore: ResolverTypeWrapper<LessonScore>;
   Int: ResolverTypeWrapper<Scalars["Int"]>;
   GlobalStats: ResolverTypeWrapper<GlobalStats>;
@@ -310,7 +310,7 @@ export type ResolversParentTypes = {
   User: User;
   String: Scalars["String"];
   Stats: Stats;
-  LessonStats: LessonStats;
+  LessonsStats: LessonsStats;
   LessonScore: LessonScore;
   Int: Scalars["Int"];
   GlobalStats: GlobalStats;
@@ -354,49 +354,41 @@ export type LessonScoreResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["LessonScore"] = ResolversParentTypes["LessonScore"]
 > = {
-  animals_basics?: Resolver<
+  animalsBasics?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
   birds?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  farm_animals?: Resolver<
-    Maybe<ResolversTypes["Int"]>,
-    ParentType,
-    ContextType
-  >;
+  farmAnimals?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   insects?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  mammals_1?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  sea_animals?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  mammals1?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  seaAnimals?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   accessories?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  clothes_basics?: Resolver<
+  clothesBasics?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
-  more_clothes?: Resolver<
-    Maybe<ResolversTypes["Int"]>,
-    ParentType,
-    ContextType
-  >;
-  main_colors?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  moreClothes?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  mainColors?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   agriculture?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   drinks?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  food_basics?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  foodBasics?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   foods?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   fruits?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  more_fruits_and_vegetables?: Resolver<
+  moreFruitsAndVegetables?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
   vegetables?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  construction_materials?: Resolver<
+  constructionMaterials?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
-  construction_tools?: Resolver<
+  constructionTools?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
@@ -406,7 +398,7 @@ export type LessonScoreResolvers<
   housing?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   rooms?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   head?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  human_body_basics?: Resolver<
+  humanBodyBasics?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
@@ -415,35 +407,23 @@ export type LessonScoreResolvers<
   organs?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   senses?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   earth?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  nature_basics?: Resolver<
+  natureBasics?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
   sea?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   universe?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  weather_1?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  weather_2?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  first_numbers?: Resolver<
+  weather1?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  weather2?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  firstNumbers?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
-  more_numbers?: Resolver<
-    Maybe<ResolversTypes["Int"]>,
-    ParentType,
-    ContextType
-  >;
-  close_family?: Resolver<
-    Maybe<ResolversTypes["Int"]>,
-    ParentType,
-    ContextType
-  >;
-  human_beings?: Resolver<
-    Maybe<ResolversTypes["Int"]>,
-    ParentType,
-    ContextType
-  >;
+  moreNumbers?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  closeFamily?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  humanBeings?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   identity?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   introduction?: Resolver<
     Maybe<ResolversTypes["Int"]>,
@@ -455,25 +435,25 @@ export type LessonScoreResolvers<
   transports?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   days?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   months?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  time_basics?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  time_description_1?: Resolver<
+  timeBasics?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  timeDescription1?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
-  time_description_2?: Resolver<
+  timeDescription2?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
-  time_divisions?: Resolver<
+  timeDivisions?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
   >;
   plants?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   trees?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
-  vegetals_basics?: Resolver<
+  vegetalBasics?: Resolver<
     Maybe<ResolversTypes["Int"]>,
     ParentType,
     ContextType
@@ -481,9 +461,9 @@ export type LessonScoreResolvers<
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
-export type LessonStatsResolvers<
+export type LessonsStatsResolvers<
   ContextType = any,
-  ParentType extends ResolversParentTypes["LessonStats"] = ResolversParentTypes["LessonStats"]
+  ParentType extends ResolversParentTypes["LessonsStats"] = ResolversParentTypes["LessonsStats"]
 > = {
   animals?: Resolver<
     Maybe<ResolversTypes["LessonScore"]>,
@@ -510,7 +490,7 @@ export type LessonStatsResolvers<
     ParentType,
     ContextType
   >;
-  human_body?: Resolver<
+  humanBody?: Resolver<
     Maybe<ResolversTypes["LessonScore"]>,
     ParentType,
     ContextType
@@ -525,7 +505,7 @@ export type LessonStatsResolvers<
     ParentType,
     ContextType
   >;
-  social_life?: Resolver<
+  socialLife?: Resolver<
     Maybe<ResolversTypes["LessonScore"]>,
     ParentType,
     ContextType
@@ -540,7 +520,7 @@ export type LessonStatsResolvers<
     ParentType,
     ContextType
   >;
-  vegetals?: Resolver<
+  vegetal?: Resolver<
     Maybe<ResolversTypes["LessonScore"]>,
     ParentType,
     ContextType
@@ -560,7 +540,7 @@ export type StatsResolvers<
   ParentType extends ResolversParentTypes["Stats"] = ResolversParentTypes["Stats"]
 > = {
   lessons?: Resolver<
-    Maybe<ResolversTypes["LessonStats"]>,
+    Maybe<ResolversTypes["LessonsStats"]>,
     ParentType,
     ContextType
   >;
@@ -585,7 +565,7 @@ export type UserResolvers<
 export type Resolvers<ContextType = any> = {
   GlobalStats?: GlobalStatsResolvers<ContextType>;
   LessonScore?: LessonScoreResolvers<ContextType>;
-  LessonStats?: LessonStatsResolvers<ContextType>;
+  LessonsStats?: LessonsStatsResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

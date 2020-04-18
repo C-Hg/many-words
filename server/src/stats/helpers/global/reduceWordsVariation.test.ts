@@ -8,7 +8,7 @@ import { WordStats } from "../../interfaces/wordStats.interface";
 const wordStatsMock: WordStats = {
   userId: new ObjectID("55153a8014829a865bbf700d"),
   englishName: "cat",
-  lesson: "animals_basics",
+  lesson: "animalsBasics",
   topic: "animals",
   correctAnswers: 1,
   wrongAnswers: 0,

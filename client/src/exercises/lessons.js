@@ -1,21 +1,21 @@
 module.exports = {
   animals: [
-    ["animals_basics", 10],
+    ["animalsBasics", 10],
     ["birds", 21],
-    ["farm_animals", 18],
+    ["farmAnimals", 18],
     ["insects", 20],
-    ["mammals_1", 17],
+    ["mammals1", 17],
     ["sea_animals", 17],
   ],
   clothes: [["accessories", 19], ["clothes_basics", 11], ["more_clothes", 17]],
-  colors: [["main_colors", 10]],
+  colors: [["mainColors", 10]],
   food: [
     ["agriculture", 14],
     ["drinks", 15],
-    ["food_basics", 17],
+    ["foodBasics", 17],
     ["foods", 18],
     ["fruits", 16],
-    ["more_fruits_and_vegetables", 3],
+    ["moreFruitsAndVegetables", 3],
     ["vegetables", 12],
   ],
   habitation: [
@@ -57,5 +57,5 @@ module.exports = {
     ["time_description_2", 13],
     ["time_divisions", 15],
   ],
-  vegetals: [["plants", 12], ["trees", 13], ["vegetals_basics", 10]],
+  vegetals: [["plants", 12], ["trees", 13], ["vegetalBasics", 10]],
 };

@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 
+import { LessonsStats } from "../../graphql/types";
 import GlobalStats from "../../stats/interfaces/globalStats.interface";
-import { LessonsStats } from "../../stats/interfaces/lessonsStats.interface";
 import { TopicsStats } from "../../stats/interfaces/topicsStats.interface";
 
 export interface User {

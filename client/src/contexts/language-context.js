@@ -81,11 +81,11 @@ export const languages = {
     },
     lessons: {
       animals: {
-        animals_basics: "Animals, basics",
+        animalsBasics: "Animals, basics",
         birds: "Birds",
-        farm_animals: "Farm animals",
+        farmAnimals: "Farm animals",
         insects: "Insects",
-        mammals_1: "Mammals",
+        mammals1: "Mammals",
         sea_animals: "Sea animals",
       },
       clothes: {
@@ -94,15 +94,15 @@ export const languages = {
         more_clothes: "Clothes 2",
       },
       colors: {
-        main_colors: "Main colors",
+        mainColors: "Main colors",
       },
       food: {
         agriculture: "Agriculture",
         drinks: "Drinks",
-        food_basics: "Food 1",
+        foodBasics: "Food 1",
         foods: "Foods",
         fruits: "Fruits",
-        more_fruits_and_vegetables: "Fruits and Vegetables 2",
+        moreFruitsAndVegetables: "Fruits and Vegetables 2",
         vegetables: "Vegetables",
       },
       habitation: {
@@ -155,7 +155,7 @@ export const languages = {
       vegetals: {
         plants: "Plants",
         trees: "Trees",
-        vegetals_basics: "Vegetals",
+        vegetalBasics: "Vegetals",
       },
     },
     translateIn: "Translate in",
@@ -278,11 +278,11 @@ export const languages = {
     },
     lessons: {
       animals: {
-        animals_basics: "Animaux",
+        animalsBasics: "Animaux",
         birds: "Oiseaux",
-        farm_animals: "Animaux de la ferme",
+        farmAnimals: "Animaux de la ferme",
         insects: "Insectes",
-        mammals_1: "Mammifères",
+        mammals1: "Mammifères",
         sea_animals: "Animaux marins",
       },
       clothes: {
@@ -291,15 +291,15 @@ export const languages = {
         more_clothes: "Vêtements 2",
       },
       colors: {
-        main_colors: "Couleurs 1",
+        mainColors: "Couleurs 1",
       },
       food: {
         agriculture: "Agriculture",
         drinks: "Boissons",
-        food_basics: "Nourriture 1",
+        foodBasics: "Nourriture 1",
         foods: "Aliments",
         fruits: "Fruits",
-        more_fruits_and_vegetables: "Fruits et légumes 2",
+        moreFruitsAndVegetables: "Fruits et légumes 2",
         vegetables: "Légumes",
       },
       habitation: {
@@ -352,7 +352,7 @@ export const languages = {
       vegetals: {
         plants: "Plantes",
         trees: "Arbres",
-        vegetals_basics: "Végétaux",
+        vegetalBasics: "Végétaux",
       },
     },
     translateIn: "Traduis en ",

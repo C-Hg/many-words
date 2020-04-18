@@ -3,8 +3,8 @@ import set from "lodash.set";
 import lessonsByTopic from "../../../exercises/data/lessonsByTopic";
 import { isLesson } from "../../../exercises/interfaces/lesson.type";
 import { isTopic } from "../../../exercises/interfaces/topic.type";
+import { LessonsStats } from "../../../graphql/types";
 import { LESSON_GOLD_THRESHOLD, LESSON_GREEN_THRESHOLD } from "../../constants";
-import { LessonsStats } from "../../interfaces/lessonsStats.interface";
 import { TopicsStats } from "../../interfaces/topicsStats.interface";
 
 /**
