@@ -6,8 +6,8 @@ import { WordStatsDocument, WordStats } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
 import { Word } from "../exercises/interfaces/word.interface";
-import { UserDocument } from "../user/interfaces/user.interface";
-import User from "../user/models/user.model";
+import { UserDocument, User } from "../user/interfaces/user.interface";
+import UserModel from "../user/models/user.model";
 
 const statsService = {
   findWordsStatsForWords: async (
@@ -48,10 +48,10 @@ const statsService = {
   },
 
   updateStats: async (
-    user: UserDocument,
+    user: User,
     updatedUserStats: WordStats
   ): Promise<UserDocument | null> => {
-    return User.findByIdAndUpdate(user._id, { stats: updatedUserStats });
+    return UserModel.findByIdAndUpdate(user._id, { stats: updatedUserStats });
   },
 };
 

@@ -9,7 +9,7 @@ const STUDIED_WORD_SCORE = 1;
 // the score of green words for global stats
 const GREEN_WORD_SCORE = 1;
 // the score of gold words for global stats
-const GOLD_WORD_SCORE = 1;
+const GOLD_WORD_SCORE = 2;
 // the maximum score of a word for global stats
 const MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS = STUDIED_WORD_SCORE + GOLD_WORD_SCORE;
 

@@ -34,7 +34,7 @@ db.once("open", () => {
   // configuring the listening port
   app.listen({ port: 4000 }, () => {
     logger.info(
-      `🚀 Many-words is ready at http://localhost:4000${server.graphqlPath}`
+      `🚀🚀  Many-words is ready at http://localhost:4000${server.graphqlPath}`
     );
   });
 });

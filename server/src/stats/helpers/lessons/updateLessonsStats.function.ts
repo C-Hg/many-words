@@ -1,26 +1,25 @@
 import cloneDeep from "lodash.clonedeep";
-import set from "lodash.set";
 
-import getNewLessonsStats from "./getNewLessonsStats.function";
+import getLessonsScoreVariation from "./getLessonsScoreVariation.function";
 
 import wordCountByLesson from "../../../exercises/data/wordCountByLesson";
-import { LessonsStats } from "../../../graphql/types";
+import { LessonsScores } from "../../../graphql/types";
 import { MAX_WORD_SCORE_IN_LESSON } from "../../constants";
 import WordResult from "../../interfaces/wordResult.interface";
 
 /**
- * Produces an updated LessonsStats object from a wordResults array
+ * Update the lesson scores in stats.lessons
  */
 const updateLessonsStats = (
   wordsResults: WordResult[],
-  lessonsStats: Partial<LessonsStats>
-): Partial<LessonsStats> => {
-  const newLessonsStats = getNewLessonsStats(wordsResults);
-  const updatedLessonsStats = cloneDeep(lessonsStats);
+  lessonsScores: LessonsScores
+): LessonsScores => {
+  const lessonsScoreVariation = getLessonsScoreVariation(wordsResults);
+  const updatedLessonsScores = cloneDeep(lessonsScores);
 
-  newLessonsStats.forEach((newLessonStats) => {
-    const { lesson, topic, scoreVariation } = newLessonStats;
-    const previousScore = lessonsStats?.[topic]?.[lesson] || 0;
+  lessonsScoreVariation.forEach((lessonScoreVariation) => {
+    const { lesson, scoreVariation } = lessonScoreVariation;
+    const previousScore = lessonsScores?.[lesson] || 0;
     const wordsInLesson = wordCountByLesson[lesson];
 
     // convert and apply the score variation of this word to the previous total score
@@ -29,10 +28,10 @@ const updateLessonsStats = (
       previousScore;
 
     // update the value
-    set(updatedLessonsStats, [topic, lesson], newScore);
+    updatedLessonsScores[lesson] = newScore;
   });
 
-  return updatedLessonsStats;
+  return updatedLessonsScores;
 };
 
 export default updateLessonsStats;

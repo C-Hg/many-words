@@ -1,14 +1,16 @@
-import { NewLessonsStats } from "../../interfaces/newLessonsStats.interface";
+import { LessonScoreVariation } from "../../interfaces/lessonScoreVariation.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 
 /**
  * Extract newLessonsStats from wordResults
  */
-const getNewLessonsStats = (wordsResults: WordResult[]): NewLessonsStats[] => {
-  const statsGroupedByLesson: NewLessonsStats[] = [];
+const getLessonsScoreVariation = (
+  wordsResults: WordResult[]
+): LessonScoreVariation[] => {
+  const lessonsScoreVariation: LessonScoreVariation[] = [];
 
   wordsResults.forEach((wordResults) => {
-    const { topic, lesson } = wordResults.wordStats;
+    const { lesson } = wordResults.wordStats;
     const { globalScoreVariation } = wordResults;
 
     // type guard
@@ -20,25 +22,24 @@ const getNewLessonsStats = (wordsResults: WordResult[]): NewLessonsStats[] => {
       );
     }
 
-    const lessonStatsIndex = statsGroupedByLesson.findIndex(
+    const lessonStatsIndex = lessonsScoreVariation.findIndex(
       (lessonScore) => lessonScore?.lesson === lesson
     );
     if (lessonStatsIndex >= 0) {
       // an entry for this lesson already exists
-      statsGroupedByLesson[
+      lessonsScoreVariation[
         lessonStatsIndex
       ].scoreVariation += globalScoreVariation;
     } else {
       // an entry for this lesson needs to be created
-      statsGroupedByLesson.push({
+      lessonsScoreVariation.push({
         lesson,
-        topic,
         scoreVariation: globalScoreVariation,
       });
     }
   });
 
-  return statsGroupedByLesson;
+  return lessonsScoreVariation;
 };
 
-export default getNewLessonsStats;
+export default getLessonsScoreVariation;

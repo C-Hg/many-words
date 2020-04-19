@@ -2,14 +2,13 @@ import { ObjectID } from "mongodb";
 
 import updateGlobalStats from "./updateGlobalStats.function";
 
-import globalStats from "../../../exercises/data/globalStats";
-import { LessonsStats } from "../../../graphql/types";
+import globalStats from "../../../exercises/globalStats";
+import { GlobalStats, LessonsScores } from "../../../graphql/types";
 import {
   GOLD_WORD_SCORE,
   MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS,
   GREEN_WORD_SCORE,
 } from "../../constants";
-import GlobalStats from "../../interfaces/globalStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 import { WordStats } from "../../interfaces/wordStats.interface";
 
@@ -64,10 +63,8 @@ const wordResults0: WordResult[] = [
   },
 ];
 
-const lessonsStats0: Partial<LessonsStats> = {
-  colors: {
-    mainColors: 0.1666,
-  },
+const lessonsStats0: LessonsScores = {
+  mainColors: 0.1666,
 };
 
 const globalStats0: GlobalStats = {
@@ -136,15 +133,11 @@ const wordResults1: WordResult[] = [
   },
 ];
 
-const lessonsStats1: Partial<LessonsStats> = {
-  colors: {
-    mainColors: 0.1666,
-  },
-  animals: {
-    animalsBasics: 0.2,
-    insects: 0.9,
-    birds: 0.5,
-  },
+const lessonsStats1: LessonsScores = {
+  mainColors: 0.1666,
+  animalsBasics: 0.2,
+  insects: 0.9,
+  birds: 0.5,
 };
 
 const globalStats1: GlobalStats = {
@@ -197,21 +190,15 @@ const wordResults2: WordResult[] = [
   },
 ];
 
-const lessonsStats2: Partial<LessonsStats> = {
-  colors: {
-    mainColors: 0.1666,
-  },
-  animals: {
-    animalsBasics: 0.2,
-    insects: 0.9,
-    birds: 0.5,
-    farmAnimals: 0.4,
-    mammals1: 0.8,
-  },
-  food: {
-    foodBasics: 0.2,
-    fruits: 0.35,
-  },
+const lessonsStats2: LessonsScores = {
+  mainColors: 0.1666,
+  animalsBasics: 0.2,
+  insects: 0.9,
+  birds: 0.5,
+  farmAnimals: 0.4,
+  mammals1: 0.8,
+  foodBasics: 0.2,
+  fruits: 0.35,
 };
 
 const globalStats2: GlobalStats = {

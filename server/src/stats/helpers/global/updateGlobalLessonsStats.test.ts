@@ -1,42 +1,30 @@
 import updateGlobalLessonsStats from "./updateGlobalLessonsStats.function";
 
-import { LessonsStats } from "../../../graphql/types";
+import { LessonsScores } from "../../../graphql/types";
 
-const lessonsStats0: Partial<LessonsStats> = {
-  colors: {
-    mainColors: 0.15222,
-  },
+const lessonsStats0: LessonsScores = {
+  mainColors: 0,
 };
 
-const lessonsStats1: Partial<LessonsStats> = {
-  colors: {
-    mainColors: 0.4,
-  },
-  animals: {
-    animalsBasics: 0.6,
-    insects: 0.1,
-    birds: 0.2,
-  },
+const lessonsStats1: LessonsScores = {
+  mainColors: 0.4,
+  animalsBasics: 0.6,
+  insects: 0.1,
+  birds: 0.2,
 };
 
-const lessonsStats2: Partial<LessonsStats> = {
-  colors: {
-    mainColors: 0.1666,
-  },
-  animals: {
-    animalsBasics: 0.2,
-    insects: 0.9,
-    birds: 0.5,
-    farmAnimals: 0.4,
-    mammals1: 0.8,
-  },
-  food: {
-    foodBasics: 0.2,
-    fruits: 0.35,
-    vegetables: 0.6,
-    vegetalBasics: 1,
-    moreFruitsAndVegetables: 0,
-  },
+const lessonsStats2: LessonsScores = {
+  mainColors: 0.1666,
+  animalsBasics: 0.2,
+  insects: 0.9,
+  birds: 0.5,
+  farmAnimals: 0.4,
+  mammals1: 0.8,
+  foodBasics: 0.2,
+  fruits: 0.35,
+  vegetables: 0.6,
+  vegetalBasics: 1,
+  moreFruitsAndVegetables: 0,
 };
 
 describe("updateGlobalLessonsStats", () => {

@@ -1,6 +1,6 @@
 import { ObjectID } from "mongodb";
 
-import getNewLessonsStats from "./getNewLessonsStats.function";
+import getLessonsScoreVariation from "./getLessonsScoreVariation.function";
 
 import WordResult from "../../interfaces/wordResult.interface";
 
@@ -140,12 +140,11 @@ const WordResults1: WordResult[] = [
   },
 ];
 
-describe("getNewLessonsStats", () => {
+describe("getLessonsScoreVariation", () => {
   test("same lesson", () => {
-    const newLessonsStats = getNewLessonsStats(WordResults0);
+    const newLessonsStats = getLessonsScoreVariation(WordResults0);
     expect(newLessonsStats).toEqual([
       {
-        topic: "colors",
         lesson: "mainColors",
         scoreVariation: 2,
       },
@@ -153,25 +152,21 @@ describe("getNewLessonsStats", () => {
   });
 
   test("different lessons and topics", () => {
-    const newLessonsStats = getNewLessonsStats(WordResults1);
+    const newLessonsStats = getLessonsScoreVariation(WordResults1);
     expect(newLessonsStats).toEqual([
       {
-        topic: "colors",
         lesson: "mainColors",
         scoreVariation: 1,
       },
       {
-        topic: "animals",
         lesson: "animalsBasics",
         scoreVariation: 2,
       },
       {
-        topic: "animals",
         lesson: "insects",
         scoreVariation: -0.5,
       },
       {
-        topic: "animals",
         lesson: "birds",
         scoreVariation: 1,
       },

@@ -1,39 +1,50 @@
 import { gql } from "apollo-server-express";
 
-import lessonsByTopic from "../exercises/data/lessonsByTopic";
 import wordCountByLesson from "../exercises/data/wordCountByLesson";
 
 export const typeDefs = gql`
   extend type User {
-    stats: Stats
+    stats: Stats!
   }
 
   type Stats {
-    lessons: LessonsStats
-    # topics: Object
-    global: GlobalStats
+    lessons: LessonsScores!
+    topics: [TopicStats]!
+    global: GlobalStats!
   }
 
   type GlobalStats {
-    studiedLessons: Int
-    greenLessons: Int
-    goldLessons: Int
-    studiedWords: Int
-    greenWords: Int
-    goldWords: Int
-    globalProgress: Float
+    studiedLessons: Int!
+    greenLessons: Int!
+    goldLessons: Int!
+    studiedWords: Int!
+    greenWords: Int!
+    goldWords: Int!
+    globalProgress: Float!
   }
 
-  type LessonScore {
-    ${Object.keys(wordCountByLesson).map((lesson) => `${lesson}: Int`)}
+  """
+  LessonsScores associates a score to each lesson id
+  """
+  type LessonsScores {
+    ${Object.keys(wordCountByLesson).map((lesson) => `${lesson}: Float`)}
   }
 
-  type LessonsStats {
-    ${Object.keys(lessonsByTopic).map((topic) => `${topic}: LessonScore`)}
+  """
+  TopicsStats aggregates the lessons' stats, by topic
+  """
+  type TopicStats {
+    """
+    the id of the topic
+    """
+    id: String!
+    lessonsGrades: LessonsGrades!
   }
 
-
+  type LessonsGrades {
+    green: Int!
+    gold: Int!
+  }
 `;
 
-// Provide resolver functions for your schema fields
 export const resolvers = {};

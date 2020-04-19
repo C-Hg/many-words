@@ -15,7 +15,7 @@ import {
   resolvers as userResolvers,
 } from "../user/user.schemas";
 
-// Build the global schema by merging concern-based separated schemas
+// Build the global schema by merging concern-based separated typeDefs and resolvers
 const schema = makeExecutableSchema({
   typeDefs: [exercise, stats, user],
   resolvers: merge(exerciseResolvers, statsResolvers, userResolvers),
@@ -23,7 +23,13 @@ const schema = makeExecutableSchema({
 
 const server = new ApolloServer({
   schema,
-  context: ({ req, res }: { req: Request; res: Response }) => ({ req, res }),
+  context: ({
+    req,
+    res,
+  }: {
+    req: Request;
+    res: Response;
+  }): { req: Request; res: Response } => ({ req, res }),
 });
 
 export default server;

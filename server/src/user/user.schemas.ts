@@ -9,7 +9,8 @@ export const typeDefs = gql`
   }
 
   type User {
-    _id: String!
+    #_id: ObjectId added via User interface
+    id: ID # cast to string with codegen
     email: String!
   }
 `;

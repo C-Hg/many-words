@@ -11,7 +11,7 @@ import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
 import logger from "../logger";
-import { UserDocument } from "../user/interfaces/user.interface";
+import { User } from "../user/interfaces/user.interface";
 
 const statsController = {
   /**
@@ -46,11 +46,9 @@ const statsController = {
     return { wordStats: createdWordStats, isNew: false };
   },
 
-  updateStats: async (req: Request, res: Response): Promise<void> => {
-    logger.debug(`[updateStats] updating stats for user ${req.user._id}`);
-    const formResults = req.body;
-    const userId = req.user._id;
-    const user: UserDocument = req.user.toObject();
+  updateStats: async (user: User, formResults: FormResult[]): Promise<void> => {
+    const userId = user._id;
+    logger.debug(`[updateStats] updating stats for user ${userId}`);
 
     try {
       // Update word stats first
@@ -87,11 +85,9 @@ const statsController = {
       };
 
       await statsService.updateStats(user, updatedUserStats);
-      res.status(200);
-      res.send(updatedUserStats);
 
       logger.info(
-        `[updateStats] successfully updated stats for user ${req.user._id}`
+        `[updateStats] successfully updated stats for user ${userId}`
       );
     } catch (error) {
       logger.error(`[upsertWordStats] cannot update user stats - ${error}`);

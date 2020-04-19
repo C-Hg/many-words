@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ObjectId } from "mongodb";
 import { Document } from "mongoose";
 
-import { LessonsStats } from "../../graphql/types";
-import GlobalStats from "../../stats/interfaces/globalStats.interface";
-import { TopicsStats } from "../../stats/interfaces/topicsStats.interface";
+import { User as GeneratedUser } from "../../graphql/types";
 
-export interface User {
-  email: string;
-  googleId?: string;
-  stats: {
-    lessons: Partial<LessonsStats>;
-    topics: Partial<TopicsStats>;
-    global: GlobalStats;
-  };
+// strict interface : use this interface instead of the generated one
+export interface User extends GeneratedUser {
+  _id: ObjectId;
+  id: string;
 }
 
-export interface UserDocument extends Document, User {}
+// non-strict interface to be compatible with MongooseDocument
+interface UserWithOptionalId extends GeneratedUser {
+  id?: any;
+}
+
+export interface UserDocument extends UserWithOptionalId, Document {}

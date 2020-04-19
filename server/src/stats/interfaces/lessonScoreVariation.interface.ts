@@ -1,8 +1,6 @@
 import { Lesson } from "../../exercises/interfaces/lesson.type";
-import { Topic } from "../../exercises/interfaces/topic.type";
 
-export type NewLessonsStats = {
+export type LessonScoreVariation = {
   lesson: Lesson;
-  topic: Topic;
   scoreVariation: number;
 };

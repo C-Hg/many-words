@@ -2,14 +2,13 @@ import reduceWordsVariation from "./reduceWordsVariation.function";
 import updateGlobalLessonsStats from "./updateGlobalLessonsStats.function";
 
 import exercisesStats from "../../../exercises/data/globalStats";
-import { LessonsStats } from "../../../graphql/types";
+import { LessonsScores, GlobalStats } from "../../../graphql/types";
 import {
   GOLD_WORD_SCORE,
   GREEN_WORD_SCORE,
   MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS,
   STUDIED_WORD_SCORE,
 } from "../../constants";
-import GlobalStats from "../../interfaces/globalStats.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 
 /**
@@ -17,7 +16,7 @@ import WordResult from "../../interfaces/wordResult.interface";
  */
 const updateGlobalStats = (
   wordResults: WordResult[],
-  lessonsStats: Partial<LessonsStats>,
+  lessonsScores: LessonsScores,
   globalStats: GlobalStats
 ): GlobalStats => {
   const { studiedWords, greenWords, goldWords } = globalStats;
@@ -34,19 +33,18 @@ const updateGlobalStats = (
   const updatedGoldWords = goldWords + goldWordsVariation;
 
   // update global progress
-  const globalProgressAsString =
+  const globalProgress =
     (STUDIED_WORD_SCORE * updatedStudiedWords +
       GREEN_WORD_SCORE * updatedGreenWords +
       GOLD_WORD_SCORE * updatedGoldWords) /
     (exercisesStats.wordsCount * MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS);
-  const globalProgress = Number(globalProgressAsString);
 
   // update lessons global stats
   const {
     studiedLessons,
     greenLessons,
     goldLessons,
-  } = updateGlobalLessonsStats(lessonsStats);
+  } = updateGlobalLessonsStats(lessonsScores);
 
   return {
     globalProgress,
