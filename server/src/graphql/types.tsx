@@ -11,8 +11,28 @@ export type Scalars = {
   Float: number;
 };
 
+export type EnglishForms = {
+  uniqueForm?: Maybe<Scalars["String"]>;
+  singular?: Maybe<Scalars["String"]>;
+  plural?: Maybe<Scalars["String"]>;
+};
+
+export type FormResultInput = {
+  englishName: Scalars["String"];
+  form?: Maybe<Scalars["String"]>;
+  isAnswerCorrect: Scalars["Boolean"];
+  language: Languages;
+};
+
+export type FrenchForms = {
+  uniqueForm?: Maybe<Scalars["String"]>;
+  singularMasculine?: Maybe<Scalars["String"]>;
+  singularFeminine?: Maybe<Scalars["String"]>;
+  pluralMasculine?: Maybe<Scalars["String"]>;
+  pluralFeminine?: Maybe<Scalars["String"]>;
+};
+
 export type GlobalStats = {
-  __typename?: "GlobalStats";
   studiedLessons: Scalars["Int"];
   greenLessons: Scalars["Int"];
   goldLessons: Scalars["Int"];
@@ -22,70 +42,69 @@ export type GlobalStats = {
   globalProgress: Scalars["Float"];
 };
 
-export enum Lessons {
-  AnimalsBasics = "animalsBasics",
-  Birds = "birds",
-  FarmAnimals = "farmAnimals",
-  Insects = "insects",
-  Mammals1 = "mammals1",
-  SeaAnimals = "seaAnimals",
-  Accessories = "accessories",
-  ClothesBasics = "clothesBasics",
-  MoreClothes = "moreClothes",
-  MainColors = "mainColors",
-  Agriculture = "agriculture",
-  Drinks = "drinks",
-  FoodBasics = "foodBasics",
-  Foods = "foods",
-  Fruits = "fruits",
-  MoreFruitsAndVegetables = "moreFruitsAndVegetables",
-  Vegetables = "vegetables",
-  ConstructionMaterials = "constructionMaterials",
-  ConstructionTools = "constructionTools",
-  Furniture = "furniture",
-  House = "house",
-  Housing = "housing",
-  Rooms = "rooms",
-  Head = "head",
-  HumanBodyBasics = "humanBodyBasics",
-  Limbs = "limbs",
-  Organs = "organs",
-  Senses = "senses",
-  Earth = "earth",
-  NatureBasics = "natureBasics",
-  Sea = "sea",
-  Universe = "universe",
-  Weather1 = "weather1",
-  Weather2 = "weather2",
-  FirstNumbers = "firstNumbers",
-  MoreNumbers = "moreNumbers",
-  CloseFamily = "closeFamily",
-  HumanBeings = "humanBeings",
-  Identity = "identity",
-  Introduction = "introduction",
-  Buildings = "buildings",
-  Town = "town",
-  Transports = "transports",
-  Days = "days",
-  Months = "months",
-  TimeBasics = "timeBasics",
-  TimeDescription1 = "timeDescription1",
-  TimeDescription2 = "timeDescription2",
-  TimeDivisions = "timeDivisions",
-  Plants = "plants",
-  Trees = "trees",
-  VegetalBasics = "vegetalBasics",
-}
+export type Languages = "english" | "french";
+
+export type Lesson =
+  | "animalsBasics"
+  | "birds"
+  | "farmAnimals"
+  | "insects"
+  | "mammals1"
+  | "seaAnimals"
+  | "accessories"
+  | "clothesBasics"
+  | "moreClothes"
+  | "mainColors"
+  | "agriculture"
+  | "drinks"
+  | "foodBasics"
+  | "foods"
+  | "fruits"
+  | "moreFruitsAndVegetables"
+  | "vegetables"
+  | "constructionMaterials"
+  | "constructionTools"
+  | "furniture"
+  | "house"
+  | "housing"
+  | "rooms"
+  | "head"
+  | "humanBodyBasics"
+  | "limbs"
+  | "organs"
+  | "senses"
+  | "earth"
+  | "natureBasics"
+  | "sea"
+  | "universe"
+  | "weather1"
+  | "weather2"
+  | "firstNumbers"
+  | "moreNumbers"
+  | "closeFamily"
+  | "humanBeings"
+  | "identity"
+  | "introduction"
+  | "buildings"
+  | "town"
+  | "transports"
+  | "days"
+  | "months"
+  | "timeBasics"
+  | "timeDescription1"
+  | "timeDescription2"
+  | "timeDivisions"
+  | "plants"
+  | "trees"
+  | "vegetalBasics";
 
 export type LessonsGrades = {
-  __typename?: "LessonsGrades";
   green: Scalars["Int"];
   gold: Scalars["Int"];
 };
 
 /** LessonsScores associates a score to each lesson id */
 export type LessonsScores = {
-  __typename?: "LessonsScores";
   animalsBasics?: Maybe<Scalars["Float"]>;
   birds?: Maybe<Scalars["Float"]>;
   farmAnimals?: Maybe<Scalars["Float"]>;
@@ -141,42 +160,37 @@ export type LessonsScores = {
 };
 
 export type Query = {
-  __typename?: "Query";
   user?: Maybe<User>;
 };
 
 export type Stats = {
-  __typename?: "Stats";
   lessons: LessonsScores;
   topics: Array<Maybe<TopicStats>>;
   global: GlobalStats;
 };
 
-export enum Topics {
-  Animals = "animals",
-  Clothes = "clothes",
-  Colors = "colors",
-  Food = "food",
-  Habitation = "habitation",
-  HumanBody = "humanBody",
-  Nature = "nature",
-  Numbers = "numbers",
-  SocialLife = "socialLife",
-  Society = "society",
-  Time = "time",
-  Vegetal = "vegetal",
-}
+export type Topic =
+  | "animals"
+  | "clothes"
+  | "colors"
+  | "food"
+  | "habitation"
+  | "humanBody"
+  | "nature"
+  | "numbers"
+  | "socialLife"
+  | "society"
+  | "time"
+  | "vegetal";
 
 /** TopicsStats aggregates the lessons' stats, by topic */
 export type TopicStats = {
-  __typename?: "TopicStats";
   /** the id of the topic */
   id: Scalars["String"];
   lessonsGrades: LessonsGrades;
 };
 
 export type User = {
-  __typename?: "User";
   id?: Maybe<Scalars["ID"]>;
   email: Scalars["String"];
   stats: Stats;
@@ -302,8 +316,12 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars["Int"]>;
   GlobalStats: ResolverTypeWrapper<GlobalStats>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
-  Lessons: Lessons;
-  Topics: Topics;
+  EnglishForms: ResolverTypeWrapper<EnglishForms>;
+  FrenchForms: ResolverTypeWrapper<FrenchForms>;
+  Languages: Languages;
+  Lesson: Lesson;
+  Topic: Topic;
+  FormResultInput: FormResultInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -320,8 +338,58 @@ export type ResolversParentTypes = {
   Int: Scalars["Int"];
   GlobalStats: GlobalStats;
   Boolean: Scalars["Boolean"];
-  Lessons: Lessons;
-  Topics: Topics;
+  EnglishForms: EnglishForms;
+  FrenchForms: FrenchForms;
+  Languages: Languages;
+  Lesson: Lesson;
+  Topic: Topic;
+  FormResultInput: FormResultInput;
+};
+
+export type EnglishFormsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["EnglishForms"] = ResolversParentTypes["EnglishForms"]
+> = {
+  uniqueForm?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  singular?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  plural?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type FrenchFormsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["FrenchForms"] = ResolversParentTypes["FrenchForms"]
+> = {
+  uniqueForm?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  singularMasculine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  singularFeminine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  pluralMasculine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  pluralFeminine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
 export type GlobalStatsResolvers<
@@ -555,6 +623,8 @@ export type UserResolvers<
 };
 
 export type Resolvers<ContextType = any> = {
+  EnglishForms?: EnglishFormsResolvers<ContextType>;
+  FrenchForms?: FrenchFormsResolvers<ContextType>;
   GlobalStats?: GlobalStatsResolvers<ContextType>;
   LessonsGrades?: LessonsGradesResolvers<ContextType>;
   LessonsScores?: LessonsScoresResolvers<ContextType>;

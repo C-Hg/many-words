@@ -1,4 +1,4 @@
-import FrenchForms from "./frenchForms.interface";
+import { FrenchForms } from "../../graphql/types";
 
 export default interface FrenchWord {
   uniqueForm?: string;

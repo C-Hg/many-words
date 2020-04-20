@@ -2,6 +2,6 @@
 
 declare namespace Express {
   export interface Request {
-    user?: import("../graphql/types").User;
+    user?: import("../user/interfaces/user.interface").User;
   }
 }

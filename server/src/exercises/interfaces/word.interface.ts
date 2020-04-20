@@ -2,9 +2,8 @@ import { Document } from "mongoose";
 
 import EnglishWord from "./englishWord.interface";
 import FrenchWord from "./frenchWord.interface";
-import { Lesson } from "./lesson.type";
-import { Topic } from "./topic.type";
 
+import { Lesson, Topic } from "../../graphql/types";
 import FormStats from "../../stats/interfaces/formStats.interface";
 
 export interface Word {

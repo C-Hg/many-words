@@ -1,7 +1,6 @@
 import { Languages } from "./formStats.interface";
 
-import EnglishForms from "../../exercises/interfaces/englishForms.interface";
-import FrenchForms from "../../exercises/interfaces/frenchForms.interface";
+import { EnglishForms, FrenchForms } from "../../graphql/types";
 
 interface FormResult {
   englishName: string;

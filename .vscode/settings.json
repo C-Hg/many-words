@@ -31,10 +31,11 @@
     "explorer.confirmDelete": false,
     "vsicons.dontShowNewVersionMessage": true,
     "cSpell.words": [
-        "clonedeep",
-        "deserialize",
-        "middlewares",
-        "printf",
-        "upsert"
+      "clonedeep",
+      "deserialize",
+      "middlewares",
+      "printf",
+      "typeguards",
+      "upsert"
     ],
 }

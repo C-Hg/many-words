@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { Types } from "mongoose";
 
 import updateGlobalStats from "./helpers/global/updateGlobalStats.function";
@@ -46,7 +45,10 @@ const statsController = {
     return { wordStats: createdWordStats, isNew: false };
   },
 
-  updateStats: async (user: User, formResults: FormResult[]): Promise<void> => {
+  updateStats: async (
+    user: User,
+    formResults: FormResult[]
+  ): Promise<Partial<User | undefined>> => {
     const userId = user._id;
     logger.debug(`[updateStats] updating stats for user ${userId}`);
 
@@ -89,6 +91,8 @@ const statsController = {
       logger.info(
         `[updateStats] successfully updated stats for user ${userId}`
       );
+      // TODO: return updated user after merging properties or update with the returned saved object
+      return { id: user.id, stats: updatedUserStats };
     } catch (error) {
       logger.error(`[upsertWordStats] cannot update user stats - ${error}`);
     }

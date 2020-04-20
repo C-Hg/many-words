@@ -1,4 +1,4 @@
-import EnglishForms from "./englishForms.interface";
+import { EnglishForms } from "../../graphql/types";
 
 export default interface EnglishWord {
   uniqueForm?: string;
