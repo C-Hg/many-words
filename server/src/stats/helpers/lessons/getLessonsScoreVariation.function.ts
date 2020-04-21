@@ -1,3 +1,4 @@
+import logger from "../../../logger";
 import { LessonScoreVariation } from "../../interfaces/lessonScoreVariation.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 
@@ -8,13 +9,17 @@ const getLessonsScoreVariation = (
   wordsResults: WordResult[]
 ): LessonScoreVariation[] => {
   const lessonsScoreVariation: LessonScoreVariation[] = [];
-
   wordsResults.forEach((wordResults) => {
     const { lesson } = wordResults.wordStats;
     const { globalScoreVariation } = wordResults;
 
     // type guard
     if (globalScoreVariation === undefined) {
+      logger.error(
+        `[updateLessonsStats] score variation undefined for ${JSON.stringify(
+          wordResults
+        )}`
+      );
       throw new Error(
         `[updateLessonsStats] score variation undefined for ${JSON.stringify(
           wordResults

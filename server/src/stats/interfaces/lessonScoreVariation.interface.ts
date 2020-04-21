@@ -1,4 +1,4 @@
-import { Lesson } from "../../exercises/interfaces/lesson.type";
+import { Lesson } from "../../graphql/types";
 
 export type LessonScoreVariation = {
   lesson: Lesson;

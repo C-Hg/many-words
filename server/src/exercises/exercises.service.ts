@@ -4,6 +4,7 @@ import { Word, WordDocument } from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
 import { Lesson, Topic } from "../graphql/types";
+import logger from "../logger";
 import {
   WordStats,
   WordStatsDocument,
@@ -27,6 +28,9 @@ const exercisesService = {
         const { englishName } = wordStats;
         const word = await WordModel.findOne({ englishName });
         if (!word) {
+          logger.error(
+            `[getWordsFromWordsStats] could not find word ${englishName}`
+          );
           throw new Error(
             `[getWordsFromWordsStats] could not find word ${englishName}`
           );
@@ -59,7 +63,8 @@ const exercisesService = {
   findWordByEnglishName: async (englishName: string): Promise<WordDocument> => {
     const word = await WordModel.findOne({ "english.name": englishName });
     if (!word) {
-      throw new Error(`Word ${englishName} not found`);
+      logger.error(`[findWordByEnglishName] Word ${englishName} not found`);
+      throw new Error(`[findWordByEnglishName] Word ${englishName} not found`);
     }
     return word.toObject();
   },

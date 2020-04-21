@@ -2,10 +2,12 @@ import { ObjectID } from "mongodb";
 import { Query } from "mongoose";
 
 import WordResult from "./interfaces/wordResult.interface";
-import { WordStatsDocument, WordStats } from "./interfaces/wordStats.interface";
+import { WordStatsDocument } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
 import { Word } from "../exercises/interfaces/word.interface";
+import { Stats } from "../graphql/types";
+import logger from "../logger";
 import { UserDocument, User } from "../user/interfaces/user.interface";
 import UserModel from "../user/models/user.model";
 
@@ -33,25 +35,40 @@ const statsService = {
   },
 
   // TODO: test me
-  replaceWordsStats: async (
+  updateWordsStats: async (
     userId: ObjectID,
     WordsResults: WordResult[]
   ): Promise<Query<WordStatsDocument>[]> => {
     const replacePromises = WordsResults.map(async (wordResults) => {
       const { wordStats } = wordResults;
-      return WordStatsModel.replaceOne(
+      return WordStatsModel.updateOne(
         { englishName: wordStats.englishName, userId },
-        wordStats
+        wordStats,
+        { upsert: true }
       );
     });
     return Promise.all(replacePromises);
   },
 
+  /**
+   * Update user stats by user _id
+   */
   updateStats: async (
     user: User,
-    updatedUserStats: WordStats
-  ): Promise<UserDocument | null> => {
-    return UserModel.findByIdAndUpdate(user._id, { stats: updatedUserStats });
+    updatedUserStats: Stats
+  ): Promise<UserDocument> => {
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      user._id,
+      {
+        stats: updatedUserStats,
+      },
+      { new: true }
+    );
+    if (!updatedUser) {
+      logger.error(`[updateStats] cannot update user ${user.id}`);
+      throw new Error(`[updateStats] cannot update user ${user.id}`);
+    }
+    return updatedUser;
   },
 };
 

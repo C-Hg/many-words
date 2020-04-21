@@ -1,6 +1,7 @@
 import lessonsByTopic from "../../../exercises/data/lessonsByTopic";
 import { isTopic, isLesson } from "../../../exercises/interfaces/typeguards";
 import { TopicStats, LessonsScores } from "../../../graphql/types";
+import logger from "../../../logger";
 import { LESSON_GOLD_THRESHOLD, LESSON_GREEN_THRESHOLD } from "../../constants";
 
 /**
@@ -12,6 +13,7 @@ const updateTopicsStats = (lessonsScores: LessonsScores): TopicStats[] => {
   // for each topic
   Object.keys(lessonsByTopic).map((topic) => {
     if (!isTopic(topic)) {
+      logger.error(`[updateTopicsStats] unknown topic ${topic}`);
       throw new Error(`[updateTopicsStats] unknown topic ${topic}`);
     }
     let green = 0;
@@ -21,6 +23,7 @@ const updateTopicsStats = (lessonsScores: LessonsScores): TopicStats[] => {
     // check if the user has scores for the lessons inside this topic
     lessonsByTopic[topic].forEach((lesson) => {
       if (!isLesson(lesson)) {
+        logger.error(`[updateTopicsStats] unknown lesson ${lesson}`);
         throw new Error(`[updateTopicsStats] unknown lesson ${lesson}`);
       }
       const lessonScore = lessonsScores?.[lesson];

@@ -16,13 +16,10 @@ const userSchema = new Schema(
       topics: {
         type: Object,
         required: true,
+        default: [],
       },
       global: {
-        studiedLessons: {
-          type: Number,
-          default: 0,
-        },
-        greenLessons: {
+        globalProgress: {
           type: Number,
           default: 0,
         },
@@ -30,7 +27,11 @@ const userSchema = new Schema(
           type: Number,
           default: 0,
         },
-        studiedWords: {
+        goldWords: {
+          type: Number,
+          default: 0,
+        },
+        greenLessons: {
           type: Number,
           default: 0,
         },
@@ -38,7 +39,11 @@ const userSchema = new Schema(
           type: Number,
           default: 0,
         },
-        goldWords: {
+        studiedWords: {
+          type: Number,
+          default: 0,
+        },
+        studiedLessons: {
           type: Number,
           default: 0,
         },

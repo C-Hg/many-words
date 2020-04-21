@@ -2,6 +2,10 @@ import { GraphQLResolveInfo } from "graphql";
 import gql from "graphql-tag";
 
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X];
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -19,10 +23,19 @@ export type EnglishForms = {
 
 export type FormResultInput = {
   englishName: Scalars["String"];
-  form?: Maybe<Scalars["String"]>;
+  form?: Maybe<Forms>;
   isAnswerCorrect: Scalars["Boolean"];
   language: Languages;
 };
+
+export type Forms =
+  | "uniqueForm"
+  | "singular"
+  | "singularMasculine"
+  | "singularFeminine"
+  | "plural"
+  | "pluralMasculine"
+  | "pluralFeminine";
 
 export type FrenchForms = {
   uniqueForm?: Maybe<Scalars["String"]>;
@@ -33,13 +46,13 @@ export type FrenchForms = {
 };
 
 export type GlobalStats = {
-  studiedLessons: Scalars["Int"];
-  greenLessons: Scalars["Int"];
-  goldLessons: Scalars["Int"];
-  studiedWords: Scalars["Int"];
-  greenWords: Scalars["Int"];
-  goldWords: Scalars["Int"];
   globalProgress: Scalars["Float"];
+  goldLessons: Scalars["Int"];
+  goldWords: Scalars["Int"];
+  greenLessons: Scalars["Int"];
+  greenWords: Scalars["Int"];
+  studiedLessons: Scalars["Int"];
+  studiedWords: Scalars["Int"];
 };
 
 export type Languages = "english" | "french";
@@ -159,14 +172,23 @@ export type LessonsScores = {
   vegetalBasics?: Maybe<Scalars["Float"]>;
 };
 
+export type Mutation = {
+  /** update user stats after an exercise */
+  updateStats?: Maybe<User>;
+};
+
+export type MutationUpdateStatsArgs = {
+  results?: Maybe<Array<Maybe<FormResultInput>>>;
+};
+
 export type Query = {
   user?: Maybe<User>;
 };
 
 export type Stats = {
+  global: GlobalStats;
   lessons: LessonsScores;
   topics: Array<Maybe<TopicStats>>;
-  global: GlobalStats;
 };
 
 export type Topic =
@@ -185,7 +207,6 @@ export type Topic =
 
 /** TopicsStats aggregates the lessons' stats, by topic */
 export type TopicStats = {
-  /** the id of the topic */
   id: Scalars["String"];
   lessonsGrades: LessonsGrades;
 };
@@ -309,19 +330,21 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars["ID"]>;
   String: ResolverTypeWrapper<Scalars["String"]>;
   Stats: ResolverTypeWrapper<Stats>;
-  LessonsScores: ResolverTypeWrapper<LessonsScores>;
+  GlobalStats: ResolverTypeWrapper<GlobalStats>;
   Float: ResolverTypeWrapper<Scalars["Float"]>;
+  Int: ResolverTypeWrapper<Scalars["Int"]>;
+  LessonsScores: ResolverTypeWrapper<LessonsScores>;
   TopicStats: ResolverTypeWrapper<TopicStats>;
   LessonsGrades: ResolverTypeWrapper<LessonsGrades>;
-  Int: ResolverTypeWrapper<Scalars["Int"]>;
-  GlobalStats: ResolverTypeWrapper<GlobalStats>;
+  Mutation: ResolverTypeWrapper<{}>;
+  FormResultInput: FormResultInput;
+  Forms: Forms;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
+  Languages: Languages;
   EnglishForms: ResolverTypeWrapper<EnglishForms>;
   FrenchForms: ResolverTypeWrapper<FrenchForms>;
-  Languages: Languages;
   Lesson: Lesson;
   Topic: Topic;
-  FormResultInput: FormResultInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -331,19 +354,21 @@ export type ResolversParentTypes = {
   ID: Scalars["ID"];
   String: Scalars["String"];
   Stats: Stats;
-  LessonsScores: LessonsScores;
+  GlobalStats: GlobalStats;
   Float: Scalars["Float"];
+  Int: Scalars["Int"];
+  LessonsScores: LessonsScores;
   TopicStats: TopicStats;
   LessonsGrades: LessonsGrades;
-  Int: Scalars["Int"];
-  GlobalStats: GlobalStats;
+  Mutation: {};
+  FormResultInput: FormResultInput;
+  Forms: Forms;
   Boolean: Scalars["Boolean"];
+  Languages: Languages;
   EnglishForms: EnglishForms;
   FrenchForms: FrenchForms;
-  Languages: Languages;
   Lesson: Lesson;
   Topic: Topic;
-  FormResultInput: FormResultInput;
 };
 
 export type EnglishFormsResolvers<
@@ -396,13 +421,13 @@ export type GlobalStatsResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["GlobalStats"] = ResolversParentTypes["GlobalStats"]
 > = {
-  studiedLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
-  greenLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
-  goldLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
-  studiedWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
-  greenWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
-  goldWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   globalProgress?: Resolver<ResolversTypes["Float"], ParentType, ContextType>;
+  goldLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  goldWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  greenLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  greenWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  studiedLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  studiedWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
@@ -578,6 +603,18 @@ export type LessonsScoresResolvers<
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
+> = {
+  updateStats?: Resolver<
+    Maybe<ResolversTypes["User"]>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateStatsArgs, never>
+  >;
+};
+
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
@@ -589,13 +626,13 @@ export type StatsResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Stats"] = ResolversParentTypes["Stats"]
 > = {
+  global?: Resolver<ResolversTypes["GlobalStats"], ParentType, ContextType>;
   lessons?: Resolver<ResolversTypes["LessonsScores"], ParentType, ContextType>;
   topics?: Resolver<
     Array<Maybe<ResolversTypes["TopicStats"]>>,
     ParentType,
     ContextType
   >;
-  global?: Resolver<ResolversTypes["GlobalStats"], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
@@ -628,6 +665,7 @@ export type Resolvers<ContextType = any> = {
   GlobalStats?: GlobalStatsResolvers<ContextType>;
   LessonsGrades?: LessonsGradesResolvers<ContextType>;
   LessonsScores?: LessonsScoresResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;
   TopicStats?: TopicStatsResolvers<ContextType>;

@@ -6,6 +6,7 @@ import statsController from "./stats.controller";
 
 import wordCountByLesson from "../exercises/data/wordCountByLesson";
 import { User } from "../graphql/types";
+import logger from "../logger";
 
 export const typeDefs = gql`
   extend type User {
@@ -13,7 +14,8 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    updateStats(results: [FormResultInput]): Stats
+    "update user stats after an exercise"
+    updateStats(results: [FormResultInput]): User
   }
 
   input FormResultInput {
@@ -24,19 +26,19 @@ export const typeDefs = gql`
   }
 
   type Stats {
+    global: GlobalStats!
     lessons: LessonsScores!
     topics: [TopicStats]!
-    global: GlobalStats!
   }
 
   type GlobalStats {
-    studiedLessons: Int!
-    greenLessons: Int!
-    goldLessons: Int!
-    studiedWords: Int!
-    greenWords: Int!
-    goldWords: Int!
     globalProgress: Float!
+    goldLessons: Int!
+    goldWords: Int!
+    greenLessons: Int!
+    greenWords: Int!
+    studiedLessons: Int!
+    studiedWords: Int!
   }
 
 
@@ -59,13 +61,14 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Mutation: {
-    updateStats: (
+    updateStats: async (
       parent: {},
       { results }: { results: FormResult[] },
       { req }: { req: Request }
-    ): User => {
+    ): Promise<User> => {
       if (!req.user) {
-        throw new Error("user is undefined");
+        logger.error("[updateStats] user is undefined");
+        throw new Error("[updateStats] user is undefined");
       }
       return statsController.updateStats(req.user, results);
     },

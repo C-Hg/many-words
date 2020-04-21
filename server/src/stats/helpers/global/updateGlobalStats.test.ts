@@ -2,7 +2,7 @@ import { ObjectID } from "mongodb";
 
 import updateGlobalStats from "./updateGlobalStats.function";
 
-import globalStats from "../../../exercises/globalStats";
+import globalStats from "../../../exercises/data/globalStats";
 import { GlobalStats, LessonsScores } from "../../../graphql/types";
 import {
   GOLD_WORD_SCORE,

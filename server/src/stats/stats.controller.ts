@@ -10,7 +10,7 @@ import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
 import logger from "../logger";
-import { User } from "../user/interfaces/user.interface";
+import { User, UserDocument } from "../user/interfaces/user.interface";
 
 const statsController = {
   /**
@@ -39,63 +39,56 @@ const statsController = {
       englishName
     );
     if (existingWordStats) {
-      return { wordStats: existingWordStats.toObject(), isNew: true };
+      return { wordStats: existingWordStats.toObject(), isNew: false };
     }
     const createdWordStats = await createWordStats(userId, englishName);
-    return { wordStats: createdWordStats, isNew: false };
+    return { wordStats: createdWordStats, isNew: true };
   },
 
   updateStats: async (
     user: User,
     formResults: FormResult[]
-  ): Promise<Partial<User | undefined>> => {
+  ): Promise<UserDocument> => {
     const userId = user._id;
     logger.debug(`[updateStats] updating stats for user ${userId}`);
 
-    try {
-      // Update word stats first
-      const wordsResults = await statsController.getWordsResults(
-        formResults,
-        userId
-      );
-      const updatedWordResults = getUpdatedWordsResults(
-        wordsResults,
-        formResults
-      );
-      await statsService.replaceWordsStats(userId, updatedWordResults);
+    // Update word stats first
+    const wordsResults = await statsController.getWordsResults(
+      formResults,
+      userId
+    );
+    const updatedWordsResults = getUpdatedWordsResults(
+      wordsResults,
+      formResults
+    );
+    await statsService.updateWordsStats(userId, updatedWordsResults);
 
-      // Update lessons stats
-      const updatedLessonsStats = updateLessonsStats(
-        wordsResults,
-        user.stats.lessons
-      );
+    // Update lessons stats
+    const updatedLessonsStats = updateLessonsStats(
+      updatedWordsResults,
+      user.stats.lessons
+    );
 
-      // Update topics stats
-      const updatedTopicsStats = updateTopicsStats(updatedLessonsStats);
+    // Update topics stats
+    const updatedTopicsStats = updateTopicsStats(updatedLessonsStats);
 
-      // Update global stats
-      const updatedGlobalStats = updateGlobalStats(
-        updatedWordResults,
-        updatedLessonsStats,
-        user.stats.global
-      );
+    // Update global stats
+    const updatedGlobalStats = updateGlobalStats(
+      updatedWordsResults,
+      updatedLessonsStats,
+      user.stats.global
+    );
 
-      const updatedUserStats = {
-        lessons: updatedLessonsStats,
-        topics: updatedTopicsStats,
-        global: updatedGlobalStats,
-      };
+    const updatedUserStats = {
+      lessons: updatedLessonsStats,
+      topics: updatedTopicsStats,
+      global: updatedGlobalStats,
+    };
 
-      await statsService.updateStats(user, updatedUserStats);
+    const updatedUser = await statsService.updateStats(user, updatedUserStats);
 
-      logger.info(
-        `[updateStats] successfully updated stats for user ${userId}`
-      );
-      // TODO: return updated user after merging properties or update with the returned saved object
-      return { id: user.id, stats: updatedUserStats };
-    } catch (error) {
-      logger.error(`[upsertWordStats] cannot update user stats - ${error}`);
-    }
+    logger.info(`[updateStats] successfully updated stats for user ${userId}`);
+    return updatedUser;
   },
 };
 
