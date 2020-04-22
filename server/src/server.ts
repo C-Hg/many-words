@@ -28,13 +28,14 @@ mongoose.connect(secrets.MONGO_URI, {
 mongoose.Promise = global.Promise;
 // Get the default connection
 const db = mongoose.connection;
+
 db.on("error", (error) => logger.error(`MongoDB connection error - ${error}`));
 db.once("open", () => {
   logger.info("Connected to database");
   // configuring the listening port
-  app.listen({ port: 4000 }, () => {
+  app.listen({ port: secrets.SERVER_PORT }, () => {
     logger.info(
-      `🚀🚀  Many-words is ready at http://localhost:4000${server.graphqlPath}`
+      `🚀🚀  Many-words is ready at http://localhost:${secrets.SERVER_PORT}${server.graphqlPath}`
     );
   });
 });

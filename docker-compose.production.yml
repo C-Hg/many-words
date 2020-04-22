@@ -27,10 +27,11 @@ services:
       MONGODB_USER: ${MONGODB_USER}
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      SERVER_PORT: ${SERVER_PORT}
     volumes:
       - web-app-build:/server/lib/build
     ports:
-      - 4000:4000
+      - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
     depends_on:
       - mongo

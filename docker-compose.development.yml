@@ -26,11 +26,12 @@ services:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       SESSION_SECRET: ${SESSION_SECRET}
+      SERVER_PORT: ${SERVER_PORT}
     # to allow hot reloading
     volumes:
       - ./server:/server
     ports:
-      - 4000:4000
+      - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
     depends_on:
       - mongo

@@ -7,6 +7,7 @@ const {
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   SESSION_SECRET,
+  SERVER_PORT,
 } = process.env;
 
 const secrets = {
@@ -16,6 +17,8 @@ const secrets = {
   GOOGLE_CLIENT_SECRET: GOOGLE_CLIENT_SECRET || "no_secret",
 
   NODE_ENV,
+
+  SERVER_PORT,
 
   // mongo is the name of the docker image
   MONGO_URI:
