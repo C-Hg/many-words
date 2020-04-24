@@ -21,6 +21,17 @@ export type EnglishForms = {
   plural?: Maybe<Scalars["String"]>;
 };
 
+export type EnglishWord = {
+  uniqueForm?: Maybe<Scalars["String"]>;
+  singular?: Maybe<Scalars["String"]>;
+  plural?: Maybe<Scalars["String"]>;
+};
+
+export type EnglishWordData = {
+  name: Scalars["String"];
+  words: Array<Maybe<EnglishWord>>;
+};
+
 export type FormResultInput = {
   englishName: Scalars["String"];
   form?: Maybe<Forms>;
@@ -37,12 +48,31 @@ export type Forms =
   | "pluralMasculine"
   | "pluralFeminine";
 
+export type FormStats = {
+  language?: Maybe<Languages>;
+  form?: Maybe<Forms>;
+  score?: Maybe<Scalars["Float"]>;
+};
+
 export type FrenchForms = {
   uniqueForm?: Maybe<Scalars["String"]>;
   singularMasculine?: Maybe<Scalars["String"]>;
   singularFeminine?: Maybe<Scalars["String"]>;
   pluralMasculine?: Maybe<Scalars["String"]>;
   pluralFeminine?: Maybe<Scalars["String"]>;
+};
+
+export type FrenchWord = {
+  uniqueForm?: Maybe<Scalars["String"]>;
+  singularMasculine?: Maybe<Scalars["String"]>;
+  singularFeminine?: Maybe<Scalars["String"]>;
+  pluralMasculine?: Maybe<Scalars["String"]>;
+  pluralFeminine?: Maybe<Scalars["String"]>;
+};
+
+export type FrenchWordData = {
+  name: Scalars["String"];
+  words: Array<Maybe<FrenchWord>>;
 };
 
 export type GlobalStats = {
@@ -183,6 +213,11 @@ export type MutationUpdateStatsArgs = {
 
 export type Query = {
   user?: Maybe<User>;
+  lesson?: Maybe<Array<Maybe<Word>>>;
+};
+
+export type QueryLessonArgs = {
+  id: Lesson;
 };
 
 export type Stats = {
@@ -215,6 +250,16 @@ export type User = {
   id?: Maybe<Scalars["ID"]>;
   email: Scalars["String"];
   stats: Stats;
+};
+
+export type Word = {
+  english: EnglishWordData;
+  french: FrenchWordData;
+  hasUniqueForm: Scalars["Boolean"];
+  type: Scalars["String"];
+  lesson: Lesson;
+  topic: Topic;
+  weakestForms: Array<Maybe<FormStats>>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -336,15 +381,21 @@ export type ResolversTypes = {
   LessonsScores: ResolverTypeWrapper<LessonsScores>;
   TopicStats: ResolverTypeWrapper<TopicStats>;
   LessonsGrades: ResolverTypeWrapper<LessonsGrades>;
+  Lesson: Lesson;
+  Word: ResolverTypeWrapper<Word>;
+  EnglishWordData: ResolverTypeWrapper<EnglishWordData>;
+  EnglishWord: ResolverTypeWrapper<EnglishWord>;
+  FrenchWordData: ResolverTypeWrapper<FrenchWordData>;
+  FrenchWord: ResolverTypeWrapper<FrenchWord>;
+  Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
+  Topic: Topic;
+  FormStats: ResolverTypeWrapper<FormStats>;
+  Languages: Languages;
+  Forms: Forms;
   Mutation: ResolverTypeWrapper<{}>;
   FormResultInput: FormResultInput;
-  Forms: Forms;
-  Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
-  Languages: Languages;
   EnglishForms: ResolverTypeWrapper<EnglishForms>;
   FrenchForms: ResolverTypeWrapper<FrenchForms>;
-  Lesson: Lesson;
-  Topic: Topic;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -360,15 +411,21 @@ export type ResolversParentTypes = {
   LessonsScores: LessonsScores;
   TopicStats: TopicStats;
   LessonsGrades: LessonsGrades;
+  Lesson: Lesson;
+  Word: Word;
+  EnglishWordData: EnglishWordData;
+  EnglishWord: EnglishWord;
+  FrenchWordData: FrenchWordData;
+  FrenchWord: FrenchWord;
+  Boolean: Scalars["Boolean"];
+  Topic: Topic;
+  FormStats: FormStats;
+  Languages: Languages;
+  Forms: Forms;
   Mutation: {};
   FormResultInput: FormResultInput;
-  Forms: Forms;
-  Boolean: Scalars["Boolean"];
-  Languages: Languages;
   EnglishForms: EnglishForms;
   FrenchForms: FrenchForms;
-  Lesson: Lesson;
-  Topic: Topic;
 };
 
 export type EnglishFormsResolvers<
@@ -382,6 +439,47 @@ export type EnglishFormsResolvers<
   >;
   singular?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   plural?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type EnglishWordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["EnglishWord"] = ResolversParentTypes["EnglishWord"]
+> = {
+  uniqueForm?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  singular?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  plural?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type EnglishWordDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["EnglishWordData"] = ResolversParentTypes["EnglishWordData"]
+> = {
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  words?: Resolver<
+    Array<Maybe<ResolversTypes["EnglishWord"]>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type FormStatsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["FormStats"] = ResolversParentTypes["FormStats"]
+> = {
+  language?: Resolver<
+    Maybe<ResolversTypes["Languages"]>,
+    ParentType,
+    ContextType
+  >;
+  form?: Resolver<Maybe<ResolversTypes["Forms"]>, ParentType, ContextType>;
+  score?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
@@ -411,6 +509,51 @@ export type FrenchFormsResolvers<
   >;
   pluralFeminine?: Resolver<
     Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type FrenchWordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["FrenchWord"] = ResolversParentTypes["FrenchWord"]
+> = {
+  uniqueForm?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  singularMasculine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  singularFeminine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  pluralMasculine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  pluralFeminine?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type FrenchWordDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["FrenchWordData"] = ResolversParentTypes["FrenchWordData"]
+> = {
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  words?: Resolver<
+    Array<Maybe<ResolversTypes["FrenchWord"]>>,
     ParentType,
     ContextType
   >;
@@ -620,6 +763,12 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
   user?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType>;
+  lesson?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Word"]>>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryLessonArgs, "id">
+  >;
 };
 
 export type StatsResolvers<
@@ -659,9 +808,36 @@ export type UserResolvers<
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
+export type WordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Word"] = ResolversParentTypes["Word"]
+> = {
+  english?: Resolver<
+    ResolversTypes["EnglishWordData"],
+    ParentType,
+    ContextType
+  >;
+  french?: Resolver<ResolversTypes["FrenchWordData"], ParentType, ContextType>;
+  hasUniqueForm?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  lesson?: Resolver<ResolversTypes["Lesson"], ParentType, ContextType>;
+  topic?: Resolver<ResolversTypes["Topic"], ParentType, ContextType>;
+  weakestForms?: Resolver<
+    Array<Maybe<ResolversTypes["FormStats"]>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
 export type Resolvers<ContextType = any> = {
   EnglishForms?: EnglishFormsResolvers<ContextType>;
+  EnglishWord?: EnglishWordResolvers<ContextType>;
+  EnglishWordData?: EnglishWordDataResolvers<ContextType>;
+  FormStats?: FormStatsResolvers<ContextType>;
   FrenchForms?: FrenchFormsResolvers<ContextType>;
+  FrenchWord?: FrenchWordResolvers<ContextType>;
+  FrenchWordData?: FrenchWordDataResolvers<ContextType>;
   GlobalStats?: GlobalStatsResolvers<ContextType>;
   LessonsGrades?: LessonsGradesResolvers<ContextType>;
   LessonsScores?: LessonsScoresResolvers<ContextType>;
@@ -670,6 +846,7 @@ export type Resolvers<ContextType = any> = {
   Stats?: StatsResolvers<ContextType>;
   TopicStats?: TopicStatsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Word?: WordResolvers<ContextType>;
 };
 
 /**

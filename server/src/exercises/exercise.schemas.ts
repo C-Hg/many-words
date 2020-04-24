@@ -3,29 +3,57 @@ import { gql } from "apollo-server-express";
 import lessonsByTopic from "./data/lessonsByTopic";
 import wordCountByLesson from "./data/wordCountByLesson";
 
+import { EnglishForms } from "../graphql/types";
+
 export const typeDefs = gql`
-  type EnglishForms {
-    uniqueForm: String
-    singular: String
-    plural: String
+  extend type Query {
+    # return words formatted for exercise
+    exercise(id: Lesson!): [Word]
   }
 
-  type FrenchForms {
+  type Word {
+    english: EnglishWordData!
+    french: FrenchWordData!
+    hasUniqueForm: Boolean!
+    lesson: Lesson!
+    topic: Topic!
+    type: String!
+    weakestForms: [FormStats]!
+  }
+
+  type EnglishWordData {
+    name: String!
+    words: [EnglishWord]!
+  }
+
+  type EnglishWord {
+    plural: String
+    singular: String
     uniqueForm: String
-    singularMasculine: String
-    singularFeminine: String
-    pluralMasculine: String
+  }
+
+
+  type FrenchWordData {
+    name: String!
+    words: [FrenchWord]!
+  }
+
+  type FrenchWord {
     pluralFeminine: String
+    pluralMasculine: String
+    singularFeminine: String
+    singularMasculine: String
+    uniqueForm: String
   }
 
   enum Forms {
-    uniqueForm
-    singular
-    singularMasculine
-    singularFeminine
     plural
-    pluralMasculine
     pluralFeminine
+    pluralMasculine
+    singular
+    singularFeminine
+    singularMasculine
+    uniqueForm
   }
 
   enum Languages {

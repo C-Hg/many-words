@@ -25,6 +25,12 @@ export const typeDefs = gql`
     language: Languages!
   }
 
+  type FormStats {
+    language: Languages
+    form: Forms
+    score: Float
+  }
+
   type Stats {
     global: GlobalStats!
     lessons: LessonsScores!
