@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Server - e2e should get user 1`] = `
+Object {
+  "data": Object {
+    "user": Object {
+      "email": "camille.hagenbourger@gmail.com",
+      "id": "5d66dc6a8946c00184ab1102",
+    },
+  },
+}
+`;

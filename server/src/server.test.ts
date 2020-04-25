@@ -3,8 +3,6 @@ import { HttpLink } from "apollo-link-http";
 import gql from "graphql-tag";
 import fetch from "node-fetch";
 
-import secrets from "./config/secrets";
-
 const USER_QUERY = gql`
   query user {
     user {
@@ -32,7 +30,7 @@ describe("Server - e2e", () => {
   // and tests e2e next to the schemas
   // next to server : test auth or not
 
-  it.only("gets user", async () => {
+  it("should get user", async () => {
     const res = await toPromise(
       graphql({
         query: USER_QUERY,

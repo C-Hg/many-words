@@ -31,6 +31,11 @@
   "author": "Camille HAGENBOURGER",
   "license": "MIT",
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "babel-jest": "^25.4.0",
     "concurrently": "^4.1.0"
   },
   "repository": {
