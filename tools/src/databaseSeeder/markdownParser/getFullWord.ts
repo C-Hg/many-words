@@ -44,7 +44,7 @@ const getFullWord = (document: string, lesson: string, topic: string): Word => {
     englishWords = fetchEnglishWords(document); // gathering and validating data
     frenchWords = fetchFrenchWords(document);
   } catch (error) {
-    logger.error(`[getFullWord] error while fetching words, ${document}`);
+    logger.error(`[getFullWord] error while fetching words - ${error} - ${document}`);
   }
 
   const newWord = new WordModel({

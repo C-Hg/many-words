@@ -1,9 +1,9 @@
 import markdownRegex from "../markdownRegex";
-import FrenchForms from "./frenchForms.interface";
-import FrenchWord from "./frenchWord.interface";
-import getWordsFromMarkdownByLine from "../getWordsFromMarkdownByLine.function";
 
-const frenchForms: (keyof FrenchForms)[] = [
+import getWordsFromMarkdownByLine from "../getWordsFromMarkdownByLine.function";
+import { FrenchWord, FrenchForms } from "./frenchWord.interface";
+
+const frenchForms: FrenchForms[] = [
   "singularMasculine",
   "singularFeminine",
   "pluralMasculine",
@@ -26,12 +26,9 @@ const getFrenchWordsFromMarkdown = (document: string): FrenchWord[] => {
       words.forEach((word, index) => {
         if (word !== undefined) {
           if (frenchWords[index] === undefined) {
-            frenchWords[index] = { acceptedForms: [] };
+            frenchWords[index] = {};
           }
           frenchWords[index][form] = word;
-          if (!frenchWords[index].acceptedForms.includes(form)) {
-            frenchWords[index].acceptedForms.push(form);
-          }
         }
       });
     }

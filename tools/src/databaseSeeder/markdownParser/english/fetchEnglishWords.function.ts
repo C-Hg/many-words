@@ -1,14 +1,12 @@
-import EnglishWord from "./englishWord.interface";
 import checkEnglishFormat from "./checkEnglishFormat.function";
 import getEnglishWordsFromMarkdown from "./getEnglishWordsFromMarkdown.function";
+import { EnglishWord } from "./englishWord.interface";
 
 const fetchEnglishWords = (document: string): EnglishWord[] => {
   const englishWords = getEnglishWordsFromMarkdown(document);
-  const areWordsProperlyFormatted = checkEnglishFormat(englishWords);
-  if (areWordsProperlyFormatted) {
-    return englishWords;
-  }
-  throw new Error()
+  checkEnglishFormat(englishWords);
+
+  return englishWords
 };
 
 export default fetchEnglishWords;

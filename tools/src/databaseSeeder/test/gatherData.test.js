@@ -42,48 +42,36 @@ suite("Gather data function", function() {
       {
         masc_sing: "âne",
         masc_plur: "ânes",
-        isLApostrophe: true,
-        acceptedForms: ["masc_sing", "masc_plur"]
       },
       {
         masc_sing: "singe",
         masc_plur: "singes",
-        acceptedForms: ["masc_sing", "masc_plur"]
       },
       {
         masc_sing: "lion",
         masc_plur: "lions",
-        acceptedForms: ["masc_sing", "masc_plur"]
       },
       {
         masc_sing: "avion",
         masc_plur: "avions",
-        isLApostrophe: true,
-        acceptedForms: ["masc_sing", "masc_plur"]
       }
     ]);
     assert.deepEqual(validTests[0].en, [
       {
         sing: "apple",
         plur: "apples",
-        isArticleAn: true,
-        acceptedForms: ["sing", "plur"]
       },
       {
         sing: "pear",
         plur: "pears",
-        acceptedForms: ["sing", "plur"]
       },
       {
         sing: "banana",
         plur: "bananas",
-        acceptedForms: ["sing", "plur"]
       },
       {
         sing: "orange",
         plur: "oranges",
-        isArticleAn: true,
-        acceptedForms: ["sing", "plur"]
       }
     ]);
 
@@ -93,18 +81,17 @@ suite("Gather data function", function() {
     assert.propertyVal(validTests[1], "frName", "bonjour");
     assert.propertyVal(validTests[1], "lesson", "subfolder_test");
     assert.propertyVal(validTests[1], "type", "other");
-    assert.propertyVal(validTests[1], "hasUniqueForm", true);
     assert.deepEqual(validTests[1].fr, [
-      { uniqueForm: "Bonjour", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "à vous", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "mes très chers", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "amis de l'île", acceptedForms: ["uniqueForm"] }
+      { uniqueForm: "Bonjour" },
+      { uniqueForm: "à vous" },
+      { uniqueForm: "mes très chers" },
+      { uniqueForm: "amis de l'île" }
     ]);
     assert.deepEqual(validTests[1].en, [
-      { uniqueForm: "hello you", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "my", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "dear", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "and greatest friend", acceptedForms: ["uniqueForm"] }
+      { uniqueForm: "hello you" },
+      { uniqueForm: "my" },
+      { uniqueForm: "dear" },
+      { uniqueForm: "and greatest friend" }
     ]);
   });
 });

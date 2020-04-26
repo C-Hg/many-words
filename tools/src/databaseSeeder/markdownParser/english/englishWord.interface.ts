@@ -1,8 +1,5 @@
-import EnglishForms from "./englishForms.interface";
+export type EnglishForms = "uniqueForm" | "singular" | "plural"
 
-export default interface EnglishWord {
-  uniqueForm?: string;
-  singular?: string;
-  plural?: string;
-  acceptedForms: (keyof EnglishForms)[];
+export type EnglishWord = {
+  [K in EnglishForms]?: string
 }

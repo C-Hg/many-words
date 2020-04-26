@@ -52,7 +52,6 @@ suite("Fetch EN words function", function() {
     assert.isArray(result);
     assert.lengthOf(result, 1);
     assert(Object.keys(result[0]).length === 3);
-    assert.includeMembers(result[0].acceptedForms, ["sing", "plur"]);
     assert.propertyVal(result[0], "sing", "mouse");
     assert.propertyVal(result[0], "plur", "mice");
   });
@@ -62,32 +61,25 @@ suite("Fetch EN words function", function() {
     assert.isArray(result);
     assert.lengthOf(result, 4);
     assert(Object.keys(result[0]).length === 4);
-    assert.includeMembers(result[0].acceptedForms, ["sing", "plur"]);
     assert.lengthOf(result[0].acceptedForms, 2);
     assert.propertyVal(result[0], "sing", "apple");
     assert.propertyVal(result[0], "plur", "apples");
-    assert.propertyVal(result[0], "isArticleAn", true);
 
     assert(Object.keys(result[1]).length === 3);
-    assert.includeMembers(result[1].acceptedForms, ["sing", "plur"]);
     assert.lengthOf(result[1].acceptedForms, 2);
     assert.propertyVal(result[1], "sing", "pear");
     assert.propertyVal(result[1], "plur", "pears");
-    assert.notProperty(result[1], "isArticleAn");
+
 
     assert(Object.keys(result[2]).length === 3);
-    assert.includeMembers(result[2].acceptedForms, ["sing", "plur"]);
     assert.lengthOf(result[2].acceptedForms, 2);
     assert.propertyVal(result[2], "sing", "banana");
     assert.propertyVal(result[2], "plur", "bananas");
-    assert.notProperty(result[2], "isArticleAn");
 
     assert(Object.keys(result[3]).length === 4);
-    assert.includeMembers(result[3].acceptedForms, ["sing", "plur"]);
     assert.lengthOf(result[3].acceptedForms, 2);
     assert.propertyVal(result[3], "sing", "orange");
     assert.propertyVal(result[3], "plur", "oranges");
-    assert.propertyVal(result[3], "isArticleAn", true);
   });
 
   test("void.md, void table", function() {
@@ -102,27 +94,19 @@ suite("Fetch EN words function", function() {
     assert.lengthOf(result, 4);
 
     assert(Object.keys(result[0]).length === 2);
-    assert.includeMembers(result[0].acceptedForms, ["uniqueForm"]);
     assert.lengthOf(result[0].acceptedForms, 1);
     assert.propertyVal(result[0], "uniqueForm", "hello you");
-    assert.notProperty(result[0], "isArticleAn");
 
     assert(Object.keys(result[1]).length === 2);
-    assert.includeMembers(result[1].acceptedForms, ["uniqueForm"]);
     assert.lengthOf(result[1].acceptedForms, 1);
     assert.propertyVal(result[1], "uniqueForm", "my");
-    assert.notProperty(result[1], "isArticleAn");
 
     assert(Object.keys(result[2]).length === 2);
-    assert.includeMembers(result[2].acceptedForms, ["uniqueForm"]);
     assert.lengthOf(result[2].acceptedForms, 1);
     assert.propertyVal(result[2], "uniqueForm", "dear");
-    assert.notProperty(result[2], "isArticleAn");
 
     assert(Object.keys(result[3]).length === 2);
-    assert.includeMembers(result[3].acceptedForms, ["uniqueForm"]);
     assert.lengthOf(result[3].acceptedForms, 1);
     assert.propertyVal(result[3], "uniqueForm", "and greatest friend");
-    assert.notProperty(result[3], "isArticleAn");
   });
 });

@@ -38,16 +38,6 @@ suite("Check FR Alternative function", function() {
     assert.propertyVal(result, "fem_sing", "fleur");
     assert.propertyVal(result, "fem_plur", "fleurs");
     assert.propertyVal(result, "uniqueForm", "voyageons");
-    assert.notProperty(result, "isLApostrophe");
-    assert.isArray(result.acceptedForms);
-    assert.lengthOf(result.acceptedForms, 5);
-    assert.includeMembers(result.acceptedForms, [
-      "masc_sing",
-      "masc_plur",
-      "fem_sing",
-      "fem_plur",
-      "uniqueForm"
-    ]);
     assert(Object.keys(result).length === 6);
   });
 
@@ -58,15 +48,6 @@ suite("Check FR Alternative function", function() {
     assert.propertyVal(result, "masc_plur", "voyageuses");
     assert.propertyVal(result, "fem_sing", "course à pied");
     assert.propertyVal(result, "uniqueForm", "monde");
-    assert.notProperty(result, "isLApostrophe");
-    assert.isArray(result.acceptedForms);
-    assert.lengthOf(result.acceptedForms, 4);
-    assert.includeMembers(result.acceptedForms, [
-      "masc_sing",
-      "masc_plur",
-      "fem_sing",
-      "uniqueForm"
-    ]);
     assert(Object.keys(result).length === 5);
   });
 
@@ -83,16 +64,6 @@ suite("Check FR Alternative function", function() {
     assert.propertyVal(result, "fem_sing", "Belle-Pensée de l'île");
     assert.propertyVal(result, "fem_plur", "îles");
     assert.propertyVal(result, "uniqueForm", "mondes");
-    assert.propertyVal(result, "isLApostrophe", true);
-    assert.isArray(result.acceptedForms);
-    assert.lengthOf(result.acceptedForms, 5);
-    assert.includeMembers(result.acceptedForms, [
-      "masc_sing",
-      "masc_plur",
-      "fem_sing",
-      "fem_plur",
-      "uniqueForm"
-    ]);
     assert(Object.keys(result).length === 7);
   });
 });

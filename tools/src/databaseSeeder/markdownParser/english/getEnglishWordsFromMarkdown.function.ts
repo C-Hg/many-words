@@ -1,9 +1,8 @@
-import EnglishWord from "./englishWord.interface";
-import EnglishForms from "./englishForms.interface";
+import  { EnglishForms, EnglishWord } from "./englishWord.interface";
 import markdownRegex from "../markdownRegex";
 import getWordsFromMarkdownByLine from "../getWordsFromMarkdownByLine.function";
 
-const englishForms: (keyof EnglishForms)[] = [
+const englishForms: EnglishForms[] = [
   "singular",
   "plural",
   "uniqueForm",
@@ -26,12 +25,9 @@ const getEnglishWordsFromMarkdown = (document: string): EnglishWord[] => {
       words.forEach((word, index) => {
         if (word !== undefined) {
           if (englishWords[index] === undefined) {
-            englishWords[index] = { acceptedForms: [] };
+            englishWords[index] = {};
           }
           englishWords[index][form] = word;
-          if (!englishWords[index].acceptedForms.includes(form)) {
-            englishWords[index].acceptedForms.push(form);
-          }
         }
       });
     }

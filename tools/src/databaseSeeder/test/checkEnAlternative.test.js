@@ -46,15 +46,6 @@ suite("Check EN Alternative function", function() {
       "world",
       "uniqueForm property should be world"
     );
-    assert.propertyVal(
-      result,
-      "isArticleAn",
-      true,
-      "isArticleAn property should be true"
-    );
-    assert.isArray(result.acceptedForms);
-    assert.lengthOf(result.acceptedForms, 3);
-    assert.includeMembers(result.acceptedForms, ["sing", "plur", "uniqueForm"]);
     assert(Object.keys(result).length === 5);
   });
 
@@ -63,9 +54,6 @@ suite("Check EN Alternative function", function() {
     assert.isObject(result, "response should be an object");
     assert.propertyVal(result, "sing", "to travel far away");
     assert.propertyVal(result, "plur", "travels");
-    assert.isArray(result.acceptedForms);
-    assert.lengthOf(result.acceptedForms, 2);
-    assert.includeMembers(result.acceptedForms, ["sing", "plur"]);
     assert(Object.keys(result).length === 3);
   });
 
@@ -79,9 +67,6 @@ suite("Check EN Alternative function", function() {
     assert.isObject(result, "response should be an object");
     assert.propertyVal(result, "sing", "hello");
     assert.propertyVal(result, "uniqueForm", "world");
-    assert.isArray(result.acceptedForms);
-    assert.lengthOf(result.acceptedForms, 2);
-    assert.includeMembers(result.acceptedForms, ["sing", "uniqueForm"]);
     assert(Object.keys(result).length === 4);
   });
 });

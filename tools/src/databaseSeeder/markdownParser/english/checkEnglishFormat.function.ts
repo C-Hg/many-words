@@ -1,4 +1,4 @@
-import EnglishWord from "./englishWord.interface";
+import { EnglishWord }from "./englishWord.interface";
 
 // this function checks that the informations retrieved from the markdown file
 // are not mutually exclusive for a specific word
@@ -6,20 +6,13 @@ import EnglishWord from "./englishWord.interface";
 
 // void objects are impossible because not returned from checkEnAlternative function
 
-const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
+const checkEnglishFormat = (englishWords: EnglishWord[]): void => {
   if (!englishWords) {
     throw new Error(`[CheckEnglishFormat] : void English Word`);
   }
 
   englishWords.forEach(englishWord => {
-    const { acceptedForms, singular, plural, uniqueForm } = englishWord;
-    if (!acceptedForms || !acceptedForms.length) {
-      throw new Error(
-        `[CheckEnglishFormat] : no 'acceptedForms' property for ${JSON.stringify(
-          englishWord
-        )}`
-      );
-    }
+    const { singular, plural, uniqueForm } = englishWord;
     if ((!singular || !plural) && !uniqueForm) {
       throw new Error(
         `[CheckEnglishFormat] : an English word cannot have a unique form AND sing and/or plur form, ${JSON.stringify(
@@ -33,17 +26,6 @@ const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
       if (!plural) {
         throw new Error(
           `[CheckEnglishFormat] : singular without plural ${JSON.stringify(
-            englishWord
-          )}`
-        );
-      }
-      if (
-        !acceptedForms.includes("singular") ||
-        !acceptedForms.includes("plural") ||
-        acceptedForms.length !== 2
-      ) {
-        throw new Error(
-          `[CheckEnglishFormat] acceptedForms property not matching singular/plural, ${JSON.stringify(
             englishWord
           )}`
         );
@@ -76,13 +58,6 @@ const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
       }
     }
     if (uniqueForm) {
-      if (acceptedForms[0] !== "uniqueForm" || acceptedForms.length > 1) {
-        throw new Error(
-          `[CheckEnglishFormat] acceptedForms not matching uniqueForm, ${JSON.stringify(
-            englishWord
-          )}`
-        );
-      }
       if (uniqueForm === "") {
         throw new Error(
           `[CheckEnglishFormat] empty 'uniqueForm' property, ${JSON.stringify(
@@ -92,7 +67,6 @@ const checkEnglishFormat = (englishWords: EnglishWord[]): boolean => {
       }
     }
   });
-  return true;
 };
 
 export default checkEnglishFormat;

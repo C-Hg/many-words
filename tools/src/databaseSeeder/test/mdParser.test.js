@@ -62,11 +62,9 @@ suite("Extract data function", function() {
     assert.propertyVal(result, "type", "noun");
     assert.propertyVal(result.fr[0], "fem_sing", "souris");
     assert.propertyVal(result.fr[0], "fem_plur", "souris");
-    assert.deepEqual(result.fr[0].acceptedForms, ["fem_sing", "fem_plur"]);
     assert.deepEqual(result.en[0], {
       sing: "mouse",
       plur: "mice",
-      acceptedForms: ["sing", "plur"]
     });
   });
 
@@ -83,48 +81,36 @@ suite("Extract data function", function() {
       {
         masc_sing: "âne",
         masc_plur: "ânes",
-        isLApostrophe: true,
-        acceptedForms: ["masc_sing", "masc_plur"]
       },
       {
         masc_sing: "singe",
         masc_plur: "singes",
-        acceptedForms: ["masc_sing", "masc_plur"]
       },
       {
         masc_sing: "lion",
         masc_plur: "lions",
-        acceptedForms: ["masc_sing", "masc_plur"]
       },
       {
         masc_sing: "avion",
         masc_plur: "avions",
-        isLApostrophe: true,
-        acceptedForms: ["masc_sing", "masc_plur"]
       }
     ]);
     assert.deepEqual(result.en, [
       {
         sing: "apple",
         plur: "apples",
-        isArticleAn: true,
-        acceptedForms: ["sing", "plur"]
       },
       {
         sing: "pear",
         plur: "pears",
-        acceptedForms: ["sing", "plur"]
       },
       {
         sing: "banana",
         plur: "bananas",
-        acceptedForms: ["sing", "plur"]
       },
       {
         sing: "orange",
         plur: "oranges",
-        isArticleAn: true,
-        acceptedForms: ["sing", "plur"]
       }
     ]);
   });
@@ -158,18 +144,17 @@ suite("Extract data function", function() {
     assert.propertyVal(result, "lesson", "tested_Md_files");
     assert.propertyVal(result, "theme", "theme");
     assert.propertyVal(result, "type", "other");
-    assert.propertyVal(result, "hasUniqueForm", true);
     assert.deepEqual(result.fr, [
-      { uniqueForm: "Bonjour", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "à vous", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "mes très chers", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "amis", acceptedForms: ["uniqueForm"] }
+      { uniqueForm: "Bonjour" },
+      { uniqueForm: "à vous" },
+      { uniqueForm: "mes très chers" },
+      { uniqueForm: "amis" }
     ]);
     assert.deepEqual(result.en, [
-      { uniqueForm: "hello you", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "my", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "dear", acceptedForms: ["uniqueForm"] },
-      { uniqueForm: "and greatest friend", acceptedForms: ["uniqueForm"] }
+      { uniqueForm: "hello you" },
+      { uniqueForm: "my" },
+      { uniqueForm: "dear" },
+      { uniqueForm: "and greatest friend" }
     ]);
   });
 });
