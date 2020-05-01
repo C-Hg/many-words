@@ -7,7 +7,7 @@
     "build": "babel src -d lib",
     "check-types": "tsc",
     "deploy": "npm run build && npm run serve",
-    "generate": "graphql-codegen --config codegen.yml && eslint --fix src/graphql/types.tsx",
+    "generate": "graphql-codegen --config codegen.yml && eslint --fix --quiet src/graphql/types.tsx",
     "serve": "node lib/server.js",
     "start": "nodemon --exec babel-node --extensions '.ts' src/server.ts",
     "test:ci": "jest",

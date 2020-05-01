@@ -1,6 +1,6 @@
 import updateFormsStats from "./updateFormsStats.function";
 
-import FormResult from "../../interfaces/formResult.interface";
+import { FormResultInput as FormResult } from "../../../graphql/types";
 import FormStats, { Languages } from "../../interfaces/formStats.interface";
 
 const formsStats0: FormStats[] = [

@@ -1,9 +1,9 @@
+import { Word } from "../../graphql/types";
 import FormStats from "../../stats/interfaces/formStats.interface";
 import { WordStats } from "../../stats/interfaces/wordStats.interface";
-import { Word } from "../interfaces/word.interface";
 
 /**
- * For each word, append its weakest forms
+ * For each word, append its weakest forms or an empty array if the word has not been studied yet
  */
 const appendWeakestForms = (
   words: Word[],

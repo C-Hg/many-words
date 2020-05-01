@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import exercisesService from "./exercises.service";
 import appendWeakestForms from "./helpers/appendWeakestForms.function";
+import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 import { Word } from "./interfaces/word.interface";
 
@@ -27,7 +28,9 @@ const exercisesController = {
       // appends the weakest forms for each word, or [] if the word has never been encountered
       const wordsWithWeakestFormsStats = appendWeakestForms(words, wordsStats);
 
-      return prepareWordsForExercise(wordsWithWeakestFormsStats);
+      return exercisesController.prepareWordsForExercise(
+        wordsWithWeakestFormsStats
+      );
     } catch (error) {
       logger.error(`[getLesson] error while fetching lesson data - ${error}`);
     }
@@ -59,7 +62,9 @@ const exercisesController = {
         slicedWordsStats
       );
 
-      return prepareWordsForExercise(wordsWithWeakestFormsStats);
+      return exercisesController.prepareWordsForExercise(
+        wordsWithWeakestFormsStats
+      );
     } catch (error) {
       logger.error(`[getWeakWord] cannot get weak words - ${error}`);
     }
@@ -70,8 +75,9 @@ const exercisesController = {
       const { weakestForms } = word;
       let formDetails;
 
-      // picks randomly the source language and the form the first time it is presented
-      const { selectedForm, selectedLanguage } = selectForm(word);
+      // picks the source language and the form
+      const selectionResult = selectForm(word);
+      const { form, language } = selectionResult;
 
       const forms = returnForms(sourceForm, word.type, sourceLanguage);
       const frenchForm = forms.fr;
@@ -103,17 +109,17 @@ const exercisesController = {
     });
   },
 
-  getWordsToLearn: async (req: Request, res: Response): Promise<void> => {
-    try {
-      const words = await exercisesService.getLessonWords(req.params.lesson);
-      res.send(JSON.stringify(words));
-    } catch (error) {
-      logger.error(
-        "[getWordsToLearn] error while fetching words to learn",
-        error
-      );
-    }
-  },
+  // getWordsToLearn: async (req: Request, res: Response): Promise<void> => {
+  //   try {
+  //     const words = await exercisesService.getLessonWords(req.params.lesson);
+  //     res.send(JSON.stringify(words));
+  //   } catch (error) {
+  //     logger.error(
+  //       "[getWordsToLearn] error while fetching words to learn",
+  //       error
+  //     );
+  //   }
+  // },
 };
 
 export default exercisesController;

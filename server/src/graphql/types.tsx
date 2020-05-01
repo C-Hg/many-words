@@ -17,18 +17,8 @@ export type Scalars = {
 
 export type EnglishForms = "plural" | "singular" | "uniqueForm";
 
-export type EnglishWord = {
-  form?: Maybe<EnglishForms>;
-  values: Array<Maybe<Scalars["String"]>>;
-};
-
-export type EnglishWordData = {
-  name: Scalars["String"];
-  words: Array<Maybe<EnglishWord>>;
-};
-
 export type ExerciseWord = {
-  answers: Array<Maybe<Scalars["String"]>>;
+  answers: Array<Scalars["String"]>;
   englishName: Scalars["String"];
   lesson: Lesson;
   question: Scalars["String"];
@@ -54,9 +44,14 @@ export type Forms =
   | "uniqueForm";
 
 export type FormStats = {
-  language?: Maybe<Languages>;
-  form?: Maybe<Forms>;
-  score?: Maybe<Scalars["Float"]>;
+  language: Languages;
+  form: Forms;
+  score: Scalars["Float"];
+};
+
+export type FormValue = {
+  form: Forms;
+  values: Array<Scalars["String"]>;
 };
 
 export type FrenchForms =
@@ -65,16 +60,6 @@ export type FrenchForms =
   | "singularFeminine"
   | "singularMasculine"
   | "uniqueForm";
-
-export type FrenchWord = {
-  form?: Maybe<FrenchForms>;
-  values: Array<Maybe<Scalars["String"]>>;
-};
-
-export type FrenchWordData = {
-  name: Scalars["String"];
-  words: Array<Maybe<FrenchWord>>;
-};
 
 export type GlobalStats = {
   globalProgress: Scalars["Float"];
@@ -254,13 +239,18 @@ export type User = {
 };
 
 export type Word = {
-  english: EnglishWordData;
-  french: FrenchWordData;
+  english: WordData;
+  french: WordData;
   hasUniqueForm: Scalars["Boolean"];
   lesson: Lesson;
   topic: Topic;
   type: Scalars["String"];
-  weakestForms?: Maybe<Array<Maybe<FormStats>>>;
+  weakestForms: Array<Maybe<FormStats>>;
+};
+
+export type WordData = {
+  name: Scalars["String"];
+  words: Array<FormValue>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -391,13 +381,11 @@ export type ResolversTypes = {
   FormResultInput: FormResultInput;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   Word: ResolverTypeWrapper<Word>;
-  EnglishWordData: ResolverTypeWrapper<EnglishWordData>;
-  EnglishWord: ResolverTypeWrapper<EnglishWord>;
-  EnglishForms: EnglishForms;
-  FrenchWordData: ResolverTypeWrapper<FrenchWordData>;
-  FrenchWord: ResolverTypeWrapper<FrenchWord>;
-  FrenchForms: FrenchForms;
+  WordData: ResolverTypeWrapper<WordData>;
+  FormValue: ResolverTypeWrapper<FormValue>;
   FormStats: ResolverTypeWrapper<FormStats>;
+  EnglishForms: EnglishForms;
+  FrenchForms: FrenchForms;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -422,54 +410,18 @@ export type ResolversParentTypes = {
   FormResultInput: FormResultInput;
   Boolean: Scalars["Boolean"];
   Word: Word;
-  EnglishWordData: EnglishWordData;
-  EnglishWord: EnglishWord;
-  EnglishForms: EnglishForms;
-  FrenchWordData: FrenchWordData;
-  FrenchWord: FrenchWord;
-  FrenchForms: FrenchForms;
+  WordData: WordData;
+  FormValue: FormValue;
   FormStats: FormStats;
-};
-
-export type EnglishWordResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["EnglishWord"] = ResolversParentTypes["EnglishWord"]
-> = {
-  form?: Resolver<
-    Maybe<ResolversTypes["EnglishForms"]>,
-    ParentType,
-    ContextType
-  >;
-  values?: Resolver<
-    Array<Maybe<ResolversTypes["String"]>>,
-    ParentType,
-    ContextType
-  >;
-  __isTypeOf?: isTypeOfResolverFn<ParentType>;
-};
-
-export type EnglishWordDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["EnglishWordData"] = ResolversParentTypes["EnglishWordData"]
-> = {
-  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  words?: Resolver<
-    Array<Maybe<ResolversTypes["EnglishWord"]>>,
-    ParentType,
-    ContextType
-  >;
-  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+  EnglishForms: EnglishForms;
+  FrenchForms: FrenchForms;
 };
 
 export type ExerciseWordResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["ExerciseWord"] = ResolversParentTypes["ExerciseWord"]
 > = {
-  answers?: Resolver<
-    Array<Maybe<ResolversTypes["String"]>>,
-    ParentType,
-    ContextType
-  >;
+  answers?: Resolver<Array<ResolversTypes["String"]>, ParentType, ContextType>;
   englishName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   lesson?: Resolver<ResolversTypes["Lesson"], ParentType, ContextType>;
   question?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
@@ -487,43 +439,18 @@ export type FormStatsResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["FormStats"] = ResolversParentTypes["FormStats"]
 > = {
-  language?: Resolver<
-    Maybe<ResolversTypes["Languages"]>,
-    ParentType,
-    ContextType
-  >;
-  form?: Resolver<Maybe<ResolversTypes["Forms"]>, ParentType, ContextType>;
-  score?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  language?: Resolver<ResolversTypes["Languages"], ParentType, ContextType>;
+  form?: Resolver<ResolversTypes["Forms"], ParentType, ContextType>;
+  score?: Resolver<ResolversTypes["Float"], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
-export type FrenchWordResolvers<
+export type FormValueResolvers<
   ContextType = any,
-  ParentType extends ResolversParentTypes["FrenchWord"] = ResolversParentTypes["FrenchWord"]
+  ParentType extends ResolversParentTypes["FormValue"] = ResolversParentTypes["FormValue"]
 > = {
-  form?: Resolver<
-    Maybe<ResolversTypes["FrenchForms"]>,
-    ParentType,
-    ContextType
-  >;
-  values?: Resolver<
-    Array<Maybe<ResolversTypes["String"]>>,
-    ParentType,
-    ContextType
-  >;
-  __isTypeOf?: isTypeOfResolverFn<ParentType>;
-};
-
-export type FrenchWordDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["FrenchWordData"] = ResolversParentTypes["FrenchWordData"]
-> = {
-  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  words?: Resolver<
-    Array<Maybe<ResolversTypes["FrenchWord"]>>,
-    ParentType,
-    ContextType
-  >;
+  form?: Resolver<ResolversTypes["Forms"], ParentType, ContextType>;
+  values?: Resolver<Array<ResolversTypes["String"]>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
@@ -779,31 +706,33 @@ export type WordResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Word"] = ResolversParentTypes["Word"]
 > = {
-  english?: Resolver<
-    ResolversTypes["EnglishWordData"],
-    ParentType,
-    ContextType
-  >;
-  french?: Resolver<ResolversTypes["FrenchWordData"], ParentType, ContextType>;
+  english?: Resolver<ResolversTypes["WordData"], ParentType, ContextType>;
+  french?: Resolver<ResolversTypes["WordData"], ParentType, ContextType>;
   hasUniqueForm?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
   lesson?: Resolver<ResolversTypes["Lesson"], ParentType, ContextType>;
   topic?: Resolver<ResolversTypes["Topic"], ParentType, ContextType>;
   type?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   weakestForms?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["FormStats"]>>>,
+    Array<Maybe<ResolversTypes["FormStats"]>>,
     ParentType,
     ContextType
   >;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
+export type WordDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["WordData"] = ResolversParentTypes["WordData"]
+> = {
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  words?: Resolver<Array<ResolversTypes["FormValue"]>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
 export type Resolvers<ContextType = any> = {
-  EnglishWord?: EnglishWordResolvers<ContextType>;
-  EnglishWordData?: EnglishWordDataResolvers<ContextType>;
   ExerciseWord?: ExerciseWordResolvers<ContextType>;
   FormStats?: FormStatsResolvers<ContextType>;
-  FrenchWord?: FrenchWordResolvers<ContextType>;
-  FrenchWordData?: FrenchWordDataResolvers<ContextType>;
+  FormValue?: FormValueResolvers<ContextType>;
   GlobalStats?: GlobalStatsResolvers<ContextType>;
   LessonsGrades?: LessonsGradesResolvers<ContextType>;
   LessonsScores?: LessonsScoresResolvers<ContextType>;
@@ -813,6 +742,7 @@ export type Resolvers<ContextType = any> = {
   TopicStats?: TopicStatsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Word?: WordResolvers<ContextType>;
+  WordData?: WordDataResolvers<ContextType>;
 };
 
 /**

@@ -10,7 +10,7 @@ export const typeDefs = gql`
   }
 
   type ExerciseWord {
-    answers: [String]!
+    answers: [String!]!
     englishName: String!
     lesson: Lesson!
     question: String!
@@ -20,33 +20,24 @@ export const typeDefs = gql`
   }
 
   type Word {
-    english: EnglishWordData!
-    french: FrenchWordData!
+    english: WordData!
+    french: WordData!
     hasUniqueForm: Boolean!
     lesson: Lesson!
     topic: Topic!
+    # TODO: strong typing for types
     type: String!
-    weakestForms: [FormStats]
+    weakestForms: [FormStats]!
   }
 
-  type EnglishWordData {
+  type WordData {
     name: String!
-    words: [EnglishWord]!
+    words: [FormValue!]!
   }
 
-  type EnglishWord {
-    form: EnglishForms
-    values: [String]!
-  }
-
-  type FrenchWordData {
-    name: String!
-    words: [FrenchWord]!
-  }
-
-  type FrenchWord {
-    form: FrenchForms
-    values: [String]!
+  type FormValue {
+    form: Forms!
+    values: [String!]!
   }
 
   enum EnglishForms {

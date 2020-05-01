@@ -1,9 +1,9 @@
 import { ObjectID } from "mongodb";
 
-import { Word, WordDocument } from "./interfaces/word.interface";
+import { WordDocument } from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
-import { Lesson, Topic } from "../graphql/types";
+import { Lesson, Topic, Word } from "../graphql/types";
 import logger from "../logger";
 import {
   WordStats,

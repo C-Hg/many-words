@@ -26,9 +26,9 @@ export const typeDefs = gql`
   }
 
   type FormStats {
-    language: Languages
-    form: Forms
-    score: Float
+    language: Languages!
+    form: Forms!
+    score: Float!
   }
 
   type Stats {
