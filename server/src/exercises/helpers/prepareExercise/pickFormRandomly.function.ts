@@ -1,6 +1,6 @@
-import randomPicker from "../../../services/randomPicker.function";
 
-export default function pickFormRandomly(word) {
+
+const pickFormRandomly = (word) => {
   const sourceLanguage = randomPicker(["fr", "en"]);
   let sourceForm;
 
@@ -15,3 +15,5 @@ export default function pickFormRandomly(word) {
     sourceForm,
   };
 }
+
+export default

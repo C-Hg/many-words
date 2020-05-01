@@ -1,8 +1,8 @@
 import randomPicker from "../../../services/randomPicker.function";
 import returnSelectedWordsWithArticle from "./returnSelectedWords.function";
 import returnForms from "./returnForms.function";
-import pickFormRandomly from "./pickFormRandomly.function";
-import pickWeakForm from "./pickWeakForm.function";
+import pickFormRandomly from "../../../../../server/src/exercises/helpers/prepareExercise/pickFormRandomly.function";
+import pickWeakForm from "../../../../../server/src/exercises/helpers/prepareExercise/pickWeakForm.function";
 import shuffleArray from "../../../services/arrayShuffler.function";
 
 /*

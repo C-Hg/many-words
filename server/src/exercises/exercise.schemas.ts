@@ -3,12 +3,20 @@ import { gql } from "apollo-server-express";
 import lessonsByTopic from "./data/lessonsByTopic";
 import wordCountByLesson from "./data/wordCountByLesson";
 
-import { EnglishForms } from "../graphql/types";
-
 export const typeDefs = gql`
   extend type Query {
     # return words formatted for exercise
-    exercise(id: Lesson!): [Word]
+    exercise(id: Lesson!): [ExerciseWord]
+  }
+
+  type ExerciseWord {
+    answers: [String]!
+    englishName: String!
+    lesson: Lesson!
+    question: String!
+    selectedForm: Forms!
+    selectedLanguage: Languages!
+    topic: Topic!
   }
 
   type Word {
@@ -18,7 +26,7 @@ export const typeDefs = gql`
     lesson: Lesson!
     topic: Topic!
     type: String!
-    weakestForms: [FormStats]!
+    weakestForms: [FormStats]
   }
 
   type EnglishWordData {
@@ -27,11 +35,9 @@ export const typeDefs = gql`
   }
 
   type EnglishWord {
-    plural: String
-    singular: String
-    uniqueForm: String
+    form: EnglishForms
+    values: [String]!
   }
-
 
   type FrenchWordData {
     name: String!
@@ -39,11 +45,22 @@ export const typeDefs = gql`
   }
 
   type FrenchWord {
-    pluralFeminine: String
-    pluralMasculine: String
-    singularFeminine: String
-    singularMasculine: String
-    uniqueForm: String
+    form: FrenchForms
+    values: [String]!
+  }
+
+  enum EnglishForms {
+    plural
+    singular           
+    uniqueForm 
+  }
+
+  enum FrenchForms {
+    pluralFeminine
+    pluralMasculine
+    singularFeminine
+    singularMasculine
+    uniqueForm
   }
 
   enum Forms {

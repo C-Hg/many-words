@@ -1,5 +1,8 @@
-export type EnglishForms = "uniqueForm" | "singular" | "plural"
+export type EnglishForms = "uniqueForm" | "singular" | "plural";
 
-export type EnglishWord = {
-  [K in EnglishForms]?: string
-}
+export type EnglishFormValue = {
+  form: EnglishForms;
+  values: string[];
+};
+
+export type EnglishWord = EnglishFormValue[];

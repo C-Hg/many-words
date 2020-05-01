@@ -2,6 +2,7 @@ import markdownRegex from "../markdownRegex";
 
 import getWordsFromMarkdownByLine from "../getWordsFromMarkdownByLine.function";
 import { FrenchWord, FrenchForms } from "./frenchWord.interface";
+import checkFrenchFormat from "./checkFrenchFormat.function";
 
 const frenchForms: FrenchForms[] = [
   "singularMasculine",
@@ -15,29 +16,23 @@ const frenchForms: FrenchForms[] = [
  * Fetches the data from all columns in the French table of the Markdown document
  * Data still needs validation, done by checkFrenchFormat function
  */
-const getFrenchWordsFromMarkdown = (document: string): FrenchWord[] => {
+const getFrenchWordsFromMarkdown = (document: string): FrenchWord => {
   const { formsRegex } = markdownRegex;
-  const frenchWords: FrenchWord[] = [];
+  const frenchWord: FrenchWord = [];
 
-  frenchForms.forEach(form => {
+  frenchForms.forEach((form) => {
     const words = getWordsFromMarkdownByLine(document, formsRegex.french[form]);
-    if (words) {
-      // one accepted word per column
-      words.forEach((word, index) => {
-        if (word !== undefined) {
-          if (frenchWords[index] === undefined) {
-            frenchWords[index] = {};
-          }
-          frenchWords[index][form] = word;
-        }
+    if (words.length > 0) {
+      frenchWord.push({
+        form,
+        values: words,
       });
     }
   });
 
-  if (frenchWords.length > 0) {
-    return frenchWords;
-  }
-  return null;
+  checkFrenchFormat(frenchWord);
+
+  return frenchWord;
 };
 
 export default getFrenchWordsFromMarkdown;
