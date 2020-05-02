@@ -1,39 +1,39 @@
 import updateFormsStats from "./updateFormsStats.function";
 
 import { FormResultInput as FormResult } from "../../../graphql/types";
-import FormStats, { Languages } from "../../interfaces/formStats.interface";
+import FormStats from "../../interfaces/formStats.interface";
 
 const formsStats0: FormStats[] = [
   {
-    language: Languages.English,
+    language: "english",
     form: "uniqueForm",
     score: 1,
   },
   {
-    language: Languages.French,
+    language: "french",
     form: "singularMasculine",
     score: 0,
   },
   {
-    language: Languages.French,
+    language: "french",
     form: "pluralMasculine",
     score: 1,
   },
 ];
 const FormResults0: FormResult = {
-  language: Languages.English,
+  language: "english",
   form: "uniqueForm",
   englishName: "black",
   isAnswerCorrect: true,
 };
 const FormResults1: FormResult = {
-  language: Languages.French,
+  language: "french",
   form: "pluralMasculine",
   englishName: "black",
   isAnswerCorrect: false,
 };
 const FormResults2: FormResult = {
-  language: Languages.French,
+  language: "french",
   form: "singularMasculine",
   englishName: "black",
   isAnswerCorrect: false,
@@ -45,17 +45,17 @@ describe("updateFormsStats", () => {
     expect(updatedFormsStats).toHaveLength(3);
     expect(updatedFormsStats).toEqual([
       {
-        language: Languages.English,
+        language: "english",
         form: "uniqueForm",
         score: 2,
       },
       {
-        language: Languages.French,
+        language: "french",
         form: "singularMasculine",
         score: 0,
       },
       {
-        language: Languages.French,
+        language: "french",
         form: "pluralMasculine",
         score: 1,
       },
@@ -66,17 +66,17 @@ describe("updateFormsStats", () => {
     const updatedFormsStats = updateFormsStats(formsStats0, FormResults1);
     expect(updatedFormsStats).toEqual([
       {
-        language: Languages.English,
+        language: "english",
         form: "uniqueForm",
         score: 1,
       },
       {
-        language: Languages.French,
+        language: "french",
         form: "singularMasculine",
         score: 0,
       },
       {
-        language: Languages.French,
+        language: "french",
         form: "pluralMasculine",
         score: 0.5,
       },
@@ -87,17 +87,17 @@ describe("updateFormsStats", () => {
     const updatedFormsStats = updateFormsStats(formsStats0, FormResults2);
     expect(updatedFormsStats).toEqual([
       {
-        language: Languages.English,
+        language: "english",
         form: "uniqueForm",
         score: 1,
       },
       {
-        language: Languages.French,
+        language: "french",
         form: "singularMasculine",
         score: -0.5,
       },
       {
-        language: Languages.French,
+        language: "french",
         form: "pluralMasculine",
         score: 1,
       },

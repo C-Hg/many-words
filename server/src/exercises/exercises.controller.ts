@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
+import sample from "lodash.sample";
 
 import exercisesService from "./exercises.service";
 import appendWeakestForms from "./helpers/appendWeakestForms.function";
+import getAcceptedAnswers from "./helpers/prepareExercise/getAcceptedAnswers.function";
 import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
-import { Word } from "./interfaces/word.interface";
 
-import { Lesson } from "../graphql/types";
+import { Lesson, Word } from "../graphql/types";
 import logger from "../logger";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
@@ -77,17 +77,15 @@ const exercisesController = {
 
       // picks the source language and the form
       const selectionResult = selectForm(word);
-      const { form, language } = selectionResult;
+      const { form, language, wordToTranslate } = selectionResult;
 
-      const forms = returnForms(sourceForm, word.type, sourceLanguage);
-      const frenchForm = forms.fr;
-      const englishForm = forms.en;
+      const acceptedAnswers = getAcceptedAnswers(word, form, language);
 
       // only nouns accept articles, special cases when nouns have only certains articles -> hasUniqueForm = true
-      let isDefinite = true;
+      let isDefinite;
       let hasArticle = false;
       if (word.type === "noun" && !word.hasUniqueForm) {
-        isDefinite = randomPicker([true, false]);
+        isDefinite = sample([true, false]) as boolean;
         hasArticle = true;
       }
 
@@ -102,10 +100,14 @@ const exercisesController = {
         word.enName
       );
       return {
-        selectedForm: selectedWords.selectedForm,
+        acceptedAnswers,
+        form,
+        language,
         lesson: word.lesson,
         theme: word.theme,
+        wordToTranslate, // TODO: assign formattedWordToTranslate
       };
+      logger.debug("[prepareWordsForExercise]");
     });
   },
 

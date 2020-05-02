@@ -1,7 +1,6 @@
 import selectForm from "./selectForm.function";
 
 import { Word } from "../../../graphql/types";
-import { Languages } from "../../../stats/interfaces/formStats.interface";
 
 const word0: Word = {
   english: {

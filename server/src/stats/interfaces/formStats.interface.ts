@@ -1,7 +1,4 @@
-export enum Languages {
-  English = "english",
-  French = "french",
-}
+import { Languages } from "../../graphql/types";
 
 interface FrenchForms {
   uniqueForm: string;

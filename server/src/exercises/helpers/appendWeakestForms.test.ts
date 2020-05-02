@@ -2,10 +2,10 @@ import { Types } from "mongoose";
 
 import appendWeakestForms from "./appendWeakestForms.function";
 
-import { Languages } from "../../stats/interfaces/formStats.interface";
+import { Word } from "../../graphql/types";
+import { LANGUAGES } from "../../stats/constants";
 import { WordStats } from "../../stats/interfaces/wordStats.interface";
 import WordStatsModel from "../../stats/models/wordStats.model";
-import { Word } from "../interfaces/word.interface";
 import WordModel from "../models/word.model";
 
 const words: Word[] = [
@@ -71,14 +71,14 @@ describe("appendWeakestForms", () => {
         englishName: "black",
         formsStats: [
           { language: "english", form: "uniqueForm", score: 1 },
-          { language: Languages.French, form: "singularMasculine", score: 0 },
+          { language: LANGUAGES.French, form: "singularMasculine", score: 0 },
           {
-            language: Languages.French,
+            language: LANGUAGES.French,
             form: "pluralMasculine",
             score: -0.5,
           },
-          { language: Languages.French, form: "singularFeminine", score: 1 },
-          { language: Languages.French, form: "pluralFeminine", score: 1 },
+          { language: LANGUAGES.French, form: "singularFeminine", score: 1 },
+          { language: LANGUAGES.French, form: "pluralFeminine", score: 1 },
         ],
         lesson: "mainColors",
         topic: "colors",
@@ -86,11 +86,11 @@ describe("appendWeakestForms", () => {
       new WordStatsModel({
         englishName: "red",
         formsStats: [
-          { language: Languages.English, form: "uniqueForm", score: 2 },
-          { language: Languages.French, form: "singularMasculine", score: 2 },
-          { language: Languages.French, form: "pluralMasculine", score: 2 },
-          { language: Languages.French, form: "singularFeminine", score: 1 },
-          { language: Languages.French, form: "pluralFeminine", score: 2 },
+          { language: LANGUAGES.English, form: "uniqueForm", score: 2 },
+          { language: LANGUAGES.French, form: "singularMasculine", score: 2 },
+          { language: LANGUAGES.French, form: "pluralMasculine", score: 2 },
+          { language: LANGUAGES.French, form: "singularFeminine", score: 1 },
+          { language: LANGUAGES.French, form: "pluralFeminine", score: 2 },
         ],
         lesson: "mainColors",
         topic: "colors",
@@ -107,7 +107,7 @@ describe("appendWeakestForms", () => {
     ]);
     expect(wordsWithWeakForms[1].weakestForms).toMatchObject([
       {
-        language: Languages.French,
+        language: LANGUAGES.French,
         form: "singularFeminine",
         score: 1,
       },
@@ -119,22 +119,22 @@ describe("appendWeakestForms", () => {
       new WordStatsModel({
         englishName: "black",
         formsStats: [
-          { language: Languages.English, form: "uniqueForm", score: -1 },
-          { language: Languages.French, form: "singularMasculine", score: 2 },
-          { language: Languages.French, form: "pluralMasculine", score: 2 },
-          { language: Languages.French, form: "singularFeminine", score: -1 },
-          { language: Languages.French, form: "pluralFeminine", score: -1 },
+          { language: LANGUAGES.English, form: "uniqueForm", score: -1 },
+          { language: LANGUAGES.French, form: "singularMasculine", score: 2 },
+          { language: LANGUAGES.French, form: "pluralMasculine", score: 2 },
+          { language: LANGUAGES.French, form: "singularFeminine", score: -1 },
+          { language: LANGUAGES.French, form: "pluralFeminine", score: -1 },
         ],
       }),
       new WordStatsModel({
         userId: Types.ObjectId("5d594f138d651a002b6fd29c"),
         englishName: "red",
         formsStats: [
-          { language: Languages.English, form: "uniqueForm", score: 2 },
-          { language: Languages.French, form: "singularMasculine", score: 0 },
-          { language: Languages.French, form: "pluralMasculine", score: 0 },
-          { language: Languages.French, form: "singularFeminine", score: 1 },
-          { language: Languages.French, form: "pluralFeminine", score: 2 },
+          { language: LANGUAGES.English, form: "uniqueForm", score: 2 },
+          { language: LANGUAGES.French, form: "singularMasculine", score: 0 },
+          { language: LANGUAGES.French, form: "pluralMasculine", score: 0 },
+          { language: LANGUAGES.French, form: "singularFeminine", score: 1 },
+          { language: LANGUAGES.French, form: "pluralFeminine", score: 2 },
         ],
         lesson: "mainColors",
         topic: "colors",
@@ -142,13 +142,13 @@ describe("appendWeakestForms", () => {
     ];
     const wordsWithWeakForms = appendWeakestForms(words, wordStats2);
     expect(wordsWithWeakForms[0].weakestForms).toMatchObject([
-      { language: Languages.English, form: "uniqueForm", score: -1 },
-      { language: Languages.French, form: "singularFeminine", score: -1 },
-      { language: Languages.French, form: "pluralFeminine", score: -1 },
+      { language: LANGUAGES.English, form: "uniqueForm", score: -1 },
+      { language: LANGUAGES.French, form: "singularFeminine", score: -1 },
+      { language: LANGUAGES.French, form: "pluralFeminine", score: -1 },
     ]);
     expect(wordsWithWeakForms[1].weakestForms).toMatchObject([
-      { language: Languages.French, form: "singularMasculine", score: 0 },
-      { language: Languages.French, form: "pluralMasculine", score: 0 },
+      { language: LANGUAGES.French, form: "singularMasculine", score: 0 },
+      { language: LANGUAGES.French, form: "pluralMasculine", score: 0 },
     ]);
   });
 
@@ -192,11 +192,11 @@ describe("appendWeakestForms", () => {
       null,
       new WordStatsModel({
         formsStats: [
-          { language: Languages.English, form: "uniqueForm", score: 1 },
-          { language: Languages.French, form: "singularMasculine", score: 2 },
-          { language: Languages.French, form: "pluralMasculine", score: 2 },
-          { language: Languages.French, form: "singularFeminine", score: 1 },
-          { language: Languages.French, form: "pluralFeminine", score: 1 },
+          { language: LANGUAGES.English, form: "uniqueForm", score: 1 },
+          { language: LANGUAGES.French, form: "singularMasculine", score: 2 },
+          { language: LANGUAGES.French, form: "pluralMasculine", score: 2 },
+          { language: LANGUAGES.French, form: "singularFeminine", score: 1 },
+          { language: LANGUAGES.French, form: "pluralFeminine", score: 1 },
         ],
       }),
       null,
@@ -205,13 +205,13 @@ describe("appendWeakestForms", () => {
     expect(wordsWithWeakForms).toHaveLength(3);
     expect(wordsWithWeakForms[0].weakestForms).toEqual([]);
     expect(wordsWithWeakForms[1].weakestForms).toMatchObject([
-      { language: Languages.English, form: "uniqueForm", score: 1 },
+      { language: LANGUAGES.English, form: "uniqueForm", score: 1 },
       {
-        language: Languages.French,
+        language: LANGUAGES.French,
         form: "singularFeminine",
         score: 1,
       },
-      { language: Languages.French, form: "pluralFeminine", score: 1 },
+      { language: LANGUAGES.French, form: "pluralFeminine", score: 1 },
     ]);
     expect(wordsWithWeakForms[2].weakestForms).toEqual([]);
   });

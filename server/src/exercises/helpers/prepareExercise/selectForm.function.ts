@@ -2,14 +2,14 @@ import sample from "lodash.sample";
 
 import {
   Word,
-  Languages,
-  Forms,
   FormStats,
   FormValue,
+  Forms,
+  Languages,
 } from "../../../graphql/types";
 import { SelectionResult } from "../../interfaces/word.interface";
 
-const LANGUAGES = ["english", "french"];
+const languages = ["english", "french"];
 
 const selectForm = (word: Word): SelectionResult => {
   const { weakestForms } = word;
@@ -19,7 +19,7 @@ const selectForm = (word: Word): SelectionResult => {
 
   // when the word has never been studied, pick form and language randomly
   if (weakestForms.length === 0) {
-    language = sample(LANGUAGES) as Languages;
+    language = sample(languages) as Languages;
     const formValue = sample(word[language].words) as FormValue;
     form = formValue.form;
     wordToTranslate = formValue.values[0];

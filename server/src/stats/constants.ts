@@ -18,6 +18,21 @@ const LESSON_GREEN_THRESHOLD = 0.4;
 // the global score for a lesson, above which the lesson is "gold" = known well
 const LESSON_GOLD_THRESHOLD = 0.8;
 
+export enum FORMS {
+  Plural = "plural",
+  PluralFeminine = "pluralFeminine",
+  PluralMasculine = "pluralMasculine",
+  Singular = "singular",
+  SingularFeminine = "singularFeminine",
+  SingularMasculine = "singularMasculine",
+  UniqueForm = "uniqueForm",
+}
+
+export enum LANGUAGES {
+  English = "english",
+  French = "french",
+}
+
 export {
   GOLD_WORD_SCORE,
   GREEN_WORD_SCORE,
