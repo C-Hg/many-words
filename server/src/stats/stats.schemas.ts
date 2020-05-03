@@ -72,6 +72,7 @@ export const resolvers = {
       { results }: { results: FormResult[] },
       { req }: { req: Request }
     ): Promise<User> => {
+      // TODO: withUserDefinedMiddleware
       if (!req.user) {
         logger.error("[updateStats] user is undefined");
         throw new Error("[updateStats] user is undefined");

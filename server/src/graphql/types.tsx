@@ -20,11 +20,11 @@ export type EnglishForms = "plural" | "singular" | "uniqueForm";
 export type ExerciseWord = {
   answers: Array<Scalars["String"]>;
   englishName: Scalars["String"];
+  form: Forms;
+  language: Languages;
   lesson: Lesson;
-  question: Scalars["String"];
-  selectedForm: Forms;
-  selectedLanguage: Languages;
   topic: Topic;
+  wordToTranslate: Scalars["String"];
 };
 
 export type FormResultInput = {
@@ -423,15 +423,11 @@ export type ExerciseWordResolvers<
 > = {
   answers?: Resolver<Array<ResolversTypes["String"]>, ParentType, ContextType>;
   englishName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  form?: Resolver<ResolversTypes["Forms"], ParentType, ContextType>;
+  language?: Resolver<ResolversTypes["Languages"], ParentType, ContextType>;
   lesson?: Resolver<ResolversTypes["Lesson"], ParentType, ContextType>;
-  question?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  selectedForm?: Resolver<ResolversTypes["Forms"], ParentType, ContextType>;
-  selectedLanguage?: Resolver<
-    ResolversTypes["Languages"],
-    ParentType,
-    ContextType
-  >;
   topic?: Resolver<ResolversTypes["Topic"], ParentType, ContextType>;
+  wordToTranslate?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 

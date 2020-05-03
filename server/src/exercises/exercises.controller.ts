@@ -7,7 +7,7 @@ import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 import { ARTICLE_FORMS } from "./interfaces/name.interface";
 
-import { Lesson, Word } from "../graphql/types";
+import { Lesson, Word, ExerciseWord } from "../graphql/types";
 import logger from "../logger";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
@@ -16,7 +16,10 @@ const exercisesController = {
   /**
    * Fetches the words for a given exercise
    */
-  getExerciseWords: async (exercise: Lesson, user: User): Promise<void> => {
+  getExerciseWords: async (
+    exercise: Lesson,
+    user: User
+  ): Promise<ExerciseWord[]> => {
     logger.debug(`[getExerciseWords] exercise ${exercise}, user ${user.id}`);
     const words = await exercisesService.getLessonWords(exercise);
 
@@ -34,7 +37,10 @@ const exercisesController = {
     );
   },
 
-  getWeakWords: async (reference: string, user: User): Promise<void> => {
+  getWeakWords: async (
+    reference: string,
+    user: User
+  ): Promise<ExerciseWord[]> => {
     logger.debug(`[getWeakWords] reference ${reference}, user ${user.id}`);
     // get words stats for a specific reference
     const wordsStats = await exercisesService.getWordsStats(
@@ -65,7 +71,7 @@ const exercisesController = {
     );
   },
 
-  prepareWordsForExercise: (words: Word[]): any =>
+  prepareWordsForExercise: (words: Word[]): ExerciseWord[] =>
     words.map((word) => {
       let articleForm;
       if (word.type === "noun" && !word.hasUniqueForm) {

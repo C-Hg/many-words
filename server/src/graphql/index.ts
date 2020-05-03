@@ -5,7 +5,7 @@ import merge from "lodash.merge";
 import {
   typeDefs as exercise,
   resolvers as exerciseResolvers,
-} from "../exercises/exercise.schemas";
+} from "../exercises/exercises.schemas";
 import {
   typeDefs as stats,
   resolvers as statsResolvers,

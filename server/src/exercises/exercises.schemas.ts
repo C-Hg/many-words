@@ -1,7 +1,12 @@
 import { gql } from "apollo-server-express";
+import { Request } from "express";
 
 import lessonsByTopic from "./data/lessonsByTopic";
 import wordCountByLesson from "./data/wordCountByLesson";
+import exercisesController from "./exercises.controller";
+
+import { Lesson, ExerciseWord } from "../graphql/types";
+import logger from "../logger";
 
 export const typeDefs = gql`
   extend type Query {
@@ -80,4 +85,19 @@ export const typeDefs = gql`
 `;
 
 // Provide resolver functions for your schema fields
-export const resolvers = {};
+export const resolvers = {
+  Query: {
+    exercise: async (
+      parent: {},
+      { id }: { id: Lesson },
+      { req }: { req: Request }
+    ): Promise<ExerciseWord[]> => {
+      if (!req.user) {
+        logger.error("[updateStats] user is undefined");
+        throw new Error("[updateStats] user is undefined");
+      }
+      logger.info("in resolver");
+      return exercisesController.getExerciseWords(id, req.user);
+    },
+  },
+};
