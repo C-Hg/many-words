@@ -9,7 +9,6 @@ import {
   Forms,
   Languages,
 } from "../../../graphql/types";
-import { LANGUAGES } from "../../../stats/constants";
 import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 import { SelectionResult } from "../../interfaces/word.interface";
 

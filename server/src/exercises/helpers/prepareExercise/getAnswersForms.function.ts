@@ -4,17 +4,17 @@ import { LANGUAGES, FORMS } from "../../../stats/constants";
 /**
  * Return all possible forms for the destination language
  */
-const getAcceptedAnswersForms = (
+const getAnswersForms = (
   sourceForm: Forms,
   type: string,
   sourceLanguage: Languages
 ): Forms[] => {
-  let acceptedAnswersForms;
+  let answersForms;
 
   /* ------------------     English is the source language      ------------------    */
   if (sourceLanguage === LANGUAGES.English) {
     if (type === "adjective") {
-      acceptedAnswersForms = [
+      answersForms = [
         FORMS.PluralFeminine,
         FORMS.PluralMasculine,
         FORMS.SingularFeminine,
@@ -23,42 +23,39 @@ const getAcceptedAnswersForms = (
     } else {
       switch (sourceForm) {
         case FORMS.Singular:
-          acceptedAnswersForms = [
-            FORMS.SingularFeminine,
-            FORMS.SingularMasculine,
-          ];
+          answersForms = [FORMS.SingularFeminine, FORMS.SingularMasculine];
           break;
 
         case FORMS.Plural:
-          acceptedAnswersForms = [FORMS.PluralFeminine, FORMS.PluralMasculine];
+          answersForms = [FORMS.PluralFeminine, FORMS.PluralMasculine];
           break;
 
         default:
-          acceptedAnswersForms = [FORMS.UniqueForm];
+          answersForms = [FORMS.UniqueForm];
           break;
       }
     }
     /* ------------------     French is the source language      ------------------    */
   } else if (type === "adjective") {
-    acceptedAnswersForms = [FORMS.UniqueForm];
+    answersForms = [FORMS.UniqueForm];
   } else {
     switch (sourceForm) {
       case FORMS.SingularFeminine:
       case FORMS.SingularMasculine:
-        acceptedAnswersForms = [FORMS.Singular];
+        answersForms = [FORMS.Singular];
         break;
 
       case FORMS.PluralFeminine:
       case FORMS.PluralMasculine:
-        acceptedAnswersForms = [FORMS.Plural];
+        answersForms = [FORMS.Plural];
         break;
 
       default:
-        acceptedAnswersForms = [FORMS.UniqueForm];
+        answersForms = [FORMS.UniqueForm];
         break;
     }
   }
-  return acceptedAnswersForms as Forms[];
+  return answersForms as Forms[];
 };
 
-export default getAcceptedAnswersForms;
+export default getAnswersForms;

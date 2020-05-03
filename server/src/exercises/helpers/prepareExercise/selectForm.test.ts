@@ -213,6 +213,55 @@ const word5: Word = {
   ],
 };
 
+const word6: Word = {
+  english: {
+    words: [
+      {
+        form: "uniqueForm",
+        values: ["wild"],
+      },
+    ],
+    name: "wild",
+  },
+  french: {
+    words: [
+      {
+        form: "singularMasculine",
+        values: ["sauvage"],
+      },
+      {
+        form: "singularFeminine",
+        values: ["sauvage"],
+      },
+      {
+        form: "pluralMasculine",
+        values: ["sauvages"],
+      },
+      {
+        form: "pluralFeminine",
+        values: ["sauvages"],
+      },
+    ],
+    name: "sauvage",
+  },
+  hasUniqueForm: false,
+  lesson: "animalsBasics",
+  topic: "animals",
+  type: "adjective",
+  weakestForms: [
+    {
+      language: "french",
+      form: "pluralMasculine",
+      score: 3,
+    },
+    {
+      language: "french",
+      form: "singularMasculine",
+      score: 3,
+    },
+  ],
+};
+
 describe("selectForm", () => {
   const anyLanguage = expect.stringMatching(/english|french/);
 
@@ -264,17 +313,40 @@ describe("selectForm", () => {
     expect(wordToTranslate).toEqual("to bark");
   });
 
-  it("should select a random among several weak forms", () => {
-    const { form, language, wordToTranslate } = selectForm(word4);
+  it("should select randomly among several weak forms", () => {
+    const { form, language, wordToTranslate } = selectForm(
+      word4,
+      ARTICLE_FORMS.Indefinite
+    );
     expect(language).toEqual("english");
     expect(form).toEqual(expect.stringMatching(/singular|plural/));
-    expect(wordToTranslate).toEqual(expect.stringMatching(/dog|dogs/));
+    if (form === FORMS.Singular) {
+      expect(wordToTranslate).toEqual("a dog");
+    } else {
+      expect(wordToTranslate).toEqual("dogs");
+    }
+  });
+
+  it("should select randomly among several weak forms", () => {
+    const { form, language, wordToTranslate } = selectForm(word6, undefined);
+    expect(language).toEqual("french");
+    expect(form).toEqual(
+      expect.stringMatching(/singularMasculine|pluralMasculine/)
+    );
+    if (form === FORMS.SingularMasculine) {
+      expect(wordToTranslate).toEqual("sauvage");
+    } else {
+      expect(wordToTranslate).toEqual("sauvages");
+    }
   });
 
   it("should select the weakest forms", () => {
-    const { form, language, wordToTranslate } = selectForm(word5);
+    const { form, language, wordToTranslate } = selectForm(
+      word5,
+      ARTICLE_FORMS.Definite
+    );
     expect(language).toEqual("french");
     expect(form).toEqual("pluralMasculine");
-    expect(wordToTranslate).toEqual("chiens");
+    expect(wordToTranslate).toEqual("les chiens");
   });
 });

@@ -20,16 +20,14 @@ const addEnglishArticle = (
   articleForm: ARTICLE_FORMS,
   form: EnglishNameForms
 ): string => {
-  let article;
-
   if (articleForm === ARTICLE_FORMS.Indefinite && form === FORMS.Singular) {
     const beginningWithVowel = /^[aeiou]/;
     if (beginningWithVowel.test(word)) {
-      article = "an";
+      return `an ${word}`;
     }
-  } else {
-    article = ENGLISH_ARTICLES[articleForm][form];
   }
+
+  const article = ENGLISH_ARTICLES[articleForm][form];
 
   return `${article} ${word}`.trim();
 };

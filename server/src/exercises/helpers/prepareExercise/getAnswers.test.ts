@@ -1,6 +1,7 @@
-import getAcceptedAnswers from "./getAcceptedAnswers.function";
+import getAnswers from "./getAnswers.function";
 
 import { Word } from "../../../graphql/types";
+import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 
 const word0: Word = {
   english: {
@@ -180,19 +181,19 @@ const word4: Word = {
   weakestForms: [],
 };
 
-describe("getAcceptedAnswers", () => {
+describe("getAnswers", () => {
   it("should return several uniqueForm in english, verb", () => {
-    const acceptedAnswers = getAcceptedAnswers(word0, "uniqueForm", "french");
+    const acceptedAnswers = getAnswers(word0, "uniqueForm", "french");
     expect(acceptedAnswers).toEqual(["to bark", "bark"]);
   });
 
   it("should return single uniqueForm in french, verb", () => {
-    const acceptedAnswers = getAcceptedAnswers(word0, "uniqueForm", "english");
+    const acceptedAnswers = getAnswers(word0, "uniqueForm", "english");
     expect(acceptedAnswers).toEqual(["aboyer"]);
   });
 
   it("should return 4 french forms, adjective", () => {
-    const acceptedAnswers = getAcceptedAnswers(word1, "uniqueForm", "english");
+    const acceptedAnswers = getAnswers(word1, "uniqueForm", "english");
     expect(acceptedAnswers).toContain("gris");
     expect(acceptedAnswers).toContain("grise");
     expect(acceptedAnswers).toContain("grises");
@@ -200,16 +201,12 @@ describe("getAcceptedAnswers", () => {
   });
 
   it("should return a single english uniqueForm, adjective", () => {
-    const acceptedAnswers = getAcceptedAnswers(
-      word1,
-      "singularMasculine",
-      "french"
-    );
+    const acceptedAnswers = getAnswers(word1, "singularMasculine", "french");
     expect(acceptedAnswers).toEqual(["grey", "gray"]);
   });
 
   it("should return 4 french forms, adjective", () => {
-    const acceptedAnswers = getAcceptedAnswers(word2, "uniqueForm", "english");
+    const acceptedAnswers = getAnswers(word2, "uniqueForm", "english");
     expect(acceptedAnswers).toContain("sombre");
     expect(acceptedAnswers).toContain("noir");
     expect(acceptedAnswers).toContain("foncé");
@@ -227,31 +224,44 @@ describe("getAcceptedAnswers", () => {
   });
 
   it("should return singular french form, name", () => {
-    const acceptedAnswers = getAcceptedAnswers(word3, "singular", "english");
-    expect(acceptedAnswers).toEqual(["oiseau"]);
+    const acceptedAnswers = getAnswers(
+      word3,
+      "singular",
+      "english",
+      ARTICLE_FORMS.Definite
+    );
+    expect(acceptedAnswers).toEqual(["l'oiseau"]);
   });
 
   it("should return singular english form, name", () => {
-    const acceptedAnswers = getAcceptedAnswers(
+    const acceptedAnswers = getAnswers(
       word3,
       "singularMasculine",
-      "french"
+      "french",
+      ARTICLE_FORMS.Definite
     );
-    expect(acceptedAnswers).toEqual(["bird"]);
+    expect(acceptedAnswers).toEqual(["the bird"]);
   });
 
   it("should return singular english form, name", () => {
-    const acceptedAnswers = getAcceptedAnswers(
+    const acceptedAnswers = getAnswers(
       word4,
       "pluralFeminine",
-      "french"
+      "french",
+      ARTICLE_FORMS.Indefinite
     );
     expect(acceptedAnswers).toEqual(["cats"]);
   });
+
   it("should return masculine and feminine french form, name", () => {
-    const acceptedAnswers = getAcceptedAnswers(word4, "singular", "english");
-    expect(acceptedAnswers).toContain("chat");
-    expect(acceptedAnswers).toContain("chatte");
+    const acceptedAnswers = getAnswers(
+      word4,
+      "singular",
+      "english",
+      ARTICLE_FORMS.Indefinite
+    );
+    expect(acceptedAnswers).toContain("un chat");
+    expect(acceptedAnswers).toContain("une chatte");
     expect(acceptedAnswers).toHaveLength(2);
   });
 });

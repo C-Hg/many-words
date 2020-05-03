@@ -12,11 +12,11 @@ export const typeDefs = gql`
   type ExerciseWord {
     answers: [String!]!
     englishName: String!
+    form: Forms!
+    language: Languages!
     lesson: Lesson!
-    question: String!
-    selectedForm: Forms!
-    selectedLanguage: Languages!
     topic: Topic!
+    wordToTranslate: String!
   }
 
   type Word {

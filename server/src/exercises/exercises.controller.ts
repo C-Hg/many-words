@@ -2,7 +2,7 @@ import sample from "lodash.sample";
 
 import exercisesService from "./exercises.service";
 import appendWeakestForms from "./helpers/appendWeakestForms.function";
-import getAcceptedAnswers from "./helpers/prepareExercise/getAcceptedAnswers.function";
+import getAnswers from "./helpers/prepareExercise/getAnswers.function";
 import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 import { ARTICLE_FORMS } from "./interfaces/name.interface";
@@ -17,62 +17,56 @@ const exercisesController = {
    * Fetches the words for a given exercise
    */
   getExerciseWords: async (exercise: Lesson, user: User): Promise<void> => {
-    try {
-      const words = await exercisesService.getLessonWords(exercise);
+    logger.debug(`[getExerciseWords] exercise ${exercise}, user ${user.id}`);
+    const words = await exercisesService.getLessonWords(exercise);
 
-      // get the wordStats for the words of this lesson
-      const wordsStats = await statsService.findWordsStatsForWords(
-        user._id,
-        words
-      );
+    // get the wordStats for the words of this lesson
+    const wordsStats = await statsService.findWordsStatsForWords(
+      user._id,
+      words
+    );
 
-      // appends the weakest forms for each word, or [] if the word has never been encountered
-      const wordsWithWeakestFormsStats = appendWeakestForms(words, wordsStats);
+    // appends the weakest forms for each word, or [] if the word has never been encountered
+    const wordsWithWeakestFormsStats = appendWeakestForms(words, wordsStats);
 
-      return exercisesController.prepareWordsForExercise(
-        wordsWithWeakestFormsStats
-      );
-    } catch (error) {
-      logger.error(`[getLesson] error while fetching lesson data - ${error}`);
-    }
+    return exercisesController.prepareWordsForExercise(
+      wordsWithWeakestFormsStats
+    );
   },
 
   getWeakWords: async (reference: string, user: User): Promise<void> => {
-    try {
-      // get words stats for a specific reference
-      const wordsStats = await exercisesService.getWordsStats(
-        reference,
-        user._id
-      );
-      if (!wordsStats) {
-        throw new Error(`No word stats found for user ${user._id}`);
-      }
-
-      // sort words stats and keep only the first 50
-      const sortedWordsStats = sortWordStats(wordsStats);
-      const slicedWordsStats = sortedWordsStats.slice(0, 50);
-
-      // get the words corresponding to the 50 weakest words
-      const words = await exercisesService.getWordsFromWordsStats(
-        slicedWordsStats
-      );
-
-      // filters out the stats of the weakest forms of each word
-      const wordsWithWeakestFormsStats = appendWeakestForms(
-        words,
-        slicedWordsStats
-      );
-
-      return exercisesController.prepareWordsForExercise(
-        wordsWithWeakestFormsStats
-      );
-    } catch (error) {
-      logger.error(`[getWeakWord] cannot get weak words - ${error}`);
+    logger.debug(`[getWeakWords] reference ${reference}, user ${user.id}`);
+    // get words stats for a specific reference
+    const wordsStats = await exercisesService.getWordsStats(
+      reference,
+      user._id
+    );
+    if (!wordsStats) {
+      throw new Error(`No word stats found for user ${user._id}`);
     }
+
+    // sort words stats and keep only the first 50
+    const sortedWordsStats = sortWordStats(wordsStats);
+    const slicedWordsStats = sortedWordsStats.slice(0, 50);
+
+    // get the words corresponding to the 50 weakest words
+    const words = await exercisesService.getWordsFromWordsStats(
+      slicedWordsStats
+    );
+
+    // filters out the stats of the weakest forms of each word
+    const wordsWithWeakestFormsStats = appendWeakestForms(
+      words,
+      slicedWordsStats
+    );
+
+    return exercisesController.prepareWordsForExercise(
+      wordsWithWeakestFormsStats
+    );
   },
 
-  prepareWordsForExercise: (words: Word[]): any => {
-    return words.map((word) => {
+  prepareWordsForExercise: (words: Word[]): any =>
+    words.map((word) => {
       let articleForm;
       if (word.type === "noun" && !word.hasUniqueForm) {
         articleForm = sample([
@@ -82,31 +76,28 @@ const exercisesController = {
       }
 
       // picks the source language and the form
-      // TODO: update selectForm tests for nouns, test adjectives
       const selectionResult = selectForm(word, articleForm);
       const { form, language } = selectionResult;
       const { wordToTranslate } = selectionResult;
 
-      // TODO: update getAcceptedAnswers tests for nouns
-      const acceptedAnswers = getAcceptedAnswers(
-        word,
-        form,
-        language,
-        articleForm
-      );
+      const answers = getAnswers(word, form, language, articleForm);
 
-      const { lesson, topic } = word;
+      const {
+        lesson,
+        topic,
+        english: { name },
+      } = word;
+
       return {
-        acceptedAnswers,
+        answers,
+        englishName: name,
         form,
         language,
         lesson,
         topic,
         wordToTranslate,
       };
-      logger.debug("[prepareWordsForExercise]");
-    });
-  },
+    }),
 
   // getWordsToLearn: async (req: Request, res: Response): Promise<void> => {
   //   try {
