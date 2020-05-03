@@ -1,6 +1,8 @@
 import selectForm from "./selectForm.function";
 
 import { Word } from "../../../graphql/types";
+import { FORMS } from "../../../stats/constants";
+import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 
 const word0: Word = {
   english: {
@@ -214,24 +216,38 @@ const word5: Word = {
 describe("selectForm", () => {
   const anyLanguage = expect.stringMatching(/english|french/);
 
-  it("should select uniqueForm with a random language", () => {
+  it("should select uniqueForm with a random language, verb", () => {
     const { form, language, wordToTranslate } = selectForm(word0);
     expect(form).toEqual("uniqueForm");
     expect(language).toEqual(anyLanguage);
     expect(wordToTranslate).toBeDefined();
   });
 
-  it("should select a random form with a random language", () => {
-    const { form, language, wordToTranslate } = selectForm(word3);
+  it("should select a random form with a random language, name", () => {
+    const { form, language, wordToTranslate } = selectForm(
+      word3,
+      ARTICLE_FORMS.Definite
+    );
     expect(language).toEqual(anyLanguage);
+    // ------------      selected french      -------------------
     if (language === "french") {
       expect(form).toEqual(
         expect.stringMatching(/singularMasculine|pluralMasculine/)
       );
+      if (form === FORMS.SingularMasculine) {
+        expect(wordToTranslate).toEqual("le chien");
+      } else {
+        expect(wordToTranslate).toEqual("les chiens");
+      }
+      // ------------      selected english     -------------------
     } else {
       expect(form).toEqual(expect.stringMatching(/singular|plural/));
+      if (form === FORMS.Singular) {
+        expect(wordToTranslate).toEqual("the dog");
+      } else {
+        expect(wordToTranslate).toEqual("the dogs");
+      }
     }
-    expect(wordToTranslate).toBeDefined();
   });
 
   it("should select uniqueForm, french with a random language", () => {

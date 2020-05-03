@@ -1,5 +1,7 @@
 import sample from "lodash.sample";
 
+import getWordsWithArticle from "./getWordsWithArticle.function";
+
 import {
   Word,
   FormStats,
@@ -7,11 +9,16 @@ import {
   Forms,
   Languages,
 } from "../../../graphql/types";
+import { LANGUAGES } from "../../../stats/constants";
+import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 import { SelectionResult } from "../../interfaces/word.interface";
 
 const languages = ["english", "french"];
 
-const selectForm = (word: Word): SelectionResult => {
+const selectForm = (
+  word: Word,
+  articleForm?: ARTICLE_FORMS
+): SelectionResult => {
   const { weakestForms } = word;
   let form: Forms;
   let language: Languages;
@@ -32,6 +39,16 @@ const selectForm = (word: Word): SelectionResult => {
       (formValue) => formValue.form === form
     ) as FormValue;
     wordToTranslate = formValue.values[0];
+  }
+
+  // this is a name, add the proper article
+  if (articleForm !== undefined) {
+    [wordToTranslate] = getWordsWithArticle(
+      [wordToTranslate],
+      articleForm,
+      form,
+      language
+    );
   }
 
   return {

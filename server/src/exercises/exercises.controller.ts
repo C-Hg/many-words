@@ -5,6 +5,7 @@ import appendWeakestForms from "./helpers/appendWeakestForms.function";
 import getAcceptedAnswers from "./helpers/prepareExercise/getAcceptedAnswers.function";
 import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
+import { ARTICLE_FORMS } from "./interfaces/name.interface";
 
 import { Lesson, Word } from "../graphql/types";
 import logger from "../logger";
@@ -72,40 +73,36 @@ const exercisesController = {
 
   prepareWordsForExercise: (words: Word[]): any => {
     return words.map((word) => {
-      const { weakestForms } = word;
-      let formDetails;
-
-      // picks the source language and the form
-      const selectionResult = selectForm(word);
-      const { form, language, wordToTranslate } = selectionResult;
-
-      const acceptedAnswers = getAcceptedAnswers(word, form, language);
-
-      // only nouns accept articles, special cases when nouns have only certains articles -> hasUniqueForm = true
-      let isDefinite;
-      let hasArticle = false;
+      let articleForm;
       if (word.type === "noun" && !word.hasUniqueForm) {
-        isDefinite = sample([true, false]) as boolean;
-        hasArticle = true;
+        articleForm = sample([
+          ARTICLE_FORMS.Definite,
+          ARTICLE_FORMS.Indefinite,
+        ]);
       }
 
-      const selectedWords = returnSelectedWordsWithArticle(
-        sourceLanguage,
-        word.fr,
-        word.en,
-        frenchForm,
-        englishForm,
-        hasArticle,
-        isDefinite,
-        word.enName
+      // picks the source language and the form
+      // TODO: update selectForm tests for nouns, test adjectives
+      const selectionResult = selectForm(word, articleForm);
+      const { form, language } = selectionResult;
+      const { wordToTranslate } = selectionResult;
+
+      // TODO: update getAcceptedAnswers tests for nouns
+      const acceptedAnswers = getAcceptedAnswers(
+        word,
+        form,
+        language,
+        articleForm
       );
+
+      const { lesson, topic } = word;
       return {
         acceptedAnswers,
         form,
         language,
-        lesson: word.lesson,
-        theme: word.theme,
-        wordToTranslate, // TODO: assign formattedWordToTranslate
+        lesson,
+        topic,
+        wordToTranslate,
       };
       logger.debug("[prepareWordsForExercise]");
     });

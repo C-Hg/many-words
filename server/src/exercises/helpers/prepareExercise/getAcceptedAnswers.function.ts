@@ -1,12 +1,15 @@
 import getAcceptedAnswersForms from "./getAcceptedAnswersForms.function";
+import getWordsWithArticle from "./getWordsWithArticle.function";
 
 import { Word, Forms, FormValue, Languages } from "../../../graphql/types";
 import { LANGUAGES } from "../../../stats/constants";
+import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 
 const getAcceptedAnswers = (
   word: Word,
   sourceForm: Forms,
-  sourceLanguage: Languages
+  sourceLanguage: Languages,
+  articleForm?: ARTICLE_FORMS
 ): string[] => {
   const { type } = word;
 
@@ -22,11 +25,22 @@ const getAcceptedAnswers = (
 
   const acceptedForms: string[] = [];
   acceptedAnswersForms.forEach((form) => {
-    const acceptedAnswersForThisForm = word[targetLanguage].words.find(
+    const acceptedAnswers = word[targetLanguage].words.find(
       (formValues) => formValues.form === form
     ) as FormValue;
-    if (acceptedAnswersForThisForm) {
-      return acceptedForms.push(...acceptedAnswersForThisForm.values);
+    if (acceptedAnswers) {
+      if (articleForm === undefined) {
+        acceptedForms.push(...acceptedAnswers.values);
+      } else {
+        // articleForm is defined, add an article to the names
+        const acceptedAnswersWithArticles = getWordsWithArticle(
+          acceptedAnswers.values,
+          articleForm,
+          form,
+          targetLanguage
+        );
+        acceptedForms.push(...acceptedAnswersWithArticles);
+      }
     }
   });
 
