@@ -6,6 +6,7 @@ import {
   typeDefs as exercise,
   resolvers as exerciseResolvers,
 } from "../exercises/exercises.schemas";
+import logger from "../logger";
 import {
   typeDefs as stats,
   resolvers as statsResolvers,
@@ -21,7 +22,7 @@ const schema = makeExecutableSchema({
   resolvers: merge(exerciseResolvers, statsResolvers, userResolvers),
 });
 
-const server = new ApolloServer({
+const exerciseServer = new ApolloServer({
   schema,
   context: ({
     req,
@@ -30,6 +31,7 @@ const server = new ApolloServer({
     req: Request;
     res: Response;
   }): { req: Request; res: Response } => ({ req, res }),
+  logger: logger,
 });
 
-export default server;
+export default exerciseServer;

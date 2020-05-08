@@ -17,7 +17,7 @@ const app = express();
 app.set("trust proxy", 1);
 
 // applies graphql server
-// app.use(requestLogger);
+app.use(requestLogger);
 app.use(helmet());
 app.use(authentication);
 

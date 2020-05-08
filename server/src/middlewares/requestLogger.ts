@@ -2,16 +2,18 @@ import { Response, NextFunction, Request } from "express";
 
 import logger from "../logger";
 
-const requestLogger = async (
+const requestLogger = (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
-  logger.debug(` --------------------------> New request ${req.url} `);
+): void => {
+  logger.debug(`------------> New request at ${req.url} `);
   const startTime = Date.now();
-  await next();
-  const endTime = Date.now();
-  logger.debug(`Completed request in ${endTime - startTime} ms`);
+  res.on("close", () => {
+    const endTime = Date.now();
+    logger.debug(`<----------- Completed request in ${endTime - startTime} ms`);
+  });
+  next();
 };
 
 export default requestLogger;

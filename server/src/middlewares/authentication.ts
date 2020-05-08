@@ -9,8 +9,8 @@ const authentication = async (
   next: NextFunction
 ): Promise<void> => {
   // TODO: fetch real user for production
-  const user = null;
-  // const user = await userService.getUserById("5d66dc6a8946c00184ab1102");
+  // const user = null;
+  const user = await userService.getUserById("5d66dc6a8946c00184ab1102");
   if (user) {
     req.ctx = { user: user.toObject() };
     logger.debug(`[authentication] authenticated user ${user.id}`);
