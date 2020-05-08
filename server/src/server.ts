@@ -1,4 +1,3 @@
-import bodyParser from "body-parser";
 import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
@@ -6,22 +5,33 @@ import mongoose from "mongoose";
 import path from "path";
 
 import secrets from "./config/secrets";
-import server from "./graphql";
+import authenticationServer from "./graphql/authenticationServer";
+import exercisesServer from "./graphql/exercisesServer";
 import logger from "./logger";
 import authentication from "./middlewares/authentication";
 import requestLogger from "./middlewares/requestLogger";
 
-const app = express();
+/* --------------------     Authentication app      ------------*/
+const authenticationApp = express();
+authenticationServer.applyMiddleware({
+  app: authenticationApp,
+  path: "/",
+});
 
+/* ----------------------     Exercises app         ------------*/
+// All routes for exercisesServer requires a valid JWT and a user
+const exercisesApp = express();
+exercisesApp.use(authentication);
+exercisesServer.applyMiddleware({ app: exercisesApp, path: "/" });
+
+/* ----------------------     Main app    ------------*/
+const app = express();
+const commonMiddlewares = [requestLogger, helmet()];
 // TODO: delete?
 app.set("trust proxy", 1);
-
-// applies graphql server
-app.use(requestLogger);
-app.use(helmet());
-app.use(authentication);
-
-server.applyMiddleware({ app });
+app.use("/", commonMiddlewares);
+app.use("/authentication", authenticationApp);
+app.use("/exercises", exercisesApp);
 
 /* ----------------------     Mongoose setup     ------------*/
 mongoose.connect(secrets.MONGO_URI, {
@@ -38,8 +48,12 @@ db.once("open", () => {
   logger.info("Connected to database");
   // configuring the listening port
   app.listen({ port: secrets.SERVER_PORT }, () => {
+    logger.info("-------     🚀  Many-words server is live 🚀     -------");
     logger.info(
-      `🚀🚀  Many-words is ready at http://localhost:${secrets.SERVER_PORT}${server.graphqlPath}`
+      `🔑 authentication: http://localhost:${secrets.SERVER_PORT}/authentication`
+    );
+    logger.info(
+      `🎯 exercises: http://localhost:${secrets.SERVER_PORT}/exercises`
     );
   });
 });

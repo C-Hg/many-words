@@ -93,7 +93,6 @@ export const resolvers = {
       { id }: { id: Lesson },
       { req }: { req: Request }
     ): Promise<ExerciseWord[]> => {
-      withUser(req);
       return exercisesController.getExerciseWords(id, req.ctx.user);
     },
   },

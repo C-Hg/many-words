@@ -1,8 +1,6 @@
 import { gql } from "apollo-server-express";
 import { Request } from "express";
 
-import withUser from "./utils/withUser";
-
 import { User } from "../graphql/types";
 
 export const typeDefs = gql`
@@ -20,7 +18,6 @@ export const typeDefs = gql`
 export const resolvers = {
   Query: {
     user: (parent: {}, args: {}, { req }: { req: Request }): User => {
-      withUser(req);
       return req.ctx.user;
     },
   },
