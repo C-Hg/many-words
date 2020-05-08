@@ -1,7 +1,12 @@
-// overriding predefined user object (req.user)
+/**
+ * Declare a custom context object to pass user
+ * Cannot override Express user without being optional
+ */
 
 declare namespace Express {
   export interface Request {
-    user?: import("../user/interfaces/user.interface").User;
+    ctx: {
+      user: import("../user/interfaces/user.interface").User;
+    };
   }
 }

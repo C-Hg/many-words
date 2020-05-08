@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
@@ -8,12 +9,15 @@ import secrets from "./config/secrets";
 import server from "./graphql";
 import logger from "./logger";
 import authentication from "./middlewares/authentication";
+import requestLogger from "./middlewares/requestLogger";
 
 const app = express();
-// applies graphql server
 
 // TODO: delete?
 app.set("trust proxy", 1);
+
+// applies graphql server
+// app.use(requestLogger);
 app.use(helmet());
 app.use(authentication);
 
@@ -39,10 +43,6 @@ db.once("open", () => {
     );
   });
 });
-
-/* --------------------------      routing        ----------------- */
-// app.use("/api/", apiRoutes);
-// app.use("/auth/", authRoutes);
 
 /* React bundle is served by the node server but allows client-side routing on production */
 if (secrets.NODE_ENV !== "development") {

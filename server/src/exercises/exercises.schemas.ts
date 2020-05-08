@@ -7,6 +7,7 @@ import exercisesController from "./exercises.controller";
 
 import { Lesson, ExerciseWord } from "../graphql/types";
 import logger from "../logger";
+import withUser from "../user/utils/withUser";
 
 export const typeDefs = gql`
   extend type Query {
@@ -92,12 +93,8 @@ export const resolvers = {
       { id }: { id: Lesson },
       { req }: { req: Request }
     ): Promise<ExerciseWord[]> => {
-      if (!req.user) {
-        logger.error("[updateStats] user is undefined");
-        throw new Error("[updateStats] user is undefined");
-      }
-      logger.info("in resolver");
-      return exercisesController.getExerciseWords(id, req.user);
+      withUser(req);
+      return exercisesController.getExerciseWords(id, req.ctx.user);
     },
   },
 };

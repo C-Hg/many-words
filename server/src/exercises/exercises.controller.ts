@@ -11,6 +11,7 @@ import { Lesson, Word, ExerciseWord } from "../graphql/types";
 import logger from "../logger";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
+import error500 from "../utils/error500";
 
 const exercisesController = {
   /**
@@ -48,7 +49,8 @@ const exercisesController = {
       user._id
     );
     if (!wordsStats) {
-      throw new Error(`No word stats found for user ${user._id}`);
+      logger.error(`No word stats found for user ${user._id}`);
+      throw error500();
     }
 
     // sort words stats and keep only the first 50

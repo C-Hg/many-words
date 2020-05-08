@@ -10,6 +10,7 @@ import {
   WordStatsDocument,
 } from "../stats/interfaces/wordStats.interface";
 import WordStatsModel from "../stats/models/wordStats.model";
+import error500 from "../utils/error500";
 
 const exercisesService = {
   /**
@@ -31,9 +32,7 @@ const exercisesService = {
           logger.error(
             `[getWordsFromWordsStats] could not find word ${englishName}`
           );
-          throw new Error(
-            `[getWordsFromWordsStats] could not find word ${englishName}`
-          );
+          throw error500();
         }
         return word;
       })
@@ -64,7 +63,7 @@ const exercisesService = {
     const word = await WordModel.findOne({ "english.name": englishName });
     if (!word) {
       logger.error(`[findWordByEnglishName] Word ${englishName} not found`);
-      throw new Error(`[findWordByEnglishName] Word ${englishName} not found`);
+      throw error500();
     }
     return word.toObject();
   },

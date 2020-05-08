@@ -77,7 +77,7 @@ export const resolvers = {
         logger.error("[updateStats] user is undefined");
         throw new Error("[updateStats] user is undefined");
       }
-      return statsController.updateStats(req.user, results);
+      return statsController.updateStats(req.ctx.user, results);
     },
   },
 };

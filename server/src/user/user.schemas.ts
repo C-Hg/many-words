@@ -1,8 +1,9 @@
 import { gql } from "apollo-server-express";
 import { Request } from "express";
 
+import withUser from "./utils/withUser";
+
 import { User } from "../graphql/types";
-import logger from "../logger";
 
 export const typeDefs = gql`
   type Query {
@@ -19,11 +20,8 @@ export const typeDefs = gql`
 export const resolvers = {
   Query: {
     user: (parent: {}, args: {}, { req }: { req: Request }): User => {
-      if (!req.user) {
-        logger.error("user is undefined");
-        throw new Error("user is undefined");
-      }
-      return req.user;
+      withUser(req);
+      return req.ctx.user;
     },
   },
 };
