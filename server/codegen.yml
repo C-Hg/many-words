@@ -1,7 +1,7 @@
 overwrite: true
-schema: "http://localhost:4000/graphql"
 generates:
-  src/graphql/types.tsx:
+  src/graphql/authorization.types.tsx:
+    schema: "http://localhost:4000/authorization"
     plugins:
       - "typescript"
       - "typescript-operations"
@@ -10,8 +10,16 @@ generates:
     config:
       enumsAsTypes: true
       skipTypename: true
-  ./graphql.schema.json:
+# TODO: add expired token for dev mode
+  src/graphql/exercises.types.tsx:
+    schema: "http://localhost:4000/exercises"
     plugins:
-      - "introspection"
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-resolvers"
+      - "typescript-react-apollo"
+    config:
+      enumsAsTypes: true
+      skipTypename: true
     
 # TODO: separate file for server and web-app

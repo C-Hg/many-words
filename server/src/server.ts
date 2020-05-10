@@ -5,16 +5,16 @@ import mongoose from "mongoose";
 import path from "path";
 
 import secrets from "./config/secrets";
-import authenticationServer from "./graphql/authenticationServer";
+import authorizationServer from "./graphql/authorizationServer";
 import exercisesServer from "./graphql/exercisesServer";
 import logger from "./logger";
 import authentication from "./middlewares/authentication";
 import requestLogger from "./middlewares/requestLogger";
 
-/* --------------------     Authentication app      ------------*/
-const authenticationApp = express();
-authenticationServer.applyMiddleware({
-  app: authenticationApp,
+/* --------------------     Authorization app      ------------*/
+const authorizationApp = express();
+authorizationServer.applyMiddleware({
+  app: authorizationApp,
   path: "/",
 });
 
@@ -30,7 +30,7 @@ const commonMiddlewares = [requestLogger, helmet()];
 // TODO: delete?
 app.set("trust proxy", 1);
 app.use("/", commonMiddlewares);
-app.use("/authentication", authenticationApp);
+app.use("/authorization", authorizationApp);
 app.use("/exercises", exercisesApp);
 
 /* ----------------------     Mongoose setup     ------------*/
@@ -50,7 +50,7 @@ db.once("open", () => {
   app.listen({ port: secrets.SERVER_PORT }, () => {
     logger.info("-------     🚀  Many-words server is live 🚀     -------");
     logger.info(
-      `🔑 authentication: http://localhost:${secrets.SERVER_PORT}/authentication`
+      `🔑 authorization: http://localhost:${secrets.SERVER_PORT}/authorization`
     );
     logger.info(
       `🎯 exercises: http://localhost:${secrets.SERVER_PORT}/exercises`

@@ -2,7 +2,7 @@
 import { ObjectId } from "mongodb";
 import { Document } from "mongoose";
 
-import { User as GeneratedUser } from "../../graphql/types";
+import { User as GeneratedUser } from "../../graphql/exercises.types";
 
 // strict interface : use this interface instead of the generated one
 export interface User extends GeneratedUser {

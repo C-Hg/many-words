@@ -1,4 +1,4 @@
-import { Languages, Forms } from "../../../graphql/types";
+import { Languages, Forms } from "../../../graphql/exercises.types";
 import { LANGUAGES, FORMS } from "../../../stats/constants";
 
 /**

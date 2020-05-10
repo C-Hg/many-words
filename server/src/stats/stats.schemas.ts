@@ -5,7 +5,7 @@ import FormResult from "./interfaces/formResult.interface";
 import statsController from "./stats.controller";
 
 import wordCountByLesson from "../exercises/data/wordCountByLesson";
-import { User } from "../graphql/types";
+import { User } from "../graphql/exercises.types";
 import logger from "../logger";
 
 export const typeDefs = gql`

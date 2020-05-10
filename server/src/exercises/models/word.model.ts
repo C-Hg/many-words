@@ -3,15 +3,33 @@ import mongoose from "mongoose";
 import { WordDocument } from "../interfaces/word.interface";
 
 const { Schema } = mongoose;
-
+// TODO: update schema
 const WordSchema = new Schema({
   english: {
     name: { type: String, required: true },
-    words: { type: Array, required: true },
+    words: [{ 
+      form: {
+        type: String, 
+        required: true,
+      },
+      values: [{
+        type: String, 
+        required: true,
+      }],
+    }],
   },
   french: {
     name: { type: String, required: true },
-    words: { type: Array, required: true },
+    words: [{ 
+      form: {
+        type: String, 
+        required: true,
+      },
+      values: [{
+        type: String, 
+        required: true,
+      }],
+    }],
   },
   hasUniqueForm: { type: Boolean, required: true, default: false },
   type: { type: String, required: true },

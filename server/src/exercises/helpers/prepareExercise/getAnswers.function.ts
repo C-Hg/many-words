@@ -1,7 +1,7 @@
 import getAnswersForms from "./getAnswersForms.function";
 import getWordsWithArticle from "./getWordsWithArticle.function";
 
-import { Word, Forms, FormValue, Languages } from "../../../graphql/types";
+import { Word, Forms, FormValue, Languages } from "../../../graphql/exercises.types";
 import { LANGUAGES } from "../../../stats/constants";
 import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 

@@ -1,6 +1,6 @@
 import { EnglishNameForms, FrenchNameForms } from "./name.interface";
 
-import { Topic, Lesson, Forms } from "../../graphql/types";
+import { Topic, Lesson, Forms } from "../../graphql/exercises.types";
 import lessonsByTopic from "../data/lessonsByTopic";
 import wordCountByLesson from "../data/wordCountByLesson";
 

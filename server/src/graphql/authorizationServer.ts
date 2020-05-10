@@ -3,17 +3,17 @@ import { Response, Request } from "express";
 import merge from "lodash.merge";
 
 import {
-  typeDefs as user,
-  resolvers as userResolvers,
-} from "../user/user.schemas";
+  typeDefs as authorization,
+  resolvers as authorizationResolvers,
+} from "../authorization/authorization.schemas";
 
 // Build the global schema by merging concern-based separated typeDefs and resolvers
 const schema = makeExecutableSchema({
-  typeDefs: [user],
-  resolvers: merge(userResolvers),
+  typeDefs: [authorization],
+  resolvers: merge(authorizationResolvers),
 });
 
-const authenticationServer = new ApolloServer({
+const authorizationServer = new ApolloServer({
   schema,
   context: ({
     req,
@@ -24,4 +24,4 @@ const authenticationServer = new ApolloServer({
   }): { req: Request; res: Response } => ({ req, res }),
 });
 
-export default authenticationServer;
+export default authorizationServer;

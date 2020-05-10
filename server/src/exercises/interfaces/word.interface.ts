@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-import { Forms, Languages, Word } from "../../graphql/types";
+import { Forms, Languages, Word } from "../../graphql/exercises.types";
 
 export interface FormValue {
   form: Forms;

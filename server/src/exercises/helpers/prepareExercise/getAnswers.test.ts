@@ -1,6 +1,6 @@
 import getAnswers from "./getAnswers.function";
 
-import { Word } from "../../../graphql/types";
+import { Word } from "../../../graphql/exercises.types";
 import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 
 const word0: Word = {

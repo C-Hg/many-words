@@ -1,6 +1,6 @@
 import updateTopicsStats from "./updateTopicsStats.function";
 
-import { LessonsScores } from "../../../graphql/types";
+import { LessonsScores } from "../../../graphql/exercises.types";
 
 const LessonsScores0: LessonsScores = {
   mainColors: 0.4,

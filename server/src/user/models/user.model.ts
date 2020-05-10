@@ -6,8 +6,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    email: { type: String, required: true },
-    googleId: { type: String, required: false },
+    email: { type: String, required: false },
     stats: {
       lessons: {
         type: Object,
@@ -15,7 +14,6 @@ const userSchema = new Schema(
       },
       topics: {
         type: Object,
-        required: true,
         default: [],
       },
       global: {

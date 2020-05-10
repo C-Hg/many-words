@@ -3,7 +3,7 @@ import { ObjectID } from "mongodb";
 import { WordDocument } from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
-import { Lesson, Topic, Word } from "../graphql/types";
+import { Lesson, Topic, Word } from "../graphql/exercises.types";
 import logger from "../logger";
 import {
   WordStats,
