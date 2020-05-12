@@ -8,6 +8,7 @@ module.exports = {
         displayName: "server",
         testMatch: ["<rootDir>/server/**/*.test.ts"],
         testEnvironment: 'node',
+        setupFiles: ["<rootDir>/jestEnv.ts"]
       },
       // TODO: test tools with TS
       // { 

@@ -1,5 +1,3 @@
-import { Request, Response } from "express";
-
 import { Tokens } from "../graphql/authorization.types";
 import userService from "../user/user.service";
 

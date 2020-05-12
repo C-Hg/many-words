@@ -5,11 +5,10 @@ import WordResult from "./interfaces/wordResult.interface";
 import { WordStatsDocument } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
-import { Word } from "../exercises/interfaces/word.interface";
-import { Stats } from "../graphql/exercises.types";
-import logger from "../logger";
+import { Stats, Word } from "../graphql/exercises.types";
 import { UserDocument, User } from "../user/interfaces/user.interface";
 import UserModel from "../user/models/user.model";
+import logger from "../utils/logger";
 
 const statsService = {
   findWordsStatsForWords: async (

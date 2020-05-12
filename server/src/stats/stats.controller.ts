@@ -9,8 +9,8 @@ import FormResult from "./interfaces/formResult.interface";
 import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
-import logger from "../logger";
 import { User, UserDocument } from "../user/interfaces/user.interface";
+import logger from "../utils/logger";
 
 const statsController = {
   /**

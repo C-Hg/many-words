@@ -6,7 +6,7 @@ import statsController from "./stats.controller";
 
 import wordCountByLesson from "../exercises/data/wordCountByLesson";
 import { User } from "../graphql/exercises.types";
-import logger from "../logger";
+import logger from "../utils/logger";
 
 export const typeDefs = gql`
   extend type User {

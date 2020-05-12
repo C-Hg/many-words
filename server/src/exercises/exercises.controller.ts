@@ -8,10 +8,10 @@ import sortWordStats from "./helpers/sortWordStats.function";
 import { ARTICLE_FORMS } from "./interfaces/name.interface";
 
 import { Lesson, Word, ExerciseWord } from "../graphql/exercises.types";
-import logger from "../logger";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
 import error500 from "../utils/error500";
+import logger from "../utils/logger";
 
 const exercisesController = {
   /**

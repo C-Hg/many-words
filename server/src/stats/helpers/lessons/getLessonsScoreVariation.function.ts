@@ -1,4 +1,4 @@
-import logger from "../../../logger";
+import logger from "../../../utils/logger";
 import { LessonScoreVariation } from "../../interfaces/lessonScoreVariation.interface";
 import WordResult from "../../interfaces/wordResult.interface";
 

@@ -4,12 +4,12 @@ import mongoose from "mongoose";
 
 import path from "path";
 
-import secrets from "./config/secrets";
+import CONFIG from "./config/secrets";
 import authorizationServer from "./graphql/authorizationServer";
 import exercisesServer from "./graphql/exercisesServer";
-import logger from "./logger";
 import authentication from "./middlewares/authentication";
 import requestLogger from "./middlewares/requestLogger";
+import logger from "./utils/logger";
 
 /* --------------------     Authorization app      ------------*/
 const authorizationApp = express();
@@ -34,7 +34,7 @@ app.use("/authorization", authorizationApp);
 app.use("/exercises", exercisesApp);
 
 /* ----------------------     Mongoose setup     ------------*/
-mongoose.connect(secrets.MONGO_URI, {
+mongoose.connect(CONFIG.mongoUri, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
@@ -47,19 +47,19 @@ db.on("error", (error) => logger.error(`MongoDB connection error - ${error}`));
 db.once("open", () => {
   logger.info("Connected to database");
   // configuring the listening port
-  app.listen({ port: secrets.SERVER_PORT }, () => {
+  app.listen({ port: CONFIG.serverPort }, () => {
     logger.info("-------     🚀  Many-words server is live 🚀     -------");
     logger.info(
-      `🔑 authorization: http://localhost:${secrets.SERVER_PORT}/authorization`
+      `🔑 authorization: http://localhost:${CONFIG.serverPort}/authorization`
     );
     logger.info(
-      `🎯 exercises: http://localhost:${secrets.SERVER_PORT}/exercises`
+      `🎯 exercises: http://localhost:${CONFIG.serverPort}/exercises`
     );
   });
 });
 
 /* React bundle is served by the node server but allows client-side routing on production */
-if (secrets.NODE_ENV !== "development") {
+if (CONFIG.env !== "development") {
   app.use(express.static(path.join(__dirname, "build")));
   app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "build", "index.html"));

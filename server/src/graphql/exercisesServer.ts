@@ -6,7 +6,6 @@ import {
   typeDefs as exercise,
   resolvers as exerciseResolvers,
 } from "../exercises/exercises.schemas";
-import logger from "../logger";
 import {
   typeDefs as stats,
   resolvers as statsResolvers,

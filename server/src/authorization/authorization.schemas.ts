@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-express";
-import { Request } from "express";
+
+import authorizationController from "./authorization.controller";
 
 import { Tokens } from "../graphql/authorization.types";
-import authorizationController from "./authorization.controller";
 
 export const typeDefs = gql`
   type Query {
@@ -21,8 +21,8 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Mutation: {
-    createUser: async (parent: {}, args: {}, { req }: { req: Request }): Promise<Tokens> => {
-      return authorizationController.createUser()
+    createUser: async (): Promise<Tokens> => {
+      return authorizationController.createUser();
     },
-  }
-}
+  },
+};

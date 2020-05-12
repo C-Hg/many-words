@@ -1,7 +1,7 @@
 import { Response, NextFunction, Request } from "express";
 
-import logger from "../logger";
 import userService from "../user/user.service";
+import logger from "../utils/logger";
 
 const authentication = async (
   req: Request,

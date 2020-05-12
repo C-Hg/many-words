@@ -23,9 +23,7 @@ services:
     container_name: manywords-server
     environment:
       NODE_ENV: "development"
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      SESSION_SECRET: ${SESSION_SECRET}
+      JWT_SIGNATURE: ${JWT_SIGNATURE}
       SERVER_PORT: ${SERVER_PORT}
     # to allow hot reloading
     volumes:

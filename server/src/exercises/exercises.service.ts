@@ -4,13 +4,13 @@ import { WordDocument } from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
 import { Lesson, Topic, Word } from "../graphql/exercises.types";
-import logger from "../logger";
 import {
   WordStats,
   WordStatsDocument,
 } from "../stats/interfaces/wordStats.interface";
 import WordStatsModel from "../stats/models/wordStats.model";
 import error500 from "../utils/error500";
+import logger from "../utils/logger";
 
 const exercisesService = {
   /**

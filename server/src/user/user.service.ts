@@ -1,7 +1,7 @@
 import { UserDocument } from "./interfaces/user.interface";
 import User from "./models/user.model";
 
-import logger from "../logger";
+import logger from "../utils/logger";
 
 const userService = {
   /**
