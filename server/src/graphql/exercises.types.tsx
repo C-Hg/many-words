@@ -233,7 +233,7 @@ export type TopicStats = {
 };
 
 export type User = {
-  id?: Maybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   email: Scalars["String"];
   stats: Stats;
 };
@@ -692,7 +692,7 @@ export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]
 > = {
-  id?: Resolver<Maybe<ResolversTypes["ID"]>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   stats?: Resolver<ResolversTypes["Stats"], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;

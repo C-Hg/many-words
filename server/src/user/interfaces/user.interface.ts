@@ -4,15 +4,15 @@ import { Document } from "mongoose";
 
 import { User as GeneratedUser } from "../../graphql/exercises.types";
 
-// strict interface : use this interface instead of the generated one
+/**
+ * Use this interface instead of the generated one
+ * to narrow _id to ObjectId and have a mandatory id as string
+ */
 export interface User extends GeneratedUser {
+  _id: ObjectId;
+}
+
+export interface UserDocument extends User, Document {
   _id: ObjectId;
   id: string;
 }
-
-// non-strict interface to be compatible with MongooseDocument
-interface UserWithOptionalId extends GeneratedUser {
-  id?: any;
-}
-
-export interface UserDocument extends UserWithOptionalId, Document {}

@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import { Request } from "express";
 
-import { User } from "../graphql/types";
+import { User } from "../graphql/exercises.types";
 
 export const typeDefs = gql`
   type Query {
@@ -9,8 +9,7 @@ export const typeDefs = gql`
   }
 
   type User {
-    #_id: ObjectId added via User interface
-    id: ID # cast to string with codegen
+    id: ID!
     email: String!
   }
 `;
