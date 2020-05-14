@@ -1,7 +1,6 @@
 import signToken from "./signToken";
 import verifyToken from "./verifyToken";
 
-import logger from "../../utils/logger";
 import {
   ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
@@ -9,7 +8,7 @@ import {
 import { TokenTypes } from "../interfaces/tokenPayload.interface";
 
 describe("signToken", () => {
-  it("should sign an access token", async () => {
+  it("should sign an access token and verify it", async () => {
     const exp = Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION;
     const payload = {
       exp,
@@ -24,7 +23,7 @@ describe("signToken", () => {
     expect(decodedToken.sub).toEqual("aRandomIdString");
   });
 
-  it("should sign a refresh token", async () => {
+  it("should sign a refresh token and verify it", async () => {
     const exp = Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION;
     const payload = {
       exp,

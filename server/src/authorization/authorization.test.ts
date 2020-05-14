@@ -1,41 +1,39 @@
-import { toPromise } from "apollo-link";
 import gql from "graphql-tag";
 
-import { exercisesGraphql } from "../utils/graphqlClient";
+import { authorizationClient } from "../utils/graphqlClient";
 
-const USER_QUERY = gql`
-  query user {
-    user {
-      id
-      email
+const CREATE_USER = gql`
+  mutation createUser {
+    createUser {
+      accessToken
+      refreshToken
     }
   }
 `;
 
-// TODO: manage JWT https://blog.logrocket.com/writing-end-to-end-tests-for-graphql-servers-using-jest/
-// TODO: docker with watch to use secrets, with different ports
 describe("Server - e2e", () => {
-  it("should return a 401 error", async () => {
-    // await expect(
-    //   toPromise(
-    //     exercisesGraphql({
-    //       query: USER_QUERY,
-    //     })
-    //   )
-    // ).rejects.toThrowError("401");
-    expect(true).toBe(true);
+  it("should create a user and return the tokens", async () => {
+    const res = await authorizationClient.mutate({
+      mutation: CREATE_USER,
+    });
+    const {
+      data: {
+        createUser: { accessToken, refreshToken },
+      },
+    } = res;
+    expect(accessToken).toBeDefined();
+    expect(refreshToken).toBeDefined();
   });
 
-  // it should get a token and create a user
+  // it should get a new access token from refresh token
 
-  // it("should get user", async () => {
-  //   const res = await toPromise(
-  //     unauthenticatedGraphql({
-  //       query: USER_QUERY,
-  //     })
-  //   );
-  //   expect(res).toMatchSnapshot();
-  // });
+  // it should throw an error if the refresh token is expired
 
-  // it should delete the user
+  // it should send an email with totp
+
+  // it should throw an error if the given email is of invalid format
+
+  // it should get new tokens if the totp is correct
+
+  // it should throw an explicit error if the totp is wrong
 });
