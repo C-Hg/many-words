@@ -1,5 +1,6 @@
 import { ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_EXPIRATION } from "./constants";
 import signToken from "./helpers/signToken";
+import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import { Tokens } from "../graphql/authorization.types";
@@ -40,6 +41,30 @@ const authorizationController = {
       authorizationController.craftRefreshToken(userId),
     ]);
     return { accessToken, refreshToken };
+  },
+
+  /**
+   * Returns a new access token, if the refresh token is valid
+   */
+  getAccessToken: async (refreshToken: string): Promise<string> => {
+    logger.debug("[getAccessToken] crafting a new access token");
+    try {
+      const verifiedRefreshToken = await verifyToken(refreshToken);
+      const { sub, tokenUse } = verifiedRefreshToken;
+      if (tokenUse !== TokenTypes.refresh) {
+        throw new Error("Invalid token type");
+      }
+      const exp = Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION;
+      const payload = {
+        exp,
+        sub,
+        tokenUse: TokenTypes.access,
+      };
+      return signToken(payload);
+    } catch (error) {
+      logger.error(error);
+      throw new Error("Invalid refresh token");
+    }
   },
 };
 
