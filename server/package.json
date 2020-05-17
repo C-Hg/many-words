@@ -30,6 +30,7 @@
     "lodash.set": "^4.3.2",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
+    "validator": "^13.0.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -58,6 +59,7 @@
     "@types/lodash.set": "^4.3.6",
     "@types/mongoose": "^5.7.8",
     "@types/passport": "^1.0.3",
+    "@types/validator": "^13.0.0",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "apollo-server-testing": "^2.12.0",

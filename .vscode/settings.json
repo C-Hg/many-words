@@ -31,6 +31,7 @@
     "explorer.confirmDelete": false,
     "vsicons.dontShowNewVersionMessage": true,
     "cSpell.words": [
+      "Totp",
       "clonedeep",
       "deserialize",
       "middlewares",

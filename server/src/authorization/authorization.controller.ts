@@ -1,9 +1,11 @@
+import validator from "validator";
+
 import { ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_EXPIRATION } from "./constants";
 import signToken from "./helpers/signToken";
 import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
-import { Tokens } from "../graphql/authorization.types";
+import { Tokens, Result } from "../graphql/authorization.types";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
 
@@ -62,9 +64,19 @@ const authorizationController = {
       };
       return signToken(payload);
     } catch (error) {
-      logger.error(error);
+      logger.error(`[getAccessToken] ${error}`);
       throw new Error("Invalid refresh token");
     }
+  },
+
+  // TODO: similar function for exercises Server to validate an email for a user
+  loginWithTOTP: (email: string): Result => {
+    logger.debug(`[sendTOTP] trying to login user with email`);
+    if (!validator.isEmail(email)) {
+      logger.error("[sendTOTP] Invalid email format");
+      throw new Error("Invalid email format");
+    }
+    return { success: true };
   },
 };
 

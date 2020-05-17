@@ -2,6 +2,10 @@ import { GraphQLResolveInfo } from "graphql";
 import gql from "graphql-tag";
 
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X];
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -16,7 +20,20 @@ export type Mutation = {
 };
 
 export type Query = {
-  accessToken?: Maybe<Scalars["String"]>;
+  getAccessToken?: Maybe<Scalars["String"]>;
+  loginWithTotp: Result;
+};
+
+export type QueryGetAccessTokenArgs = {
+  refreshToken: Scalars["String"];
+};
+
+export type QueryLoginWithTotpArgs = {
+  email: Scalars["String"];
+};
+
+export type Result = {
+  success: Scalars["Boolean"];
 };
 
 export type Tokens = {
@@ -134,18 +151,20 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars["String"]>;
+  Result: ResolverTypeWrapper<Result>;
+  Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   Mutation: ResolverTypeWrapper<{}>;
   Tokens: ResolverTypeWrapper<Tokens>;
-  Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
   String: Scalars["String"];
+  Result: Result;
+  Boolean: Scalars["Boolean"];
   Mutation: {};
   Tokens: Tokens;
-  Boolean: Scalars["Boolean"];
 };
 
 export type MutationResolvers<
@@ -163,11 +182,26 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
-  accessToken?: Resolver<
+  getAccessToken?: Resolver<
     Maybe<ResolversTypes["String"]>,
     ParentType,
-    ContextType
+    ContextType,
+    RequireFields<QueryGetAccessTokenArgs, "refreshToken">
   >;
+  loginWithTotp?: Resolver<
+    ResolversTypes["Result"],
+    ParentType,
+    ContextType,
+    RequireFields<QueryLoginWithTotpArgs, "email">
+  >;
+};
+
+export type ResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Result"] = ResolversParentTypes["Result"]
+> = {
+  success?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
 export type TokensResolvers<
@@ -182,6 +216,7 @@ export type TokensResolvers<
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Result?: ResultResolvers<ContextType>;
   Tokens?: TokensResolvers<ContextType>;
 };
 

@@ -1,6 +1,8 @@
 import gql from "graphql-tag";
+import jwt from "jsonwebtoken";
 
 import { ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_EXPIRATION } from "./constants";
+import signToken from "./helpers/signToken";
 import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
@@ -16,8 +18,16 @@ const CREATE_USER = gql`
 `;
 
 const GET_ACCESS_TOKEN = gql`
-  query getAccessToken($refreshToken: String) {
+  query getAccessToken($refreshToken: String!) {
     getAccessToken(refreshToken: $refreshToken)
+  }
+`;
+
+const LOGIN_WITH_TOTP = gql`
+  query loginWithTotp($email: String!) {
+    loginWithTotp(email: $email) {
+      success
+    }
   }
 `;
 
@@ -71,11 +81,79 @@ describe("Server - e2e", () => {
     expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
   });
 
-  // it should throw an error if the refresh token is expired
+  it("should throw an error if the refresh token is expired", async () => {
+    const exp = Math.floor(Date.now() / 1000) - 10;
+    const payload = {
+      exp,
+      sub: "anInvalidId",
+      tokenUse: TokenTypes.refresh,
+    };
+    const expiredRefreshToken = await signToken(payload);
+    await expect(
+      authorizationClient.query({
+        query: GET_ACCESS_TOKEN,
+        variables: { refreshToken: expiredRefreshToken },
+      })
+      // rejection reason is hidden from the client
+    ).rejects.toThrowError("Invalid refresh token");
+  });
 
-  // it should throw an error if the refresh token signature is wrong (take from unit tests)
+  it("should throw an error if it is an access token", async () => {
+    const exp = Math.floor(Date.now() / 1000) + 5000;
+    const payload = {
+      exp,
+      sub: "anInvalidId",
+      tokenUse: TokenTypes.access,
+    };
+    const disguisedRefreshToken = await signToken(payload);
+    await expect(
+      authorizationClient.query({
+        query: GET_ACCESS_TOKEN,
+        variables: { refreshToken: disguisedRefreshToken },
+      })
+    ).rejects.toThrowError("Invalid refresh token");
+  });
 
-  // it should send an email with totp
+  it("should throw an error if the refresh token signature is wrong", async () => {
+    const exp = Math.floor(Date.now() / 1000) + 50000;
+    const payload = {
+      exp,
+      sub: "anInvalidId",
+      tokenUse: TokenTypes.refresh,
+    };
+    const invalidRefreshToken = await new Promise((resolve, reject) => {
+      jwt.sign(payload, "aDifferentSecretSignature", function (error, token) {
+        if (token) {
+          resolve(token);
+        } else {
+          reject(error);
+        }
+      });
+    });
+    await expect(
+      authorizationClient.query({
+        query: GET_ACCESS_TOKEN,
+        variables: { refreshToken: invalidRefreshToken },
+      })
+    ).rejects.toThrowError("Invalid refresh token");
+  });
+
+  it("should send an email with totp", async () => {
+    const res = await authorizationClient.query({
+      query: LOGIN_WITH_TOTP,
+      variables: { email: "valid@email.fr" },
+    });
+    expect(res.data.loginWithTotp.success).toEqual(true);
+  });
+
+  it("should throw with an invalid email format", async () => {
+    await expect(
+      authorizationClient.query({
+        query: LOGIN_WITH_TOTP,
+        variables: { email: "invalid@email" },
+      })
+    ).rejects.toThrowError("Invalid email format");
+  });
 
   // it should throw an error if the given email is of invalid format
 
