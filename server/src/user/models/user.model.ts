@@ -6,6 +6,16 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
+    connexion: {
+      expiresAt: {
+        type: Number,
+        required: false,
+      },
+      totp: {
+        type: Number,
+        required: false,
+      },
+    },
     email: { type: String, required: false },
     stats: {
       lessons: {

@@ -5,10 +5,14 @@ import { Document } from "mongoose";
 import { User as GeneratedUser } from "../../graphql/exercises.types";
 
 /**
- * Use this interface instead to have _id as ObjectId
+ * Use this interface instead to have the properties not sent to the client
  */
 export interface User extends GeneratedUser {
   _id: ObjectId;
+  connexion: {
+    totp: number;
+    expiresAt: number;
+  };
 }
 
 /**

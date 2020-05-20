@@ -1,10 +1,12 @@
 import validator from "validator";
 
 import { ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_EXPIRATION } from "./constants";
+import generateTotp from "./helpers/generateTotp";
 import signToken from "./helpers/signToken";
 import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
+import CONFIG from "../config/secrets";
 import { Tokens, Result } from "../graphql/authorization.types";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
@@ -70,12 +72,24 @@ const authorizationController = {
   },
 
   // TODO: similar function for exercises Server to validate an email for a user
-  loginWithTOTP: (email: string): Result => {
-    logger.debug(`[sendTOTP] trying to login user with email`);
+  // TODO: limit the number of requests from a single client
+  getTotp: async (email: string): Promise<Result> => {
+    logger.debug("[sendTotp] trying to login user with email");
     if (!validator.isEmail(email)) {
-      logger.error("[sendTOTP] Invalid email format");
+      logger.error("[sendTotp] invalid email format");
       throw new Error("Invalid email format");
     }
+
+    // generate and save the totp for later verification
+    const totp = generateTotp();
+    await userService.setTotp(email, totp);
+
+    if (CONFIG.env !== "production") {
+      logger.info(`[sendTotp] login with totp ${totp.toString()}`);
+    } else {
+      // TODO: effectively send the email and catch errors
+    }
+
     return { success: true };
   },
 };

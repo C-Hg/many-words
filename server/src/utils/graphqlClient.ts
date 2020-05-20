@@ -13,8 +13,9 @@ import CONFIG from "../config/secrets";
 const authorizationClient = new ApolloClient({
   uri: `http://localhost:${CONFIG.serverPort}/authorization`,
   fetch,
-  onError: (e): void => {
-    logger.error(JSON.stringify(e.response));
+  // do not print error messages, some tests are expected to throw
+  onError: (): void => {
+    return;
   },
 });
 

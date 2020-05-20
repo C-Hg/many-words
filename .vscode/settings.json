@@ -37,6 +37,7 @@
       "middlewares",
       "printf",
       "typeguards",
-      "upsert"
+      "upsert",
+      "upserts"
     ],
 }

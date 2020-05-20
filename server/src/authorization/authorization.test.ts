@@ -24,8 +24,8 @@ const GET_ACCESS_TOKEN = gql`
 `;
 
 const LOGIN_WITH_TOTP = gql`
-  query loginWithTotp($email: String!) {
-    loginWithTotp(email: $email) {
+  query getTotp($email: String!) {
+    getTotp(email: $email) {
       success
     }
   }
@@ -143,7 +143,7 @@ describe("Server - e2e", () => {
       query: LOGIN_WITH_TOTP,
       variables: { email: "valid@email.fr" },
     });
-    expect(res.data.loginWithTotp.success).toEqual(true);
+    expect(res.data.getTotp.success).toEqual(true);
   });
 
   it("should throw with an invalid email format", async () => {

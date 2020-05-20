@@ -16,19 +16,19 @@ export type Scalars = {
 };
 
 export type Mutation = {
-  createUser?: Maybe<Tokens>;
+  createUser: Tokens;
 };
 
 export type Query = {
-  getAccessToken?: Maybe<Scalars["String"]>;
-  loginWithTotp: Result;
+  getAccessToken: Scalars["String"];
+  getTotp: Result;
 };
 
 export type QueryGetAccessTokenArgs = {
   refreshToken: Scalars["String"];
 };
 
-export type QueryLoginWithTotpArgs = {
+export type QueryGetTotpArgs = {
   email: Scalars["String"];
 };
 
@@ -171,11 +171,7 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
 > = {
-  createUser?: Resolver<
-    Maybe<ResolversTypes["Tokens"]>,
-    ParentType,
-    ContextType
-  >;
+  createUser?: Resolver<ResolversTypes["Tokens"], ParentType, ContextType>;
 };
 
 export type QueryResolvers<
@@ -183,16 +179,16 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
   getAccessToken?: Resolver<
-    Maybe<ResolversTypes["String"]>,
+    ResolversTypes["String"],
     ParentType,
     ContextType,
     RequireFields<QueryGetAccessTokenArgs, "refreshToken">
   >;
-  loginWithTotp?: Resolver<
+  getTotp?: Resolver<
     ResolversTypes["Result"],
     ParentType,
     ContextType,
-    RequireFields<QueryLoginWithTotpArgs, "email">
+    RequireFields<QueryGetTotpArgs, "email">
   >;
 };
 
