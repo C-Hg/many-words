@@ -1,18 +1,31 @@
 import gql from "graphql-tag";
 import jwt from "jsonwebtoken";
 
-import { ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_EXPIRATION } from "./constants";
+import {
+  APP_ACCESS_TOKEN_EXPIRATION,
+  REFRESH_TOKEN_EXPIRATION,
+} from "./constants";
 import signToken from "./helpers/signToken";
 import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
-import { authorizationClient } from "../utils/graphqlClient";
+import userService from "../user/user.service";
+import { authorizationClient } from "../utils/tests/graphqlClient";
+import logger from "../utils/logger";
 
-const CREATE_USER = gql`
-  mutation createUser {
-    createUser {
+const CREATE_APP_USER = gql`
+  mutation createAppUser {
+    createAppUser {
       accessToken
       refreshToken
+    }
+  }
+`;
+
+const CREATE_WEB_USER = gql`
+  mutation createWebUser {
+    createWebUser {
+      success
     }
   }
 `;
@@ -23,30 +36,41 @@ const GET_ACCESS_TOKEN = gql`
   }
 `;
 
-const LOGIN_WITH_TOTP = gql`
-  query getTotp($email: String!) {
-    getTotp(email: $email) {
+const APP_LOGIN = gql`
+  query appLogin($loginInput: LoginInput!) {
+    appLogin(loginInput: $loginInput) {
+      accessToken
+      refreshToken
+    }
+  }
+`;
+
+const SEND_TOTP = gql`
+  query sendTotp($email: String!) {
+    sendTotp(email: $email) {
       success
     }
   }
 `;
 
-describe("Server - e2e", () => {
+describe("Authorization server - e2e", () => {
   let validRefreshToken: string;
+
+  // -----------------     CREATE_APP_USER     ------------------
   it("should create a user and return the tokens", async () => {
     const res = await authorizationClient.mutate({
-      mutation: CREATE_USER,
+      mutation: CREATE_APP_USER,
     });
     const {
       data: {
-        createUser: { accessToken, refreshToken },
+        createAppUser: { accessToken, refreshToken },
       },
     } = res;
 
     expect(accessToken).toBeDefined();
     const decodedAT = await verifyToken(accessToken);
     expect(decodedAT.exp).toBeCloseTo(
-      Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION
+      Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION
     );
     expect(decodedAT.sub).toBeDefined();
     expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
@@ -62,6 +86,38 @@ describe("Server - e2e", () => {
     expect(decodedRT.tokenUse).toEqual(TokenTypes.refresh);
   });
 
+  // -----------------     CREATE_WEB_USER     ------------------
+  it("should create a user and return the tokens inside cookies", async () => {
+    const res = await authorizationClient.mutate({
+      mutation: CREATE_WEB_USER,
+    });
+    const {
+      data: {
+        createWebUser: { success },
+      },
+    } = res;
+
+    // only verify that the cookies are there
+    expect(success).toEqual(true);
+    // const decodedAT = await verifyToken(accessToken);
+    // expect(decodedAT.exp).toBeCloseTo(
+    //   Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION
+    // );
+    // expect(decodedAT.sub).toBeDefined();
+    // expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
+
+    // expect(refreshToken).toBeDefined();
+    // validRefreshToken = refreshToken;
+    // const decodedRT = await verifyToken(refreshToken);
+    // expect(decodedRT.exp).toBeCloseTo(
+    //   Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION
+    // );
+    // expect(decodedRT.sub).toBeDefined();
+    // expect(decodedRT.sub).toEqual(decodedAT.sub);
+    // expect(decodedRT.tokenUse).toEqual(TokenTypes.refresh);
+  });
+
+  // -----------------     GET_APP_ACCESS_TOKEN      ------------------
   it("should get a new access token from refresh token", async () => {
     const res = await authorizationClient.query({
       query: GET_ACCESS_TOKEN,
@@ -75,7 +131,7 @@ describe("Server - e2e", () => {
     const decodedAT = await verifyToken(accessToken);
     const decodedRT = await verifyToken(validRefreshToken);
     expect(decodedAT.exp).toBeCloseTo(
-      Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION
+      Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION
     );
     expect(decodedAT.sub).toEqual(decodedRT.sub);
     expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
@@ -138,26 +194,52 @@ describe("Server - e2e", () => {
     ).rejects.toThrowError("Invalid refresh token");
   });
 
+  // -----------------     SEND_TOTP     ------------------
   it("should send an email with totp", async () => {
     const res = await authorizationClient.query({
-      query: LOGIN_WITH_TOTP,
+      query: SEND_TOTP,
       variables: { email: "valid@email.fr" },
     });
-    expect(res.data.getTotp.success).toEqual(true);
+    expect(res.data.sendTotp.success).toEqual(true);
   });
 
   it("should throw with an invalid email format", async () => {
     await expect(
       authorizationClient.query({
-        query: LOGIN_WITH_TOTP,
+        query: SEND_TOTP,
         variables: { email: "invalid@email" },
       })
     ).rejects.toThrowError("Invalid email format");
   });
 
+  // -----------------     APP_LOGIN     ------------------
+  // it("should verify the user and receive tokens", async () => {
+  //   // creates a new user with verifiable values
+  //   await userService.createUser({ email: "hello" });
+
+  //   const loginInput = {
+  //     email: "hello@manywords.fr",
+  //     totp: 189657,
+  //   };
+  //   logger.info("2");
+  //   const res = await authorizationClient.query({
+  //     query: APP_LOGIN,
+  //     variables: { loginInput },
+  //   });
+  //   const {
+  //     data: {
+  //       createAppUser: { accessToken, refreshToken },
+  //     },
+  //   } = res;
+  //   expect(accessToken).toBeDefined();
+  //   expect(refreshToken).toBeDefined();
+  // });
   // it should throw an error if the given email is of invalid format
+  // it should throw an error if the given totp is of invalid format
+  // it should throw an error if the given email is not found
+  // it should throw an error if the given totp does not match
+  // it should throw an error if the given totp is expired
 
-  // it should get new tokens if the totp is correct
-
+  // -----------------     WEB_LOGIN     ------------------
   // it should throw an explicit error if the totp is wrong
 });

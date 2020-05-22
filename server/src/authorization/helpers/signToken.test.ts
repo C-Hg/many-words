@@ -2,14 +2,14 @@ import signToken from "./signToken";
 import verifyToken from "./verifyToken";
 
 import {
-  ACCESS_TOKEN_EXPIRATION,
+  APP_ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
 } from "../constants";
 import { TokenTypes } from "../interfaces/tokenPayload.interface";
 
 describe("signToken", () => {
   it("should sign an access token and verify it", async () => {
-    const exp = Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION;
+    const exp = Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION;
     const payload = {
       exp,
       sub: "aRandomIdString",

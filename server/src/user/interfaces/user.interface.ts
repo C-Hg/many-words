@@ -9,9 +9,10 @@ import { User as GeneratedUser } from "../../graphql/exercises.types";
  */
 export interface User extends GeneratedUser {
   _id: ObjectId;
-  connexion: {
-    totp: number;
+  login: {
+    emailToConfirm?: string;
     expiresAt: number;
+    totp: number;
   };
 }
 

@@ -2,6 +2,7 @@ import { TOTP_EXPIRATION } from "./constants";
 import { UserDocument } from "./interfaces/user.interface";
 import UserModel from "./models/user.model";
 
+import { LoginInput } from "../graphql/authorization.types";
 import { User } from "../graphql/exercises.types";
 import logger from "../utils/logger";
 
@@ -27,20 +28,34 @@ const userService = {
   },
 
   /**
-   * Upserts a user with connexion details to log in with totp
+   * Upserts a user with login details to log in with totp
    */
   setTotp: async (email: string, totp: number): Promise<void> => {
-    const connexion = {
+    const login = {
       totp,
       expiresAt: Date.now() + TOTP_EXPIRATION,
     };
-    await UserModel.updateOne(
+    return UserModel.updateOne(
       { email },
-      { connexion },
+      { login },
       {
         upsert: true,
       }
     );
+  },
+
+  verifyNewUser: async (loginInput: LoginInput): Promise<UserDocument> => {
+    const { email, totp } = loginInput;
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      logger.error("[verifyNewUser] no user matched the given email");
+      throw new Error("Request failed");
+    }
+    if (totp !== user?.login?.totp) {
+      logger.error("[verifyNewUser] wrong totp");
+      throw new Error("WrongTotp");
+    }
+    return user;
   },
 };
 

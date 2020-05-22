@@ -4,7 +4,7 @@ services:
   client:
     build:
       context: ./web-app/
-      dockerfile: prod.Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: manywords-web-app
     volumes:
       - web-app-build:/web-app/build
@@ -17,7 +17,7 @@ services:
   server:
     build:
       context: ./server/
-      dockerfile: prod.Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: manywords-server
     environment:
       NODE_ENV: "production"

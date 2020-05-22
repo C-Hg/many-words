@@ -38,6 +38,7 @@
       "printf",
       "typeguards",
       "upsert",
-      "upserts"
+      "upserts",
+      "xsrf"
     ],
 }

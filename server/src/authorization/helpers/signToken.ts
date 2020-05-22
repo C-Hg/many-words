@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import CONFIG from "../../config/secrets";
+import CONFIG from "../../config/config";
 import { TOKEN_ISSUER } from "../constants";
 import { TokenPayload } from "../interfaces/tokenPayload.interface";
 

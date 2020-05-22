@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 import path from "path";
 
-import CONFIG from "./config/secrets";
+import CONFIG from "./config/config";
 import authorizationServer from "./graphql/authorizationServer";
 import exercisesServer from "./graphql/exercisesServer";
 import authentication from "./middlewares/authentication";

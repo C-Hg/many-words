@@ -1,20 +1,53 @@
+import { Response } from "express";
 import validator from "validator";
 
-import { ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_EXPIRATION } from "./constants";
+import {
+  APP_ACCESS_TOKEN_EXPIRATION,
+  REFRESH_TOKEN_EXPIRATION,
+  WEB_ACCESS_TOKEN_EXPIRATION,
+} from "./constants";
 import generateTotp from "./helpers/generateTotp";
 import signToken from "./helpers/signToken";
 import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
-import CONFIG from "../config/secrets";
-import { Tokens, Result } from "../graphql/authorization.types";
+import CONFIG from "../config/config";
+import { Tokens, Result, LoginInput } from "../graphql/authorization.types";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
 
 // TODO: refresh token rotation
 const authorizationController = {
-  craftAccessToken: async (id: string): Promise<string> => {
-    const exp = Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION;
+  appLogin: async (loginInput: LoginInput): Promise<Tokens> => {
+    const { email, totp } = loginInput;
+    if (!validator.isEmail(email)) {
+      logger.error("[sendTotp] invalid email format");
+      throw new Error("InvalidEmail");
+    }
+    if (typeof totp !== "number" || totp.toString().length !== 6) {
+      logger.error("[sendTotp] invalid totp format");
+      throw new Error("InvalidTotp");
+    }
+    const user = await userService.verifyNewUser(loginInput);
+    const [accessToken, refreshToken] = await Promise.all([
+      authorizationController.craftAppAccessToken(user.id),
+      authorizationController.craftRefreshToken(user.id),
+    ]);
+    return { accessToken, refreshToken };
+  },
+
+  craftAppAccessToken: async (id: string): Promise<string> => {
+    const exp = Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION;
+    const payload = {
+      exp,
+      sub: id,
+      tokenUse: TokenTypes.access,
+    };
+    return signToken(payload);
+  },
+
+  craftWebAccessToken: async (id: string): Promise<string> => {
+    const exp = Math.floor(Date.now() / 1000) + WEB_ACCESS_TOKEN_EXPIRATION;
     const payload = {
       exp,
       sub: id,
@@ -34,17 +67,36 @@ const authorizationController = {
   },
 
   /**
-   * Creates a new user and returns the tokens to use it
+   * Creates a new user for a mobile device
+   * Tokens are stored securely with keyChain
    */
-  createUser: async (): Promise<Tokens> => {
-    logger.debug("[createUser] crafting tokens for a new user");
+  createAppUser: async (): Promise<Tokens> => {
+    logger.debug("[createUser] crafting tokens for a new mobile user");
     const newUser = await userService.createUser();
-    const userId = newUser.id;
     const [accessToken, refreshToken] = await Promise.all([
-      authorizationController.craftAccessToken(userId),
-      authorizationController.craftRefreshToken(userId),
+      authorizationController.craftAppAccessToken(newUser.id),
+      authorizationController.craftRefreshToken(newUser.id),
     ]);
     return { accessToken, refreshToken };
+  },
+
+  /**
+   * Creates a new user for the website
+   * Tokens are stored securely inside cookies
+   */
+  createWebUser: async (res: Response): Promise<Result> => {
+    logger.debug("[createUser] crafting tokens for a new website user");
+    const newUser = await userService.createUser();
+    const accessToken = await authorizationController.craftWebAccessToken(
+      newUser.id
+    );
+    // if we had sensitive data we would add xsrf protection
+    res.cookie("access_token", accessToken, {
+      expires: new Date(Date.now() + WEB_ACCESS_TOKEN_EXPIRATION), // cookie will be removed after 6 months
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // TODO: check if it works on staging server
+    });
+    return { success: true };
   },
 
   /**
@@ -58,7 +110,7 @@ const authorizationController = {
       if (tokenUse !== TokenTypes.refresh) {
         throw new Error("Invalid token type");
       }
-      const exp = Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION;
+      const exp = Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION;
       const payload = {
         exp,
         sub,
@@ -73,7 +125,7 @@ const authorizationController = {
 
   // TODO: similar function for exercises Server to validate an email for a user
   // TODO: limit the number of requests from a single client
-  getTotp: async (email: string): Promise<Result> => {
+  sendTotp: async (email: string): Promise<Result> => {
     logger.debug("[sendTotp] trying to login user with email");
     if (!validator.isEmail(email)) {
       logger.error("[sendTotp] invalid email format");

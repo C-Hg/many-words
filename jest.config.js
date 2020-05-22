@@ -4,7 +4,7 @@ module.exports = {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     roots: ["src"],
     projects: [
-      { 
+      {   
         displayName: "server",
         testMatch: ["<rootDir>/server/**/*.test.ts"],
         testEnvironment: 'node',

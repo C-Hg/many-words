@@ -1,7 +1,9 @@
 import { toPromise } from "apollo-link";
 import gql from "graphql-tag";
 
-import { exercisesGraphql } from "../utils/graphqlClient";
+import userService from "./user.service";
+
+import { exercisesGraphql } from "../utils/tests/graphqlClient";
 
 const USER_QUERY = gql`
   query user {
@@ -15,6 +17,11 @@ const USER_QUERY = gql`
 // TODO: manage JWT https://blog.logrocket.com/writing-end-to-end-tests-for-graphql-servers-using-jest/
 // TODO: docker with watch to use secrets, with different ports
 describe("Server - e2e", () => {
+  it("should create a user", async () => {
+    await userService.createUser({ email: "hello" });
+    expect(true).toEqual(true);
+  });
+
   it("should return a 401 error", async () => {
     // await expect(
     //   toPromise(

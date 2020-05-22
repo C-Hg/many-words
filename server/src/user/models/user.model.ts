@@ -6,7 +6,11 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    connexion: {
+    login: {
+      emailToConfirm: {
+        type: String,
+        required: false,
+      },
       expiresAt: {
         type: Number,
         required: false,

@@ -2,15 +2,15 @@ import jwt from "jsonwebtoken";
 
 import verifyToken from "./verifyToken";
 
-import CONFIG from "../../config/secrets";
-import { ACCESS_TOKEN_EXPIRATION } from "../constants";
+import CONFIG from "../../config/config";
+import { APP_ACCESS_TOKEN_EXPIRATION } from "../constants";
 import { TokenTypes } from "../interfaces/tokenPayload.interface";
 
 // Successful verification of token is tested in signToken.test.ts
 
 describe("verifyToken", () => {
   it("should throw an error for wrong issuer", async () => {
-    const exp = Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION;
+    const exp = Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION;
     const payload = {
       iss: "wrongIss",
       exp,
