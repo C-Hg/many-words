@@ -5,6 +5,7 @@ WORKDIR /manywords/
 COPY server ./server
 COPY jest.config.js ./
 COPY jestEnv.ts ./
+COPY .git ./
 
 COPY package*.json ./
 RUN npm install
