@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  server:
+    build:
+      context: ../../server/
+      dockerfile: Dockerfile.dev
+    container_name: manywords-test-server
+    environment:
+      NODE_ENV: $NODE_ENV
+      JWT_SIGNATURE: $JWT_SIGNATURE
+      SERVER_PORT: $SERVER_PORT
+      MONGO_URI: mongodb://mongo-test:27017/manywords
+    # to allow hot reloading
+    volumes:
+      - ../../server:/server
+    ports:
+      - $SERVER_PORT:$SERVER_PORT
+    depends_on:
+      - mongo-test
+    
+  server-tester:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.test
+    container_name: manywords-server-tester
+    # to allow test runs and watching over the whole repository
+    volumes:
+      - ../..:/manywords
+
+  database-seeder:
+    build:
+      context: ../../tools
+    container_name: manywords-test-database-seeder
+    environment:
+      NODE_ENV: $NODE_ENV
+      MONGO_URI: mongodb://mongo-test:27017/manywords
+    volumes:
+      - ../../exercises:/exercises
+    depends_on:
+      - mongo-test
+
+  mongo-test:
+    image: mongo
+    restart: always
+    container_name: manywords-test-mongo
+    volumes:
+      - /mongo/testData:/data/db
+    ports:
+      - 27018:27017
+
+  mongo-express:
+    image: mongo-express
+    container_name: manywords-test-mongo-express
+    environment: 
+      ME_CONFIG_MONGODB_SERVER: mongo-test
+    restart: always
+    ports:
+      - 8082:8081
+    depends_on:
+      - mongo-test

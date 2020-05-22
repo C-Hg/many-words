@@ -57,14 +57,14 @@ const mongooseOptions = {
   reconnectTries: 50,
   reconnectInterval: 5 * 1000,
 };
-mongoose.connect(secrets.MONGO_URI, mongooseOptions);
+mongoose.connect(secrets.mongoUri, mongooseOptions);
 mongoose.Promise = global.Promise;
 // Get the default connection
 const db = mongoose.connection;
 db.on("error", () => {
   logger.error("MongoDB connection error, retrying to connect in 20s.");
   setTimeout(() => {
-    mongoose.connect(secrets.MONGO_URI, mongooseOptions);
+    mongoose.connect(secrets.mongoUri, mongooseOptions);
   }, 20000);
 });
 db.once("open", async () => {

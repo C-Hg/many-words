@@ -10,13 +10,12 @@
 
 - launch all services with docker:
 
-`npm run docker-dev`
+`npm run dev`
 
 - if you are under linux, you can enjoy separated logs with:
 
-`npm run docker-dev:detached`
+`npm run dev:detached`
 
-For obvious security reasons, the app IDs and passwords are kept private, so you cannot test the logged in features with social auth as is. If you wish to do so, register private keys for development use with Google or Facebook.
 
 ### Dependencies
 

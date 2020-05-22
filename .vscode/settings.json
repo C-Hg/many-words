@@ -31,9 +31,11 @@
     "explorer.confirmDelete": false,
     "vsicons.dontShowNewVersionMessage": true,
     "cSpell.words": [
+      "MONGODB",
       "Totp",
       "clonedeep",
       "deserialize",
+      "manywords",
       "middlewares",
       "printf",
       "typeguards",

@@ -3,7 +3,7 @@ version: "3"
 services:
   web-app:
     build:
-      context: ./web-app/
+      context: ../../web-app/
       dockerfile: Dockerfile.dev
     container_name: manywords-web-app
     environment:
@@ -11,41 +11,43 @@ services:
       REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     volumes:
       # to allow hot reloading
-      - ./web-app:/web-app
+      - ../../web-app:/web-app
     ports:
       - 3000:3000
     stdin_open: true
 
   server:
     build:
-      context: ./server/
+      context: ../../server/
       dockerfile: Dockerfile.dev
     container_name: manywords-server
     environment:
+      JWT_SIGNATURE: $JWT_SIGNATURE
       NODE_ENV: "development"
-      JWT_SIGNATURE: ${JWT_SIGNATURE}
-      SERVER_PORT: ${SERVER_PORT}
+      MONGO_URI: mongodb://mongo-dev:27017/manywords
+      SERVER_PORT: $SERVER_PORT
     # to allow hot reloading
     volumes:
-      - ./server:/server
+      - ../../server:/server
     ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
+      - $SERVER_PORT:$SERVER_PORT
       - 9229:9229
     depends_on:
-      - mongo
+      - mongo-dev
 
   database-seeder:
     build:
-      context: ./tools
+      context: ../../tools
     container_name: manywords-database-seeder
     environment:
       NODE_ENV: "development"
+      MONGO_URI: mongodb://mongo-dev:27017/manywords
     volumes:
-      - ./exercises:/exercises
+      - ../../exercises:/exercises
     depends_on:
-      - mongo
+      - mongo-dev
 
-  mongo:
+  mongo-dev:
     image: mongo
     restart: always
     container_name: manywords-mongo
@@ -57,8 +59,10 @@ services:
   mongo-express:
     image: mongo-express
     container_name: manywords-mongo-express
+    environment: 
+      ME_CONFIG_MONGODB_SERVER: mongo-dev
     restart: always
     ports:
       - 8081:8081
     depends_on:
-      - mongo
+      - mongo-dev
