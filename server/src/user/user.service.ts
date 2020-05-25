@@ -49,7 +49,7 @@ const userService = {
     const user = await UserModel.findOne({ email });
     if (!user) {
       logger.error("[verifyNewUser] no user matched the given email");
-      throw new Error("Request failed");
+      throw new Error("RequestFailed");
     }
     if (totp !== user?.login?.totp) {
       logger.error("[verifyNewUser] wrong totp");

@@ -1,16 +1,16 @@
 version: "3"
 
 services:
-  server:
+  test-server:
     build:
       context: ../../server/
       dockerfile: Dockerfile.dev
     container_name: manywords-test-server
     environment:
-      NODE_ENV: $NODE_ENV
       JWT_SIGNATURE: $JWT_SIGNATURE
-      SERVER_PORT: $SERVER_PORT
       MONGO_URI: mongodb://mongo-test:27017/manywords
+      NODE_ENV: $NODE_ENV
+      SERVER_PORT: $SERVER_PORT
     # to allow hot reloading
     volumes:
       - ../../server:/server
@@ -24,6 +24,11 @@ services:
       context: ../..
       dockerfile: Dockerfile.test
     container_name: manywords-server-tester
+    environment:
+      JWT_SIGNATURE: $JWT_SIGNATURE
+      MONGO_URI: mongodb://mongo-test:27017/manywords
+      SERVER_PORT: $SERVER_PORT
+    stdin_open: true
     tty: true
     # to allow test runs and watching over the whole repository
     volumes:

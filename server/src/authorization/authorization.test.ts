@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 import jwt from "jsonwebtoken";
+import Mongoose from "mongoose";
 
 import {
   APP_ACCESS_TOKEN_EXPIRATION,
@@ -9,9 +10,10 @@ import signToken from "./helpers/signToken";
 import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
+import User from "../user/models/user.model";
 import userService from "../user/user.service";
+import getDbConnection from "../utils/tests/dbConnection";
 import { authorizationClient } from "../utils/tests/graphqlClient";
-import logger from "../utils/logger";
 
 const CREATE_APP_USER = gql`
   mutation createAppUser {
@@ -52,6 +54,24 @@ const SEND_TOTP = gql`
     }
   }
 `;
+
+const INVALID_EMAIL = "invalid@email";
+const NOT_FOUND_EMAIL = "not.found@manwords.fr";
+const VALID_EMAIL_1 = "valid1@email.fr";
+const VALID_EMAIL_2 = "hello14685@manywords.fr";
+
+let db: typeof Mongoose;
+beforeAll(async () => {
+  db = await getDbConnection();
+});
+
+afterAll(async () => {
+  // remove all users created to test the tokens, i.e. without emails
+  await User.deleteMany({ email: { $exists: false } });
+  await User.deleteOne({ email: VALID_EMAIL_1 });
+  await User.deleteOne({ email: VALID_EMAIL_2 });
+  db.connection.close();
+});
 
 describe("Authorization server - e2e", () => {
   let validRefreshToken: string;
@@ -198,7 +218,7 @@ describe("Authorization server - e2e", () => {
   it("should send an email with totp", async () => {
     const res = await authorizationClient.query({
       query: SEND_TOTP,
-      variables: { email: "valid@email.fr" },
+      variables: { email: VALID_EMAIL_1 },
     });
     expect(res.data.sendTotp.success).toEqual(true);
   });
@@ -207,35 +227,72 @@ describe("Authorization server - e2e", () => {
     await expect(
       authorizationClient.query({
         query: SEND_TOTP,
-        variables: { email: "invalid@email" },
+        variables: { email: INVALID_EMAIL },
       })
     ).rejects.toThrowError("Invalid email format");
   });
 
   // -----------------     APP_LOGIN     ------------------
-  // it("should verify the user and receive tokens", async () => {
-  //   // creates a new user with verifiable values
-  //   await userService.createUser({ email: "hello" });
+  it("should verify the user and receive tokens", async () => {
+    // creates a new user with verifiable values
+    await userService.setTotp(VALID_EMAIL_2, 189657);
 
-  //   const loginInput = {
-  //     email: "hello@manywords.fr",
-  //     totp: 189657,
-  //   };
-  //   logger.info("2");
-  //   const res = await authorizationClient.query({
-  //     query: APP_LOGIN,
-  //     variables: { loginInput },
-  //   });
-  //   const {
-  //     data: {
-  //       createAppUser: { accessToken, refreshToken },
-  //     },
-  //   } = res;
-  //   expect(accessToken).toBeDefined();
-  //   expect(refreshToken).toBeDefined();
-  // });
-  // it should throw an error if the given email is of invalid format
-  // it should throw an error if the given totp is of invalid format
+    const loginInput = {
+      email: VALID_EMAIL_2,
+      totp: 189657,
+    };
+    const res = await authorizationClient.query({
+      query: APP_LOGIN,
+      variables: { loginInput },
+    });
+    const {
+      data: {
+        appLogin: { accessToken, refreshToken },
+      },
+    } = res;
+    expect(accessToken).toBeDefined();
+    expect(refreshToken).toBeDefined();
+  });
+
+  it("should throw an error if the given email is of invalid format", async () => {
+    const loginInput = {
+      email: INVALID_EMAIL,
+      totp: 180057,
+    };
+    await expect(
+      authorizationClient.query({
+        query: APP_LOGIN,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("InvalidEmail");
+  });
+
+  it("should throw an error if the given totp is of invalid format", async () => {
+    const loginInput = {
+      email: VALID_EMAIL_1,
+      totp: 18005765,
+    };
+    await expect(
+      authorizationClient.query({
+        query: APP_LOGIN,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("InvalidTotp");
+  });
+
+  it("should throw an error if the given email is not found", async () => {
+    const loginInput = {
+      email: NOT_FOUND_EMAIL,
+      totp: 180055,
+    };
+    await expect(
+      authorizationClient.query({
+        query: APP_LOGIN,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("RequestFailed");
+  });
+
   // it should throw an error if the given email is not found
   // it should throw an error if the given totp does not match
   // it should throw an error if the given totp is expired
