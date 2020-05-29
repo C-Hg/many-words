@@ -10,6 +10,7 @@ import signToken from "./helpers/signToken";
 import verifyToken from "./helpers/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
+import { LoginInput } from "../graphql/authorization.types";
 import User from "../user/models/user.model";
 import userService from "../user/user.service";
 import getDbConnection from "../utils/tests/dbConnection";
@@ -39,8 +40,8 @@ const GET_ACCESS_TOKEN = gql`
 `;
 
 const APP_LOGIN = gql`
-  query appLogin($loginInput: LoginInput!) {
-    appLogin(loginInput: $loginInput) {
+  query loginAppUser($loginInput: LoginInput!) {
+    loginAppUser(loginInput: $loginInput) {
       accessToken
       refreshToken
     }
@@ -58,7 +59,10 @@ const SEND_TOTP = gql`
 const INVALID_EMAIL = "invalid@email";
 const NOT_FOUND_EMAIL = "not.found@manwords.fr";
 const VALID_EMAIL_1 = "valid1@email.fr";
-const VALID_EMAIL_2 = "hello14685@manywords.fr";
+const VALID_EMAIL_2 = "hello2@manywords.fr";
+const VALID_EMAIL_3 = "hello3@manywords.fr";
+const VALID_EMAIL_4 = "hello4@manywords.fr";
+const VALID_EMAIL_5 = "hello5@manywords.fr";
 
 let db: typeof Mongoose;
 beforeAll(async () => {
@@ -90,7 +94,8 @@ describe("Authorization server - e2e", () => {
     expect(accessToken).toBeDefined();
     const decodedAT = await verifyToken(accessToken);
     expect(decodedAT.exp).toBeCloseTo(
-      Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION
+      Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION,
+      -3
     );
     expect(decodedAT.sub).toBeDefined();
     expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
@@ -220,7 +225,12 @@ describe("Authorization server - e2e", () => {
       query: SEND_TOTP,
       variables: { email: VALID_EMAIL_1 },
     });
+
     expect(res.data.sendTotp.success).toEqual(true);
+    // the user should be created with this email and proper totp and expiration date
+    const user = await User.findOne({ email: VALID_EMAIL_1 });
+    expect(user?.login.expiresAt).toBeDefined();
+    expect(user?.login.totp).toBeDefined();
   });
 
   it("should throw with an invalid email format", async () => {
@@ -230,6 +240,8 @@ describe("Authorization server - e2e", () => {
         variables: { email: INVALID_EMAIL },
       })
     ).rejects.toThrowError("Invalid email format");
+    const user = await User.findOne({ email: INVALID_EMAIL });
+    expect(user).toBeNull();
   });
 
   // -----------------     APP_LOGIN     ------------------
@@ -247,7 +259,7 @@ describe("Authorization server - e2e", () => {
     });
     const {
       data: {
-        appLogin: { accessToken, refreshToken },
+        loginAppUser: { accessToken, refreshToken },
       },
     } = res;
     expect(accessToken).toBeDefined();
@@ -281,7 +293,7 @@ describe("Authorization server - e2e", () => {
   });
 
   it("should throw an error if the given email is not found", async () => {
-    const loginInput = {
+    const loginInput: LoginInput = {
       email: NOT_FOUND_EMAIL,
       totp: 180055,
     };
@@ -293,10 +305,51 @@ describe("Authorization server - e2e", () => {
     ).rejects.toThrowError("RequestFailed");
   });
 
-  // it should throw an error if the given email is not found
-  // it should throw an error if the given totp does not match
-  // it should throw an error if the given totp is expired
+  it("should throw an error if the given totp is expired", async () => {
+    // creates a new user that requested a totp half an hour ago
+    await userService.createUser({
+      email: VALID_EMAIL_3,
+      login: { totp: 180055, expiresAt: Date.now() - 30 * 60 * 1000 },
+    });
+    const loginInput: LoginInput = {
+      email: VALID_EMAIL_3,
+      totp: 180055,
+    };
+    await expect(
+      authorizationClient.query({
+        query: APP_LOGIN,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("GraphQL error: ExpiredTotp");
+  });
+
+  it("should throw an error if the user has no totp previously set", async () => {
+    await userService.createUser({ email: VALID_EMAIL_4 });
+    const loginInput: LoginInput = {
+      email: VALID_EMAIL_4,
+      totp: 180055,
+    };
+    await expect(
+      authorizationClient.query({
+        query: APP_LOGIN,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("GraphQL error: RequestFailed");
+  });
+
+  it("should throw an explicit error if the totp is wrong", async () => {
+    await userService.setTotp(VALID_EMAIL_5, 189888);
+    const loginInput: LoginInput = {
+      email: VALID_EMAIL_5,
+      totp: 189777,
+    };
+    await expect(
+      authorizationClient.query({
+        query: APP_LOGIN,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("WrongTotp");
+  });
 
   // -----------------     WEB_LOGIN     ------------------
-  // it should throw an explicit error if the totp is wrong
 });

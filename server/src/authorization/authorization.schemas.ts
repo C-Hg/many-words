@@ -2,13 +2,15 @@ import { gql } from "apollo-server-express";
 import { Response } from "express";
 
 import authorizationController from "./authorization.controller";
+import validateLoginInput from "./helpers/validateLoginInput";
 
 import { Result, Tokens, LoginInput } from "../graphql/authorization.types";
 
 export const typeDefs = gql`
   type Query {
-    appLogin(loginInput: LoginInput!): Tokens!
     getAccessToken(refreshToken: String!): String!
+    loginAppUser(loginInput: LoginInput!): Tokens!
+    loginWebUser(loginInput: LoginInput!): Tokens!
     sendTotp(email: String!): Result!
   }
 
@@ -35,11 +37,19 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    appLogin: async (
+    loginAppUser: async (
       parent: {},
       { loginInput }: { loginInput: LoginInput }
     ): Promise<Tokens> => {
-      return authorizationController.appLogin(loginInput);
+      validateLoginInput(loginInput);
+      return authorizationController.loginAppUser(loginInput);
+    },
+    loginWebUser: async (
+      parent: {},
+      { loginInput }: { loginInput: LoginInput }
+    ): Promise<Tokens> => {
+      validateLoginInput(loginInput);
+      return authorizationController.loginWebUser(loginInput);
     },
     getAccessToken: async (
       parent: {},

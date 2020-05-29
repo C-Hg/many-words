@@ -26,12 +26,12 @@ export type Mutation = {
 };
 
 export type Query = {
-  appLogin: Tokens;
+  loginAppUser: Tokens;
   getAccessToken: Scalars["String"];
   sendTotp: Result;
 };
 
-export type QueryAppLoginArgs = {
+export type QueryloginAppUserArgs = {
   loginInput: LoginInput;
 };
 
@@ -194,11 +194,11 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
-  appLogin?: Resolver<
+  loginAppUser?: Resolver<
     ResolversTypes["Tokens"],
     ParentType,
     ContextType,
-    RequireFields<QueryAppLoginArgs, "loginInput">
+    RequireFields<QueryloginAppUserArgs, "loginInput">
   >;
   getAccessToken?: Resolver<
     ResolversTypes["String"],

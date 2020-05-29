@@ -18,16 +18,10 @@ import logger from "../utils/logger";
 
 // TODO: refresh token rotation
 const authorizationController = {
-  appLogin: async (loginInput: LoginInput): Promise<Tokens> => {
-    const { email, totp } = loginInput;
-    if (!validator.isEmail(email)) {
-      logger.error("[sendTotp] invalid email format");
-      throw new Error("InvalidEmail");
-    }
-    if (typeof totp !== "number" || totp.toString().length !== 6) {
-      logger.error("[sendTotp] invalid totp format");
-      throw new Error("InvalidTotp");
-    }
+  /**
+   * Confirm the email with totp and returns tokens
+   */
+  loginAppUser: async (loginInput: LoginInput): Promise<Tokens> => {
     const user = await userService.verifyNewUser(loginInput);
     const [accessToken, refreshToken] = await Promise.all([
       authorizationController.craftAppAccessToken(user.id),
@@ -36,6 +30,17 @@ const authorizationController = {
     return { accessToken, refreshToken };
   },
 
+  /**
+   * Confirm the email with totp and returns access token in a cookie
+   */
+  loginWebUser: async (loginInput: LoginInput): Promise<Result> => {
+    const user = await userService.verifyNewUser(loginInput);
+    // TODO: test validator helper
+    // TODO: extract cookie function
+    return { success: true };
+  },
+
+  // TODO: move to helpers
   craftAppAccessToken: async (id: string): Promise<string> => {
     const exp = Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION;
     const payload = {
