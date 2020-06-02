@@ -2,9 +2,9 @@ import jwt from "jsonwebtoken";
 
 import verifyToken from "./verifyToken";
 
-import CONFIG from "../../config/config";
-import { APP_ACCESS_TOKEN_EXPIRATION } from "../constants";
-import { TokenTypes } from "../interfaces/tokenPayload.interface";
+import CONFIG from "../../../config/config";
+import { APP_ACCESS_TOKEN_EXPIRATION } from "../../constants";
+import { TokenTypes } from "../../interfaces/tokenPayload.interface";
 
 // Successful verification of token is tested in signToken.test.ts
 

@@ -6,8 +6,8 @@ import {
   APP_ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
 } from "./constants";
-import signToken from "./helpers/signToken";
-import verifyToken from "./helpers/verifyToken";
+import signToken from "./helpers/jwt/signToken";
+import verifyToken from "./helpers/jwt/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import { LoginInput } from "../graphql/authorization.types";
@@ -176,7 +176,7 @@ describe("Authorization server - e2e", () => {
         variables: { refreshToken: expiredRefreshToken },
       })
       // rejection reason is hidden from the client
-    ).rejects.toThrowError("Invalid refresh token");
+    ).rejects.toThrowError("InvalidToken");
   });
 
   it("should throw an error if it is an access token", async () => {
@@ -192,7 +192,7 @@ describe("Authorization server - e2e", () => {
         query: GET_ACCESS_TOKEN,
         variables: { refreshToken: disguisedRefreshToken },
       })
-    ).rejects.toThrowError("Invalid refresh token");
+    ).rejects.toThrowError("InvalidToken");
   });
 
   it("should throw an error if the refresh token signature is wrong", async () => {
@@ -216,7 +216,7 @@ describe("Authorization server - e2e", () => {
         query: GET_ACCESS_TOKEN,
         variables: { refreshToken: invalidRefreshToken },
       })
-    ).rejects.toThrowError("Invalid refresh token");
+    ).rejects.toThrowError("InvalidToken");
   });
 
   // -----------------     SEND_TOTP     ------------------

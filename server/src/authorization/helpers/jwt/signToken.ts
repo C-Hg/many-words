@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 
-import CONFIG from "../../config/config";
-import { TOKEN_ISSUER } from "../constants";
-import { TokenPayload } from "../interfaces/tokenPayload.interface";
+import CONFIG from "../../../config/config";
+import { TOKEN_ISSUER } from "../../constants";
+import { TokenPayload } from "../../interfaces/tokenPayload.interface";
 
 const signToken = (payload: Partial<TokenPayload>): Promise<string> => {
   const defaultPayload = {

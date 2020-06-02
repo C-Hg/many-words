@@ -2,13 +2,14 @@ import { Response } from "express";
 import validator from "validator";
 
 import {
-  APP_ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
   WEB_ACCESS_TOKEN_EXPIRATION,
+  CLIENTS,
 } from "./constants";
 import generateTotp from "./helpers/generateTotp";
-import signToken from "./helpers/signToken";
-import verifyToken from "./helpers/verifyToken";
+import craftAccessToken from "./helpers/jwt/craftAccessToken";
+import signToken from "./helpers/jwt/signToken";
+import verifyToken from "./helpers/jwt/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import CONFIG from "../config/config";
@@ -24,7 +25,7 @@ const authorizationController = {
   loginAppUser: async (loginInput: LoginInput): Promise<Tokens> => {
     const user = await userService.verifyNewUser(loginInput);
     const [accessToken, refreshToken] = await Promise.all([
-      authorizationController.craftAppAccessToken(user.id),
+      craftAccessToken(user.id, CLIENTS.app),
       authorizationController.craftRefreshToken(user.id),
     ]);
     return { accessToken, refreshToken };
@@ -35,32 +36,11 @@ const authorizationController = {
    */
   loginWebUser: async (loginInput: LoginInput): Promise<Result> => {
     const user = await userService.verifyNewUser(loginInput);
-    // TODO: test validator helper
     // TODO: extract cookie function
     return { success: true };
   },
 
   // TODO: move to helpers
-  craftAppAccessToken: async (id: string): Promise<string> => {
-    const exp = Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION;
-    const payload = {
-      exp,
-      sub: id,
-      tokenUse: TokenTypes.access,
-    };
-    return signToken(payload);
-  },
-
-  craftWebAccessToken: async (id: string): Promise<string> => {
-    const exp = Math.floor(Date.now() / 1000) + WEB_ACCESS_TOKEN_EXPIRATION;
-    const payload = {
-      exp,
-      sub: id,
-      tokenUse: TokenTypes.access,
-    };
-    return signToken(payload);
-  },
-
   craftRefreshToken: async (id: string): Promise<string> => {
     const exp = Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION;
     const payload = {
@@ -79,7 +59,7 @@ const authorizationController = {
     logger.debug("[createUser] crafting tokens for a new mobile user");
     const newUser = await userService.createUser();
     const [accessToken, refreshToken] = await Promise.all([
-      authorizationController.craftAppAccessToken(newUser.id),
+      craftAccessToken(newUser.id, CLIENTS.app),
       authorizationController.craftRefreshToken(newUser.id),
     ]);
     return { accessToken, refreshToken };
@@ -92,10 +72,9 @@ const authorizationController = {
   createWebUser: async (res: Response): Promise<Result> => {
     logger.debug("[createUser] crafting tokens for a new website user");
     const newUser = await userService.createUser();
-    const accessToken = await authorizationController.craftWebAccessToken(
-      newUser.id
-    );
+    const accessToken = await craftAccessToken(newUser.id, CLIENTS.web);
     // if we had sensitive data we would add xsrf protection
+    // TODO: get cookie helper function
     res.cookie("access_token", accessToken, {
       expires: new Date(Date.now() + WEB_ACCESS_TOKEN_EXPIRATION), // cookie will be removed after 6 months
       httpOnly: true,
@@ -113,18 +92,15 @@ const authorizationController = {
       const verifiedRefreshToken = await verifyToken(refreshToken);
       const { sub, tokenUse } = verifiedRefreshToken;
       if (tokenUse !== TokenTypes.refresh) {
-        throw new Error("Invalid token type");
+        logger.error("[getAccessToken] invalid token type");
+        throw new Error("InvalidToken");
       }
-      const exp = Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION;
-      const payload = {
-        exp,
-        sub,
-        tokenUse: TokenTypes.access,
-      };
-      return signToken(payload);
+      return craftAccessToken(sub, CLIENTS.app);
     } catch (error) {
+      // Errors while verifying the token will be caught here: expired token, wrong signature
+      // The user must login
       logger.error(`[getAccessToken] ${error}`);
-      throw new Error("Invalid refresh token");
+      throw new Error("InvalidToken");
     }
   },
 

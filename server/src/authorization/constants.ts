@@ -1,3 +1,8 @@
+export enum CLIENTS {
+  app,
+  web,
+}
+
 export const TOKEN_ISSUER = "ManyWords";
 
 // 30 minutes in Epoch

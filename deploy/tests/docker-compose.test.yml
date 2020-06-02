@@ -8,7 +8,7 @@ services:
     container_name: manywords-test-server
     environment:
       JWT_SIGNATURE: $JWT_SIGNATURE
-      MONGO_URI: mongodb://mongo-test:27017/manywords
+      MONGO_URI: $MONGO_URI
       NODE_ENV: $NODE_ENV
       SERVER_PORT: $SERVER_PORT
     # to allow hot reloading
@@ -26,7 +26,7 @@ services:
     container_name: manywords-server-tester
     environment:
       JWT_SIGNATURE: $JWT_SIGNATURE
-      MONGO_URI: mongodb://mongo-test:27017/manywords
+      MONGO_URI: $MONGO_URI
       SERVER_PORT: $SERVER_PORT
     stdin_open: true
     tty: true
@@ -40,7 +40,7 @@ services:
     container_name: manywords-test-database-seeder
     environment:
       NODE_ENV: $NODE_ENV
-      MONGO_URI: mongodb://mongo-test:27017/manywords
+      MONGO_URI: $MONGO_URI
     volumes:
       - ../../exercises:/exercises
     depends_on:

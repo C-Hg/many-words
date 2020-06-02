@@ -8,7 +8,7 @@ import logger from "../../utils/logger";
  */
 const validateLoginInput = (loginInput: LoginInput): void => {
   const { email, totp } = loginInput;
-
+  logger.debug("[validateLoginInput] input validated");
   if (!validator.isEmail(email)) {
     logger.error("[sendTotp] invalid email format");
     throw new Error("InvalidEmail");

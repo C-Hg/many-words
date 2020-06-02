@@ -4,8 +4,8 @@ import verifyToken from "./verifyToken";
 import {
   APP_ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
-} from "../constants";
-import { TokenTypes } from "../interfaces/tokenPayload.interface";
+} from "../../constants";
+import { TokenTypes } from "../../interfaces/tokenPayload.interface";
 
 describe("signToken", () => {
   it("should sign an access token and verify it", async () => {

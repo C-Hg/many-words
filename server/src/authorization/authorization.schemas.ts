@@ -10,7 +10,7 @@ export const typeDefs = gql`
   type Query {
     getAccessToken(refreshToken: String!): String!
     loginAppUser(loginInput: LoginInput!): Tokens!
-    loginWebUser(loginInput: LoginInput!): Tokens!
+    loginWebUser(loginInput: LoginInput!): Result!
     sendTotp(email: String!): Result!
   }
 
