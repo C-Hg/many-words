@@ -2,16 +2,21 @@ import { gql } from "apollo-server-express";
 import { Response } from "express";
 
 import authorizationController from "./authorization.controller";
-import validateLoginInput from "./helpers/validateLoginInput";
+import validateEmail from "./helpers/validators/validateEmail";
+import validateLoginInput from "./helpers/validators/validateLoginInput";
 
-import { Result, Tokens, LoginInput } from "../graphql/authorization.types";
+import {
+  MutationResult,
+  Tokens,
+  LoginInput,
+} from "../graphql/authorization.types";
 
 export const typeDefs = gql`
   type Query {
     getAccessToken(refreshToken: String!): String!
-    loginAppUser(loginInput: LoginInput!): Tokens!
-    loginWebUser(loginInput: LoginInput!): Result!
-    sendTotp(email: String!): Result!
+    logInAppUser(loginInput: LoginInput!): Tokens!
+    logInWebUser(loginInput: LoginInput!): MutationResult!
+    sendTotp(email: String!): MutationResult!
   }
 
   input LoginInput {
@@ -21,10 +26,10 @@ export const typeDefs = gql`
 
   type Mutation {
     createAppUser: Tokens!
-    createWebUser: Result!
+    createWebUser: MutationResult!
   }
 
-  type Result {
+  type MutationResult {
     success: Boolean!
   }
 
@@ -37,19 +42,20 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    loginAppUser: async (
+    logInAppUser: async (
       parent: {},
       { loginInput }: { loginInput: LoginInput }
     ): Promise<Tokens> => {
       validateLoginInput(loginInput);
-      return authorizationController.loginAppUser(loginInput);
+      return authorizationController.logInAppUser(loginInput);
     },
-    loginWebUser: async (
+    logInWebUser: async (
       parent: {},
-      { loginInput }: { loginInput: LoginInput }
-    ): Promise<Tokens> => {
+      { loginInput }: { loginInput: LoginInput },
+      { res }: { res: Response }
+    ): Promise<MutationResult> => {
       validateLoginInput(loginInput);
-      return authorizationController.loginWebUser(loginInput);
+      return authorizationController.logInWebUser(res, loginInput);
     },
     getAccessToken: async (
       parent: {},
@@ -60,15 +66,10 @@ export const resolvers = {
     sendTotp: async (
       parent: {},
       { email }: { email: string }
-    ): Promise<Result> => {
+    ): Promise<MutationResult> => {
+      validateEmail(email);
       return authorizationController.sendTotp(email);
     },
-    // webLogin: async (
-    //   parent: {},
-    //   { loginInput }: { loginInput: loginInput }
-    // ): Promise<Tokens> => {
-    //   return authorizationController.webLogin(loginInput);
-    // },
   },
   Mutation: {
     createAppUser: async (): Promise<Tokens> => {
@@ -78,7 +79,7 @@ export const resolvers = {
       parent: {},
       arg: {},
       { res }: { res: Response }
-    ): Promise<Tokens> => {
+    ): Promise<MutationResult> => {
       return authorizationController.createWebUser(res);
     },
   },

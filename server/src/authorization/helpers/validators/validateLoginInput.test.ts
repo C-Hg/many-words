@@ -1,6 +1,6 @@
 import validateLoginInput from "./validateLoginInput";
 
-import { LoginInput } from "../../graphql/authorization.types";
+import { LoginInput } from "../../../graphql/authorization.types";
 
 describe("validateLoginInput", () => {
   it("should throw an error if the given email is of invalid format", () => {

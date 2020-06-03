@@ -40,8 +40,8 @@ const GET_ACCESS_TOKEN = gql`
 `;
 
 const APP_LOGIN = gql`
-  query loginAppUser($loginInput: LoginInput!) {
-    loginAppUser(loginInput: $loginInput) {
+  query logInAppUser($loginInput: LoginInput!) {
+    logInAppUser(loginInput: $loginInput) {
       accessToken
       refreshToken
     }
@@ -72,8 +72,17 @@ beforeAll(async () => {
 afterAll(async () => {
   // remove all users created to test the tokens, i.e. without emails
   await User.deleteMany({ email: { $exists: false } });
-  await User.deleteOne({ email: VALID_EMAIL_1 });
-  await User.deleteOne({ email: VALID_EMAIL_2 });
+  await User.deleteMany({
+    email: {
+      $in: [
+        VALID_EMAIL_1,
+        VALID_EMAIL_2,
+        VALID_EMAIL_3,
+        VALID_EMAIL_4,
+        VALID_EMAIL_5,
+      ],
+    },
+  });
   db.connection.close();
 });
 
@@ -239,7 +248,7 @@ describe("Authorization server - e2e", () => {
         query: SEND_TOTP,
         variables: { email: INVALID_EMAIL },
       })
-    ).rejects.toThrowError("Invalid email format");
+    ).rejects.toThrowError("InvalidEmailFormat");
     const user = await User.findOne({ email: INVALID_EMAIL });
     expect(user).toBeNull();
   });
@@ -259,7 +268,7 @@ describe("Authorization server - e2e", () => {
     });
     const {
       data: {
-        loginAppUser: { accessToken, refreshToken },
+        logInAppUser: { accessToken, refreshToken },
       },
     } = res;
     expect(accessToken).toBeDefined();

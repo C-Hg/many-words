@@ -1,142 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1591085279813" clover="3.2.0">
-  <project timestamp="1591085279813" name="All files">
-    <metrics statements="80" coveredstatements="54" conditionals="28" coveredconditionals="11" methods="16" coveredmethods="13" elements="124" coveredelements="78" complexity="0" loc="80" ncloc="80" packages="8" files="11" classes="11"/>
+<coverage generated="1591170720769" clover="3.2.0">
+  <project timestamp="1591170720769" name="All files">
+    <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4" elements="21" coveredelements="21" complexity="0" loc="15" ncloc="15" packages="2" files="3" classes="3"/>
     <package name="authorization">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="constants.ts" path="/manywords/server/src/authorization/constants.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-      </file>
-    </package>
-    <package name="authorization.helpers">
-      <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
-      <file name="validateLoginInput.ts" path="/manywords/server/src/authorization/helpers/validateLoginInput.ts">
-        <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="12" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="16" count="1" type="cond" truecount="3" falsecount="1"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
       </file>
     </package>
     <package name="authorization.helpers.jwt">
-      <metrics statements="20" coveredstatements="19" conditionals="6" coveredconditionals="5" methods="7" coveredmethods="7"/>
-      <file name="craftAccessToken.ts" path="/manywords/server/src/authorization/helpers/jwt/craftAccessToken.ts">
-        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
+      <file name="craftRefreshToken.ts" path="/manywords/server/src/authorization/helpers/jwt/craftRefreshToken.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="27" count="2" type="stmt"/>
-      </file>
-      <file name="signToken.ts" path="/manywords/server/src/authorization/helpers/jwt/signToken.ts">
-        <metrics statements="8" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="6" type="stmt"/>
-        <line num="11" count="6" type="stmt"/>
-        <line num="13" count="6" type="stmt"/>
-        <line num="14" count="6" type="stmt"/>
-        <line num="15" count="6" type="cond" truecount="1" falsecount="1"/>
-        <line num="16" count="6" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
       </file>
       <file name="verifyToken.ts" path="/manywords/server/src/authorization/helpers/jwt/verifyToken.ts">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="10" type="stmt"/>
-        <line num="13" count="10" type="stmt"/>
-        <line num="17" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="18" count="8" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="17" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="5" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
-      </file>
-    </package>
-    <package name="authorization.interfaces">
-      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="tokenPayload.interface.ts" path="/manywords/server/src/authorization/interfaces/tokenPayload.interface.ts">
-        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      </file>
-    </package>
-    <package name="config">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="config.ts" path="/manywords/server/src/config/config.ts">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-      </file>
-    </package>
-    <package name="user">
-      <metrics statements="29" coveredstatements="7" conditionals="13" coveredconditionals="0" methods="4" coveredmethods="2"/>
-      <file name="user.service.ts" path="/manywords/server/src/user/user.service.ts">
-        <metrics statements="29" coveredstatements="7" conditionals="13" coveredconditionals="0" methods="4" coveredmethods="2"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="63" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="68" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="user.models">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="user.model.ts" path="/manywords/server/src/user/models/user.model.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="72" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="utils.tests">
-      <metrics statements="13" coveredstatements="10" conditionals="3" coveredconditionals="1" methods="4" coveredmethods="3"/>
-      <file name="dbConnection.ts" path="/manywords/server/src/utils/tests/dbConnection.ts">
-        <metrics statements="5" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="12" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-      </file>
-      <file name="graphqlClient.ts" path="/manywords/server/src/utils/tests/graphqlClient.ts">
-        <metrics statements="8" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="17" count="10" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="39" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="40" count="0" type="stmt"/>
       </file>
     </package>
   </project>

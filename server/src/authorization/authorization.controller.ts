@@ -1,56 +1,25 @@
+import { AuthenticationError } from "apollo-server-express";
 import { Response } from "express";
-import validator from "validator";
 
-import {
-  REFRESH_TOKEN_EXPIRATION,
-  WEB_ACCESS_TOKEN_EXPIRATION,
-  CLIENTS,
-} from "./constants";
+import { CLIENTS } from "./constants";
 import generateTotp from "./helpers/generateTotp";
 import craftAccessToken from "./helpers/jwt/craftAccessToken";
-import signToken from "./helpers/jwt/signToken";
+import craftRefreshToken from "./helpers/jwt/craftRefreshToken";
 import verifyToken from "./helpers/jwt/verifyToken";
+import setAccessCookie from "./helpers/setAccessCookie";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import CONFIG from "../config/config";
-import { Tokens, Result, LoginInput } from "../graphql/authorization.types";
+import {
+  Tokens,
+  LoginInput,
+  MutationResult,
+} from "../graphql/authorization.types";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
 
 // TODO: refresh token rotation
 const authorizationController = {
-  /**
-   * Confirm the email with totp and returns tokens
-   */
-  loginAppUser: async (loginInput: LoginInput): Promise<Tokens> => {
-    const user = await userService.verifyNewUser(loginInput);
-    const [accessToken, refreshToken] = await Promise.all([
-      craftAccessToken(user.id, CLIENTS.app),
-      authorizationController.craftRefreshToken(user.id),
-    ]);
-    return { accessToken, refreshToken };
-  },
-
-  /**
-   * Confirm the email with totp and returns access token in a cookie
-   */
-  loginWebUser: async (loginInput: LoginInput): Promise<Result> => {
-    const user = await userService.verifyNewUser(loginInput);
-    // TODO: extract cookie function
-    return { success: true };
-  },
-
-  // TODO: move to helpers
-  craftRefreshToken: async (id: string): Promise<string> => {
-    const exp = Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION;
-    const payload = {
-      exp,
-      sub: id,
-      tokenUse: TokenTypes.refresh,
-    };
-    return signToken(payload);
-  },
-
   /**
    * Creates a new user for a mobile device
    * Tokens are stored securely with keyChain
@@ -60,7 +29,7 @@ const authorizationController = {
     const newUser = await userService.createUser();
     const [accessToken, refreshToken] = await Promise.all([
       craftAccessToken(newUser.id, CLIENTS.app),
-      authorizationController.craftRefreshToken(newUser.id),
+      craftRefreshToken(newUser.id),
     ]);
     return { accessToken, refreshToken };
   },
@@ -68,18 +37,13 @@ const authorizationController = {
   /**
    * Creates a new user for the website
    * Tokens are stored securely inside cookies
+   * If we had sensitive data we would add xsrf protection
    */
-  createWebUser: async (res: Response): Promise<Result> => {
+  createWebUser: async (res: Response): Promise<MutationResult> => {
     logger.debug("[createUser] crafting tokens for a new website user");
     const newUser = await userService.createUser();
     const accessToken = await craftAccessToken(newUser.id, CLIENTS.web);
-    // if we had sensitive data we would add xsrf protection
-    // TODO: get cookie helper function
-    res.cookie("access_token", accessToken, {
-      expires: new Date(Date.now() + WEB_ACCESS_TOKEN_EXPIRATION), // cookie will be removed after 6 months
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // TODO: check if it works on staging server
-    });
+    setAccessCookie(res, accessToken);
     return { success: true };
   },
 
@@ -93,27 +57,50 @@ const authorizationController = {
       const { sub, tokenUse } = verifiedRefreshToken;
       if (tokenUse !== TokenTypes.refresh) {
         logger.error("[getAccessToken] invalid token type");
-        throw new Error("InvalidToken");
+        throw new AuthenticationError("InvalidToken");
       }
       return craftAccessToken(sub, CLIENTS.app);
     } catch (error) {
       // Errors while verifying the token will be caught here: expired token, wrong signature
       // The user must login
       logger.error(`[getAccessToken] ${error}`);
-      throw new Error("InvalidToken");
+      throw new AuthenticationError("InvalidToken");
     }
+  },
+
+  /**
+   * Confirm the email with totp and returns tokens
+   */
+  logInAppUser: async (loginInput: LoginInput): Promise<Tokens> => {
+    const user = await userService.verifyNewUser(loginInput);
+    const [accessToken, refreshToken] = await Promise.all([
+      craftAccessToken(user.id, CLIENTS.app),
+      craftRefreshToken(user.id),
+    ]);
+    return { accessToken, refreshToken };
+  },
+
+  /**
+   * Confirm the email with totp and returns access token in a cookie
+   */
+  logInWebUser: async (
+    res: Response,
+    loginInput: LoginInput
+  ): Promise<MutationResult> => {
+    const user = await userService.verifyNewUser(loginInput);
+    const accessToken = await craftAccessToken(user.id, CLIENTS.web);
+    setAccessCookie(res, accessToken);
+    return { success: true };
   },
 
   // TODO: similar function for exercises Server to validate an email for a user
   // TODO: limit the number of requests from a single client
-  sendTotp: async (email: string): Promise<Result> => {
-    logger.debug("[sendTotp] trying to login user with email");
-    if (!validator.isEmail(email)) {
-      logger.error("[sendTotp] invalid email format");
-      throw new Error("Invalid email format");
-    }
-
-    // generate and save the totp for later verification
+  /**
+   * Generate and save the totp for later verification
+   * Send it by email to the provided email
+   */
+  sendTotp: async (email: string): Promise<MutationResult> => {
+    logger.debug("[sendTotp] trying to log in user with email");
     const totp = generateTotp();
     await userService.setTotp(email, totp);
 

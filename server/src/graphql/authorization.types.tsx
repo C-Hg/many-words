@@ -22,33 +22,39 @@ export type LoginInput = {
 
 export type Mutation = {
   createAppUser: Tokens;
-  createWebUser: Result;
+  createWebUser: MutationResult;
+};
+
+export type MutationResult = {
+  success: Scalars["Boolean"];
 };
 
 export type Query = {
-  loginAppUser: Tokens;
   getAccessToken: Scalars["String"];
-  sendTotp: Result;
-};
-
-export type QueryloginAppUserArgs = {
-  loginInput: LoginInput;
+  logInAppUser: Tokens;
+  logInWebUser: MutationResult;
+  sendTotp: MutationResult;
 };
 
 export type QueryGetAccessTokenArgs = {
   refreshToken: Scalars["String"];
 };
 
+export type QueryLogInAppUserArgs = {
+  loginInput: LoginInput;
+};
+
+export type QueryLogInWebUserArgs = {
+  loginInput: LoginInput;
+};
+
 export type QuerySendTotpArgs = {
   email: Scalars["String"];
 };
 
-export type Result = {
-  success: Scalars["Boolean"];
-};
-
 export type Tokens = {
   accessToken: Scalars["String"];
+  error?: Maybe<Scalars["String"]>;
   refreshToken: Scalars["String"];
 };
 
@@ -161,11 +167,11 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
-  LoginInput: LoginInput;
   String: ResolverTypeWrapper<Scalars["String"]>;
+  LoginInput: LoginInput;
   Int: ResolverTypeWrapper<Scalars["Int"]>;
   Tokens: ResolverTypeWrapper<Tokens>;
-  Result: ResolverTypeWrapper<Result>;
+  MutationResult: ResolverTypeWrapper<MutationResult>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   Mutation: ResolverTypeWrapper<{}>;
 };
@@ -173,11 +179,11 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
-  LoginInput: LoginInput;
   String: Scalars["String"];
+  LoginInput: LoginInput;
   Int: Scalars["Int"];
   Tokens: Tokens;
-  Result: Result;
+  MutationResult: MutationResult;
   Boolean: Scalars["Boolean"];
   Mutation: {};
 };
@@ -187,39 +193,49 @@ export type MutationResolvers<
   ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
 > = {
   createAppUser?: Resolver<ResolversTypes["Tokens"], ParentType, ContextType>;
-  createWebUser?: Resolver<ResolversTypes["Result"], ParentType, ContextType>;
+  createWebUser?: Resolver<
+    ResolversTypes["MutationResult"],
+    ParentType,
+    ContextType
+  >;
+};
+
+export type MutationResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["MutationResult"] = ResolversParentTypes["MutationResult"]
+> = {
+  success?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
-  loginAppUser?: Resolver<
-    ResolversTypes["Tokens"],
-    ParentType,
-    ContextType,
-    RequireFields<QueryloginAppUserArgs, "loginInput">
-  >;
   getAccessToken?: Resolver<
     ResolversTypes["String"],
     ParentType,
     ContextType,
     RequireFields<QueryGetAccessTokenArgs, "refreshToken">
   >;
+  logInAppUser?: Resolver<
+    ResolversTypes["Tokens"],
+    ParentType,
+    ContextType,
+    RequireFields<QueryLogInAppUserArgs, "loginInput">
+  >;
+  logInWebUser?: Resolver<
+    ResolversTypes["MutationResult"],
+    ParentType,
+    ContextType,
+    RequireFields<QueryLogInWebUserArgs, "loginInput">
+  >;
   sendTotp?: Resolver<
-    ResolversTypes["Result"],
+    ResolversTypes["MutationResult"],
     ParentType,
     ContextType,
     RequireFields<QuerySendTotpArgs, "email">
   >;
-};
-
-export type ResultResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["Result"] = ResolversParentTypes["Result"]
-> = {
-  success?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
-  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
 export type TokensResolvers<
@@ -227,14 +243,15 @@ export type TokensResolvers<
   ParentType extends ResolversParentTypes["Tokens"] = ResolversParentTypes["Tokens"]
 > = {
   accessToken?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   refreshToken?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
+  MutationResult?: MutationResultResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  Result?: ResultResolvers<ContextType>;
   Tokens?: TokensResolvers<ContextType>;
 };
 
