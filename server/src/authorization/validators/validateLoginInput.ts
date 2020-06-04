@@ -2,8 +2,8 @@ import { UserInputError } from "apollo-server-express";
 
 import validateEmail from "./validateEmail";
 
-import { LoginInput } from "../../../graphql/authorization.types";
-import logger from "../../../utils/logger";
+import { LoginInput } from "../../graphql/authorization.types";
+import logger from "../../utils/logger";
 
 /**
  * Throws an error if login input parameters are invalid

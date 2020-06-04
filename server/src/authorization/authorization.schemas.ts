@@ -2,8 +2,8 @@ import { gql } from "apollo-server-express";
 import { Response } from "express";
 
 import authorizationController from "./authorization.controller";
-import validateEmail from "./helpers/validators/validateEmail";
-import validateLoginInput from "./helpers/validators/validateLoginInput";
+import validateEmail from "./validators/validateEmail";
+import validateLoginInput from "./validators/validateLoginInput";
 
 import {
   MutationResult,

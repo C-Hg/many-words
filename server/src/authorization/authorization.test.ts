@@ -39,11 +39,19 @@ const GET_ACCESS_TOKEN = gql`
   }
 `;
 
-const APP_LOGIN = gql`
+const LOG_IN_APP_USER = gql`
   query logInAppUser($loginInput: LoginInput!) {
     logInAppUser(loginInput: $loginInput) {
       accessToken
       refreshToken
+    }
+  }
+`;
+
+const LOG_IN_WEB_USER = gql`
+  query logInWebUser($loginInput: LoginInput!) {
+    logInWebUser(loginInput: $loginInput) {
+      success
     }
   }
 `;
@@ -63,6 +71,10 @@ const VALID_EMAIL_2 = "hello2@manywords.fr";
 const VALID_EMAIL_3 = "hello3@manywords.fr";
 const VALID_EMAIL_4 = "hello4@manywords.fr";
 const VALID_EMAIL_5 = "hello5@manywords.fr";
+const VALID_EMAIL_6 = "hello6@manywords.fr";
+const VALID_EMAIL_7 = "hello7@manywords.fr";
+const VALID_EMAIL_8 = "hello8@manywords.fr";
+const VALID_EMAIL_9 = "hello9@manywords.fr";
 
 let db: typeof Mongoose;
 beforeAll(async () => {
@@ -80,6 +92,10 @@ afterAll(async () => {
         VALID_EMAIL_3,
         VALID_EMAIL_4,
         VALID_EMAIL_5,
+        VALID_EMAIL_6,
+        VALID_EMAIL_7,
+        VALID_EMAIL_8,
+        VALID_EMAIL_9,
       ],
     },
   });
@@ -131,24 +147,8 @@ describe("Authorization server - e2e", () => {
       },
     } = res;
 
-    // only verify that the cookies are there
+    // only verify that the call succeeded, setting cookies is unit tested
     expect(success).toEqual(true);
-    // const decodedAT = await verifyToken(accessToken);
-    // expect(decodedAT.exp).toBeCloseTo(
-    //   Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRATION
-    // );
-    // expect(decodedAT.sub).toBeDefined();
-    // expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
-
-    // expect(refreshToken).toBeDefined();
-    // validRefreshToken = refreshToken;
-    // const decodedRT = await verifyToken(refreshToken);
-    // expect(decodedRT.exp).toBeCloseTo(
-    //   Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION
-    // );
-    // expect(decodedRT.sub).toBeDefined();
-    // expect(decodedRT.sub).toEqual(decodedAT.sub);
-    // expect(decodedRT.tokenUse).toEqual(TokenTypes.refresh);
   });
 
   // -----------------     GET_APP_ACCESS_TOKEN      ------------------
@@ -253,7 +253,7 @@ describe("Authorization server - e2e", () => {
     expect(user).toBeNull();
   });
 
-  // -----------------     APP_LOGIN     ------------------
+  // -----------------    LOG_IN_APP_USER     ------------------
   it("should verify the user and receive tokens", async () => {
     // creates a new user with verifiable values
     await userService.setTotp(VALID_EMAIL_2, 189657);
@@ -263,7 +263,7 @@ describe("Authorization server - e2e", () => {
       totp: 189657,
     };
     const res = await authorizationClient.query({
-      query: APP_LOGIN,
+      query: LOG_IN_APP_USER,
       variables: { loginInput },
     });
     const {
@@ -282,7 +282,7 @@ describe("Authorization server - e2e", () => {
     };
     await expect(
       authorizationClient.query({
-        query: APP_LOGIN,
+        query: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("InvalidEmail");
@@ -295,7 +295,7 @@ describe("Authorization server - e2e", () => {
     };
     await expect(
       authorizationClient.query({
-        query: APP_LOGIN,
+        query: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("InvalidTotp");
@@ -308,7 +308,7 @@ describe("Authorization server - e2e", () => {
     };
     await expect(
       authorizationClient.query({
-        query: APP_LOGIN,
+        query: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("RequestFailed");
@@ -326,7 +326,7 @@ describe("Authorization server - e2e", () => {
     };
     await expect(
       authorizationClient.query({
-        query: APP_LOGIN,
+        query: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("GraphQL error: ExpiredTotp");
@@ -340,7 +340,7 @@ describe("Authorization server - e2e", () => {
     };
     await expect(
       authorizationClient.query({
-        query: APP_LOGIN,
+        query: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("GraphQL error: RequestFailed");
@@ -354,11 +354,115 @@ describe("Authorization server - e2e", () => {
     };
     await expect(
       authorizationClient.query({
-        query: APP_LOGIN,
+        query: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("WrongTotp");
   });
 
-  // -----------------     WEB_LOGIN     ------------------
+  // -----------------     LOG_IN_WEB_USER     ------------------
+  it("should verify the user and receive cookie with access token", async () => {
+    // creates a new user with verifiable values
+    await userService.setTotp(VALID_EMAIL_9, 189657);
+
+    const loginInput = {
+      email: VALID_EMAIL_9,
+      totp: 189657,
+    };
+    const res = await authorizationClient.query({
+      query: LOG_IN_WEB_USER,
+      variables: { loginInput },
+    });
+    const {
+      data: {
+        logInWebUser: { success },
+      },
+    } = res;
+    expect(success).toEqual(true);
+  });
+
+  it("should throw an error if the given email is of invalid format", async () => {
+    const loginInput = {
+      email: INVALID_EMAIL,
+      totp: 180057,
+    };
+    await expect(
+      authorizationClient.query({
+        query: LOG_IN_WEB_USER,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("InvalidEmail");
+  });
+
+  it("should throw an error if the given totp is of invalid format", async () => {
+    const loginInput = {
+      email: VALID_EMAIL_1,
+      totp: 18005765,
+    };
+    await expect(
+      authorizationClient.query({
+        query: LOG_IN_WEB_USER,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("InvalidTotp");
+  });
+
+  it("should throw an error if the given email is not found", async () => {
+    const loginInput: LoginInput = {
+      email: NOT_FOUND_EMAIL,
+      totp: 180055,
+    };
+    await expect(
+      authorizationClient.query({
+        query: LOG_IN_WEB_USER,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("RequestFailed");
+  });
+
+  it("should throw an error if the given totp is expired", async () => {
+    // creates a new user that requested a totp half an hour ago
+    await userService.createUser({
+      email: VALID_EMAIL_8,
+      login: { totp: 180055, expiresAt: Date.now() - 30 * 60 * 1000 },
+    });
+    const loginInput: LoginInput = {
+      email: VALID_EMAIL_8,
+      totp: 180055,
+    };
+    await expect(
+      authorizationClient.query({
+        query: LOG_IN_WEB_USER,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("GraphQL error: ExpiredTotp");
+  });
+
+  it("should throw an error if the user has no totp previously set", async () => {
+    await userService.createUser({ email: VALID_EMAIL_6 });
+    const loginInput: LoginInput = {
+      email: VALID_EMAIL_6,
+      totp: 180055,
+    };
+    await expect(
+      authorizationClient.query({
+        query: LOG_IN_WEB_USER,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("GraphQL error: RequestFailed");
+  });
+
+  it("should throw an explicit error if the totp is wrong", async () => {
+    await userService.setTotp(VALID_EMAIL_7, 189888);
+    const loginInput: LoginInput = {
+      email: VALID_EMAIL_7,
+      totp: 189777,
+    };
+    await expect(
+      authorizationClient.query({
+        query: LOG_IN_WEB_USER,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("WrongTotp");
+  });
 });

@@ -1,7 +1,7 @@
 import { UserInputError } from "apollo-server-express";
 import validator from "validator";
 
-import logger from "../../../utils/logger";
+import logger from "../../utils/logger";
 
 /**
  * Throws an error if email is invalid
