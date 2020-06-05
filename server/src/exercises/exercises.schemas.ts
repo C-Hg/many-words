@@ -5,7 +5,7 @@ import lessonsByTopic from "./data/lessonsByTopic";
 import wordCountByLesson from "./data/wordCountByLesson";
 import exercisesController from "./exercises.controller";
 
-import { Lesson, ExerciseWord } from "../graphql/exercises.types";
+import { Lesson, ExerciseWord } from "../graphql/learn.types";
 
 export const typeDefs = gql`
   extend type Query {

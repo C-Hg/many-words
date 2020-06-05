@@ -1,6 +1,6 @@
 import selectForm from "./selectForm.function";
 
-import { Word } from "../../../graphql/exercises.types";
+import { Word } from "../../../graphql/learn.types";
 import { FORMS } from "../../../stats/constants";
 import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 

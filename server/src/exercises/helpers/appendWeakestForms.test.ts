@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 
 import appendWeakestForms from "./appendWeakestForms.function";
 
-import { Word } from "../../graphql/exercises.types";
+import { Word } from "../../graphql/learn.types";
 import { LANGUAGES } from "../../stats/constants";
 import { WordStats } from "../../stats/interfaces/wordStats.interface";
 import WordStatsModel from "../../stats/models/wordStats.model";

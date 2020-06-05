@@ -1,6 +1,6 @@
 import lessonsByTopic from "../../../exercises/data/lessonsByTopic";
 import { isTopic, isLesson } from "../../../exercises/interfaces/typeguards";
-import { TopicStats, LessonsScores } from "../../../graphql/exercises.types";
+import { TopicStats, LessonsScores } from "../../../graphql/learn.types";
 import logger from "../../../utils/logger";
 import { LESSON_GOLD_THRESHOLD, LESSON_GREEN_THRESHOLD } from "../../constants";
 

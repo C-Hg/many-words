@@ -1,6 +1,8 @@
 import { Response, NextFunction, Request } from "express";
 
+import verifyToken from "../authorization/helpers/jwt/verifyToken";
 import userService from "../user/user.service";
+import error401 from "../utils/errors/error401";
 import logger from "../utils/logger";
 
 const authentication = async (
@@ -8,18 +10,29 @@ const authentication = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  // TODO: fetch real user for production
-  // const user = null;
-  // const user = await userService.getUserById("5d66dc6a8946c00184ab1102");
-  // if (!user) {
-  //   // TODO: move up when verifying token
-  //   logger.error(`[authentication] user does not exist`);
-  //   res.status(401).json({ error: "Unauthenticated" }).end();
-  //   return;
-  // }
+  // TODO: parse cookies and get token
+  let verifiedToken;
 
-  // req.ctx = { user: user.toObject() };
-  // logger.debug(`[authentication] authenticated user ${user.id}`);
+  const token = req.headers["authorization"];
+  if (!token) {
+    logger.error(`[authentication] 401 - no token provided`);
+    return error401(res);
+  }
+  try {
+    verifiedToken = await verifyToken(token);
+  } catch (error) {
+    // TODO: allow expired token in dev mode only, with decodedToken
+    return;
+  }
+
+  const user = await userService.getUserById(verifiedToken.sub);
+  if (!user) {
+    logger.error(`[authentication] user does not exist`);
+    return error401(res);
+  }
+
+  req.ctx = { user: user.toObject() };
+  logger.debug(`[authentication] authenticated user ${user.id}`);
 
   next();
 };

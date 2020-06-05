@@ -1,11 +1,11 @@
-import { gql } from "apollo-server-express";
+import { gql, AuthenticationError } from "apollo-server-express";
 import { Request } from "express";
 
 import FormResult from "./interfaces/formResult.interface";
 import statsController from "./stats.controller";
 
 import wordCountByLesson from "../exercises/data/wordCountByLesson";
-import { User } from "../graphql/exercises.types";
+import { User } from "../graphql/learn.types";
 import logger from "../utils/logger";
 
 export const typeDefs = gql`
@@ -72,11 +72,6 @@ export const resolvers = {
       { results }: { results: FormResult[] },
       { req }: { req: Request }
     ): Promise<User> => {
-      // TODO: withUserDefinedMiddleware
-      if (!req.user) {
-        logger.error("[updateStats] user is undefined");
-        throw new Error("[updateStats] user is undefined");
-      }
       return statsController.updateStats(req.ctx.user, results);
     },
   },

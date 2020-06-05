@@ -1,5 +1,4 @@
 import ApolloClient from "apollo-boost";
-import { execute } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import fetch from "node-fetch";
 
@@ -18,15 +17,29 @@ const authorizationClient = new ApolloClient({
   },
 });
 
-const exercisesLink = new HttpLink({
-  uri: `http://localhost:${process.env.SERVER_PORT}/exercises`,
+const learnClient = new ApolloClient({
+  uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
   fetch,
+  // do not print error messages, some tests are expected to throw
+  onError: (): void => {
+    return;
+  },
 });
 
-const authorizationLinkWithJwt = new HttpLink({
-  uri: `http://localhost:${process.env.SERVER_PORT}/authorization`,
-  fetch,
-});
+const getAuthenticatedLearnClient = (
+  authorization: string
+): ApolloClient<unknown> =>
+  new ApolloClient({
+    uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
+    fetch,
+    headers: {
+      authorization,
+    },
+    // do not print error messages, some tests are expected to throw
+    onError: (): void => {
+      return;
+    },
+  });
 
 const exercisesLinkWithJwt = new HttpLink({
   uri: `http://localhost:${process.env.SERVER_PORT}/exercises`,
@@ -36,10 +49,4 @@ const exercisesLinkWithJwt = new HttpLink({
   // }
 });
 
-const exercisesGraphql = ({ query, variables = {} }) =>
-  execute(exercisesLink, { query, variables });
-
-// const exercisesGraphqlWithJwt = ({ query, variables = {} }) =>
-//   execute(unauthenticatedLink, { query, variables });
-
-export { authorizationClient, exercisesGraphql };
+export { authorizationClient, getAuthenticatedLearnClient, learnClient };

@@ -11,8 +11,8 @@ generates:
       enumsAsTypes: true
       skipTypename: true
 # TODO: add expired token for dev mode
-  src/graphql/exercises.types.tsx:
-    schema: "http://localhost:4000/exercises"
+  src/graphql/learn.types.tsx:
+    schema: "http://localhost:4000/learn"
     plugins:
       - "typescript"
       - "typescript-operations"

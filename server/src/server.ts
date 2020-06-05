@@ -6,7 +6,7 @@ import path from "path";
 
 import CONFIG from "./config/config";
 import authorizationServer from "./graphql/authorizationServer";
-import exercisesServer from "./graphql/exercisesServer";
+import learnServer from "./graphql/learnServer";
 import authentication from "./middlewares/authentication";
 import requestLogger from "./middlewares/requestLogger";
 import logger from "./utils/logger";
@@ -20,9 +20,9 @@ authorizationServer.applyMiddleware({
 
 /* ----------------------     Exercises app         ------------*/
 // All routes for exercisesServer requires a valid JWT and a user
-const exercisesApp = express();
-exercisesApp.use(authentication);
-exercisesServer.applyMiddleware({ app: exercisesApp, path: "/" });
+const learnApp = express();
+learnApp.use(authentication);
+learnServer.applyMiddleware({ app: learnApp, path: "/" });
 
 /* ----------------------     Main app    ------------*/
 const app = express();
@@ -31,7 +31,7 @@ const commonMiddlewares = [requestLogger, helmet()];
 app.set("trust proxy", 1);
 app.use("/", commonMiddlewares);
 app.use("/authorization", authorizationApp);
-app.use("/exercises", exercisesApp);
+app.use("/learn", learnApp);
 
 /* ----------------------     Mongoose setup     ------------*/
 mongoose.connect(CONFIG.mongoUri, {
@@ -52,9 +52,7 @@ db.once("open", () => {
     logger.info(
       `🔑 authorization: http://localhost:${CONFIG.serverPort}/authorization`
     );
-    logger.info(
-      `🎯 exercises: http://localhost:${CONFIG.serverPort}/exercises`
-    );
+    logger.info(`🎯 learn: http://localhost:${CONFIG.serverPort}/learn`);
   });
 });
 

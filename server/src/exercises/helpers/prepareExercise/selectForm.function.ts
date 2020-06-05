@@ -8,7 +8,7 @@ import {
   FormValue,
   Forms,
   Languages,
-} from "../../../graphql/exercises.types";
+} from "../../../graphql/learn.types";
 import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 import { SelectionResult } from "../../interfaces/word.interface";
 

@@ -99,7 +99,7 @@ afterAll(async () => {
       ],
     },
   });
-  db.connection.close();
+  await db.connection.close();
 });
 
 describe("Authorization server - e2e", () => {

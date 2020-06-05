@@ -2,7 +2,7 @@
 import { ObjectId } from "mongodb";
 import { Document } from "mongoose";
 
-import { User as GeneratedUser } from "../../graphql/exercises.types";
+import { User as GeneratedUser } from "../../graphql/learn.types";
 
 /**
  * Use this interface instead to have the properties not sent to the client

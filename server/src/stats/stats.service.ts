@@ -5,7 +5,7 @@ import WordResult from "./interfaces/wordResult.interface";
 import { WordStatsDocument } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
-import { Stats, Word } from "../graphql/exercises.types";
+import { Stats, Word } from "../graphql/learn.types";
 import { UserDocument, User } from "../user/interfaces/user.interface";
 import UserModel from "../user/models/user.model";
 import logger from "../utils/logger";

@@ -3,13 +3,13 @@ import { ObjectID } from "mongodb";
 import { WordDocument } from "./interfaces/word.interface";
 import WordModel from "./models/word.model";
 
-import { Lesson, Topic, Word } from "../graphql/exercises.types";
+import { Lesson, Topic, Word } from "../graphql/learn.types";
 import {
   WordStats,
   WordStatsDocument,
 } from "../stats/interfaces/wordStats.interface";
 import WordStatsModel from "../stats/models/wordStats.model";
-import error500 from "../utils/error500";
+import error500 from "../utils/errors/error500";
 import logger from "../utils/logger";
 
 const exercisesService = {

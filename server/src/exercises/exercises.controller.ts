@@ -7,10 +7,10 @@ import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 import { ARTICLE_FORMS } from "./interfaces/name.interface";
 
-import { Lesson, Word, ExerciseWord } from "../graphql/exercises.types";
+import { Lesson, Word, ExerciseWord } from "../graphql/learn.types";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
-import error500 from "../utils/error500";
+import error500 from "../utils/errors/error500";
 import logger from "../utils/logger";
 
 const exercisesController = {

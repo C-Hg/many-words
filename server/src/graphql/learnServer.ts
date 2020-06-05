@@ -21,7 +21,7 @@ const schema = makeExecutableSchema({
   resolvers: merge(exerciseResolvers, statsResolvers, userResolvers),
 });
 
-const exercisesServer = new ApolloServer({
+const learnServer = new ApolloServer({
   schema,
   context: ({
     req,
@@ -32,4 +32,4 @@ const exercisesServer = new ApolloServer({
   }): { req: Request; res: Response } => ({ req, res }),
 });
 
-export default exercisesServer;
+export default learnServer;
