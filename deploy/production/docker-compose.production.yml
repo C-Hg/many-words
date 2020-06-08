@@ -10,7 +10,6 @@ services:
       - web-app-build:/web-app/build
     environment:
       BROWSER: "none"
-      REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     ports:
       - 3000:3000
 

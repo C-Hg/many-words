@@ -1,4 +1,3 @@
-import { toPromise } from "apollo-link";
 import gql from "graphql-tag";
 
 const EXERCISE_QUERY = gql`

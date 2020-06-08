@@ -2,26 +2,21 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { connect } from "react-redux";
 import { ThemeProvider } from "styled-components";
-import { actions as userActions } from "../redux/reducers/user";
 import { languages, LanguageContext } from "../contexts/language-context";
 import Router from "./Router";
 import theme from "./theme";
 
-const mapStateToProps = (state) => ({ user: state.user });
-const mapDispatchToProps = (dispatch) => ({
-  defineLanguage: () => {
-    dispatch(userActions.defineLanguage());
-  },
-  checkSession: () => {
-    dispatch(userActions.checkSession());
-  },
-});
+// const GET_USER_STATS = `
+//   query getUserStats
+// `
 
-const App = (props) => {
-  const { user, checkSession, defineLanguage } = props;
+const App = () => {
+  const [isConnected, setIsConnected] = useState(false);
   const [isSessionChecked, setIsSessionChecked] = useState(false);
+
+  // TODO: get the language of the user with its stats, if no user is logged in, retrieve browser language,
+  // initialize context with it and set the value in local apollo store to later create the user with it
 
   // automatic language and session detection on first page rendering
   useEffect(() => {
@@ -30,18 +25,19 @@ const App = (props) => {
       defineLanguage();
       setIsSessionChecked(true);
     }
-  }, [checkSession, defineLanguage, isSessionChecked]);
+  }, [isSessionChecked]);
 
-  // TODO : waiting screen or animation ?
   // allows the language context to load before rendering children components, critical when loading other page than home first
   if (!isSessionChecked) {
+    // TODO : waiting screen or animation ?
     return null;
   }
+
   return (
     // the language context depends on the language value in the redux store
     <LanguageContext.Provider value={languages[user.language]}>
       <ThemeProvider theme={theme}>
-        <Router />
+        <Router isConnected={isConnected} />
       </ThemeProvider>
     </LanguageContext.Provider>
   );
@@ -55,4 +51,5 @@ App.propTypes = {
   defineLanguage: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+// TODO: Router as a provider ?
+export default withRouter(App);

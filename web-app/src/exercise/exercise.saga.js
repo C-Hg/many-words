@@ -2,16 +2,13 @@ import { put, call, select, takeEvery } from "redux-saga/effects";
 
 import { types } from "./exercise.reducer";
 import fetch from "../services/fetch";
-import FrEnWordSelector from "../controllers/exercise/word_selector/wordSelector.function";
 import checkUserTranslation from "../controllers/exercise/checkUserTranslation.function";
-import makeBatches from "../controllers/exercise/weak_words/makeBatches.function";
 
 function* getWords({ lesson, theme }) {
   try {
     yield put({ type: "BEGIN_EXERCISE" });
     const words = yield call(fetch.getJSONResponse, `/api/exercise/${lesson}`);
-    const lessonWords = FrEnWordSelector(words, true);
-    yield put({ type: "SET_LESSON_WORDS", lessonWords, theme });
+    yield put({ type: "SET_LESSON_WORDS", words, theme });
   } catch (error) {
     console.error("getWords", error);
   }
@@ -22,12 +19,10 @@ function* getWeakWords({ reference = "curriculum" }) {
     yield put({ type: "BEGIN_EXERCISE" });
     const route = `/api/weak_words/${reference}`;
     const redirectionTarget = `/${reference}`;
-    const rawWeakWords = yield call(fetch.getJSONResponse, route);
-    const preparedWeakWords = FrEnWordSelector(rawWeakWords, false);
-    const weakWordsBatches = makeBatches(preparedWeakWords);
+    const weakWords = yield call(fetch.getJSONResponse, route);
     yield put({
       type: "SET_WEAK_WORDS",
-      weakWordsBatches,
+      weakWords,
       reference,
       redirectionTarget,
     });
@@ -38,7 +33,7 @@ function* getWeakWords({ reference = "curriculum" }) {
 
 function* continueWeakWords() {
   try {
-    const exercise = yield select(state => state.exercise);
+    const exercise = yield select((state) => state.exercise);
     const reference = exercise.weakWordsReference;
     if (exercise.weakWordsBatchesDone < exercise.weakWordsBatches.length - 1) {
       const nextBatch = exercise.weakWordsBatchesDone + 1;
@@ -51,7 +46,7 @@ function* continueWeakWords() {
 
 function* addLetter(letter) {
   try {
-    const exercise = yield select(state => state.exercise);
+    const exercise = yield select((state) => state.exercise);
     const newUserTranslation = exercise.userTranslation + letter.value;
     yield put({
       type: "UPDATE_USER_TRANSLATION",
@@ -64,7 +59,7 @@ function* addLetter(letter) {
 
 function* submitUserTranslation() {
   try {
-    const exercise = yield select(state => state.exercise);
+    const exercise = yield select((state) => state.exercise);
     const result = checkUserTranslation(
       exercise.userTranslation,
       exercise.words[exercise.wordRank]
@@ -84,7 +79,7 @@ function* submitUserTranslation() {
 
 function* updateStats() {
   try {
-    const exercise = yield select(state => state.exercise);
+    const exercise = yield select((state) => state.exercise);
     const data = JSON.stringify(exercise.result);
     // updates stats on server and get up-to-date user stats
     const stats = yield call(
@@ -100,8 +95,8 @@ function* updateStats() {
 
 function* nextWord() {
   try {
-    const exercise = yield select(state => state.exercise);
-    const user = yield select(state => state.user);
+    const exercise = yield select((state) => state.exercise);
+    const user = yield select((state) => state.user);
 
     // if all the words of the current batch have been done
     if (exercise.wordRank === exercise.words.length - 1) {

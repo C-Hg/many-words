@@ -18,12 +18,8 @@ const userService = {
   /**
    * Get user by id
    */
-  getUserById: async (userId: string): Promise<UserDocument> => {
-    const user = await UserModel.findById(userId);
-    if (!user) {
-      throw new Error(`[getUserById] no user found with id ${userId}`);
-    }
-    return user;
+  getUserById: async (userId: string): Promise<UserDocument | null> => {
+    return UserModel.findById(userId);
   },
 
   /**

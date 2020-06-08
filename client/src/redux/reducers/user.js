@@ -57,18 +57,6 @@ const actions = {
       type: types.RESET_ACTIVITY,
     };
   },
-
-  defineLanguage: () => {
-    return {
-      type: types.DEFINE_LANGUAGE,
-    };
-  },
-
-  checkSession: () => {
-    return {
-      type: types.CHECK_SESSION,
-    };
-  },
 };
 
 export default userReducer;

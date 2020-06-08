@@ -7,4 +7,9 @@ const CONSTANTS = {
   },
 };
 
+export enum LANGUAGES {
+  English = "English",
+  French = "French",
+}
+
 export default CONSTANTS;

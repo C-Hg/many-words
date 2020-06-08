@@ -8,7 +8,6 @@ services:
     container_name: manywords-web-app
     environment:
       EXTEND_ESLINT: "true"
-      REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     volumes:
       # to allow hot reloading
       - ../../web-app:/web-app

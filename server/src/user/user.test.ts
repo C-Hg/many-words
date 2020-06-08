@@ -1,27 +1,14 @@
-import { toPromise } from "apollo-link";
 import gql from "graphql-tag";
 import Mongoose from "mongoose";
 
-import { TOTP_EXPIRATION } from "./constants";
 import User from "./models/user.model";
-import userService from "./user.service";
 
-import logger from "../utils/logger";
 import getDbConnection from "../utils/tests/dbConnection";
+import getAccessTokenForUser from "../utils/tests/getAccessTokenForUser";
 import {
   learnClient,
-  authorizationClient,
   getAuthenticatedLearnClient,
 } from "../utils/tests/graphqlClient";
-
-const LOG_IN_APP_USER = gql`
-  query logInAppUser($loginInput: LoginInput!) {
-    logInAppUser(loginInput: $loginInput) {
-      accessToken
-      refreshToken
-    }
-  }
-`;
 
 const USER_QUERY = gql`
   query user {
@@ -47,6 +34,7 @@ const USER_QUERY = gql`
 `;
 
 const USER_1 = "user1@manywords.fr";
+const USER_NOT_FOUND = "user2NotFound@manywords.fr";
 
 let db: typeof Mongoose;
 beforeAll(async () => {
@@ -64,35 +52,9 @@ afterAll(async () => {
 
 describe("Server - e2e - user", () => {
   // -----------------     BASIC AUTHORIZATION LOGIC    ------------------
-  it("should return a 401 error if no token is provided", async () => {
-    await expect(
-      learnClient.query({
-        query: USER_QUERY,
-      })
-    ).rejects.toThrowError("401");
-  });
-
   it("should get a new user after its first login, provided a valid token", async () => {
     // get a valid token first for a new user
-    // TODO: extract this function to connect a test user with email and retrieve the token
-    // need to open and close the db connection in a separated util function
-    await userService.createUser({
-      email: USER_1,
-      login: { totp: 222111, expiresAt: Date.now() + TOTP_EXPIRATION },
-    });
-    const loginInput = {
-      email: USER_1,
-      totp: 222111,
-    };
-    const res = await authorizationClient.query({
-      query: LOG_IN_APP_USER,
-      variables: { loginInput },
-    });
-    const {
-      data: {
-        logInAppUser: { accessToken },
-      },
-    } = res;
+    const accessToken = await getAccessTokenForUser(USER_1);
     const authenticatedLearnClient = getAuthenticatedLearnClient(accessToken);
     const userData = await authenticatedLearnClient.query({
       query: USER_QUERY,
@@ -127,8 +89,38 @@ describe("Server - e2e - user", () => {
     expect(topics).toEqual([]);
   });
 
-  // it should return a 401 error if the token is expired
-  // it should return a 401 if the user does not exist
+  it("should return a 401 error if no token is provided", async () => {
+    await expect(
+      learnClient.query({
+        query: USER_QUERY,
+      })
+    ).rejects.toThrowError("401");
+  });
+
+  it("should return a 401 error if the token is expired", async () => {
+    const expiredToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTE1MzgzODEsInN1YiI6IjVlZGNmOWQ1NzBiYmUwMDJlZjgyZTk4MCIsInRva2VuVXNlIjoiYWNjZXNzIiwiaXNzIjoiTWFueVdvcmRzIiwiaWF0IjoxNTkxNTQwMTgxfQ.9i7g5JB0WM6Pov64ng4MTIFazQ3fmdmX9CL5b6EPVOw";
+    const authenticatedLearnClient = getAuthenticatedLearnClient(expiredToken);
+    await expect(
+      authenticatedLearnClient.query({
+        query: USER_QUERY,
+      })
+    ).rejects.toThrowError("401");
+  });
+
+  // this should not happen
+  it("should return a 401 error if the user does not exist", async () => {
+    const accessToken = await getAccessTokenForUser(USER_NOT_FOUND);
+    await User.deleteOne({
+      email: USER_NOT_FOUND,
+    });
+    const authenticatedLearnClient = getAuthenticatedLearnClient(accessToken);
+    await expect(
+      authenticatedLearnClient.query({
+        query: USER_QUERY,
+      })
+    ).rejects.toThrowError("401");
+  });
 
   // it("should get user", async () => {
   //   const res = await toPromise(
