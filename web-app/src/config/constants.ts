@@ -8,8 +8,8 @@ const CONSTANTS = {
 };
 
 export enum LANGUAGES {
-  English = "English",
-  French = "French",
+  English = "english",
+  French = "french",
 }
 
 export default CONSTANTS;

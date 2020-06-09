@@ -1,4 +1,4 @@
-import { gql, AuthenticationError } from "apollo-server-express";
+import { gql } from "apollo-server-express";
 import { Request } from "express";
 
 import FormResult from "./interfaces/formResult.interface";
@@ -6,7 +6,6 @@ import statsController from "./stats.controller";
 
 import wordCountByLesson from "../exercises/data/wordCountByLesson";
 import { User } from "../graphql/learn.types";
-import logger from "../utils/logger";
 
 export const typeDefs = gql`
   extend type User {

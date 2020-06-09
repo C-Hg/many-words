@@ -2,7 +2,7 @@ import React from "react";
 
 // TODO: use camelCase for lessons and topics
 export const languages = {
-  English: {
+  english: {
     language: "english",
     navbar: {
       home: "Home",
@@ -196,7 +196,7 @@ export const languages = {
 
   /* --------------------        FRENCH     ------------------- */
 
-  French: {
+  french: {
     language: "french",
     navbar: {
       home: "Accueil",

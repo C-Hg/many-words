@@ -129,7 +129,8 @@ describe("Authorization server - e2e", () => {
     validRefreshToken = refreshToken;
     const decodedRT = await verifyToken(refreshToken);
     expect(decodedRT.exp).toBeCloseTo(
-      Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION
+      Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION,
+      -3
     );
     expect(decodedRT.sub).toBeDefined();
     expect(decodedRT.sub).toEqual(decodedAT.sub);

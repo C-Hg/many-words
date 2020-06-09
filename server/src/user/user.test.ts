@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import Mongoose from "mongoose";
 
 import User from "./models/user.model";
+import userService from "./user.service";
 
 import getDbConnection from "../utils/tests/dbConnection";
 import getAccessTokenForUser from "../utils/tests/getAccessTokenForUser";
@@ -10,11 +11,21 @@ import {
   getAuthenticatedLearnClient,
 } from "../utils/tests/graphqlClient";
 
+const GET_USER_LANGUAGE = gql`
+  query getUser {
+    user {
+      id
+      language
+    }
+  }
+`;
+
 const USER_QUERY = gql`
   query user {
     user {
       id
       email
+      language
       stats {
         global {
           globalProgress
@@ -34,6 +45,7 @@ const USER_QUERY = gql`
 `;
 
 const USER_1 = "user1@manywords.fr";
+const USER_2 = "user2@manywords.fr";
 const USER_NOT_FOUND = "user2NotFound@manywords.fr";
 
 let db: typeof Mongoose;
@@ -44,7 +56,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await User.deleteMany({
     email: {
-      $in: [USER_1],
+      $in: [USER_1, USER_2],
     },
   });
   await db.connection.close();
@@ -63,6 +75,7 @@ describe("Server - e2e - user", () => {
       data: {
         user: {
           email,
+          language,
           stats: {
             global: {
               globalProgress,
@@ -84,6 +97,7 @@ describe("Server - e2e - user", () => {
     expect(greenLessons).toEqual(0);
     expect(goldWords).toEqual(0);
     expect(greenWords).toEqual(0);
+    expect(language).toBeNull();
     expect(studiedLessons).toEqual(0);
     expect(studiedWords).toEqual(0);
     expect(topics).toEqual([]);
@@ -122,14 +136,22 @@ describe("Server - e2e - user", () => {
     ).rejects.toThrowError("401");
   });
 
-  // it("should get user", async () => {
-  //   const res = await toPromise(
-  //     unauthenticatedGraphql({
-  //       query: USER_QUERY,
-  //     })
-  //   );
-  //   expect(res).toMatchSnapshot();
-  // });
+  // ----------------------     USER TESTS     ------------------
+  it("should get user language", async () => {
+    const accessToken = await getAccessTokenForUser(USER_2);
+    const authenticatedLearnClient = getAuthenticatedLearnClient(accessToken);
+    const chosenLanguage = "french";
+    await User.findOneAndUpdate(
+      { email: USER_2 },
+      { language: chosenLanguage }
+    );
+    const userData = await authenticatedLearnClient.query({
+      query: GET_USER_LANGUAGE,
+    });
+    const { language } = userData.data.user;
+    expect(language).toEqual(chosenLanguage);
+  });
 
+  // implement and test set language mutation
   // it should delete the user
 });

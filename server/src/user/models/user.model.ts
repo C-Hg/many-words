@@ -6,6 +6,8 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
+    email: { type: String, required: false },
+    language: { type: String, required: false },
     login: {
       emailToConfirm: {
         type: String,
@@ -20,7 +22,6 @@ const userSchema = new Schema(
         required: false,
       },
     },
-    email: { type: String, required: false },
     stats: {
       lessons: {
         type: Object,

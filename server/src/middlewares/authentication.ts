@@ -19,8 +19,13 @@ const authentication = async (
   // extract the jwt from cookie or authorization header
   const token = req.headers.authorization;
   if (!token) {
-    logger.error(`[authentication] 401 - no token provided`);
-    return error401(res);
+    if (CONFIG.env !== "development") {
+      logger.error(`[authentication] 401 - no token provided`);
+      return error401(res);
+    } else {
+      // to allow graphql code generator
+      return next();
+    }
   }
 
   // verify the jwt
@@ -28,7 +33,7 @@ const authentication = async (
     verifiedToken = await verifyToken(token);
   } catch (error) {
     // allow expired token in dev mode only, with decodedToken
-    if (CONFIG.env !== "test") {
+    if (CONFIG.env !== "development") {
       logger.error(`[authentication] 401 - ${error}`);
       return error401(res);
     }

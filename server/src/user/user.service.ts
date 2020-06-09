@@ -3,6 +3,7 @@ import { UserDocument, User } from "./interfaces/user.interface";
 import UserModel from "./models/user.model";
 
 import { LoginInput } from "../graphql/authorization.types";
+import { Languages } from "../graphql/learn.types";
 import logger from "../utils/logger";
 
 const userService = {
@@ -20,6 +21,14 @@ const userService = {
    */
   getUserById: async (userId: string): Promise<UserDocument | null> => {
     return UserModel.findById(userId);
+  },
+
+  /**
+   * Sets the preferred language
+   */
+  setLanguage: async (userId: string, language: Languages): Promise<void> => {
+    logger.debug(`[setLanguage] ${userId}`);
+    await UserModel.findByIdAndUpdate(userId, { language });
   },
 
   /**

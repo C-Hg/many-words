@@ -1,5 +1,4 @@
 import { GraphQLResolveInfo } from "graphql";
-import gql from "graphql-tag";
 
 export type Maybe<T> = T | null;
 export type RequireFields<T, K extends keyof T> = {
@@ -235,6 +234,7 @@ export type TopicStats = {
 export type User = {
   id: Scalars["ID"];
   email: Scalars["String"];
+  language?: Maybe<Languages>;
   stats: Stats;
 };
 
@@ -365,6 +365,7 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars["ID"]>;
   String: ResolverTypeWrapper<Scalars["String"]>;
+  Languages: Languages;
   Stats: ResolverTypeWrapper<Stats>;
   GlobalStats: ResolverTypeWrapper<GlobalStats>;
   Float: ResolverTypeWrapper<Scalars["Float"]>;
@@ -375,7 +376,6 @@ export type ResolversTypes = {
   Lesson: Lesson;
   ExerciseWord: ResolverTypeWrapper<ExerciseWord>;
   Forms: Forms;
-  Languages: Languages;
   Topic: Topic;
   Mutation: ResolverTypeWrapper<{}>;
   FormResultInput: FormResultInput;
@@ -394,6 +394,7 @@ export type ResolversParentTypes = {
   User: User;
   ID: Scalars["ID"];
   String: Scalars["String"];
+  Languages: Languages;
   Stats: Stats;
   GlobalStats: GlobalStats;
   Float: Scalars["Float"];
@@ -404,7 +405,6 @@ export type ResolversParentTypes = {
   Lesson: Lesson;
   ExerciseWord: ExerciseWord;
   Forms: Forms;
-  Languages: Languages;
   Topic: Topic;
   Mutation: {};
   FormResultInput: FormResultInput;
@@ -694,6 +694,11 @@ export type UserResolvers<
 > = {
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  language?: Resolver<
+    Maybe<ResolversTypes["Languages"]>,
+    ParentType,
+    ContextType
+  >;
   stats?: Resolver<ResolversTypes["Stats"], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
