@@ -2,9 +2,9 @@ version: "3"
 
 services:
   test-server:
-    build:
-      context: ../../server/
-      dockerfile: Dockerfile.dev
+    image: node:14-alpine
+    working_dir: /server
+    command: npm start
     container_name: manywords-test-server
     environment:
       JWT_SIGNATURE: $JWT_SIGNATURE
@@ -13,25 +13,31 @@ services:
       SERVER_PORT: $SERVER_PORT
     # to allow hot reloading
     volumes:
-      - ../../server:/server
+      # to allow hot reloading
+      - ../../server/src:/server/src
+      - ../../server/.babelrc:/server/.babelrc
+      - ../../server/package.json:/server/package.json
+      - ../../server/package-lock.json:/server/package-lock.json
+      - test_node_modules:/server/node_modules
     ports:
       - $SERVER_PORT:$SERVER_PORT
     depends_on:
       - mongo-test
     
   server-test-runner:
-    build:
-      context: ../..
-      dockerfile: Dockerfile.test
+    image: node:14
+    working_dir: /manywords
+    command: ./node_modules/.bin/jest --watch --coverage
     container_name: manywords-server-test-runner
     environment:
       JWT_SIGNATURE: $JWT_SIGNATURE
       MONGO_URI: $MONGO_URI
       SERVER_PORT: $SERVER_PORT
     stdin_open: true
+    # interactive shell
     tty: true
-    # to allow test runs and watching over the whole repository
     volumes:
+      # to allow test runs and watching over the whole repository
       - ../..:/manywords
 
   database-seeder:
@@ -65,3 +71,6 @@ services:
       - 8082:8081
     depends_on:
       - mongo-test
+
+volumes: 
+  test_node_modules:

@@ -4,7 +4,6 @@
   "description": "A WebApp to help you learn foreign languages vocabulary",
   "main": "index.js",
   "scripts": {
-    "build_and_move": "cd client && npm run build && cd ../tools && node insert_build.js",
     "counter": "cd tools && npm run word_counter && cd .. && npm run lint:web-app-exercises && npm run lint:server-exercises",
     "set-prod-env": "cd tools && node setProductionEnvironment.js",
     "dev": "cd deploy/development && docker-compose -f docker-compose.development.yml -p manywords-dev up",
@@ -18,7 +17,7 @@
     "word_counter": "cd src && babel-node  --extensions '.ts' wordCounter.ts",
     "lint:server-exercises": "cd server && eslint --fix --ext .js,.ts src/exercises/data/",
     "lint:web-app-exercises": "cd web-app && eslint --fix --ext .js,.ts src/data/",
-    "logs": "gnome-terminal --tab -t web-app -- docker logs manywords-web-app -f ; gnome-terminal --tab -t server -- docker logs manywords-server -f ; gnome-terminal --tab -t mongo -- docker logs  manywords-mongo -f ; gnome-terminal --tab -t seeder -- docker logs manywords-database-seeder -f",
+    "logs": "gnome-terminal --tab -t web-app -- docker logs manywords-web-app -f ; gnome-terminal --tab -t server -- docker logs manywords-server -f ; gnome-terminal --tab -t seeder -- docker logs manywords-database-seeder -f",
     "logs:test": "gnome-terminal --tab -t test-server -- docker logs manywords-test-server -f ; gnome-terminal --tab -t server-test-runner -- docker attach manywords-server-test-runner; gnome-terminal --tab -t test-seeder -- docker logs manywords-test-database-seeder -f",
     "test": "cd deploy/tests && docker-compose -f docker-compose.test.yml -p manywords-test up",
     "test-detached": "cd deploy/tests && docker-compose -f docker-compose.test.yml -p manywords-test up --detach && npm run logs:test",
@@ -26,7 +25,6 @@
     "test:server": "cd server && npm run test:local",
     "test:seeder": "cd tools/database_seeder && mocha",
     "seeder": "cd tools && npm run database_seeder",
-    "server": "cd server && nodemon server.js",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Camille HAGENBOURGER",

@@ -2,32 +2,42 @@ version: "3"
 
 services:
   web-app:
-    build:
-      context: ../../web-app/
-      dockerfile: Dockerfile.dev
+    image: node:14-alpine
+    working_dir: /web-app
     container_name: manywords-web-app
+    command: npm start
     environment:
       EXTEND_ESLINT: "true"
     volumes:
       # to allow hot reloading
-      - ../../web-app:/web-app
+      - ../../web-app/src:/web-app/src
+      - ../../web-app/public:/web-app/public
+      - ../../web-app/package.json:/web-app/package.json
+      - ../../web-app/package-lock.json:/web-app/package-lock.json
+      - ../../web-app/node_modules:/web-app/node_modules
+      - ../../web-app/tsconfig.json:/web-app/tsconfig.json
     ports:
       - 3000:3000
+      - 35729:35729
     stdin_open: true
 
   server:
-    build:
-      context: ../../server/
-      dockerfile: Dockerfile.dev
+    image: node:14-alpine
+    working_dir: /server
     container_name: manywords-server
     environment:
       JWT_SIGNATURE: $JWT_SIGNATURE
       NODE_ENV: "development"
       MONGO_URI: mongodb://mongo-dev:27017/manywords
       SERVER_PORT: $SERVER_PORT
-    # to allow hot reloading
+    command: npm start
     volumes:
-      - ../../server:/server
+      # to allow hot reloading
+      - ../../server/src:/server/src
+      - ../../server/.babelrc:/server/.babelrc
+      - ../../server/package.json:/server/package.json
+      - ../../server/package-lock.json:/server/package-lock.json
+      - ../../server/node_modules:/server/node_modules
     ports:
       - $SERVER_PORT:$SERVER_PORT
       - 9229:9229
