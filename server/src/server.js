@@ -38,7 +38,6 @@ app.use(
 app.use(helmet());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 sessionMiddlewares();
 

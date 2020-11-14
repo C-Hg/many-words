@@ -2,10 +2,8 @@ version: "3"
 
 services:
   client:
-    env_file:
-    - ../config_many-words.env
     build:
-      context: ./client/
+      context: ../../client/
       dockerfile: prod.Dockerfile
     container_name: many_words-client
     volumes:
@@ -16,11 +14,25 @@ services:
     ports:
       - 3000:3000
 
+  nginx:
+    image: nginx:1.19-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d
+      - ../../../certbot/conf:/etc/letsencrypt #data persists when the repository is updated on production
+      - ../../../certbot/www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ../../../certbot/conf:/etc/letsencrypt
+      - ../../../certbot/www:/var/www/certbot
+
   server:
-    env_file:
-    - ../config_many-words.env
     build:
-      context: ./server/
+      context: ../../server/
       dockerfile: prod.Dockerfile
     container_name: many_words-server
     environment:
@@ -40,14 +52,12 @@ services:
       - mongo
 
   database-seeder:
-    env_file:
-    - ../config_many-words.env
     build:
-      context: ./tools
+      context: ../../tools
     container_name: many_words-database-seeder
     restart: on-failure
     volumes:
-      - ./exercises:/exercises
+      - ../../exercises:/exercises
     environment:
       NODE_ENV: "production"
       MONGODB_USER: ${MONGODB_USER}
@@ -57,15 +67,13 @@ services:
       - mongo
 
   mongo:
-    env_file:
-    - ../config_many-words.env
     image: mongo
     container_name: many_words-mongo
     restart: always
     volumes:
       - /mongo/data:/data/db
       # the db is initialized only if no db is found
-      - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
+      - ../../mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
     ports:
       - 27017:27017
     environment:
