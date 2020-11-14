@@ -16,7 +16,7 @@ const wordStatsSchema = new Schema(
       type: [{ language: String, form: String, score: Number, _id: false }],
       required: true,
     },
-    globalScore: { type: Number, default: 0, required: true },
+    score: { type: Number, default: 0, required: true },
     updatedAt: { type: Date, default: Date.now(), required: true },
   },
   {

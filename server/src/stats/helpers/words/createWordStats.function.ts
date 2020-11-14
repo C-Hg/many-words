@@ -1,7 +1,8 @@
 import { Types } from "mongoose";
 
 import exercisesService from "../../../exercises/exercises.service";
-import FormStats, { Languages } from "../../interfaces/formStats.interface";
+import { LANGUAGES } from "../../constants";
+import FormStats from "../../interfaces/formStats.interface";
 import { WordStats } from "../../interfaces/wordStats.interface";
 
 /**
@@ -14,20 +15,16 @@ const createWordStats = async (
   const wordData = await exercisesService.findWordByEnglishName(englishName);
 
   // fills formsStats for each form of the word
-  const englishFormsStats = wordData.english.words[0].acceptedForms.map(
-    (form) => ({
-      form,
-      language: Languages.English,
-      score: 0,
-    })
-  );
-  const frenchFormsStats = wordData.french.words[0].acceptedForms.map(
-    (form) => ({
-      form,
-      language: Languages.French,
-      score: 0,
-    })
-  );
+  const englishFormsStats = wordData.english.words.map(({ form }) => ({
+    form,
+    language: LANGUAGES.English,
+    score: 0,
+  }));
+  const frenchFormsStats = wordData.french.words.map(({ form }) => ({
+    form,
+    language: LANGUAGES.French,
+    score: 0,
+  }));
   const formsStats: FormStats[] = [...englishFormsStats, ...frenchFormsStats];
   const { lesson, topic } = wordData;
 
@@ -38,7 +35,7 @@ const createWordStats = async (
     formsStats,
     lesson,
     topic,
-    globalScore: 0,
+    score: 0,
     correctAnswers: 0,
     wrongAnswers: 0,
   };

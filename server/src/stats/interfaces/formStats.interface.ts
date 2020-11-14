@@ -1,4 +1,4 @@
-import { Languages } from "../../graphql/types";
+import { Languages } from "../../graphql/learn.types";
 
 interface FrenchForms {
   uniqueForm: string;

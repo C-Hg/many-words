@@ -3,7 +3,7 @@ import { Document } from "mongoose";
 
 import FormStats from "./formStats.interface";
 
-import { Lesson, Topic } from "../../graphql/types";
+import { Lesson, Topic } from "../../graphql/learn.types";
 
 export interface WordStats {
   userId: ObjectId;
@@ -12,7 +12,7 @@ export interface WordStats {
   topic: Topic;
   correctAnswers: number;
   wrongAnswers: number;
-  globalScore: number;
+  score: number;
   formsStats: FormStats[];
 }
 
