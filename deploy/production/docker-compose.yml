@@ -27,9 +27,10 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
       - client-build:/server/lib/build
-      - /etc/letsencrypt/live/manywords.org:/server/certificates
+      - /etc/letsencrypt:/server/letsencrypt
     ports:
-      - 80:3001
+      - 80:80
+      - 443:3001
     depends_on:
       - mongo
 
