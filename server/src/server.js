@@ -12,7 +12,24 @@ import apiRoutes from "./routes/api.routes";
 import authRoutes from "./routes/auth.routes";
 import sessionMiddlewares from "./auth/session/session.middlewares";
 
-const app = express();
+const httpApp = express();
+
+// redirecting http requests
+// httpApp.use((req, res, next) => {
+//   var host = req.get('Host');
+//   if (host === 'http://manywords.org') {
+//     return res.redirect(301, 'https://manywords.org/' + req.originalUrl);
+//   }
+//   return next();
+// });
+
+// const sslOptions = {
+//   key: fs.readFileSync('certificates/privkey.pem','utf8'),
+//   cert: fs.readFileSync('certificates/cert.pem','utf8'),
+//   ca: fs.readFileSync('certificates/chain.pem','utf8'),
+// };
+
+// const app = https.createServer(sslOptions, app);
 
 /*  -------------   login and session middlewares    -----------*/
 const MongoDBStore = connectMongoDBSession(session);
@@ -38,7 +55,6 @@ app.use(
 app.use(helmet());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 sessionMiddlewares();
 

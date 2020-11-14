@@ -2,10 +2,8 @@ version: "3"
 
 services:
   client:
-    env_file:
-    - ../config_many-words.env
     build:
-      context: ./client/
+      context: ../../client/
       dockerfile: prod.Dockerfile
     container_name: many_words-client
     volumes:
@@ -13,14 +11,10 @@ services:
     environment:
       BROWSER: "none"
       REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-    ports:
-      - 3000:3000
 
   server:
-    env_file:
-    - ../config_many-words.env
     build:
-      context: ./server/
+      context: ../../server/
       dockerfile: prod.Dockerfile
     container_name: many_words-server
     environment:
@@ -33,21 +27,19 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
       - client-build:/server/lib/build
+      - /etc/letsencrypt/live/manywords.org:/server/certificates
     ports:
-      - 3001:3001
-      - 9229:9229
+      - 80:3001
     depends_on:
       - mongo
 
   database-seeder:
-    env_file:
-    - ../config_many-words.env
     build:
-      context: ./tools
+      context: ../../tools
     container_name: many_words-database-seeder
     restart: on-failure
     volumes:
-      - ./exercises:/exercises
+      - ../../exercises:/exercises
     environment:
       NODE_ENV: "production"
       MONGODB_USER: ${MONGODB_USER}
@@ -57,15 +49,13 @@ services:
       - mongo
 
   mongo:
-    env_file:
-    - ../config_many-words.env
     image: mongo
     container_name: many_words-mongo
     restart: always
     volumes:
       - /mongo/data:/data/db
       # the db is initialized only if no db is found
-      - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
+      - ../../mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
     ports:
       - 27017:27017
     environment:
