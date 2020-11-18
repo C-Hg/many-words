@@ -10,12 +10,7 @@ services:
       EXTEND_ESLINT: "true"
     volumes:
       # to allow hot reloading
-      - ../../web-app/src:/web-app/src
-      - ../../web-app/public:/web-app/public
-      - ../../web-app/package.json:/web-app/package.json
-      - ../../web-app/package-lock.json:/web-app/package-lock.json
-      - ../../web-app/node_modules:/web-app/node_modules
-      - ../../web-app/tsconfig.json:/web-app/tsconfig.json
+      - ../../web-app:/web-app
     ports:
       - 3000:3000
       - 35729:35729
@@ -33,11 +28,7 @@ services:
     command: npm start
     volumes:
       # to allow hot reloading
-      - ../../server/src:/server/src
-      - ../../server/.babelrc:/server/.babelrc
-      - ../../server/package.json:/server/package.json
-      - ../../server/package-lock.json:/server/package-lock.json
-      - ../../server/node_modules:/server/node_modules
+      - ../../server:/server
     ports:
       - $SERVER_PORT:$SERVER_PORT
       - 9229:9229

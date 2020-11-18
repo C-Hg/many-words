@@ -1,7 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import Router from "./Router";
@@ -20,7 +19,7 @@ const GET_USER_LANGUAGE = gql`
   }
 `;
 
-const App = () => {
+const App: React.FC = () => {
   const [language, setLanguage] = useState<Languages | null>(null);
   const { loading, data }: GetUserLanguageQueryResult = useQuery(
     GET_USER_LANGUAGE
@@ -62,5 +61,4 @@ App.propTypes = {
   defineLanguage: PropTypes.func.isRequired,
 };
 
-// TODO: update react Router ?
-export default withRouter(App);
+export default App;
