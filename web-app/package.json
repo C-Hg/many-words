@@ -24,7 +24,6 @@
     "@types/react-dom": "^16.9.9",
     "@types/react-router-dom": "^5.1.6",
     "@types/styled-components": "^5.1.4",
-    "@typescript-eslint/eslint-plugin": "^2.25.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2"
@@ -37,10 +36,19 @@
     "lint:graphql": "eslint --fix --quiet ../web-app/src/graphql/authorization.types.tsx ../web-app/src/graphql/learn.types.tsx"
   },
   "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
     "extends": [
       "react-app",
       "prettier/react",
-      "plugin:prettier/recommended"
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript",
+      "plugin:prettier/recommended",
+      "prettier/babel",
+      "prettier/@typescript-eslint"
     ],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
@@ -59,7 +67,11 @@
           ]
         }
       ]
-    }
+    },
+    "plugins": [
+      "import",
+      "prettier"
+    ]
   },
   "browserslist": {
     "production": [

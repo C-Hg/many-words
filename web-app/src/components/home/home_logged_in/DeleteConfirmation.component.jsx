@@ -1,25 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { LanguageContext } from "../../../contexts/language-context";
-import { actions as authActions } from "../../../redux/reducers/auth";
 
-const mapStateToProps = state => ({ auth: state.auth });
-
-const mapDispatchToProps = dispatch => ({
-  confirmDeletion: () => {
-    dispatch(authActions.confirmDeletion());
-  },
-  abortDeletion: () => {
-    dispatch(authActions.abortDeletion());
-  },
-  acknowledgeAction: () => {
-    dispatch(authActions.acknowledgeAction());
-  },
-});
-
-const DeleteConfirmation = props => {
+const DeleteConfirmation = (props) => {
   const { auth, confirmDeletion, abortDeletion, acknowledgeAction } = props;
 
   if (!auth.hasConfirmedDeletion) {
@@ -78,17 +61,4 @@ const DeleteConfirmation = props => {
   );
 };
 
-DeleteConfirmation.propTypes = {
-  auth: {
-    hasConfirmedDeletion: PropTypes.bool.isRequired,
-    hasProcedureSucceeded: PropTypes.bool.isRequired,
-  }.isRequired,
-  confirmDeletion: PropTypes.func.isRequired,
-  abortDeletion: PropTypes.func.isRequired,
-  acknowledgeAction: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DeleteConfirmation);
+export default DeleteConfirmation;

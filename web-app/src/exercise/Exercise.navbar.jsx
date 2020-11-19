@@ -1,16 +1,13 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 
-import { LanguageContext } from "../contexts/language-context";
-import theme from "../app/theme";
-import Navbar from "../navbar/Navbar.styled";
-import H2 from "../components/texts/H2.styled";
 import Quit from "./Quit/Quit.component";
 
-const mapStateToProps = state => ({ exercise: state.exercise });
+import theme from "../app/theme";
+import H2 from "../components/texts/H2.styled";
+import { LanguageContext } from "../contexts/language-context";
+import Navbar from "../navbar/Navbar.styled";
 
-const ExerciseNavbar = props => {
+const ExerciseNavbar = (props) => {
   const language = useContext(LanguageContext);
   const { exercise } = props;
   const { words, isWeakWordsMode, status } = exercise;
@@ -31,15 +28,4 @@ const ExerciseNavbar = props => {
   );
 };
 
-ExerciseNavbar.propTypes = {
-  exercise: PropTypes.shape({
-    status: PropTypes.string.isRequired,
-    isWeakWordsMode: PropTypes.bool.isRequired,
-    words: PropTypes.array.isRequired,
-  }).isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(ExerciseNavbar);
+export default ExerciseNavbar;

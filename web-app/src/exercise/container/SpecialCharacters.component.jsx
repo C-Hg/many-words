@@ -1,27 +1,18 @@
 import React, { useContext } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 
-import { actions as exerciseActions } from "../exercise.reducer";
 import CharactersLine from "./styled/CharactersLine.styled";
-import MainButton from "../../components/buttons/MainButton.styled";
-import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
-import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 import useCharacters from "./useCharacters";
 
-const mapStateToProps = state => ({ exercise: state.exercise });
-
-const mapDispatchToProps = dispatch => ({
-  toggleSpecialCharacters: () => {
-    dispatch(exerciseActions.toggleSpecialCharacters());
-  },
-});
+import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
+import MainButton from "../../components/buttons/MainButton.styled";
+import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import { actions as exerciseActions } from "../exercise.reducer";
 
 const line1 = ["à", "â", "æ", "œ", "ç"];
 const line2 = ["é", "è", "ê", "ë", "î", "ï", "ô", "ù", "û", "ü"];
 
-const SpecialCharacters = props => {
+const SpecialCharacters = (props) => {
   const theme = useContext(ThemeContext);
   const { exercise, toggleSpecialCharacters } = props;
   const { areSpecialCharactersVisible } = exercise;
@@ -58,21 +49,4 @@ const SpecialCharacters = props => {
   );
 };
 
-SpecialCharacters.propTypes = {
-  exercise: PropTypes.shape({
-    userTranslation: PropTypes.string.isRequired,
-    areSpecialCharactersVisible: PropTypes.bool.isRequired,
-    wordRank: PropTypes.number.isRequired,
-    words: PropTypes.arrayOf(
-      PropTypes.shape({
-        selectedForm: PropTypes.array.isRequired,
-      })
-    ),
-  }).isRequired,
-  toggleSpecialCharacters: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SpecialCharacters);
+export default SpecialCharacters;

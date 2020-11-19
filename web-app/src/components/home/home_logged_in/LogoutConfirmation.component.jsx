@@ -1,19 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { LanguageContext } from "../../../contexts/language-context";
-import { actions as authActions } from "../../../redux/reducers/auth";
 
-const mapStateToProps = state => ({ auth: state.auth });
-
-const mapDispatchToProps = dispatch => ({
-  acknowledgeAction: () => {
-    dispatch(authActions.acknowledgeAction());
-  },
-});
-
-const LogoutConfirmation = props => {
+const LogoutConfirmation = (props) => {
   const { auth, acknowledgeAction } = props;
   if (auth.hasProcedureSucceeded) {
     return (
@@ -44,14 +33,4 @@ const LogoutConfirmation = props => {
   );
 };
 
-LogoutConfirmation.propTypes = {
-  auth: {
-    hasProcedureSucceeded: PropTypes.bool.isRequired,
-  }.isRequired,
-  acknowledgeAction: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LogoutConfirmation);
+export default LogoutConfirmation;

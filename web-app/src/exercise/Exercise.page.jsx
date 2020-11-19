@@ -1,19 +1,14 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-import AppContainer from "../app/AppContainer.styled";
 import ExerciseNavbar from "./Exercise.navbar";
-import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import ExerciseContainer from "./container/Exercise.container";
 import ExerciseRecap from "./recap/ExerciseRecap.container";
 
-const mapStateToProps = state => {
-  return { user: state.user, exercise: state.exercise };
-};
+import AppContainer from "../app/AppContainer.styled";
+import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 
-const Exercise = props => {
+const Exercise = (props) => {
   const { exercise } = props;
   const { redirect, redirectionTarget, words, status } = exercise;
 
@@ -41,22 +36,10 @@ const Exercise = props => {
   return null;
 };
 
-Exercise.propTypes = {
-  exercise: PropTypes.shape({
-    redirect: PropTypes.bool.isRequired,
-    redirectionTarget: PropTypes.string.isRequired,
-    words: PropTypes.array,
-    status: PropTypes.string.isRequired,
-  }),
-};
-
 Exercise.defaultProps = {
   exercise: {
     words: [],
   },
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(Exercise);
+export default Exercise;

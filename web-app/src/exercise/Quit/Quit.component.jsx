@@ -1,20 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { Close } from "styled-icons/evil";
 
-import { actions as exerciseActions } from "../exercise.reducer";
 import IconButton from "../../components/buttons/IconButton.styled";
 
-const mapStateToProps = state => ({ exercise: state.exercise });
-
-const mapDispatchToProps = dispatch => ({
-  quitExercise: () => {
-    dispatch(exerciseActions.quitExercise());
-  },
-});
-
-const Quit = props => {
+const Quit = (props) => {
   const { quitExercise } = props;
 
   return (
@@ -29,11 +18,4 @@ const Quit = props => {
   );
 };
 
-Quit.propTypes = {
-  quitExercise: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Quit);
+export default Quit;

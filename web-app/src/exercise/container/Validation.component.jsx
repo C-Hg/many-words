@@ -1,27 +1,15 @@
 import React, { useContext } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 
-import { LanguageContext } from "../../contexts/language-context";
-import ValidationContainer from "./styled/ValidationContainer.styled";
 import ContinueButton from "./ContinueButton.component";
-import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
-import { actions as exerciseActions } from "../exercise.reducer";
+import ValidationContainer from "./styled/ValidationContainer.styled";
 import ValidationText from "./styled/ValidationText.styled";
+
+import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
 import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import { LanguageContext } from "../../contexts/language-context";
 
-const mapStateToProps = state => ({ exercise: state.exercise });
-const mapDispatchToProps = dispatch => ({
-  submitUserTranslation: () => {
-    dispatch(exerciseActions.submitUserTranslation());
-  },
-  nextWord: () => {
-    dispatch(exerciseActions.nextWord());
-  },
-});
-
-const Validation = props => {
+const Validation = (props) => {
   const { exercise, submitUserTranslation, nextWord } = props;
   const { isChecking, isAnswerCorrect, expectedAnswer } = exercise;
   const language = useContext(LanguageContext);
@@ -75,17 +63,4 @@ const Validation = props => {
   );
 };
 
-Validation.propTypes = {
-  submitUserTranslation: PropTypes.func.isRequired,
-  nextWord: PropTypes.func.isRequired,
-  exercise: PropTypes.shape({
-    isChecking: PropTypes.bool.isRequired,
-    isAnswerCorrect: PropTypes.bool.isRequired,
-    expectedAnswer: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Validation);
+export default Validation;

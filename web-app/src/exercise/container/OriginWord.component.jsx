@@ -1,19 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-import frenchFlag from "../../images/flags/France.png";
-import ukFlag from "../../images/flags/UK.png";
+import InnerContainer from "./styled/InnerContainer.styled";
+
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
 import H3 from "../../components/texts/H3.styled";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import InnerContainer from "./styled/InnerContainer.styled";
-
-const mapStateToProps = state => ({ exercise: state.exercise });
+import frenchFlag from "../../images/flags/France.png";
+import ukFlag from "../../images/flags/UK.png";
 
 // TODO: update selectedForm data structure
-const OriginWord = props => {
+const OriginWord = (props) => {
   const { exercise } = props;
   const { words, wordRank } = exercise;
   const word = words[wordRank][words[wordRank].selectedForm[1]];
@@ -38,28 +35,4 @@ const OriginWord = props => {
   );
 };
 
-OriginWord.propTypes = {
-  exercise: PropTypes.shape({
-    words: PropTypes.arrayOf(
-      PropTypes.shape({
-        selectedForm: PropTypes.array.isRequired,
-      })
-    ),
-    wordRank: PropTypes.number.isRequired,
-  }).isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(OriginWord);
-
-/* 
-  words is an array of objects, containing
-  { fr: [possible FR forms],
-    en: [possible EN forms],
-    selectedForm: [enName, source_language, selectedForm],
-    theme,
-    lesson
-  }
-*/
+export default OriginWord;

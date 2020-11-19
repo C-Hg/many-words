@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useDispatch } from "react-redux";
 import { ThemeContext } from "styled-components";
 
 import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
@@ -10,8 +9,10 @@ import { types as exerciseTypes } from "../exercise.reducer";
 const ExitButton = () => {
   const theme = useContext(ThemeContext);
   const language = useContext(LanguageContext);
-  const dispatch = useDispatch();
-  const quitExercise = () => dispatch({ type: exerciseTypes.QUIT_EXERCISE });
+
+  const quitExercise = () => {
+    return true;
+  };
 
   return (
     <ButtonContainer large>

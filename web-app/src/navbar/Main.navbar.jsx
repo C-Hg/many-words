@@ -1,19 +1,16 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 
-import { LanguageContext } from "../contexts/language-context";
-import Navbar from "./Navbar.styled";
-import NavbarLinksContainer from "./NavbarLinksContainer.styled";
-import NavbarLink from "./NavbarLink.styled";
 import ManyWords from "./ManyWords.styled";
+import Navbar from "./Navbar.styled";
+import NavbarLink from "./NavbarLink.styled";
+import NavbarLinksContainer from "./NavbarLinksContainer.styled";
+
 import H2 from "../components/texts/H2.styled";
+import { LanguageContext } from "../contexts/language-context";
 
-const mapStateToProps = state => ({ user: state.user });
-
-const MainNavbar = props => {
+const MainNavbar = (props) => {
   const theme = useContext(ThemeContext);
   const { user } = props;
   return (
@@ -40,13 +37,4 @@ const MainNavbar = props => {
   );
 };
 
-MainNavbar.propTypes = {
-  user: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired,
-  }).isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(MainNavbar);
+export default MainNavbar;

@@ -1,33 +1,22 @@
+import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-import { actions as authActions } from "../redux/reducers/auth";
-import MainButton from "../components/buttons/MainButton.styled";
 import GlobalProgress from "./progress/global/GlobalProgress.component";
+
 import AppContainer from "../app/AppContainer.styled";
-import { LanguageContext } from "../contexts/language-context";
-import ButtonContainer from "../components/buttons/ButtonContainer.styled";
-import PageHr from "../components/separators/PageHr.styled";
-import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
-import H2 from "../components/texts/H2.styled";
-import Navbar from "../navbar/Main.navbar";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
+import ButtonContainer from "../components/buttons/ButtonContainer.styled";
+import MainButton from "../components/buttons/MainButton.styled";
+import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import NavigationLink from "../components/links/NavigationLink.styled";
+import PageHr from "../components/separators/PageHr.styled";
+import H2 from "../components/texts/H2.styled";
+import { LanguageContext } from "../contexts/language-context";
+import Navbar from "../navbar/Main.navbar";
+import { actions as authActions } from "../redux/reducers/auth";
 
-const mapStateToProps = state => ({ user: state.user });
-
-const mapDispatchToProps = dispatch => ({
-  attemptLogout: () => {
-    dispatch(authActions.attemptLogout());
-  },
-  deleteAccount: () => {
-    dispatch(authActions.beginAccountDeletion());
-  },
-});
-
-const HomeLoggedIn = props => {
+const HomeLoggedIn = (props) => {
   const { user, attemptLogout, deleteAccount } = props;
   const {
     stats: {
@@ -83,7 +72,4 @@ HomeLoggedIn.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomeLoggedIn);
+export default HomeLoggedIn;

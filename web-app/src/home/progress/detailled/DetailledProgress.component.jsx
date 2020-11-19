@@ -1,21 +1,18 @@
 import React, { useContext } from "react";
-import { connect } from "react-redux";
 import { ThemeContext } from "styled-components";
 import { Search, CheckCircleOutline, Grade } from "styled-icons/material";
-import PropTypes from "prop-types";
 
-import { LanguageContext } from "../../../contexts/language-context";
+import DetailledProgressHr from "./DetailledProgressHr.styled";
+
+import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled";
 import VerticalFlexbox from "../../../components/div/VerticalFlexbox.styled";
 import H2 from "../../../components/texts/H2.styled";
-import DetailledProgressHr from "./DetailledProgressHr.styled";
-import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled";
 import H3 from "../../../components/texts/H3.styled";
+import { LanguageContext } from "../../../contexts/language-context";
 
 const iconSize = "36";
 
-const mapStateToProps = state => ({ user: state.user });
-
-const DetailledProgress = props => {
+const DetailledProgress = (props) => {
   const { user, statsToShow } = props;
   const {
     encounteredWords,
@@ -66,23 +63,4 @@ const DetailledProgress = props => {
   );
 };
 
-DetailledProgress.propTypes = {
-  user: PropTypes.shape({
-    stats: PropTypes.shape({
-      globalProgress: PropTypes.shape({
-        encounteredWords: PropTypes.number.isRequired,
-        greenWords: PropTypes.number.isRequired,
-        goldWords: PropTypes.number.isRequired,
-        studiedLessons: PropTypes.number,
-        greenLessons: PropTypes.number,
-        goldLessons: PropTypes.number,
-      }),
-    }),
-  }).isRequired,
-  statsToShow: PropTypes.string.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(DetailledProgress);
+export default DetailledProgress;

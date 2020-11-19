@@ -1,17 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 
-import { LanguageContext } from "../../../contexts/language-context";
 import ProgressBar from "./ProgressBar.component";
+
 import VerticalFlexbox from "../../../components/div/VerticalFlexbox.styled";
 import H1 from "../../../components/texts/H1.styled";
-import DetailledStatsContainer from "../detailled/DetailledStatsContainer.styled";
+import { LanguageContext } from "../../../contexts/language-context";
 import DetailledProgress from "../detailled/DetailledProgress.component";
+import DetailledStatsContainer from "../detailled/DetailledStatsContainer.styled";
 
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = (state) => ({ user: state.user });
 
-const GlobalProgress = props => {
+const GlobalProgress = (props) => {
   const { user } = props;
   const { globalPercentage } = user.stats.globalProgress;
   return (
@@ -30,17 +29,4 @@ const GlobalProgress = props => {
   );
 };
 
-GlobalProgress.propTypes = {
-  user: PropTypes.shape({
-    stats: PropTypes.shape({
-      globalProgress: PropTypes.shape({
-        globalPercentage: PropTypes.string,
-      }),
-    }),
-  }).isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(GlobalProgress);
+export default GlobalProgress;
