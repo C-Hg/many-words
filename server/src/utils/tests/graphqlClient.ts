@@ -1,6 +1,11 @@
-import ApolloClient from "apollo-boost";
-import { HttpLink } from "apollo-link-http";
-import fetch from "node-fetch";
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client/core";
+import { onError } from "@apollo/client/link/error";
+import fetch from "cross-fetch";
 
 // cf. docker-compose.test file
 const SERVER_SERVICE = "test-server";
@@ -9,44 +14,63 @@ const SERVER_SERVICE = "test-server";
  * Building graphql clients for e2e tests
  */
 const authorizationClient = new ApolloClient({
-  uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/authorization`,
-  fetch,
-  // do not print error messages, some tests are expected to throw
-  onError: (): void => {
-    return;
-  },
+  cache: new InMemoryCache(),
+  link: ApolloLink.from([
+    onError(() => {
+      // do not print error messages, some tests are expected to throw
+      return;
+    }),
+    new HttpLink({
+      fetch,
+      uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/authorization`,
+    }),
+  ]),
 });
 
 const learnClient = new ApolloClient({
-  uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
-  fetch,
-  // do not print error messages, some tests are expected to throw
-  onError: (): void => {
-    return;
-  },
+  cache: new InMemoryCache(),
+  link: ApolloLink.from([
+    onError(() => {
+      return;
+    }),
+    new HttpLink({
+      fetch,
+      uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
+    }),
+  ]),
 });
 
 const getAuthenticatedLearnClient = (
-  authorization: string
-): ApolloClient<unknown> =>
-  new ApolloClient({
-    uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
-    fetch,
-    headers: {
-      authorization,
-    },
-    // do not print error messages, some tests are expected to throw
-    onError: (): void => {
-      return;
-    },
+  accessToken: string
+): ApolloClient<unknown> => {
+  const authMiddleware = new ApolloLink((operation, forward) => {
+    // add the authorization to the headers
+    operation.setContext({
+      headers: {
+        authorization: accessToken,
+      },
+    });
+    return forward(operation);
   });
 
-const exercisesLinkWithJwt = new HttpLink({
-  uri: `http://localhost:${process.env.SERVER_PORT}/exercises`,
-  fetch,
-  // headers: {
-  //   authorization:
-  // }
-});
+  return new ApolloClient({
+    cache: new InMemoryCache(),
+    defaultOptions: {
+      query: {
+        fetchPolicy: "network-only",
+      },
+    },
+    link: ApolloLink.from([
+      onError(() => {
+        return;
+      }),
+      authMiddleware,
+      new HttpLink({
+        fetch,
+        uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
+      }),
+    ]),
+  });
+};
 
 export { authorizationClient, getAuthenticatedLearnClient, learnClient };

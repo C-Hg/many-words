@@ -1,5 +1,4 @@
 import { gql, useQuery } from "@apollo/client";
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 
@@ -19,6 +18,7 @@ const GET_USER_LANGUAGE = gql`
   }
 `;
 
+// TODO: check the connexion status in Index.tsx
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Languages | null>(null);
   const { loading, data }: GetUserLanguageQueryResult = useQuery(
@@ -51,14 +51,6 @@ const App: React.FC = () => {
       </ThemeProvider>
     </LanguageContext.Provider>
   );
-};
-
-App.propTypes = {
-  user: PropTypes.shape({
-    language: PropTypes.string.isRequired,
-  }).isRequired,
-  checkSession: PropTypes.func.isRequired,
-  defineLanguage: PropTypes.func.isRequired,
 };
 
 export default App;

@@ -1,11 +1,7 @@
-import gql from 'graphql-tag';
-import * as React from 'react';
-import * as ApolloReactCommon from '@apollo/client';
-import * as ApolloReactComponents from '@apollo/client';
-import * as ApolloReactHoc from '@apollo/client';
-import * as ApolloReactHooks from '@apollo/client';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -14,11 +10,6 @@ export type Scalars = {
   Int: number;
   Float: number;
 };
-
-export type EnglishForms = 
-  'plural' |
-  'singular' |
-  'uniqueForm';
 
 export type ExerciseWord = {
   answers: Array<Scalars['String']>;
@@ -30,26 +21,19 @@ export type ExerciseWord = {
   wordToTranslate: Scalars['String'];
 };
 
-export type FormResultInput = {
-  englishName: Scalars['String'];
-  form?: Maybe<Forms>;
-  isAnswerCorrect: Scalars['Boolean'];
-  language: Languages;
+export type Word = {
+  english: WordData;
+  french: WordData;
+  hasUniqueForm: Scalars['Boolean'];
+  lesson: Lesson;
+  topic: Topic;
+  type: Scalars['String'];
+  weakestForms: Array<Maybe<FormStats>>;
 };
 
-export type Forms = 
-  'plural' |
-  'pluralFeminine' |
-  'pluralMasculine' |
-  'singular' |
-  'singularFeminine' |
-  'singularMasculine' |
-  'uniqueForm';
-
-export type FormStats = {
-  language: Languages;
-  form: Forms;
-  score: Scalars['Float'];
+export type WordData = {
+  name: Scalars['String'];
+  words: Array<FormValue>;
 };
 
 export type FormValue = {
@@ -57,12 +41,127 @@ export type FormValue = {
   values: Array<Scalars['String']>;
 };
 
+export type EnglishForms = 
+  | 'plural'
+  | 'singular'
+  | 'uniqueForm';
+
 export type FrenchForms = 
-  'pluralFeminine' |
-  'pluralMasculine' |
-  'singularFeminine' |
-  'singularMasculine' |
-  'uniqueForm';
+  | 'pluralFeminine'
+  | 'pluralMasculine'
+  | 'singularFeminine'
+  | 'singularMasculine'
+  | 'uniqueForm';
+
+export type Forms = 
+  | 'plural'
+  | 'pluralFeminine'
+  | 'pluralMasculine'
+  | 'singular'
+  | 'singularFeminine'
+  | 'singularMasculine'
+  | 'uniqueForm';
+
+export type Languages = 
+  | 'english'
+  | 'french';
+
+export type Lesson = 
+  | 'animalsBasics'
+  | 'birds'
+  | 'farmAnimals'
+  | 'insects'
+  | 'mammals1'
+  | 'seaAnimals'
+  | 'accessories'
+  | 'clothesBasics'
+  | 'moreClothes'
+  | 'mainColors'
+  | 'agriculture'
+  | 'drinks'
+  | 'foodBasics'
+  | 'foods'
+  | 'fruits'
+  | 'moreFruitsAndVegetables'
+  | 'vegetables'
+  | 'constructionMaterials'
+  | 'constructionTools'
+  | 'furniture'
+  | 'house'
+  | 'housing'
+  | 'rooms'
+  | 'head'
+  | 'humanBodyBasics'
+  | 'limbs'
+  | 'organs'
+  | 'senses'
+  | 'earth'
+  | 'natureBasics'
+  | 'sea'
+  | 'universe'
+  | 'weather1'
+  | 'weather2'
+  | 'firstNumbers'
+  | 'moreNumbers'
+  | 'closeFamily'
+  | 'humanBeings'
+  | 'identity'
+  | 'introduction'
+  | 'buildings'
+  | 'town'
+  | 'transports'
+  | 'days'
+  | 'months'
+  | 'timeBasics'
+  | 'timeDescription1'
+  | 'timeDescription2'
+  | 'timeDivisions'
+  | 'plants'
+  | 'trees'
+  | 'vegetalBasics';
+
+export type Topic = 
+  | 'animals'
+  | 'clothes'
+  | 'colors'
+  | 'food'
+  | 'habitation'
+  | 'humanBody'
+  | 'nature'
+  | 'numbers'
+  | 'socialLife'
+  | 'society'
+  | 'time'
+  | 'vegetal';
+
+export type Mutation = {
+  /** update user stats after an exercise */
+  updateStats?: Maybe<User>;
+};
+
+
+export type MutationUpdateStatsArgs = {
+  results?: Maybe<Array<Maybe<FormResultInput>>>;
+};
+
+export type FormResultInput = {
+  englishName: Scalars['String'];
+  form?: Maybe<Forms>;
+  isAnswerCorrect: Scalars['Boolean'];
+  language: Languages;
+};
+
+export type FormStats = {
+  language: Languages;
+  form: Forms;
+  score: Scalars['Float'];
+};
+
+export type Stats = {
+  global: GlobalStats;
+  lessons: LessonsScores;
+  topics: Array<Maybe<TopicStats>>;
+};
 
 export type GlobalStats = {
   globalProgress: Scalars['Float'];
@@ -72,69 +171,6 @@ export type GlobalStats = {
   greenWords: Scalars['Int'];
   studiedLessons: Scalars['Int'];
   studiedWords: Scalars['Int'];
-};
-
-export type Languages = 
-  'english' |
-  'french';
-
-export type Lesson = 
-  'animalsBasics' |
-  'birds' |
-  'farmAnimals' |
-  'insects' |
-  'mammals1' |
-  'seaAnimals' |
-  'accessories' |
-  'clothesBasics' |
-  'moreClothes' |
-  'mainColors' |
-  'agriculture' |
-  'drinks' |
-  'foodBasics' |
-  'foods' |
-  'fruits' |
-  'moreFruitsAndVegetables' |
-  'vegetables' |
-  'constructionMaterials' |
-  'constructionTools' |
-  'furniture' |
-  'house' |
-  'housing' |
-  'rooms' |
-  'head' |
-  'humanBodyBasics' |
-  'limbs' |
-  'organs' |
-  'senses' |
-  'earth' |
-  'natureBasics' |
-  'sea' |
-  'universe' |
-  'weather1' |
-  'weather2' |
-  'firstNumbers' |
-  'moreNumbers' |
-  'closeFamily' |
-  'humanBeings' |
-  'identity' |
-  'introduction' |
-  'buildings' |
-  'town' |
-  'transports' |
-  'days' |
-  'months' |
-  'timeBasics' |
-  'timeDescription1' |
-  'timeDescription2' |
-  'timeDivisions' |
-  'plants' |
-  'trees' |
-  'vegetalBasics';
-
-export type LessonsGrades = {
-  green: Scalars['Int'];
-  gold: Scalars['Int'];
 };
 
 /** LessonsScores associates a score to each lesson id */
@@ -193,50 +229,25 @@ export type LessonsScores = {
   vegetalBasics?: Maybe<Scalars['Float']>;
 };
 
-export type Mutation = {
-  /** update user stats after an exercise */
-  updateStats?: Maybe<User>;
+/** TopicsStats aggregates the lessons' stats, by topic */
+export type TopicStats = {
+  id: Scalars['String'];
+  lessonsGrades: LessonsGrades;
 };
 
-
-export type MutationUpdateStatsArgs = {
-  results?: Maybe<Array<Maybe<FormResultInput>>>;
+export type LessonsGrades = {
+  green: Scalars['Int'];
+  gold: Scalars['Int'];
 };
 
 export type Query = {
-  user?: Maybe<User>;
+  user: User;
   exercise?: Maybe<Array<Maybe<ExerciseWord>>>;
 };
 
 
 export type QueryExerciseArgs = {
   id: Lesson;
-};
-
-export type Stats = {
-  global: GlobalStats;
-  lessons: LessonsScores;
-  topics: Array<Maybe<TopicStats>>;
-};
-
-export type Topic = 
-  'animals' |
-  'clothes' |
-  'colors' |
-  'food' |
-  'habitation' |
-  'humanBody' |
-  'nature' |
-  'numbers' |
-  'socialLife' |
-  'society' |
-  'time' |
-  'vegetal';
-
-/** TopicsStats aggregates the lessons' stats, by topic */
-export type TopicStats = {
-  id: Scalars['String'];
-  lessonsGrades: LessonsGrades;
 };
 
 export type User = {
@@ -246,25 +257,10 @@ export type User = {
   stats: Stats;
 };
 
-export type Word = {
-  english: WordData;
-  french: WordData;
-  hasUniqueForm: Scalars['Boolean'];
-  lesson: Lesson;
-  topic: Topic;
-  type: Scalars['String'];
-  weakestForms: Array<Maybe<FormStats>>;
-};
-
-export type WordData = {
-  name: Scalars['String'];
-  words: Array<FormValue>;
-};
-
-export type GetUserLanguageQueryVariables = {};
+export type GetUserLanguageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserLanguageQuery = { user?: Maybe<Pick<User, 'id' | 'language'>> };
+export type GetUserLanguageQuery = { user: Pick<User, 'id' | 'language'> };
 
 
 export const GetUserLanguageDocument = gql`
@@ -275,25 +271,6 @@ export const GetUserLanguageDocument = gql`
   }
 }
     `;
-export type GetUserLanguageComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetUserLanguageQuery, GetUserLanguageQueryVariables>, 'query'>;
-
-    export const GetUserLanguageComponent = (props: GetUserLanguageComponentProps) => (
-      <ApolloReactComponents.Query<GetUserLanguageQuery, GetUserLanguageQueryVariables> query={GetUserLanguageDocument} {...props} />
-    );
-    
-export type GetUserLanguageProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<GetUserLanguageQuery, GetUserLanguageQueryVariables>
-    } & TChildProps;
-export function withGetUserLanguage<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  GetUserLanguageQuery,
-  GetUserLanguageQueryVariables,
-  GetUserLanguageProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withQuery<TProps, GetUserLanguageQuery, GetUserLanguageQueryVariables, GetUserLanguageProps<TChildProps, TDataName>>(GetUserLanguageDocument, {
-      alias: 'getUserLanguage',
-      ...operationOptions
-    });
-};
 
 /**
  * __useGetUserLanguageQuery__
@@ -310,12 +287,12 @@ export function withGetUserLanguage<TProps, TChildProps = {}, TDataName extends 
  *   },
  * });
  */
-export function useGetUserLanguageQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserLanguageQuery, GetUserLanguageQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserLanguageQuery, GetUserLanguageQueryVariables>(GetUserLanguageDocument, baseOptions);
+export function useGetUserLanguageQuery(baseOptions?: Apollo.QueryHookOptions<GetUserLanguageQuery, GetUserLanguageQueryVariables>) {
+        return Apollo.useQuery<GetUserLanguageQuery, GetUserLanguageQueryVariables>(GetUserLanguageDocument, baseOptions);
       }
-export function useGetUserLanguageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserLanguageQuery, GetUserLanguageQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserLanguageQuery, GetUserLanguageQueryVariables>(GetUserLanguageDocument, baseOptions);
+export function useGetUserLanguageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserLanguageQuery, GetUserLanguageQueryVariables>) {
+          return Apollo.useLazyQuery<GetUserLanguageQuery, GetUserLanguageQueryVariables>(GetUserLanguageDocument, baseOptions);
         }
 export type GetUserLanguageQueryHookResult = ReturnType<typeof useGetUserLanguageQuery>;
 export type GetUserLanguageLazyQueryHookResult = ReturnType<typeof useGetUserLanguageLazyQuery>;
-export type GetUserLanguageQueryResult = ApolloReactCommon.QueryResult<GetUserLanguageQuery, GetUserLanguageQueryVariables>;
+export type GetUserLanguageQueryResult = Apollo.QueryResult<GetUserLanguageQuery, GetUserLanguageQueryVariables>;

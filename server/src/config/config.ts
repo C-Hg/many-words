@@ -1,4 +1,5 @@
 const {
+  COOKIE_PARSER_KEY,
   JWT_SIGNATURE,
   MONGO_URI,
   NODE_ENV,
@@ -14,10 +15,11 @@ export enum ENVIRONMENTS {
 }
 
 const CONFIG = {
+  cookieParserKey: COOKIE_PARSER_KEY as string,
   env: NODE_ENV as ENVIRONMENTS,
   jwtSignature: JWT_SIGNATURE as string,
   mongoUri: MONGO_URI as string,
-  serverPort: SERVER_PORT,
+  serverPort: SERVER_PORT as string,
   sslPath: SSL_PATH as string,
 };
 

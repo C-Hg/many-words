@@ -24,6 +24,8 @@
     "@types/react-dom": "^16.9.9",
     "@types/react-router-dom": "^5.1.6",
     "@types/styled-components": "^5.1.4",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2"
@@ -38,6 +40,8 @@
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
+      "ecmaVersion": 11,
+      "sourceType": "module",
       "project": "./tsconfig.json"
     },
     "extends": [
@@ -47,8 +51,7 @@
       "plugin:import/warnings",
       "plugin:import/typescript",
       "plugin:prettier/recommended",
-      "prettier/babel",
-      "prettier/@typescript-eslint"
+      "prettier/babel"
     ],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
@@ -70,7 +73,8 @@
     },
     "plugins": [
       "import",
-      "prettier"
+      "prettier",
+      "@typescript-eslint"
     ]
   },
   "browserslist": {

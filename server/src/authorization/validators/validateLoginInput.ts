@@ -15,7 +15,7 @@ const validateLoginInput = (loginInput: LoginInput): void => {
     logger.error("[sendTotp] invalid totp format");
     throw new UserInputError("InvalidTotp");
   }
-  logger.debug("[validateLoginInput] input validated");
+  logger.silly("[validateLoginInput] input validated");
 };
 
 export default validateLoginInput;

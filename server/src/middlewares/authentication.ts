@@ -3,22 +3,41 @@ import { Response, NextFunction, Request } from "express";
 import jwt from "jsonwebtoken";
 
 import verifyToken from "../authorization/helpers/jwt/verifyToken";
+import { Cookies } from "../authorization/helpers/setCookies";
 import CONFIG from "../config/config";
 import userService from "../user/user.service";
 import error401 from "../utils/errors/error401";
 import logger from "../utils/logger";
+
+interface SignedCookies {
+  [Cookies.accessToken]: string;
+}
+
+function hasAccessTokenCookies(
+  signedCookies: Record<string, unknown> | SignedCookies
+): signedCookies is SignedCookies {
+  return Object.prototype.hasOwnProperty.call(
+    signedCookies,
+    Cookies.accessToken
+  );
+}
 
 const authentication = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  // TODO: parse cookies and get token
   let verifiedToken;
-
+  let accessToken;
   // extract the jwt from cookie or authorization header
-  const token = req.headers.authorization;
-  if (!token) {
+  // const hasCookies = Object.keys(req.signedCookies).length > 0;
+  if (hasAccessTokenCookies(req.signedCookies)) {
+    accessToken = req.signedCookies[Cookies.accessToken];
+  } else if (req.headers.authorization) {
+    accessToken = req.headers.authorization;
+  }
+
+  if (!accessToken) {
     if (CONFIG.env !== "development") {
       logger.error(`[authentication] 401 - no token provided`);
       return error401(res);
@@ -30,14 +49,14 @@ const authentication = async (
 
   // verify the jwt
   try {
-    verifiedToken = await verifyToken(token);
+    verifiedToken = await verifyToken(accessToken);
   } catch (error) {
     // allow expired token in dev mode only, with decodedToken
     if (CONFIG.env !== "development") {
       logger.error(`[authentication] 401 - ${error}`);
       return error401(res);
     }
-    verifiedToken = jwt.decode(token);
+    verifiedToken = jwt.decode(accessToken);
   }
   if (!verifiedToken) {
     return error401(res);
@@ -49,7 +68,7 @@ const authentication = async (
     logger.error(`[authentication] no user found with id ${verifiedToken.sub}`);
     return error401(res);
   }
-  req.ctx = { user: user.toObject() };
+  req.ctx = { user };
   logger.debug(`[authentication] authenticated user ${user.id}`);
 
   next();

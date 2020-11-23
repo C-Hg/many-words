@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
@@ -10,6 +11,7 @@ import CONFIG, { ENVIRONMENTS } from "./config/config";
 import authorizationServer from "./graphql/authorizationServer";
 import learnServer from "./graphql/learnServer";
 import authentication from "./middlewares/authentication";
+import parseRefreshTokenCookie from "./middlewares/parseRefreshTokenCookie";
 import requestLogger from "./middlewares/requestLogger";
 import logger from "./utils/logger";
 
@@ -38,12 +40,12 @@ if (
     ca: fs.readFileSync(`${CONFIG.sslPath}/chain.pem`, "utf8"),
   };
   httpsApp = https.createServer(sslOptions, app);
-  app.set("trust proxy", 1);
 }
+app.use(cookieParser(CONFIG.cookieParserKey));
 app.use("/", commonMiddlewares);
 
 // The authorization API does not require authentication
-app.use("/authorization", (req, res, next) => {
+app.use("/authorization", parseRefreshTokenCookie, (req, res, next) => {
   authorizationServer.applyMiddleware({
     app,
     path: "/authorization",

@@ -6,8 +6,9 @@ import generateTotp from "./helpers/generateTotp";
 import craftAccessToken from "./helpers/jwt/craftAccessToken";
 import craftRefreshToken from "./helpers/jwt/craftRefreshToken";
 import verifyToken from "./helpers/jwt/verifyToken";
-import setAccessCookie from "./helpers/setAccessCookie";
-import { TokenTypes } from "./interfaces/tokenPayload.interface";
+import setAccessTokenCookie from "./helpers/setAccessTokenCookie";
+import setCookies from "./helpers/setCookies";
+import { TokenPayload, TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import CONFIG from "../config/config";
 import {
@@ -43,27 +44,31 @@ const authorizationController = {
     logger.debug("[createUser] crafting tokens for a new website user");
     const newUser = await userService.createUser();
     const accessToken = await craftAccessToken(newUser.id, CLIENTS.web);
-    setAccessCookie(res, accessToken);
+    const refreshToken = await craftRefreshToken(newUser.id);
+    setCookies(res, accessToken, refreshToken);
     return { success: true };
   },
 
   /**
    * Returns a new access token, if the refresh token is valid
    */
-  getAccessToken: async (refreshToken: string): Promise<string> => {
-    logger.debug("[getAccessToken] crafting a new access token");
+  getAccessTokenWebUser: async (
+    res: Response,
+    refreshToken: TokenPayload
+  ): Promise<void> => {
+    logger.debug("[getAccessTokenWebUser] crafting a new access token");
     try {
-      const verifiedRefreshToken = await verifyToken(refreshToken);
-      const { sub, tokenUse } = verifiedRefreshToken;
+      const { sub, tokenUse } = refreshToken;
       if (tokenUse !== TokenTypes.refresh) {
-        logger.error("[getAccessToken] invalid token type");
+        logger.error("[getAccessTokenWebUser] invalid token type");
         throw new AuthenticationError("InvalidToken");
       }
-      return craftAccessToken(sub, CLIENTS.app);
+      const accessToken = await craftAccessToken(sub, CLIENTS.web);
+      setAccessTokenCookie(res, accessToken);
     } catch (error) {
       // Errors while verifying the token will be caught here: expired token, wrong signature
       // The user must login
-      logger.error(`[getAccessToken] ${error}`);
+      logger.error(`[getAccessTokenWebUser] ${error}`);
       throw new AuthenticationError("InvalidToken");
     }
   },
@@ -81,7 +86,7 @@ const authorizationController = {
   },
 
   /**
-   * Confirm the email with totp and returns access token in a cookie
+   * Confirm the email with totp and returns access and refresh tokens in a cookie
    */
   logInWebUser: async (
     res: Response,
@@ -89,7 +94,8 @@ const authorizationController = {
   ): Promise<MutationResult> => {
     const user = await userService.verifyNewUser(loginInput);
     const accessToken = await craftAccessToken(user.id, CLIENTS.web);
-    setAccessCookie(res, accessToken);
+    const refreshToken = await craftRefreshToken(user.id);
+    setCookies(res, accessToken, refreshToken);
     return { success: true };
   },
 

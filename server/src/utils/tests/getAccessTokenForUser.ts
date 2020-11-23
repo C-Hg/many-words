@@ -1,13 +1,15 @@
+import { FetchResult } from "@apollo/client/core";
 import { gql } from "apollo-server-express";
 
-import getDbConnection from "./dbConnection";
 import { authorizationClient } from "./graphqlClient";
 
+import { Mutation } from "../../graphql/authorization.types";
 import { TOTP_EXPIRATION } from "../../user/constants";
 import userService from "../../user/user.service";
+import logger from "../logger";
 
 const LOG_IN_APP_USER = gql`
-  query logInAppUser($loginInput: LoginInput!) {
+  mutation logInAppUser($loginInput: LoginInput!) {
     logInAppUser(loginInput: $loginInput) {
       accessToken
       refreshToken
@@ -24,16 +26,16 @@ const getAccessTokenForUser = async (email: string): Promise<string> => {
     email,
     totp: 222111,
   };
-  const res = await authorizationClient.query({
-    query: LOG_IN_APP_USER,
+  const { data }: FetchResult<Mutation> = await authorizationClient.mutate({
+    mutation: LOG_IN_APP_USER,
     variables: { loginInput },
   });
-  const {
-    data: {
-      logInAppUser: { accessToken },
-    },
-  } = res;
+  const accessToken = data?.logInAppUser?.accessToken;
 
+  if (!accessToken) {
+    logger.error("[getAccessToken] cannot fetch token");
+    return "";
+  }
   return accessToken;
 };
 

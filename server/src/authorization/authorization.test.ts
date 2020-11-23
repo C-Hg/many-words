@@ -1,16 +1,15 @@
-import gql from "graphql-tag";
-import jwt from "jsonwebtoken";
+import { ApolloQueryResult, FetchResult, gql } from "@apollo/client/core";
 import Mongoose from "mongoose";
 
 import {
   APP_ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
 } from "./constants";
-import signToken from "./helpers/jwt/signToken";
 import verifyToken from "./helpers/jwt/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
-import { LoginInput } from "../graphql/authorization.types";
+import { Mutation } from "../../../web-app/src/graphql/authorization.types";
+import { LoginInput, Query } from "../graphql/authorization.types";
 import User from "../user/models/user.model";
 import userService from "../user/user.service";
 import getDbConnection from "../utils/tests/dbConnection";
@@ -33,14 +32,17 @@ const CREATE_WEB_USER = gql`
   }
 `;
 
-const GET_ACCESS_TOKEN = gql`
-  query getAccessToken($refreshToken: String!) {
-    getAccessToken(refreshToken: $refreshToken)
+// TODO: implement logic for app users
+const GET_ACCESS_TOKEN_WEB_USER = gql`
+  query getAccessTokenWebUser {
+    getAccessTokenWebUser {
+      success
+    }
   }
 `;
 
 const LOG_IN_APP_USER = gql`
-  query logInAppUser($loginInput: LoginInput!) {
+  mutation logInAppUser($loginInput: LoginInput!) {
     logInAppUser(loginInput: $loginInput) {
       accessToken
       refreshToken
@@ -49,7 +51,7 @@ const LOG_IN_APP_USER = gql`
 `;
 
 const LOG_IN_WEB_USER = gql`
-  query logInWebUser($loginInput: LoginInput!) {
+  mutation logInWebUser($loginInput: LoginInput!) {
     logInWebUser(loginInput: $loginInput) {
       success
     }
@@ -57,7 +59,7 @@ const LOG_IN_WEB_USER = gql`
 `;
 
 const SEND_TOTP = gql`
-  query sendTotp($email: String!) {
+  mutation sendTotp($email: String!) {
     sendTotp(email: $email) {
       success
     }
@@ -77,37 +79,39 @@ const VALID_EMAIL_8 = "hello8@manywords.fr";
 const VALID_EMAIL_9 = "hello9@manywords.fr";
 
 let db: typeof Mongoose;
-beforeAll(async () => {
-  db = await getDbConnection();
-});
-
-afterAll(async () => {
-  // remove all users created to test the tokens, i.e. without emails
-  await User.deleteMany({ email: { $exists: false } });
-  await User.deleteMany({
-    email: {
-      $in: [
-        VALID_EMAIL_1,
-        VALID_EMAIL_2,
-        VALID_EMAIL_3,
-        VALID_EMAIL_4,
-        VALID_EMAIL_5,
-        VALID_EMAIL_6,
-        VALID_EMAIL_7,
-        VALID_EMAIL_8,
-        VALID_EMAIL_9,
-      ],
-    },
-  });
-  await db.connection.close();
-});
 
 describe("Authorization server - e2e", () => {
+  beforeAll(async () => {
+    db = await getDbConnection();
+  });
+
+  afterAll(async () => {
+    // remove all users created to test the tokens, i.e. without emails
+    await User.deleteMany({ email: { $exists: false } });
+    await User.deleteMany({
+      email: {
+        $in: [
+          VALID_EMAIL_1,
+          VALID_EMAIL_2,
+          VALID_EMAIL_3,
+          VALID_EMAIL_4,
+          VALID_EMAIL_5,
+          VALID_EMAIL_6,
+          VALID_EMAIL_7,
+          VALID_EMAIL_8,
+          VALID_EMAIL_9,
+        ],
+      },
+    });
+    await db.connection.close();
+  });
+
   let validRefreshToken: string;
 
   // -----------------     CREATE_APP_USER     ------------------
+  // TODO: remove users without emails with id?
   it("should create a user and return the tokens", async () => {
-    const res = await authorizationClient.mutate({
+    const res: FetchResult<Mutation> = await authorizationClient.mutate({
       mutation: CREATE_APP_USER,
     });
     const {
@@ -139,104 +143,110 @@ describe("Authorization server - e2e", () => {
 
   // -----------------     CREATE_WEB_USER     ------------------
   it("should create a user and return the tokens inside cookies", async () => {
-    const res = await authorizationClient.mutate({
+    const { data }: FetchResult<Mutation> = await authorizationClient.mutate({
       mutation: CREATE_WEB_USER,
     });
-    const {
-      data: {
-        createWebUser: { success },
-      },
-    } = res;
+    const success = data?.createWebUser?.success;
 
     // only verify that the call succeeded, setting cookies is unit tested
     expect(success).toEqual(true);
   });
 
+  // -----------------     GET_ACCESS_TOKEN_WEB_USER     ------------------
+  it("should get an error for a query without refresh token", async () => {
+    const { data }: ApolloQueryResult<Query> = await authorizationClient.query({
+      query: GET_ACCESS_TOKEN_WEB_USER,
+    });
+
+    const success = data.getAccessTokenWebUser.success;
+    expect(success).toEqual(false);
+  });
+
   // -----------------     GET_APP_ACCESS_TOKEN      ------------------
-  it("should get a new access token from refresh token", async () => {
-    const res = await authorizationClient.query({
-      query: GET_ACCESS_TOKEN,
-      variables: { refreshToken: validRefreshToken },
-    });
-    const {
-      data: { getAccessToken: accessToken },
-    } = res;
+  // it("should get a new access token from refresh token", async () => {
+  //   const res: ApolloQueryResult<Query> = await authorizationClient.query({
+  //     query: GET_ACCESS_TOKEN,
+  //     variables: { refreshToken: validRefreshToken },
+  //   });
+  //   const {
+  //     data: { getAccessToken: accessToken },
+  //   } = res;
 
-    expect(accessToken).toBeDefined();
-    const decodedAT = await verifyToken(accessToken);
-    const decodedRT = await verifyToken(validRefreshToken);
-    expect(decodedAT.exp).toBeCloseTo(
-      Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION
-    );
-    expect(decodedAT.sub).toEqual(decodedRT.sub);
-    expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
-  });
+  //   expect(accessToken).toBeDefined();
+  //   const decodedAT = await verifyToken(accessToken);
+  //   const decodedRT = await verifyToken(validRefreshToken);
+  //   expect(decodedAT.exp).toBeCloseTo(
+  //     Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION
+  //   );
+  //   expect(decodedAT.sub).toEqual(decodedRT.sub);
+  //   expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
+  // });
 
-  it("should throw an error if the refresh token is expired", async () => {
-    const exp = Math.floor(Date.now() / 1000) - 10;
-    const payload = {
-      exp,
-      sub: "anInvalidId",
-      tokenUse: TokenTypes.refresh,
-    };
-    const expiredRefreshToken = await signToken(payload);
-    await expect(
-      authorizationClient.query({
-        query: GET_ACCESS_TOKEN,
-        variables: { refreshToken: expiredRefreshToken },
-      })
-      // rejection reason is hidden from the client
-    ).rejects.toThrowError("InvalidToken");
-  });
+  // it("should throw an error if the refresh token is expired", async () => {
+  //   const exp = Math.floor(Date.now() / 1000) - 10;
+  //   const payload = {
+  //     exp,
+  //     sub: "anInvalidId",
+  //     tokenUse: TokenTypes.refresh,
+  //   };
+  //   const expiredRefreshToken = await signToken(payload);
+  //   await expect(
+  //     authorizationClient.query({
+  //       query: GET_ACCESS_TOKEN,
+  //       variables: { refreshToken: expiredRefreshToken },
+  //     })
+  //     // rejection reason is hidden from the client
+  //   ).rejects.toThrowError("InvalidToken");
+  // });
 
-  it("should throw an error if it is an access token", async () => {
-    const exp = Math.floor(Date.now() / 1000) + 5000;
-    const payload = {
-      exp,
-      sub: "anInvalidId",
-      tokenUse: TokenTypes.access,
-    };
-    const disguisedRefreshToken = await signToken(payload);
-    await expect(
-      authorizationClient.query({
-        query: GET_ACCESS_TOKEN,
-        variables: { refreshToken: disguisedRefreshToken },
-      })
-    ).rejects.toThrowError("InvalidToken");
-  });
+  // it("should throw an error if it is an access token", async () => {
+  //   const exp = Math.floor(Date.now() / 1000) + 5000;
+  //   const payload = {
+  //     exp,
+  //     sub: "anInvalidId",
+  //     tokenUse: TokenTypes.access,
+  //   };
+  //   const disguisedRefreshToken = await signToken(payload);
+  //   await expect(
+  //     authorizationClient.query({
+  //       query: GET_ACCESS_TOKEN,
+  //       variables: { refreshToken: disguisedRefreshToken },
+  //     })
+  //   ).rejects.toThrowError("InvalidToken");
+  // });
 
-  it("should throw an error if the refresh token signature is wrong", async () => {
-    const exp = Math.floor(Date.now() / 1000) + 50000;
-    const payload = {
-      exp,
-      sub: "anInvalidId",
-      tokenUse: TokenTypes.refresh,
-    };
-    const invalidRefreshToken = await new Promise((resolve, reject) => {
-      jwt.sign(payload, "aDifferentSecretSignature", function (error, token) {
-        if (token) {
-          resolve(token);
-        } else {
-          reject(error);
-        }
-      });
-    });
-    await expect(
-      authorizationClient.query({
-        query: GET_ACCESS_TOKEN,
-        variables: { refreshToken: invalidRefreshToken },
-      })
-    ).rejects.toThrowError("InvalidToken");
-  });
+  // it("should throw an error if the refresh token signature is wrong", async () => {
+  //   const exp = Math.floor(Date.now() / 1000) + 50000;
+  //   const payload = {
+  //     exp,
+  //     sub: "anInvalidId",
+  //     tokenUse: TokenTypes.refresh,
+  //   };
+  //   const invalidRefreshToken = await new Promise((resolve, reject) => {
+  //     jwt.sign(payload, "aDifferentSecretSignature", function (error, token) {
+  //       if (token) {
+  //         resolve(token);
+  //       } else {
+  //         reject(error);
+  //       }
+  //     });
+  //   });
+  //   await expect(
+  //     authorizationClient.query({
+  //       query: GET_ACCESS_TOKEN,
+  //       variables: { refreshToken: invalidRefreshToken },
+  //     })
+  //   ).rejects.toThrowError("InvalidToken");
+  // });
 
   // -----------------     SEND_TOTP     ------------------
   it("should send an email with totp", async () => {
-    const res = await authorizationClient.query({
-      query: SEND_TOTP,
+    const res: FetchResult<Mutation> = await authorizationClient.mutate({
+      mutation: SEND_TOTP,
       variables: { email: VALID_EMAIL_1 },
     });
 
-    expect(res.data.sendTotp.success).toEqual(true);
+    expect(res?.data?.sendTotp?.success).toEqual(true);
     // the user should be created with this email and proper totp and expiration date
     const user = await User.findOne({ email: VALID_EMAIL_1 });
     expect(user?.login.expiresAt).toBeDefined();
@@ -245,8 +255,8 @@ describe("Authorization server - e2e", () => {
 
   it("should throw with an invalid email format", async () => {
     await expect(
-      authorizationClient.query({
-        query: SEND_TOTP,
+      authorizationClient.mutate({
+        mutation: SEND_TOTP,
         variables: { email: INVALID_EMAIL },
       })
     ).rejects.toThrowError("InvalidEmailFormat");
@@ -263,8 +273,8 @@ describe("Authorization server - e2e", () => {
       email: VALID_EMAIL_2,
       totp: 189657,
     };
-    const res = await authorizationClient.query({
-      query: LOG_IN_APP_USER,
+    const res: FetchResult<Mutation> = await authorizationClient.mutate({
+      mutation: LOG_IN_APP_USER,
       variables: { loginInput },
     });
     const {
@@ -282,8 +292,8 @@ describe("Authorization server - e2e", () => {
       totp: 180057,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_APP_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("InvalidEmail");
@@ -295,8 +305,8 @@ describe("Authorization server - e2e", () => {
       totp: 18005765,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_APP_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("InvalidTotp");
@@ -308,8 +318,8 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_APP_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("RequestFailed");
@@ -326,11 +336,11 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_APP_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
-    ).rejects.toThrowError("GraphQL error: ExpiredTotp");
+    ).rejects.toThrowError("ExpiredTotp");
   });
 
   it("should throw an error if the user has no totp previously set", async () => {
@@ -340,11 +350,11 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_APP_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
-    ).rejects.toThrowError("GraphQL error: RequestFailed");
+    ).rejects.toThrowError("RequestFailed");
   });
 
   it("should throw an explicit error if the totp is wrong", async () => {
@@ -354,15 +364,15 @@ describe("Authorization server - e2e", () => {
       totp: 189777,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_APP_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("WrongTotp");
   });
 
   // -----------------     LOG_IN_WEB_USER     ------------------
-  it("should verify the user and receive cookie with access token", async () => {
+  it("should verify the user and receive cookies with access and refresh tokens", async () => {
     // creates a new user with verifiable values
     await userService.setTotp(VALID_EMAIL_9, 189657);
 
@@ -370,8 +380,8 @@ describe("Authorization server - e2e", () => {
       email: VALID_EMAIL_9,
       totp: 189657,
     };
-    const res = await authorizationClient.query({
-      query: LOG_IN_WEB_USER,
+    const res: FetchResult<Mutation> = await authorizationClient.mutate({
+      mutation: LOG_IN_WEB_USER,
       variables: { loginInput },
     });
     const {
@@ -388,8 +398,8 @@ describe("Authorization server - e2e", () => {
       totp: 180057,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_WEB_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("InvalidEmail");
@@ -401,8 +411,8 @@ describe("Authorization server - e2e", () => {
       totp: 18005765,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_WEB_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("InvalidTotp");
@@ -414,8 +424,8 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_WEB_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("RequestFailed");
@@ -432,11 +442,11 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_WEB_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
-    ).rejects.toThrowError("GraphQL error: ExpiredTotp");
+    ).rejects.toThrowError("ExpiredTotp");
   });
 
   it("should throw an error if the user has no totp previously set", async () => {
@@ -446,11 +456,11 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_WEB_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
-    ).rejects.toThrowError("GraphQL error: RequestFailed");
+    ).rejects.toThrowError("RequestFailed");
   });
 
   it("should throw an explicit error if the totp is wrong", async () => {
@@ -460,8 +470,8 @@ describe("Authorization server - e2e", () => {
       totp: 189777,
     };
     await expect(
-      authorizationClient.query({
-        query: LOG_IN_WEB_USER,
+      authorizationClient.mutate({
+        mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
     ).rejects.toThrowError("WrongTotp");

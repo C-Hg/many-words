@@ -1,9 +1,10 @@
+import { ApolloQueryResult } from "@apollo/client/core";
 import gql from "graphql-tag";
 import Mongoose from "mongoose";
 
 import User from "./models/user.model";
-import userService from "./user.service";
 
+import { Query } from "../graphql/learn.types";
 import getDbConnection from "../utils/tests/dbConnection";
 import getAccessTokenForUser from "../utils/tests/getAccessTokenForUser";
 import {
@@ -49,28 +50,32 @@ const USER_2 = "user2@manywords.fr";
 const USER_NOT_FOUND = "user2NotFound@manywords.fr";
 
 let db: typeof Mongoose;
-beforeAll(async () => {
-  db = await getDbConnection();
-});
-
-afterAll(async () => {
-  await User.deleteMany({
-    email: {
-      $in: [USER_1, USER_2],
-    },
-  });
-  await db.connection.close();
-});
 
 describe("Server - e2e - user", () => {
+  beforeAll(async () => {
+    db = await getDbConnection();
+  });
+
+  afterAll(async () => {
+    await User.deleteMany({
+      email: {
+        $in: [USER_1, USER_2],
+      },
+    });
+    await db.connection.close();
+  });
+
   // -----------------     BASIC AUTHORIZATION LOGIC    ------------------
   it("should get a new user after its first login, provided a valid token", async () => {
     // get a valid token first for a new user
     const accessToken = await getAccessTokenForUser(USER_1);
     const authenticatedLearnClient = getAuthenticatedLearnClient(accessToken);
-    const userData = await authenticatedLearnClient.query({
-      query: USER_QUERY,
-    });
+    const userData: ApolloQueryResult<Query> = await authenticatedLearnClient.query(
+      {
+        query: USER_QUERY,
+        fetchPolicy: "network-only",
+      }
+    );
     const {
       data: {
         user: {
@@ -145,10 +150,13 @@ describe("Server - e2e - user", () => {
       { email: USER_2 },
       { language: chosenLanguage }
     );
-    const userData = await authenticatedLearnClient.query({
-      query: GET_USER_LANGUAGE,
-    });
-    const { language } = userData.data.user;
+    const userData: ApolloQueryResult<Query> = await authenticatedLearnClient.query(
+      {
+        query: GET_USER_LANGUAGE,
+        fetchPolicy: "network-only",
+      }
+    );
+    const language = userData?.data?.user?.language;
     expect(language).toEqual(chosenLanguage);
   });
 

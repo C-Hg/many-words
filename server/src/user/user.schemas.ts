@@ -6,7 +6,7 @@ import logger from "../utils/logger";
 
 export const typeDefs = gql`
   type Query {
-    user: User
+    user: User!
   }
 
   type User {
@@ -18,7 +18,11 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    user: (parent: {}, args: {}, { req }: { req: Request }): User => {
+    user: (
+      parent: Record<string, unknown>,
+      args: Record<string, unknown>,
+      { req }: { req: Request }
+    ): User => {
       logger.debug(`[user] resolver - get user ${req.ctx.user.id}`);
       return req.ctx.user;
     },

@@ -1,5 +1,6 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -7,6 +8,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+};
+
+export type Query = {
+  getAccessTokenWebUser: QueryResult;
 };
 
 export type LoginInput = {
@@ -17,37 +22,32 @@ export type LoginInput = {
 export type Mutation = {
   createAppUser: Tokens;
   createWebUser: MutationResult;
-};
-
-export type MutationResult = {
-  success: Scalars['Boolean'];
-};
-
-export type Query = {
-  getAccessToken: Scalars['String'];
   logInAppUser: Tokens;
   logInWebUser: MutationResult;
   sendTotp: MutationResult;
 };
 
 
-export type QueryGetAccessTokenArgs = {
-  refreshToken: Scalars['String'];
-};
-
-
-export type QueryLogInAppUserArgs = {
+export type MutationLogInAppUserArgs = {
   loginInput: LoginInput;
 };
 
 
-export type QueryLogInWebUserArgs = {
+export type MutationLogInWebUserArgs = {
   loginInput: LoginInput;
 };
 
 
-export type QuerySendTotpArgs = {
+export type MutationSendTotpArgs = {
   email: Scalars['String'];
+};
+
+export type MutationResult = {
+  success: Scalars['Boolean'];
+};
+
+export type QueryResult = {
+  success: Scalars['Boolean'];
 };
 
 export type Tokens = {
@@ -55,5 +55,3 @@ export type Tokens = {
   error?: Maybe<Scalars['String']>;
   refreshToken: Scalars['String'];
 };
-
-

@@ -6,8 +6,8 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    email: { type: String, required: false },
-    language: { type: String, required: false },
+    email: { type: String, required: false, default: "" },
+    language: { type: String, required: false, default: null },
     login: {
       emailToConfirm: {
         type: String,

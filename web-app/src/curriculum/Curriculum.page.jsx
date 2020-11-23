@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import LessonsStats from "./LessonsStats.component";
 import { LanguageContext } from "../contexts/language-context";
@@ -19,9 +17,9 @@ import NavigationLink from "../components/links/NavigationLink.styled";
 
 const { lessonTypes } = CONSTANTS;
 
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = (state) => ({ user: state.user });
 
-const Curriculum = props => {
+const Curriculum = (props) => {
   const { user } = props;
   const language = useContext(LanguageContext);
   const { curriculum } = language;
@@ -34,7 +32,7 @@ const Curriculum = props => {
 
   // TODO: rename theme in topic in the whole repo: theme is a reserved word for theming with styled-components
   // lesson name, words/theme, lessons/theme
-  const cards = themes.map(val => {
+  const cards = themes.map((val) => {
     let greenLessons = 0;
     let goldLessons = 0;
     let lessons = val[2];
@@ -107,7 +105,4 @@ Curriculum.propTypes = {
   }).isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(Curriculum);
+export default connect(mapStateToProps, null)(Curriculum);

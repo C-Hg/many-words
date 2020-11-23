@@ -10,16 +10,18 @@ const tokenConfiguration = {
 
 const verifyToken = (token: string): Promise<TokenPayload> => {
   return new Promise((resolve, reject) => {
-    jwt.verify(token, CONFIG.jwtSignature, tokenConfiguration, function (
-      error,
-      decodedToken
-    ) {
-      if (decodedToken) {
-        resolve(decodedToken as TokenPayload);
-      } else {
-        reject(error);
+    jwt.verify(
+      token,
+      CONFIG.jwtSignature,
+      tokenConfiguration,
+      function (error, decodedToken) {
+        if (decodedToken) {
+          resolve(decodedToken as TokenPayload);
+        } else {
+          reject(error);
+        }
       }
-    });
+    );
   });
 };
 

@@ -1,5 +1,5 @@
 import { gql } from "apollo-server-express";
-import { Response } from "express";
+import { Request, Response } from "express";
 
 import authorizationController from "./authorization.controller";
 import validateEmail from "./validators/validateEmail";
@@ -9,14 +9,13 @@ import {
   MutationResult,
   Tokens,
   LoginInput,
+  QueryResult,
 } from "../graphql/authorization.types";
+import logger from "../utils/logger";
 
 export const typeDefs = gql`
   type Query {
-    getAccessToken(refreshToken: String!): String!
-    logInAppUser(loginInput: LoginInput!): Tokens!
-    logInWebUser(loginInput: LoginInput!): MutationResult!
-    sendTotp(email: String!): MutationResult!
+    getAccessTokenWebUser: QueryResult!
   }
 
   input LoginInput {
@@ -27,9 +26,16 @@ export const typeDefs = gql`
   type Mutation {
     createAppUser: Tokens!
     createWebUser: MutationResult!
+    logInAppUser(loginInput: LoginInput!): Tokens!
+    logInWebUser(loginInput: LoginInput!): MutationResult!
+    sendTotp(email: String!): MutationResult!
   }
 
   type MutationResult {
+    success: Boolean!
+  }
+
+  type QueryResult {
     success: Boolean!
   }
 
@@ -42,33 +48,25 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    logInAppUser: async (
-      parent: {},
-      { loginInput }: { loginInput: LoginInput }
-    ): Promise<Tokens> => {
-      validateLoginInput(loginInput);
-      return authorizationController.logInAppUser(loginInput);
-    },
-    logInWebUser: async (
-      parent: {},
-      { loginInput }: { loginInput: LoginInput },
-      { res }: { res: Response }
-    ): Promise<MutationResult> => {
-      validateLoginInput(loginInput);
-      return authorizationController.logInWebUser(res, loginInput);
-    },
-    getAccessToken: async (
-      parent: {},
-      { refreshToken }: { refreshToken: string }
-    ): Promise<string> => {
-      return authorizationController.getAccessToken(refreshToken);
-    },
-    sendTotp: async (
-      parent: {},
-      { email }: { email: string }
-    ): Promise<MutationResult> => {
-      validateEmail(email);
-      return authorizationController.sendTotp(email);
+    getAccessTokenWebUser: async (
+      parent: Record<string, unknown>,
+      arg: Record<string, unknown>,
+      { req, res }: { req: Request; res: Response }
+    ): Promise<QueryResult> => {
+      if (!req.refreshToken) {
+        logger.error(`[getAccessTokenWebUser] - no refresh token`);
+        return { success: false };
+      }
+      try {
+        await authorizationController.getAccessTokenWebUser(
+          res,
+          req.refreshToken
+        );
+        return { success: true };
+      } catch (error) {
+        logger.error(`[getAccessTokenWebUser] - ${error}`);
+        return { success: false };
+      }
     },
   },
   Mutation: {
@@ -76,11 +74,33 @@ export const resolvers = {
       return authorizationController.createAppUser();
     },
     createWebUser: async (
-      parent: {},
-      arg: {},
+      parent: Record<string, unknown>,
+      arg: Record<string, unknown>,
       { res }: { res: Response }
     ): Promise<MutationResult> => {
       return authorizationController.createWebUser(res);
+    },
+    logInAppUser: async (
+      parent: Record<string, unknown>,
+      { loginInput }: { loginInput: LoginInput }
+    ): Promise<Tokens> => {
+      validateLoginInput(loginInput);
+      return authorizationController.logInAppUser(loginInput);
+    },
+    logInWebUser: async (
+      parent: Record<string, unknown>,
+      { loginInput }: { loginInput: LoginInput },
+      { res }: { res: Response }
+    ): Promise<MutationResult> => {
+      validateLoginInput(loginInput);
+      return authorizationController.logInWebUser(res, loginInput);
+    },
+    sendTotp: async (
+      parent: Record<string, unknown>,
+      { email }: { email: string }
+    ): Promise<MutationResult> => {
+      validateEmail(email);
+      return authorizationController.sendTotp(email);
     },
   },
 };
