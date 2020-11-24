@@ -13,8 +13,8 @@ const setAccessTokenCookie = (res: Response, accessToken: string): void => {
     expires: new Date(Date.now() + WEB_ACCESS_TOKEN_EXPIRATION), // cookie will be removed after 6 months
     httpOnly: true,
     sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
-    signed: process.env.NODE_ENV === "production",
+    secure: true,
+    signed: true,
   });
 };
 

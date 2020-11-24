@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 
@@ -8,15 +8,7 @@ import theme from "./theme";
 import { languages, LanguageContext } from "../contexts/language-context";
 import { GetUserLanguageQueryResult, Languages } from "../graphql/learn.types";
 import getLanguage from "../utils/getLanguage";
-
-const GET_USER_LANGUAGE = gql`
-  query getUserLanguage {
-    user {
-      id
-      language
-    }
-  }
-`;
+import GET_USER_LANGUAGE from "./graphql/getUserLanguage.learn";
 
 // TODO: check the connexion status in Index.tsx
 const App: React.FC = () => {

@@ -15,3 +15,6 @@
 
 `npm run dev:detached`
 
+## Local environment
+The setup uses https locally. Allow chrome://flags/#allow-insecure-localhost in chrome browser to enable fetch with a self-signed certificate.
+

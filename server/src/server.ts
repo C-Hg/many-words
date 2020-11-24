@@ -1,4 +1,5 @@
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
@@ -7,7 +8,7 @@ import fs from "fs";
 import https from "https";
 import path from "path";
 
-import CONFIG, { ENVIRONMENTS } from "./config/config";
+import CONFIG from "./config/config";
 import authorizationServer from "./graphql/authorizationServer";
 import learnServer from "./graphql/learnServer";
 import authentication from "./middlewares/authentication";
@@ -28,20 +29,23 @@ httpApp.listen(80, () => {
 
 /* ----------------------     Main app    ------------*/
 const app = express();
-let httpsApp: https.Server;
-const commonMiddlewares = [requestLogger, helmet()];
-if (
-  CONFIG.env === ENVIRONMENTS.production ||
-  CONFIG.env === ENVIRONMENTS.staging
-) {
-  const sslOptions = {
-    key: fs.readFileSync(`${CONFIG.sslPath}/privkey.pem`, "utf8"),
-    cert: fs.readFileSync(`${CONFIG.sslPath}/cert.pem`, "utf8"),
-    ca: fs.readFileSync(`${CONFIG.sslPath}/chain.pem`, "utf8"),
-  };
-  httpsApp = https.createServer(sslOptions, app);
-}
-app.use(cookieParser(CONFIG.cookieParserKey));
+const commonMiddlewares = [
+  cors({ credentials: true, origin: "https://localhost:3000" }), // TODO: configure env variables for production
+  cookieParser(CONFIG.cookieParserKey),
+  requestLogger,
+  helmet({
+    contentSecurityPolicy:
+      process.env.NODE_ENV === "production" ? undefined : false,
+  }),
+];
+
+const sslOptions = {
+  key: fs.readFileSync(`${CONFIG.sslPath}/privkey.pem`, "utf8"),
+  cert: fs.readFileSync(`${CONFIG.sslPath}/cert.pem`, "utf8"),
+  ca: fs.readFileSync(`${CONFIG.sslPath}/chain.pem`, "utf8"),
+};
+const httpsApp = https.createServer(sslOptions, app);
+
 app.use("/", commonMiddlewares);
 
 // The authorization API does not require authentication
@@ -49,12 +53,13 @@ app.use("/authorization", parseRefreshTokenCookie, (req, res, next) => {
   authorizationServer.applyMiddleware({
     app,
     path: "/authorization",
+    cors: false,
   });
   next();
 });
 // All routes regarding exercises require a valid JWT and a user
 app.use("/learn", authentication, (req, res, next) => {
-  learnServer.applyMiddleware({ app, path: "/learn" });
+  learnServer.applyMiddleware({ app, path: "/learn", cors: false });
   next();
 });
 
@@ -71,14 +76,13 @@ const db = mongoose.connection;
 db.on("error", (error) => logger.error(`MongoDB connection error - ${error}`));
 db.once("open", () => {
   logger.info("Connected to database");
-  const server = httpsApp || app;
   // configuring the listening port
-  server.listen({ port: CONFIG.serverPort }, () => {
-    logger.info("-------     🚀  Many-words server is live 🚀     -------");
+  httpsApp.listen({ port: CONFIG.serverPort }, () => {
+    logger.info("-------     🚀  Many-words server is live  🚀     -------");
     logger.info(
-      `🔑 authorization: http://localhost:${CONFIG.serverPort}/authorization`
+      `🔑 authorization: https://localhost:${CONFIG.serverPort}/authorization`
     );
-    logger.info(`🎯 learn: http://localhost:${CONFIG.serverPort}/learn`);
+    logger.info(`🎯 learn: https://localhost:${CONFIG.serverPort}/learn`);
   });
 });
 

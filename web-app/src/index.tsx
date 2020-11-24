@@ -2,19 +2,20 @@ import {
   ApolloClient,
   ApolloProvider,
   createHttpLink,
+  HttpLink,
   InMemoryCache,
-  split,
 } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import InitializeApp from "./app/InitializeApp";
 
 import CONFIG from "./config/config";
 import * as serviceWorker from "./serviceWorker";
 
 /* ----------------       Apollo Client      --------------------- */
 const authorizationLink = createHttpLink({
-  uri: CONFIG.authorizationServerUri,
+  uri: "http://server:4000/authorization",
   credentials: "same-origin",
 });
 const learnLink = createHttpLink({
@@ -22,12 +23,15 @@ const learnLink = createHttpLink({
   credentials: "same-origin",
 });
 
+// TODO: fix client init
 const client = new ApolloClient({
-  link: split(
-    (operation) => operation.getContext().version === 1,
-    authorizationLink,
-    learnLink
-  ),
+  credentials: "include", // TODO: same-origin for production
+  uri: "https://localhost:4000/authorization",
+  // link: new HttpLink().split(
+  //   (operation) => operation.operationName === "learn", // TODO: change client name, use context +++
+  //   learnLink,
+  //   authorizationLink
+  // ),
   cache: new InMemoryCache(),
 });
 

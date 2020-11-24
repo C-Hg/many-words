@@ -23,13 +23,7 @@ const schema = makeExecutableSchema({
 
 const learnServer = new ApolloServer({
   schema,
-  context: ({
-    req,
-    res,
-  }: {
-    req: Request;
-    res: Response;
-  }): { req: Request; res: Response } => ({ req, res }),
+  context: ({ req, res }): { req: Request; res: Response } => ({ req, res }),
 });
 
 export default learnServer;

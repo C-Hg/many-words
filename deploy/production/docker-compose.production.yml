@@ -20,12 +20,14 @@ services:
     container_name: manywords-server
     environment:
       NODE_ENV: "production"
-      JWT_SIGNATURE: ${JWT_SIGNATURE}
-      MONGO_USER: ${MONGO_USER}
-      MONGO_PASSWORD: ${MONGO_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-      SERVER_PORT: ${SERVER_PORT}
+      JWT_SIGNATURE: $JWT_SIGNATURE
+      MONGO_USER: $MONGO_USER
+      MONGO_PASSWORD: $MONGO_PASSWORD
+      MONGO_INITDB_DATABASE: $MONGO_INITDB_DATABASE
+      SERVER_PORT: $SERVER_PORT
+      SSL_PATH: $SSL_PATH
     volumes:
+      - /etc/letsencrypt:/server/letsencrypt
       - web-app-build:/server/lib/build
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}

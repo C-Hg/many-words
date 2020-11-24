@@ -6,7 +6,7 @@ import generateTotp from "./helpers/generateTotp";
 import craftAccessToken from "./helpers/jwt/craftAccessToken";
 import craftRefreshToken from "./helpers/jwt/craftRefreshToken";
 import verifyToken from "./helpers/jwt/verifyToken";
-import setAccessTokenCookie from "./helpers/setAccessTokenCookie";
+import setAccessTokenCookie, { Cookies } from "./helpers/setAccessTokenCookie";
 import setCookies from "./helpers/setCookies";
 import { TokenPayload, TokenTypes } from "./interfaces/tokenPayload.interface";
 
@@ -59,9 +59,14 @@ const authorizationController = {
     logger.debug("[getAccessTokenWebUser] crafting a new access token");
     try {
       const { sub, tokenUse } = refreshToken;
+      const user = await userService.getUserById(sub);
+      if (!user) {
+        res.clearCookie(Cookies.accessToken);
+        res.clearCookie(Cookies.refreshToken);
+        throw new Error("user does not exist, remove cookies");
+      }
       if (tokenUse !== TokenTypes.refresh) {
-        logger.error("[getAccessTokenWebUser] invalid token type");
-        throw new AuthenticationError("InvalidToken");
+        throw new Error("invalid token type");
       }
       const accessToken = await craftAccessToken(sub, CLIENTS.web);
       setAccessTokenCookie(res, accessToken);

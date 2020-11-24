@@ -24,14 +24,17 @@ services:
     working_dir: /server
     container_name: manywords-server
     environment:
+      COOKIE_PARSER_KEY: $COOKIE_PARSER_KEY
       JWT_SIGNATURE: $JWT_SIGNATURE
       NODE_ENV: "development"
       MONGO_URI: mongodb://mongo-dev:27017/manywords
       SERVER_PORT: $SERVER_PORT
+      SSL_PATH: $SSL_PATH
     command: npm start
     volumes:
       # to allow hot reloading
       - ../../server:/server
+      - ./devCertificates:/server/certificates
     ports:
       - $SERVER_PORT:$SERVER_PORT
       - 9229:9229
