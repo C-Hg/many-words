@@ -1,0 +1,28 @@
+overwrite: true
+watch: false
+generates:
+  # interfaces for the server
+  server/src/graphql/types.tsx:
+    schema: "https://localhost:4000/graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-resolvers"
+    config:
+      enumsAsTypes: true
+      skipTypename: true
+
+  # interfaces for the web-app, need to import gql queries and mutations
+  web-app/src/graphql/types.tsx:
+    documents: "web-app/src/**/*.graphql.ts"
+    schema: "https://localhost:4000/graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      enumsAsTypes: true
+      skipTypename: true
+      withHooks: true
+      reactApolloVersion: 3
+    

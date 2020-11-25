@@ -6,9 +6,9 @@ import Router from "./Router";
 import theme from "./theme";
 
 import { languages, LanguageContext } from "../contexts/language-context";
-import { GetUserLanguageQueryResult, Languages } from "../graphql/learn.types";
+import { GetUserLanguageQueryResult, Languages } from "../graphql/types";
 import getLanguage from "../utils/getLanguage";
-import GET_USER_LANGUAGE from "./graphql/getUserLanguage.learn";
+import GET_USER_LANGUAGE from "./graphql/getUserLanguage.graphql";
 
 // TODO: check the connexion status in Index.tsx
 const App: React.FC = () => {

@@ -1,0 +1,1 @@
+This folder contains self-signed certificate used for local development only.

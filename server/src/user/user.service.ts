@@ -2,8 +2,7 @@ import { TOTP_EXPIRATION } from "./constants";
 import { UserDocument, User } from "./interfaces/user.interface";
 import UserModel from "./models/user.model";
 
-import { LoginInput } from "../graphql/authorization.types";
-import { Languages } from "../graphql/learn.types";
+import { Languages, LoginInput } from "../graphql/types";
 import logger from "../utils/logger";
 
 const userService = {

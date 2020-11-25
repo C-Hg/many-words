@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { Response, NextFunction, Request } from "express";
+import { Request } from "express";
 
-import verifyToken from "../authorization/helpers/jwt/verifyToken";
-import { Cookies } from "../authorization/helpers/setCookies";
-import { TokenPayload } from "../authorization/interfaces/tokenPayload.interface";
-import error401 from "../utils/errors/error401";
-import logger from "../utils/logger";
+import verifyToken from "./jwt/verifyToken";
+import { Cookies } from "./setCookies";
+
+import logger from "../../utils/logger";
+import { TokenPayload } from "../interfaces/tokenPayload.interface";
 
 interface SignedCookies {
   [Cookies.refreshToken]: string;
@@ -20,11 +20,7 @@ function hasRefreshTokenCookies(
   );
 }
 
-const parseRefreshTokenCookie = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+const getRefreshToken = async (req: Request): Promise<TokenPayload | null> => {
   let verifiedToken: TokenPayload;
   let refreshToken;
   // extract the jwt from cookie or authorization header
@@ -34,7 +30,7 @@ const parseRefreshTokenCookie = async (
   }
 
   if (!refreshToken) {
-    return next();
+    return null;
   }
 
   // verify the jwt
@@ -42,16 +38,14 @@ const parseRefreshTokenCookie = async (
     verifiedToken = await verifyToken(refreshToken);
   } catch (error) {
     // allow expired token in dev mode only, with decodedToken
-    logger.error(`[parseRefreshTokenCookie] 401 - ${error}`);
-    return error401(res);
+    logger.error(`[getRefreshToken] 401 - ${error}`);
+    return null;
   }
 
-  // adds the parsed refreshToken to the context
-  req.refreshToken = verifiedToken;
   logger.debug(
-    `[parseRefreshTokenCookie] successfully parsed refresh token for user ${verifiedToken.sub}`
+    `[getRefreshToken] successfully parsed refresh token for user ${verifiedToken.sub}`
   );
-  next();
+  return verifiedToken;
 };
 
-export default parseRefreshTokenCookie;
+export default getRefreshToken;

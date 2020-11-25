@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const GET_ACCESS_TOKEN_WEB = gql`
+const GET_ACCESS_TOKEN = gql`
   query getAccessTokenWebUser {
     getAccessTokenWebUser {
       success
@@ -8,4 +8,4 @@ const GET_ACCESS_TOKEN_WEB = gql`
   }
 `;
 
-export default GET_ACCESS_TOKEN_WEB;
+export default GET_ACCESS_TOKEN;

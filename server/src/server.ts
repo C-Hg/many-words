@@ -9,12 +9,10 @@ import https from "https";
 import path from "path";
 
 import CONFIG from "./config/config";
-import authorizationServer from "./graphql/authorizationServer";
-import learnServer from "./graphql/learnServer";
 import authentication from "./middlewares/authentication";
-import parseRefreshTokenCookie from "./middlewares/parseRefreshTokenCookie";
 import requestLogger from "./middlewares/requestLogger";
 import logger from "./utils/logger";
+import apolloServer from "./graphql/apolloServer";
 
 /* --------       redirecting http requests       ------------ */
 const httpApp = express();
@@ -27,9 +25,17 @@ httpApp.listen(80, () => {
   logger.info(`Http server ready to redirect from port 80`);
 });
 
-/* ----------------------     Main app    ------------*/
+/* ----------------------     Main app       ------------*/
 const app = express();
-const commonMiddlewares = [
+const sslOptions = {
+  key: fs.readFileSync(`${CONFIG.sslPath}/privkey.pem`, "utf8"),
+  cert: fs.readFileSync(`${CONFIG.sslPath}/cert.pem`, "utf8"),
+  ca: fs.readFileSync(`${CONFIG.sslPath}/chain.pem`, "utf8"),
+};
+const httpsApp = https.createServer(sslOptions, app);
+
+/* --------------------      Middlewares        -----------*/
+const middlewares = [
   cors({ credentials: true, origin: "https://localhost:3000" }), // TODO: configure env variables for production
   cookieParser(CONFIG.cookieParserKey),
   requestLogger,
@@ -38,28 +44,15 @@ const commonMiddlewares = [
       process.env.NODE_ENV === "production" ? undefined : false,
   }),
 ];
+app.use("/", middlewares);
 
-const sslOptions = {
-  key: fs.readFileSync(`${CONFIG.sslPath}/privkey.pem`, "utf8"),
-  cert: fs.readFileSync(`${CONFIG.sslPath}/cert.pem`, "utf8"),
-  ca: fs.readFileSync(`${CONFIG.sslPath}/chain.pem`, "utf8"),
-};
-const httpsApp = https.createServer(sslOptions, app);
-
-app.use("/", commonMiddlewares);
-
-// The authorization API does not require authentication
-app.use("/authorization", parseRefreshTokenCookie, (req, res, next) => {
-  authorizationServer.applyMiddleware({
+/* ------------------     Apollo server setup    -----------*/
+app.use("/graphql", authentication,(req, res, next) => {
+  apolloServer.applyMiddleware({
     app,
-    path: "/authorization",
+    path: "/graphql",
     cors: false,
   });
-  next();
-});
-// All routes regarding exercises require a valid JWT and a user
-app.use("/learn", authentication, (req, res, next) => {
-  learnServer.applyMiddleware({ app, path: "/learn", cors: false });
   next();
 });
 
@@ -70,7 +63,6 @@ mongoose.connect(CONFIG.mongoUri, {
   useUnifiedTopology: true,
 });
 mongoose.Promise = global.Promise;
-// Get the default connection
 const db = mongoose.connection;
 
 db.on("error", (error) => logger.error(`MongoDB connection error - ${error}`));
@@ -78,11 +70,7 @@ db.once("open", () => {
   logger.info("Connected to database");
   // configuring the listening port
   httpsApp.listen({ port: CONFIG.serverPort }, () => {
-    logger.info("-------     🚀  Many-words server is live  🚀     -------");
-    logger.info(
-      `🔑 authorization: https://localhost:${CONFIG.serverPort}/authorization`
-    );
-    logger.info(`🎯 learn: https://localhost:${CONFIG.serverPort}/learn`);
+    logger.info(`🚀  Server is live at https://localhost:${CONFIG.serverPort}/graphql  🚀`);
   });
 });
 

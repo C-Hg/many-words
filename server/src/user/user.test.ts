@@ -4,7 +4,7 @@ import Mongoose from "mongoose";
 
 import User from "./models/user.model";
 
-import { Query } from "../graphql/learn.types";
+import { Query } from "../graphql/types";
 import getDbConnection from "../utils/tests/dbConnection";
 import getAccessTokenForUser from "../utils/tests/getAccessTokenForUser";
 import {

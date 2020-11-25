@@ -1,12 +1,14 @@
 import { gql } from "apollo-server-express";
 import { Request } from "express";
 
-import { User } from "../graphql/learn.types";
+import { User } from "../graphql/types";
 import logger from "../utils/logger";
 
 export const typeDefs = gql`
+  directive @loggedIn on FIELD_DEFINITION
+
   type Query {
-    user: User!
+    user: User! @loggedIn
   }
 
   type User {

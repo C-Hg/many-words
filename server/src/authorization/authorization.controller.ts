@@ -57,25 +57,18 @@ const authorizationController = {
     refreshToken: TokenPayload
   ): Promise<void> => {
     logger.debug("[getAccessTokenWebUser] crafting a new access token");
-    try {
-      const { sub, tokenUse } = refreshToken;
-      const user = await userService.getUserById(sub);
-      if (!user) {
-        res.clearCookie(Cookies.accessToken);
-        res.clearCookie(Cookies.refreshToken);
-        throw new Error("user does not exist, remove cookies");
-      }
-      if (tokenUse !== TokenTypes.refresh) {
-        throw new Error("invalid token type");
-      }
-      const accessToken = await craftAccessToken(sub, CLIENTS.web);
-      setAccessTokenCookie(res, accessToken);
-    } catch (error) {
-      // Errors while verifying the token will be caught here: expired token, wrong signature
-      // The user must login
-      logger.error(`[getAccessTokenWebUser] ${error}`);
-      throw new AuthenticationError("InvalidToken");
+    const { sub, tokenUse } = refreshToken;
+    const user = await userService.getUserById(sub);
+    if (!user) {
+      res.clearCookie(Cookies.accessToken);
+      res.clearCookie(Cookies.refreshToken);
+      throw new Error("user does not exist, remove cookies");
     }
+    if (tokenUse !== TokenTypes.refresh) {
+      throw new Error("invalid token type");
+    }
+    const accessToken = await craftAccessToken(sub, CLIENTS.web);
+    setAccessTokenCookie(res, accessToken);
   },
 
   /**

@@ -1,5 +1,6 @@
 version: "3"
 
+# TODO: build and push images to Docker registry in CI
 services:
   client:
     build:

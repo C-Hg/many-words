@@ -4,9 +4,9 @@ import {
   useApolloClient,
 } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { Mutation, Query } from "../graphql/authorization.types";
-import CREATE_WEB_USER from "./graphql/createUser.auth";
-import GET_ACCESS_TOKEN_WEB from "./graphql/getAccessToken.auth";
+import { Mutation, Query } from "../graphql/types";
+import CREATE_WEB_USER from "./graphql/createUser.graphql";
+import GET_ACCESS_TOKEN from "./graphql/getAccessToken.graphql";
 
 const InitializeApp: React.FC = () => {
   const [isUserConnected, setIsUserConnected] = useState(false);
@@ -15,8 +15,16 @@ const InitializeApp: React.FC = () => {
   useEffect(() => {
     const getNewAccessToken = async () => {
       console.info("fetching access token");
+      // const {
+      //   data: data1,
+      //   error,
+      // }: ApolloQueryResult<Query> = await client.query({
+      //   query: GET_USER_LANGUAGE,
+      // });
+      // console.warn(data1, error);
+
       const { data }: ApolloQueryResult<Query> = await client.query({
-        query: GET_ACCESS_TOKEN_WEB,
+        query: GET_ACCESS_TOKEN,
       });
       if (data.getAccessTokenWebUser.success) {
         setIsUserConnected(true);

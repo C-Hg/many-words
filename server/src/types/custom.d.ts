@@ -3,15 +3,12 @@
  * Cannot override Express user without being optional
  */
 
-import { TokenPayload } from "../authorization/interfaces/tokenPayload.interface";
-
-declare global {
-  namespace Express {
-    export interface Request {
-      ctx: {
-        user: import("../user/interfaces/user.interface").User;
-      };
-      refreshToken?: TokenPayload;
-    }
+// declare global {  // uncomment if this becomes a module
+declare namespace Express {
+  export interface Request {
+    ctx: {
+      user: import("../user/interfaces/user.interface").User;
+    };
   }
 }
+// }

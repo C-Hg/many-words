@@ -7,10 +7,7 @@ services:
     container_name: manywords-web-app
     command: npm start
     environment:
-      AUTHORIZATION_SERVER_URI: http://server:${SERVER_PORT}/authorization
-      LEARN_SERVER_URI: http://server:${SERVER_PORT}/learn
-      TSC_COMPILE_ON_ERROR: "true" # remove me
-      SKIP_PREFLIGHT_CHECK: "true"
+      REACT_APP_SERVER_URI: https://localhost:${SERVER_PORT}/graphql
     volumes:
       # to allow hot reloading
       - ../../web-app:/web-app
@@ -27,6 +24,7 @@ services:
       COOKIE_PARSER_KEY: $COOKIE_PARSER_KEY
       JWT_SIGNATURE: $JWT_SIGNATURE
       NODE_ENV: "development"
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
       MONGO_URI: mongodb://mongo-dev:27017/manywords
       SERVER_PORT: $SERVER_PORT
       SSL_PATH: $SSL_PATH

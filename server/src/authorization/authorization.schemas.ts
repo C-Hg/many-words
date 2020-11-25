@@ -10,11 +10,12 @@ import {
   Tokens,
   LoginInput,
   QueryResult,
-} from "../graphql/authorization.types";
+} from "../graphql/types";
 import logger from "../utils/logger";
+import getRefreshToken from "./helpers/parseRefreshTokenCookie";
 
 export const typeDefs = gql`
-  type Query {
+  extend type Query {
     getAccessTokenWebUser: QueryResult!
   }
 
@@ -23,7 +24,7 @@ export const typeDefs = gql`
     totp: Int!
   }
 
-  type Mutation {
+  extend type Mutation {
     createAppUser: Tokens!
     createWebUser: MutationResult!
     logInAppUser(loginInput: LoginInput!): Tokens!
@@ -53,14 +54,15 @@ export const resolvers = {
       arg: Record<string, unknown>,
       { req, res }: { req: Request; res: Response }
     ): Promise<QueryResult> => {
-      if (!req.refreshToken) {
+      const refreshToken = await getRefreshToken(req)
+      if (!refreshToken) {
         logger.error(`[getAccessTokenWebUser] - no refresh token`);
         return { success: false };
       }
       try {
         await authorizationController.getAccessTokenWebUser(
           res,
-          req.refreshToken
+          refreshToken
         );
         return { success: true };
       } catch (error) {

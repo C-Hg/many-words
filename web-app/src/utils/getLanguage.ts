@@ -1,5 +1,5 @@
 import { LANGUAGES } from "../config/constants";
-import { Languages } from "../graphql/learn.types";
+import { Languages } from "../graphql/types";
 
 /**
  * Returns the default language of the browser

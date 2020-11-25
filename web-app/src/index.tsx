@@ -1,10 +1,4 @@
-import {
-  ApolloClient,
-  ApolloProvider,
-  createHttpLink,
-  HttpLink,
-  InMemoryCache,
-} from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -14,25 +8,11 @@ import CONFIG from "./config/config";
 import * as serviceWorker from "./serviceWorker";
 
 /* ----------------       Apollo Client      --------------------- */
-const authorizationLink = createHttpLink({
-  uri: "http://server:4000/authorization",
-  credentials: "same-origin",
-});
-const learnLink = createHttpLink({
-  uri: CONFIG.learnServerUri,
-  credentials: "same-origin",
-});
-
-// TODO: fix client init
+// As long as the website is served by the same node image, same-origin is valid in production
 const client = new ApolloClient({
-  credentials: "include", // TODO: same-origin for production
-  uri: "https://localhost:4000/authorization",
-  // link: new HttpLink().split(
-  //   (operation) => operation.operationName === "learn", // TODO: change client name, use context +++
-  //   learnLink,
-  //   authorizationLink
-  // ),
   cache: new InMemoryCache(),
+  credentials: CONFIG.nodeEnv === "production" ? "same-origin" : "include",
+  uri: CONFIG.serverUri,
 });
 
 ReactDOM.render(

@@ -6,7 +6,6 @@ import verifyToken from "../authorization/helpers/jwt/verifyToken";
 import { Cookies } from "../authorization/helpers/setCookies";
 import CONFIG from "../config/config";
 import userService from "../user/user.service";
-import error401 from "../utils/errors/error401";
 import logger from "../utils/logger";
 
 interface SignedCookies {
@@ -38,13 +37,8 @@ const authentication = async (
   }
 
   if (!accessToken) {
-    if (CONFIG.env !== "development") {
-      logger.error(`[authentication] 401 - no token provided`);
-      return error401(res);
-    } else {
-      // to allow graphql code generator
-      return next();
-    }
+    logger.debug(`[authentication] - no token provided`);
+    return next();
   }
 
   // verify the jwt
@@ -52,21 +46,19 @@ const authentication = async (
     verifiedToken = await verifyToken(accessToken);
   } catch (error) {
     // allow expired token in dev mode only, with decodedToken
-    if (CONFIG.env !== "development") {
-      logger.error(`[authentication] 401 - ${error}`);
-      return error401(res);
+    if (CONFIG.env === "development") {
+      verifiedToken = jwt.decode(accessToken);
     }
-    verifiedToken = jwt.decode(accessToken);
   }
   if (!verifiedToken) {
-    return error401(res);
+    return next();
   }
 
   // fetch the user
   const user = await userService.getUserById(verifiedToken.sub);
   if (!user) {
     logger.error(`[authentication] no user found with id ${verifiedToken.sub}`);
-    return error401(res);
+    return next();
   }
   req.ctx = { user };
   logger.debug(`[authentication] authenticated user ${user.id}`);
