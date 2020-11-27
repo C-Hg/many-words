@@ -9,10 +9,10 @@ import https from "https";
 import path from "path";
 
 import CONFIG from "./config/config";
+import apolloServer from "./graphql/apolloServer";
 import authentication from "./middlewares/authentication";
 import requestLogger from "./middlewares/requestLogger";
 import logger from "./utils/logger";
-import apolloServer from "./graphql/apolloServer";
 
 /* --------       redirecting http requests       ------------ */
 const httpApp = express();
@@ -35,10 +35,13 @@ const sslOptions = {
 const httpsApp = https.createServer(sslOptions, app);
 
 /* --------------------      Middlewares        -----------*/
-const middlewares = [
+const serverMiddlewares = [
+  requestLogger,
   cors({ credentials: true, origin: "https://localhost:3000" }), // TODO: configure env variables for production
   cookieParser(CONFIG.cookieParserKey),
-  requestLogger,
+  authentication,
+];
+const middlewares = [
   helmet({
     contentSecurityPolicy:
       process.env.NODE_ENV === "production" ? undefined : false,
@@ -47,7 +50,7 @@ const middlewares = [
 app.use("/", middlewares);
 
 /* ------------------     Apollo server setup    -----------*/
-app.use("/graphql", authentication,(req, res, next) => {
+app.use("/graphql", serverMiddlewares, (req, res, next) => {
   apolloServer.applyMiddleware({
     app,
     path: "/graphql",
@@ -70,7 +73,9 @@ db.once("open", () => {
   logger.info("Connected to database");
   // configuring the listening port
   httpsApp.listen({ port: CONFIG.serverPort }, () => {
-    logger.info(`🚀  Server is live at https://localhost:${CONFIG.serverPort}/graphql  🚀`);
+    logger.info(
+      `🚀  Server is live at https://localhost:${CONFIG.serverPort}/graphql  🚀`
+    );
   });
 });
 

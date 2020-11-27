@@ -5,7 +5,7 @@ import FormResult from "./interfaces/formResult.interface";
 import statsController from "./stats.controller";
 
 import wordCountByLesson from "../exercises/data/wordCountByLesson";
-import { User } from "../graphql/learn.types";
+import { User } from "../graphql/types";
 
 export const typeDefs = gql`
   extend type User {
@@ -67,7 +67,7 @@ export const typeDefs = gql`
 export const resolvers = {
   Mutation: {
     updateStats: async (
-      parent: {},
+      parent: Record<string, unknown>,
       { results }: { results: FormResult[] },
       { req }: { req: Request }
     ): Promise<User> => {

@@ -7,17 +7,18 @@ services:
     command: npm start
     container_name: manywords-test-server
     environment:
+      COOKIE_PARSER_KEY: $COOKIE_PARSER_KEY
       JWT_SIGNATURE: $JWT_SIGNATURE
       MONGO_URI: $MONGO_URI
       NODE_ENV: $NODE_ENV
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
       SERVER_PORT: $SERVER_PORT
+      SSL_PATH: $SSL_PATH
     # to allow hot reloading
     volumes:
       # to allow hot reloading
-      - ../../server/src:/server/src
-      - ../../server/.babelrc:/server/.babelrc
-      - ../../server/package.json:/server/package.json
-      - ../../server/package-lock.json:/server/package-lock.json
+      - ../../server:/server
+      - ../development/devCertificates:/server/certificates
       - test_node_modules:/server/node_modules
     ports:
       - $SERVER_PORT:$SERVER_PORT
@@ -32,6 +33,7 @@ services:
     environment:
       JWT_SIGNATURE: $JWT_SIGNATURE
       MONGO_URI: $MONGO_URI
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
       SERVER_PORT: $SERVER_PORT
     stdin_open: true
     # interactive shell

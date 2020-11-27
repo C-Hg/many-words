@@ -1,21 +1,15 @@
-import { AuthenticationError } from "apollo-server-express";
 import { Response } from "express";
 
 import { CLIENTS } from "./constants";
 import generateTotp from "./helpers/generateTotp";
 import craftAccessToken from "./helpers/jwt/craftAccessToken";
 import craftRefreshToken from "./helpers/jwt/craftRefreshToken";
-import verifyToken from "./helpers/jwt/verifyToken";
 import setAccessTokenCookie, { Cookies } from "./helpers/setAccessTokenCookie";
 import setCookies from "./helpers/setCookies";
 import { TokenPayload, TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import CONFIG from "../config/config";
-import {
-  Tokens,
-  LoginInput,
-  MutationResult,
-} from "../graphql/authorization.types";
+import { Tokens, LoginInput, MutationResult } from "../graphql/types";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
 
@@ -40,13 +34,12 @@ const authorizationController = {
    * Tokens are stored securely inside cookies
    * If we had sensitive data we would add xsrf protection
    */
-  createWebUser: async (res: Response): Promise<MutationResult> => {
+  createWebUser: async (res: Response): Promise<void> => {
     logger.debug("[createUser] crafting tokens for a new website user");
     const newUser = await userService.createUser();
     const accessToken = await craftAccessToken(newUser.id, CLIENTS.web);
     const refreshToken = await craftRefreshToken(newUser.id);
     setCookies(res, accessToken, refreshToken);
-    return { success: true };
   },
 
   /**

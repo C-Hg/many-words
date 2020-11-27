@@ -13,7 +13,7 @@ const SERVER_SERVICE = "test-server";
 /**
  * Building graphql clients for e2e tests
  */
-const authorizationClient = new ApolloClient({
+const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: ApolloLink.from([
     onError(() => {
@@ -22,27 +22,12 @@ const authorizationClient = new ApolloClient({
     }),
     new HttpLink({
       fetch,
-      uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/authorization`,
+      uri: `https://${SERVER_SERVICE}:${process.env.SERVER_PORT}/graphql`,
     }),
   ]),
 });
 
-const learnClient = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: ApolloLink.from([
-    onError(() => {
-      return;
-    }),
-    new HttpLink({
-      fetch,
-      uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
-    }),
-  ]),
-});
-
-const getAuthenticatedLearnClient = (
-  accessToken: string
-): ApolloClient<unknown> => {
+const getAuthenticatedClient = (accessToken: string): ApolloClient<unknown> => {
   const authMiddleware = new ApolloLink((operation, forward) => {
     // add the authorization to the headers
     operation.setContext({
@@ -67,10 +52,10 @@ const getAuthenticatedLearnClient = (
       authMiddleware,
       new HttpLink({
         fetch,
-        uri: `http://${SERVER_SERVICE}:${process.env.SERVER_PORT}/learn`,
+        uri: `https://${SERVER_SERVICE}:${process.env.SERVER_PORT}/graphql`,
       }),
     ]),
   });
 };
 
-export { authorizationClient, getAuthenticatedLearnClient, learnClient };
+export { getAuthenticatedClient, client };

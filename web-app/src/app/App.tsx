@@ -9,6 +9,7 @@ import { languages, LanguageContext } from "../contexts/language-context";
 import { GetUserLanguageQueryResult, Languages } from "../graphql/types";
 import getLanguage from "../utils/getLanguage";
 import GET_USER_LANGUAGE from "./graphql/getUserLanguage.graphql";
+import SET_LANGUAGE from "./graphql/setLanguage.graphql";
 
 // TODO: check the connexion status in Index.tsx
 const App: React.FC = () => {
@@ -16,6 +17,8 @@ const App: React.FC = () => {
   const { loading, data }: GetUserLanguageQueryResult = useQuery(
     GET_USER_LANGUAGE
   );
+  // TODO: use the new API
+  const setUserLanguage = useMutation(SET_LANGUAGE);
 
   // allows the language context to load before rendering children components, critical when loading other page than home first
   if (loading) {

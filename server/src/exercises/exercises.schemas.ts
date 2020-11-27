@@ -5,7 +5,7 @@ import lessonsByTopic from "./data/lessonsByTopic";
 import wordCountByLesson from "./data/wordCountByLesson";
 import exercisesController from "./exercises.controller";
 
-import { Lesson, ExerciseWord } from "../graphql/learn.types";
+import { Lesson, ExerciseWord } from "../graphql/types";
 
 export const typeDefs = gql`
   extend type Query {
@@ -87,7 +87,7 @@ export const typeDefs = gql`
 export const resolvers = {
   Query: {
     exercise: async (
-      parent: {},
+      parent: Record<string, unknown>,
       { id }: { id: Lesson },
       { req }: { req: Request }
     ): Promise<ExerciseWord[]> => {

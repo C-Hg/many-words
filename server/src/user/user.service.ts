@@ -25,9 +25,19 @@ const userService = {
   /**
    * Sets the preferred language
    */
-  setLanguage: async (userId: string, language: Languages): Promise<void> => {
-    logger.debug(`[setLanguage] ${userId}`);
-    await UserModel.findByIdAndUpdate(userId, { language });
+  setLanguage: async (
+    userId: string,
+    language: Languages
+  ): Promise<UserDocument> => {
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { language },
+      { new: true }
+    );
+    if (!user) {
+      throw new Error(`user does not exist`);
+    }
+    return user;
   },
 
   /**

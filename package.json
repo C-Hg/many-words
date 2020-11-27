@@ -9,7 +9,7 @@
     "dev-detached": "cd deploy/development && docker-compose -f docker-compose.development.yml -p manywords-dev  up --detach && npm run logs",
     "dev-down": "cd deploy/development && docker-compose -f docker-compose.development.yml -p manywords-dev down",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
-    "generate": "graphql-codegen --config codegen.yml && cd server && npm run lint:graphql && cd ../../web-app && npm run lint:graphql",
+    "generate": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && graphql-codegen --config codegen.yml && cd server && npm run lint:graphql && cd ../../web-app && npm run lint:graphql",
     "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../tools && npm install",
     "lint:server-exercises": "cd server && eslint --fix --ext .js,.ts src/exercises/data/",
     "lint:web-app-exercises": "cd web-app && eslint --fix --ext .js,.ts src/data/",

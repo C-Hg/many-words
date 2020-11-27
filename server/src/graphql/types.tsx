@@ -162,6 +162,7 @@ export type Mutation = {
   logInAppUser: Tokens;
   logInWebUser: MutationResult;
   sendTotp: MutationResult;
+  setLanguage: SetLanguageMutationResponse;
 };
 
 export type MutationUpdateStatsArgs = {
@@ -178,6 +179,10 @@ export type MutationLogInWebUserArgs = {
 
 export type MutationSendTotpArgs = {
   email: Scalars["String"];
+};
+
+export type MutationSetLanguageArgs = {
+  language: Languages;
 };
 
 export type FormResultInput = {
@@ -274,6 +279,11 @@ export type TopicStats = {
 export type LessonsGrades = {
   green: Scalars["Int"];
   gold: Scalars["Int"];
+};
+
+export type SetLanguageMutationResponse = {
+  user?: Maybe<User>;
+  success: Scalars["Boolean"];
 };
 
 export type Query = {
@@ -435,6 +445,7 @@ export type ResolversTypes = {
   LessonsScores: ResolverTypeWrapper<LessonsScores>;
   TopicStats: ResolverTypeWrapper<TopicStats>;
   LessonsGrades: ResolverTypeWrapper<LessonsGrades>;
+  SetLanguageMutationResponse: ResolverTypeWrapper<SetLanguageMutationResponse>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars["ID"]>;
@@ -462,6 +473,7 @@ export type ResolversParentTypes = {
   LessonsScores: LessonsScores;
   TopicStats: TopicStats;
   LessonsGrades: LessonsGrades;
+  SetLanguageMutationResponse: SetLanguageMutationResponse;
   Query: {};
   User: User;
   ID: Scalars["ID"];
@@ -576,6 +588,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationSendTotpArgs, "email">
+  >;
+  setLanguage?: Resolver<
+    ResolversTypes["SetLanguageMutationResponse"],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSetLanguageArgs, "language">
   >;
 };
 
@@ -802,6 +820,15 @@ export type LessonsGradesResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SetLanguageMutationResponseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["SetLanguageMutationResponse"] = ResolversParentTypes["SetLanguageMutationResponse"]
+> = {
+  user?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
@@ -850,6 +877,7 @@ export type Resolvers<ContextType = any> = {
   LessonsScores?: LessonsScoresResolvers<ContextType>;
   TopicStats?: TopicStatsResolvers<ContextType>;
   LessonsGrades?: LessonsGradesResolvers<ContextType>;
+  SetLanguageMutationResponse?: SetLanguageMutationResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

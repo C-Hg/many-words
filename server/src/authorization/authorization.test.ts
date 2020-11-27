@@ -8,12 +8,11 @@ import {
 import verifyToken from "./helpers/jwt/verifyToken";
 import { TokenTypes } from "./interfaces/tokenPayload.interface";
 
-import { Mutation } from "../../../web-app/src/graphql/authorization.types";
-import { LoginInput, Query } from "../graphql/authorization.types";
+import { LoginInput, Query, Mutation } from "../graphql/types";
 import User from "../user/models/user.model";
 import userService from "../user/user.service";
 import getDbConnection from "../utils/tests/dbConnection";
-import { authorizationClient } from "../utils/tests/graphqlClient";
+import { client } from "../utils/tests/graphqlClient";
 
 const CREATE_APP_USER = gql`
   mutation createAppUser {
@@ -24,8 +23,8 @@ const CREATE_APP_USER = gql`
   }
 `;
 
-const CREATE_WEB_USER = gql`
-  mutation createWebUser {
+const CREATE_WEB_USER_TEST = gql`
+  mutation {
     createWebUser {
       success
     }
@@ -111,7 +110,7 @@ describe("Authorization server - e2e", () => {
   // -----------------     CREATE_APP_USER     ------------------
   // TODO: remove users without emails with id?
   it("should create a user and return the tokens", async () => {
-    const res: FetchResult<Mutation> = await authorizationClient.mutate({
+    const res: FetchResult<Mutation> = await client.mutate({
       mutation: CREATE_APP_USER,
     });
     const {
@@ -143,8 +142,8 @@ describe("Authorization server - e2e", () => {
 
   // -----------------     CREATE_WEB_USER     ------------------
   it("should create a user and return the tokens inside cookies", async () => {
-    const { data }: FetchResult<Mutation> = await authorizationClient.mutate({
-      mutation: CREATE_WEB_USER,
+    const { data }: FetchResult<Mutation> = await client.mutate({
+      mutation: CREATE_WEB_USER_TEST,
     });
     const success = data?.createWebUser?.success;
 
@@ -154,7 +153,7 @@ describe("Authorization server - e2e", () => {
 
   // -----------------     GET_ACCESS_TOKEN_WEB_USER     ------------------
   it("should get an error for a query without refresh token", async () => {
-    const { data }: ApolloQueryResult<Query> = await authorizationClient.query({
+    const { data }: ApolloQueryResult<Query> = await client.query({
       query: GET_ACCESS_TOKEN_WEB_USER,
     });
 
@@ -164,7 +163,7 @@ describe("Authorization server - e2e", () => {
 
   // -----------------     GET_APP_ACCESS_TOKEN      ------------------
   // it("should get a new access token from refresh token", async () => {
-  //   const res: ApolloQueryResult<Query> = await authorizationClient.query({
+  //   const res: ApolloQueryResult<Query> = await client.query({
   //     query: GET_ACCESS_TOKEN,
   //     variables: { refreshToken: validRefreshToken },
   //   });
@@ -191,7 +190,7 @@ describe("Authorization server - e2e", () => {
   //   };
   //   const expiredRefreshToken = await signToken(payload);
   //   await expect(
-  //     authorizationClient.query({
+  //     client.query({
   //       query: GET_ACCESS_TOKEN,
   //       variables: { refreshToken: expiredRefreshToken },
   //     })
@@ -208,7 +207,7 @@ describe("Authorization server - e2e", () => {
   //   };
   //   const disguisedRefreshToken = await signToken(payload);
   //   await expect(
-  //     authorizationClient.query({
+  //     client.query({
   //       query: GET_ACCESS_TOKEN,
   //       variables: { refreshToken: disguisedRefreshToken },
   //     })
@@ -232,7 +231,7 @@ describe("Authorization server - e2e", () => {
   //     });
   //   });
   //   await expect(
-  //     authorizationClient.query({
+  //     client.query({
   //       query: GET_ACCESS_TOKEN,
   //       variables: { refreshToken: invalidRefreshToken },
   //     })
@@ -241,7 +240,7 @@ describe("Authorization server - e2e", () => {
 
   // -----------------     SEND_TOTP     ------------------
   it("should send an email with totp", async () => {
-    const res: FetchResult<Mutation> = await authorizationClient.mutate({
+    const res: FetchResult<Mutation> = await client.mutate({
       mutation: SEND_TOTP,
       variables: { email: VALID_EMAIL_1 },
     });
@@ -255,7 +254,7 @@ describe("Authorization server - e2e", () => {
 
   it("should throw with an invalid email format", async () => {
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: SEND_TOTP,
         variables: { email: INVALID_EMAIL },
       })
@@ -273,7 +272,7 @@ describe("Authorization server - e2e", () => {
       email: VALID_EMAIL_2,
       totp: 189657,
     };
-    const res: FetchResult<Mutation> = await authorizationClient.mutate({
+    const res: FetchResult<Mutation> = await client.mutate({
       mutation: LOG_IN_APP_USER,
       variables: { loginInput },
     });
@@ -292,7 +291,7 @@ describe("Authorization server - e2e", () => {
       totp: 180057,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
@@ -305,7 +304,7 @@ describe("Authorization server - e2e", () => {
       totp: 18005765,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
@@ -318,7 +317,7 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
@@ -336,7 +335,7 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
@@ -350,7 +349,7 @@ describe("Authorization server - e2e", () => {
       totp: 180055,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
@@ -364,7 +363,7 @@ describe("Authorization server - e2e", () => {
       totp: 189777,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_APP_USER,
         variables: { loginInput },
       })
@@ -380,7 +379,7 @@ describe("Authorization server - e2e", () => {
       email: VALID_EMAIL_9,
       totp: 189657,
     };
-    const res: FetchResult<Mutation> = await authorizationClient.mutate({
+    const res: FetchResult<Mutation> = await client.mutate({
       mutation: LOG_IN_WEB_USER,
       variables: { loginInput },
     });
@@ -398,11 +397,11 @@ describe("Authorization server - e2e", () => {
       totp: 180057,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
-    ).rejects.toThrowError("InvalidEmail");
+    ).rejects.toThrowError("InvalidEmailFormat");
   });
 
   it("should throw an error if the given totp is of invalid format", async () => {
@@ -411,7 +410,7 @@ describe("Authorization server - e2e", () => {
       totp: 18005765,
     };
     await expect(
-      authorizationClient.mutate({
+      client.mutate({
         mutation: LOG_IN_WEB_USER,
         variables: { loginInput },
       })
@@ -423,12 +422,11 @@ describe("Authorization server - e2e", () => {
       email: NOT_FOUND_EMAIL,
       totp: 180055,
     };
-    await expect(
-      authorizationClient.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
-      })
-    ).rejects.toThrowError("RequestFailed");
+    const { data }: FetchResult<Mutation> = await client.mutate({
+      mutation: LOG_IN_WEB_USER,
+      variables: { loginInput },
+    });
+    expect(data?.logInWebUser.success).toEqual(false);
   });
 
   it("should throw an error if the given totp is expired", async () => {
@@ -441,12 +439,11 @@ describe("Authorization server - e2e", () => {
       email: VALID_EMAIL_8,
       totp: 180055,
     };
-    await expect(
-      authorizationClient.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
-      })
-    ).rejects.toThrowError("ExpiredTotp");
+    const { data }: FetchResult<Mutation> = await client.mutate({
+      mutation: LOG_IN_WEB_USER,
+      variables: { loginInput },
+    });
+    expect(data?.logInWebUser.success).toEqual(false);
   });
 
   it("should throw an error if the user has no totp previously set", async () => {
@@ -455,12 +452,11 @@ describe("Authorization server - e2e", () => {
       email: VALID_EMAIL_6,
       totp: 180055,
     };
-    await expect(
-      authorizationClient.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
-      })
-    ).rejects.toThrowError("RequestFailed");
+    const { data }: FetchResult<Mutation> = await client.mutate({
+      mutation: LOG_IN_WEB_USER,
+      variables: { loginInput },
+    });
+    expect(data?.logInWebUser.success).toEqual(false);
   });
 
   it("should throw an explicit error if the totp is wrong", async () => {
@@ -469,11 +465,10 @@ describe("Authorization server - e2e", () => {
       email: VALID_EMAIL_7,
       totp: 189777,
     };
-    await expect(
-      authorizationClient.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
-      })
-    ).rejects.toThrowError("WrongTotp");
+    const { data }: FetchResult<Mutation> = await client.mutate({
+      mutation: LOG_IN_WEB_USER,
+      variables: { loginInput },
+    });
+    expect(data?.logInWebUser.success).toEqual(false);
   });
 });

@@ -1,9 +1,9 @@
 import { FetchResult } from "@apollo/client/core";
 import { gql } from "apollo-server-express";
 
-import { authorizationClient } from "./graphqlClient";
+import { client } from "./graphqlClient";
 
-import { Mutation } from "../../graphql/authorization.types";
+import { Mutation } from "../../graphql/types";
 import { TOTP_EXPIRATION } from "../../user/constants";
 import userService from "../../user/user.service";
 import logger from "../logger";
@@ -26,7 +26,7 @@ const getAccessTokenForUser = async (email: string): Promise<string> => {
     email,
     totp: 222111,
   };
-  const { data }: FetchResult<Mutation> = await authorizationClient.mutate({
+  const { data }: FetchResult<Mutation> = await client.mutate({
     mutation: LOG_IN_APP_USER,
     variables: { loginInput },
   });
