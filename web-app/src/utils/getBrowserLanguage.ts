@@ -4,7 +4,7 @@ import { Languages } from "../graphql/types";
 /**
  * Returns the default language of the browser
  */
-const getLanguage = (): Languages => {
+const getBrowserLanguage = (): Languages => {
   if (!/fr/i.test(window.navigator.language)) {
     return LANGUAGES.English;
   } else {
@@ -12,4 +12,4 @@ const getLanguage = (): Languages => {
   }
 };
 
-export default getLanguage;
+export default getBrowserLanguage;

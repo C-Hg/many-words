@@ -12,7 +12,7 @@ import { LanguageContext } from "../contexts/language-context";
 
 const MainNavbar = (props) => {
   const theme = useContext(ThemeContext);
-  const { user } = props;
+
   return (
     <LanguageContext.Consumer>
       {({ navbar }) => (
@@ -26,7 +26,7 @@ const MainNavbar = (props) => {
             <NavbarLink>
               <Link to="/home">
                 <H2 fontWeight="400" fontSize="22px" color={theme.colors.white}>
-                  {user.isAuthenticated ? navbar.home : navbar.login}
+                  {navbar.home}
                 </H2>
               </Link>
             </NavbarLink>

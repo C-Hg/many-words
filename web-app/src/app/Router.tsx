@@ -2,9 +2,8 @@ import React, { ReactElement } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import About from "../about/About.page";
-import Topic from "../curriculum/topic/Topic.page";
 import Exercise from "../exercise/Exercise.page";
-import Home from "../home/Home.page";
+import Home from "../home/Home.router";
 
 const Router = (): JSX.Element => {
   return (

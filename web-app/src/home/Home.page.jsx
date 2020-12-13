@@ -1,35 +1,65 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "styled-components";
 
-import HomeLoggedIn from "./HomeLoggedIn.component";
+import GlobalProgress from "./progress/global/GlobalProgress.component";
 
 import AppContainer from "../app/AppContainer.styled";
-import DeleteConfirmation from "../components/home/home_logged_in/DeleteConfirmation.component";
-import LogoutConfirmation from "../components/home/home_logged_in/LogoutConfirmation.component";
-import LandingPage from "../landing/Landing.page";
+import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
+import ButtonContainer from "../components/buttons/ButtonContainer.styled";
+import MainButton from "../components/buttons/MainButton.styled";
+import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
+import NavigationLink from "../components/links/NavigationLink.styled";
+import PageHr from "../components/separators/PageHr.styled";
+import H2 from "../components/texts/H2.styled";
+import { LanguageContext } from "../contexts/language-context";
+import Navbar from "../navbar/Main.navbar";
 
-const Home = (props) => {
+const HomePage = (props) => {
+  const { user, attemptLogout, deleteAccount } = props;
   const {
-    auth: { isDeletingAccount, isDisconnecting },
-    user: { isAuthenticated },
-  } = props;
+    stats: {
+      globalProgress: { globalPercentage },
+    },
+    stats,
+  } = user;
+  const language = useContext(LanguageContext);
+  const theme = useContext(ThemeContext);
+  const {
+    colors: { green, grey },
+  } = theme;
 
-  if (isDisconnecting) {
-    return (
-      <AppContainer>
-        <LogoutConfirmation />
-      </AppContainer>
-    );
-  }
-  if (isDeletingAccount) {
-    return (
-      <AppContainer>
-        <DeleteConfirmation />;
-      </AppContainer>
-    );
-  }
-  // TODO: implement waiting animation while retrieving auth status
-  // TODO: split pages : landing page / login / home (logged or not) and adapt router
-  return isAuthenticated ? <HomeLoggedIn /> : <LandingPage />;
+  // TODO: remove double AppContainer
+  return (
+    <AppContainer withNavbar>
+      <Navbar />
+      <ScrollToTopOnMount />
+      {globalPercentage ? (
+        <GlobalProgress stats={stats} />
+      ) : (
+        <H2>{language.home.noStats}</H2>
+      )}
+      <NavigationLink to="/curriculum">
+        <ButtonContainer large margin="80px auto 0 auto">
+          <MainButton color={green} type="button">
+            {language.home.resumeLearning}
+          </MainButton>
+        </ButtonContainer>
+      </NavigationLink>
+      <PageHr />
+      <VerticalFlexbox margin="30px auto 50px auto">
+        <ButtonContainer large>
+          <MainButton onClick={attemptLogout} color={grey} type="button">
+            {language.navigation.logout}
+          </MainButton>
+        </ButtonContainer>
+        <ButtonContainer large margin="10px auto 0 auto">
+          <MainButton onClick={deleteAccount} color={grey} type="button">
+            {language.home.deleteAccount}
+          </MainButton>
+        </ButtonContainer>
+      </VerticalFlexbox>
+    </AppContainer>
+  );
 };
 
-export default Home;
+export default HomePage;
