@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 const ManyWords = styled.p`
-  font-family: ${props => props.theme.fonts.cursive};
+  font-family: ${(props) => props.theme.fonts.cursive};
   font-size: 26px;
   font-weight: "400";
   margin: 0;
   padding: 0;
+  text-align: center;
   &:after {
     position: relative;
     content: "beta";

@@ -11,8 +11,8 @@ import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import ButtonContainer from "../components/buttons/ButtonContainer.styled";
 import MainButton from "../components/buttons/MainButton.styled";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
-import HomeNavbar from "../navbar/Main.navbar";
 import NavigationLink from "../components/links/NavigationLink.styled";
+import LandingPageNavbar from "../navbar/LandingPage.navbar";
 
 const Landing = () => {
   const language = useContext(LanguageContext);
@@ -24,7 +24,7 @@ const Landing = () => {
 
   return (
     <AppContainer withNavbar>
-      <HomeNavbar />
+      <LandingPageNavbar />
       <ScrollToTopOnMount />
       <LandingTitle>{home.mainTitle}</LandingTitle>
       <Features />

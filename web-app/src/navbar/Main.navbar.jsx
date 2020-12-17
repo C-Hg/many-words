@@ -5,7 +5,7 @@ import { ThemeContext } from "styled-components";
 import ManyWords from "./ManyWords.styled";
 import Navbar from "./Navbar.styled";
 import NavbarLink from "./NavbarLink.styled";
-import NavbarLinksContainer from "./NavbarLinksContainer.styled";
+import NavbarLinksContainer from "./LandingNavbarContainer.styled";
 
 import H2 from "../components/texts/H2.styled";
 import { LanguageContext } from "../contexts/language-context";
