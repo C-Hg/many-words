@@ -238,10 +238,9 @@ export const languages = {
     home: {
       mainTitle: "Enrichis ton vocabulaire anglais",
       featuresFree: "100% Gratuit",
-      featuresWords: "750+ Mots",
-      featuresProgress: "Suis tes progrès",
-      register: "Connecte-toi pour enregister ta progression",
-      discover: "Ou commence ton apprentissage sans te connecter",
+      featuresWords: "5000+ Mots",
+      featuresProgress: "Parcours personnalisé",
+      discover: "Pas besoin de se connecter pour commencer",
       discoverButton: "C'est parti !",
       progressTitle: "Avancement global",
       noStats: "C'est l'heure d'apprendre !",

@@ -14,6 +14,8 @@ import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import NavigationLink from "../components/links/NavigationLink.styled";
 import LandingPageNavbar from "../navbar/LandingPage.navbar";
 
+// TODO: log in possibility
+
 const Landing = () => {
   const language = useContext(LanguageContext);
   const { home } = language;
