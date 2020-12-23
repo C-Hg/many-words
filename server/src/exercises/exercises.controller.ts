@@ -7,7 +7,7 @@ import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 import { ARTICLE_FORMS } from "./interfaces/name.interface";
 
-import { Lesson, Word, ExerciseWord } from "../graphql/learn.types";
+import { Lesson, Word, ExerciseWord } from "../graphql/types";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
 import error500 from "../utils/errors/error500";
@@ -85,8 +85,7 @@ const exercisesController = {
 
       // picks the source language and the form
       const selectionResult = selectForm(word, articleForm);
-      const { form, language } = selectionResult;
-      const { wordToTranslate } = selectionResult;
+      const { form, language, wordToTranslate } = selectionResult;
 
       const answers = getAnswers(word, form, language, articleForm);
 

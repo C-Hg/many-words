@@ -1,7 +1,7 @@
 import addEnglishArticle from "./addEnglishArticle.function";
 import addFrenchArticle from "./addFrenchArticle.function";
 
-import { Forms, Languages } from "../../../graphql/learn.types";
+import { Forms, Languages } from "../../../graphql/types";
 import { LANGUAGES } from "../../../stats/constants";
 import { ARTICLE_FORMS } from "../../interfaces/name.interface";
 import {

@@ -10,8 +10,7 @@ import ExerciseTitle from "./styled/ExerciseTitle.styled";
 
 import { LanguageContext } from "../../contexts/language-context";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-
-const mapStateToProps = (state) => ({ exercise: state.exercise });
+import { LANGUAGES } from "../../config/constants";
 
 const ExerciseContainer = (props) => {
   const language = useContext(LanguageContext);
@@ -21,7 +20,7 @@ const ExerciseContainer = (props) => {
   const { height: screenHeight } = useWindowDimensions();
 
   let sourceLanguageIsFr = true;
-  if (words[wordRank].selectedForm[1] === "en") {
+  if (words[wordRank].selectedForm[1] === LANGUAGES.English) {
     sourceLanguageIsFr = false;
   }
 

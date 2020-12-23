@@ -34,7 +34,7 @@ const Landing = () => {
       <PageHr />
       <VerticalFlexbox margin="0 auto 40px auto">
         <H2 margin="30px 15px 0 15px">{home.discover}</H2>
-        <NavigationLink to="/curriculum">
+        <NavigationLink to="/learn">
           <ButtonContainer large margin="40px 0 0 0">
             <MainButton color={darkBlue} type="button">
               {home.discoverButton}

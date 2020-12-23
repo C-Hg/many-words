@@ -15,8 +15,7 @@ const Router = (): JSX.Element => {
       />
       <Route exact path="/about" component={About} />
       <Route exact path="/home" component={Home} />
-      <Route exact path="/weak_words" component={Exercise} />
-      <Route exact path="/:themeId/:lessonId/test" component={Exercise} />
+      <Route exact path="/learn" component={Exercise} />
     </Switch>
   );
 };
