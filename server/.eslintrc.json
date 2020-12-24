@@ -33,12 +33,12 @@
     "no-console": ["error", { "allow": ["warn", "info", "error", "debug"] }],
     "no-param-reassign": "error",
     "no-return-await": "error",
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }],    
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "prettier/prettier": "error",
     "import/order": ["error", {
         "groups": ["external", "builtin", "sibling", "parent", "internal", "index"],
         "newlines-between": "always",
-        "alphabetize": {"order": "asc", "caseInsensitive": false} 
+        "alphabetize": {"order": "asc"}
     }],
     "import/no-cycle": "error",
     "import/newline-after-import": "error"
