@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+
 import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql";
 
 export enum ExerciseStatus {

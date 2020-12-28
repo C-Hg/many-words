@@ -2,8 +2,8 @@ import { ApolloClient, ApolloProvider } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import InitializeApp from "./app/InitializeApp";
 
+import InitializeApp from "./app/InitializeApp";
 import cache from "./cache";
 import CONFIG from "./config/config";
 import * as serviceWorker from "./serviceWorker";

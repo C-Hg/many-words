@@ -1,20 +1,21 @@
 import React, { useContext } from "react";
-import { CheckBoxOutlineBlank, CheckBox } from "styled-icons/material";
 import { ThemeContext } from "styled-components";
+import { CheckBoxOutlineBlank, CheckBox } from "styled-icons/material";
 
-import { LanguageContext } from "../contexts/language-context";
-import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
-import Navbar from "../navbar/Main.navbar";
+import SocialLinks from "./SocialLinks.component";
+import Li from "./upcoming/Li.styled";
+import Span from "./upcoming/Span.styled";
+import Ul from "./upcoming/Ul.styled";
+import UpcomingContainer from "./upcoming/UpcomingContainer.styled";
+
 import AppContainer from "../app/AppContainer.styled";
+import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
+import PageHr from "../components/separators/PageHr.styled";
 import H1 from "../components/texts/H1.styled";
 import H2 from "../components/texts/H2.styled";
 import P from "../components/texts/P.styled";
-import PageHr from "../components/separators/PageHr.styled";
-import SocialLinks from "./SocialLinks.component";
-import Ul from "./upcoming/Ul.styled";
-import UpcomingContainer from "./upcoming/UpcomingContainer.styled";
-import Li from "./upcoming/Li.styled";
-import Span from "./upcoming/Span.styled";
+import { LanguageContext } from "../contexts/language-context";
+import Navbar from "../navbar/Main.navbar";
 
 const boxSize = "24";
 
