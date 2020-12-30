@@ -1,9 +1,8 @@
 import React from "react";
 
+import LandingNavbarContainer from "./LandingNavbarContainer.styled";
 import ManyWords from "./ManyWords.styled";
 import Navbar from "./Navbar.styled";
-
-import LandingNavbarContainer from "./LandingNavbarContainer.styled";
 import NavbarElement from "./NavbarElement.styled";
 
 const LandingPageNavbar = () => {

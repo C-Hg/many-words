@@ -7,7 +7,7 @@ import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 import { ARTICLE_FORMS } from "./interfaces/name.interface";
 
-import { Lesson, Word, ExerciseWord } from "../graphql/types";
+import { Lesson, Word, ExerciseWord, Exercise } from "../graphql/types";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
 import error500 from "../utils/errors/error500";
@@ -17,25 +17,32 @@ const exercisesController = {
   /**
    * Fetches the words for a given exercise
    */
-  getExerciseWords: async (
-    exercise: Lesson,
-    user: User
-  ): Promise<ExerciseWord[]> => {
-    logger.debug(`[getExerciseWords] exercise ${exercise}, user ${user.id}`);
-    const words = await exercisesService.getLessonWords(exercise);
+  getNextExercise: async (user: User): Promise<Exercise> => {
+    logger.debug(`[getNextExercise] user ${user.id}`);
+    // TODO: actual exercise selection
+    // const { id, type } = selectNextExercise(user.id)
+    const id = "animalsBasics";
+    const type = "quiz";
+    logger.debug(`Next exercise for ${user.id} is ${id}`);
+    const rawWords = await exercisesService.getLessonWords(id);
 
     // get the wordStats for the words of this lesson
     const wordsStats = await statsService.findWordsStatsForWords(
       user._id,
-      words
+      rawWords
     );
 
     // appends the weakest forms for each word, or [] if the word has never been encountered
-    const wordsWithWeakestFormsStats = appendWeakestForms(words, wordsStats);
+    const wordsWithWeakestFormsStats = appendWeakestForms(rawWords, wordsStats);
 
-    return exercisesController.prepareWordsForExercise(
+    const preparedWords = exercisesController.prepareWordsForExercise(
       wordsWithWeakestFormsStats
     );
+    return {
+      id,
+      type,
+      words: preparedWords,
+    };
   },
 
   getWeakWords: async (

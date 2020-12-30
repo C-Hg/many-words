@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloProvider } from "@apollo/client";
+import { LocalStorageWrapper, persistCacheSync } from "apollo3-cache-persist";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -10,6 +11,11 @@ import * as serviceWorker from "./serviceWorker";
 
 /* ----------------       Apollo Client      --------------------- */
 // As long as the website is served by the same node image, same-origin is valid in production
+persistCacheSync({
+  cache,
+  storage: new LocalStorageWrapper(window.localStorage),
+});
+
 const client = new ApolloClient({
   cache,
   credentials: CONFIG.nodeEnv === "production" ? "same-origin" : "include",

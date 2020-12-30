@@ -30,6 +30,12 @@ export type Tokens = {
   refreshToken: Scalars['String'];
 };
 
+export type Exercise = {
+  id: Scalars['String'];
+  type: Scalars['String'];
+  words: Array<Maybe<ExerciseWord>>;
+};
+
 export type ExerciseWord = {
   answers: Array<Scalars['String']>;
   englishName: Scalars['String'];
@@ -59,6 +65,11 @@ export type FormValue = {
   form: Forms;
   values: Array<Scalars['String']>;
 };
+
+export type ExerciseTypes = 
+  | 'learn'
+  | 'quiz'
+  | 'review';
 
 export type EnglishForms = 
   | 'plural'
@@ -293,12 +304,7 @@ export type SetLanguageMutationResponse = {
 export type Query = {
   user: User;
   getAccessTokenWebUser: QueryResult;
-  exercise?: Maybe<Array<Maybe<ExerciseWord>>>;
-};
-
-
-export type QueryExerciseArgs = {
-  id: Lesson;
+  exercise: Exercise;
 };
 
 export type User = {
@@ -317,6 +323,14 @@ export type GetAccessTokenWebUserQueryVariables = Exact<{ [key: string]: never; 
 
 
 export type GetAccessTokenWebUserQuery = { getAccessTokenWebUser: Pick<QueryResult, 'success'> };
+
+export type GetNextExerciseQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNextExerciseQuery = { exercise: (
+    Pick<Exercise, 'id' | 'type'>
+    & { words: Array<Maybe<Pick<ExerciseWord, 'answers' | 'englishName' | 'form' | 'language' | 'lesson' | 'topic' | 'wordToTranslate'>>> }
+  ) };
 
 export type GetUserLanguageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -397,6 +411,48 @@ export function useGetAccessTokenWebUserLazyQuery(baseOptions?: Apollo.LazyQuery
 export type GetAccessTokenWebUserQueryHookResult = ReturnType<typeof useGetAccessTokenWebUserQuery>;
 export type GetAccessTokenWebUserLazyQueryHookResult = ReturnType<typeof useGetAccessTokenWebUserLazyQuery>;
 export type GetAccessTokenWebUserQueryResult = Apollo.QueryResult<GetAccessTokenWebUserQuery, GetAccessTokenWebUserQueryVariables>;
+export const GetNextExerciseDocument = gql`
+    query GetNextExercise {
+  exercise {
+    id
+    type
+    words {
+      answers
+      englishName
+      form
+      language
+      lesson
+      topic
+      wordToTranslate
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetNextExerciseQuery__
+ *
+ * To run a query within a React component, call `useGetNextExerciseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNextExerciseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNextExerciseQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetNextExerciseQuery(baseOptions?: Apollo.QueryHookOptions<GetNextExerciseQuery, GetNextExerciseQueryVariables>) {
+        return Apollo.useQuery<GetNextExerciseQuery, GetNextExerciseQueryVariables>(GetNextExerciseDocument, baseOptions);
+      }
+export function useGetNextExerciseLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNextExerciseQuery, GetNextExerciseQueryVariables>) {
+          return Apollo.useLazyQuery<GetNextExerciseQuery, GetNextExerciseQueryVariables>(GetNextExerciseDocument, baseOptions);
+        }
+export type GetNextExerciseQueryHookResult = ReturnType<typeof useGetNextExerciseQuery>;
+export type GetNextExerciseLazyQueryHookResult = ReturnType<typeof useGetNextExerciseLazyQuery>;
+export type GetNextExerciseQueryResult = Apollo.QueryResult<GetNextExerciseQuery, GetNextExerciseQueryVariables>;
 export const GetUserLanguageDocument = gql`
     query getUserLanguage {
   user {

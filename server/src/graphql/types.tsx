@@ -36,6 +36,12 @@ export type Tokens = {
   refreshToken: Scalars["String"];
 };
 
+export type Exercise = {
+  id: Scalars["String"];
+  type: Scalars["String"];
+  words: Array<Maybe<ExerciseWord>>;
+};
+
 export type ExerciseWord = {
   answers: Array<Scalars["String"]>;
   englishName: Scalars["String"];
@@ -65,6 +71,8 @@ export type FormValue = {
   form: Forms;
   values: Array<Scalars["String"]>;
 };
+
+export type ExerciseTypes = "learn" | "quiz" | "review";
 
 export type EnglishForms = "plural" | "singular" | "uniqueForm";
 
@@ -289,11 +297,7 @@ export type SetLanguageMutationResponse = {
 export type Query = {
   user: User;
   getAccessTokenWebUser: QueryResult;
-  exercise?: Maybe<Array<Maybe<ExerciseWord>>>;
-};
-
-export type QueryExerciseArgs = {
-  id: Lesson;
+  exercise: Exercise;
 };
 
 export type User = {
@@ -426,10 +430,12 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   QueryResult: ResolverTypeWrapper<QueryResult>;
   Tokens: ResolverTypeWrapper<Tokens>;
+  Exercise: ResolverTypeWrapper<Exercise>;
   ExerciseWord: ResolverTypeWrapper<ExerciseWord>;
   Word: ResolverTypeWrapper<Word>;
   WordData: ResolverTypeWrapper<WordData>;
   FormValue: ResolverTypeWrapper<FormValue>;
+  ExerciseTypes: ExerciseTypes;
   EnglishForms: EnglishForms;
   FrenchForms: FrenchForms;
   Forms: Forms;
@@ -460,6 +466,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars["Boolean"];
   QueryResult: QueryResult;
   Tokens: Tokens;
+  Exercise: Exercise;
   ExerciseWord: ExerciseWord;
   Word: Word;
   WordData: WordData;
@@ -502,6 +509,20 @@ export type TokensResolvers<
   accessToken?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   error?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   refreshToken?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ExerciseResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Exercise"] = ResolversParentTypes["Exercise"]
+> = {
+  id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  words?: Resolver<
+    Array<Maybe<ResolversTypes["ExerciseWord"]>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -839,12 +860,7 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
-  exercise?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["ExerciseWord"]>>>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryExerciseArgs, "id">
-  >;
+  exercise?: Resolver<ResolversTypes["Exercise"], ParentType, ContextType>;
 };
 
 export type UserResolvers<
@@ -866,6 +882,7 @@ export type Resolvers<ContextType = any> = {
   MutationResult?: MutationResultResolvers<ContextType>;
   QueryResult?: QueryResultResolvers<ContextType>;
   Tokens?: TokensResolvers<ContextType>;
+  Exercise?: ExerciseResolvers<ContextType>;
   ExerciseWord?: ExerciseWordResolvers<ContextType>;
   Word?: WordResolvers<ContextType>;
   WordData?: WordDataResolvers<ContextType>;

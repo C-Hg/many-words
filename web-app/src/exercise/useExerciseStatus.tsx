@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 
-import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql";
+import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql.local";
 
 export enum ExerciseStatus {
   done,
@@ -14,6 +14,7 @@ const useExerciseStatus = () => {
   const {
     data: { hasCompletedExercise, hasFetchedExercise },
   } = useQuery(GET_EXERCISE_STATUS);
+  console.info(hasCompletedExercise, hasFetchedExercise);
 
   useEffect(() => {
     if (hasFetchedExercise) {

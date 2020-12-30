@@ -1,9 +1,11 @@
 import { useApolloClient, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { GetUserLanguageQueryResult, Languages } from "../graphql/types";
-import getBrowserLanguage from "../utils/getBrowserLanguage";
+
 import GET_USER_LANGUAGE from "./graphql/getUserLanguage.graphql";
 import SET_LANGUAGE from "./graphql/setLanguage.graphql";
+
+import { GetUserLanguageQueryResult, Languages } from "../graphql/types";
+import getBrowserLanguage from "../utils/getBrowserLanguage";
 
 const useLanguage = () => {
   const apolloClient = useApolloClient();

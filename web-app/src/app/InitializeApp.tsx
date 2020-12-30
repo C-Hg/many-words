@@ -4,10 +4,12 @@ import {
   useApolloClient,
 } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { Mutation, Query } from "../graphql/types";
+
 import App from "./App";
 import CREATE_WEB_USER from "./graphql/createUser.graphql";
 import GET_ACCESS_TOKEN from "./graphql/getAccessToken.graphql";
+
+import { Mutation, Query } from "../graphql/types";
 
 const InitializeApp: React.FC = () => {
   const [isUserConnected, setIsUserConnected] = useState(false);

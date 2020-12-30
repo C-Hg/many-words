@@ -9,15 +9,19 @@ import useFetchExercise from "./useFetchExercise";
 import AppContainer from "../app/AppContainer.styled";
 
 const Exercise = () => {
+  // TODO: combine both hooks
   const status = useExerciseStatus();
   useFetchExercise(status);
 
   // TODO: implement waiting animation
+  // TODO: common navbar
   return (
     <AppContainer withNavbar sand>
-      <ExerciseNavbar />
-      {status === ExerciseStatus.inProgress && <ExerciseContainer />}
-      {status === ExerciseStatus.done && <ExerciseRecap />}
+      {/* <ExerciseNavbar /> */}
+      {status === ExerciseStatus.inProgress && <p>in progress</p>}
+      {status === ExerciseStatus.done && <p>recap</p>}
+      {/* {status === ExerciseStatus.inProgress && <ExerciseContainer />}
+      {status === ExerciseStatus.done && <ExerciseRecap />} */}
     </AppContainer>
   );
 };

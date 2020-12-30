@@ -4,9 +4,9 @@ import { gql } from "@apollo/client";
 export const GET_NEXT_EXERCISE = gql`
   query GetNextExercise {
     exercise {
-      _id
+      id
       type #learning, quiz or weak words, update the server
-      data {
+      words {
         answers
         englishName
         form

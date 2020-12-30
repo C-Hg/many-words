@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { Twitter, Github } from "styled-icons/fa-brands";
 import { ThemeContext } from "styled-components";
-import ScalingLink from "../components/links/ScalingLink.styled";
+import { Twitter, Github } from "styled-icons/fa-brands";
+
 import HorizontalFlexbox from "../components/div/HorizontalFlexbox.styled";
+import ScalingLink from "../components/links/ScalingLink.styled";
 
 const iconSize = 48;
 

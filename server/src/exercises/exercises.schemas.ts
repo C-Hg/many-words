@@ -5,12 +5,18 @@ import lessonsByTopic from "./data/lessonsByTopic";
 import wordCountByLesson from "./data/wordCountByLesson";
 import exercisesController from "./exercises.controller";
 
-import { Lesson, ExerciseWord } from "../graphql/types";
+import { Exercise } from "../graphql/types";
 
 export const typeDefs = gql`
   extend type Query {
     # return words formatted for exercise
-    exercise(id: Lesson!): [ExerciseWord]
+    exercise: Exercise! @loggedIn
+  }
+
+  type Exercise {
+    id: String!
+    type: String!
+    words: [ExerciseWord]!
   }
 
   type ExerciseWord {
@@ -42,6 +48,12 @@ export const typeDefs = gql`
   type FormValue {
     form: Forms!
     values: [String!]!
+  }
+
+  enum ExerciseTypes {
+    learn
+    quiz
+    review
   }
 
   enum EnglishForms {
@@ -88,10 +100,10 @@ export const resolvers = {
   Query: {
     exercise: async (
       parent: Record<string, unknown>,
-      { id }: { id: Lesson },
+      args: Record<string, unknown>,
       { req }: { req: Request }
-    ): Promise<ExerciseWord[]> => {
-      return exercisesController.getExerciseWords(id, req.ctx.user);
+    ): Promise<Exercise> => {
+      return exercisesController.getNextExercise(req.ctx.user);
     },
   },
 };

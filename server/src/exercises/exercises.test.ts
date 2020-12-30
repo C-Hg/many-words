@@ -1,15 +1,19 @@
 import gql from "graphql-tag";
 
 const EXERCISE_QUERY = gql`
-  query exercise($id: Lesson!) {
-    exercise(id: $id) {
-      answers
-      englishName
-      form
-      language
-      lesson
-      topic
-      wordToTranslate
+  query GetNextExercise {
+    exercise {
+      _id
+      type
+      words {
+        answers
+        englishName
+        form
+        language
+        lesson
+        topic
+        wordToTranslate
+      }
     }
   }
 `;
@@ -26,7 +30,7 @@ describe("Exercises - e2e", () => {
   //     })
   //   );
   describe("exercises e2e", () => {
-    it("should get a lesson for the first time", () => {
+    it("should get a lesson for a new user", () => {
       expect(true).toBe(true);
     });
   });
