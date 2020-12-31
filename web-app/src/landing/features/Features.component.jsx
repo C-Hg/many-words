@@ -1,14 +1,15 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { withTheme } from "styled-components";
 import { AllInclusive, Spellcheck, Stars } from "styled-icons/material";
-import PropTypes from "prop-types";
 
-import { LanguageContext } from "../../contexts/language-context";
-import StyledFeatures from "./Features.styled";
 import StyledFeature from "./Feature.styled";
-import H3 from "../../components/texts/H3.styled";
+import StyledFeatures from "./Features.styled";
 
-const Features = props => {
+import H3 from "../../components/texts/H3.styled";
+import { LanguageContext } from "../../contexts/language-context";
+
+const Features = (props) => {
   const { theme } = props;
   const { darkBlue } = theme.colors;
   const iconSize = "80";

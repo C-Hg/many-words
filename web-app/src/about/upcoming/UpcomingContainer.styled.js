@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import Container from "../../components/div/Container.styled";
+
 import breakpoints from "../../app/breakpoints";
+import Container from "../../components/div/Container.styled";
 
 const UpcomingContainer = styled(Container)`
   margin: 0 auto 100px auto;

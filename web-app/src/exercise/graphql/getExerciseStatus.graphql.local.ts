@@ -4,7 +4,6 @@ import { gql } from "@apollo/client";
 // otherwise we would be forced to declare the schema on the server
 export const GET_EXERCISE_STATUS = gql`
   query GetExerciseStatus {
-    hasCompletedExercise @client
-    hasFetchedExercise @client
+    exerciseStatus @client
   }
 `;

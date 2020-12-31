@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import React, { useContext } from "react";
 
 import AzertyKeyboard from "./AzertyKeyboard.component";
@@ -8,19 +9,27 @@ import Validation from "./Validation.component";
 import StyledContainer from "./styled/ExerciseContainer.styled";
 import ExerciseTitle from "./styled/ExerciseTitle.styled";
 
+import { LANGUAGES } from "../../config/constants";
 import { LanguageContext } from "../../contexts/language-context";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import { LANGUAGES } from "../../config/constants";
+import { GET_NEXT_EXERCISE } from "../graphql/getNextExercise.graphql";
+import { GET_WORD_RANK } from "../graphql/getWordRank.graphql.local";
 
-const ExerciseContainer = (props) => {
+const ExerciseContainer = () => {
   const language = useContext(LanguageContext);
   const { translateIn, french, english } = language;
-  const { exercise } = props;
-  const { words, wordRank } = exercise;
+  const {
+    data: {
+      exercise: { words },
+    },
+  } = useQuery(GET_NEXT_EXERCISE, { fetchPolicy: "cache-only" });
+  const {
+    data: { wordRank },
+  } = useQuery(GET_WORD_RANK);
   const { height: screenHeight } = useWindowDimensions();
 
   let sourceLanguageIsFr = true;
-  if (words[wordRank].selectedForm[1] === LANGUAGES.English) {
+  if (words[wordRank].language === LANGUAGES.English) {
     sourceLanguageIsFr = false;
   }
 

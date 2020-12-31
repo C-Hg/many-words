@@ -1,20 +1,22 @@
 import { InMemoryCache, makeVar } from "@apollo/client";
 
-export const hasCompletedExerciseVar = makeVar(false);
-export const hasFetchedExerciseVar = makeVar(false);
+import { ExerciseStatus } from "./exercise/types/ExerciseStatus.enum";
+
+export const exerciseStatusVar = makeVar(ExerciseStatus.toBegin);
+export const wordRankVar = makeVar(0);
 
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        hasCompletedExercise: {
+        exerciseStatus: {
           read() {
-            return hasCompletedExerciseVar();
+            return exerciseStatusVar();
           },
         },
-        hasFetchedExercise: {
+        wordRank: {
           read() {
-            return hasFetchedExerciseVar();
+            return wordRankVar();
           },
         },
       },

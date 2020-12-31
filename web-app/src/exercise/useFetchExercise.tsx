@@ -1,25 +1,30 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 
+import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql.local";
 import { GET_NEXT_EXERCISE } from "./graphql/getNextExercise.graphql";
-import { ExerciseStatus } from "./useExerciseStatus";
+import { ExerciseStatus } from "./types/ExerciseStatus.enum";
 
-import { hasFetchedExerciseVar } from "../cache";
+import { exerciseStatusVar } from "../cache";
 
-const useFetchExercise = (status: ExerciseStatus) => {
+const useFetchExercise = () => {
   const [fetch] = useLazyQuery(GET_NEXT_EXERCISE);
+  const {
+    data: { exerciseStatus },
+  } = useQuery(GET_EXERCISE_STATUS);
 
   useEffect(() => {
+    // Automatically fetch the new exercise when the variable is reset to "toBegin"
     const getExercise = async () => {
       await fetch();
-      hasFetchedExerciseVar(true);
+      // TODO: error management
+      exerciseStatusVar(ExerciseStatus.inProgress);
     };
 
-    if (status === ExerciseStatus.toBegin && !hasFetchedExerciseVar()) {
+    if (exerciseStatus === ExerciseStatus.toBegin) {
       getExercise();
-      // TODO: update exercise query properly
     }
-  }, [fetch, status]);
+  }, [exerciseStatus, fetch]);
 };
 
 export default useFetchExercise;

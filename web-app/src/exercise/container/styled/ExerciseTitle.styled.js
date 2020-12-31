@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import H2 from "../../../components/texts/H2.styled";
+
 import breakpoints from "../../../app/breakpoints";
+import H2 from "../../../components/texts/H2.styled";
 
 const ExerciseTitle = styled(H2)`
   text-align: left;
@@ -8,7 +9,7 @@ const ExerciseTitle = styled(H2)`
   padding-left: 10px;
   font-size: 26px;
   width: auto;
-  font-family: ${props => props.theme.fonts.secondary};
+  font-family: ${(props) => props.theme.fonts.secondary};
   @media (min-height: ${breakpoints.verticalMid}) {
     margin-bottom: 30px;
   }

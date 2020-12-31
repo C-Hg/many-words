@@ -35,6 +35,7 @@
       "MONGODB",
       "Totp",
       "clonedeep",
+      "codegen",
       "deserialize",
       "manywords",
       "middlewares",

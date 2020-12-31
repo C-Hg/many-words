@@ -1,27 +1,28 @@
+import { useQuery } from "@apollo/client";
 import React from "react";
 
 import ExerciseNavbar from "./Exercise.navbar";
 import ExerciseContainer from "./container/Exercise.container";
+import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql.local";
 import ExerciseRecap from "./recap/ExerciseRecap.container";
-import useExerciseStatus, { ExerciseStatus } from "./useExerciseStatus";
+import { ExerciseStatus } from "./types/ExerciseStatus.enum";
 import useFetchExercise from "./useFetchExercise";
 
 import AppContainer from "../app/AppContainer.styled";
 
 const Exercise = () => {
-  // TODO: combine both hooks
-  const status = useExerciseStatus();
-  useFetchExercise(status);
+  useFetchExercise();
+  const {
+    data: { exerciseStatus },
+  } = useQuery(GET_EXERCISE_STATUS);
 
   // TODO: implement waiting animation
   // TODO: common navbar
   return (
     <AppContainer withNavbar sand>
       {/* <ExerciseNavbar /> */}
-      {status === ExerciseStatus.inProgress && <p>in progress</p>}
-      {status === ExerciseStatus.done && <p>recap</p>}
-      {/* {status === ExerciseStatus.inProgress && <ExerciseContainer />}
-      {status === ExerciseStatus.done && <ExerciseRecap />} */}
+      {exerciseStatus === ExerciseStatus.inProgress && <ExerciseContainer />}
+      {exerciseStatus === ExerciseStatus.done && <ExerciseRecap />}
     </AppContainer>
   );
 };
