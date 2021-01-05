@@ -1,8 +1,9 @@
 import { put, call, select, takeEvery } from "redux-saga/effects";
 
 import { types } from "./exercise.reducer";
-import fetch from "../services/fetch";
+
 import checkUserTranslation from "../controllers/exercise/checkUserTranslation.function";
+import fetch from "../services/fetch";
 
 function* getWords({ lesson, theme }) {
   try {

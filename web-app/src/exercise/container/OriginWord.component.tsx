@@ -5,7 +5,6 @@ import InnerContainer from "./styled/InnerContainer.styled";
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
 import H3 from "../../components/texts/H3.styled";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
 
@@ -16,15 +15,9 @@ const OriginWord = (props) => {
   const word = words[wordRank][words[wordRank].selectedForm[1]];
   const language = words[wordRank].selectedForm[1];
   const flag = language === "fr" ? frenchFlag : ukFlag;
-  const { width: screenWidth } = useWindowDimensions();
 
   return (
-    <InnerContainer
-      height="30px"
-      margin="16px auto"
-      screenWidth={screenWidth}
-      sand
-    >
+    <InnerContainer height="30px" margin="16px auto" sand>
       <FlagContainer marginRight="35px">
         <Flag src={flag} alt="flag" />
       </FlagContainer>

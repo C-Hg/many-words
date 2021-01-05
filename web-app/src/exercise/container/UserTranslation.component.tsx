@@ -1,40 +1,47 @@
-import React, { useRef, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import React, { useRef, useEffect, ChangeEvent } from "react";
 
 import InnerContainer from "./styled/InnerContainer.styled";
 import UserTextInput from "./styled/UserTextInput.styled";
 
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
-import CONSTANTS from "../../config/constants";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
+import CONSTANTS, { LANGUAGES } from "../../config/constants";
 import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
+import { continueWithNextWord } from "../Exercise.functions";
+import { GET_EXERCISE_DETAILS } from "../graphql/getExerciseDetails.graphql.local";
 
-const UserTranslation = (props) => {
-  const translationInput = useRef();
+type Props = {
+  isLastWord: boolean;
+  sourceLanguage: LANGUAGES;
+};
+
+const UserTranslation = (props: Props) => {
+  const translationInput = useRef<HTMLTextAreaElement>(null);
 
   const {
-    exercise,
-    nextWord,
-    submitUserTranslation,
-    updateUserTranslation,
-  } = props;
-  const { userTranslation, isChecking, words, wordRank } = exercise;
-  const language = words[wordRank].selectedForm[1];
-  const flag = language === "fr" ? ukFlag : frenchFlag;
-  const { width: screenWidth } = useWindowDimensions();
+    data: { isCheckingAnswer, userTranslation },
+  } = useQuery(GET_EXERCISE_DETAILS);
+
+  const { isLastWord, sourceLanguage } = props;
+  const flag = sourceLanguage === LANGUAGES.French ? ukFlag : frenchFlag;
 
   // this makes the focus facultative to answer on desktop
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     event.preventDefault();
     // Enter key
     if (event.key === "Enter") {
-      if (exercise.isChecking) {
-        nextWord();
+      if (isCheckingAnswer) {
+        if (isLastWord) {
+          // TODO: send stats and prepare recap
+        } else {
+          continueWithNextWord();
+        }
       } else {
         submitUserTranslation();
       }
-    } else if (!exercise.isChecking) {
+    } else if (!isCheckingAnswer) {
       // White space
       if (/\s/.test(event.key)) {
         updateUserTranslation(`${userTranslation} `);
@@ -57,30 +64,31 @@ const UserTranslation = (props) => {
     };
   });
 
-  const userTranslationChange = (event) => {
+  const userTranslationChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     // special characters are not allowed for security reasons
     const specialCharacters = /[.?/\\_+,;:!*()[\]{}~&%$]+/i;
-    const isCharacterAllowed = !specialCharacters.test(event.target.value);
+    const isCharacterAllowed = !specialCharacters.test(
+      event.currentTarget.value
+    );
     if (isCharacterAllowed) {
-      updateUserTranslation(event.target.value);
+      updateUserTranslation(event.currentTarget.value);
     }
   };
 
   return (
-    <InnerContainer screenWidth={screenWidth} sand>
-      <FlagContainer alignSelf="flex-start" marginTop="6px" marginRight="25px">
+    <InnerContainer sand>
+      <FlagContainer marginTop="6px" marginRight="25px">
         <Flag src={flag} alt="flag" />
       </FlagContainer>
       <UserTextInput
-        type="text"
+        autoCapitalize="off"
         autoComplete="off"
         autoCorrect="off"
-        autoCapitalize="off"
+        onChange={userTranslationChange}
+        readOnly={isCheckingAnswer}
+        ref={translationInput}
         spellCheck="false"
         value={userTranslation}
-        onChange={userTranslationChange}
-        ref={translationInput}
-        readOnly={isChecking}
       />
     </InnerContainer>
   );
