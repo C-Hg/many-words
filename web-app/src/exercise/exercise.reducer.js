@@ -68,37 +68,37 @@ const exerciseReducer = (state = defaultState, action) => {
     case types.TOGGLE_SPECIAL_CHARACTERS:
       return { ...state, areSpecialCharactersVisible: true };
 
-    case types.UPDATE_USER_TRANSLATION:
-      return { ...state, userTranslation: action.userTranslation };
+    // case types.UPDATE_USER_TRANSLATION:
+    //   return { ...state, userTranslation: action.userTranslation };
 
-    case types.UPDATE_RESULT:
-      return {
-        ...state,
-        isChecking: true,
-        isAnswerCorrect: action.isUserTranslationCorrect,
-        result: [
-          ...state.result,
-          [
-            ...state.words[state.wordRank].selectedForm,
-            action.isUserTranslationCorrect,
-          ],
-        ],
-      };
+    // case types.UPDATE_RESULT:
+    //   return {
+    //     ...state,
+    //     isChecking: true,
+    //     isAnswerCorrect: action.isUserTranslationCorrect,
+    //     result: [
+    //       ...state.result,
+    //       [
+    //         ...state.words[state.wordRank].selectedForm,
+    //         action.isUserTranslationCorrect,
+    //       ],
+    //     ],
+    //   };
 
-    case types.UPDATE_FAILED_WORDS:
-      return {
-        ...state,
-        expectedAnswer: action.expectedAnswer,
-        failedWords: [
-          ...state.failedWords,
-          [
-            state.words[state.wordRank][
-              state.words[state.wordRank].selectedForm[1]
-            ][0],
-            action.expectedAnswer,
-          ],
-        ],
-      };
+    // case types.UPDATE_FAILED_WORDS:
+    //   return {
+    //     ...state,
+    //     expectedAnswer: action.expectedAnswer,
+    //     failedWords: [
+    //       ...state.failedWords,
+    //       [
+    //         state.words[state.wordRank][
+    //           state.words[state.wordRank].selectedForm[1]
+    //         ][0],
+    //         action.expectedAnswer,
+    //       ],
+    //     ],
+    //   };
 
     case types.PREPARE_RECAP:
       return {
@@ -152,7 +152,7 @@ const actions = {
     };
   },
 
-  getWeakWords: reference => {
+  getWeakWords: (reference) => {
     return {
       type: types.GET_WEAK_WORDS,
       reference,
@@ -165,7 +165,7 @@ const actions = {
     };
   },
 
-  updateUserTranslation: userTranslation => {
+  updateUserTranslation: (userTranslation) => {
     return {
       type: types.UPDATE_USER_TRANSLATION,
       userTranslation,

@@ -1,10 +1,8 @@
 import { EnglishForms, FrenchForms, Languages } from "../../graphql/types";
 
-interface FormResult {
+export interface ExerciseResult {
   englishName: string;
   form: EnglishForms | FrenchForms;
   isAnswerCorrect: boolean;
   language: Languages;
 }
-
-export default FormResult;

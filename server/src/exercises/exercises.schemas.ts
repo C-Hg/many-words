@@ -20,9 +20,12 @@ export const typeDefs = gql`
   }
 
   type ExerciseWord {
+    # all accepted translations for this word
     answers: [String!]!
     englishName: String!
+    # the form of the word to translate
     form: Forms!
+    # the language of the word to translate
     language: Languages!
     lesson: Lesson!
     topic: Topic!

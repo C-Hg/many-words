@@ -28,12 +28,13 @@ const ExerciseContainer = () => {
   } = useQuery(GET_EXERCISE_DETAILS);
   const { height: screenHeight } = useWindowDimensions();
 
-  const sourceLanguage = words[wordRank].language;
-
   if (!words) {
     // TODO: loading animation here, not in the hook!
     return null;
   }
+
+  const isLastWord = wordRank === words.length - 1;
+  const sourceLanguage = words[wordRank].language;
 
   return (
     <StyledContainer screenHeight={screenHeight} sand>
@@ -41,7 +42,11 @@ const ExerciseContainer = () => {
         {translateIn} {sourceLanguage === LANGUAGES.French ? english : french}
       </ExerciseTitle>
       <OriginWord />
-      <UserTranslation sourceLanguage={sourceLanguage} />
+      <UserTranslation
+        exerciseWord={words[wordRank]}
+        isLastWord={isLastWord}
+        sourceLanguage={sourceLanguage}
+      />
       <Validation />
       <SpecialCharacters />
       <AzertyKeyboard />

@@ -58,25 +58,25 @@ function* addLetter(letter) {
   }
 }
 
-function* submitUserTranslation() {
-  try {
-    const exercise = yield select((state) => state.exercise);
-    const result = checkUserTranslation(
-      exercise.userTranslation,
-      exercise.words[exercise.wordRank]
-    );
-    const isUserTranslationCorrect = result[0];
-    yield put({ type: "UPDATE_RESULT", isUserTranslationCorrect });
+// function* submitUserTranslation() {
+//   try {
+//     const exercise = yield select((state) => state.exercise);
+//     const result = checkUserTranslation(
+//       exercise.userTranslation,
+//       exercise.words[exercise.wordRank]
+//     );
+//     const isUserTranslationCorrect = result[0];
+//     yield put({ type: "UPDATE_RESULT", isUserTranslationCorrect });
 
-    // if wrong answer, adds word to failedWords for restitution in recap and immediately in the footer via expectedAnswer
-    if (!result[0]) {
-      const expectedAnswer = result[1];
-      yield put({ type: "UPDATE_FAILED_WORDS", expectedAnswer });
-    }
-  } catch (error) {
-    console.error("[submitUserTranslation]", error);
-  }
-}
+//     // if wrong answer, adds word to failedWords for restitution in recap and immediately in the footer via expectedAnswer
+//     if (!result[0]) {
+//       const expectedAnswer = result[1];
+//       yield put({ type: "UPDATE_FAILED_WORDS", expectedAnswer });
+//     }
+//   } catch (error) {
+//     console.error("[submitUserTranslation]", error);
+//   }
+// }
 
 function* updateStats() {
   try {
@@ -94,30 +94,30 @@ function* updateStats() {
   }
 }
 
-function* nextWord() {
-  try {
-    const exercise = yield select((state) => state.exercise);
-    const user = yield select((state) => state.user);
+// function* nextWord() {
+//   try {
+//     const exercise = yield select((state) => state.exercise);
+//     const user = yield select((state) => state.user);
 
-    // if all the words of the current batch have been done
-    if (exercise.wordRank === exercise.words.length - 1) {
-      if (user.isAuthenticated) {
-        yield call(updateStats);
-      }
-      yield put({ type: "PREPARE_RECAP" });
-    } else {
-      yield put({ type: "PREPARE_NEXT_WORD" });
-    }
-  } catch (error) {
-    console.error("[nextWord]", error);
-  }
-}
+//     // if all the words of the current batch have been done
+//     if (exercise.wordRank === exercise.words.length - 1) {
+//       if (user.isAuthenticated) {
+//         yield call(updateStats);
+//       }
+//       yield put({ type: "PREPARE_RECAP" });
+//     } else {
+//       yield put({ type: "PREPARE_NEXT_WORD" });
+//     }
+//   } catch (error) {
+//     console.error("[nextWord]", error);
+//   }
+// }
 
 export default function* exerciseSaga() {
   yield takeEvery(types.ADD_LETTER, addLetter);
   yield takeEvery(types.GET_WORDS, getWords);
   yield takeEvery(types.GET_WEAK_WORDS, getWeakWords);
   yield takeEvery(types.CONTINUE_WEAK_WORDS, continueWeakWords);
-  yield takeEvery(types.NEXT_WORD, nextWord);
-  yield takeEvery(types.SUBMIT_USER_TRANSLATION, submitUserTranslation);
+  // yield takeEvery(types.NEXT_WORD, nextWord);
+  // yield takeEvery(types.SUBMIT_USER_TRANSLATION, submitUserTranslation);
 }

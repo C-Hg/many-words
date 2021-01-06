@@ -11,6 +11,7 @@ import { LanguageContext } from "../../contexts/language-context";
 
 const Validation = (props) => {
   const { exercise, submitUserTranslation, nextWord } = props;
+  // TODO: expected answer taken from exerciseWord.answers[1]
   const { isChecking, isAnswerCorrect, expectedAnswer } = exercise;
   const language = useContext(LanguageContext);
   const theme = useContext(ThemeContext);

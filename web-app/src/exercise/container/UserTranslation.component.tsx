@@ -4,15 +4,21 @@ import React, { useRef, useEffect, ChangeEvent } from "react";
 import InnerContainer from "./styled/InnerContainer.styled";
 import UserTextInput from "./styled/UserTextInput.styled";
 
+import { userTranslationVar } from "../../cache";
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
 import CONSTANTS, { LANGUAGES } from "../../config/constants";
+import { ExerciseWord } from "../../graphql/types";
 import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
-import { continueWithNextWord } from "../Exercise.functions";
+import {
+  continueWithNextWord,
+  submitUserTranslation,
+} from "../Exercise.controller";
 import { GET_EXERCISE_DETAILS } from "../graphql/getExerciseDetails.graphql.local";
 
 type Props = {
+  exerciseWord: ExerciseWord;
   isLastWord: boolean;
   sourceLanguage: LANGUAGES;
 };
@@ -24,7 +30,7 @@ const UserTranslation = (props: Props) => {
     data: { isCheckingAnswer, userTranslation },
   } = useQuery(GET_EXERCISE_DETAILS);
 
-  const { isLastWord, sourceLanguage } = props;
+  const { exerciseWord, isLastWord, sourceLanguage } = props;
   const flag = sourceLanguage === LANGUAGES.French ? ukFlag : frenchFlag;
 
   // this makes the focus facultative to answer on desktop
@@ -39,20 +45,20 @@ const UserTranslation = (props: Props) => {
           continueWithNextWord();
         }
       } else {
-        submitUserTranslation();
+        submitUserTranslation(exerciseWord);
       }
     } else if (!isCheckingAnswer) {
       // White space
       if (/\s/.test(event.key)) {
-        updateUserTranslation(`${userTranslation} `);
+        userTranslationVar(`${userTranslation} `);
       }
       // Backspace
       else if (event.key === "Backspace" && userTranslation.length > 0) {
-        updateUserTranslation(userTranslation.slice(0, -1));
+        userTranslationVar(userTranslation.slice(0, -1));
       }
       // all allowed letters
       else if (CONSTANTS.allowedCharacters.test(event.key)) {
-        updateUserTranslation(userTranslation + event.key);
+        userTranslationVar(userTranslation + event.key);
       }
     }
   };
@@ -71,7 +77,7 @@ const UserTranslation = (props: Props) => {
       event.currentTarget.value
     );
     if (isCharacterAllowed) {
-      updateUserTranslation(event.currentTarget.value);
+      userTranslationVar(event.currentTarget.value);
     }
   };
 
