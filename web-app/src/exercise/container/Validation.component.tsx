@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
 
@@ -8,54 +9,62 @@ import ValidationText from "./styled/ValidationText.styled";
 import HorizontalFlexbox from "../../components/div/HorizontalFlexbox.styled";
 import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 import { LanguageContext } from "../../contexts/language-context";
+import {
+  continueWithNextWord,
+  submitUserTranslation,
+} from "../Exercise.controller";
+import { GET_EXERCISE_DETAILS } from "../graphql/getExerciseDetails.graphql.local";
 
-const Validation = (props) => {
-  const { exercise, submitUserTranslation, nextWord } = props;
-  // TODO: expected answer taken from exerciseWord.answers[1]
-  const { isChecking, isAnswerCorrect, expectedAnswer } = exercise;
-  const language = useContext(LanguageContext);
-  const theme = useContext(ThemeContext);
-  const { correct } = language;
-  const { white, lightGreen, paleRed, sand, darkBlue } = theme.colors;
+type Props = {
+  answer: string;
+};
+
+const Validation = (props: Props) => {
+  const { answer } = props;
+  const {
+    data: { isAnswerCorrect, isCheckingAnswer },
+  } = useQuery(GET_EXERCISE_DETAILS);
+  const { correct, correctAnswer } = useContext(LanguageContext);
+  const {
+    colors: { white, lightGreen, paleRed, sand, darkBlue },
+  } = useContext(ThemeContext);
 
   const randomCongrats = Math.floor(Math.random() * 17);
   let color;
-  if (!isChecking) {
+  if (!isCheckingAnswer) {
     color = sand;
   } else {
     color = isAnswerCorrect ? lightGreen : paleRed;
   }
-  const onClick = isChecking ? nextWord : submitUserTranslation;
-  const arrowColor = isChecking ? white : darkBlue;
+  const onClick = isCheckingAnswer
+    ? continueWithNextWord
+    : submitUserTranslation;
+  const arrowColor = isCheckingAnswer ? white : darkBlue;
   // TODO: better management of margin-bottom under validationContainer
   return (
-    <ValidationContainer backgroundColor={color} isChecking={isChecking}>
+    <ValidationContainer backgroundColor={color} isChecking={isCheckingAnswer}>
       <HorizontalFlexbox
         height="100%"
         backgroundColor="transparent"
         justifyContent="flex-start"
-        alignItems="flex-start"
       >
-        {isChecking &&
+        {isCheckingAnswer &&
           (isAnswerCorrect ? (
-            <ValidationText fontWeight="600" left="40px">
-              {correct[randomCongrats]}
-            </ValidationText>
+            <ValidationText>{correct[randomCongrats]}</ValidationText>
           ) : (
             <VerticalFlexbox
               alignSelf="flex-start"
               height="80%"
-              backgroundColor="transparent"
               alignItems="flex-start"
               justifyContent="space-evenly"
             >
               <ValidationText fontWeight="600">
-                {`${language.correctAnswer} :`}
+                {`${correctAnswer} :`}
               </ValidationText>
               <ValidationText
                 paddingLeft="10px"
                 fontSize="16px"
-              >{`${expectedAnswer}`}</ValidationText>
+              >{`${answer}`}</ValidationText>
             </VerticalFlexbox>
           ))}
         <ContinueButton onClick={onClick} arrowColor={arrowColor} />

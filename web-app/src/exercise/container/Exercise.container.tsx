@@ -41,15 +41,17 @@ const ExerciseContainer = () => {
       <ExerciseTitle>
         {translateIn} {sourceLanguage === LANGUAGES.French ? english : french}
       </ExerciseTitle>
-      <OriginWord />
+      <OriginWord
+        wordToTranslate={words[wordRank].wordToTranslate}
+        language={sourceLanguage}
+      />
       <UserTranslation
-        exerciseWord={words[wordRank]}
         isLastWord={isLastWord}
         sourceLanguage={sourceLanguage}
       />
-      <Validation />
+      <Validation answer={words[wordRank].answers[0]} />
       <SpecialCharacters />
-      <AzertyKeyboard />
+      {/* <AzertyKeyboard /> */}
     </StyledContainer>
   );
 };

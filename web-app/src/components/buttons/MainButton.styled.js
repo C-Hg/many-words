@@ -1,8 +1,10 @@
 import styled, { keyframes } from "styled-components";
+
 import DefaultButton from "./DefaultButton.styled";
+
 import unstyledLink from "../links/DefaultLink";
 
-const getAnimation = color => {
+const getAnimation = (color) => {
   return keyframes`
     100% {
       color: white;
@@ -13,9 +15,9 @@ const getAnimation = color => {
 };
 
 const MainButton = styled(DefaultButton)`
-  border-color: ${props => props.borderColor || props.color};
-  color: ${props => props.color};
-  font-family: ${props => props.theme.fonts.secondary};
+  border-color: ${(props) => props.borderColor || props.color};
+  color: ${(props) => props.color};
+  font-family: ${(props) => props.theme.fonts.secondary};
   text-align: center;
   font-weight: 600;
   border-radius: 8px;
@@ -28,8 +30,8 @@ const MainButton = styled(DefaultButton)`
   justify-content: space-evenly;
   font-size: 18px;
   &:hover {
-    animation: ${props => getAnimation(props.color)}
-      ${props => (props.fast ? "0.3s" : "0.5s")} forwards 1;
+    animation: ${(props) => getAnimation(props.color)}
+      ${(props) => (props.fast ? "0.3s" : "0.5s")} forwards 1;
   }
 
   > a {

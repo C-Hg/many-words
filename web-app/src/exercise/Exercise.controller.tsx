@@ -1,8 +1,13 @@
 /** Local updates are done with these functions */
 
-import { separateWordFromArticleRegex } from "./Exercise.constants";
+import { ApolloQueryResult } from "@apollo/client";
 
+import { separateWordFromArticleRegex } from "./Exercise.constants";
+import { GET_NEXT_EXERCISE } from "./graphql/getNextExercise.graphql";
+
+import { apolloClient } from "../apolloClient";
 import {
+  areSpecialCharactersVisibleVar,
   exerciseResultVar,
   failedWordsVar,
   isAnswerCorrectVar,
@@ -11,7 +16,7 @@ import {
   wordRankVar,
 } from "../cache";
 import { LANGUAGES } from "../config/constants";
-import { ExerciseWord } from "../graphql/types";
+import { ExerciseWord, Query } from "../graphql/types";
 
 const checkUserTranslation = (
   userTranslation: string,
@@ -58,10 +63,15 @@ const getTranslationsWithoutArticles = (translations: string[]) =>
     return match?.[1];
   });
 
-export const submitUserTranslation = (exerciseWord: ExerciseWord) => {
-  const exerciseResult = exerciseResultVar();
-  const failedWords = failedWordsVar();
-  const userTranslation = userTranslationVar();
+export const submitUserTranslation = async () => {
+  const wordRank = wordRankVar();
+  const {
+    data: { exercise },
+  }: ApolloQueryResult<Query> = await apolloClient.query({
+    query: GET_NEXT_EXERCISE,
+    fetchPolicy: "cache-only",
+  });
+  const exerciseWord = exercise.words[wordRank] as ExerciseWord;
   const {
     answers,
     englishName,
@@ -69,6 +79,9 @@ export const submitUserTranslation = (exerciseWord: ExerciseWord) => {
     language,
     wordToTranslate,
   } = exerciseWord;
+  const exerciseResult = exerciseResultVar();
+  const failedWords = failedWordsVar();
+  const userTranslation = userTranslationVar();
 
   const isUserTranslationCorrect = checkUserTranslation(
     userTranslation,
@@ -91,4 +104,9 @@ export const submitUserTranslation = (exerciseWord: ExerciseWord) => {
   if (!isUserTranslationCorrect) {
     failedWordsVar([...failedWords, [wordToTranslate, answers[0]]]);
   }
+};
+
+export const toggleSpecialCharacters = () => {
+  const areSpecialCharactersVisible = areSpecialCharactersVisibleVar();
+  areSpecialCharactersVisibleVar(!areSpecialCharactersVisible);
 };

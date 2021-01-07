@@ -1,6 +1,8 @@
 import React from "react";
+
 import CharactersLine from "./styled/CharactersLine.styled";
 import useCharacters from "./useCharacters";
+
 import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 
 const line1 = ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p"];

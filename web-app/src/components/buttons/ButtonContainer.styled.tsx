@@ -1,9 +1,18 @@
 import styled from "styled-components";
 
-const ButtonContainer = styled.div`
-  margin: ${props => props.margin || "auto"};
-  align-self: ${props => props.alignSelf};
-  width: ${props => {
+type Props = {
+  margin?: string;
+  alignSelf?: string;
+  fit?: boolean;
+  large?: boolean;
+  mid?: boolean;
+  small?: boolean;
+};
+
+const ButtonContainer = styled.div<Props>`
+  margin: ${(props) => props.margin || "auto"};
+  align-self: ${(props) => props.alignSelf};
+  width: ${(props) => {
     if (props.fit) {
       return "100%";
     }
@@ -18,7 +27,7 @@ const ButtonContainer = styled.div`
     }
     return "auto";
   }};
-  min-width: ${props => {
+  min-width: ${(props) => {
     if (props.large) {
       return "280px";
     }
@@ -30,7 +39,7 @@ const ButtonContainer = styled.div`
     }
     return "auto";
   }};
-  height: ${props => {
+  height: ${(props) => {
     if (props.large) {
       return "50px";
     }
@@ -42,7 +51,7 @@ const ButtonContainer = styled.div`
     }
     return "50px";
   }};
-  min-height: ${props => {
+  min-height: ${(props) => {
     if (props.large) {
       return "50px";
     }

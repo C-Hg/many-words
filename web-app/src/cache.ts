@@ -3,6 +3,7 @@ import { InMemoryCache, makeVar } from "@apollo/client";
 import { ExerciseResult } from "./exercise/types/ExerciseResult.interface";
 import { ExerciseStatus } from "./exercise/types/ExerciseStatus.enum";
 
+export const areSpecialCharactersVisibleVar = makeVar(false);
 export const exerciseResultVar = makeVar<ExerciseResult[]>([]);
 export const exerciseStatusVar = makeVar(ExerciseStatus.toBegin);
 export const failedWordsVar = makeVar<string[][]>([]);
@@ -15,6 +16,11 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        areSpecialCharactersVisible: {
+          read() {
+            return areSpecialCharactersVisibleVar();
+          },
+        },
         exerciseResult: {
           read() {
             return exerciseResultVar();

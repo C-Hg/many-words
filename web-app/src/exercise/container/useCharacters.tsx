@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import Character from "./styled/Character.styled";
 
-const useCharacters = (charactersLine) => {
-  const [characters, setCharacters] = useState([]);
+const useCharacters = (charactersLine: string[]) => {
+  const [characters, setCharacters] = useState<JSX.Element[]>([]);
   const isCapitalized = true; // TODO: update with new cache
 
   const handleLetter = useCallback((event) => {
@@ -14,7 +14,7 @@ const useCharacters = (charactersLine) => {
 
   useEffect(() => {
     const formattedCharacters = charactersLine.map((character) => {
-      const name = isCapitalized ? character.toUpperString() : character;
+      const name = isCapitalized ? character.toUpperCase() : character;
       return (
         <Character
           onClick={handleLetter}

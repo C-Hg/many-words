@@ -1,7 +1,22 @@
 import styled from "styled-components";
+
 import Container from "./Container.styled";
 
-const VerticalFlexbox = styled(Container)`
+type Props = {
+  alignItems?: string;
+  alignSelf?: string;
+  border?: string;
+  borderRadius?: string;
+  colors?: string;
+  height?: string;
+  justifyContent?: string;
+  margin?: string;
+  padding?: string;
+  sand?: boolean;
+  width?: string;
+};
+
+const VerticalFlexbox = styled(Container)<Props>`
   display: flex;
   flex-direction: column;
   align-items: ${(props) => props.alignItems || "center"};

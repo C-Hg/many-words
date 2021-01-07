@@ -18,7 +18,6 @@ import {
 import { GET_EXERCISE_DETAILS } from "../graphql/getExerciseDetails.graphql.local";
 
 type Props = {
-  exerciseWord: ExerciseWord;
   isLastWord: boolean;
   sourceLanguage: LANGUAGES;
 };
@@ -30,7 +29,7 @@ const UserTranslation = (props: Props) => {
     data: { isCheckingAnswer, userTranslation },
   } = useQuery(GET_EXERCISE_DETAILS);
 
-  const { exerciseWord, isLastWord, sourceLanguage } = props;
+  const { isLastWord, sourceLanguage } = props;
   const flag = sourceLanguage === LANGUAGES.French ? ukFlag : frenchFlag;
 
   // this makes the focus facultative to answer on desktop
@@ -45,7 +44,7 @@ const UserTranslation = (props: Props) => {
           continueWithNextWord();
         }
       } else {
-        submitUserTranslation(exerciseWord);
+        submitUserTranslation();
       }
     } else if (!isCheckingAnswer) {
       // White space

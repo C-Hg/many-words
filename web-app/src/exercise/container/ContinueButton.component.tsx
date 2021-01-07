@@ -1,10 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
-
 import { ArrowRight } from "styled-icons/evil";
+
 import IconButton from "../../components/buttons/IconButton.styled";
 
-const ContinueButton = props => {
+type Props = {
+  arrowColor: string;
+  onClick: () => void;
+};
+
+const ContinueButton = (props: Props) => {
   const { onClick, arrowColor } = props;
 
   return (
@@ -12,11 +16,6 @@ const ContinueButton = props => {
       <ArrowRight size="60px" />
     </IconButton>
   );
-};
-
-ContinueButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  arrowColor: PropTypes.string.isRequired,
 };
 
 export default ContinueButton;
