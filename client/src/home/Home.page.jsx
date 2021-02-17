@@ -31,8 +31,6 @@ const Home = props => {
       </AppContainer>
     );
   }
-  // TODO: implement waiting animation while retrieving auth status
-  // TODO: split pages : landing page / login / home (logged or not) and adapt router
   return isAuthenticated ? <HomeLoggedIn /> : <LandingPage />;
 };
 

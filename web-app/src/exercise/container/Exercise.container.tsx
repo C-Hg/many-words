@@ -12,9 +12,10 @@ import ExerciseTitle from "./styled/ExerciseTitle.styled";
 import { LANGUAGES } from "../../config/constants";
 import { LanguageContext } from "../../contexts/language-context";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import { GET_EXERCISE_DETAILS } from "../graphql/getExerciseDetails.graphql.local";
 import { GET_NEXT_EXERCISE } from "../graphql/getNextExercise.graphql";
+import { GET_WORD_RANK } from "../graphql/getWordRank.graphql.local";
 
+// TODO: add the lesson title or "review"
 const ExerciseContainer = () => {
   const language = useContext(LanguageContext);
   const { translateIn, french, english } = language;
@@ -25,7 +26,7 @@ const ExerciseContainer = () => {
   } = useQuery(GET_NEXT_EXERCISE, { fetchPolicy: "cache-only" });
   const {
     data: { wordRank },
-  } = useQuery(GET_EXERCISE_DETAILS);
+  } = useQuery(GET_WORD_RANK);
   const { height: screenHeight } = useWindowDimensions();
 
   if (!words) {

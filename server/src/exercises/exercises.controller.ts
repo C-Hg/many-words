@@ -23,7 +23,7 @@ const exercisesController = {
     // const { id, type } = selectNextExercise(user.id)
     const id = "animalsBasics";
     const type = "quiz";
-    logger.debug(`Next exercise for ${user.id} is ${id}`);
+    logger.info(`Next exercise for ${user.id} is ${id}`);
     const rawWords = await exercisesService.getLessonWords(id);
 
     // get the wordStats for the words of this lesson

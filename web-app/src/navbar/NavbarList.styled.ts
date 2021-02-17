@@ -1,17 +1,19 @@
 import styled from "styled-components";
 
-const LandingNavbarContainer = styled.ul`
+const NavbarList = styled.ul`
   background-color: transparent;
   list-style-type: none;
-  margin: 0;
   width: 100%;
-  height: 100%;
+  max-width: 400px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 3px;
   padding-left: 20px;
   padding-right: 20px;
   color: ${(props) => props.theme.colors.white};
-  display: grid;
-  grid-template-columns: 1;
-  grid-template-rows: 1;
+  display: flex;
+  align-items: space-between;
+  justify-content: space-between;
 `;
 
-export default LandingNavbarContainer;
+export default NavbarList;

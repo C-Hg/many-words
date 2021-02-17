@@ -4,6 +4,7 @@ import breakpoints from "../../../app/breakpoints";
 import HorizontalFlexbox from "../../../components/div/HorizontalFlexbox.styled";
 
 const InnerContainer = styled(HorizontalFlexbox)`
+  align-items: center;
   justify-content: flex-start;
   @media (min-width: ${breakpoints.horizontalSmall}) {
     width: 480px;

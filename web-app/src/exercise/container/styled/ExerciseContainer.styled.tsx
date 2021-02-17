@@ -13,7 +13,7 @@ const ExerciseContainer = styled(VerticalFlexbox)<Props>`
   background-color: ${(props) =>
     props.sand ? props.theme.colors.sand : props.theme.colors.white};
   padding: 0;
-  margin: 0 auto 0 auto;
+  /* margin: 0 auto 0 auto; */
   height: auto;
   @media (max-height: ${breakpoints.verticalMid}) {
     margin-top: 20px;

@@ -1,4 +1,4 @@
-// TODO: split gender and number
+
 const frenchArticles = {
   definite: {
     masc_sing: "le",

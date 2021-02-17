@@ -1,10 +1,12 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 
+import AppContainer from "./AppContainer.styled";
 import Router from "./Router";
 import theme from "./theme";
 
 import { languages, LanguageContext } from "../contexts/language-context";
+import Navbar from "../navbar/Navbar";
 import useLanguage from "../user/useLanguage";
 
 const App: React.FC = () => {
@@ -20,7 +22,10 @@ const App: React.FC = () => {
     // the language context depends on the language value in the redux store
     <LanguageContext.Provider value={languages[language]}>
       <ThemeProvider theme={theme}>
-        <Router />
+        <AppContainer withNavbar>
+          <Navbar />
+          <Router />
+        </AppContainer>
       </ThemeProvider>
     </LanguageContext.Provider>
   );

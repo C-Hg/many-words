@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 type Props = {
+  marginBottom?: string;
   marginRight?: string;
   marginTop?: string;
 };
 
 const FlagContainer = styled.div<Props>`
   align-self: flex-start;
+  margin-bottom: ${(props) => props.marginTop};
   margin-top: ${(props) => props.marginTop};
   margin-right: ${(props) => props.marginRight};
   width: 30px;

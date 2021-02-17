@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-const ManyWords = styled.p`
+const Logo = styled.p`
   font-family: ${(props) => props.theme.fonts.cursive};
-  font-size: 26px;
+  font-size: 24px;
   font-weight: "400";
   margin: 0;
+  margin-left: 20px;
   padding: 0;
   text-align: center;
   &:after {
@@ -16,4 +17,4 @@ const ManyWords = styled.p`
   }
 `;
 
-export default ManyWords;
+export default Logo;

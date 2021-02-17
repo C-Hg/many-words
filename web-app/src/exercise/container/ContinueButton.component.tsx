@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowRight } from "styled-icons/evil";
 
-import IconButton from "../../components/buttons/IconButton.styled";
+import StyledContinueButton from "./styled/ContinueButton.styled";
 
 type Props = {
   arrowColor: string;
@@ -12,9 +12,9 @@ const ContinueButton = (props: Props) => {
   const { onClick, arrowColor } = props;
 
   return (
-    <IconButton right="20px" onClick={onClick} color={arrowColor} type="button">
+    <StyledContinueButton onClick={onClick} color={arrowColor} type="button">
       <ArrowRight size="60px" />
-    </IconButton>
+    </StyledContinueButton>
   );
 };
 

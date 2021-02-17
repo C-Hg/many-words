@@ -1,13 +1,10 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import Home from "./Home.page";
 
-import LandingPage from "../landing/Landing.page";
-
 // TODO: hasBegunLearning ? Landing, Home
-const HomeRouter = () => {
-  return <LandingPage />;
-  // return isAuthenticated ? <Home /> : <LandingPage />;
-};
+const HomeRouter = () => <Redirect to="/welcome" />;
+// return isAuthenticated ? <Home /> : <Redirect to="/welcome" />;
 
 export default HomeRouter;

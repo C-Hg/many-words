@@ -4,7 +4,6 @@ import { ThemeContext } from "styled-components";
 import LandingTitle from "./LandingTitle.styled";
 import Features from "./features/Features.component";
 
-import AppContainer from "../app/AppContainer.styled";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import ButtonContainer from "../components/buttons/ButtonContainer.styled";
 import MainButton from "../components/buttons/MainButton.styled";
@@ -13,7 +12,6 @@ import NavigationLink from "../components/links/NavigationLink.styled";
 import PageHr from "../components/separators/PageHr.styled";
 import H2 from "../components/texts/H2.styled";
 import { LanguageContext } from "../contexts/language-context";
-import LandingPageNavbar from "../navbar/LandingPage.navbar";
 
 // TODO: log in possibility
 
@@ -26,8 +24,7 @@ const Landing = () => {
   } = theme;
 
   return (
-    <AppContainer withNavbar>
-      <LandingPageNavbar />
+    <>
       <ScrollToTopOnMount />
       <LandingTitle>{home.mainTitle}</LandingTitle>
       <Features />
@@ -50,7 +47,7 @@ const Landing = () => {
           </ButtonContainer>
         </NavigationLink>
       </VerticalFlexbox>
-    </AppContainer>
+    </>
   );
 };
 

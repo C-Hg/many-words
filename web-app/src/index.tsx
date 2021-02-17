@@ -1,12 +1,10 @@
 import { ApolloProvider } from "@apollo/client";
-
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+
 import { apolloClient } from "./apolloClient";
-
 import InitializeApp from "./app/InitializeApp";
-
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(

@@ -3,7 +3,6 @@ import { ThemeContext } from "styled-components";
 
 import GlobalProgress from "./progress/global/GlobalProgress.component";
 
-import AppContainer from "../app/AppContainer.styled";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import ButtonContainer from "../components/buttons/ButtonContainer.styled";
 import MainButton from "../components/buttons/MainButton.styled";
@@ -12,9 +11,8 @@ import NavigationLink from "../components/links/NavigationLink.styled";
 import PageHr from "../components/separators/PageHr.styled";
 import H2 from "../components/texts/H2.styled";
 import { LanguageContext } from "../contexts/language-context";
-import Navbar from "../navbar/Main.navbar";
 
-const HomePage = (props) => {
+const HomePage = (props: any) => {
   const { user, attemptLogout, deleteAccount } = props;
   const {
     stats: {
@@ -28,10 +26,8 @@ const HomePage = (props) => {
     colors: { green, grey },
   } = theme;
 
-  // TODO: remove double AppContainer
   return (
-    <AppContainer withNavbar>
-      <Navbar />
+    <>
       <ScrollToTopOnMount />
       {globalPercentage ? (
         <GlobalProgress stats={stats} />
@@ -58,7 +54,7 @@ const HomePage = (props) => {
           </MainButton>
         </ButtonContainer>
       </VerticalFlexbox>
-    </AppContainer>
+    </>
   );
 };
 

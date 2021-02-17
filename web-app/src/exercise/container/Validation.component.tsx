@@ -29,7 +29,6 @@ const Validation = (props: Props) => {
     colors: { white, lightGreen, paleRed, sand, darkBlue },
   } = useContext(ThemeContext);
 
-  const randomCongrats = Math.floor(Math.random() * 17);
   let color;
   if (!isCheckingAnswer) {
     color = sand;
@@ -40,6 +39,9 @@ const Validation = (props: Props) => {
     ? continueWithNextWord
     : submitUserTranslation;
   const arrowColor = isCheckingAnswer ? white : darkBlue;
+
+  // TODO: random list by exercise and use the word rank
+  const randomCongrats = Math.floor(Math.random() * 17);
   // TODO: better management of margin-bottom under validationContainer
   return (
     <ValidationContainer backgroundColor={color} isChecking={isCheckingAnswer}>

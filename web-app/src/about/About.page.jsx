@@ -8,14 +8,12 @@ import Span from "./upcoming/Span.styled";
 import Ul from "./upcoming/Ul.styled";
 import UpcomingContainer from "./upcoming/UpcomingContainer.styled";
 
-import AppContainer from "../app/AppContainer.styled";
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import PageHr from "../components/separators/PageHr.styled";
 import H1 from "../components/texts/H1.styled";
 import H2 from "../components/texts/H2.styled";
 import P from "../components/texts/P.styled";
 import { LanguageContext } from "../contexts/language-context";
-import Navbar from "../navbar/Main.navbar";
 
 const boxSize = "24";
 
@@ -45,8 +43,7 @@ const About = () => {
   // Loops were not used to "check" features easily
 
   return (
-    <AppContainer withNavbar>
-      <Navbar />
+    <>
       <ScrollToTopOnMount />
       <H1 margin="30px auto 40px auto">{title}</H1>
       <P textAlign="justify">{description}</P>
@@ -141,7 +138,7 @@ const About = () => {
           </Li>
         </Ul>
       </UpcomingContainer>
-    </AppContainer>
+    </>
   );
 };
 

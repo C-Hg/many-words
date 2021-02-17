@@ -1,28 +1,29 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useContext } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 
-import AppContainer from "../app/AppContainer.styled";
 import Switches from "./Switches.component";
-import { actions as learnActions } from "../redux/reducers/learn";
-import Navbar from "../navbar/Main.navbar";
-import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
+
+import AppContainer from "../app/AppContainer.styled";
 import GoBack from "../components/buttons/GoBack/GoBack.component";
-import { LanguageContext } from "../contexts/language-context";
+import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import H2 from "../components/texts/H2.styled";
 import P from "../components/texts/P.styled";
+import { LanguageContext } from "../contexts/language-context";
+import Navbar from "../navbar/Main.navbar";
+import { actions as learnActions } from "../redux/reducers/learn";
 
-const mapStateToProps = state => ({ learn: state.learn });
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = (state) => ({ learn: state.learn });
+const mapDispatchToProps = (dispatch) => {
   return {
-    getWordsToLearn: lesson => {
+    getWordsToLearn: (lesson) => {
       dispatch(learnActions.getWordsToLearn(lesson));
     },
   };
 };
 
-const Learning = props => {
+const Learning = (props) => {
   const { getWordsToLearn, match, learn } = props;
   const theme = useContext(ThemeContext);
   const language = useContext(LanguageContext);
@@ -35,7 +36,7 @@ const Learning = props => {
   let wordsToLearn;
   // cannot do it if data is not fetched from the database
   if (learn.formattedWords) {
-    wordsToLearn = learn.formattedWords.map(val => {
+    wordsToLearn = learn.formattedWords.map((val) => {
       return (
         <P
           textAlign="left"
@@ -78,7 +79,4 @@ Learning.propTypes = {
   }).isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Learning);
+export default connect(mapStateToProps, mapDispatchToProps)(Learning);

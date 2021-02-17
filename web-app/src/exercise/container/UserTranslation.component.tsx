@@ -16,6 +16,7 @@ import {
   submitUserTranslation,
 } from "../Exercise.controller";
 import { GET_EXERCISE_DETAILS } from "../graphql/getExerciseDetails.graphql.local";
+import { GET_USER_TRANSLATION } from "../graphql/getUserTranslation.graphql.local";
 
 type Props = {
   isLastWord: boolean;
@@ -26,8 +27,11 @@ const UserTranslation = (props: Props) => {
   const translationInput = useRef<HTMLTextAreaElement>(null);
 
   const {
-    data: { isCheckingAnswer, userTranslation },
+    data: { isCheckingAnswer },
   } = useQuery(GET_EXERCISE_DETAILS);
+  const {
+    data: { userTranslation },
+  } = useQuery(GET_USER_TRANSLATION);
 
   const { isLastWord, sourceLanguage } = props;
   const flag = sourceLanguage === LANGUAGES.French ? ukFlag : frenchFlag;
@@ -47,6 +51,7 @@ const UserTranslation = (props: Props) => {
         submitUserTranslation();
       }
     } else if (!isCheckingAnswer) {
+      // TODO: remplacer par un autofocus désactivable
       // White space
       if (/\s/.test(event.key)) {
         userTranslationVar(`${userTranslation} `);

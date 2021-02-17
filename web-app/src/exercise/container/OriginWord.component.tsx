@@ -20,7 +20,7 @@ const OriginWord = (props: Props) => {
 
   return (
     <InnerContainer height="30px" margin="16px auto" sand>
-      <FlagContainer marginRight="35px">
+      <FlagContainer marginBottom="auto" marginTop="auto" marginRight="35px">
         <Flag src={flag} alt="flag" />
       </FlagContainer>
       <H3 margin="0" textAlign="left" fontWeight="400" fontSize="19px" sand>

@@ -7,4 +7,15 @@ const breakpoints = {
   verticalLarge: "900px",
 };
 
+const breakpointsNumber = {
+  horizontalSmall: 500,
+  horizontalMid: 820,
+  horizontalLarge: 1024,
+  verticalSmall: 495,
+  verticalMid: 750,
+  verticalLarge: 900,
+};
+
 export default breakpoints;
+
+export { breakpointsNumber };

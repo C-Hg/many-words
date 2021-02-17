@@ -48,11 +48,11 @@ const checkUserTranslation = (
   return isUserTranslationCorrect;
 };
 
-export const continueWithNextWord = () => {
+export const continueWithNextWord = async () => {
   const wordRank = wordRankVar();
 
-  isAnswerCorrectVar(false);
   isCheckingAnswerVar(false);
+  isAnswerCorrectVar(false);
   userTranslationVar("");
   wordRankVar(wordRank + 1);
 };
