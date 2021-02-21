@@ -72,6 +72,8 @@ export type FormValue = {
   values: Array<Scalars["String"]>;
 };
 
+export type CurriculumNames = "frenchEnglish";
+
 export type ExerciseTypes = "learn" | "quiz" | "review";
 
 export type EnglishForms = "plural" | "singular" | "uniqueForm";
@@ -435,6 +437,7 @@ export type ResolversTypes = {
   Word: ResolverTypeWrapper<Word>;
   WordData: ResolverTypeWrapper<WordData>;
   FormValue: ResolverTypeWrapper<FormValue>;
+  CurriculumNames: CurriculumNames;
   ExerciseTypes: ExerciseTypes;
   EnglishForms: EnglishForms;
   FrenchForms: FrenchForms;

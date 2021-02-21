@@ -7,7 +7,7 @@ import selectForm from "./helpers/prepareExercise/selectForm.function";
 import sortWordStats from "./helpers/sortWordStats.function";
 import { ARTICLE_FORMS } from "./interfaces/name.interface";
 
-import { Lesson, Word, ExerciseWord, Exercise } from "../graphql/types";
+import { Word, ExerciseWord, Exercise } from "../graphql/types";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
 import error500 from "../utils/errors/error500";
@@ -112,6 +112,8 @@ const exercisesController = {
         wordToTranslate,
       };
     }),
+
+  // startCurriculum,
 
   // getWordsToLearn: async (req: Request, res: Response): Promise<void> => {
   //   try {

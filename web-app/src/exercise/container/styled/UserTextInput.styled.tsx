@@ -9,7 +9,7 @@ const UserTextInput = styled.textarea`
   font-family: ${(props) => props.theme.fonts.main};
   color: ${(props) => props.theme.colors.black};
   background-color: ${(props) => props.theme.colors.white};
-  border: 2px solid ${(props) => props.theme.colors.grey};
+  border: 1px solid ${(props) => props.theme.colors.grey};
   padding-top: 5px;
   padding-left: 10px;
   border-radius: 8px;
@@ -24,6 +24,7 @@ const UserTextInput = styled.textarea`
     width: 75%;
   }
   &:focus {
+    box-shadow: 0px 0px 6px ${(props) => props.theme.colors.lightestGrey};
     outline: none;
   }
 `;

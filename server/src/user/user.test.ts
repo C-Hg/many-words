@@ -5,8 +5,8 @@ import Mongoose from "mongoose";
 import User from "./models/user.model";
 
 import { Mutation, Query } from "../graphql/types";
+import createTestUser from "../utils/tests/createTestUser";
 import getDbConnection from "../utils/tests/dbConnection";
-import getAccessTokenForUser from "../utils/tests/getAccessTokenForUser";
 import { client, getAuthenticatedClient } from "../utils/tests/graphqlClient";
 
 const GET_USER_LANGUAGE = gql`
@@ -77,7 +77,7 @@ describe("Server - e2e - user", () => {
   // -----------------     BASIC AUTHORIZATION LOGIC    ------------------
   it("should get a new user after its first login, provided a valid token", async () => {
     // get a valid token first for a new user
-    const accessToken = await getAccessTokenForUser(USER_1);
+    const { accessToken } = await createTestUser(USER_1);
     const authenticatedClient = getAuthenticatedClient(accessToken);
     const userData: ApolloQueryResult<Query> = await authenticatedClient.query({
       query: USER_QUERY,
@@ -136,7 +136,7 @@ describe("Server - e2e - user", () => {
 
   // this should not happen
   it("should return a disconnected error if the user does not exist", async () => {
-    const accessToken = await getAccessTokenForUser(USER_NOT_FOUND);
+    const { accessToken } = await createTestUser(USER_NOT_FOUND);
     await User.deleteOne({
       email: USER_NOT_FOUND,
     });
@@ -150,7 +150,7 @@ describe("Server - e2e - user", () => {
 
   // ----------------------     USER TESTS     ------------------
   it("should get and set user language", async () => {
-    const accessToken = await getAccessTokenForUser(USER_2);
+    const { accessToken } = await createTestUser(USER_2);
     const authenticatedClient = getAuthenticatedClient(accessToken);
     const chosenLanguage = "french";
     await User.findOneAndUpdate(

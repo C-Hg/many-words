@@ -19,7 +19,7 @@ const NavbarLinks = () => {
         </Link>
       </NavbarLink>
       <NavbarLink isActive={pathname === "/home"}>
-        <Link to="/learn">
+        <Link to="/home">
           <Home color={theme.colors.white} size="28" title="home" />
         </Link>
       </NavbarLink>

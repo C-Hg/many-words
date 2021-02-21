@@ -53,6 +53,10 @@ export const typeDefs = gql`
     values: [String!]!
   }
 
+  enum CurriculumNames {
+    frenchEnglish
+  }
+
   enum ExerciseTypes {
     learn
     quiz

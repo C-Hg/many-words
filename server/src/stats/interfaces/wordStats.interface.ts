@@ -3,7 +3,7 @@ import { Document } from "mongoose";
 
 import FormStats from "./formStats.interface";
 
-import { Lesson, Topic } from "../../graphql/learn.types";
+import { Lesson, Topic } from "../../graphql/types";
 
 export interface WordStats {
   userId: ObjectId;

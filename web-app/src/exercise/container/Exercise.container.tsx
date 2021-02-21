@@ -19,11 +19,8 @@ import { GET_WORD_RANK } from "../graphql/getWordRank.graphql.local";
 const ExerciseContainer = () => {
   const language = useContext(LanguageContext);
   const { translateIn, french, english } = language;
-  const {
-    data: {
-      exercise: { words },
-    },
-  } = useQuery(GET_NEXT_EXERCISE, { fetchPolicy: "cache-only" });
+  const { data } = useQuery(GET_NEXT_EXERCISE, { fetchPolicy: "cache-only" });
+  const { words } = data?.exercise;
   const {
     data: { wordRank },
   } = useQuery(GET_WORD_RANK);

@@ -7,8 +7,7 @@ import UserTextInput from "./styled/UserTextInput.styled";
 import { userTranslationVar } from "../../cache";
 import FlagContainer from "../../components/div/FlagContainer.styled";
 import Flag from "../../components/images/Flag.styled";
-import CONSTANTS, { LANGUAGES } from "../../config/constants";
-import { ExerciseWord } from "../../graphql/types";
+import { LANGUAGES } from "../../config/constants";
 import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
 import {
@@ -38,7 +37,7 @@ const UserTranslation = (props: Props) => {
 
   // this makes the focus facultative to answer on desktop
   const handleKeyDown = (event: KeyboardEvent) => {
-    event.preventDefault();
+    // event.preventDefault();
     // Enter key
     if (event.key === "Enter") {
       if (isCheckingAnswer) {
@@ -49,20 +48,6 @@ const UserTranslation = (props: Props) => {
         }
       } else {
         submitUserTranslation();
-      }
-    } else if (!isCheckingAnswer) {
-      // TODO: remplacer par un autofocus désactivable
-      // White space
-      if (/\s/.test(event.key)) {
-        userTranslationVar(`${userTranslation} `);
-      }
-      // Backspace
-      else if (event.key === "Backspace" && userTranslation.length > 0) {
-        userTranslationVar(userTranslation.slice(0, -1));
-      }
-      // all allowed letters
-      else if (CONSTANTS.allowedCharacters.test(event.key)) {
-        userTranslationVar(userTranslation + event.key);
       }
     }
   };
@@ -75,14 +60,7 @@ const UserTranslation = (props: Props) => {
   });
 
   const userTranslationChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    // special characters are not allowed for security reasons
-    const specialCharacters = /[.?/\\_+,;:!*()[\]{}~&%$]+/i;
-    const isCharacterAllowed = !specialCharacters.test(
-      event.currentTarget.value
-    );
-    if (isCharacterAllowed) {
-      userTranslationVar(event.currentTarget.value);
-    }
+    userTranslationVar(event.currentTarget.value);
   };
 
   return (

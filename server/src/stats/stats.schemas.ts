@@ -4,7 +4,6 @@ import { Request } from "express";
 import FormResult from "./interfaces/formResult.interface";
 import statsController from "./stats.controller";
 
-import wordCountByLesson from "../exercises/data/wordCountByLesson";
 import { User } from "../graphql/types";
 
 export const typeDefs = gql`
@@ -44,18 +43,6 @@ export const typeDefs = gql`
     greenWords: Int!
     studiedLessons: Int!
     studiedWords: Int!
-  }
-
-
-  "LessonsScores associates a score to each lesson id"
-  type LessonsScores {
-    ${Object.keys(wordCountByLesson).map((lesson) => `${lesson}: Float`)}
-  }
-
-  "TopicsStats aggregates the lessons' stats, by topic"
-  type TopicStats {
-    id: String!
-    lessonsGrades: LessonsGrades!
   }
 
   type LessonsGrades {

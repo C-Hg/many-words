@@ -8,8 +8,8 @@ const NavbarLink = styled.li<Props>`
   background-color: ${(props) => props.theme.colors.darkBlue};
   color: ${(props) => props.theme.colors.white};
   padding: 0;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
   border-bottom: solid medium ${(props) => props.theme.colors.darkBlue};
   border-bottom-color: ${(props) =>
     props.isActive ? props.theme.colors.white : props.theme.colors.darkBlue};

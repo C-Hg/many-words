@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Navbar = styled.nav`
   background-color: ${(props) => props.theme.colors.darkBlue};
-  box-shadow: 0px 0px 15px grey;
+  box-shadow: 0px 0px 8px silver;
   height: 60px;
   margin-top: -60px;
   width: 100%;
