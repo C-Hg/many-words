@@ -2,7 +2,7 @@ version: "3"
 
 # TODO: build and push images to Docker registry in CI
 services:
-  client:
+  web-app:
     build:
       context: ./web-app/
       dockerfile: Dockerfile.prod

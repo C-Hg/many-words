@@ -13,6 +13,10 @@ export const typeDefs = gql`
     exercise: Exercise! @loggedIn
   }
 
+  extend type User {
+    selectedCurriculumId: String! @loggedIn
+  }
+
   type Exercise {
     id: String!
     type: String!

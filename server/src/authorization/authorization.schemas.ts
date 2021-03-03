@@ -25,8 +25,6 @@ export const typeDefs = gql`
   }
 
   extend type Mutation {
-    createAppUser: Tokens!
-    createWebUser: MutationResult!
     logInAppUser(loginInput: LoginInput!): Tokens!
     logInWebUser(loginInput: LoginInput!): MutationResult!
     sendTotp(email: String!): MutationResult!
@@ -69,22 +67,6 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createAppUser: async (): Promise<Tokens> => {
-      return authorizationController.createAppUser();
-    },
-    createWebUser: async (
-      parent: Record<string, unknown>,
-      arg: Record<string, unknown>,
-      { res }: { res: Response }
-    ): Promise<MutationResult> => {
-      try {
-        await authorizationController.createWebUser(res);
-        return { success: true };
-      } catch (error) {
-        logger.error(`[createWebUser] - ${error}`);
-        return { success: false };
-      }
-    },
     logInAppUser: async (
       parent: Record<string, unknown>,
       { loginInput }: { loginInput: LoginInput }

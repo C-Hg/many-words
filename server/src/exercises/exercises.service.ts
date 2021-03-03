@@ -1,9 +1,13 @@
 import { ObjectID } from "mongodb";
 
+import { CurriculumNames, NextExerciseMode } from "./constants";
+import { frenchEnglishCurriculum } from "./data/curriculums/frenchEnglish";
+import { CurriculumDocument } from "./interfaces/curriculum.interface";
 import { WordDocument } from "./interfaces/word.interface";
+import Curriculum from "./models/curriculum.model";
 import WordModel from "./models/word.model";
 
-import { Lesson, Topic, Word } from "../graphql/learn.types";
+import { Lesson, Topic, Word } from "../graphql/types";
 import {
   WordStats,
   WordStatsDocument,
@@ -13,6 +17,24 @@ import error500 from "../utils/errors/error500";
 import logger from "../utils/logger";
 
 const exercisesService = {
+  /**
+   *
+   * @param newUser
+   */
+  createCurriculum: async (userId: string): Promise<CurriculumDocument> => {
+    const newCurriculum = {
+      exercisesSinceWeakWords: 0,
+      lessons: [],
+      name: CurriculumNames.frenchEnglish,
+      nextExercise: {
+        mode: NextExerciseMode.quiz,
+        ressourceId: frenchEnglishCurriculum.lessonsIds[0],
+      },
+      userId,
+    };
+    return Curriculum.create(newCurriculum);
+  },
+
   /**
    * Gets all words in a lesson
    */
@@ -65,7 +87,7 @@ const exercisesService = {
       logger.error(`[findWordByEnglishName] Word ${englishName} not found`);
       throw error500();
     }
-    return word.toObject();
+    return word;
   },
 };
 

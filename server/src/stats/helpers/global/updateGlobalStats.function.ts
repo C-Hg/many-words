@@ -2,7 +2,7 @@ import reduceWordsVariation from "./reduceWordsVariation.function";
 import updateGlobalLessonsStats from "./updateGlobalLessonsStats.function";
 
 import exercisesStats from "../../../exercises/data/globalStats";
-import { LessonsScores, GlobalStats } from "../../../graphql/types";
+import { Stats } from "../../../graphql/types";
 import {
   GOLD_WORD_SCORE,
   GREEN_WORD_SCORE,
@@ -17,9 +17,9 @@ import WordResult from "../../interfaces/wordResult.interface";
 const updateGlobalStats = (
   wordResults: WordResult[],
   lessonsScores: LessonsScores,
-  globalStats: GlobalStats
-): GlobalStats => {
-  const { studiedWords, greenWords, goldWords } = globalStats;
+  stats: Stats
+): Stats => {
+  const { studiedWords, greenWords, goldWords } = stats;
 
   // reduce the words variations and update words global stats
   const {

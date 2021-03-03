@@ -1,24 +1,29 @@
-import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 import { CurriculumNames, NextExerciseMode } from "../constants";
+import { CurriculumDocument } from "../interfaces/curriculum.interface";
 
 const { Schema } = mongoose;
 
-// TODO: complete Lessons schema
-
-const curriculumSchema = new Schema(
+const CurriculumSchema = new Schema(
   {
     exercisesSinceWeakWords: {
       default: 0,
       required: true,
       type: Number,
     },
-    lessons: {
-      default: [],
-      required: true,
-      type: Lessons,
-    },
+    lessons: [
+      {
+        completion: {
+          type: Number,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     name: {
       enum: CurriculumNames,
       required: true,
@@ -37,7 +42,7 @@ const curriculumSchema = new Schema(
     },
     userId: {
       required: true,
-      type: ObjectId,
+      type: Schema.Types.ObjectId,
     },
   },
   {
@@ -46,9 +51,9 @@ const curriculumSchema = new Schema(
   }
 );
 
-const Curriculum = mongoose.model<CurriculumDocument>(
+const CurriculumModel = mongoose.model<CurriculumDocument>(
   "Curriculum",
-  curriculumSchema
+  CurriculumSchema
 );
 
-export default Curriculum;
+export default CurriculumModel;

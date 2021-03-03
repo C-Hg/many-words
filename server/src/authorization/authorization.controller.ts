@@ -16,33 +16,6 @@ import logger from "../utils/logger";
 // TODO: refresh token rotation
 const authorizationController = {
   /**
-   * Creates a new user for a mobile device
-   * Tokens are stored securely with keyChain
-   */
-  createAppUser: async (): Promise<Tokens> => {
-    logger.debug("[createUser] crafting tokens for a new mobile user");
-    const newUser = await userService.createUser();
-    const [accessToken, refreshToken] = await Promise.all([
-      craftAccessToken(newUser.id, CLIENTS.app),
-      craftRefreshToken(newUser.id),
-    ]);
-    return { accessToken, refreshToken };
-  },
-
-  /**
-   * Creates a new user for the website
-   * Tokens are stored securely inside cookies
-   * If we had sensitive data we would add xsrf protection
-   */
-  createWebUser: async (res: Response): Promise<void> => {
-    logger.debug("[createUser] crafting tokens for a new website user");
-    const newUser = await userService.createUser();
-    const accessToken = await craftAccessToken(newUser.id, CLIENTS.web);
-    const refreshToken = await craftRefreshToken(newUser.id);
-    setCookies(res, accessToken, refreshToken);
-  },
-
-  /**
    * Returns a new access token, if the refresh token is valid
    */
   getAccessTokenWebUser: async (

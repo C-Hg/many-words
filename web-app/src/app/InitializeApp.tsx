@@ -40,7 +40,6 @@ const InitializeApp: React.FC = () => {
       getNewAccessToken();
     }
   });
-  console.info(isUserConnected);
 
   if (isUserConnected) {
     return <App />;

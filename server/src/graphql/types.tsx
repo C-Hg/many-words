@@ -167,11 +167,10 @@ export type Topic =
 export type Mutation = {
   /** update user stats after an exercise */
   updateStats?: Maybe<User>;
-  createAppUser: Tokens;
-  createWebUser: MutationResult;
   logInAppUser: Tokens;
   logInWebUser: MutationResult;
   sendTotp: MutationResult;
+  createWebUser: MutationResult;
   setLanguage: SetLanguageMutationResponse;
 };
 
@@ -209,12 +208,6 @@ export type FormStats = {
 };
 
 export type Stats = {
-  global: GlobalStats;
-  lessons: LessonsScores;
-  topics: Array<Maybe<TopicStats>>;
-};
-
-export type GlobalStats = {
   globalProgress: Scalars["Float"];
   goldLessons: Scalars["Int"];
   goldWords: Scalars["Int"];
@@ -222,68 +215,6 @@ export type GlobalStats = {
   greenWords: Scalars["Int"];
   studiedLessons: Scalars["Int"];
   studiedWords: Scalars["Int"];
-};
-
-/** LessonsScores associates a score to each lesson id */
-export type LessonsScores = {
-  animalsBasics?: Maybe<Scalars["Float"]>;
-  birds?: Maybe<Scalars["Float"]>;
-  farmAnimals?: Maybe<Scalars["Float"]>;
-  insects?: Maybe<Scalars["Float"]>;
-  mammals1?: Maybe<Scalars["Float"]>;
-  seaAnimals?: Maybe<Scalars["Float"]>;
-  accessories?: Maybe<Scalars["Float"]>;
-  clothesBasics?: Maybe<Scalars["Float"]>;
-  moreClothes?: Maybe<Scalars["Float"]>;
-  mainColors?: Maybe<Scalars["Float"]>;
-  agriculture?: Maybe<Scalars["Float"]>;
-  drinks?: Maybe<Scalars["Float"]>;
-  foodBasics?: Maybe<Scalars["Float"]>;
-  foods?: Maybe<Scalars["Float"]>;
-  fruits?: Maybe<Scalars["Float"]>;
-  moreFruitsAndVegetables?: Maybe<Scalars["Float"]>;
-  vegetables?: Maybe<Scalars["Float"]>;
-  constructionMaterials?: Maybe<Scalars["Float"]>;
-  constructionTools?: Maybe<Scalars["Float"]>;
-  furniture?: Maybe<Scalars["Float"]>;
-  house?: Maybe<Scalars["Float"]>;
-  housing?: Maybe<Scalars["Float"]>;
-  rooms?: Maybe<Scalars["Float"]>;
-  head?: Maybe<Scalars["Float"]>;
-  humanBodyBasics?: Maybe<Scalars["Float"]>;
-  limbs?: Maybe<Scalars["Float"]>;
-  organs?: Maybe<Scalars["Float"]>;
-  senses?: Maybe<Scalars["Float"]>;
-  earth?: Maybe<Scalars["Float"]>;
-  natureBasics?: Maybe<Scalars["Float"]>;
-  sea?: Maybe<Scalars["Float"]>;
-  universe?: Maybe<Scalars["Float"]>;
-  weather1?: Maybe<Scalars["Float"]>;
-  weather2?: Maybe<Scalars["Float"]>;
-  firstNumbers?: Maybe<Scalars["Float"]>;
-  moreNumbers?: Maybe<Scalars["Float"]>;
-  closeFamily?: Maybe<Scalars["Float"]>;
-  humanBeings?: Maybe<Scalars["Float"]>;
-  identity?: Maybe<Scalars["Float"]>;
-  introduction?: Maybe<Scalars["Float"]>;
-  buildings?: Maybe<Scalars["Float"]>;
-  town?: Maybe<Scalars["Float"]>;
-  transports?: Maybe<Scalars["Float"]>;
-  days?: Maybe<Scalars["Float"]>;
-  months?: Maybe<Scalars["Float"]>;
-  timeBasics?: Maybe<Scalars["Float"]>;
-  timeDescription1?: Maybe<Scalars["Float"]>;
-  timeDescription2?: Maybe<Scalars["Float"]>;
-  timeDivisions?: Maybe<Scalars["Float"]>;
-  plants?: Maybe<Scalars["Float"]>;
-  trees?: Maybe<Scalars["Float"]>;
-  vegetalBasics?: Maybe<Scalars["Float"]>;
-};
-
-/** TopicsStats aggregates the lessons' stats, by topic */
-export type TopicStats = {
-  id: Scalars["String"];
-  lessonsGrades: LessonsGrades;
 };
 
 export type LessonsGrades = {
@@ -306,6 +237,7 @@ export type User = {
   id: Scalars["ID"];
   email: Scalars["String"];
   language?: Maybe<Languages>;
+  selectedCurriculumId: Scalars["String"];
   stats: Stats;
 };
 
@@ -450,9 +382,6 @@ export type ResolversTypes = {
   FormStats: ResolverTypeWrapper<FormStats>;
   Float: ResolverTypeWrapper<Scalars["Float"]>;
   Stats: ResolverTypeWrapper<Stats>;
-  GlobalStats: ResolverTypeWrapper<GlobalStats>;
-  LessonsScores: ResolverTypeWrapper<LessonsScores>;
-  TopicStats: ResolverTypeWrapper<TopicStats>;
   LessonsGrades: ResolverTypeWrapper<LessonsGrades>;
   SetLanguageMutationResponse: ResolverTypeWrapper<SetLanguageMutationResponse>;
   Query: ResolverTypeWrapper<{}>;
@@ -479,9 +408,6 @@ export type ResolversParentTypes = {
   FormStats: FormStats;
   Float: Scalars["Float"];
   Stats: Stats;
-  GlobalStats: GlobalStats;
-  LessonsScores: LessonsScores;
-  TopicStats: TopicStats;
   LessonsGrades: LessonsGrades;
   SetLanguageMutationResponse: SetLanguageMutationResponse;
   Query: {};
@@ -589,12 +515,6 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationUpdateStatsArgs, never>
   >;
-  createAppUser?: Resolver<ResolversTypes["Tokens"], ParentType, ContextType>;
-  createWebUser?: Resolver<
-    ResolversTypes["MutationResult"],
-    ParentType,
-    ContextType
-  >;
   logInAppUser?: Resolver<
     ResolversTypes["Tokens"],
     ParentType,
@@ -612,6 +532,11 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationSendTotpArgs, "email">
+  >;
+  createWebUser?: Resolver<
+    ResolversTypes["MutationResult"],
+    ParentType,
+    ContextType
   >;
   setLanguage?: Resolver<
     ResolversTypes["SetLanguageMutationResponse"],
@@ -635,20 +560,6 @@ export type StatsResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Stats"] = ResolversParentTypes["Stats"]
 > = {
-  global?: Resolver<ResolversTypes["GlobalStats"], ParentType, ContextType>;
-  lessons?: Resolver<ResolversTypes["LessonsScores"], ParentType, ContextType>;
-  topics?: Resolver<
-    Array<Maybe<ResolversTypes["TopicStats"]>>,
-    ParentType,
-    ContextType
-  >;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type GlobalStatsResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["GlobalStats"] = ResolversParentTypes["GlobalStats"]
-> = {
   globalProgress?: Resolver<ResolversTypes["Float"], ParentType, ContextType>;
   goldLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   goldWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
@@ -656,182 +567,6 @@ export type GlobalStatsResolvers<
   greenWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   studiedLessons?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   studiedWords?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type LessonsScoresResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["LessonsScores"] = ResolversParentTypes["LessonsScores"]
-> = {
-  animalsBasics?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  birds?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  farmAnimals?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  insects?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  mammals1?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  seaAnimals?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  accessories?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  clothesBasics?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  moreClothes?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  mainColors?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  agriculture?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  drinks?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  foodBasics?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  foods?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  fruits?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  moreFruitsAndVegetables?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  vegetables?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  constructionMaterials?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  constructionTools?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  furniture?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  house?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  housing?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  rooms?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  head?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  humanBodyBasics?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  limbs?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  organs?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  senses?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  earth?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  natureBasics?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  sea?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  universe?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  weather1?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  weather2?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  firstNumbers?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  moreNumbers?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  closeFamily?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  humanBeings?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  identity?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  introduction?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  buildings?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  town?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  transports?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  days?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  months?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  timeBasics?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  timeDescription1?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  timeDescription2?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  timeDivisions?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  plants?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  trees?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  vegetalBasics?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type TopicStatsResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["TopicStats"] = ResolversParentTypes["TopicStats"]
-> = {
-  id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  lessonsGrades?: Resolver<
-    ResolversTypes["LessonsGrades"],
-    ParentType,
-    ContextType
-  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -877,6 +612,11 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  selectedCurriculumId?: Resolver<
+    ResolversTypes["String"],
+    ParentType,
+    ContextType
+  >;
   stats?: Resolver<ResolversTypes["Stats"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -893,9 +633,6 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   FormStats?: FormStatsResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;
-  GlobalStats?: GlobalStatsResolvers<ContextType>;
-  LessonsScores?: LessonsScoresResolvers<ContextType>;
-  TopicStats?: TopicStatsResolvers<ContextType>;
   LessonsGrades?: LessonsGradesResolvers<ContextType>;
   SetLanguageMutationResponse?: SetLanguageMutationResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

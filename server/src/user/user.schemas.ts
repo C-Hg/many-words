@@ -1,15 +1,23 @@
 import { gql } from "apollo-server-express";
-import { Request } from "express";
+import { Request, Response } from "express";
 
+import userController from "./user.controller";
 import userService from "./user.service";
 
-import { Languages, SetLanguageMutationResponse, User } from "../graphql/types";
+import {
+  Languages,
+  MutationResult,
+  SetLanguageMutationResponse,
+  User,
+} from "../graphql/types";
 import logger from "../utils/logger";
 
 export const typeDefs = gql`
   directive @loggedIn on FIELD_DEFINITION
 
   extend type Mutation {
+    # createAppUser: Tokens!
+    createWebUser: MutationResult!
     setLanguage(language: Languages!): SetLanguageMutationResponse! @loggedIn
   }
 
@@ -31,6 +39,22 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Mutation: {
+    // createAppUser: async (): Promise<Tokens> => {
+    //   return userController.createAppUser();
+    // },
+    createWebUser: async (
+      parent: Record<string, unknown>,
+      arg: Record<string, unknown>,
+      { res }: { res: Response }
+    ): Promise<MutationResult> => {
+      try {
+        await userController.createWebUser(res);
+        return { success: true };
+      } catch (error) {
+        logger.error(`[createWebUser] - ${error}`);
+        return { success: false };
+      }
+    },
     setLanguage: async (
       parent: Record<string, unknown>,
       { language }: { language: Languages },

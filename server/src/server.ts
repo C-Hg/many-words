@@ -1,6 +1,6 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
 
@@ -50,14 +50,18 @@ const middlewares = [
 app.use("/", middlewares);
 
 /* ------------------     Apollo server setup    -----------*/
-app.use("/graphql", serverMiddlewares, (req, res, next) => {
-  apolloServer.applyMiddleware({
-    app,
-    path: "/graphql",
-    cors: false,
-  });
-  next();
-});
+app.use(
+  "/graphql",
+  serverMiddlewares,
+  (req: Request, res: Response, next: NextFunction) => {
+    apolloServer.applyMiddleware({
+      app,
+      path: "/graphql",
+      cors: false,
+    });
+    next();
+  }
+);
 
 /* ----------------------     Mongoose setup     ------------*/
 mongoose.connect(CONFIG.mongoUri, {

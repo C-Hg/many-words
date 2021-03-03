@@ -30,12 +30,6 @@ export const typeDefs = gql`
   }
 
   type Stats {
-    global: GlobalStats!
-    lessons: LessonsScores!
-    topics: [TopicStats]!
-  }
-
-  type GlobalStats {
     globalProgress: Float!
     goldLessons: Int!
     goldWords: Int!

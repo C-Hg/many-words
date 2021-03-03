@@ -14,14 +14,14 @@ import userService from "../user/user.service";
 import getDbConnection from "../utils/tests/dbConnection";
 import { client } from "../utils/tests/graphqlClient";
 
-const CREATE_APP_USER = gql`
-  mutation createAppUser {
-    createAppUser {
-      accessToken
-      refreshToken
-    }
-  }
-`;
+// const CREATE_APP_USER = gql`
+//   mutation createAppUser {
+//     createAppUser {
+//       accessToken
+//       refreshToken
+//     }
+//   }
+// `;
 
 const CREATE_WEB_USER_TEST = gql`
   mutation {
@@ -108,37 +108,36 @@ describe("Authorization server - e2e", () => {
   let validRefreshToken: string;
 
   // -----------------     CREATE_APP_USER     ------------------
-  // TODO: remove users without emails with id?
-  it("should create a user and return the tokens", async () => {
-    const res: FetchResult<Mutation> = await client.mutate({
-      mutation: CREATE_APP_USER,
-    });
-    const {
-      data: {
-        createAppUser: { accessToken, refreshToken },
-      },
-    } = res;
+  // it("should create a user and return the tokens", async () => {
+  //   const res: FetchResult<Mutation> = await client.mutate({
+  //     mutation: CREATE_APP_USER,
+  //   });
+  //   const {
+  //     data: {
+  //       createAppUser: { accessToken, refreshToken },
+  //     },
+  //   } = res;
 
-    expect(accessToken).toBeDefined();
-    const decodedAT = await verifyToken(accessToken);
-    expect(decodedAT.exp).toBeCloseTo(
-      Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION,
-      -3
-    );
-    expect(decodedAT.sub).toBeDefined();
-    expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
+  //   expect(accessToken).toBeDefined();
+  //   const decodedAT = await verifyToken(accessToken);
+  //   expect(decodedAT.exp).toBeCloseTo(
+  //     Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION,
+  //     -3
+  //   );
+  //   expect(decodedAT.sub).toBeDefined();
+  //   expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
 
-    expect(refreshToken).toBeDefined();
-    validRefreshToken = refreshToken;
-    const decodedRT = await verifyToken(refreshToken);
-    expect(decodedRT.exp).toBeCloseTo(
-      Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION,
-      -3
-    );
-    expect(decodedRT.sub).toBeDefined();
-    expect(decodedRT.sub).toEqual(decodedAT.sub);
-    expect(decodedRT.tokenUse).toEqual(TokenTypes.refresh);
-  });
+  //   expect(refreshToken).toBeDefined();
+  //   validRefreshToken = refreshToken;
+  //   const decodedRT = await verifyToken(refreshToken);
+  //   expect(decodedRT.exp).toBeCloseTo(
+  //     Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION,
+  //     -3
+  //   );
+  //   expect(decodedRT.sub).toBeDefined();
+  //   expect(decodedRT.sub).toEqual(decodedAT.sub);
+  //   expect(decodedRT.tokenUse).toEqual(TokenTypes.refresh);
+  // });
 
   // -----------------     CREATE_WEB_USER     ------------------
   it("should create a user and return the tokens inside cookies", async () => {
@@ -298,6 +297,7 @@ describe("Authorization server - e2e", () => {
     ).rejects.toThrowError("InvalidEmail");
   });
 
+  // TODO: success false and messages
   it("should throw an error if the given totp is of invalid format", async () => {
     const loginInput = {
       email: VALID_EMAIL_1,

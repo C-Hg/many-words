@@ -1,3 +1,4 @@
+import { ObjectID } from "mongodb";
 import { Document } from "mongoose";
 
 import { CurriculumNames } from "../../graphql/types";
@@ -8,12 +9,17 @@ export interface NextExercise {
   ressourceId: string;
 }
 
+export interface LessonCompletion {
+  completion: number;
+  name: string;
+}
+
 export interface Curriculum {
   exercisesSinceWeakWords: number;
-  lessons: Lessons[];
+  lessons: LessonCompletion[];
   name: CurriculumNames;
   nextExercise: NextExercise;
-  userId: string;
+  userId: ObjectID;
 }
 
 export interface CurriculumDocument extends Curriculum, Document {}

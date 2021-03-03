@@ -1,5 +1,5 @@
 import { ApolloQueryResult, FetchResult } from "@apollo/client/core";
-import gql from "graphql-tag";
+import { gql } from "graphql-tag";
 import Mongoose from "mongoose";
 
 import User from "./models/user.model";
@@ -37,18 +37,13 @@ const USER_QUERY = gql`
       email
       language
       stats {
-        global {
-          globalProgress
-          goldLessons
-          goldWords
-          greenLessons
-          greenWords
-          studiedLessons
-          studiedWords
-        }
-        topics {
-          id
-        }
+        globalProgress
+        goldLessons
+        goldWords
+        greenLessons
+        greenWords
+        studiedLessons
+        studiedWords
       }
     }
   }
@@ -75,46 +70,6 @@ describe("Server - e2e - user", () => {
   });
 
   // -----------------     BASIC AUTHORIZATION LOGIC    ------------------
-  it("should get a new user after its first login, provided a valid token", async () => {
-    // get a valid token first for a new user
-    const { accessToken } = await createTestUser(USER_1);
-    const authenticatedClient = getAuthenticatedClient(accessToken);
-    const userData: ApolloQueryResult<Query> = await authenticatedClient.query({
-      query: USER_QUERY,
-      fetchPolicy: "network-only",
-    });
-    const {
-      data: {
-        user: {
-          email,
-          language,
-          stats: {
-            global: {
-              globalProgress,
-              goldLessons,
-              goldWords,
-              greenLessons,
-              greenWords,
-              studiedLessons,
-              studiedWords,
-            },
-            topics,
-          },
-        },
-      },
-    } = userData;
-    expect(email).toEqual(USER_1);
-    expect(globalProgress).toEqual(0);
-    expect(goldLessons).toEqual(0);
-    expect(greenLessons).toEqual(0);
-    expect(goldWords).toEqual(0);
-    expect(greenWords).toEqual(0);
-    expect(language).toBeNull();
-    expect(studiedLessons).toEqual(0);
-    expect(studiedWords).toEqual(0);
-    expect(topics).toEqual([]);
-  });
-
   it("should return a disconnected error if no token is provided", async () => {
     await expect(
       client.query({
@@ -149,6 +104,42 @@ describe("Server - e2e - user", () => {
   });
 
   // ----------------------     USER TESTS     ------------------
+  it("should get user data after its creation", async () => {
+    // get a valid token first for a new user
+    const { accessToken } = await createTestUser(USER_1);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    const userData: ApolloQueryResult<Query> = await authenticatedClient.query({
+      query: USER_QUERY,
+      fetchPolicy: "network-only",
+    });
+    const {
+      data: {
+        user: {
+          email,
+          language,
+          stats: {
+            globalProgress,
+            goldLessons,
+            goldWords,
+            greenLessons,
+            greenWords,
+            studiedLessons,
+            studiedWords,
+          },
+        },
+      },
+    } = userData;
+    expect(email).toEqual(USER_1);
+    expect(globalProgress).toEqual(0);
+    expect(goldLessons).toEqual(0);
+    expect(greenLessons).toEqual(0);
+    expect(goldWords).toEqual(0);
+    expect(greenWords).toEqual(0);
+    expect(language).toBeNull();
+    expect(studiedLessons).toEqual(0);
+    expect(studiedWords).toEqual(0);
+  });
+
   it("should get and set user language", async () => {
     const { accessToken } = await createTestUser(USER_2);
     const authenticatedClient = getAuthenticatedClient(accessToken);

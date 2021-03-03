@@ -170,11 +170,10 @@ export type Topic =
 export type Mutation = {
   /** update user stats after an exercise */
   updateStats?: Maybe<User>;
-  createAppUser: Tokens;
-  createWebUser: MutationResult;
   logInAppUser: Tokens;
   logInWebUser: MutationResult;
   sendTotp: MutationResult;
+  createWebUser: MutationResult;
   setLanguage: SetLanguageMutationResponse;
 };
 
@@ -217,12 +216,6 @@ export type FormStats = {
 };
 
 export type Stats = {
-  global: GlobalStats;
-  lessons: LessonsScores;
-  topics: Array<Maybe<TopicStats>>;
-};
-
-export type GlobalStats = {
   globalProgress: Scalars['Float'];
   goldLessons: Scalars['Int'];
   goldWords: Scalars['Int'];
@@ -230,68 +223,6 @@ export type GlobalStats = {
   greenWords: Scalars['Int'];
   studiedLessons: Scalars['Int'];
   studiedWords: Scalars['Int'];
-};
-
-/** LessonsScores associates a score to each lesson id */
-export type LessonsScores = {
-  animalsBasics?: Maybe<Scalars['Float']>;
-  birds?: Maybe<Scalars['Float']>;
-  farmAnimals?: Maybe<Scalars['Float']>;
-  insects?: Maybe<Scalars['Float']>;
-  mammals1?: Maybe<Scalars['Float']>;
-  seaAnimals?: Maybe<Scalars['Float']>;
-  accessories?: Maybe<Scalars['Float']>;
-  clothesBasics?: Maybe<Scalars['Float']>;
-  moreClothes?: Maybe<Scalars['Float']>;
-  mainColors?: Maybe<Scalars['Float']>;
-  agriculture?: Maybe<Scalars['Float']>;
-  drinks?: Maybe<Scalars['Float']>;
-  foodBasics?: Maybe<Scalars['Float']>;
-  foods?: Maybe<Scalars['Float']>;
-  fruits?: Maybe<Scalars['Float']>;
-  moreFruitsAndVegetables?: Maybe<Scalars['Float']>;
-  vegetables?: Maybe<Scalars['Float']>;
-  constructionMaterials?: Maybe<Scalars['Float']>;
-  constructionTools?: Maybe<Scalars['Float']>;
-  furniture?: Maybe<Scalars['Float']>;
-  house?: Maybe<Scalars['Float']>;
-  housing?: Maybe<Scalars['Float']>;
-  rooms?: Maybe<Scalars['Float']>;
-  head?: Maybe<Scalars['Float']>;
-  humanBodyBasics?: Maybe<Scalars['Float']>;
-  limbs?: Maybe<Scalars['Float']>;
-  organs?: Maybe<Scalars['Float']>;
-  senses?: Maybe<Scalars['Float']>;
-  earth?: Maybe<Scalars['Float']>;
-  natureBasics?: Maybe<Scalars['Float']>;
-  sea?: Maybe<Scalars['Float']>;
-  universe?: Maybe<Scalars['Float']>;
-  weather1?: Maybe<Scalars['Float']>;
-  weather2?: Maybe<Scalars['Float']>;
-  firstNumbers?: Maybe<Scalars['Float']>;
-  moreNumbers?: Maybe<Scalars['Float']>;
-  closeFamily?: Maybe<Scalars['Float']>;
-  humanBeings?: Maybe<Scalars['Float']>;
-  identity?: Maybe<Scalars['Float']>;
-  introduction?: Maybe<Scalars['Float']>;
-  buildings?: Maybe<Scalars['Float']>;
-  town?: Maybe<Scalars['Float']>;
-  transports?: Maybe<Scalars['Float']>;
-  days?: Maybe<Scalars['Float']>;
-  months?: Maybe<Scalars['Float']>;
-  timeBasics?: Maybe<Scalars['Float']>;
-  timeDescription1?: Maybe<Scalars['Float']>;
-  timeDescription2?: Maybe<Scalars['Float']>;
-  timeDivisions?: Maybe<Scalars['Float']>;
-  plants?: Maybe<Scalars['Float']>;
-  trees?: Maybe<Scalars['Float']>;
-  vegetalBasics?: Maybe<Scalars['Float']>;
-};
-
-/** TopicsStats aggregates the lessons' stats, by topic */
-export type TopicStats = {
-  id: Scalars['String'];
-  lessonsGrades: LessonsGrades;
 };
 
 export type LessonsGrades = {
@@ -314,6 +245,7 @@ export type User = {
   id: Scalars['ID'];
   email: Scalars['String'];
   language?: Maybe<Languages>;
+  selectedCurriculumId: Scalars['String'];
   stats: Stats;
 };
 

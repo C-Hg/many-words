@@ -113,8 +113,6 @@ const exercisesController = {
       };
     }),
 
-  // startCurriculum,
-
   // getWordsToLearn: async (req: Request, res: Response): Promise<void> => {
   //   try {
   //     const words = await exercisesService.getLessonWords(req.params.lesson);
