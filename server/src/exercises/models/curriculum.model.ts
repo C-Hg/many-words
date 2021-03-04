@@ -41,6 +41,7 @@ const CurriculumSchema = new Schema(
       },
     },
     userId: {
+      ref: "User",
       required: true,
       type: Schema.Types.ObjectId,
     },

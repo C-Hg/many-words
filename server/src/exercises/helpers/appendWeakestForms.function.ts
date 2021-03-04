@@ -1,4 +1,4 @@
-import { Word } from "../../graphql/learn.types";
+import { Word } from "../../graphql/types";
 import FormStats from "../../stats/interfaces/formStats.interface";
 import { WordStats } from "../../stats/interfaces/wordStats.interface";
 

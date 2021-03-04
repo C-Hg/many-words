@@ -1,10 +1,19 @@
 import { ObjectID } from "mongodb";
 
-import { CurriculumNames, NextExerciseMode } from "./constants";
+import {
+  CurriculumNames,
+  LAST_LESSON_MINIMUM_COMPLETION,
+  NextExerciseMode,
+  PENULTIMATE_LESSON_MINIMUM_COMPLETION,
+} from "./constants";
 import { frenchEnglishCurriculum } from "./data/curriculums/frenchEnglish";
-import { CurriculumDocument } from "./interfaces/curriculum.interface";
+import {
+  CurriculumDocument,
+  LessonCompletion,
+  NextExercise,
+} from "./interfaces/curriculum.interface";
 import { WordDocument } from "./interfaces/word.interface";
-import Curriculum from "./models/curriculum.model";
+import CurriculumModel from "./models/curriculum.model";
 import WordModel from "./models/word.model";
 
 import { Lesson, Topic, Word } from "../graphql/types";
@@ -32,7 +41,21 @@ const exercisesService = {
       },
       userId,
     };
-    return Curriculum.create(newCurriculum);
+    return CurriculumModel.create(newCurriculum);
+  },
+
+  /**
+   * Gets the curriculum document for a user
+   */
+  getCurriculum: async (userId: string): Promise<CurriculumDocument> => {
+    const curriculum = await CurriculumModel.findOne({ userId });
+    if (!curriculum) {
+      logger.error(
+        `[getCurriculum] could not find curriculum for user ${userId}`
+      );
+      throw error500;
+    }
+    return curriculum;
   },
 
   /**
@@ -88,6 +111,56 @@ const exercisesService = {
       throw error500();
     }
     return word;
+  },
+
+  /**
+   * Sets the next exercise of a curriculum
+   */
+  setNextExercise: async (
+    curriculumId: string,
+    nextExercise: NextExercise
+  ): Promise<CurriculumDocument> => {
+    const updatedCurriculum = await CurriculumModel.findByIdAndUpdate(
+      curriculumId,
+      { nextExercise }
+    );
+    if (!updatedCurriculum) {
+      logger.error(
+        `[setNextExercise] could not find curriculum ${curriculumId}`
+      );
+      throw error500();
+    }
+    return updatedCurriculum;
+  },
+
+  /**
+   * Gets the ressourceId of the next lesson in the curriculum
+   * TODO: manage the end of the curriculum: all lessons already there: end reached, select lowest score
+   */
+  getNewCurriculumLesson: (lessonIndex: number): string => {
+    return "";
+  }
+
+  /**
+   * Selects the next exercise of a curriculum
+   * The new lesson selected is based on the order of the curriculum
+   * The closest lesson from the start, not selected yet, is added
+   */
+  selectNewExercise: async (userId: string): Promise<CurriculumDocument> => {
+    return curriculum;
+  },
+
+  shouldDoLastLesson: (lessons: LessonCompletion[]): boolean => {
+    const lastLessonIndex = lessons.length - 1;
+    return lessons[lastLessonIndex].completion < LAST_LESSON_MINIMUM_COMPLETION;
+  },
+
+  shouldDoPenultimateLesson: (lessons: LessonCompletion[]): boolean => {
+    const penultimateLessonIndex = lessons.length - 2;
+    return (
+      lessons[penultimateLessonIndex].completion <
+      PENULTIMATE_LESSON_MINIMUM_COMPLETION
+    );
   },
 };
 
