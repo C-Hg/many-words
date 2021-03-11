@@ -5,8 +5,8 @@ import exercisesService from "./exercises.service";
 import appendWeakestForms from "./helpers/appendWeakestForms.function";
 import getAnswers from "./helpers/prepareExercise/getAnswers.function";
 import selectForm from "./helpers/prepareExercise/selectForm.function";
-import { CurriculumDocument } from "./interfaces/curriculum.interface";
-import { ARTICLE_FORMS } from "./interfaces/name.interface";
+import { CurriculumDocument } from "./types/curriculum.interface";
+import { ARTICLE_FORMS } from "./types/name.interface";
 
 import { Word, ExerciseWord, Exercise } from "../graphql/types";
 import statsService from "../stats/stats.service";
@@ -47,32 +47,32 @@ const exercisesController = {
   },
 
   /**
-   * Select the next exercise for this user, depending on the current knowledge of the user
+   * Selects the next exercise of a curriculum
+   * The new lesson selected is based on the order of the curriculum
+   * The closest lesson from the start, not selected yet, is added
    */
-  updateNextExercise: async (userId: string): Promise<CurriculumDocument> => {
+  // TODO: @V2 shouldDoWeakWords?
+  selectNextExercise: async (userId: string): Promise<CurriculumDocument> => {
     const curriculum = await exercisesService.getCurriculum(userId);
+    const { lessons } = curriculum;
 
-    if (exercisesService.shouldDoLastLesson(curriculum.lessons)) {
+    if (exercisesService.shouldDoLastLesson(lessons)) {
       // nextExercise is the last lesson in the array
-      const lastLessonId =
-        curriculum.lessons[curriculum.lessons.length - 1].name;
+      const lastLessonId = lessons[lessons.length - 1].name;
       return exercisesService.setNextExercise(curriculum.id, {
         mode: NextExerciseMode.quiz,
         ressourceId: lastLessonId,
       });
     }
 
-    if (exercisesService.shouldDoPenultimateLesson(curriculum.lessons)) {
+    if (exercisesService.shouldDoPenultimateLesson(lessons)) {
       // nextExercise is the penultimate lesson in the array
-      const penultimateLessonId =
-        curriculum.lessons[curriculum.lessons.length - 2].name;
+      const penultimateLessonId = lessons[lessons.length - 2].name;
       return exercisesService.setNextExercise(curriculum.id, {
         mode: NextExerciseMode.quiz,
         ressourceId: penultimateLessonId,
       });
     }
-
-    // TODO: @V2 shouldDoWeakWords?
   },
 
   // getWeakWords: async (

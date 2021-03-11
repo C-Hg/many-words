@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-import { WordDocument } from "../interfaces/word.interface";
+import { WordDocument } from "../types/word.interface";
 
 const { Schema } = mongoose;
-// TODO: update schema
+
 const WordSchema = new Schema({
   english: {
     name: { type: String, required: true },

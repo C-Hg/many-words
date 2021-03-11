@@ -3,11 +3,8 @@ import addFrenchArticle from "./addFrenchArticle.function";
 
 import { Forms, Languages } from "../../../graphql/types";
 import { LANGUAGES } from "../../../stats/constants";
-import { ARTICLE_FORMS } from "../../interfaces/name.interface";
-import {
-  isEnglishNameForms,
-  isFrenchNameForms,
-} from "../../interfaces/typeguards";
+import { ARTICLE_FORMS } from "../../types/name.interface";
+import { isEnglishNameForms, isFrenchNameForms } from "../../types/typeguards";
 
 // TODO: add exceptions for words like universe or hibou that do not take "an" or "l'"
 // for now, use unique forms

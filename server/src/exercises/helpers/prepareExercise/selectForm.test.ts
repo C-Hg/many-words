@@ -1,8 +1,8 @@
 import selectForm from "./selectForm.function";
 
-import { Word } from "../../../graphql/learn.types";
+import { Word } from "../../../graphql/types";
 import { FORMS } from "../../../stats/constants";
-import { ARTICLE_FORMS } from "../../interfaces/name.interface";
+import { ARTICLE_FORMS } from "../../types/name.interface";
 
 const word0: Word = {
   english: {
@@ -263,7 +263,7 @@ const word6: Word = {
 };
 
 describe("selectForm", () => {
-  const anyLanguage = expect.stringMatching(/english|french/);
+  const anyLanguage = expect.stringMatching(/english|french/) as unknown;
 
   it("should select uniqueForm with a random language, verb", () => {
     const { form, language, wordToTranslate } = selectForm(word0);

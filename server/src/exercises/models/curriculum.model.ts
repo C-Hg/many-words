@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import { CurriculumNames, NextExerciseMode } from "../constants";
-import { CurriculumDocument } from "../interfaces/curriculum.interface";
+import { CurriculumDocument } from "../types/curriculum.interface";
 
 const { Schema } = mongoose;
 

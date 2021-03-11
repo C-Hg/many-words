@@ -1,8 +1,5 @@
 import { FORMS } from "../../../stats/constants";
-import {
-  FrenchNameForms,
-  ARTICLE_FORMS,
-} from "../../interfaces/name.interface";
+import { FrenchNameForms, ARTICLE_FORMS } from "../../types/name.interface";
 
 const FRENCH_ARTICLES = {
   definite: {

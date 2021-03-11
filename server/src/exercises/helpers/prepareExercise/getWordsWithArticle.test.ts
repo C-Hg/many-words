@@ -1,6 +1,6 @@
 import getWordsWithArticle from "./getWordsWithArticle.function";
 
-import { ARTICLE_FORMS } from "../../interfaces/name.interface";
+import { ARTICLE_FORMS } from "../../types/name.interface";
 
 describe("getWordsWithArticle", () => {
   it("should select french singular definite article", () => {

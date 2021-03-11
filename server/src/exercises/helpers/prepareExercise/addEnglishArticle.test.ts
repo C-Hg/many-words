@@ -1,7 +1,7 @@
 import addEnglishArticle from "./addEnglishArticle.function";
 
 import { FORMS } from "../../../stats/constants";
-import { ARTICLE_FORMS } from "../../interfaces/name.interface";
+import { ARTICLE_FORMS } from "../../types/name.interface";
 
 describe("addEnglishArticle", () => {
   it("should add definite article", () => {

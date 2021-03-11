@@ -3,7 +3,7 @@ import getWordsWithArticle from "./getWordsWithArticle.function";
 
 import { Word, Forms, FormValue, Languages } from "../../../graphql/types";
 import { LANGUAGES } from "../../../stats/constants";
-import { ARTICLE_FORMS } from "../../interfaces/name.interface";
+import { ARTICLE_FORMS } from "../../types/name.interface";
 
 const getAnswers = (
   word: Word,

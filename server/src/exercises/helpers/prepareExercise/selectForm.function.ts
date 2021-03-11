@@ -9,8 +9,8 @@ import {
   Forms,
   Languages,
 } from "../../../graphql/types";
-import { ARTICLE_FORMS } from "../../interfaces/name.interface";
-import { SelectionResult } from "../../interfaces/word.interface";
+import { ARTICLE_FORMS } from "../../types/name.interface";
+import { SelectionResult } from "../../types/word.interface";
 
 const languages = ["english", "french"];
 

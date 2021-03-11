@@ -1,7 +1,7 @@
 import getAnswers from "./getAnswers.function";
 
-import { Word } from "../../../graphql/learn.types";
-import { ARTICLE_FORMS } from "../../interfaces/name.interface";
+import { Word } from "../../../graphql/types";
+import { ARTICLE_FORMS } from "../../types/name.interface";
 
 const word0: Word = {
   english: {

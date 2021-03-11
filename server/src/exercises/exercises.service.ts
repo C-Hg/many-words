@@ -1,20 +1,23 @@
 import { ObjectID } from "mongodb";
 
 import {
+  COMPLETION_THRESHOLDS,
   CurriculumNames,
   LAST_LESSON_MINIMUM_COMPLETION,
   NextExerciseMode,
   PENULTIMATE_LESSON_MINIMUM_COMPLETION,
+  SUCCESS_RATES,
 } from "./constants";
 import { frenchEnglishCurriculum } from "./data/curriculums/frenchEnglish";
+import CurriculumModel from "./models/curriculum.model";
+import WordModel from "./models/word.model";
+import { CompletionThreshold } from "./types/completionThreshold.type";
 import {
   CurriculumDocument,
   LessonCompletion,
   NextExercise,
-} from "./interfaces/curriculum.interface";
-import { WordDocument } from "./interfaces/word.interface";
-import CurriculumModel from "./models/curriculum.model";
-import WordModel from "./models/word.model";
+} from "./types/curriculum.interface";
+import { WordDocument } from "./types/word.interface";
 
 import { Lesson, Topic, Word } from "../graphql/types";
 import {
@@ -135,20 +138,36 @@ const exercisesService = {
 
   /**
    * Gets the ressourceId of the next lesson in the curriculum
-   * TODO: manage the end of the curriculum: all lessons already there: end reached, select lowest score
    */
-  getNewCurriculumLesson: (lessonIndex: number): string => {
+  getNewCurriculumLesson: (lessons: LessonCompletion[]): string => {
     return "";
-  }
+  },
 
   /**
-   * Selects the next exercise of a curriculum
-   * The new lesson selected is based on the order of the curriculum
-   * The closest lesson from the start, not selected yet, is added
+   * Return the success rates required, depending on the number of lessons already encountered
    */
-  selectNewExercise: async (userId: string): Promise<CurriculumDocument> => {
-    return curriculum;
+  getCompletionThresholds: (
+    lessonsCompleted: number
+  ): CompletionThreshold[] => {
+    if (lessonsCompleted < 5) {
+      return COMPLETION_THRESHOLDS.LESS_THAN_FIVE;
+    } else if (lessonsCompleted < 10) {
+      return COMPLETION_THRESHOLDS.LESS_THAN_TEN;
+    } else if (lessonsCompleted < 15) {
+      return COMPLETION_THRESHOLDS.LESS_THAN_FIFTEEN;
+    } else if (lessonsCompleted < 20) {
+      return COMPLETION_THRESHOLDS.LESS_THAN_TWENTY;
+    } else if (lessonsCompleted < 25) {
+      return COMPLETION_THRESHOLDS.LESS_THAN_TWENTY_FIVE;
+    } else if (lessonsCompleted < 30) {
+      return COMPLETION_THRESHOLDS.LESS_THAN_THIRTY;
+    } else if (lessonsCompleted < 40) {
+      return COMPLETION_THRESHOLDS.LESS_THAN_FORTY;
+    } else {
+      return COMPLETION_THRESHOLDS.MORE_THAN_FORTY;
+    }
   },
+  // TODO: return getLowestScoreLesson if the index returns undefined (end of the curriculum reached)
 
   shouldDoLastLesson: (lessons: LessonCompletion[]): boolean => {
     const lastLessonIndex = lessons.length - 1;
