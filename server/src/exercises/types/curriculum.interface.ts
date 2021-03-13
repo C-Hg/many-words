@@ -1,8 +1,13 @@
 import { ObjectID } from "mongodb";
 import { Document } from "mongoose";
 
-import { CurriculumNames } from "../../graphql/types";
-import { NextExerciseMode } from "../constants";
+export enum CurriculumNames {
+  frenchEnglish = "frenchEnglish",
+}
+
+export enum NextExerciseMode {
+  quiz = "quiz",
+}
 
 export interface NextExercise {
   mode: NextExerciseMode;

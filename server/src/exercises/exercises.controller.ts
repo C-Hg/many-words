@@ -1,17 +1,19 @@
 import sample from "lodash.sample";
 
-import { NextExerciseMode } from "./constants";
 import exercisesService from "./exercises.service";
 import appendWeakestForms from "./helpers/appendWeakestForms.function";
 import getAnswers from "./helpers/prepareExercise/getAnswers.function";
 import selectForm from "./helpers/prepareExercise/selectForm.function";
-import { CurriculumDocument } from "./types/curriculum.interface";
+import { ThresholdsStatus } from "./types/completionThreshold.type";
+import {
+  CurriculumDocument,
+  NextExerciseMode,
+} from "./types/curriculum.interface";
 import { ARTICLE_FORMS } from "./types/name.interface";
 
 import { Word, ExerciseWord, Exercise } from "../graphql/types";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
-import userService from "../user/user.service";
 import logger from "../utils/logger";
 
 const exercisesController = {
@@ -71,6 +73,22 @@ const exercisesController = {
       return exercisesService.setNextExercise(curriculum.id, {
         mode: NextExerciseMode.quiz,
         ressourceId: penultimateLessonId,
+      });
+    }
+
+    const completionThresholds = exercisesService.getCompletionThresholds(
+      lessons.length
+    );
+    const thresholdsStatus = exercisesService.areThresholdsMet(
+      0,
+      lessons,
+      completionThresholds
+    );
+    if (thresholdsStatus === ThresholdsStatus.met) {
+      const ressourceId = exercisesService.getNewCurriculumLesson(lessons);
+      return exercisesService.setNextExercise(curriculum.id, {
+        mode: NextExerciseMode.quiz,
+        ressourceId,
       });
     }
   },

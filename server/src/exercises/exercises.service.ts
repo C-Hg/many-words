@@ -2,20 +2,22 @@ import { ObjectID } from "mongodb";
 
 import {
   COMPLETION_THRESHOLDS,
-  CurriculumNames,
   LAST_LESSON_MINIMUM_COMPLETION,
-  NextExerciseMode,
   PENULTIMATE_LESSON_MINIMUM_COMPLETION,
-  SUCCESS_RATES,
 } from "./constants";
 import { frenchEnglishCurriculum } from "./data/curriculums/frenchEnglish";
 import CurriculumModel from "./models/curriculum.model";
 import WordModel from "./models/word.model";
-import { CompletionThreshold } from "./types/completionThreshold.type";
+import {
+  CompletionThreshold,
+  ThresholdsStatus,
+} from "./types/completionThreshold.type";
 import {
   CurriculumDocument,
+  CurriculumNames,
   LessonCompletion,
   NextExercise,
+  NextExerciseMode,
 } from "./types/curriculum.interface";
 import { WordDocument } from "./types/word.interface";
 
@@ -30,8 +32,39 @@ import logger from "../utils/logger";
 
 const exercisesService = {
   /**
-   *
-   * @param newUser
+   * Recursively checks that all thresholds are met
+   * i.e. checks that the user has learned the lessons
+   * Returns "met" or the expected CompletionThreshold.successRate that is not met yet
+   */
+  areThresholdsMet: (
+    counter: number,
+    lessons: LessonCompletion[],
+    completionThresholds: CompletionThreshold[]
+  ): ThresholdsStatus.met | number => {
+    // exits successfully if all thresholds have been checked
+    if (counter === completionThresholds.length) {
+      return ThresholdsStatus.met;
+    }
+
+    const percentageOfLessonsMeetingThreshold = exercisesService.getThresholdSuccessRate(
+      lessons,
+      completionThresholds[counter].expectedRate
+    );
+    if (
+      percentageOfLessonsMeetingThreshold >=
+      completionThresholds[counter].percentageOfLessons
+    ) {
+      return exercisesService.areThresholdsMet(
+        counter + 1,
+        lessons,
+        completionThresholds
+      );
+    }
+    return completionThresholds[counter].expectedRate;
+  },
+
+  /**
+   * Creates a new curriculum document for the user
    */
   createCurriculum: async (userId: string): Promise<CurriculumDocument> => {
     const newCurriculum = {
@@ -66,6 +99,23 @@ const exercisesService = {
    */
   getLessonWords: async (lesson: Lesson): Promise<Word[]> => {
     return WordModel.find({ lesson });
+  },
+
+  /**
+   * Returns the success rate for the lesson given at a given threshold, inclusively
+   * i.e. what percentage of the lessons have a completion score equal or greater than the threshold
+   */
+  getThresholdSuccessRate: (
+    lessons: LessonCompletion[],
+    threshold: number
+  ): number => {
+    const lessonsMeetingThreshold = lessons.reduce((accumulator, lesson) => {
+      if (lesson.completion >= threshold) {
+        return accumulator + 1;
+      }
+      return accumulator;
+    }, 0);
+    return lessonsMeetingThreshold / lessons.length;
   },
 
   /**

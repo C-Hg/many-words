@@ -3,14 +3,19 @@ import Mongoose from "mongoose";
 
 import {
   COMPLETION_THRESHOLDS,
-  CurriculumNames,
   LAST_LESSON_MINIMUM_COMPLETION,
-  NextExerciseMode,
   PENULTIMATE_LESSON_MINIMUM_COMPLETION,
+  SUCCESS_RATES,
 } from "./constants";
 import exercisesService from "./exercises.service";
 import CurriculumModel from "./models/curriculum.model";
-import { LessonCompletion, NextExercise } from "./types/curriculum.interface";
+import { ThresholdsStatus } from "./types/completionThreshold.type";
+import {
+  CurriculumNames,
+  LessonCompletion,
+  NextExercise,
+  NextExerciseMode,
+} from "./types/curriculum.interface";
 
 import getDbConnection from "../utils/tests/dbConnection";
 
@@ -131,5 +136,236 @@ describe("exercises.service unit tests", () => {
   it("should return the threshold for more than forty", () => {
     const completionThresholds = exercisesService.getCompletionThresholds(40);
     expect(completionThresholds).toEqual(COMPLETION_THRESHOLDS.MORE_THAN_FORTY);
+  });
+
+  /* ----------------            areThresholdsMet()            ----------       */
+  it("should return met, i.e. all thresholds are met", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+    ];
+    const result = exercisesService.areThresholdsMet(
+      0,
+      lessons,
+      COMPLETION_THRESHOLDS.LESS_THAN_FIVE
+    );
+    expect(result).toEqual(ThresholdsStatus.met);
+  });
+
+  it("should return met, i.e. all thresholds are met", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+    ];
+    const result = exercisesService.areThresholdsMet(
+      0,
+      lessons,
+      COMPLETION_THRESHOLDS.LESS_THAN_TEN
+    );
+    expect(result).toEqual(ThresholdsStatus.met);
+  });
+
+  it("should return met, i.e. all thresholds are met", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" }, // 10
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.4, name: "1" }, // 20
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" }, // 26
+    ];
+    const result = exercisesService.areThresholdsMet(
+      0,
+      lessons,
+      COMPLETION_THRESHOLDS.LESS_THAN_THIRTY
+    );
+    expect(result).toEqual(ThresholdsStatus.met);
+  });
+
+  it("should return the first threshold (90% at tier 2)", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" }, // 10
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.4, name: "1" }, // 20
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.3, name: "1" },
+      { completion: 0.3, name: "1" },
+      { completion: 0.3, name: "1" },
+      { completion: 0.3, name: "1" }, // 26
+    ];
+    const result = exercisesService.areThresholdsMet(
+      0,
+      lessons,
+      COMPLETION_THRESHOLDS.LESS_THAN_THIRTY
+    );
+    expect(result).toEqual(SUCCESS_RATES.TIER_2);
+  });
+
+  it("should return the second threshold (70% at tier 3)", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" }, // 10
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.4, name: "1" }, // 20
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" }, // 26
+    ];
+    const result = exercisesService.areThresholdsMet(
+      0,
+      lessons,
+      COMPLETION_THRESHOLDS.LESS_THAN_THIRTY
+    );
+    expect(result).toEqual(SUCCESS_RATES.TIER_3);
+  });
+
+  it("should return the third threshold (20% at tier 4)", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.7, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" }, // 10
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.4, name: "1" }, // 20
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" },
+      { completion: 0.4, name: "1" }, // 26
+    ];
+    const result = exercisesService.areThresholdsMet(
+      0,
+      lessons,
+      COMPLETION_THRESHOLDS.LESS_THAN_THIRTY
+    );
+    expect(result).toEqual(SUCCESS_RATES.TIER_4);
+  });
+
+  /* ----------------            getThesholdsSuccessRate()            ----------       */
+  it("should compute properly the success rate, 0", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+    ];
+    const result = exercisesService.getThresholdSuccessRate(lessons, 0.9);
+    expect(result).toEqual(0);
+  });
+
+  it("should compute properly the success rate, 1", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+    ];
+    const result = exercisesService.getThresholdSuccessRate(lessons, 0.8);
+    expect(result).toEqual(1);
+  });
+  it("should compute properly the success rate, 1", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+    ];
+    const result = exercisesService.getThresholdSuccessRate(lessons, 0.3);
+    expect(result).toEqual(1);
+  });
+
+  it("should compute properly the success rate, 0.5", () => {
+    const lessons: LessonCompletion[] = [
+      { completion: 0.1, name: "1" },
+      { completion: 0.6, name: "1" },
+      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "1" },
+    ];
+    const result = exercisesService.getThresholdSuccessRate(lessons, 0.8);
+    expect(result).toEqual(0.5);
   });
 });

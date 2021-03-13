@@ -1,4 +1,8 @@
 export type CompletionThreshold = {
   expectedRate: number;
-  threshold: number;
+  percentageOfLessons: number;
 };
+
+export enum ThresholdsStatus {
+  met = "met",
+}
