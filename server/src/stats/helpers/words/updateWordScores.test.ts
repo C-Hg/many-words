@@ -6,7 +6,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 1,
       updatedWrongAnswers: 0,
-      updatedGlobalScore: 1,
+      updatedScore: 1,
       greenCount: 0,
       goldCount: 0,
     });
@@ -17,7 +17,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 0,
       updatedWrongAnswers: 1,
-      updatedGlobalScore: -0.5,
+      updatedScore: -0.5,
       greenCount: 0,
       goldCount: 0,
     });
@@ -36,7 +36,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 3,
       updatedWrongAnswers: 1,
-      updatedGlobalScore: 2.5,
+      updatedScore: 2.5,
       greenCount: 1,
       goldCount: 0,
     });
@@ -55,7 +55,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 2,
       updatedWrongAnswers: 1,
-      updatedGlobalScore: 1.5,
+      updatedScore: 1.5,
       greenCount: -1,
       goldCount: 0,
     });
@@ -74,7 +74,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 5,
       updatedWrongAnswers: 2,
-      updatedGlobalScore: 4,
+      updatedScore: 4,
       greenCount: -1,
       goldCount: 1,
     });
@@ -93,7 +93,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 5,
       updatedWrongAnswers: 3,
-      updatedGlobalScore: 3.5,
+      updatedScore: 3.5,
       greenCount: 1,
       goldCount: -1,
     });
@@ -112,7 +112,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 8,
       updatedWrongAnswers: 0,
-      updatedGlobalScore: 8,
+      updatedScore: 8,
       greenCount: 0,
       goldCount: 0,
     });
@@ -131,7 +131,7 @@ describe("updateWordScores", () => {
     expect(WordScores).toEqual({
       updatedCorrectAnswers: 7,
       updatedWrongAnswers: 1,
-      updatedGlobalScore: 6.5,
+      updatedScore: 6.5,
       greenCount: 0,
       goldCount: 0,
     });

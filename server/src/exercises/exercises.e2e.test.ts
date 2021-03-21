@@ -60,7 +60,7 @@ describe("Exercises - e2e", () => {
   });
 
   describe("exercises e2e", () => {
-    // @V2
+    // TODO: @V2
     // it("should start a new curriculum", async () => {
     //   const {
     //     data,

@@ -14,9 +14,10 @@ import { ThresholdsStatus } from "./types/completionThreshold.type";
 import {
   CurriculumNames,
   LessonCompletion,
+  NextExerciseMode,
 } from "./types/curriculum.interface";
 
-import { NextExercise, NextExerciseMode } from "../graphql/types";
+import { NextExercise } from "../graphql/types";
 import getDbConnection from "../utils/tests/dbConnection";
 
 let db: typeof Mongoose;
@@ -61,7 +62,7 @@ describe("exercises.service unit tests", () => {
   it("should do the last lesson again", () => {
     const lessons: LessonCompletion[] = [
       {
-        name: "lesson1",
+        name: "insects",
         completion: LAST_LESSON_MINIMUM_COMPLETION - 0.02,
       },
     ];
@@ -71,7 +72,7 @@ describe("exercises.service unit tests", () => {
 
   it("should not do the last lesson again", () => {
     const lessons: LessonCompletion[] = [
-      { name: "lesson1", completion: LAST_LESSON_MINIMUM_COMPLETION },
+      { name: "animalsBasics", completion: LAST_LESSON_MINIMUM_COMPLETION },
     ];
     const response = exercisesService.shouldDoLastLesson(lessons);
     expect(response).toBe(false);
@@ -81,11 +82,11 @@ describe("exercises.service unit tests", () => {
   it("should do the penultimate lesson again", () => {
     const lessons: LessonCompletion[] = [
       {
-        name: "penultimateLesson1",
+        name: "animalsBasics",
         completion: PENULTIMATE_LESSON_MINIMUM_COMPLETION - 0.02,
       },
       {
-        name: "lesson1",
+        name: "insects",
         completion: LAST_LESSON_MINIMUM_COMPLETION - 0.02,
       },
     ];
@@ -96,10 +97,10 @@ describe("exercises.service unit tests", () => {
   it("should not do the penultimate lesson again", () => {
     const lessons: LessonCompletion[] = [
       {
-        name: "penultimateLesson1",
+        name: "animalsBasics",
         completion: PENULTIMATE_LESSON_MINIMUM_COMPLETION + 0.02,
       },
-      { name: "lesson1", completion: LAST_LESSON_MINIMUM_COMPLETION },
+      { name: "insects", completion: LAST_LESSON_MINIMUM_COMPLETION },
     ];
     const response = exercisesService.shouldDoPenultimateLesson(lessons);
     expect(response).toBe(false);
@@ -141,10 +142,10 @@ describe("exercises.service unit tests", () => {
   /* ----------------            areThresholdsMet()            ----------       */
   it("should return met, i.e. all thresholds are met", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const result = exercisesService.areThresholdsMet(
       0,
@@ -156,14 +157,14 @@ describe("exercises.service unit tests", () => {
 
   it("should return met, i.e. all thresholds are met", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const result = exercisesService.areThresholdsMet(
       0,
@@ -175,33 +176,33 @@ describe("exercises.service unit tests", () => {
 
   it("should return met, i.e. all thresholds are met", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" }, // 10
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.4, name: "1" }, // 20
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" }, // 26
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" }, // 10
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" }, // 20
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" }, // 26
     ];
     const result = exercisesService.areThresholdsMet(
       0,
@@ -213,33 +214,33 @@ describe("exercises.service unit tests", () => {
 
   it("should return the first threshold (90% at tier 2)", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" }, // 10
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.4, name: "1" }, // 20
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.3, name: "1" },
-      { completion: 0.3, name: "1" },
-      { completion: 0.3, name: "1" },
-      { completion: 0.3, name: "1" }, // 26
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" }, // 10
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" }, // 20
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.3, name: "animalsBasics" },
+      { completion: 0.3, name: "animalsBasics" },
+      { completion: 0.3, name: "animalsBasics" },
+      { completion: 0.3, name: "animalsBasics" }, // 26
     ];
     const result = exercisesService.areThresholdsMet(
       0,
@@ -251,33 +252,33 @@ describe("exercises.service unit tests", () => {
 
   it("should return the second threshold (70% at tier 3)", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" }, // 10
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" }, // 20
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" }, // 26
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" }, // 10
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" }, // 20
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" }, // 26
     ];
     const result = exercisesService.areThresholdsMet(
       0,
@@ -289,33 +290,33 @@ describe("exercises.service unit tests", () => {
 
   it("should return the third threshold (20% at tier 4)", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.7, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" }, // 10
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.4, name: "1" }, // 20
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" },
-      { completion: 0.4, name: "1" }, // 26
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.7, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" }, // 10
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" }, // 20
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" }, // 26
     ];
     const result = exercisesService.areThresholdsMet(
       0,
@@ -328,10 +329,10 @@ describe("exercises.service unit tests", () => {
   /* ----------------            getThresholdsSuccessRate()            ----------       */
   it("should compute properly the success rate, 0", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const result = exercisesService.getThresholdSuccessRate(lessons, 0.9);
     expect(result).toEqual(0);
@@ -339,20 +340,20 @@ describe("exercises.service unit tests", () => {
 
   it("should compute properly the success rate, 1", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const result = exercisesService.getThresholdSuccessRate(lessons, 0.8);
     expect(result).toEqual(1);
   });
   it("should compute properly the success rate, 1", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const result = exercisesService.getThresholdSuccessRate(lessons, 0.3);
     expect(result).toEqual(1);
@@ -360,10 +361,10 @@ describe("exercises.service unit tests", () => {
 
   it("should compute properly the success rate, 0.5", () => {
     const lessons: LessonCompletion[] = [
-      { completion: 0.1, name: "1" },
-      { completion: 0.6, name: "1" },
-      { completion: 0.8, name: "1" },
-      { completion: 0.8, name: "1" },
+      { completion: 0.1, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const result = exercisesService.getThresholdSuccessRate(lessons, 0.8);
     expect(result).toEqual(0.5);
@@ -371,90 +372,90 @@ describe("exercises.service unit tests", () => {
 
   /** -----------------            getClosestLessonToThreshold        -------------------------- */
   it("should get the closest lesson when there is only one", () => {
-    const lessons = [
-      { completion: 0.1, name: "lesson1" },
-      { completion: 0.6, name: "lesson2" },
-      { completion: 0.8, name: "lesson3" },
-      { completion: 0.8, name: "lesson4" },
+    const lessons: LessonCompletion[] = [
+      { completion: 0.1, name: "animalsBasics" },
+      { completion: 0.6, name: "insects" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const threshold = 0.7;
     const lessonId = exercisesService.getClosestLessonToThreshold(
       lessons,
       threshold
     );
-    expect(lessonId).toEqual("lesson2");
+    expect(lessonId).toEqual("insects");
   });
 
   it("should get one of the closest lessons when there is several", () => {
-    const lessons = [
-      { completion: 0.1, name: "lesson1" },
-      { completion: 0.6, name: "lesson2" },
-      { completion: 0.6, name: "lesson3" },
-      { completion: 0.8, name: "lesson4" },
+    const lessons: LessonCompletion[] = [
+      { completion: 0.1, name: "animalsBasics" },
+      { completion: 0.6, name: "insects" },
+      { completion: 0.6, name: "mainColors" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const threshold = 0.7;
     const lessonId = exercisesService.getClosestLessonToThreshold(
       lessons,
       threshold
     );
-    expect(lessonId).toMatch(/lesson2|lesson3/);
+    expect(lessonId).toMatch(/insects|mainColors/);
   });
 
   /** -----------------            getLowestScoreLesson        -------------------------- */
   it("should return the lowest score lesson", () => {
-    const lessons = [
-      { completion: 0, name: "lesson1" },
-      { completion: 0.6, name: "lesson2" },
-      { completion: 0.8, name: "lesson3" },
-      { completion: 0.8, name: "lesson4" },
+    const lessons: LessonCompletion[] = [
+      { completion: 0, name: "insects" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
     ];
     const lesson = exercisesService.getLowestScoreLesson(lessons);
-    expect(lesson).toEqual("lesson1");
+    expect(lesson).toEqual("insects");
   });
 
   it("should return the lowest score lesson", () => {
-    const lessons = [
-      { completion: 0.4, name: "lesson1" },
-      { completion: 0.6, name: "lesson2" },
-      { completion: 0.8, name: "lesson3" },
-      { completion: 0.3, name: "lesson4" },
+    const lessons: LessonCompletion[] = [
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.6, name: "animalsBasics" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.3, name: "insects" },
     ];
     const lesson = exercisesService.getLowestScoreLesson(lessons);
-    expect(lesson).toEqual("lesson4");
+    expect(lesson).toEqual("insects");
   });
 
   it("should return one of the lowest score lessons", () => {
-    const lessons = [
-      { completion: 0, name: "lesson1" },
-      { completion: 0, name: "lesson2" },
-      { completion: 0.8, name: "lesson3" },
-      { completion: 0.3, name: "lesson4" },
+    const lessons: LessonCompletion[] = [
+      { completion: 0, name: "mainColors" },
+      { completion: 0, name: "insects" },
+      { completion: 0.8, name: "animalsBasics" },
+      { completion: 0.3, name: "animalsBasics" },
     ];
     const lesson = exercisesService.getLowestScoreLesson(lessons);
-    expect(lesson).toMatch(/lesson1|lesson2/);
+    expect(lesson).toMatch(/mainColors|insects/);
   });
 
   it("should return one of the lowest score lessons", () => {
-    const lessons = [
-      { completion: 1, name: "lesson1" },
-      { completion: 0.4, name: "lesson2" },
-      { completion: 0.4, name: "lesson3" },
-      { completion: 0.5, name: "lesson4" },
+    const lessons: LessonCompletion[] = [
+      { completion: 1, name: "animalsBasics" },
+      { completion: 0.4, name: "mainColors" },
+      { completion: 0.4, name: "insects" },
+      { completion: 0.5, name: "animalsBasics" },
     ];
     const lesson = exercisesService.getLowestScoreLesson(lessons);
-    expect(lesson).toMatch(/lesson3|lesson2/);
+    expect(lesson).toMatch(/insects|mainColors/);
   });
 
   /** -----------------            getNewCurriculumLesson        -------------------------- */
   it("should return the second lesson", () => {
-    const lessons = [{ completion: 0.3, name: "lesson1" }];
+    const lessons = [{ completion: 0.3, name: "animalsBasics" }];
     const lesson = exercisesService.getNewCurriculumLesson(lessons.length);
     expect(lesson).toEqual(frenchEnglishCurriculum.lessonsIds[1]);
   });
   it("should return the third lesson", () => {
     const lessons = [
-      { completion: 0.3, name: "lesson1" },
-      { completion: 0.3, name: "lesson1" },
+      { completion: 0.3, name: "animalsBasics" },
+      { completion: 0.3, name: "animalsBasics" },
     ];
     const lesson = exercisesService.getNewCurriculumLesson(lessons.length);
     expect(lesson).toEqual(frenchEnglishCurriculum.lessonsIds[2]);
@@ -463,9 +464,9 @@ describe("exercises.service unit tests", () => {
   /**   --------------         getAreAllLessonsInCurriculum      -------------------- */
   it("should return true, strictly equal", () => {
     const lessons = [
-      { completion: 1, name: "lesson1" },
-      { completion: 0.4, name: "lesson2" },
-      { completion: 0.4, name: "lesson3" },
+      { completion: 1, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
     ];
     const areAllLessonsInCurriculum = exercisesService.getAreAllLessonsInCurriculum(
       lessons.length
@@ -475,11 +476,11 @@ describe("exercises.service unit tests", () => {
 
   it("should return true, more than existing, should not exist", () => {
     const lessons = [
-      { completion: 1, name: "lesson1" },
-      { completion: 0.4, name: "lesson2" },
-      { completion: 0.4, name: "lesson3" },
-      { completion: 0.4, name: "lesson2" },
-      { completion: 0.4, name: "lesson3" },
+      { completion: 1, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
+      { completion: 0.4, name: "animalsBasics" },
     ];
     const areAllLessonsInCurriculum = exercisesService.getAreAllLessonsInCurriculum(
       lessons.length
@@ -488,7 +489,7 @@ describe("exercises.service unit tests", () => {
   });
 
   it("should return false", () => {
-    const lessons = [{ completion: 1, name: "lesson1" }];
+    const lessons = [{ completion: 1, name: "animalsBasics" }];
     const areAllLessonsInCurriculum = exercisesService.getAreAllLessonsInCurriculum(
       lessons.length
     );

@@ -1,9 +1,8 @@
-import { ObjectID } from "mongodb";
-
 import updateGlobalStats from "./updateGlobalStats.function";
 
 import globalStats from "../../../exercises/data/globalStats";
-import { GlobalStats, LessonsScores } from "../../../graphql/types";
+import { LessonCompletion } from "../../../exercises/types/curriculum.interface";
+import { CurriculumStats } from "../../../graphql/types";
 import {
   GOLD_WORD_SCORE,
   MAX_WORD_SCORE_FOR_GLOBAL_PROGRESS,
@@ -13,13 +12,13 @@ import WordResult from "../../interfaces/wordResult.interface";
 import { WordStats } from "../../interfaces/wordStats.interface";
 
 const wordStatsMock: WordStats = {
-  userId: new ObjectID("55153a8014829a865bbf700d"),
+  userId: "55153a8014829a865bbf700d",
   englishName: "cat",
   lesson: "animalsBasics",
   topic: "animals",
   correctAnswers: 1,
   wrongAnswers: 0,
-  globalScore: 1,
+  score: 1,
   formsStats: [],
 };
 
@@ -31,43 +30,46 @@ const wordResults0: WordResult[] = [
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
 ];
 
-const lessonsStats0: LessonsScores = {
-  mainColors: 0.1666,
-};
+const lessonsStats0: LessonCompletion[] = [
+  {
+    name: "mainColors",
+    completion: 0.1666,
+  },
+];
 
-const globalStats0: GlobalStats = {
+const globalStats0: CurriculumStats = {
   studiedLessons: 0,
   greenLessons: 0,
   goldLessons: 0,
@@ -84,21 +86,21 @@ const wordResults1: WordResult[] = [
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: true,
     greenCount: 0,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   // 2 more green
   {
@@ -106,14 +108,14 @@ const wordResults1: WordResult[] = [
     isNew: false,
     greenCount: 1,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: false,
     greenCount: 1,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   // 1 less green
   {
@@ -121,7 +123,7 @@ const wordResults1: WordResult[] = [
     isNew: false,
     greenCount: -1,
     goldCount: 0,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   // 1 less gold, +1 green
   {
@@ -129,18 +131,30 @@ const wordResults1: WordResult[] = [
     isNew: false,
     greenCount: +1,
     goldCount: -1,
-    globalScoreVariation: -0.5,
+    scoreVariation: -0.5,
   },
 ];
 
-const lessonsStats1: LessonsScores = {
-  mainColors: 0.1666,
-  animalsBasics: 0.2,
-  insects: 0.9,
-  birds: 0.5,
-};
+const lessonsStats1: LessonCompletion[] = [
+  {
+    name: "mainColors",
+    completion: 0.1666,
+  },
+  {
+    name: "animalsBasics",
+    completion: 0.2,
+  },
+  {
+    name: "insects",
+    completion: 0.9,
+  },
+  {
+    name: "birds",
+    completion: 0.5,
+  },
+];
 
-const globalStats1: GlobalStats = {
+const globalStats1: CurriculumStats = {
   studiedLessons: 3,
   greenLessons: 1,
   goldLessons: 1,
@@ -157,21 +171,21 @@ const wordResults2: WordResult[] = [
     isNew: false,
     greenCount: -1,
     goldCount: 0,
-    globalScoreVariation: -0.5,
+    scoreVariation: -0.5,
   },
   {
     wordStats: wordStatsMock,
     isNew: false,
     greenCount: -1,
     goldCount: 0,
-    globalScoreVariation: -0.5,
+    scoreVariation: -0.5,
   },
   {
     wordStats: wordStatsMock,
     isNew: false,
     greenCount: -1,
     goldCount: 0,
-    globalScoreVariation: -0.5,
+    scoreVariation: -0.5,
   },
   // 2 more gold
   {
@@ -179,29 +193,53 @@ const wordResults2: WordResult[] = [
     isNew: false,
     greenCount: -1,
     goldCount: 1,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
   {
     wordStats: wordStatsMock,
     isNew: false,
     greenCount: -1,
     goldCount: 1,
-    globalScoreVariation: 1,
+    scoreVariation: 1,
   },
 ];
 
-const lessonsStats2: LessonsScores = {
-  mainColors: 0.1666,
-  animalsBasics: 0.2,
-  insects: 0.9,
-  birds: 0.5,
-  farmAnimals: 0.4,
-  mammals1: 0.8,
-  foodBasics: 0.2,
-  fruits: 0.35,
-};
+const lessonsStats2: LessonCompletion[] = [
+  {
+    name: "mainColors",
+    completion: 0.1666,
+  },
+  {
+    name: "animalsBasics",
+    completion: 0.2,
+  },
+  {
+    name: "insects",
+    completion: 0.9,
+  },
+  {
+    name: "birds",
+    completion: 0.5,
+  },
+  {
+    name: "farmAnimals",
+    completion: 0.4,
+  },
+  {
+    name: "mammals1",
+    completion: 0.8,
+  },
+  {
+    name: "foodBasics",
+    completion: 0.2,
+  },
+  {
+    name: "fruits",
+    completion: 0.35,
+  },
+];
 
-const globalStats2: GlobalStats = {
+const globalStats2: CurriculumStats = {
   studiedLessons: 3,
   greenLessons: 1,
   goldLessons: 1,

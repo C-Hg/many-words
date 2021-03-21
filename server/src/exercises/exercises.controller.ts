@@ -67,6 +67,10 @@ const exercisesController = {
       });
     }
 
+    if (lessons.length === 1) {
+      return exercisesService.selectNewLesson(curriculum, lessons);
+    }
+
     if (exercisesService.shouldDoPenultimateLesson(lessons)) {
       // nextExercise is the penultimate lesson in the array
       const penultimateLessonId = lessons[lessons.length - 2].name;
@@ -90,13 +94,7 @@ const exercisesController = {
         lessons.length
       );
       if (!areAllLessonsInCurriculum) {
-        const ressourceId = exercisesService.getNewCurriculumLesson(
-          lessons.length
-        );
-        return exercisesService.setNextExercise(curriculum.id, {
-          mode: NextExerciseMode.Quiz,
-          ressourceId,
-        });
+        return exercisesService.selectNewLesson(curriculum, lessons);
       }
       // All lessons are already in the curriculum, select the weakest one
       const lowestScoreLesson = exercisesService.getLowestScoreLesson(lessons);

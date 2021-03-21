@@ -1,15 +1,13 @@
-import { ObjectID } from "mongodb";
-import { Query } from "mongoose";
-
 import WordResult from "./interfaces/wordResult.interface";
 import { WordStatsDocument } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
 import CurriculumModel from "../exercises/models/curriculum.model";
-import { CurriculumDocument } from "../exercises/types/curriculum.interface";
-import { Word } from "../graphql/types";
-import { UserDocument, User } from "../user/interfaces/user.interface";
-import UserModel from "../user/models/user.model";
+import {
+  CurriculumDocument,
+  LessonCompletion,
+} from "../exercises/types/curriculum.interface";
+import { CurriculumStats, Word } from "../graphql/types";
 import error500 from "../utils/errors/error500";
 import logger from "../utils/logger";
 
@@ -49,7 +47,7 @@ const statsService = {
   updateWordsStats: async (
     userId: string,
     WordsResults: WordResult[]
-  ): Promise<Query<WordStatsDocument>[]> => {
+  ): Promise<void> => {
     const replacePromises = WordsResults.map(async (wordResults) => {
       const { wordStats } = wordResults;
       return WordStatsModel.updateOne(
@@ -58,28 +56,30 @@ const statsService = {
         { upsert: true }
       );
     });
-    return Promise.all(replacePromises);
+    await Promise.all(replacePromises);
   },
 
   /**
-   * Update user stats by user _id
+   * Update curriculum stats by user _id
    */
-  updateStats: async (
-    user: User,
-    updatedUserStats: Stats
-  ): Promise<UserDocument> => {
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      user._id,
+  updateCurriculumStats: async (
+    lessons: LessonCompletion[],
+    userId: string,
+    updatedStats: CurriculumStats
+  ): Promise<CurriculumDocument> => {
+    const updatedCurriculum = await CurriculumModel.findOneAndUpdate(
+      { userId },
       {
-        stats: updatedUserStats,
+        lessons,
+        stats: updatedStats,
       },
       { new: true }
     );
-    if (!updatedUser) {
-      logger.error(`[updateStats] cannot update user ${user.id}`);
+    if (!updatedCurriculum) {
+      logger.error(`[updateStats] cannot update curriculum for ${userId}`);
       throw error500;
     }
-    return updatedUser;
+    return updatedCurriculum;
   },
 };
 

@@ -1,35 +1,83 @@
 import updateGlobalLessonsStats from "./updateGlobalLessonsStats.function";
 
-import { LessonsScores } from "../../../graphql/types";
+import { LessonCompletion } from "../../../exercises/types/curriculum.interface";
 
-const lessonsStats0: LessonsScores = {
-  mainColors: 0,
-};
+const lessons0: LessonCompletion[] = [
+  {
+    name: "mainColors",
+    completion: 0,
+  },
+];
 
-const lessonsStats1: LessonsScores = {
-  mainColors: 0.4,
-  animalsBasics: 0.6,
-  insects: 0.1,
-  birds: 0.2,
-};
+const lessons1: LessonCompletion[] = [
+  {
+    name: "mainColors",
+    completion: 0.4,
+  },
+  {
+    name: "animalsBasics",
+    completion: 0.6,
+  },
+  {
+    name: "insects",
+    completion: 0.1,
+  },
+  {
+    name: "birds",
+    completion: 0.2,
+  },
+];
 
-const lessonsStats2: LessonsScores = {
-  mainColors: 0.1666,
-  animalsBasics: 0.2,
-  insects: 0.9,
-  birds: 0.5,
-  farmAnimals: 0.4,
-  mammals1: 0.8,
-  foodBasics: 0.2,
-  fruits: 0.35,
-  vegetables: 0.6,
-  vegetalBasics: 1,
-  moreFruitsAndVegetables: 0,
-};
+const lessons2: LessonCompletion[] = [
+  {
+    name: "mainColors",
+    completion: 0.1666,
+  },
+  {
+    name: "animalsBasics",
+    completion: 0.2,
+  },
+  {
+    name: "insects",
+    completion: 0.9,
+  },
+  {
+    name: "birds",
+    completion: 0.5,
+  },
+  {
+    name: "farmAnimals",
+    completion: 0.4,
+  },
+  {
+    name: "mammals1",
+    completion: 0.8,
+  },
+  {
+    name: "foodBasics",
+    completion: 0.2,
+  },
+  {
+    name: "fruits",
+    completion: 0.35,
+  },
+  {
+    name: "vegetables",
+    completion: 0.6,
+  },
+  {
+    name: "vegetalBasics",
+    completion: 1,
+  },
+  {
+    name: "moreFruitsAndVegetables",
+    completion: 0,
+  },
+];
 
 describe("updateGlobalLessonsStats", () => {
   test("first lesson", () => {
-    const updatedStats = updateGlobalLessonsStats(lessonsStats0);
+    const updatedStats = updateGlobalLessonsStats(lessons0);
     expect(updatedStats).toMatchObject({
       studiedLessons: 1,
       greenLessons: 0,
@@ -38,7 +86,7 @@ describe("updateGlobalLessonsStats", () => {
   });
 
   test("new lesson", () => {
-    const updatedStats = updateGlobalLessonsStats(lessonsStats1);
+    const updatedStats = updateGlobalLessonsStats(lessons1);
     expect(updatedStats).toMatchObject({
       studiedLessons: 4,
       greenLessons: 2,
@@ -47,7 +95,7 @@ describe("updateGlobalLessonsStats", () => {
   });
 
   test("new lesson 2", () => {
-    const updatedStats = updateGlobalLessonsStats(lessonsStats2);
+    const updatedStats = updateGlobalLessonsStats(lessons2);
     expect(updatedStats).toMatchObject({
       studiedLessons: 11,
       greenLessons: 3,

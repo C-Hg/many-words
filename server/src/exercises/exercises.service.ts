@@ -175,7 +175,8 @@ const exercisesService = {
   ): Promise<CurriculumDocument> => {
     const updatedCurriculum = await CurriculumModel.findByIdAndUpdate(
       curriculumId,
-      { nextExercise }
+      { nextExercise },
+      { new: true }
     );
     if (!updatedCurriculum) {
       logger.error(
@@ -253,6 +254,20 @@ const exercisesService = {
       (a, b) => a.completion - b.completion
     )[0];
     return lowestScoreLesson.name;
+  },
+
+  /**
+   * Selects a new lesson as the next exercise for the curriculum
+   */
+  selectNewLesson: (
+    curriculum: CurriculumDocument,
+    lessons: LessonCompletion[]
+  ): Promise<CurriculumDocument> => {
+    const ressourceId = exercisesService.getNewCurriculumLesson(lessons.length);
+    return exercisesService.setNextExercise(curriculum.id, {
+      mode: NextExerciseMode.Quiz,
+      ressourceId,
+    });
   },
 
   shouldDoLastLesson: (lessons: LessonCompletion[]): boolean => {

@@ -36,10 +36,7 @@ const getUpdatedWordsResults = (
       greenCount,
       goldCount,
     } = updatedWordScores;
-    const globalScoreVariation = getWordScoreVariation(
-      wordStats.score,
-      updatedScore
-    );
+    const scoreVariation = getWordScoreVariation(wordStats.score, updatedScore);
 
     // construct the new wordStats object
     const updatedWordStats = {
@@ -56,7 +53,7 @@ const getUpdatedWordsResults = (
       isNew,
       greenCount,
       goldCount,
-      globalScoreVariation,
+      scoreVariation,
     };
   });
 

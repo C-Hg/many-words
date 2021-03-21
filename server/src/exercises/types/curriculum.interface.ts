@@ -1,7 +1,7 @@
 import { ObjectID } from "mongodb";
 import { Document } from "mongoose";
 
-import { CurriculumStats, NextExercise } from "../../graphql/types";
+import { CurriculumStats, Lesson, NextExercise } from "../../graphql/types";
 
 export enum CurriculumNames {
   FrenchEnglish = "frenchEnglish",
@@ -12,7 +12,7 @@ export enum NextExerciseMode {
 }
 export interface LessonCompletion {
   completion: number;
-  name: string;
+  name: Lesson;
 }
 
 // this interface is meant only for server-side operations

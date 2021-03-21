@@ -1,13 +1,14 @@
 import updateGlobalStats from "./helpers/global/updateGlobalStats.function";
-import updateLessonsStats from "./helpers/lessons/updateLessonsStats.function";
+import getUpdatedLessons from "./helpers/lessons/getUpdatedLessons.function";
 import createWordStats from "./helpers/words/createWordStats.function";
 import getUpdatedWordsResults from "./helpers/words/getUpdatedWordsResults.function";
 import FormResult from "./interfaces/formResult.interface";
 import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
+import exercisesController from "../exercises/exercises.controller";
 import exercisesService from "../exercises/exercises.service";
-import { User, UserDocument } from "../user/interfaces/user.interface";
+import { User } from "../user/interfaces/user.interface";
 import logger from "../utils/logger";
 
 const statsController = {
@@ -43,10 +44,7 @@ const statsController = {
     return { wordStats: createdWordStats, isNew: true };
   },
 
-  updateStats: async (
-    user: User,
-    formResults: FormResult[]
-  ): Promise<UserDocument> => {
+  updateStats: async (user: User, formResults: FormResult[]): Promise<void> => {
     const userId = user.id;
     logger.debug(`[updateStats] updating stats for user ${userId}`);
 
@@ -63,30 +61,26 @@ const statsController = {
 
     // Update lessons stats in the curriculum document
     const curriculum = await exercisesService.getCurriculum(userId);
-    const { lessons } = curriculum;
+    const { lessons, stats } = curriculum;
 
-    const updatedLessonsStats = updateLessonsStats(
-      updatedWordsResults,
-      lessons
-    );
+    const updatedLessons = getUpdatedLessons(updatedWordsResults, lessons);
 
     // Update global stats
     const updatedGlobalStats = updateGlobalStats(
       updatedWordsResults,
-      updatedLessonsStats,
-      user.stats.global
+      updatedLessons,
+      stats
     );
 
-    const updatedUserStats = {
-      lessons: updatedLessonsStats,
-      topics: updatedTopicsStats,
-      global: updatedGlobalStats,
-    };
-
-    const updatedUser = await statsService.updateStats(user, updatedUserStats);
+    await statsService.updateCurriculumStats(
+      updatedLessons,
+      user.id,
+      updatedGlobalStats
+    );
 
     logger.info(`[updateStats] successfully updated stats for user ${userId}`);
-    return updatedUser;
+    await exercisesController.selectNextExercise(user.id);
+    // TODO: avoid 2nd call to getCurriculum ?
   },
 };
 

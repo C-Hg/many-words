@@ -109,14 +109,7 @@ describe("Server - e2e - user", () => {
       },
     } = userData;
     expect(email).toEqual(USER_1);
-    expect(globalProgress).toEqual(0);
-    expect(goldLessons).toEqual(0);
-    expect(greenLessons).toEqual(0);
-    expect(goldWords).toEqual(0);
-    expect(greenWords).toEqual(0);
     expect(language).toBeNull();
-    expect(studiedLessons).toEqual(0);
-    expect(studiedWords).toEqual(0);
   });
 
   it("should get and set user language", async () => {

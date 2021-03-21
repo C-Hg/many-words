@@ -35,7 +35,6 @@ const getWordScoreVariation = (
       return 0;
     }
   }
-  return 1;
 };
 
 export default getWordScoreVariation;
