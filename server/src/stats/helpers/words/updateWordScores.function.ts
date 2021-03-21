@@ -6,12 +6,12 @@ import { UpdatedWordScores } from "../../interfaces/wordScores.interface";
  * produces a wordResult object to update the user stats
  */
 const updateWordScores = (
-  globalScore: number,
+  score: number,
   correctAnswers: number,
   wrongAnswers: number,
   isAnswerCorrect: boolean
 ): UpdatedWordScores => {
-  let updatedGlobalScore;
+  let updatedScore;
   let updatedCorrectAnswers = correctAnswers;
   let updatedWrongAnswers = wrongAnswers;
   let greenCount = 0;
@@ -19,18 +19,18 @@ const updateWordScores = (
 
   // the user answered correctly
   if (isAnswerCorrect) {
-    updatedGlobalScore = globalScore + 1;
+    updatedScore = score + 1;
     updatedCorrectAnswers = correctAnswers + 1;
     if (
-      updatedGlobalScore >= WORD_GREEN_THRESHOLD &&
-      updatedGlobalScore < WORD_GOLD_THRESHOLD &&
-      globalScore < WORD_GREEN_THRESHOLD
+      updatedScore >= WORD_GREEN_THRESHOLD &&
+      updatedScore < WORD_GOLD_THRESHOLD &&
+      score < WORD_GREEN_THRESHOLD
     ) {
       // this word is now green
       greenCount = 1;
     } else if (
-      updatedGlobalScore >= WORD_GOLD_THRESHOLD &&
-      globalScore < WORD_GOLD_THRESHOLD
+      updatedScore >= WORD_GOLD_THRESHOLD &&
+      score < WORD_GOLD_THRESHOLD
     ) {
       // this word was green and is now gold
       greenCount = -1;
@@ -38,19 +38,19 @@ const updateWordScores = (
     }
     // the user did not answer correctly
   } else {
-    updatedGlobalScore = globalScore - 0.5;
+    updatedScore = score - 0.5;
     updatedWrongAnswers = wrongAnswers + 1;
     if (
-      updatedGlobalScore >= WORD_GREEN_THRESHOLD &&
-      updatedGlobalScore < WORD_GOLD_THRESHOLD &&
-      globalScore >= WORD_GOLD_THRESHOLD
+      updatedScore >= WORD_GREEN_THRESHOLD &&
+      updatedScore < WORD_GOLD_THRESHOLD &&
+      score >= WORD_GOLD_THRESHOLD
     ) {
       // this word was gold and is now green
       greenCount = 1;
       goldCount = -1;
     } else if (
-      updatedGlobalScore < WORD_GREEN_THRESHOLD &&
-      globalScore >= WORD_GREEN_THRESHOLD
+      updatedScore < WORD_GREEN_THRESHOLD &&
+      score >= WORD_GREEN_THRESHOLD
     ) {
       // this word was green and is not any more
       greenCount = -1;
@@ -58,7 +58,7 @@ const updateWordScores = (
   }
 
   return {
-    updatedGlobalScore,
+    updatedScore,
     updatedCorrectAnswers,
     updatedWrongAnswers,
     greenCount,

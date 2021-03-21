@@ -3,8 +3,6 @@ import gql from "graphql-tag";
 import { ObjectId } from "mongodb";
 import Mongoose from "mongoose";
 
-import { CurriculumNames } from "./constants";
-
 import { Query } from "../graphql/types";
 import User from "../user/models/user.model";
 import createTestUser from "../utils/tests/createTestUser";

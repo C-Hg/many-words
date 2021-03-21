@@ -1,6 +1,6 @@
 import { Lesson } from "../../graphql/types";
 
 export type LessonScoreVariation = {
-  lesson: Lesson;
+  id: Lesson;
   scoreVariation: number;
 };

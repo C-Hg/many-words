@@ -19,7 +19,7 @@ export const typeDefs = gql`
 
   type Exercise {
     id: String!
-    type: String!
+    mode: NextExerciseMode!
     words: [ExerciseWord]!
   }
 
@@ -61,10 +61,10 @@ export const typeDefs = gql`
     frenchEnglish
   }
 
-  enum ExerciseTypes {
-    learn
+  enum NextExerciseMode {
+    #learn
     quiz
-    review
+    #review
   }
 
   enum EnglishForms {

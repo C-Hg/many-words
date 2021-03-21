@@ -5,14 +5,26 @@ import WordResult from "./interfaces/wordResult.interface";
 import { WordStatsDocument } from "./interfaces/wordStats.interface";
 import WordStatsModel from "./models/wordStats.model";
 
-import { Stats, Word } from "../graphql/types";
+import CurriculumModel from "../exercises/models/curriculum.model";
+import { CurriculumDocument } from "../exercises/types/curriculum.interface";
+import { Word } from "../graphql/types";
 import { UserDocument, User } from "../user/interfaces/user.interface";
 import UserModel from "../user/models/user.model";
+import error500 from "../utils/errors/error500";
 import logger from "../utils/logger";
 
 const statsService = {
+  getCurriculum: async (userId: string): Promise<CurriculumDocument> => {
+    const curriculum = await CurriculumModel.findOne({ userId });
+    if (!curriculum) {
+      logger.error(`[getCurriculum] cannot find curriculum for user ${userId}`);
+      throw error500;
+    }
+    return curriculum;
+  },
+
   findWordsStatsForWords: async (
-    userId: ObjectID,
+    userId: string,
     words: Word[]
   ): Promise<(WordStatsDocument | null)[]> => {
     return Promise.all(
@@ -27,7 +39,7 @@ const statsService = {
   },
 
   findWordStatsByEnglishName: async (
-    userId: ObjectID,
+    userId: string,
     englishName: string
   ): Promise<WordStatsDocument | null> => {
     return WordStatsModel.findOne({ userId, englishName });
@@ -35,7 +47,7 @@ const statsService = {
 
   // TODO: test me
   updateWordsStats: async (
-    userId: ObjectID,
+    userId: string,
     WordsResults: WordResult[]
   ): Promise<Query<WordStatsDocument>[]> => {
     const replacePromises = WordsResults.map(async (wordResults) => {
@@ -65,7 +77,7 @@ const statsService = {
     );
     if (!updatedUser) {
       logger.error(`[updateStats] cannot update user ${user.id}`);
-      throw new Error(`[updateStats] cannot update user ${user.id}`);
+      throw error500;
     }
     return updatedUser;
   },

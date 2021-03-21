@@ -30,6 +30,11 @@ export type Tokens = {
   refreshToken: Scalars['String'];
 };
 
+export type Curriculum = {
+  nextExercise?: Maybe<NextExercise>;
+  stats: CurriculumStats;
+};
+
 export type Exercise = {
   id: Scalars['String'];
   type: Scalars['String'];
@@ -45,6 +50,14 @@ export type ExerciseWord = {
   topic: Topic;
   wordToTranslate: Scalars['String'];
 };
+
+export type NextExercise = {
+  mode?: Maybe<NextExerciseMode>;
+  ressourceId: Scalars['String'];
+};
+
+export type NextExerciseMode = 
+  | 'quiz';
 
 export type Word = {
   english: WordData;
@@ -167,9 +180,32 @@ export type Topic =
   | 'time'
   | 'vegetal';
 
+export type CurriculumStats = {
+  globalProgress: Scalars['Float'];
+  goldLessons: Scalars['Int'];
+  goldWords: Scalars['Int'];
+  greenLessons: Scalars['Int'];
+  greenWords: Scalars['Int'];
+  studiedLessons: Scalars['Int'];
+  studiedWords: Scalars['Int'];
+};
+
+export type FormResultInput = {
+  englishName: Scalars['String'];
+  form?: Maybe<Forms>;
+  isAnswerCorrect: Scalars['Boolean'];
+  language: Languages;
+};
+
+export type FormStats = {
+  language: Languages;
+  form: Forms;
+  score: Scalars['Float'];
+};
+
 export type Mutation = {
   /** update user stats after an exercise */
-  updateStats?: Maybe<User>;
+  updateStats: UpdateStatsMutationResponse;
   logInAppUser: Tokens;
   logInWebUser: MutationResult;
   sendTotp: MutationResult;
@@ -202,32 +238,14 @@ export type MutationSetLanguageArgs = {
   language: Languages;
 };
 
-export type FormResultInput = {
-  englishName: Scalars['String'];
-  form?: Maybe<Forms>;
-  isAnswerCorrect: Scalars['Boolean'];
-  language: Languages;
-};
-
-export type FormStats = {
-  language: Languages;
-  form: Forms;
-  score: Scalars['Float'];
-};
-
-export type Stats = {
-  globalProgress: Scalars['Float'];
-  goldLessons: Scalars['Int'];
-  goldWords: Scalars['Int'];
-  greenLessons: Scalars['Int'];
-  greenWords: Scalars['Int'];
-  studiedLessons: Scalars['Int'];
-  studiedWords: Scalars['Int'];
-};
-
 export type LessonsGrades = {
   green: Scalars['Int'];
   gold: Scalars['Int'];
+};
+
+export type UpdateStatsMutationResponse = {
+  success: Scalars['Boolean'];
+  user?: Maybe<User>;
 };
 
 export type SetLanguageMutationResponse = {
@@ -246,7 +264,6 @@ export type User = {
   email: Scalars['String'];
   language?: Maybe<Languages>;
   selectedCurriculumId: Scalars['String'];
-  stats: Stats;
 };
 
 export type CreateWebUserMutationVariables = Exact<{ [key: string]: never; }>;

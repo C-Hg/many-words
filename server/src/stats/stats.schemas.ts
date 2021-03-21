@@ -3,17 +3,27 @@ import { Request } from "express";
 
 import FormResult from "./interfaces/formResult.interface";
 import statsController from "./stats.controller";
+import statsService from "./stats.service";
 
-import { User } from "../graphql/types";
+import {
+  Curriculum,
+  UpdateStatsMutationResponse,
+  User,
+} from "../graphql/types";
 
 export const typeDefs = gql`
-  extend type User {
-    stats: Stats!
+  extend type Query {
+    curriculum: Curriculum!
   }
 
-  type Mutation {
-    "update user stats after an exercise"
-    updateStats(results: [FormResultInput]): User
+  type CurriculumStats {
+    globalProgress: Float!
+    goldLessons: Int!
+    goldWords: Int!
+    greenLessons: Int!
+    greenWords: Int!
+    studiedLessons: Int!
+    studiedWords: Int!
   }
 
   input FormResultInput {
@@ -29,30 +39,49 @@ export const typeDefs = gql`
     score: Float!
   }
 
-  type Stats {
-    globalProgress: Float!
-    goldLessons: Int!
-    goldWords: Int!
-    greenLessons: Int!
-    greenWords: Int!
-    studiedLessons: Int!
-    studiedWords: Int!
+  type Mutation {
+    "update user stats after an exercise"
+    updateStats(results: [FormResultInput]): UpdateStatsMutationResponse!
+      @loggedIn
   }
 
   type LessonsGrades {
     green: Int!
     gold: Int!
   }
+
+  type Curriculum {
+    id: String!
+    stats: CurriculumStats! @loggedIn
+  }
+
+  type UpdateStatsMutationResponse {
+    success: Boolean!
+  }
 `;
 
 export const resolvers = {
   Mutation: {
     updateStats: async (
-      parent: Record<string, unknown>,
+      _parent: Record<string, unknown>,
       { results }: { results: FormResult[] },
       { req }: { req: Request }
-    ): Promise<User> => {
-      return statsController.updateStats(req.ctx.user, results);
+    ): Promise<UpdateStatsMutationResponse> => {
+      try {
+        await statsController.updateStats(req.ctx.user, results);
+        return { success: true };
+      } catch (error) {
+        return { success: false };
+      }
+    },
+  },
+  Query: {
+    curriculum: async (
+      _parent: Record<string, unknown>,
+      _args: Record<string, unknown>,
+      { req }: { req: Request }
+    ): Promise<Curriculum> => {
+      return statsService.getCurriculum(req.ctx.user.id);
     },
   },
 };

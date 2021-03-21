@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
-import { CurriculumNames, NextExerciseMode } from "../constants";
-import { CurriculumDocument } from "../types/curriculum.interface";
+import {
+  CurriculumDocument,
+  CurriculumNames,
+  NextExerciseMode,
+} from "../types/curriculum.interface";
 
 const { Schema } = mongoose;
 
@@ -38,6 +41,36 @@ const CurriculumSchema = new Schema(
       ressourceId: {
         required: true,
         type: String,
+      },
+    },
+    stats: {
+      globalProgress: {
+        type: Number,
+        default: 0,
+      },
+      goldLessons: {
+        type: Number,
+        default: 0,
+      },
+      goldWords: {
+        type: Number,
+        default: 0,
+      },
+      greenLessons: {
+        type: Number,
+        default: 0,
+      },
+      greenWords: {
+        type: Number,
+        default: 0,
+      },
+      studiedWords: {
+        type: Number,
+        default: 0,
+      },
+      studiedLessons: {
+        type: Number,
+        default: 0,
       },
     },
     userId: {

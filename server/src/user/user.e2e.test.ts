@@ -36,15 +36,6 @@ const USER_QUERY = gql`
       id
       email
       language
-      stats {
-        globalProgress
-        goldLessons
-        goldWords
-        greenLessons
-        greenWords
-        studiedLessons
-        studiedWords
-      }
     }
   }
 `;
@@ -63,7 +54,7 @@ describe("Server - e2e - user", () => {
   afterAll(async () => {
     await User.deleteMany({
       email: {
-        $in: [USER_1, USER_2],
+        $in: [USER_1, USER_2, USER_NOT_FOUND],
       },
     });
     await db.connection.close();
@@ -114,19 +105,7 @@ describe("Server - e2e - user", () => {
     });
     const {
       data: {
-        user: {
-          email,
-          language,
-          stats: {
-            globalProgress,
-            goldLessons,
-            goldWords,
-            greenLessons,
-            greenWords,
-            studiedLessons,
-            studiedWords,
-          },
-        },
+        user: { email, language },
       },
     } = userData;
     expect(email).toEqual(USER_1);

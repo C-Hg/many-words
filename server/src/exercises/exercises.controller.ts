@@ -53,7 +53,7 @@ const exercisesController = {
    * The new lesson selected is based on the order of the curriculum
    * The closest lesson from the start, not selected yet, is added
    */
-  // TODO: @V2 shouldDoWeakWords?
+  // TODO: @V2 shouldDoWeakWords
   selectNextExercise: async (userId: string): Promise<CurriculumDocument> => {
     const curriculum = await exercisesService.getCurriculum(userId);
     const { lessons } = curriculum;
@@ -62,7 +62,7 @@ const exercisesController = {
       // nextExercise is the last lesson in the array
       const lastLessonId = lessons[lessons.length - 1].name;
       return exercisesService.setNextExercise(curriculum.id, {
-        mode: NextExerciseMode.quiz,
+        mode: NextExerciseMode.Quiz,
         ressourceId: lastLessonId,
       });
     }
@@ -71,7 +71,7 @@ const exercisesController = {
       // nextExercise is the penultimate lesson in the array
       const penultimateLessonId = lessons[lessons.length - 2].name;
       return exercisesService.setNextExercise(curriculum.id, {
-        mode: NextExerciseMode.quiz,
+        mode: NextExerciseMode.Quiz,
         ressourceId: penultimateLessonId,
       });
     }
@@ -84,13 +84,37 @@ const exercisesController = {
       lessons,
       completionThresholds
     );
+    // All thresholds are met, add a new lesson to the curriculum if there is any left
     if (thresholdsStatus === ThresholdsStatus.met) {
-      const ressourceId = exercisesService.getNewCurriculumLesson(lessons);
+      const areAllLessonsInCurriculum = exercisesService.getAreAllLessonsInCurriculum(
+        lessons.length
+      );
+      if (!areAllLessonsInCurriculum) {
+        const ressourceId = exercisesService.getNewCurriculumLesson(
+          lessons.length
+        );
+        return exercisesService.setNextExercise(curriculum.id, {
+          mode: NextExerciseMode.Quiz,
+          ressourceId,
+        });
+      }
+      // All lessons are already in the curriculum, select the weakest one
+      const lowestScoreLesson = exercisesService.getLowestScoreLesson(lessons);
       return exercisesService.setNextExercise(curriculum.id, {
-        mode: NextExerciseMode.quiz,
-        ressourceId,
+        mode: NextExerciseMode.Quiz,
+        ressourceId: lowestScoreLesson,
       });
     }
+
+    // A threshold is not met, select the closest lesson to threshold
+    const closestLessonToThreshold = exercisesService.getClosestLessonToThreshold(
+      lessons,
+      thresholdsStatus
+    );
+    return exercisesService.setNextExercise(curriculum.id, {
+      mode: NextExerciseMode.Quiz,
+      ressourceId: closestLessonToThreshold,
+    });
   },
 
   // getWeakWords: async (

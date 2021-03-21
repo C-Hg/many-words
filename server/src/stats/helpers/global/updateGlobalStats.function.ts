@@ -16,7 +16,7 @@ import WordResult from "../../interfaces/wordResult.interface";
  */
 const updateGlobalStats = (
   wordResults: WordResult[],
-  lessonsScores: LessonsScores,
+  lessonsScores: LessonsCompletion[],
   stats: Stats
 ): Stats => {
   const { studiedWords, greenWords, goldWords } = stats;

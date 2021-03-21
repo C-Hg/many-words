@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 import { ObjectID } from "mongodb";
 
 import {
@@ -16,12 +17,11 @@ import {
   CurriculumDocument,
   CurriculumNames,
   LessonCompletion,
-  NextExercise,
   NextExerciseMode,
 } from "./types/curriculum.interface";
 import { WordDocument } from "./types/word.interface";
 
-import { Lesson, Topic, Word } from "../graphql/types";
+import { Lesson, NextExercise, Topic, Word } from "../graphql/types";
 import {
   WordStats,
   WordStatsDocument,
@@ -70,9 +70,9 @@ const exercisesService = {
     const newCurriculum = {
       exercisesSinceWeakWords: 0,
       lessons: [],
-      name: CurriculumNames.frenchEnglish,
+      name: CurriculumNames.FrenchEnglish,
       nextExercise: {
-        mode: NextExerciseMode.quiz,
+        mode: NextExerciseMode.Quiz,
         ressourceId: frenchEnglishCurriculum.lessonsIds[0],
       },
       userId,
@@ -187,10 +187,18 @@ const exercisesService = {
   },
 
   /**
+   * Returns true if all lessons are already in the curriculum array
+   */
+  getAreAllLessonsInCurriculum: (lessonsInCurriculum: number): boolean => {
+    return lessonsInCurriculum >= frenchEnglishCurriculum.lessonsIds.length;
+  },
+
+  /**
    * Gets the ressourceId of the next lesson in the curriculum
    */
-  getNewCurriculumLesson: (lessons: LessonCompletion[]): string => {
-    return "";
+  getNewCurriculumLesson: (lessonsInCurriculum: number): string => {
+    // if there is one lesson in the curriculum, we want the second element of the reference curriculum array
+    return frenchEnglishCurriculum.lessonsIds[lessonsInCurriculum];
   },
 
   /**
@@ -217,7 +225,35 @@ const exercisesService = {
       return COMPLETION_THRESHOLDS.MORE_THAN_FORTY;
     }
   },
-  // TODO: return getLowestScoreLesson if the index returns undefined (end of the curriculum reached)
+
+  /**
+   * Selects the closest lesson to the threshold that is not met
+   */
+  getClosestLessonToThreshold: (
+    lessons: LessonCompletion[],
+    threshold: number
+  ): string => {
+    const filteredLessons = lessons.filter(
+      (lesson) => lesson.completion < threshold
+    );
+    // do not mutate the lessons array
+    const nextLesson = filteredLessons.sort(
+      (a, b) => b.completion - a.completion
+    )[0];
+    return nextLesson.name;
+  },
+
+  /**
+   * Returns the id of the lesson with the lowest completion score
+   */
+  getLowestScoreLesson: (lessons: LessonCompletion[]): string => {
+    // do not mutate the lessons array
+    const copiedLessons = cloneDeep(lessons);
+    const lowestScoreLesson = copiedLessons.sort(
+      (a, b) => a.completion - b.completion
+    )[0];
+    return lowestScoreLesson.name;
+  },
 
   shouldDoLastLesson: (lessons: LessonCompletion[]): boolean => {
     const lastLessonIndex = lessons.length - 1;

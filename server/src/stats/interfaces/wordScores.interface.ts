@@ -1,13 +1,13 @@
 export default interface WordScores {
   correctAnswers: number;
   wrongAnswers: number;
-  globalScore: number;
+  score: number;
 }
 
 export interface UpdatedWordScores {
   updatedCorrectAnswers: number;
   updatedWrongAnswers: number;
-  updatedGlobalScore: number;
+  updatedScore: number;
   greenCount: number;
   goldCount: number;
 }

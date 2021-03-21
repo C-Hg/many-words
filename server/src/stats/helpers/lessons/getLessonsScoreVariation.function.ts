@@ -28,7 +28,7 @@ const getLessonsScoreVariation = (
     }
 
     const lessonStatsIndex = lessonsScoreVariation.findIndex(
-      (lessonScore) => lessonScore?.lesson === lesson
+      (lessonScore) => lessonScore?.id === lesson
     );
     if (lessonStatsIndex >= 0) {
       // an entry for this lesson already exists
@@ -38,7 +38,7 @@ const getLessonsScoreVariation = (
     } else {
       // an entry for this lesson needs to be created
       lessonsScoreVariation.push({
-        lesson,
+        id,
         scoreVariation: globalScoreVariation,
       });
     }

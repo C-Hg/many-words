@@ -1,14 +1,12 @@
-import { Types } from "mongoose";
-
 import updateGlobalStats from "./helpers/global/updateGlobalStats.function";
 import updateLessonsStats from "./helpers/lessons/updateLessonsStats.function";
-import updateTopicsStats from "./helpers/topics/updateTopicsStats.function";
 import createWordStats from "./helpers/words/createWordStats.function";
 import getUpdatedWordsResults from "./helpers/words/getUpdatedWordsResults.function";
 import FormResult from "./interfaces/formResult.interface";
 import WordResult from "./interfaces/wordResult.interface";
 import statsService from "./stats.service";
 
+import exercisesService from "../exercises/exercises.service";
 import { User, UserDocument } from "../user/interfaces/user.interface";
 import logger from "../utils/logger";
 
@@ -18,7 +16,7 @@ const statsController = {
    */
   getWordsResults: async (
     formResults: FormResult[],
-    userId: Types.ObjectId
+    userId: string
   ): Promise<WordResult[]> => {
     return Promise.all(
       formResults.map(async (formResult) =>
@@ -32,7 +30,7 @@ const statsController = {
    */
   getOrCreateWordStats: async (
     englishName: string,
-    userId: Types.ObjectId
+    userId: string
   ): Promise<WordResult> => {
     const existingWordStats = await statsService.findWordStatsByEnglishName(
       userId,
@@ -49,7 +47,7 @@ const statsController = {
     user: User,
     formResults: FormResult[]
   ): Promise<UserDocument> => {
-    const userId = user._id;
+    const userId = user.id;
     logger.debug(`[updateStats] updating stats for user ${userId}`);
 
     // Update word stats first
@@ -63,14 +61,14 @@ const statsController = {
     );
     await statsService.updateWordsStats(userId, updatedWordsResults);
 
-    // Update lessons stats
+    // Update lessons stats in the curriculum document
+    const curriculum = await exercisesService.getCurriculum(userId);
+    const { lessons } = curriculum;
+
     const updatedLessonsStats = updateLessonsStats(
       updatedWordsResults,
-      user.stats.lessons
+      lessons
     );
-
-    // Update topics stats
-    const updatedTopicsStats = updateTopicsStats(updatedLessonsStats);
 
     // Update global stats
     const updatedGlobalStats = updateGlobalStats(

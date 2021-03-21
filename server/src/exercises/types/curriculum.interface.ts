@@ -1,29 +1,27 @@
 import { ObjectID } from "mongodb";
 import { Document } from "mongoose";
 
+import { CurriculumStats, NextExercise } from "../../graphql/types";
+
 export enum CurriculumNames {
-  frenchEnglish = "frenchEnglish",
+  FrenchEnglish = "frenchEnglish",
 }
 
 export enum NextExerciseMode {
-  quiz = "quiz",
+  Quiz = "quiz",
 }
-
-export interface NextExercise {
-  mode: NextExerciseMode;
-  ressourceId: string;
-}
-
 export interface LessonCompletion {
   completion: number;
   name: string;
 }
 
+// this interface is meant only for server-side operations
 export interface Curriculum {
   exercisesSinceWeakWords: number;
   lessons: LessonCompletion[];
   name: CurriculumNames;
   nextExercise: NextExercise;
+  stats: CurriculumStats;
   userId: ObjectID;
 }
 

@@ -22,36 +22,6 @@ const userSchema = new Schema(
         required: false,
       },
     },
-    stats: {
-      globalProgress: {
-        type: Number,
-        default: 0,
-      },
-      goldLessons: {
-        type: Number,
-        default: 0,
-      },
-      goldWords: {
-        type: Number,
-        default: 0,
-      },
-      greenLessons: {
-        type: Number,
-        default: 0,
-      },
-      greenWords: {
-        type: Number,
-        default: 0,
-      },
-      studiedWords: {
-        type: Number,
-        default: 0,
-      },
-      studiedLessons: {
-        type: Number,
-        default: 0,
-      },
-    },
   },
   {
     minimize: false,

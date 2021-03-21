@@ -4,6 +4,7 @@ import Mongoose from "mongoose";
 import exercisesController from "./exercises.controller";
 import CurriculumModel from "./models/curriculum.model";
 
+import User from "../user/models/user.model";
 import getDbConnection from "../utils/tests/dbConnection";
 
 let db: typeof Mongoose;
@@ -17,6 +18,11 @@ describe("exercises.controller unit tests", () => {
   });
 
   afterAll(async () => {
+    await User.deleteMany({
+      _id: {
+        $in: [ID_1],
+      },
+    });
     await CurriculumModel.deleteMany({
       userId: {
         $in: [ID_1],

@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 import exercisesService from "../../../exercises/exercises.service";
 import { LANGUAGES } from "../../constants";
 import FormStats from "../../interfaces/formStats.interface";
@@ -9,7 +7,7 @@ import { WordStats } from "../../interfaces/wordStats.interface";
  * Creates a new wordStats object for a given word
  */
 const createWordStats = async (
-  userId: Types.ObjectId,
+  userId: string,
   englishName: string
 ): Promise<WordStats> => {
   const wordData = await exercisesService.findWordByEnglishName(englishName);

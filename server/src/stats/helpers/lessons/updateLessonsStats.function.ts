@@ -3,7 +3,7 @@ import cloneDeep from "lodash.clonedeep";
 import getLessonsScoreVariation from "./getLessonsScoreVariation.function";
 
 import wordCountByLesson from "../../../exercises/data/wordCountByLesson";
-import { LessonsScores } from "../../../graphql/types";
+import { LessonCompletion } from "../../../exercises/types/curriculum.interface";
 import { MAX_WORD_SCORE_IN_LESSON } from "../../constants";
 import WordResult from "../../interfaces/wordResult.interface";
 
@@ -12,7 +12,7 @@ import WordResult from "../../interfaces/wordResult.interface";
  */
 const updateLessonsStats = (
   wordsResults: WordResult[],
-  lessonsScores: LessonsScores
+  lessonsScores: LessonCompletion[]
 ): LessonsScores => {
   const lessonsScoreVariation = getLessonsScoreVariation(wordsResults);
   const updatedLessonsScores = cloneDeep(lessonsScores);
