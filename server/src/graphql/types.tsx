@@ -36,14 +36,9 @@ export type Tokens = {
   refreshToken: Scalars["String"];
 };
 
-export type Curriculum = {
-  nextExercise?: Maybe<NextExercise>;
-  stats: CurriculumStats;
-};
-
 export type Exercise = {
   id: Scalars["String"];
-  type: Scalars["String"];
+  mode: NextExerciseMode;
   words: Array<Maybe<ExerciseWord>>;
 };
 
@@ -56,13 +51,6 @@ export type ExerciseWord = {
   topic: Topic;
   wordToTranslate: Scalars["String"];
 };
-
-export type NextExercise = {
-  mode?: Maybe<NextExerciseMode>;
-  ressourceId: Scalars["String"];
-};
-
-export type NextExerciseMode = "quiz";
 
 export type Word = {
   english: WordData;
@@ -86,7 +74,7 @@ export type FormValue = {
 
 export type CurriculumNames = "frenchEnglish";
 
-export type ExerciseTypes = "learn" | "quiz" | "review";
+export type NextExerciseMode = "quiz";
 
 export type EnglishForms = "plural" | "singular" | "uniqueForm";
 
@@ -234,9 +222,13 @@ export type LessonsGrades = {
   gold: Scalars["Int"];
 };
 
+export type Curriculum = {
+  id: Scalars["String"];
+  stats: CurriculumStats;
+};
+
 export type UpdateStatsMutationResponse = {
   success: Scalars["Boolean"];
-  user?: Maybe<User>;
 };
 
 export type SetLanguageMutationResponse = {
@@ -248,6 +240,7 @@ export type Query = {
   user: User;
   getAccessTokenWebUser: QueryResult;
   exercise: Exercise;
+  curriculum: Curriculum;
 };
 
 export type User = {
@@ -380,16 +373,13 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   QueryResult: ResolverTypeWrapper<QueryResult>;
   Tokens: ResolverTypeWrapper<Tokens>;
-  Curriculum: ResolverTypeWrapper<Curriculum>;
   Exercise: ResolverTypeWrapper<Exercise>;
   ExerciseWord: ResolverTypeWrapper<ExerciseWord>;
-  NextExercise: ResolverTypeWrapper<NextExercise>;
-  NextExerciseMode: NextExerciseMode;
   Word: ResolverTypeWrapper<Word>;
   WordData: ResolverTypeWrapper<WordData>;
   FormValue: ResolverTypeWrapper<FormValue>;
   CurriculumNames: CurriculumNames;
-  ExerciseTypes: ExerciseTypes;
+  NextExerciseMode: NextExerciseMode;
   EnglishForms: EnglishForms;
   FrenchForms: FrenchForms;
   Forms: Forms;
@@ -402,6 +392,7 @@ export type ResolversTypes = {
   FormStats: ResolverTypeWrapper<FormStats>;
   Mutation: ResolverTypeWrapper<{}>;
   LessonsGrades: ResolverTypeWrapper<LessonsGrades>;
+  Curriculum: ResolverTypeWrapper<Curriculum>;
   UpdateStatsMutationResponse: ResolverTypeWrapper<UpdateStatsMutationResponse>;
   SetLanguageMutationResponse: ResolverTypeWrapper<SetLanguageMutationResponse>;
   Query: ResolverTypeWrapper<{}>;
@@ -418,10 +409,8 @@ export type ResolversParentTypes = {
   Boolean: Scalars["Boolean"];
   QueryResult: QueryResult;
   Tokens: Tokens;
-  Curriculum: Curriculum;
   Exercise: Exercise;
   ExerciseWord: ExerciseWord;
-  NextExercise: NextExercise;
   Word: Word;
   WordData: WordData;
   FormValue: FormValue;
@@ -431,6 +420,7 @@ export type ResolversParentTypes = {
   FormStats: FormStats;
   Mutation: {};
   LessonsGrades: LessonsGrades;
+  Curriculum: Curriculum;
   UpdateStatsMutationResponse: UpdateStatsMutationResponse;
   SetLanguageMutationResponse: SetLanguageMutationResponse;
   Query: {};
@@ -464,25 +454,12 @@ export type TokensResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type CurriculumResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["Curriculum"] = ResolversParentTypes["Curriculum"]
-> = {
-  nextExercise?: Resolver<
-    Maybe<ResolversTypes["NextExercise"]>,
-    ParentType,
-    ContextType
-  >;
-  stats?: Resolver<ResolversTypes["CurriculumStats"], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type ExerciseResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Exercise"] = ResolversParentTypes["Exercise"]
 > = {
   id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  mode?: Resolver<ResolversTypes["NextExerciseMode"], ParentType, ContextType>;
   words?: Resolver<
     Array<Maybe<ResolversTypes["ExerciseWord"]>>,
     ParentType,
@@ -502,19 +479,6 @@ export type ExerciseWordResolvers<
   lesson?: Resolver<ResolversTypes["Lesson"], ParentType, ContextType>;
   topic?: Resolver<ResolversTypes["Topic"], ParentType, ContextType>;
   wordToTranslate?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type NextExerciseResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["NextExercise"] = ResolversParentTypes["NextExercise"]
-> = {
-  mode?: Resolver<
-    Maybe<ResolversTypes["NextExerciseMode"]>,
-    ParentType,
-    ContextType
-  >;
-  ressourceId?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -628,12 +592,20 @@ export type LessonsGradesResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CurriculumResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Curriculum"] = ResolversParentTypes["Curriculum"]
+> = {
+  id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  stats?: Resolver<ResolversTypes["CurriculumStats"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UpdateStatsMutationResponseResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["UpdateStatsMutationResponse"] = ResolversParentTypes["UpdateStatsMutationResponse"]
 > = {
   success?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -657,6 +629,7 @@ export type QueryResolvers<
     ContextType
   >;
   exercise?: Resolver<ResolversTypes["Exercise"], ParentType, ContextType>;
+  curriculum?: Resolver<ResolversTypes["Curriculum"], ParentType, ContextType>;
 };
 
 export type UserResolvers<
@@ -682,10 +655,8 @@ export type Resolvers<ContextType = any> = {
   MutationResult?: MutationResultResolvers<ContextType>;
   QueryResult?: QueryResultResolvers<ContextType>;
   Tokens?: TokensResolvers<ContextType>;
-  Curriculum?: CurriculumResolvers<ContextType>;
   Exercise?: ExerciseResolvers<ContextType>;
   ExerciseWord?: ExerciseWordResolvers<ContextType>;
-  NextExercise?: NextExerciseResolvers<ContextType>;
   Word?: WordResolvers<ContextType>;
   WordData?: WordDataResolvers<ContextType>;
   FormValue?: FormValueResolvers<ContextType>;
@@ -693,6 +664,7 @@ export type Resolvers<ContextType = any> = {
   FormStats?: FormStatsResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   LessonsGrades?: LessonsGradesResolvers<ContextType>;
+  Curriculum?: CurriculumResolvers<ContextType>;
   UpdateStatsMutationResponse?: UpdateStatsMutationResponseResolvers<ContextType>;
   SetLanguageMutationResponse?: SetLanguageMutationResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

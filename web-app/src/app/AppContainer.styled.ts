@@ -5,6 +5,7 @@ interface Props {
 }
 
 const AppContainer = styled.div<Props>`
+  background-color: "red";
   font-family: ${(props) => props.theme.fonts.main};
   color: ${(props) => props.theme.colors.darkGrey};
   position: absolute;

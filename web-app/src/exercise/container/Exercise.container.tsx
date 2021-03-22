@@ -1,12 +1,11 @@
 import { useQuery } from "@apollo/client";
 import React, { useContext } from "react";
 
-import AzertyKeyboard from "./AzertyKeyboard.component";
 import OriginWord from "./OriginWord.component";
 import SpecialCharacters from "./SpecialCharacters.component";
 import UserTranslation from "./UserTranslation.component";
 import Validation from "./Validation.component";
-import StyledContainer from "./styled/ExerciseContainer.styled";
+import StyledExerciseContainer from "./styled/ExerciseContainer.styled";
 import ExerciseTitle from "./styled/ExerciseTitle.styled";
 
 import { LANGUAGES } from "../../config/constants";
@@ -20,7 +19,7 @@ const ExerciseContainer = () => {
   const language = useContext(LanguageContext);
   const { translateIn, french, english } = language;
   const { data } = useQuery(GET_NEXT_EXERCISE, { fetchPolicy: "cache-only" });
-  const { words } = data?.exercise;
+  const words = data?.exercise?.words;
   const {
     data: { wordRank },
   } = useQuery(GET_WORD_RANK);
@@ -35,7 +34,7 @@ const ExerciseContainer = () => {
   const sourceLanguage = words[wordRank].language;
 
   return (
-    <StyledContainer screenHeight={screenHeight} sand>
+    <StyledExerciseContainer screenHeight={screenHeight}>
       <ExerciseTitle>
         {translateIn} {sourceLanguage === LANGUAGES.French ? english : french}
       </ExerciseTitle>
@@ -50,7 +49,7 @@ const ExerciseContainer = () => {
       <Validation answer={words[wordRank].answers[0]} />
       <SpecialCharacters />
       {/* <AzertyKeyboard /> */}
-    </StyledContainer>
+    </StyledExerciseContainer>
   );
 };
 

@@ -74,7 +74,7 @@ const UserTranslation = (props: Props) => {
         autoCorrect="off"
         onChange={userTranslationChange}
         readOnly={isCheckingAnswer}
-        ref={translationInput}
+        // ref={translationInput}
         spellCheck="false"
         value={userTranslation}
       />

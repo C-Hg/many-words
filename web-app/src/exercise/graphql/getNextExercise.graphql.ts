@@ -5,7 +5,7 @@ export const GET_NEXT_EXERCISE = gql`
   query GetNextExercise {
     exercise {
       id
-      type #learning, quiz or weak words, update the server
+      mode # quiz, learning or weak words in V2
       words {
         answers
         englishName

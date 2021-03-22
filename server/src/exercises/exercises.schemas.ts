@@ -42,7 +42,6 @@ export const typeDefs = gql`
     hasUniqueForm: Boolean!
     lesson: Lesson!
     topic: Topic!
-    # TODO: strong typing for types
     type: String!
     weakestForms: [FormStats]!
   }

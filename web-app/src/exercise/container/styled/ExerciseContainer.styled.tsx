@@ -4,16 +4,13 @@ import breakpoints from "../../../app/breakpoints";
 import VerticalFlexbox from "../../../components/div/VerticalFlexbox.styled";
 
 type Props = {
-  sand: boolean;
   screenHeight: number;
 };
 
 const ExerciseContainer = styled(VerticalFlexbox)<Props>`
   align-self: flex-start;
-  background-color: ${(props) =>
-    props.sand ? props.theme.colors.sand : props.theme.colors.white};
-  padding: 0;
-  /* margin: 0 auto 0 auto; */
+  background-color: ${(props) => props.theme.colors.sand};
+  padding: 15px;
   height: auto;
   @media (max-height: ${breakpoints.verticalMid}) {
     margin-top: 20px;

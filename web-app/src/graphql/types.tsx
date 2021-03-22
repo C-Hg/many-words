@@ -30,14 +30,9 @@ export type Tokens = {
   refreshToken: Scalars['String'];
 };
 
-export type Curriculum = {
-  nextExercise?: Maybe<NextExercise>;
-  stats: CurriculumStats;
-};
-
 export type Exercise = {
   id: Scalars['String'];
-  type: Scalars['String'];
+  mode: NextExerciseMode;
   words: Array<Maybe<ExerciseWord>>;
 };
 
@@ -50,14 +45,6 @@ export type ExerciseWord = {
   topic: Topic;
   wordToTranslate: Scalars['String'];
 };
-
-export type NextExercise = {
-  mode?: Maybe<NextExerciseMode>;
-  ressourceId: Scalars['String'];
-};
-
-export type NextExerciseMode = 
-  | 'quiz';
 
 export type Word = {
   english: WordData;
@@ -82,10 +69,8 @@ export type FormValue = {
 export type CurriculumNames = 
   | 'frenchEnglish';
 
-export type ExerciseTypes = 
-  | 'learn'
-  | 'quiz'
-  | 'review';
+export type NextExerciseMode = 
+  | 'quiz';
 
 export type EnglishForms = 
   | 'plural'
@@ -243,9 +228,13 @@ export type LessonsGrades = {
   gold: Scalars['Int'];
 };
 
+export type Curriculum = {
+  id: Scalars['String'];
+  stats: CurriculumStats;
+};
+
 export type UpdateStatsMutationResponse = {
   success: Scalars['Boolean'];
-  user?: Maybe<User>;
 };
 
 export type SetLanguageMutationResponse = {
@@ -257,6 +246,7 @@ export type Query = {
   user: User;
   getAccessTokenWebUser: QueryResult;
   exercise: Exercise;
+  curriculum: Curriculum;
 };
 
 export type User = {
@@ -280,7 +270,7 @@ export type GetNextExerciseQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetNextExerciseQuery = { exercise: (
-    Pick<Exercise, 'id' | 'type'>
+    Pick<Exercise, 'id' | 'mode'>
     & { words: Array<Maybe<Pick<ExerciseWord, 'answers' | 'englishName' | 'form' | 'language' | 'lesson' | 'topic' | 'wordToTranslate'>>> }
   ) };
 
@@ -367,7 +357,7 @@ export const GetNextExerciseDocument = gql`
     query GetNextExercise {
   exercise {
     id
-    type
+    mode
     words {
       answers
       englishName

@@ -11,7 +11,7 @@ import {
 } from "./types/curriculum.interface";
 import { ARTICLE_FORMS } from "./types/name.interface";
 
-import { Word, ExerciseWord, Exercise } from "../graphql/types";
+import { Word, ExerciseWord, Exercise, Lesson } from "../graphql/types";
 import statsService from "../stats/stats.service";
 import { User } from "../user/interfaces/user.interface";
 import logger from "../utils/logger";
@@ -21,17 +21,19 @@ const exercisesController = {
    * Fetches the words for a given exercise
    */
   getNextExercise: async (user: User): Promise<Exercise> => {
-    logger.debug(`[getNextExercise] user ${user.id}`);
-    // TODO: actual exercise selection
-    // const { id, type } = selectNextExercise(user.id)
-    const id = "animalsBasics";
-    const type = "quiz";
-    logger.info(`Next exercise for ${user.id} is ${id}`);
-    const rawWords = await exercisesService.getLessonWords(id);
+    logger.debug(`[getNextExercise] for user ${user.id}`);
+    const { ressourceId, mode } = await exercisesService.getNextExercise(
+      user.id
+    );
+
+    logger.info(`Next exercise for ${user.id} is ${ressourceId}`);
+    const rawWords = await exercisesService.getLessonWords(
+      ressourceId as Lesson
+    );
 
     // get the wordStats for the words of this lesson
     const wordsStats = await statsService.findWordsStatsForWords(
-      user._id,
+      user.id,
       rawWords
     );
 
@@ -42,8 +44,8 @@ const exercisesController = {
       wordsWithWeakestFormsStats
     );
     return {
-      id,
-      type,
+      id: ressourceId,
+      mode,
       words: preparedWords,
     };
   },

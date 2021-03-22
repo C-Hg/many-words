@@ -101,6 +101,20 @@ const exercisesService = {
     return WordModel.find({ lesson });
   },
 
+  getNextExercise: async (userId: string): Promise<NextExercise> => {
+    const curriculum = await CurriculumModel.findOne(
+      { userId },
+      "nextExercise" // projection : only returns nextExercise from the database
+    );
+    if (!curriculum) {
+      logger.error(
+        `[getNextExercise] cannot find curriculum for user ${userId}`
+      );
+      throw error500;
+    }
+    return curriculum.nextExercise;
+  },
+
   /**
    * Returns the success rate for the lesson given at a given threshold, inclusively
    * i.e. what percentage of the lessons have a completion score equal or greater than the threshold
