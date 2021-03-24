@@ -1,14 +1,14 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 
 import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql.local";
-import { GET_NEXT_EXERCISE } from "./graphql/getNextExercise.graphql";
 import { ExerciseStatus } from "./types/ExerciseStatus.enum";
 
 import { exerciseStatusVar } from "../cache";
+import { useGetNextExerciseLazyQuery } from "../graphql/types";
 
 const useFetchExercise = () => {
-  const [fetch] = useLazyQuery(GET_NEXT_EXERCISE);
+  const [fetch] = useGetNextExerciseLazyQuery();
   const {
     data: { exerciseStatus },
   } = useQuery(GET_EXERCISE_STATUS);

@@ -20,7 +20,7 @@ export const typeDefs = gql`
   type Exercise {
     id: String!
     mode: NextExerciseMode!
-    words: [ExerciseWord]!
+    words: [ExerciseWord!]!
   }
 
   type ExerciseWord {

@@ -10,14 +10,9 @@ type Props = {
 const ExerciseContainer = styled(VerticalFlexbox)<Props>`
   align-self: flex-start;
   background-color: ${(props) => props.theme.colors.sand};
-  padding: 15px;
+  padding: 10px;
   height: auto;
-  @media (max-height: ${breakpoints.verticalMid}) {
-    margin-top: 20px;
-  }
-  @media (min-height: ${breakpoints.verticalMid}) {
-    margin-top: ${(props) => `${(props.screenHeight * 8) / 100}px`};
-  }
+  margin-top: 10px;
   @media (min-width: ${breakpoints.horizontalSmall}) {
     width: 500px;
   }

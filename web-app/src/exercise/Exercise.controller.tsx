@@ -3,7 +3,6 @@
 import { ApolloQueryResult } from "@apollo/client";
 
 import { separateWordFromArticleRegex } from "./Exercise.constants";
-import { GET_NEXT_EXERCISE } from "./graphql/getNextExercise.graphql";
 
 import { apolloClient } from "../apolloClient";
 import {
@@ -16,7 +15,7 @@ import {
   wordRankVar,
 } from "../cache";
 import { LANGUAGES } from "../config/constants";
-import { ExerciseWord, Query } from "../graphql/types";
+import { ExerciseWord, GetNextExerciseDocument, Query } from "../graphql/types";
 
 const checkUserTranslation = (
   userTranslation: string,
@@ -68,9 +67,10 @@ export const submitUserTranslation = async () => {
   const {
     data: { exercise },
   }: ApolloQueryResult<Query> = await apolloClient.query({
-    query: GET_NEXT_EXERCISE,
+    query: GetNextExerciseDocument,
     fetchPolicy: "cache-only",
   });
+
   const exerciseWord = exercise.words[wordRank] as ExerciseWord;
   const {
     answers,

@@ -66,7 +66,7 @@ export const languages = {
     curriculum: {
       title: "What do you want to learn?",
     },
-    themes: {
+    topics: {
       animals: "Animals",
       clothes: "Clothes",
       colors: "Colors",
@@ -263,7 +263,7 @@ export const languages = {
     curriculum: {
       title: "Que veux-tu apprendre?",
     },
-    themes: {
+    topics: {
       animals: "Animaux",
       clothes: "Vêtements",
       colors: "Couleurs",

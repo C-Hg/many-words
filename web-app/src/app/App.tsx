@@ -22,7 +22,7 @@ const App: React.FC = () => {
     // the language context depends on the language value in the redux store
     <LanguageContext.Provider value={languages[language]}>
       <ThemeProvider theme={theme}>
-        <AppContainer withNavbar>
+        <AppContainer>
           <Navbar />
           <Router />
         </AppContainer>

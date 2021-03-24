@@ -39,7 +39,7 @@ export type Tokens = {
 export type Exercise = {
   id: Scalars["String"];
   mode: NextExerciseMode;
-  words: Array<Maybe<ExerciseWord>>;
+  words: Array<ExerciseWord>;
 };
 
 export type ExerciseWord = {
@@ -461,7 +461,7 @@ export type ExerciseResolvers<
   id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   mode?: Resolver<ResolversTypes["NextExerciseMode"], ParentType, ContextType>;
   words?: Resolver<
-    Array<Maybe<ResolversTypes["ExerciseWord"]>>,
+    Array<ResolversTypes["ExerciseWord"]>,
     ParentType,
     ContextType
   >;

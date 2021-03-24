@@ -9,6 +9,7 @@ const Navbar = styled.nav`
   position: fixed;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
 export default Navbar;

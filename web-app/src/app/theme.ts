@@ -1,6 +1,6 @@
 const theme = {
   fonts: {
-    main: '"Open Sans", sans-serif',
+    main: '"Nunito", sans-serif',
     secondary: '"Raleway", sans-serif',
     cursive: '"Handlee", cursive',
   },

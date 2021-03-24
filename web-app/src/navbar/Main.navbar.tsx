@@ -11,7 +11,7 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const MainNavbar = () => {
   const { width } = useWindowDimensions();
-  const largeView = width > breakpointsNumber.horizontalSmall;
+  const largeView = width > breakpointsNumber.horizontalMid;
 
   return (
     <Navbar>

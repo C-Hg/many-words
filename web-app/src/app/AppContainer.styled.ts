@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
-interface Props {
-  withNavbar: boolean;
-}
-
-const AppContainer = styled.div<Props>`
-  background-color: "red";
+const AppContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.sand};
   font-family: ${(props) => props.theme.fonts.main};
   color: ${(props) => props.theme.colors.darkGrey};
   position: absolute;
@@ -14,7 +10,7 @@ const AppContainer = styled.div<Props>`
   bottom: 0;
   left: 0;
   right: 0;
-  margin-top: ${(props) => (props.withNavbar ? "60px" : "0px")};
+  margin-top: 60px;
   overflow-y: auto;
 `;
 

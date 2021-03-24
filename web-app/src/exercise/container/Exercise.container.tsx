@@ -6,19 +6,20 @@ import SpecialCharacters from "./SpecialCharacters.component";
 import UserTranslation from "./UserTranslation.component";
 import Validation from "./Validation.component";
 import StyledExerciseContainer from "./styled/ExerciseContainer.styled";
-import ExerciseTitle from "./styled/ExerciseTitle.styled";
+import Instructions from "./styled/Instructions.styled";
+import LessonTitle from "./styled/LessonTitle.styled";
 
 import { LANGUAGES } from "../../config/constants";
 import { LanguageContext } from "../../contexts/language-context";
+import { useGetNextExerciseQuery } from "../../graphql/types";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import { GET_NEXT_EXERCISE } from "../graphql/getNextExercise.graphql";
 import { GET_WORD_RANK } from "../graphql/getWordRank.graphql.local";
 
 // TODO: add the lesson title or "review"
 const ExerciseContainer = () => {
   const language = useContext(LanguageContext);
   const { translateIn, french, english } = language;
-  const { data } = useQuery(GET_NEXT_EXERCISE, { fetchPolicy: "cache-only" });
+  const { data } = useGetNextExerciseQuery({ fetchPolicy: "cache-only" });
   const words = data?.exercise?.words;
   const {
     data: { wordRank },
@@ -30,24 +31,27 @@ const ExerciseContainer = () => {
     return null;
   }
 
+  const lesson = words[wordRank].lesson;
+  const topic = words[wordRank].topic;
   const isLastWord = wordRank === words.length - 1;
-  const sourceLanguage = words[wordRank].language;
+  const sourceLanguage = words?.[wordRank].language;
 
   return (
     <StyledExerciseContainer screenHeight={screenHeight}>
-      <ExerciseTitle>
+      <LessonTitle>{language.lessons[topic][lesson]}</LessonTitle>
+      <Instructions>
         {translateIn} {sourceLanguage === LANGUAGES.French ? english : french}
-      </ExerciseTitle>
+      </Instructions>
       <OriginWord
         wordToTranslate={words[wordRank].wordToTranslate}
-        language={sourceLanguage}
+        language={sourceLanguage as LANGUAGES}
       />
       <UserTranslation
         isLastWord={isLastWord}
-        sourceLanguage={sourceLanguage}
+        sourceLanguage={sourceLanguage as LANGUAGES}
       />
       <Validation answer={words[wordRank].answers[0]} />
-      <SpecialCharacters />
+      {sourceLanguage === LANGUAGES.English && <SpecialCharacters />}
       {/* <AzertyKeyboard /> */}
     </StyledExerciseContainer>
   );
