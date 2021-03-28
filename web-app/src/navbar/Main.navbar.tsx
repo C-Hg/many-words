@@ -7,7 +7,7 @@ import Logo from "./logo/Logo.styled";
 import LogoContainer from "./logo/LogoContainer.styled";
 
 import { breakpointsNumber } from "../app/breakpoints";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import useWindowDimensions from "../utils/useWindowDimensions";
 
 const MainNavbar = () => {
   const { width } = useWindowDimensions();

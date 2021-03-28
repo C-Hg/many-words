@@ -14,7 +14,8 @@ generates:
 
   # interfaces for the web-app, need to import gql queries and mutations
   web-app/src/graphql/types.tsx:
-    documents: "web-app/src/**/*.graphql.ts"
+    documents: 
+      - "web-app/src/**/*.graphql.ts"
     schema: "https://localhost:4000/graphql"
     plugins:
       - "typescript"
@@ -24,5 +25,6 @@ generates:
       enumsAsTypes: true
       skipTypename: true
       withHooks: true
+      withMutationFn: true
       reactApolloVersion: 3
     

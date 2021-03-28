@@ -12,10 +12,9 @@ import LessonTitle from "./styled/LessonTitle.styled";
 import { LANGUAGES } from "../../config/constants";
 import { LanguageContext } from "../../contexts/language-context";
 import { useGetNextExerciseQuery } from "../../graphql/types";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
+import useWindowDimensions from "../../utils/useWindowDimensions";
 import { GET_WORD_RANK } from "../graphql/getWordRank.graphql.local";
 
-// TODO: add the lesson title or "review"
 const ExerciseContainer = () => {
   const language = useContext(LanguageContext);
   const { translateIn, french, english } = language;

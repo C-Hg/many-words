@@ -4,10 +4,14 @@ import { useEffect } from "react";
 import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql.local";
 import { ExerciseStatus } from "./types/ExerciseStatus.enum";
 
-import { exerciseStatusVar } from "../cache";
-import { useGetNextExerciseLazyQuery } from "../graphql/types";
+import { exerciseResultVar, exerciseStatusVar } from "../cache";
+import {
+  useGetNextExerciseLazyQuery,
+  useUpdateStatsMutation,
+} from "../graphql/types";
 
 const useFetchExercise = () => {
+  const [saveResults] = useUpdateStatsMutation();
   const [fetch] = useGetNextExerciseLazyQuery();
   const {
     data: { exerciseStatus },
@@ -21,10 +25,22 @@ const useFetchExercise = () => {
       exerciseStatusVar(ExerciseStatus.inProgress);
     };
 
+    // Update the stats on the server once the exercise is completed
+    const updateStats = async () => {
+      await saveResults({
+        variables: { results: exerciseResultVar() },
+      });
+      exerciseStatusVar(ExerciseStatus.resultSaved);
+    };
+
+    if (exerciseStatus === ExerciseStatus.completed) {
+      updateStats();
+    }
+
     if (exerciseStatus === ExerciseStatus.toBegin) {
       getExercise();
     }
-  }, [exerciseStatus, fetch]);
+  }, [exerciseStatus, fetch, saveResults]);
 };
 
 export default useFetchExercise;

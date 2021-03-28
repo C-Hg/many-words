@@ -3,11 +3,13 @@
 import { ApolloQueryResult } from "@apollo/client";
 
 import { separateWordFromArticleRegex } from "./Exercise.constants";
+import { ExerciseStatus } from "./types/ExerciseStatus.enum";
 
 import { apolloClient } from "../apolloClient";
 import {
   areSpecialCharactersVisibleVar,
   exerciseResultVar,
+  exerciseStatusVar,
   failedWordsVar,
   isAnswerCorrectVar,
   isCheckingAnswerVar,
@@ -54,6 +56,14 @@ export const continueWithNextWord = async () => {
   isAnswerCorrectVar(false);
   userTranslationVar("");
   wordRankVar(wordRank + 1);
+};
+
+export const goToRecap = () => {
+  exerciseStatusVar(ExerciseStatus.completed);
+  isCheckingAnswerVar(false);
+  isAnswerCorrectVar(false);
+  userTranslationVar("");
+  wordRankVar(0);
 };
 
 const getTranslationsWithoutArticles = (translations: string[]) =>

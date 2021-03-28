@@ -23,8 +23,6 @@ type Props = {
 };
 
 const UserTranslation = (props: Props) => {
-  const translationInput = useRef<HTMLTextAreaElement>(null);
-
   const {
     data: { isCheckingAnswer },
   } = useQuery(GET_EXERCISE_DETAILS);
@@ -74,7 +72,6 @@ const UserTranslation = (props: Props) => {
         autoCorrect="off"
         onChange={userTranslationChange}
         readOnly={isCheckingAnswer}
-        // ref={translationInput}
         spellCheck="false"
         value={userTranslation}
       />

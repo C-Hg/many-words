@@ -16,7 +16,7 @@ const Exercise = () => {
   return (
     <>
       {exerciseStatus === ExerciseStatus.inProgress && <ExerciseContainer />}
-      {exerciseStatus === ExerciseStatus.done ? <ExerciseRecap /> : null}
+      {exerciseStatus !== ExerciseStatus.inProgress ? <ExerciseRecap /> : null}
       {/* TODO: implement waiting animation */}
     </>
   );

@@ -5,11 +5,8 @@ import FormResult from "./interfaces/formResult.interface";
 import statsController from "./stats.controller";
 import statsService from "./stats.service";
 
-import {
-  Curriculum,
-  UpdateStatsMutationResponse,
-  User,
-} from "../graphql/types";
+import { CurriculumDocument } from "../exercises/types/curriculum.interface";
+import { UpdateStatsMutationResponse } from "../graphql/types";
 
 export const typeDefs = gql`
   extend type Query {
@@ -26,7 +23,7 @@ export const typeDefs = gql`
     studiedWords: Int!
   }
 
-  input FormResultInput {
+  input ExerciseResultInput {
     englishName: String!
     form: Forms
     isAnswerCorrect: Boolean!
@@ -41,7 +38,7 @@ export const typeDefs = gql`
 
   type Mutation {
     "update user stats after an exercise"
-    updateStats(results: [FormResultInput]): UpdateStatsMutationResponse!
+    updateStats(results: [ExerciseResultInput!]!): UpdateStatsMutationResponse!
       @loggedIn
   }
 
@@ -80,7 +77,7 @@ export const resolvers = {
       _parent: Record<string, unknown>,
       _args: Record<string, unknown>,
       { req }: { req: Request }
-    ): Promise<Curriculum> => {
+    ): Promise<CurriculumDocument> => {
       return statsService.getCurriculum(req.ctx.user.id);
     },
   },

@@ -4,8 +4,7 @@ import H2 from "../../components/texts/H2.styled";
 import { LanguageContext } from "../../contexts/language-context";
 
 const LessonResult = (props) => {
-  const { exercise } = props;
-  const errors = exercise.failedWords.length;
+  const errors = props.failedWords.length;
   const language = useContext(LanguageContext);
   const {
     noMistake,

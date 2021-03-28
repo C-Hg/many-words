@@ -1,11 +1,7 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-
-const mapStateToProps = state => ({ exercise: state.exercise });
 
 // TODO: delete me if not used anymore
-const Score = props => {
+const Score = (props) => {
   const { exercise } = props;
   const { wordRank, failedWords } = exercise;
   const totalWords = wordRank + 1;
@@ -17,14 +13,4 @@ const Score = props => {
   );
 };
 
-Score.propTypes = {
-  exercise: PropTypes.shape({
-    wordRank: PropTypes.number.isRequired,
-    failedWords: PropTypes.array.isRequired,
-  }).isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(Score);
+export default Score;

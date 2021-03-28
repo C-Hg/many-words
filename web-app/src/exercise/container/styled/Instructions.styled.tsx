@@ -8,7 +8,7 @@ const Instructions = styled(H2)`
   font-style: italic;
   padding-left: 10px;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
   width: auto;
   font-family: ${(props) => props.theme.fonts.main};
   margin-bottom: 5px;

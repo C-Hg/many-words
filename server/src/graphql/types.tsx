@@ -174,7 +174,7 @@ export type CurriculumStats = {
   studiedWords: Scalars["Int"];
 };
 
-export type FormResultInput = {
+export type ExerciseResultInput = {
   englishName: Scalars["String"];
   form?: Maybe<Forms>;
   isAnswerCorrect: Scalars["Boolean"];
@@ -198,7 +198,7 @@ export type Mutation = {
 };
 
 export type MutationUpdateStatsArgs = {
-  results?: Maybe<Array<Maybe<FormResultInput>>>;
+  results: Array<ExerciseResultInput>;
 };
 
 export type MutationLogInAppUserArgs = {
@@ -388,7 +388,7 @@ export type ResolversTypes = {
   Topic: Topic;
   CurriculumStats: ResolverTypeWrapper<CurriculumStats>;
   Float: ResolverTypeWrapper<Scalars["Float"]>;
-  FormResultInput: FormResultInput;
+  ExerciseResultInput: ExerciseResultInput;
   FormStats: ResolverTypeWrapper<FormStats>;
   Mutation: ResolverTypeWrapper<{}>;
   LessonsGrades: ResolverTypeWrapper<LessonsGrades>;
@@ -416,7 +416,7 @@ export type ResolversParentTypes = {
   FormValue: FormValue;
   CurriculumStats: CurriculumStats;
   Float: Scalars["Float"];
-  FormResultInput: FormResultInput;
+  ExerciseResultInput: ExerciseResultInput;
   FormStats: FormStats;
   Mutation: {};
   LessonsGrades: LessonsGrades;
@@ -550,7 +550,7 @@ export type MutationResolvers<
     ResolversTypes["UpdateStatsMutationResponse"],
     ParentType,
     ContextType,
-    RequireFields<MutationUpdateStatsArgs, never>
+    RequireFields<MutationUpdateStatsArgs, "results">
   >;
   logInAppUser?: Resolver<
     ResolversTypes["Tokens"],

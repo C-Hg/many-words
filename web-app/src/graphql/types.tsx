@@ -171,7 +171,7 @@ export type CurriculumStats = {
   studiedWords: Scalars["Int"];
 };
 
-export type FormResultInput = {
+export type ExerciseResultInput = {
   englishName: Scalars["String"];
   form?: Maybe<Forms>;
   isAnswerCorrect: Scalars["Boolean"];
@@ -195,7 +195,7 @@ export type Mutation = {
 };
 
 export type MutationUpdateStatsArgs = {
-  results?: Maybe<Array<Maybe<FormResultInput>>>;
+  results: Array<ExerciseResultInput>;
 };
 
 export type MutationLogInAppUserArgs = {
@@ -278,6 +278,14 @@ export type GetNextExerciseQuery = {
       >
     >;
   };
+};
+
+export type UpdateStatsMutationVariables = Exact<{
+  results: Array<ExerciseResultInput>;
+}>;
+
+export type UpdateStatsMutation = {
+  updateStats: Pick<UpdateStatsMutationResponse, "success">;
 };
 
 export type GetUserLanguageQueryVariables = Exact<{ [key: string]: never }>;
@@ -462,6 +470,56 @@ export type GetNextExerciseLazyQueryHookResult = ReturnType<
 export type GetNextExerciseQueryResult = Apollo.QueryResult<
   GetNextExerciseQuery,
   GetNextExerciseQueryVariables
+>;
+export const UpdateStatsDocument = gql`
+  mutation UpdateStats($results: [ExerciseResultInput!]!) {
+    updateStats(results: $results) {
+      success
+    }
+  }
+`;
+export type UpdateStatsMutationFn = Apollo.MutationFunction<
+  UpdateStatsMutation,
+  UpdateStatsMutationVariables
+>;
+
+/**
+ * __useUpdateStatsMutation__
+ *
+ * To run a mutation, you first call `useUpdateStatsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStatsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStatsMutation, { data, loading, error }] = useUpdateStatsMutation({
+ *   variables: {
+ *      results: // value for 'results'
+ *   },
+ * });
+ */
+export function useUpdateStatsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateStatsMutation,
+    UpdateStatsMutationVariables
+  >
+) {
+  return Apollo.useMutation<UpdateStatsMutation, UpdateStatsMutationVariables>(
+    UpdateStatsDocument,
+    baseOptions
+  );
+}
+export type UpdateStatsMutationHookResult = ReturnType<
+  typeof useUpdateStatsMutation
+>;
+export type UpdateStatsMutationResult = Apollo.MutationResult<
+  UpdateStatsMutation
+>;
+export type UpdateStatsMutationOptions = Apollo.BaseMutationOptions<
+  UpdateStatsMutation,
+  UpdateStatsMutationVariables
 >;
 export const GetUserLanguageDocument = gql`
   query getUserLanguage {

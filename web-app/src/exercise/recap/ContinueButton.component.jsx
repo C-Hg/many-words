@@ -1,41 +1,33 @@
+import { useQuery } from "@apollo/client";
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import { exerciseStatusVar } from "../../cache";
 import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
 import MainButton from "../../components/buttons/MainButton.styled";
 import { LanguageContext } from "../../contexts/language-context";
+import { GET_EXERCISE_STATUS } from "../graphql/getExerciseStatus.graphql.local";
+import { ExerciseStatus } from "../types/ExerciseStatus.enum";
 
-// TODO rename theme / appTheme
 const ContinueButton = () => {
+  const {
+    data: { exerciseStatus },
+  } = useQuery(GET_EXERCISE_STATUS);
   const appTheme = useContext(ThemeContext);
   const language = useContext(LanguageContext);
   const {
-    navigation: { toContinue, tryAgain },
+    navigation: { toContinue },
   } = language;
-
-  const isWeakWordsMode = true;
-
-  const words = [];
-  // gets the lesson and theme of the first word of the current batch
-  // this works only for classical lessons
-  const { lesson, theme } = words[0];
-
-  const restartLesson = () => {
-    // if (isWeakWordsMode) {
-    //   continueWeakWords();
-    // } else {
-    //   getWords(lesson, theme);
-    // }
-  };
 
   return (
     <ButtonContainer margin="0 0 20px" large>
       <MainButton
+        disabled={exerciseStatus === ExerciseStatus.resultSaved}
         type="button"
-        onClick={restartLesson}
+        onClick={() => exerciseStatusVar(ExerciseStatus.toBegin)}
         color={appTheme.colors.darkBlue}
       >
-        {isWeakWordsMode ? toContinue : tryAgain}
+        {toContinue}
       </MainButton>
     </ButtonContainer>
   );

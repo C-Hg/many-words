@@ -1,12 +1,13 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "styled-icons/material";
-import PropTypes from "prop-types";
 
 import GoBackButton from "./GoBackButton.styled";
-import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
-const GoBack = props => {
+import useWindowDimensions from "../../../utils/useWindowDimensions";
+
+const GoBack = (props) => {
   const { width } = useWindowDimensions();
   const { to } = props;
 
