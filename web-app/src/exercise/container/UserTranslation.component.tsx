@@ -12,6 +12,7 @@ import frenchFlag from "../../images/flags/France.png";
 import ukFlag from "../../images/flags/UK.png";
 import {
   continueWithNextWord,
+  goToRecap,
   submitUserTranslation,
 } from "../Exercise.controller";
 import { GET_EXERCISE_DETAILS } from "../graphql/getExerciseDetails.graphql.local";
@@ -40,7 +41,7 @@ const UserTranslation = (props: Props) => {
     if (event.key === "Enter") {
       if (isCheckingAnswer) {
         if (isLastWord) {
-          // TODO: send stats and prepare recap
+          goToRecap();
         } else {
           continueWithNextWord();
         }

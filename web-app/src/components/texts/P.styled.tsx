@@ -3,7 +3,15 @@ import styled from "styled-components";
 import breakpoints from "../../app/breakpoints";
 import unstyledLink from "../links/DefaultLink";
 
-const P = styled.p`
+type Props = {
+  fontWeight?: string;
+  margin?: string;
+  position?: string;
+  textAlign?: string;
+  width?: string;
+};
+
+const P = styled.p<Props>`
   position: ${(props) => props.position};
   margin: ${(props) => props.margin || "20px auto 0 auto"};
   font-family: ${(props) => props.theme.fonts.main};

@@ -3,9 +3,13 @@ import React from "react";
 import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 import P from "../../components/texts/P.styled";
 
-const WordsToRemember = (props) => {
-  const { exercise } = props;
-  const words = exercise.failedWords.map((val) => {
+type Props = {
+  failedWords: string[][];
+};
+
+const WordsToRemember = (props: Props) => {
+  const { failedWords } = props;
+  const words = failedWords.map((val) => {
     return (
       <P textAlign="left" margin="0" key={`${val[0]}`}>
         {val[0]} : {val[1]}

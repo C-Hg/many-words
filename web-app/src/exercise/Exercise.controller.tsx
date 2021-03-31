@@ -66,6 +66,12 @@ export const goToRecap = () => {
   wordRankVar(0);
 };
 
+export const goToNextExercise = () => {
+  exerciseStatusVar(ExerciseStatus.toBegin);
+  exerciseResultVar([]);
+  failedWordsVar([]);
+};
+
 const getTranslationsWithoutArticles = (translations: string[]) =>
   translations.map((translation) => {
     const match = translation.match(separateWordFromArticleRegex);

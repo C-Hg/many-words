@@ -27,7 +27,11 @@ const LessonResult = (props) => {
     content = moreMistakes;
   }
 
-  return <H2 margin="0 0 30px">{content}</H2>;
+  return (
+    <H2 fontSize="22px" margin="0 0 30px">
+      {content}
+    </H2>
+  );
 };
 
 export default LessonResult;

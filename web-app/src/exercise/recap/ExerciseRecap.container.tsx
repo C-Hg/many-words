@@ -16,7 +16,7 @@ const ExerciseRecap = () => {
   return (
     <VerticalFlexbox>
       <LessonResult failedWords={failedWords} />
-      {failedWords.length > 0 && <WordsToRemember />}
+      {failedWords.length > 0 && <WordsToRemember failedWords={failedWords} />}
       <ContinueButton />
     </VerticalFlexbox>
   );

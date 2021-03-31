@@ -28,7 +28,7 @@ export const languages = {
       shortTerm1: "More content: from 2000 to 3000 words",
       shortTerm2:
         "Weak words: focus on the hardest words for you, globally or by theme",
-      shortTerm3: "Lesson levels: 3 differents levels of difficulty",
+      shortTerm3: "Lesson levels: 3 different levels of difficulty",
       shortTerm4: "Progressive learning: unlock lessons progressively",
       shortTerm5:
         "Continuous learning: learn without leaving the exercise screen, the app selects your weak words and next lesson.",
@@ -78,7 +78,7 @@ export const languages = {
       social_life: "Social life",
       society: "Society",
       time: "Time",
-      vegetals: "Vegetals",
+      vegetal: "Vegetal",
     },
     lessons: {
       animals: {
@@ -153,10 +153,10 @@ export const languages = {
         time_description_2: "Time 3",
         time_divisions: "Time divisions",
       },
-      vegetals: {
+      vegetal: {
         plants: "Plants",
         trees: "Trees",
-        vegetalBasics: "Vegetals",
+        vegetalBasics: "Vegetal",
       },
     },
     translateIn: "Translate in",
@@ -275,7 +275,7 @@ export const languages = {
       social_life: "Vie sociale",
       society: "Société",
       time: "Temps",
-      vegetals: "Végétaux",
+      vegetal: "Végétaux",
     },
     lessons: {
       animals: {
@@ -311,8 +311,8 @@ export const languages = {
         housing: "Se loger",
         rooms: "Pièces",
       },
-      human_body: {
-        human_body_basics: "Corps humain",
+      humanBody: {
+        humanBodyBasics: "Corps humain",
         head: "Tête",
         limbs: "Membres",
         organs: "Organes",
@@ -350,7 +350,7 @@ export const languages = {
         time_description_2: "Temps 3",
         time_divisions: "Mesurer le temps",
       },
-      vegetals: {
+      vegetal: {
         plants: "Plantes",
         trees: "Arbres",
         vegetalBasics: "Végétaux",

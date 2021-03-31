@@ -12,7 +12,7 @@ import {
 
 const useFetchExercise = () => {
   const [saveResults] = useUpdateStatsMutation();
-  const [fetch] = useGetNextExerciseLazyQuery();
+  const [initialFetch, { called, refetch }] = useGetNextExerciseLazyQuery();
   const {
     data: { exerciseStatus },
   } = useQuery(GET_EXERCISE_STATUS);
@@ -20,7 +20,13 @@ const useFetchExercise = () => {
   useEffect(() => {
     // Automatically fetch the new exercise when the variable is reset to "toBegin"
     const getExercise = async () => {
-      await fetch();
+      let getNextExercise;
+      if (refetch !== undefined) {
+        getNextExercise = refetch;
+      } else {
+        getNextExercise = initialFetch;
+      }
+      await getNextExercise();
       // TODO: error management
       exerciseStatusVar(ExerciseStatus.inProgress);
     };
@@ -40,7 +46,7 @@ const useFetchExercise = () => {
     if (exerciseStatus === ExerciseStatus.toBegin) {
       getExercise();
     }
-  }, [exerciseStatus, fetch, saveResults]);
+  }, [called, exerciseStatus, initialFetch, refetch, saveResults]);
 };
 
 export default useFetchExercise;

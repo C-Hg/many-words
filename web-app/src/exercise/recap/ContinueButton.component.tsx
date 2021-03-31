@@ -6,6 +6,7 @@ import { exerciseStatusVar } from "../../cache";
 import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
 import MainButton from "../../components/buttons/MainButton.styled";
 import { LanguageContext } from "../../contexts/language-context";
+import { goToNextExercise } from "../Exercise.controller";
 import { GET_EXERCISE_STATUS } from "../graphql/getExerciseStatus.graphql.local";
 import { ExerciseStatus } from "../types/ExerciseStatus.enum";
 
@@ -19,12 +20,13 @@ const ContinueButton = () => {
     navigation: { toContinue },
   } = language;
 
+  // TODO: disable the button if the next lesson is not ready
   return (
     <ButtonContainer margin="0 0 20px" large>
       <MainButton
-        disabled={exerciseStatus === ExerciseStatus.resultSaved}
+        disabled={exerciseStatus !== ExerciseStatus.resultSaved}
         type="button"
-        onClick={() => exerciseStatusVar(ExerciseStatus.toBegin)}
+        onClick={goToNextExercise}
         color={appTheme.colors.darkBlue}
       >
         {toContinue}
