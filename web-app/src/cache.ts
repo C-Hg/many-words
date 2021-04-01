@@ -9,6 +9,7 @@ export const exerciseStatusVar = makeVar(ExerciseStatus.toBegin);
 export const failedWordsVar = makeVar<string[][]>([]);
 export const isAnswerCorrectVar = makeVar(false);
 export const isCheckingAnswerVar = makeVar(false);
+export const isUserConnectedVar = makeVar(false);
 export const userTranslationVar = makeVar("");
 export const wordRankVar = makeVar(0);
 
@@ -44,6 +45,11 @@ const cache = new InMemoryCache({
         isCheckingAnswer: {
           read() {
             return isCheckingAnswerVar();
+          },
+        },
+        isUserConnected: {
+          read() {
+            return isUserConnectedVar();
           },
         },
         userTranslation: {

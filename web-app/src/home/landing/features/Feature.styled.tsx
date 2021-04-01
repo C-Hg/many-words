@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import breakpoints from "../../app/breakpoints";
+import breakpoints from "../../../app/breakpoints";
 
 const StyledFeature = styled.div`
   flex-basis: 100%;

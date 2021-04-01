@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import About from "../about/About.page";
 import Exercise from "../exercise/Exercise.page";
 import Home from "../home/Home.router";
-import LandingPage from "../landing/Landing.page";
+import LandingPage from "../home/landing/Landing.page";
 
 const Router = (): JSX.Element => {
   return (

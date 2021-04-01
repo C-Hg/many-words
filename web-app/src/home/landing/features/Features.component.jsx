@@ -6,8 +6,8 @@ import { AllInclusive, Spellcheck, Stars } from "styled-icons/material";
 import StyledFeature from "./Feature.styled";
 import StyledFeatures from "./Features.styled";
 
-import H3 from "../../components/texts/H3.styled";
-import { LanguageContext } from "../../contexts/language-context";
+import H3 from "../../../components/texts/H3.styled";
+import { LanguageContext } from "../../../contexts/language-context";
 
 const Features = (props) => {
   const { theme } = props;
