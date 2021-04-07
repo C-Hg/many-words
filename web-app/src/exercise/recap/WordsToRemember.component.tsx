@@ -1,6 +1,7 @@
 import React from "react";
 
-import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
+import WordsToRememberStyled from "./WordsToRemember.styled";
+
 import P from "../../components/texts/P.styled";
 
 type Props = {
@@ -16,11 +17,7 @@ const WordsToRemember = (props: Props) => {
       </P>
     );
   });
-  return (
-    <VerticalFlexbox width="70%" margin="0 0 30px">
-      {words}
-    </VerticalFlexbox>
-  );
+  return <WordsToRememberStyled>{words}</WordsToRememberStyled>;
 };
 
 export default WordsToRemember;

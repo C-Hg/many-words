@@ -1,40 +1,39 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
 
-import GlobalProgress from "./progress/global/GlobalProgress.component";
+import GlobalProgress from "./progress/GlobalProgress.component";
 
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import ButtonContainer from "../components/buttons/ButtonContainer.styled";
 import MainButton from "../components/buttons/MainButton.styled";
-import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
+// import VerticalFlexbox from "../components/div/VerticalFlexbox.styled";
 import NavigationLink from "../components/links/NavigationLink.styled";
 import PageHr from "../components/separators/PageHr.styled";
-import H2 from "../components/texts/H2.styled";
 import { LanguageContext } from "../contexts/language-context";
+import { useGetCurriculumStatsQuery } from "../graphql/types";
 
 const HomePage = (props: any) => {
-  const { user, attemptLogout, deleteAccount } = props;
-  const {
-    stats: {
-      globalProgress: { globalPercentage },
-    },
-    stats,
-  } = user;
+  const { data } = useGetCurriculumStatsQuery();
   const language = useContext(LanguageContext);
   const theme = useContext(ThemeContext);
   const {
-    colors: { green, grey },
+    colors: { green },
   } = theme;
+
+  if (!data) {
+    // TODO: loading animation
+    return null;
+  }
+
+  const {
+    curriculum: { stats },
+  } = data;
 
   return (
     <>
       <ScrollToTopOnMount />
-      {globalPercentage ? (
-        <GlobalProgress stats={stats} />
-      ) : (
-        <H2>{language.home.noStats}</H2>
-      )}
-      <NavigationLink to="/curriculum">
+      <GlobalProgress stats={stats} />
+      <NavigationLink to="/learn">
         <ButtonContainer large margin="80px auto 0 auto">
           <MainButton color={green} type="button">
             {language.home.resumeLearning}
@@ -42,7 +41,7 @@ const HomePage = (props: any) => {
         </ButtonContainer>
       </NavigationLink>
       <PageHr />
-      <VerticalFlexbox margin="30px auto 50px auto">
+      {/* <VerticalFlexbox margin="30px auto 50px auto">
         <ButtonContainer large>
           <MainButton onClick={attemptLogout} color={grey} type="button">
             {language.navigation.logout}
@@ -53,7 +52,7 @@ const HomePage = (props: any) => {
             {language.home.deleteAccount}
           </MainButton>
         </ButtonContainer>
-      </VerticalFlexbox>
+      </VerticalFlexbox> */}
     </>
   );
 };

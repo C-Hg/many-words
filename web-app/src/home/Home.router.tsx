@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import HomePage from "./Home.page";
 
-import { GET_IS_USER_CONNECTED } from "../user/graphql/getIsUserConnected.graphql.local";
+import GET_IS_USER_CONNECTED from "../user/graphql/getIsUserConnected.graphql.local";
 
 const HomeRouter = () => {
   const {

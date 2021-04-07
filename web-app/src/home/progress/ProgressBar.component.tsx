@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import Container from "../../../components/div/Container.styled";
-import EmptyBar from "./EmptyBar.styled";
-import FilledBar from "./FilledBar.styled";
 
-const ProgressBar = props => {
+import EmptyBar from "./styled/EmptyBar.styled";
+import FilledBar from "./styled/FilledBar.styled";
+import ProgressBarContainer from "./styled/ProgressBarContainer.styled";
+
+type Props = {
+  progress: number;
+};
+
+const ProgressBar = (props: Props) => {
   const [isBarVisible, setIsBarVisible] = useState(false);
   const { progress } = props; // from 0 to 1
 
@@ -20,11 +24,11 @@ const ProgressBar = props => {
   let strokeDashoffset = 300;
 
   if (progress && isBarVisible) {
-    strokeDashoffset = 300 - 300 * Number(progress);
+    strokeDashoffset = 300 - 300 * progress;
   }
 
   return (
-    <Container width="330px">
+    <ProgressBarContainer>
       <svg
         width="350"
         height="40"
@@ -35,12 +39,8 @@ const ProgressBar = props => {
         <EmptyBar x1="15" x2="315" y1="15" y2="15" />
         <FilledBar x1="15" x2="315" y1="15" y2="15" />
       </svg>
-    </Container>
+    </ProgressBarContainer>
   );
-};
-
-ProgressBar.propTypes = {
-  progress: PropTypes.string.isRequired,
 };
 
 export default ProgressBar;

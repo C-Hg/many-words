@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
 
-import ContinueButton from "./ContinueButton.component";
+import ContinueButton from "./ContinueButton.container";
 import LessonResult from "./LessonResult.component";
 import WordsToRemember from "./WordsToRemember.component";
 

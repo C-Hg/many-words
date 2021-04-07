@@ -10,7 +10,7 @@ const fillProgressBar = keyframes`
 const FilledBar = styled.line`
   stroke-width: 30px;
   stroke-linecap: round;
-  stroke: ${props => props.theme.colors.green};
+  stroke: ${(props) => props.theme.colors.green};
   stroke-dasharray: 300px;
   animation: ${fillProgressBar} 1000ms ease 400ms forwards;
 `;

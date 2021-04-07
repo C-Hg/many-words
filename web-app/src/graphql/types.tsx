@@ -288,6 +288,23 @@ export type UpdateStatsMutation = {
   updateStats: Pick<UpdateStatsMutationResponse, "success">;
 };
 
+export type GetCurriculumStatsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetCurriculumStatsQuery = {
+  curriculum: Pick<Curriculum, "id"> & {
+    stats: Pick<
+      CurriculumStats,
+      | "globalProgress"
+      | "goldLessons"
+      | "goldWords"
+      | "greenLessons"
+      | "greenWords"
+      | "studiedLessons"
+      | "studiedWords"
+    >;
+  };
+};
+
 export type GetUserLanguageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserLanguageQuery = { user: Pick<User, "id" | "language"> };
@@ -520,6 +537,70 @@ export type UpdateStatsMutationResult = Apollo.MutationResult<
 export type UpdateStatsMutationOptions = Apollo.BaseMutationOptions<
   UpdateStatsMutation,
   UpdateStatsMutationVariables
+>;
+export const GetCurriculumStatsDocument = gql`
+  query GetCurriculumStats {
+    curriculum {
+      id
+      stats {
+        globalProgress
+        goldLessons
+        goldWords
+        greenLessons
+        greenWords
+        studiedLessons
+        studiedWords
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetCurriculumStatsQuery__
+ *
+ * To run a query within a React component, call `useGetCurriculumStatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurriculumStatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurriculumStatsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCurriculumStatsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetCurriculumStatsQuery,
+    GetCurriculumStatsQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    GetCurriculumStatsQuery,
+    GetCurriculumStatsQueryVariables
+  >(GetCurriculumStatsDocument, baseOptions);
+}
+export function useGetCurriculumStatsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCurriculumStatsQuery,
+    GetCurriculumStatsQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    GetCurriculumStatsQuery,
+    GetCurriculumStatsQueryVariables
+  >(GetCurriculumStatsDocument, baseOptions);
+}
+export type GetCurriculumStatsQueryHookResult = ReturnType<
+  typeof useGetCurriculumStatsQuery
+>;
+export type GetCurriculumStatsLazyQueryHookResult = ReturnType<
+  typeof useGetCurriculumStatsLazyQuery
+>;
+export type GetCurriculumStatsQueryResult = Apollo.QueryResult<
+  GetCurriculumStatsQuery,
+  GetCurriculumStatsQueryVariables
 >;
 export const GetUserLanguageDocument = gql`
   query getUserLanguage {

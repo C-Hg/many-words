@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import React, { useRef, useEffect, ChangeEvent } from "react";
+import React, { useEffect, ChangeEvent } from "react";
 
 import InnerContainer from "./styled/InnerContainer.styled";
 import UserTextInput from "./styled/UserTextInput.styled";

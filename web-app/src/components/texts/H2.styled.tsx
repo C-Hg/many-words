@@ -19,7 +19,7 @@ const H2 = styled.p<Props>`
   font-family: ${(props) => props.fontFamily};
   font-weight: ${(props) => props.fontWeight || "600"};
   margin: ${(props) => props.margin || "0"};
-  padding: 0;
+  padding: ${(props) => props.padding || "0"};
   text-align: ${(props) => props.textAlign || "center"};
   font-size: ${(props) => props.fontSize || "28px"};
   background-color: ${(props) =>

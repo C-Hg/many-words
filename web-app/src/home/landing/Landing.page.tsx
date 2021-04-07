@@ -1,13 +1,11 @@
-import { FetchResult, useApolloClient } from "@apollo/client";
 import React, { useContext } from "react";
-import { Redirect } from "react-router";
+import { useHistory } from "react-router";
 import { ThemeContext } from "styled-components";
 
 import LandingTitle from "./LandingTitle.styled";
 import Features from "./features/Features.component";
 
 import ScrollToTopOnMount from "../../app/ScrollToTopOnMount.component";
-import CREATE_WEB_USER from "../../app/graphql/createUser.graphql";
 import { isUserConnectedVar } from "../../cache";
 import ButtonContainer from "../../components/buttons/ButtonContainer.styled";
 import MainButton from "../../components/buttons/MainButton.styled";
@@ -16,12 +14,13 @@ import NavigationLink from "../../components/links/NavigationLink.styled";
 import PageHr from "../../components/separators/PageHr.styled";
 import H2 from "../../components/texts/H2.styled";
 import { LanguageContext } from "../../contexts/language-context";
-import { Mutation } from "../../graphql/types";
+import { useCreateWebUserMutation } from "../../graphql/types";
 
 // TODO: log in possibility
 
 const Landing = () => {
-  const client = useApolloClient();
+  const [createWebUser] = useCreateWebUserMutation();
+  let history = useHistory();
   const language = useContext(LanguageContext);
   const { home } = language;
   const theme = useContext(ThemeContext);
@@ -29,15 +28,12 @@ const Landing = () => {
     colors: { darkBlue },
   } = theme;
 
-  const startLearning = async () => {
-    const { data }: FetchResult<Mutation> = await client.mutate({
-      mutation: CREATE_WEB_USER,
-    });
+  const startLearning = async (): Promise<void> => {
+    const { data } = await createWebUser();
     if (data?.createWebUser?.success) {
       isUserConnectedVar(true);
+      history.push("/learn");
     }
-    isUserConnectedVar(true);
-    return <Redirect to="/learn" />;
   };
 
   return (

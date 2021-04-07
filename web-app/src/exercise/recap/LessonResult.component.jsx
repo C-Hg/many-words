@@ -28,7 +28,7 @@ const LessonResult = (props) => {
   }
 
   return (
-    <H2 fontSize="22px" margin="0 0 30px">
+    <H2 fontSize="22px" padding="6px" margin="5px 0 20px">
       {content}
     </H2>
   );

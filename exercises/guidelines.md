@@ -5,7 +5,7 @@
 1. filenames must not contain hyphens, only underscores
 1. **refer to already filled templates to get a good understanding!**
 
-## Detailled instructions for the word template
+## Detailed instructions for the word template
 
 - always write plain words, without quotes ("")
 - words can have several parts like "to walk" or "après-midi"

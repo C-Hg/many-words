@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import DefaultButton from "./DefaultButton.styled";
 
@@ -11,17 +11,7 @@ type Props = {
   fast?: boolean;
 };
 
-const getAnimation = (color: string) => {
-  return keyframes`
-    100% {
-      color: white;
-      background-color: ${color};
-      border-color: ${color};
-    }
-  `;
-};
-
-const MainButton = styled(DefaultButton)<Props>`
+const LoadingButton = styled(DefaultButton)<Props>`
   border-color: ${(props) => props.borderColor || props.color};
   color: ${(props) => props.color};
   font-family: ${(props) => props.theme.fonts.secondary};
@@ -37,14 +27,14 @@ const MainButton = styled(DefaultButton)<Props>`
   align-items: center;
   justify-content: space-evenly;
   font-size: 16px;
-  &:hover {
-    animation: ${(props) => getAnimation(props.color)}
-      ${(props) => (props.fast ? "0.3s" : "0.5s")} forwards 1;
-  }
 
   > a {
     ${unstyledLink}
   }
+
+  &:hover {
+    cursor: wait;
+  }
 `;
 
-export default MainButton;
+export default LoadingButton;

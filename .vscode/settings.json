@@ -37,6 +37,7 @@
       "clonedeep",
       "codegen",
       "deserialize",
+      "ionicons",
       "manywords",
       "middlewares",
       "printf",

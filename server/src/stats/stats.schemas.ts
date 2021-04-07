@@ -10,7 +10,7 @@ import { UpdateStatsMutationResponse } from "../graphql/types";
 
 export const typeDefs = gql`
   extend type Query {
-    curriculum: Curriculum!
+    curriculum: Curriculum! @loggedIn
   }
 
   type CurriculumStats {

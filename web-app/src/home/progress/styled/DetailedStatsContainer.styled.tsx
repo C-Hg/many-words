@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import VerticalFlexbox from "../../../components/div/VerticalFlexbox.styled";
-import breakpoints from "../../../app/breakpoints";
 
-const DetailledStatsContainer = styled(VerticalFlexbox)`
+import breakpoints from "../../../app/breakpoints";
+import VerticalFlexbox from "../../../components/div/VerticalFlexbox.styled";
+
+const DetailedStatsContainer = styled(VerticalFlexbox)`
   margin-top: 20px;
   @media (min-width: ${breakpoints.horizontalMid}) {
     flex-direction: row;
@@ -16,4 +17,4 @@ const DetailledStatsContainer = styled(VerticalFlexbox)`
   }
 `;
 
-export default DetailledStatsContainer;
+export default DetailedStatsContainer;

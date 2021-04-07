@@ -1,5 +1,4 @@
 import { cloneDeep } from "lodash";
-import { ObjectID } from "mongodb";
 
 import {
   COMPLETION_THRESHOLDS,
@@ -17,16 +16,13 @@ import {
   CurriculumDocument,
   CurriculumNames,
   LessonCompletion,
+  NextExercise,
   NextExerciseMode,
 } from "./types/curriculum.interface";
 import { WordDocument } from "./types/word.interface";
 
-import { Lesson, NextExercise, Topic, Word } from "../graphql/types";
-import {
-  WordStats,
-  WordStatsDocument,
-} from "../stats/interfaces/wordStats.interface";
-import WordStatsModel from "../stats/models/wordStats.model";
+import { Lesson, Word } from "../graphql/types";
+import { WordStats } from "../stats/interfaces/wordStats.interface";
 import error500 from "../utils/errors/error500";
 import logger from "../utils/logger";
 
@@ -153,20 +149,19 @@ const exercisesService = {
 
   /**
    * Fetches the weak words for a logged user, depending on the reference selected
-   * // TODO: strong typing for references
    */
-  getWordsStats: async (
-    reference: "curriculum" | Topic,
-    userId: ObjectID
-  ): Promise<WordStatsDocument[]> => {
-    if (reference === "curriculum") {
-      // gets all wordStats
-      return WordStatsModel.find({ userId });
-    } else {
-      // gets the wordStats for a specific topic
-      return WordStatsModel.find({ userId, topic: reference });
-    }
-  },
+  // getWordsStats: async (
+  //   reference: "curriculum" | Topic,
+  //   userId: ObjectID
+  // ): Promise<WordStatsDocument[]> => {
+  //   if (reference === "curriculum") {
+  //     // gets all wordStats
+  //     return WordStatsModel.find({ userId });
+  //   } else {
+  //     // gets the wordStats for a specific topic
+  //     return WordStatsModel.find({ userId, topic: reference });
+  //   }
+  // },
 
   /**
    * Finds a word by its english reference
@@ -198,6 +193,9 @@ const exercisesService = {
       );
       throw error500();
     }
+    logger.info(
+      `[setNextExercise] ${nextExercise.ressourceId} for ${updatedCurriculum.userId}`
+    );
     return updatedCurriculum;
   },
 
