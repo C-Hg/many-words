@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const GET_USER_TRANSLATION = gql`
+export const GET_NEXT_EXERCISE = gql`
   query GetNextExercise {
     exercise {
       id

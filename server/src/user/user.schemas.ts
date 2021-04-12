@@ -33,7 +33,7 @@ export const typeDefs = gql`
   type User {
     id: ID!
     email: String!
-    language: Languages
+    language: Languages!
   }
 `;
 

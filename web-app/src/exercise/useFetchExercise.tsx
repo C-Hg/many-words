@@ -2,8 +2,10 @@ import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 
 import { GET_EXERCISE_STATUS } from "./graphql/getExerciseStatus.graphql.local";
+import { GET_NEXT_EXERCISE } from "./graphql/getNextExercise.graphql";
 import { ExerciseStatus } from "./types/ExerciseStatus.enum";
 
+import { apolloClient } from "../apolloClient";
 import { exerciseResultVar, exerciseStatusVar } from "../cache";
 import {
   useGetNextExerciseLazyQuery,
@@ -12,7 +14,7 @@ import {
 
 const useFetchExercise = () => {
   const [saveResults] = useUpdateStatsMutation();
-  const [initialFetch, { called, refetch }] = useGetNextExerciseLazyQuery();
+  const [initialFetch, { refetch }] = useGetNextExerciseLazyQuery();
   const {
     data: { exerciseStatus },
   } = useQuery(GET_EXERCISE_STATUS);
@@ -20,14 +22,12 @@ const useFetchExercise = () => {
   useEffect(() => {
     // Automatically fetch the new exercise when the variable is reset to "toBegin"
     const getExercise = async () => {
-      let getNextExercise;
-      if (refetch !== undefined) {
-        getNextExercise = refetch;
-      } else {
-        getNextExercise = initialFetch;
-      }
-      await getNextExercise();
+      await apolloClient.query({
+        fetchPolicy: "network-only",
+        query: GET_NEXT_EXERCISE,
+      });
       // TODO: error management
+      // TODO @V2: exercise should continue on refresh, cache issue?
       exerciseStatusVar(ExerciseStatus.inProgress);
     };
 
@@ -46,7 +46,7 @@ const useFetchExercise = () => {
     if (exerciseStatus === ExerciseStatus.toBegin) {
       getExercise();
     }
-  }, [called, exerciseStatus, initialFetch, refetch, saveResults]);
+  }, [exerciseStatus, initialFetch, refetch, saveResults]);
 };
 
 export default useFetchExercise;

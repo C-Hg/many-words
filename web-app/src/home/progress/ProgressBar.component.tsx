@@ -17,14 +17,14 @@ const ProgressBar = (props: Props) => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => delayBarApparition(), 450);
+    const timer = setTimeout(() => delayBarApparition(), 250);
     return () => clearTimeout(timer);
   }, []);
 
   let strokeDashoffset = 300;
-
-  if (progress && isBarVisible) {
-    strokeDashoffset = 300 - 300 * progress;
+  const visibleProgress = progress > 0.001 ? progress : 0.001;
+  if (isBarVisible) {
+    strokeDashoffset = 300 - 300 * visibleProgress;
   }
 
   return (

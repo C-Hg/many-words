@@ -243,7 +243,7 @@ export type Query = {
 export type User = {
   id: Scalars["ID"];
   email: Scalars["String"];
-  language?: Maybe<Languages>;
+  language: Languages;
   selectedCurriculumId: Scalars["String"];
 };
 

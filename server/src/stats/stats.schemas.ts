@@ -49,7 +49,7 @@ export const typeDefs = gql`
 
   type Curriculum {
     id: String!
-    stats: CurriculumStats! @loggedIn
+    stats: CurriculumStats!
   }
 
   type UpdateStatsMutationResponse {

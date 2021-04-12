@@ -246,7 +246,7 @@ export type Query = {
 export type User = {
   id: Scalars["ID"];
   email: Scalars["String"];
-  language?: Maybe<Languages>;
+  language: Languages;
   selectedCurriculumId: Scalars["String"];
 };
 
@@ -638,11 +638,7 @@ export type UserResolvers<
 > = {
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  language?: Resolver<
-    Maybe<ResolversTypes["Languages"]>,
-    ParentType,
-    ContextType
-  >;
+  language?: Resolver<ResolversTypes["Languages"], ParentType, ContextType>;
   selectedCurriculumId?: Resolver<
     ResolversTypes["String"],
     ParentType,

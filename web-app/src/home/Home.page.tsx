@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
 
 import GlobalProgress from "./progress/GlobalProgress.component";
+import CurriculumTitle from "./styled/CurriculumTitle.styled";
 
 import ScrollToTopOnMount from "../app/ScrollToTopOnMount.component";
 import ButtonContainer from "../components/buttons/ButtonContainer.styled";
@@ -12,8 +13,8 @@ import PageHr from "../components/separators/PageHr.styled";
 import { LanguageContext } from "../contexts/language-context";
 import { useGetCurriculumStatsQuery } from "../graphql/types";
 
-const HomePage = (props: any) => {
-  const { data } = useGetCurriculumStatsQuery();
+const HomePage = () => {
+  const { data } = useGetCurriculumStatsQuery({ fetchPolicy: "network-only" });
   const language = useContext(LanguageContext);
   const theme = useContext(ThemeContext);
   const {
@@ -32,6 +33,7 @@ const HomePage = (props: any) => {
   return (
     <>
       <ScrollToTopOnMount />
+      <CurriculumTitle>{language.home.frenchEnglishVocabulary}</CurriculumTitle>
       <GlobalProgress stats={stats} />
       <NavigationLink to="/learn">
         <ButtonContainer large margin="80px auto 0 auto">

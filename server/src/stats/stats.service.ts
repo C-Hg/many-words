@@ -18,6 +18,9 @@ const statsService = {
       logger.error(`[getCurriculum] cannot find curriculum for user ${userId}`);
       throw error500;
     }
+    logger.debug(
+      `[getCurriculum] successfully retrieved curriculum ${curriculum.name} for user ${userId}`
+    );
     return curriculum;
   },
 

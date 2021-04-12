@@ -31,7 +31,7 @@ const GlobalProgress = (props: Props) => {
       {({ home }) => (
         <VerticalFlexbox margin="30px 0 0 0">
           <ProgressTitle>{home.progressTitle}</ProgressTitle>
-          {globalProgress && <ProgressBar progress={globalProgress} />}
+          <ProgressBar progress={globalProgress} />
           <DetailedStatsContainer>
             <DetailedProgress
               statsToShow="words"
