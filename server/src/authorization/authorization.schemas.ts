@@ -15,6 +15,12 @@ import {
 import logger from "../utils/logger";
 
 export const typeDefs = gql`
+  enum AuthorizationErrors {
+    emailNotFound
+    internalError
+    wrongTotp
+  }
+
   extend type Query {
     getAccessTokenWebUser: QueryResult!
   }
@@ -26,10 +32,11 @@ export const typeDefs = gql`
 
   extend type Mutation {
     logInAppUser(loginInput: LoginInput!): Tokens!
-    logInWebUser(loginInput: LoginInput!): MutationResult!
+    logInWebUser(loginInput: LoginInput!): LogInWithEmailMutationResponse!
+    sendTotpToLogIn(email: String!): SendTotpToLogInMutationResponse!
     sendTotpToVerifyEmail(
       email: String!
-    ): SendTotpToVerifyEmailMutationResponse!
+    ): SendTotpToVerifyEmailMutationResponse! @loggedIn
   }
 
   type MutationResult {
@@ -40,8 +47,18 @@ export const typeDefs = gql`
     success: Boolean!
   }
 
+  type LogInWithEmailMutationResponse {
+    reason: AuthorizationErrors
+    success: Boolean!
+  }
+
+  type SendTotpToLogInMutationResponse {
+    reason: AuthorizationErrors
+    success: Boolean!
+  }
+
   type SendTotpToVerifyEmailMutationResponse {
-    reason: String
+    reason: AuthorizationErrors
     success: Boolean!
   }
 
@@ -81,6 +98,7 @@ export const resolvers = {
       validateLoginInput(loginInput);
       return authorizationController.logInAppUser(loginInput);
     },
+    // TODO: replace logInWebUser
     logInWebUser: async (
       parent: Record<string, unknown>,
       { loginInput }: { loginInput: LoginInput },
@@ -95,15 +113,15 @@ export const resolvers = {
         return { success: false };
       }
     },
-    // TODO: login with email
-    // loginWithEmail: async (
-    //   parent: Record<string, unknown>,
-    //   { email }: { email: string },
-    //   { req }: { req: Request }
-    // ): Promise<MutationResult> => {
-    //   validateEmail(email);
-    //   return authorizationController.sendTotpToLogin(req.ctx.user.id);
-    // },
+    sendTotpToLogIn: async (
+      parent: Record<string, unknown>,
+      { email }: { email: string },
+      { req }: { req: Request }
+    ): Promise<MutationResult> => {
+      // TODO: proper return response on failed validation
+      validateEmail(email);
+      return authorizationController.sendTotpToLogin(req.ctx.user.id, email);
+    },
     sendTotpToVerifyEmail: async (
       parent: Record<string, unknown>,
       { email }: { email: string },

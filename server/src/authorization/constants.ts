@@ -3,6 +3,12 @@ export enum CLIENTS {
   web,
 }
 
+export enum AuthorizationErrors {
+  emailNotFound = "emailNotFound",
+  internalError = "internalError",
+  wrongTotp = "wrongTotp",
+}
+
 export const TOKEN_ISSUER = "ManyWords";
 
 // 30 minutes in Epoch

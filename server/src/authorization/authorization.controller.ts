@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-import { CLIENTS } from "./constants";
+import { CLIENTS, AuthorizationErrors } from "./constants";
 import generateTotp from "./helpers/generateTotp";
 import craftAccessToken from "./helpers/jwt/craftAccessToken";
 import craftRefreshToken from "./helpers/jwt/craftRefreshToken";
@@ -9,7 +9,13 @@ import setCookies from "./helpers/setCookies";
 import { TokenPayload, TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import CONFIG from "../config/config";
-import { Tokens, LoginInput, MutationResult } from "../graphql/types";
+import {
+  Tokens,
+  LoginInput,
+  MutationResult,
+  SendTotpToLogInMutationResponse,
+} from "../graphql/types";
+import User from "../user/models/user.model";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
 
@@ -56,7 +62,7 @@ const authorizationController = {
     res: Response,
     loginInput: LoginInput
   ): Promise<MutationResult> => {
-    const user = await userService.verifyNewUser(loginInput);
+    const user = await userService.verifyLoginCredentials(loginInput);
     const accessToken = await craftAccessToken(user.id, CLIENTS.web);
     const refreshToken = await craftRefreshToken(user.id);
     setCookies(res, accessToken, refreshToken);
@@ -69,14 +75,21 @@ const authorizationController = {
    * Generate and save the totp for later verification
    * Send it by email to the provided email
    */
-  sendTotpToLogin: async (userId: string): Promise<MutationResult> => {
-    logger.debug(`[sendTotpToLogin] trying to log in user ${userId}`);
+  sendTotpToLogin: async (
+    userId: string,
+    email: string
+  ): Promise<SendTotpToLogInMutationResponse> => {
+    logger.debug(`[sendTotpToLogin] preparing totp to log user ${userId} in`);
     const totp = generateTotp();
     try {
-      await userService.setTotpToLogin(totp, userId);
+      const updatedUser = await userService.setTotpToLogin(email, totp);
+      if (!updatedUser) {
+        logger.error("[sendTotpToLogin] email not found");
+        return { reason: AuthorizationErrors.emailNotFound, success: false };
+      }
     } catch (error) {
       logger.error("[sendTotpToLogin] could not prepare totp");
-      return { success: false };
+      return { reason: AuthorizationErrors.internalError, success: false };
     }
 
     if (CONFIG.env !== "production") {
