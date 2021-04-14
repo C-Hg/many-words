@@ -1,5 +1,6 @@
 import { Book } from "@styled-icons/ionicons-outline/Book";
 import { Home } from "@styled-icons/ionicons-outline/Home";
+import { Person } from "@styled-icons/ionicons-outline/Person";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -21,6 +22,11 @@ const NavbarLinks = () => {
       <NavbarLink isActive={pathname === "/home"}>
         <Link to="/home">
           <Home color={theme.colors.white} size="28" title="home" />
+        </Link>
+      </NavbarLink>
+      <NavbarLink isActive={pathname === "/myAccount"}>
+        <Link to="/myAccount">
+          <Person color={theme.colors.white} size="28" title="my account" />
         </Link>
       </NavbarLink>
     </NavbarList>

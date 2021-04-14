@@ -27,7 +27,9 @@ export const typeDefs = gql`
   extend type Mutation {
     logInAppUser(loginInput: LoginInput!): Tokens!
     logInWebUser(loginInput: LoginInput!): MutationResult!
-    sendTotp(email: String!): MutationResult!
+    sendTotpToVerifyEmail(
+      email: String!
+    ): SendTotpToVerifyEmailMutationResponse!
   }
 
   type MutationResult {
@@ -35,6 +37,11 @@ export const typeDefs = gql`
   }
 
   type QueryResult {
+    success: Boolean!
+  }
+
+  type SendTotpToVerifyEmailMutationResponse {
+    reason: String
     success: Boolean!
   }
 
@@ -88,12 +95,25 @@ export const resolvers = {
         return { success: false };
       }
     },
-    sendTotp: async (
+    // TODO: login with email
+    // loginWithEmail: async (
+    //   parent: Record<string, unknown>,
+    //   { email }: { email: string },
+    //   { req }: { req: Request }
+    // ): Promise<MutationResult> => {
+    //   validateEmail(email);
+    //   return authorizationController.sendTotpToLogin(req.ctx.user.id);
+    // },
+    sendTotpToVerifyEmail: async (
       parent: Record<string, unknown>,
-      { email }: { email: string }
+      { email }: { email: string },
+      { req }: { req: Request }
     ): Promise<MutationResult> => {
       validateEmail(email);
-      return authorizationController.sendTotp(email);
+      return authorizationController.sendTotpToVerifyEmail(
+        email,
+        req.ctx.user.id
+      );
     },
   },
 };

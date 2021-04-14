@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import About from "../about/About.page";
+import MyAccount from "../account/myAccount.page";
 import Exercise from "../exercise/Exercise.page";
 import Home from "../home/Home.router";
 import LandingPage from "../home/landing/Landing.page";
@@ -17,6 +18,7 @@ const Router = (): JSX.Element => {
       <Route exact path="/about" component={About} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/learn" component={Exercise} />
+      <Route exact path="/myAccount" component={MyAccount} />
       <Route exact path="/welcome" component={LandingPage} />
     </Switch>
   );

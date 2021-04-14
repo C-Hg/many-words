@@ -3,7 +3,6 @@ import React from "react";
 import DetailedProgress from "./DetailedProgress.component";
 import ProgressBar from "./ProgressBar.component";
 import DetailedStatsContainer from "./styled/DetailedStatsContainer.styled";
-import ProgressTitle from "./styled/ProgressTitle.styled";
 
 import VerticalFlexbox from "../../components/div/VerticalFlexbox.styled";
 import { LanguageContext } from "../../contexts/language-context";
@@ -30,7 +29,7 @@ const GlobalProgress = (props: Props) => {
     <LanguageContext.Consumer>
       {({ home }) => (
         <VerticalFlexbox margin="30px 0 0 0">
-          <ProgressTitle>{home.progressTitle}</ProgressTitle>
+          {/* <ProgressTitle>{home.progressTitle}</ProgressTitle> */}
           <ProgressBar progress={globalProgress} />
           <DetailedStatsContainer>
             <DetailedProgress

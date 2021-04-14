@@ -69,10 +69,42 @@ const authorizationController = {
    * Generate and save the totp for later verification
    * Send it by email to the provided email
    */
-  sendTotp: async (email: string): Promise<MutationResult> => {
-    logger.debug("[sendTotp] trying to log in user with email");
+  sendTotpToLogin: async (userId: string): Promise<MutationResult> => {
+    logger.debug(`[sendTotpToLogin] trying to log in user ${userId}`);
     const totp = generateTotp();
-    await userService.setTotp(email, totp);
+    try {
+      await userService.setTotpToLogin(totp, userId);
+    } catch (error) {
+      logger.error("[sendTotpToLogin] could not prepare totp");
+      return { success: false };
+    }
+
+    if (CONFIG.env !== "production") {
+      logger.info(`[sendTotp] login with totp ${totp.toString()}`);
+    } else {
+      // TODO: effectively send the email and catch errors
+    }
+
+    return { success: true };
+  },
+
+  /**
+   * Generate and save the totp for later verification
+   * Send it by email to the provided email
+   */
+  sendTotpToVerifyEmail: async (
+    email: string,
+    userId: string
+  ): Promise<MutationResult> => {
+    logger.debug(`[sendTotpToLogin] verifying email for user ${userId}`);
+    const totp = generateTotp();
+    // TODO: ensure email is not already taken
+    try {
+      await userService.setTotpToVerifyEmail(email, totp, userId);
+    } catch (error) {
+      logger.error("[sendTotpToLogin] could not send totp");
+      return { success: false };
+    }
 
     if (CONFIG.env !== "production") {
       logger.info(`[sendTotp] login with totp ${totp.toString()}`);

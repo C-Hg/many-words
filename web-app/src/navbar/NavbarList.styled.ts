@@ -8,8 +8,8 @@ const NavbarList = styled.ul`
   padding: 0;
   margin: 0;
   margin-bottom: 3px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   color: ${(props) => props.theme.colors.white};
   display: flex;
   align-items: space-between;

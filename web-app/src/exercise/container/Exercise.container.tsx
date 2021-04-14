@@ -31,13 +31,12 @@ const ExerciseContainer = () => {
   }
 
   const lesson = words[wordRank].lesson;
-  const topic = words[wordRank].topic;
   const isLastWord = wordRank === words.length - 1;
   const sourceLanguage = words?.[wordRank].language;
 
   return (
     <StyledExerciseContainer screenHeight={screenHeight}>
-      <LessonTitle>{language.lessons[topic][lesson]}</LessonTitle>
+      <LessonTitle>{language.lessons[lesson]}</LessonTitle>
       <Instructions>
         {translateIn} {sourceLanguage === LANGUAGES.French ? english : french}
       </Instructions>

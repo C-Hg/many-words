@@ -13,7 +13,7 @@ import { LanguageContext } from "../../contexts/language-context";
 type Props = {
   goldStats: number;
   greenStats: number;
-  statsToShow: string;
+  statsToShow: "words" | "lessons";
   studiedStats: number;
 };
 

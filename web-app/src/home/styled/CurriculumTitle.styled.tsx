@@ -10,6 +10,7 @@ const CurriculumTitle = styled(H2)`
   width: auto;
   font-family: ${(props) => props.theme.fonts.main};
   margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 export default CurriculumTitle;

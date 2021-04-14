@@ -2,6 +2,7 @@ import { TOTP_EXPIRATION } from "./constants";
 import { UserDocument, User } from "./interfaces/user.interface";
 import UserModel from "./models/user.model";
 
+import generateTotp from "../authorization/helpers/generateTotp";
 import { Languages, LoginInput } from "../graphql/types";
 import logger from "../utils/logger";
 
@@ -41,22 +42,38 @@ const userService = {
   },
 
   /**
-   * Upserts a user with login details to log in with totp
+   * Updates a user with login details to log in with totp
    */
-  setTotp: async (email: string, totp: number): Promise<void> => {
+  setTotpToLogin: async (totp: number, userId: string): Promise<void> => {
     logger.debug(`[setTotp] set new totp`);
     const login = {
       totp,
       expiresAt: Date.now() + TOTP_EXPIRATION,
     };
-    await UserModel.updateOne(
-      { email },
+    await UserModel.findByIdAndUpdate(
+      userId,
       { login },
       {
-        upsert: true,
         new: true,
       }
     );
+  },
+
+  /**
+   * Updates a user with login details to log in with totp
+   */
+  setTotpToVerifyEmail: async (
+    email: string,
+    totp: number,
+    userId: string
+  ): Promise<void> => {
+    logger.debug(`[setTotp] set new totp`);
+    const login = {
+      totp,
+      expiresAt: Date.now() + TOTP_EXPIRATION,
+      emailToConfirm: email,
+    };
+    await UserModel.findByIdAndUpdate(userId, { login });
   },
 
   /**

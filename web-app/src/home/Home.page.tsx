@@ -42,7 +42,6 @@ const HomePage = () => {
           </MainButton>
         </ButtonContainer>
       </NavigationLink>
-      <PageHr />
       {/* <VerticalFlexbox margin="30px auto 50px auto">
         <ButtonContainer large>
           <MainButton onClick={attemptLogout} color={grey} type="button">
