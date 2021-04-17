@@ -13,7 +13,11 @@ export type Scalars = {
 
 export type AuthorizationErrors = 
   | 'emailNotFound'
+  | 'expiredTotp'
   | 'internalError'
+  | 'invalidEmailFormat'
+  | 'invalidTotp'
+  | 'noTotp'
   | 'wrongTotp';
 
 export type LoginInput = {
@@ -29,7 +33,7 @@ export type QueryResult = {
   success: Scalars['Boolean'];
 };
 
-export type LogInWithEmailMutationResponse = {
+export type LogInWebUserMutationResponse = {
   reason?: Maybe<AuthorizationErrors>;
   success: Scalars['Boolean'];
 };
@@ -212,7 +216,7 @@ export type Mutation = {
   /** update user stats after an exercise */
   updateStats: UpdateStatsMutationResponse;
   logInAppUser: Tokens;
-  logInWebUser: LogInWithEmailMutationResponse;
+  logInWebUser: LogInWebUserMutationResponse;
   sendTotpToLogIn: SendTotpToLogInMutationResponse;
   sendTotpToVerifyEmail: SendTotpToVerifyEmailMutationResponse;
   createWebUser: MutationResult;

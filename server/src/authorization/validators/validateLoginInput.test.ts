@@ -1,6 +1,7 @@
 import validateLoginInput from "./validateLoginInput";
 
-import { LoginInput } from "../../graphql/authorization.types";
+import { LoginInput } from "../../graphql/types";
+import { AuthorizationErrors } from "../constants";
 
 describe("validateLoginInput", () => {
   it("should throw an error if the given email is of invalid format", () => {
@@ -8,7 +9,8 @@ describe("validateLoginInput", () => {
       email: "invalid.email.fr",
       totp: 180057,
     };
-    expect(() => validateLoginInput(loginInput)).toThrowError("InvalidEmail");
+    const error = validateLoginInput(loginInput);
+    expect(error).toEqual(AuthorizationErrors.invalidEmailFormat);
   });
 
   it("should throw an error if the given totp is too long", () => {
@@ -16,6 +18,7 @@ describe("validateLoginInput", () => {
       email: "valid@email.fr",
       totp: 18005765,
     };
-    expect(() => validateLoginInput(loginInput)).toThrowError("InvalidTotp");
+    const error = validateLoginInput(loginInput);
+    expect(error).toEqual(AuthorizationErrors.invalidTotp);
   });
 });

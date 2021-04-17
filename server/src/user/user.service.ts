@@ -2,6 +2,7 @@ import { TOTP_EXPIRATION } from "./constants";
 import { UserDocument, User } from "./interfaces/user.interface";
 import UserModel from "./models/user.model";
 
+import { AuthorizationErrors } from "../authorization/constants";
 import { Languages, LoginInput } from "../graphql/types";
 import logger from "../utils/logger";
 
@@ -13,6 +14,17 @@ const userService = {
     const newUser = await UserModel.create(user);
     logger.info(`[createUser] created user ${newUser.id}`);
     return newUser;
+  },
+
+  /**
+   * Get user by email
+   */
+  getUserByEmail: async (email: string): Promise<UserDocument> => {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      throw new Error(`[getUserByEmail] no user found with this email`);
+    }
+    return user;
   },
 
   /**
@@ -81,35 +93,25 @@ const userService = {
   /**
    * Verify that the totp provided is valid, to log the user in
    */
-  verifyLoginCredentials: async (
-    loginInput: LoginInput
-  ): Promise<UserDocument> => {
-    const { email, totp } = loginInput;
-    const user = await UserModel.findOne({ email });
-    if (user === null) {
-      logger.error("[verifyLoginCredentials] no user matched the given email");
-      throw new Error("RequestFailed");
-    }
+  verifyLoginCredentials: (
+    loginInput: LoginInput,
+    user: UserDocument
+  ): AuthorizationErrors | undefined => {
+    const { totp } = loginInput;
     const storedTotp = user?.login?.totp;
     if (!storedTotp) {
-      logger.error(
-        "[verifyLoginCredentials] trying to verify a user without totp"
-      );
-      throw new Error("RequestFailed");
+      return AuthorizationErrors.noTotp;
     }
     if (totp !== user?.login?.totp) {
-      logger.error("[verifyLoginCredentials] wrong totp");
-      throw new Error("WrongTotp");
+      return AuthorizationErrors.wrongTotp;
     }
     const expiresAt = user?.login?.expiresAt;
     if (!expiresAt || expiresAt < Date.now()) {
-      logger.error("[verifyLoginCredentials] expired totp");
-      throw new Error("ExpiredTotp");
+      return AuthorizationErrors.expiredTotp;
     }
     logger.info(
       `[verifyLoginCredentials] successfully verified new user ${user.id}`
     );
-    return user;
   },
 };
 

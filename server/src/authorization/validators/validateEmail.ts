@@ -1,17 +1,17 @@
-import { UserInputError } from "apollo-server-express";
 import validator from "validator";
 
 import logger from "../../utils/logger";
+import { AuthorizationErrors } from "../constants";
 
 /**
- * Throws an error if email is invalid
+ * Returns an explicit error if login input parameters are invalid
  */
-const validateEmail = (email: string): void => {
+const validateEmail = (email: string): AuthorizationErrors | undefined => {
   if (!validator.isEmail(email)) {
     logger.error("[validateEmail] invalid email format");
-    throw new UserInputError("InvalidEmailFormat");
+    return AuthorizationErrors.invalidEmailFormat;
   }
-  logger.silly("[validateEmail] email format validated");
+  logger.silly("[validateEmail] email input validated");
 };
 
 export default validateEmail;

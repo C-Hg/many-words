@@ -10,12 +10,12 @@ import { TokenPayload, TokenTypes } from "./interfaces/tokenPayload.interface";
 
 import CONFIG from "../config/config";
 import {
-  Tokens,
   LoginInput,
+  LogInWebUserMutationResponse,
   MutationResult,
   SendTotpToLogInMutationResponse,
+  Tokens,
 } from "../graphql/types";
-import User from "../user/models/user.model";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
 
@@ -47,7 +47,21 @@ const authorizationController = {
    * Confirm the email with totp and returns tokens
    */
   logInAppUser: async (loginInput: LoginInput): Promise<Tokens> => {
-    const user = await userService.verifyNewUser(loginInput);
+    let user;
+    try {
+      user = await userService.getUserByEmail(loginInput.email);
+    } catch (error) {
+      logger.error("[logInAppUser] email not matching any user in database");
+      throw new Error(AuthorizationErrors.emailNotFound);
+    }
+    const error = userService.verifyLoginCredentials(loginInput, user);
+    if (error) {
+      logger.error(
+        `[logInAppUser] failed login credentials verification for ${user.id} with error ${error}`
+      );
+      throw new Error(error);
+    }
+
     const [accessToken, refreshToken] = await Promise.all([
       craftAccessToken(user.id, CLIENTS.app),
       craftRefreshToken(user.id),
@@ -61,25 +75,38 @@ const authorizationController = {
   logInWebUser: async (
     res: Response,
     loginInput: LoginInput
-  ): Promise<MutationResult> => {
-    const user = await userService.verifyLoginCredentials(loginInput);
+  ): Promise<LogInWebUserMutationResponse> => {
+    let user;
+    try {
+      user = await userService.getUserByEmail(loginInput.email);
+    } catch (error) {
+      logger.error("[logInWebUser] email not matching any user in database");
+      return { reason: AuthorizationErrors.emailNotFound, success: false };
+    }
+
+    const error = userService.verifyLoginCredentials(loginInput, user);
+    if (error) {
+      logger.error(
+        `[logInWebUser] failed login credentials verification for ${user.id} with error ${error}`
+      );
+      return { reason: error, success: false };
+    }
+
     const accessToken = await craftAccessToken(user.id, CLIENTS.web);
     const refreshToken = await craftRefreshToken(user.id);
     setCookies(res, accessToken, refreshToken);
     return { success: true };
   },
 
-  // TODO: similar function for exercises Server to validate an email for a user
   // TODO: limit the number of requests from a single client
   /**
    * Generate and save the totp for later verification
    * Send it by email to the provided email
    */
   sendTotpToLogin: async (
-    userId: string,
     email: string
   ): Promise<SendTotpToLogInMutationResponse> => {
-    logger.debug(`[sendTotpToLogin] preparing totp to log user ${userId} in`);
+    logger.debug(`[sendTotpToLogin] preparing totp to log user in`);
     const totp = generateTotp();
     try {
       const updatedUser = await userService.setTotpToLogin(email, totp);

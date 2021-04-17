@@ -2,22 +2,29 @@ import { gql } from "apollo-server-express";
 import { Request, Response } from "express";
 
 import authorizationController from "./authorization.controller";
+import { AuthorizationErrors } from "./constants";
 import getRefreshToken from "./helpers/parseRefreshTokenCookie";
 import validateEmail from "./validators/validateEmail";
 import validateLoginInput from "./validators/validateLoginInput";
 
 import {
-  MutationResult,
-  Tokens,
   LoginInput,
   QueryResult,
+  SendTotpToLogInMutationResponse,
+  LogInWebUserMutationResponse,
+  SendTotpToVerifyEmailMutationResponse,
+  Tokens,
 } from "../graphql/types";
 import logger from "../utils/logger";
 
 export const typeDefs = gql`
   enum AuthorizationErrors {
     emailNotFound
+    expiredTotp
     internalError
+    invalidEmailFormat
+    invalidTotp
+    noTotp
     wrongTotp
   }
 
@@ -32,7 +39,7 @@ export const typeDefs = gql`
 
   extend type Mutation {
     logInAppUser(loginInput: LoginInput!): Tokens!
-    logInWebUser(loginInput: LoginInput!): LogInWithEmailMutationResponse!
+    logInWebUser(loginInput: LoginInput!): LogInWebUserMutationResponse!
     sendTotpToLogIn(email: String!): SendTotpToLogInMutationResponse!
     sendTotpToVerifyEmail(
       email: String!
@@ -47,7 +54,7 @@ export const typeDefs = gql`
     success: Boolean!
   }
 
-  type LogInWithEmailMutationResponse {
+  type LogInWebUserMutationResponse {
     reason: AuthorizationErrors
     success: Boolean!
   }
@@ -91,43 +98,49 @@ export const resolvers = {
     },
   },
   Mutation: {
-    logInAppUser: async (
+    logInAppUser: (
       parent: Record<string, unknown>,
       { loginInput }: { loginInput: LoginInput }
     ): Promise<Tokens> => {
       validateLoginInput(loginInput);
       return authorizationController.logInAppUser(loginInput);
     },
-    // TODO: replace logInWebUser
     logInWebUser: async (
       parent: Record<string, unknown>,
       { loginInput }: { loginInput: LoginInput },
       { res }: { res: Response }
-    ): Promise<MutationResult> => {
-      validateLoginInput(loginInput);
+    ): Promise<LogInWebUserMutationResponse> => {
+      const error = validateLoginInput(loginInput);
+      if (error) {
+        return { reason: error, success: false };
+      }
       try {
-        await authorizationController.logInWebUser(res, loginInput);
-        return { success: true };
+        return authorizationController.logInWebUser(res, loginInput);
       } catch (error) {
         logger.error(`[logInWebUser] - ${error}`);
-        return { success: false };
+        return { reason: AuthorizationErrors.internalError, success: false };
       }
     },
     sendTotpToLogIn: async (
       parent: Record<string, unknown>,
-      { email }: { email: string },
-      { req }: { req: Request }
-    ): Promise<MutationResult> => {
-      // TODO: proper return response on failed validation
-      validateEmail(email);
-      return authorizationController.sendTotpToLogin(req.ctx.user.id, email);
+      { email }: { email: string }
+    ): Promise<SendTotpToLogInMutationResponse> => {
+      logger.info("[sendTotpToLogIn]");
+      const error = validateEmail(email);
+      if (error) {
+        return { reason: error, success: false };
+      }
+      return authorizationController.sendTotpToLogin(email);
     },
     sendTotpToVerifyEmail: async (
       parent: Record<string, unknown>,
       { email }: { email: string },
       { req }: { req: Request }
-    ): Promise<MutationResult> => {
-      validateEmail(email);
+    ): Promise<SendTotpToVerifyEmailMutationResponse> => {
+      const error = validateEmail(email);
+      if (error) {
+        return { reason: error, success: false };
+      }
       return authorizationController.sendTotpToVerifyEmail(
         email,
         req.ctx.user.id

@@ -48,6 +48,7 @@ const GET_ACCESS_TOKEN_WEB_USER = gql`
 const LOG_IN_WEB_USER = gql`
   mutation logInWebUser($loginInput: LoginInput!) {
     logInWebUser(loginInput: $loginInput) {
+      reason
       success
     }
   }
@@ -56,6 +57,7 @@ const LOG_IN_WEB_USER = gql`
 const SEND_TOTP_TO_LOGIN = gql`
   mutation sendTotpToLogIn($email: String!) {
     sendTotpToLogIn(email: $email) {
+      reason
       success
     }
   }
@@ -63,8 +65,9 @@ const SEND_TOTP_TO_LOGIN = gql`
 
 const INVALID_EMAIL = "invalid@email";
 const NOT_FOUND_EMAIL = "not.found@manwords.fr";
-const USER_1 = "authoriZation.user1@e2etest.fr";
+const USER_1 = "authorization.user1@e2etest.fr";
 const VALID_EMAIL_1 = "valid1@email.fr";
+const VALID_EMAIL_11 = "valid11@email.fr";
 const VALID_EMAIL_2 = "hello2@manywords.fr";
 const VALID_EMAIL_3 = "hello3@manywords.fr";
 const VALID_EMAIL_4 = "hello4@manywords.fr";
@@ -89,6 +92,7 @@ describe("Authorization server - e2e", () => {
         $in: [
           USER_1,
           VALID_EMAIL_1,
+          VALID_EMAIL_11,
           VALID_EMAIL_2,
           VALID_EMAIL_3,
           VALID_EMAIL_4,
@@ -103,42 +107,8 @@ describe("Authorization server - e2e", () => {
     await db.connection.close();
   });
 
-  let validRefreshToken: string;
-
-  // -----------------     CREATE_APP_USER     ------------------
-  // it("should create a user and return the tokens", async () => {
-  //   const res: FetchResult<Mutation> = await client.mutate({
-  //     mutation: CREATE_APP_USER,
-  //   });
-  //   const {
-  //     data: {
-  //       createAppUser: { accessToken, refreshToken },
-  //     },
-  //   } = res;
-
-  //   expect(accessToken).toBeDefined();
-  //   const decodedAT = await verifyToken(accessToken);
-  //   expect(decodedAT.exp).toBeCloseTo(
-  //     Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION,
-  //     -3
-  //   );
-  //   expect(decodedAT.sub).toBeDefined();
-  //   expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
-
-  //   expect(refreshToken).toBeDefined();
-  //   validRefreshToken = refreshToken;
-  //   const decodedRT = await verifyToken(refreshToken);
-  //   expect(decodedRT.exp).toBeCloseTo(
-  //     Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION,
-  //     -3
-  //   );
-  //   expect(decodedRT.sub).toBeDefined();
-  //   expect(decodedRT.sub).toEqual(decodedAT.sub);
-  //   expect(decodedRT.tokenUse).toEqual(TokenTypes.refresh);
-  // });
-
   // -----------------     CREATE_WEB_USER     ------------------
-  it("should create a user and return the tokens inside cookies", async () => {
+  it.skip("should create a user and return the tokens inside cookies", async () => {
     const { data }: FetchResult<Mutation> = await client.mutate({
       mutation: CREATE_WEB_USER_TEST,
     });
@@ -149,7 +119,7 @@ describe("Authorization server - e2e", () => {
   });
 
   // -----------------     GET_ACCESS_TOKEN_WEB_USER     ------------------
-  it("should get an error for a query without refresh token", async () => {
+  it.skip("should get an error for a query without refresh token", async () => {
     const { data }: ApolloQueryResult<Query> = await client.query({
       query: GET_ACCESS_TOKEN_WEB_USER,
     });
@@ -158,107 +128,34 @@ describe("Authorization server - e2e", () => {
     expect(success).toEqual(false);
   });
 
-  // -----------------     GET_APP_ACCESS_TOKEN      ------------------
-  // it("should get a new access token from refresh token", async () => {
-  //   const res: ApolloQueryResult<Query> = await client.query({
-  //     query: GET_ACCESS_TOKEN,
-  //     variables: { refreshToken: validRefreshToken },
-  //   });
-  //   const {
-  //     data: { getAccessToken: accessToken },
-  //   } = res;
-
-  //   expect(accessToken).toBeDefined();
-  //   const decodedAT = await verifyToken(accessToken);
-  //   const decodedRT = await verifyToken(validRefreshToken);
-  //   expect(decodedAT.exp).toBeCloseTo(
-  //     Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION
-  //   );
-  //   expect(decodedAT.sub).toEqual(decodedRT.sub);
-  //   expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
-  // });
-
-  // it("should throw an error if the refresh token is expired", async () => {
-  //   const exp = Math.floor(Date.now() / 1000) - 10;
-  //   const payload = {
-  //     exp,
-  //     sub: "anInvalidId",
-  //     tokenUse: TokenTypes.refresh,
-  //   };
-  //   const expiredRefreshToken = await signToken(payload);
-  //   await expect(
-  //     client.query({
-  //       query: GET_ACCESS_TOKEN,
-  //       variables: { refreshToken: expiredRefreshToken },
-  //     })
-  //     // rejection reason is hidden from the client
-  //   ).rejects.toThrowError("InvalidToken");
-  // });
-
-  // it("should throw an error if it is an access token", async () => {
-  //   const exp = Math.floor(Date.now() / 1000) + 5000;
-  //   const payload = {
-  //     exp,
-  //     sub: "anInvalidId",
-  //     tokenUse: TokenTypes.access,
-  //   };
-  //   const disguisedRefreshToken = await signToken(payload);
-  //   await expect(
-  //     client.query({
-  //       query: GET_ACCESS_TOKEN,
-  //       variables: { refreshToken: disguisedRefreshToken },
-  //     })
-  //   ).rejects.toThrowError("InvalidToken");
-  // });
-
-  // it("should throw an error if the refresh token signature is wrong", async () => {
-  //   const exp = Math.floor(Date.now() / 1000) + 50000;
-  //   const payload = {
-  //     exp,
-  //     sub: "anInvalidId",
-  //     tokenUse: TokenTypes.refresh,
-  //   };
-  //   const invalidRefreshToken = await new Promise((resolve, reject) => {
-  //     jwt.sign(payload, "aDifferentSecretSignature", function (error, token) {
-  //       if (token) {
-  //         resolve(token);
-  //       } else {
-  //         reject(error);
-  //       }
-  //     });
-  //   });
-  //   await expect(
-  //     client.query({
-  //       query: GET_ACCESS_TOKEN,
-  //       variables: { refreshToken: invalidRefreshToken },
-  //     })
-  //   ).rejects.toThrowError("InvalidToken");
-  // });
-
   // -----------------     SEND_TOTP_TO_LOGIN    ------------------
+  //  this operation does not require an authenticated client
   it("should send an email with totp", async () => {
-    const { accessToken, _id } = await createTestUser(USER_1);
-    const authenticatedClient1 = getAuthenticatedClient(accessToken);
-    const res: FetchResult<Mutation> = await authenticatedClient1.mutate({
+    const { id } = await createTestUser(USER_1);
+    console.error(id);
+    const res: FetchResult<Mutation> = await client.mutate({
       mutation: SEND_TOTP_TO_LOGIN,
-      variables: { email: VALID_EMAIL_1 },
+      variables: { email: USER_1 },
     });
+    console.error("2");
 
     expect(res?.data?.sendTotpToLogIn?.success).toEqual(true);
     // the user should be updated with this totp, expiration date and emailToConfirm
-    const user = await User.findById(_id);
+    const user = await User.findById(id);
+
     expect(user?.login.expiresAt).toBeDefined();
-    expect(user?.login.emailToConfirm).toEqual(VALID_EMAIL_1);
     expect(user?.login.totp).toBeDefined();
   });
 
-  it("should throw with an invalid email format", async () => {
-    await expect(
-      client.mutate({
-        mutation: SEND_TOTP_TO_LOGIN,
-        variables: { email: INVALID_EMAIL },
-      })
-    ).rejects.toThrowError("InvalidEmailFormat");
+  it("should explicitly throw with an invalid email format", async () => {
+    const res: FetchResult<Mutation> = await client.mutate({
+      mutation: SEND_TOTP_TO_LOGIN,
+      variables: { email: INVALID_EMAIL },
+    });
+    expect(res?.data?.sendTotpToLogIn?.reason).toEqual(
+      AuthorizationErrors.invalidEmailFormat
+    );
+    expect(res?.data?.sendTotpToLogIn?.success).toEqual(false);
   });
 
   it("should explicitly throw if no account exists with this email", async () => {
@@ -272,132 +169,8 @@ describe("Authorization server - e2e", () => {
     expect(res?.data?.sendTotpToLogIn?.success).toEqual(false);
   });
 
-  // -----------------     SEND_TOTP_TO_VERIFY_EMAIL    ------------------
-
-  // -----------------    LOG_IN_APP_USER     ------------------
-  // it("should verify the user and receive tokens", async () => {
-  //   // creates a new user with verifiable values
-  //   const { id } = await userService.createUser();
-  //   await userService.setTotp(VALID_EMAIL_2, 189657);
-
-  //   const loginInput = {
-  //     email: VALID_EMAIL_2,
-  //     totp: 189657,
-  //   };
-  //   const res: FetchResult<Mutation> = await client.mutate({
-  //     mutation: LOG_IN_APP_USER,
-  //     variables: { loginInput },
-  //   });
-  //   const {
-  //     data: {
-  //       logInAppUser: { accessToken, refreshToken },
-  //     },
-  //   } = res;
-  //   expect(accessToken).toBeDefined();
-  //   expect(refreshToken).toBeDefined();
-  // });
-
-  // it("should throw an error if the given email is of invalid format", async () => {
-  //   const loginInput = {
-  //     email: INVALID_EMAIL,
-  //     totp: 180057,
-  //   };
-  //   await expect(
-  //     client.mutate({
-  //       mutation: LOG_IN_APP_USER,
-  //       variables: { loginInput },
-  //     })
-  //   ).rejects.toThrowError("InvalidEmail");
-  // });
-
-  // // TODO: success false and messages
-  // it("should throw an error if the given totp is of invalid format", async () => {
-  //   const loginInput = {
-  //     email: VALID_EMAIL_1,
-  //     totp: 18005765,
-  //   };
-  //   await expect(
-  //     client.mutate({
-  //       mutation: LOG_IN_APP_USER,
-  //       variables: { loginInput },
-  //     })
-  //   ).rejects.toThrowError("InvalidTotp");
-  // });
-
-  // it("should throw an error if the given email is not found", async () => {
-  //   const loginInput: LoginInput = {
-  //     email: NOT_FOUND_EMAIL,
-  //     totp: 180055,
-  //   };
-  //   await expect(
-  //     client.mutate({
-  //       mutation: LOG_IN_APP_USER,
-  //       variables: { loginInput },
-  //     })
-  //   ).rejects.toThrowError("RequestFailed");
-  // });
-
-  // it("should throw an error if the given totp is expired", async () => {
-  //   // creates a new user that requested a totp half an hour ago
-  //   await userService.createUser({
-  //     email: VALID_EMAIL_3,
-  //     login: { totp: 180055, expiresAt: Date.now() - 30 * 60 * 1000 },
-  //   });
-  //   const loginInput: LoginInput = {
-  //     email: VALID_EMAIL_3,
-  //     totp: 180055,
-  //   };
-  //   await expect(
-  //     client.mutate({
-  //       mutation: LOG_IN_APP_USER,
-  //       variables: { loginInput },
-  //     })
-  //   ).rejects.toThrowError("ExpiredTotp");
-  // });
-
-  // it("should throw an error if the user has no totp previously set", async () => {
-  //   await userService.createUser({ email: VALID_EMAIL_4 });
-  //   const loginInput: LoginInput = {
-  //     email: VALID_EMAIL_4,
-  //     totp: 180055,
-  //   };
-  //   await expect(
-  //     client.mutate({
-  //       mutation: LOG_IN_APP_USER,
-  //       variables: { loginInput },
-  //     })
-  //   ).rejects.toThrowError("RequestFailed");
-  // });
-
-  // it("should throw an explicit error if the totp is wrong", async () => {
-  //   const { id } = await userService.createUser({ email: VALID_EMAIL_5 });
-  //   await userService.setTotpToLogin(189888, id);
-  //   const loginInput: LoginInput = {
-  //     email: VALID_EMAIL_5,
-  //     totp: 189777,
-  //   };
-  //   await expect(
-  //     client.mutate({
-  //       mutation: LOG_IN_APP_USER,
-  //       variables: { loginInput },
-  //     })
-  //   ).rejects.toThrowError("WrongTotp");
-  // });
-
   // -----------------     LOG_IN_WEB_USER     ------------------
-  it("should throw if the user is not connected", async () => {
-    const loginInput = {
-      email: VALID_EMAIL_9,
-      totp: 189657,
-    };
-    await expect(
-      client.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
-      })
-    ).rejects.toThrowError("Disconnected");
-  });
-
+  //  this operation does not require an authenticated client
   it("should verify the user and receive cookies with access and refresh tokens", async () => {
     // creates a new user with verifiable values
     await userService.createUser({ email: VALID_EMAIL_9 });
@@ -414,30 +187,19 @@ describe("Authorization server - e2e", () => {
     expect(res?.data?.logInWebUser?.success).toEqual(true);
   });
 
-  it("should throw an error if the given email is of invalid format", async () => {
-    const loginInput = {
-      email: INVALID_EMAIL,
-      totp: 180057,
-    };
-    await expect(
-      client.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
-      })
-    ).rejects.toThrowError("InvalidEmailFormat");
-  });
-
   it("should throw an error if the given totp is of invalid format", async () => {
     const loginInput = {
       email: VALID_EMAIL_1,
       totp: 18005765,
     };
-    await expect(
-      client.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
-      })
-    ).rejects.toThrowError("InvalidTotp");
+    const res: FetchResult<Mutation> = await client.mutate({
+      mutation: LOG_IN_WEB_USER,
+      variables: { loginInput },
+    });
+    expect(res?.data?.logInWebUser?.reason).toEqual(
+      AuthorizationErrors.invalidTotp
+    );
+    expect(res?.data?.logInWebUser?.success).toEqual(false);
   });
 
   it("should throw an error if the given email is not found", async () => {
@@ -449,6 +211,9 @@ describe("Authorization server - e2e", () => {
       mutation: LOG_IN_WEB_USER,
       variables: { loginInput },
     });
+    expect(data?.logInWebUser.reason).toEqual(
+      AuthorizationErrors.emailNotFound
+    );
     expect(data?.logInWebUser.success).toEqual(false);
   });
 
@@ -466,6 +231,7 @@ describe("Authorization server - e2e", () => {
       mutation: LOG_IN_WEB_USER,
       variables: { loginInput },
     });
+    expect(data?.logInWebUser.reason).toEqual(AuthorizationErrors.expiredTotp);
     expect(data?.logInWebUser.success).toEqual(false);
   });
 
@@ -479,6 +245,7 @@ describe("Authorization server - e2e", () => {
       mutation: LOG_IN_WEB_USER,
       variables: { loginInput },
     });
+    expect(data?.logInWebUser.reason).toEqual(AuthorizationErrors.noTotp);
     expect(data?.logInWebUser.success).toEqual(false);
   });
 
@@ -497,5 +264,241 @@ describe("Authorization server - e2e", () => {
     expect(data?.logInWebUser.reason).toEqual(AuthorizationErrors.wrongTotp);
   });
 
+  // -----------------     SEND_TOTP_TO_VERIFY_EMAIL    ------------------
+
+  // TODO: update me, write all tests
+  it("should throw if the user is not connected", async () => {
+    const loginInput = {
+      email: VALID_EMAIL_9,
+      totp: 189657,
+    };
+    await expect(
+      client.mutate({
+        mutation: LOG_IN_WEB_USER,
+        variables: { loginInput },
+      })
+    ).rejects.toThrowError("Disconnected");
+  });
+
   // ----------------------        VERIFY EMAIL         --------------------------------
+  // TODO: write tests
 });
+
+// -----------------     CREATE_APP_USER     ------------------
+// it("should create a user and return the tokens", async () => {
+//   const res: FetchResult<Mutation> = await client.mutate({
+//     mutation: CREATE_APP_USER,
+//   });
+//   const {
+//     data: {
+//       createAppUser: { accessToken, refreshToken },
+//     },
+//   } = res;
+
+//   expect(accessToken).toBeDefined();
+//   const decodedAT = await verifyToken(accessToken);
+//   expect(decodedAT.exp).toBeCloseTo(
+//     Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION,
+//     -3
+//   );
+//   expect(decodedAT.sub).toBeDefined();
+//   expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
+
+//   expect(refreshToken).toBeDefined();
+//   validRefreshToken = refreshToken;
+//   const decodedRT = await verifyToken(refreshToken);
+//   expect(decodedRT.exp).toBeCloseTo(
+//     Math.floor(Date.now() / 1000) + REFRESH_TOKEN_EXPIRATION,
+//     -3
+//   );
+//   expect(decodedRT.sub).toBeDefined();
+//   expect(decodedRT.sub).toEqual(decodedAT.sub);
+//   expect(decodedRT.tokenUse).toEqual(TokenTypes.refresh);
+// });
+
+// -----------------     GET_APP_ACCESS_TOKEN      ------------------
+// it("should get a new access token from refresh token", async () => {
+//   const res: ApolloQueryResult<Query> = await client.query({
+//     query: GET_ACCESS_TOKEN,
+//     variables: { refreshToken: validRefreshToken },
+//   });
+//   const {
+//     data: { getAccessToken: accessToken },
+//   } = res;
+
+//   expect(accessToken).toBeDefined();
+//   const decodedAT = await verifyToken(accessToken);
+//   const decodedRT = await verifyToken(validRefreshToken);
+//   expect(decodedAT.exp).toBeCloseTo(
+//     Math.floor(Date.now() / 1000) + APP_ACCESS_TOKEN_EXPIRATION
+//   );
+//   expect(decodedAT.sub).toEqual(decodedRT.sub);
+//   expect(decodedAT.tokenUse).toEqual(TokenTypes.access);
+// });
+
+// it("should throw an error if the refresh token is expired", async () => {
+//   const exp = Math.floor(Date.now() / 1000) - 10;
+//   const payload = {
+//     exp,
+//     sub: "anInvalidId",
+//     tokenUse: TokenTypes.refresh,
+//   };
+//   const expiredRefreshToken = await signToken(payload);
+//   await expect(
+//     client.query({
+//       query: GET_ACCESS_TOKEN,
+//       variables: { refreshToken: expiredRefreshToken },
+//     })
+//     // rejection reason is hidden from the client
+//   ).rejects.toThrowError("InvalidToken");
+// });
+
+// it("should throw an error if it is an access token", async () => {
+//   const exp = Math.floor(Date.now() / 1000) + 5000;
+//   const payload = {
+//     exp,
+//     sub: "anInvalidId",
+//     tokenUse: TokenTypes.access,
+//   };
+//   const disguisedRefreshToken = await signToken(payload);
+//   await expect(
+//     client.query({
+//       query: GET_ACCESS_TOKEN,
+//       variables: { refreshToken: disguisedRefreshToken },
+//     })
+//   ).rejects.toThrowError("InvalidToken");
+// });
+
+// it("should throw an error if the refresh token signature is wrong", async () => {
+//   const exp = Math.floor(Date.now() / 1000) + 50000;
+//   const payload = {
+//     exp,
+//     sub: "anInvalidId",
+//     tokenUse: TokenTypes.refresh,
+//   };
+//   const invalidRefreshToken = await new Promise((resolve, reject) => {
+//     jwt.sign(payload, "aDifferentSecretSignature", function (error, token) {
+//       if (token) {
+//         resolve(token);
+//       } else {
+//         reject(error);
+//       }
+//     });
+//   });
+//   await expect(
+//     client.query({
+//       query: GET_ACCESS_TOKEN,
+//       variables: { refreshToken: invalidRefreshToken },
+//     })
+//   ).rejects.toThrowError("InvalidToken");
+// });
+
+// -----------------    LOG_IN_APP_USER     ------------------
+// it("should verify the user and receive tokens", async () => {
+//   // creates a new user with verifiable values
+//   const { id } = await userService.createUser();
+//   await userService.setTotp(VALID_EMAIL_2, 189657);
+
+//   const loginInput = {
+//     email: VALID_EMAIL_2,
+//     totp: 189657,
+//   };
+//   const res: FetchResult<Mutation> = await client.mutate({
+//     mutation: LOG_IN_APP_USER,
+//     variables: { loginInput },
+//   });
+//   const {
+//     data: {
+//       logInAppUser: { accessToken, refreshToken },
+//     },
+//   } = res;
+//   expect(accessToken).toBeDefined();
+//   expect(refreshToken).toBeDefined();
+// });
+
+// it("should throw an error if the given email is of invalid format", async () => {
+//   const loginInput = {
+//     email: INVALID_EMAIL,
+//     totp: 180057,
+//   };
+//   await expect(
+//     client.mutate({
+//       mutation: LOG_IN_APP_USER,
+//       variables: { loginInput },
+//     })
+//   ).rejects.toThrowError("InvalidEmail");
+// });
+
+// // TODO: success false and messages
+// it("should throw an error if the given totp is of invalid format", async () => {
+//   const loginInput = {
+//     email: VALID_EMAIL_1,
+//     totp: 18005765,
+//   };
+//   await expect(
+//     client.mutate({
+//       mutation: LOG_IN_APP_USER,
+//       variables: { loginInput },
+//     })
+//   ).rejects.toThrowError("InvalidTotp");
+// });
+
+// it("should throw an error if the given email is not found", async () => {
+//   const loginInput: LoginInput = {
+//     email: NOT_FOUND_EMAIL,
+//     totp: 180055,
+//   };
+//   await expect(
+//     client.mutate({
+//       mutation: LOG_IN_APP_USER,
+//       variables: { loginInput },
+//     })
+//   ).rejects.toThrowError("RequestFailed");
+// });
+
+// it("should throw an error if the given totp is expired", async () => {
+//   // creates a new user that requested a totp half an hour ago
+//   await userService.createUser({
+//     email: VALID_EMAIL_3,
+//     login: { totp: 180055, expiresAt: Date.now() - 30 * 60 * 1000 },
+//   });
+//   const loginInput: LoginInput = {
+//     email: VALID_EMAIL_3,
+//     totp: 180055,
+//   };
+//   await expect(
+//     client.mutate({
+//       mutation: LOG_IN_APP_USER,
+//       variables: { loginInput },
+//     })
+//   ).rejects.toThrowError("ExpiredTotp");
+// });
+
+// it("should throw an error if the user has no totp previously set", async () => {
+//   await userService.createUser({ email: VALID_EMAIL_4 });
+//   const loginInput: LoginInput = {
+//     email: VALID_EMAIL_4,
+//     totp: 180055,
+//   };
+//   await expect(
+//     client.mutate({
+//       mutation: LOG_IN_APP_USER,
+//       variables: { loginInput },
+//     })
+//   ).rejects.toThrowError("RequestFailed");
+// });
+
+// it("should throw an explicit error if the totp is wrong", async () => {
+//   const { id } = await userService.createUser({ email: VALID_EMAIL_5 });
+//   await userService.setTotpToLogin(189888, id);
+//   const loginInput: LoginInput = {
+//     email: VALID_EMAIL_5,
+//     totp: 189777,
+//   };
+//   await expect(
+//     client.mutate({
+//       mutation: LOG_IN_APP_USER,
+//       variables: { loginInput },
+//     })
+//   ).rejects.toThrowError("WrongTotp");
+// });

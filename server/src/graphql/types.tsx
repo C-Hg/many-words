@@ -19,7 +19,11 @@ export type Scalars = {
 
 export type AuthorizationErrors =
   | "emailNotFound"
+  | "expiredTotp"
   | "internalError"
+  | "invalidEmailFormat"
+  | "invalidTotp"
+  | "noTotp"
   | "wrongTotp";
 
 export type LoginInput = {
@@ -35,7 +39,7 @@ export type QueryResult = {
   success: Scalars["Boolean"];
 };
 
-export type LogInWithEmailMutationResponse = {
+export type LogInWebUserMutationResponse = {
   reason?: Maybe<AuthorizationErrors>;
   success: Scalars["Boolean"];
 };
@@ -211,7 +215,7 @@ export type Mutation = {
   /** update user stats after an exercise */
   updateStats: UpdateStatsMutationResponse;
   logInAppUser: Tokens;
-  logInWebUser: LogInWithEmailMutationResponse;
+  logInWebUser: LogInWebUserMutationResponse;
   sendTotpToLogIn: SendTotpToLogInMutationResponse;
   sendTotpToVerifyEmail: SendTotpToVerifyEmailMutationResponse;
   createWebUser: MutationResult;
@@ -398,7 +402,7 @@ export type ResolversTypes = {
   MutationResult: ResolverTypeWrapper<MutationResult>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   QueryResult: ResolverTypeWrapper<QueryResult>;
-  LogInWithEmailMutationResponse: ResolverTypeWrapper<LogInWithEmailMutationResponse>;
+  LogInWebUserMutationResponse: ResolverTypeWrapper<LogInWebUserMutationResponse>;
   SendTotpToLogInMutationResponse: ResolverTypeWrapper<SendTotpToLogInMutationResponse>;
   SendTotpToVerifyEmailMutationResponse: ResolverTypeWrapper<SendTotpToVerifyEmailMutationResponse>;
   Tokens: ResolverTypeWrapper<Tokens>;
@@ -437,7 +441,7 @@ export type ResolversParentTypes = {
   MutationResult: MutationResult;
   Boolean: Scalars["Boolean"];
   QueryResult: QueryResult;
-  LogInWithEmailMutationResponse: LogInWithEmailMutationResponse;
+  LogInWebUserMutationResponse: LogInWebUserMutationResponse;
   SendTotpToLogInMutationResponse: SendTotpToLogInMutationResponse;
   SendTotpToVerifyEmailMutationResponse: SendTotpToVerifyEmailMutationResponse;
   Tokens: Tokens;
@@ -476,9 +480,9 @@ export type QueryResultResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type LogInWithEmailMutationResponseResolvers<
+export type LogInWebUserMutationResponseResolvers<
   ContextType = any,
-  ParentType extends ResolversParentTypes["LogInWithEmailMutationResponse"] = ResolversParentTypes["LogInWithEmailMutationResponse"]
+  ParentType extends ResolversParentTypes["LogInWebUserMutationResponse"] = ResolversParentTypes["LogInWebUserMutationResponse"]
 > = {
   reason?: Resolver<
     Maybe<ResolversTypes["AuthorizationErrors"]>,
@@ -630,7 +634,7 @@ export type MutationResolvers<
     RequireFields<MutationLogInAppUserArgs, "loginInput">
   >;
   logInWebUser?: Resolver<
-    ResolversTypes["LogInWithEmailMutationResponse"],
+    ResolversTypes["LogInWebUserMutationResponse"],
     ParentType,
     ContextType,
     RequireFields<MutationLogInWebUserArgs, "loginInput">
@@ -731,7 +735,7 @@ export type UserResolvers<
 export type Resolvers<ContextType = any> = {
   MutationResult?: MutationResultResolvers<ContextType>;
   QueryResult?: QueryResultResolvers<ContextType>;
-  LogInWithEmailMutationResponse?: LogInWithEmailMutationResponseResolvers<ContextType>;
+  LogInWebUserMutationResponse?: LogInWebUserMutationResponseResolvers<ContextType>;
   SendTotpToLogInMutationResponse?: SendTotpToLogInMutationResponseResolvers<ContextType>;
   SendTotpToVerifyEmailMutationResponse?: SendTotpToVerifyEmailMutationResponseResolvers<ContextType>;
   Tokens?: TokensResolvers<ContextType>;

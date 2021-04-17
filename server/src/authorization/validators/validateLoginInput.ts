@@ -1,21 +1,26 @@
-import { UserInputError } from "apollo-server-express";
+import validator from "validator";
 
-import validateEmail from "./validateEmail";
-
-import { LoginInput } from "../../graphql/authorization.types";
+import { LoginInput } from "../../graphql/types";
 import logger from "../../utils/logger";
+import { AuthorizationErrors } from "../constants";
 
 /**
- * Throws an error if login input parameters are invalid
+ * Returns an explicit error if login input parameters are invalid
  */
-const validateLoginInput = (loginInput: LoginInput): void => {
+const validateLoginInput = (
+  loginInput: LoginInput
+): AuthorizationErrors | undefined => {
   const { email, totp } = loginInput;
-  validateEmail(email);
+  if (!validator.isEmail(email)) {
+    logger.error("[validateEmail] invalid email format");
+    return AuthorizationErrors.invalidEmailFormat;
+  }
+
   if (typeof totp !== "number" || totp.toString().length !== 6) {
     logger.error("[sendTotp] invalid totp format");
-    throw new UserInputError("InvalidTotp");
+    return AuthorizationErrors.invalidTotp;
   }
-  logger.silly("[validateLoginInput] input validated");
+  logger.silly("[validateLoginInput] login input validated");
 };
 
 export default validateLoginInput;

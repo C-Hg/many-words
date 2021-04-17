@@ -90,6 +90,7 @@ describe("Server - e2e - user", () => {
     await expect(
       authenticatedClient.query({
         query: USER_QUERY,
+        fetchPolicy: "network-only",
       })
     ).rejects.toThrowError("Disconnected");
   });
@@ -134,9 +135,7 @@ describe("Server - e2e - user", () => {
         language: modifiedLanguage,
       },
     });
-    if (!userData2?.data?.setLanguage) {
-      fail();
-    }
+
     const success = userData2?.data?.setLanguage?.success;
     const id = userData2?.data?.setLanguage?.user?.id;
     const language2 = userData2?.data?.setLanguage?.user?.language;

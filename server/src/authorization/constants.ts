@@ -3,9 +3,14 @@ export enum CLIENTS {
   web,
 }
 
+// update the similar graphQl enum when adding new entries
 export enum AuthorizationErrors {
   emailNotFound = "emailNotFound",
+  expiredTotp = "expiredTotp",
   internalError = "internalError",
+  invalidEmailFormat = "invalidEmailFormat",
+  invalidTotp = "invalidTotp",
+  noTotp = "noTotp",
   wrongTotp = "wrongTotp",
 }
 

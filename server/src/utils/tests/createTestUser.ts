@@ -1,6 +1,5 @@
 import { FetchResult } from "@apollo/client/core";
 import { gql } from "apollo-server-express";
-import { ObjectId } from "mongodb";
 
 import { client } from "./graphqlClient";
 
@@ -20,8 +19,8 @@ const LOG_IN_APP_USER = gql`
 
 const createTestUser = async (
   email: string
-): Promise<{ accessToken: string; _id: ObjectId }> => {
-  const { _id } = await userService.createUser({
+): Promise<{ accessToken: string; id: string }> => {
+  const { id } = await userService.createUser({
     email,
     login: { totp: 222111, expiresAt: Date.now() + TOTP_EXPIRATION },
   });
@@ -37,9 +36,9 @@ const createTestUser = async (
 
   if (!accessToken) {
     logger.error("[getAccessToken] cannot fetch token");
-    return { accessToken: "", _id };
+    return { accessToken: "", id };
   }
-  return { accessToken, _id };
+  return { accessToken, id };
 };
 
 export default createTestUser;
