@@ -25,6 +25,7 @@ export const typeDefs = gql`
     invalidEmailFormat
     invalidTotp
     noTotp
+    wrongEmail
     wrongTotp
   }
 

@@ -4,6 +4,7 @@ import Mongoose from "mongoose";
 import { AuthorizationErrors } from "./constants";
 
 import { LoginInput, Query, Mutation } from "../graphql/types";
+import { TOTP_EXPIRATION } from "../user/constants";
 import User from "../user/models/user.model";
 import userService from "../user/user.service";
 import createTestUser from "../utils/tests/createTestUser";
@@ -66,6 +67,12 @@ const SEND_TOTP_TO_LOGIN = gql`
 const INVALID_EMAIL = "invalid@email";
 const NOT_FOUND_EMAIL = "not.found@manwords.fr";
 const USER_1 = "authorization.user1@e2etest.fr";
+const USER_2 = "authorization.user2@e2etest.fr";
+const USER_3 = "authorization.user3@e2etest.fr";
+const USER_4 = "authorization.user4@e2etest.fr";
+const USER_5 = "authorization.user5@e2etest.fr";
+const USER_6 = "authorization.user6@e2etest.fr";
+const USER_7 = "authorization.user7@e2etest.fr";
 const VALID_EMAIL_1 = "valid1@email.fr";
 const VALID_EMAIL_11 = "valid11@email.fr";
 const VALID_EMAIL_2 = "hello2@manywords.fr";
@@ -91,6 +98,12 @@ describe("Authorization server - e2e", () => {
       email: {
         $in: [
           USER_1,
+          USER_2,
+          USER_3,
+          USER_4,
+          USER_5,
+          USER_6,
+          USER_7,
           VALID_EMAIL_1,
           VALID_EMAIL_11,
           VALID_EMAIL_2,
@@ -108,7 +121,7 @@ describe("Authorization server - e2e", () => {
   });
 
   // -----------------     CREATE_WEB_USER     ------------------
-  it.skip("should create a user and return the tokens inside cookies", async () => {
+  it("should create a user and return the tokens inside cookies", async () => {
     const { data }: FetchResult<Mutation> = await client.mutate({
       mutation: CREATE_WEB_USER_TEST,
     });
@@ -119,7 +132,7 @@ describe("Authorization server - e2e", () => {
   });
 
   // -----------------     GET_ACCESS_TOKEN_WEB_USER     ------------------
-  it.skip("should get an error for a query without refresh token", async () => {
+  it("should get an error for a query without refresh token", async () => {
     const { data }: ApolloQueryResult<Query> = await client.query({
       query: GET_ACCESS_TOKEN_WEB_USER,
     });
@@ -132,12 +145,10 @@ describe("Authorization server - e2e", () => {
   //  this operation does not require an authenticated client
   it("should send an email with totp", async () => {
     const { id } = await createTestUser(USER_1);
-    console.error(id);
     const res: FetchResult<Mutation> = await client.mutate({
       mutation: SEND_TOTP_TO_LOGIN,
       variables: { email: USER_1 },
     });
-    console.error("2");
 
     expect(res?.data?.sendTotpToLogIn?.success).toEqual(true);
     // the user should be updated with this totp, expiration date and emailToConfirm
@@ -147,7 +158,7 @@ describe("Authorization server - e2e", () => {
     expect(user?.login.totp).toBeDefined();
   });
 
-  it("should explicitly throw with an invalid email format", async () => {
+  it("should explicitly fail with an invalid email format", async () => {
     const res: FetchResult<Mutation> = await client.mutate({
       mutation: SEND_TOTP_TO_LOGIN,
       variables: { email: INVALID_EMAIL },
@@ -158,7 +169,7 @@ describe("Authorization server - e2e", () => {
     expect(res?.data?.sendTotpToLogIn?.success).toEqual(false);
   });
 
-  it("should explicitly throw if no account exists with this email", async () => {
+  it("should explicitly fail if no account exists with this email", async () => {
     const res: FetchResult<Mutation> = await client.mutate({
       mutation: SEND_TOTP_TO_LOGIN,
       variables: { email: NOT_FOUND_EMAIL },
@@ -173,7 +184,7 @@ describe("Authorization server - e2e", () => {
   //  this operation does not require an authenticated client
   it("should verify the user and receive cookies with access and refresh tokens", async () => {
     // creates a new user with verifiable values
-    await userService.createUser({ email: VALID_EMAIL_9 });
+    const { id } = await userService.createUser({ email: VALID_EMAIL_9 });
     await userService.setTotpToLogin(VALID_EMAIL_9, 189657);
 
     const loginInput = {
@@ -185,9 +196,13 @@ describe("Authorization server - e2e", () => {
       variables: { loginInput },
     });
     expect(res?.data?.logInWebUser?.success).toEqual(true);
+
+    const user = await User.findById(id);
+    expect(user?.login.totp).toBeNull();
+    expect(user?.login.expiresAt).toBeNull();
   });
 
-  it("should throw an error if the given totp is of invalid format", async () => {
+  it("should explicitly fail if the given totp is of invalid format", async () => {
     const loginInput = {
       email: VALID_EMAIL_1,
       totp: 18005765,
@@ -202,7 +217,7 @@ describe("Authorization server - e2e", () => {
     expect(res?.data?.logInWebUser?.success).toEqual(false);
   });
 
-  it("should throw an error if the given email is not found", async () => {
+  it("should explicitly fail if the given email is not found", async () => {
     const loginInput: LoginInput = {
       email: NOT_FOUND_EMAIL,
       totp: 180055,
@@ -217,7 +232,7 @@ describe("Authorization server - e2e", () => {
     expect(data?.logInWebUser.success).toEqual(false);
   });
 
-  it("should throw an error if the given totp is expired", async () => {
+  it("should explicitly fail if the given totp is expired", async () => {
     // creates a new user that requested a totp half an hour ago
     await userService.createUser({
       email: VALID_EMAIL_8,
@@ -235,7 +250,7 @@ describe("Authorization server - e2e", () => {
     expect(data?.logInWebUser.success).toEqual(false);
   });
 
-  it("should throw an error if the user has no totp previously set", async () => {
+  it("should explicitly fail if the user has no totp previously set", async () => {
     await userService.createUser({ email: VALID_EMAIL_6 });
     const loginInput: LoginInput = {
       email: VALID_EMAIL_6,
@@ -249,7 +264,7 @@ describe("Authorization server - e2e", () => {
     expect(data?.logInWebUser.success).toEqual(false);
   });
 
-  it("should throw an explicit error if the totp is wrong", async () => {
+  it("should explicitly fail if the totp is wrong", async () => {
     await userService.createUser({ email: VALID_EMAIL_7 });
     await userService.setTotpToLogin(VALID_EMAIL_7, 189888);
     const loginInput: LoginInput = {
@@ -265,23 +280,138 @@ describe("Authorization server - e2e", () => {
   });
 
   // -----------------     SEND_TOTP_TO_VERIFY_EMAIL    ------------------
-
-  // TODO: update me, write all tests
   it("should throw if the user is not connected", async () => {
-    const loginInput = {
-      email: VALID_EMAIL_9,
-      totp: 189657,
-    };
     await expect(
       client.mutate({
-        mutation: LOG_IN_WEB_USER,
-        variables: { loginInput },
+        mutation: SEND_TOTP_TO_VERIFY_EMAIL,
+        variables: { email: INVALID_EMAIL },
       })
     ).rejects.toThrowError("Disconnected");
   });
 
+  it("should explicitly fail if the email is invalid", async () => {
+    const { accessToken } = await createTestUser(USER_2);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    const res: FetchResult<Mutation> = await authenticatedClient.mutate({
+      mutation: SEND_TOTP_TO_VERIFY_EMAIL,
+      variables: { email: INVALID_EMAIL },
+    });
+    expect(res?.data?.sendTotpToVerifyEmail?.reason).toEqual(
+      AuthorizationErrors.invalidEmailFormat
+    );
+    expect(res?.data?.sendTotpToVerifyEmail?.success).toEqual(false);
+  });
+
+  it("should successfully send a totp to verify a valid email", async () => {
+    const { accessToken, id } = await createTestUser(USER_3);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    const res: FetchResult<Mutation> = await authenticatedClient.mutate({
+      mutation: SEND_TOTP_TO_VERIFY_EMAIL,
+      variables: { email: VALID_EMAIL_1 },
+    });
+    expect(res?.data?.sendTotpToVerifyEmail?.success).toEqual(true);
+
+    const user = await User.findById(id);
+    expect(user?.verifyEmail.emailToConfirm).toEqual(VALID_EMAIL_1);
+    expect(user?.verifyEmail.expiresAt).toBeDefined();
+    expect(user?.verifyEmail.totp).toBeDefined();
+  });
+
   // ----------------------        VERIFY EMAIL         --------------------------------
-  // TODO: write tests
+  it("should throw if the user is not connected", async () => {
+    await expect(
+      client.mutate({
+        mutation: VERIFY_EMAIL,
+        variables: { email: INVALID_EMAIL },
+      })
+    ).rejects.toThrowError("Disconnected");
+  });
+
+  it("should verify the email successfully", async () => {
+    const { accessToken, id } = await createTestUser(USER_4);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    const EMAIL_TO_VALIDATE = "valid.email@hello.fr";
+    await User.findByIdAndUpdate(id, {
+      login: {
+        totp: 111222,
+        emailToConfirm: EMAIL_TO_VALIDATE,
+        expiresAt: Date.now() + TOTP_EXPIRATION,
+      },
+    });
+
+    const res: FetchResult<Mutation> = await authenticatedClient.mutate({
+      mutation: VERIFY_EMAIL,
+      variables: { email: EMAIL_TO_VALIDATE, totp: 111222 },
+    });
+    expect(res.data.verifyEmail.success).toEqual(true);
+
+    const user = await User.findById(id);
+    expect(user?.email).toEqual(EMAIL_TO_VALIDATE);
+    expect(user?.verifyEmail.emailToConfirm).toBeNull();
+    expect(user?.verifyEmail.totp).toBeNull();
+    expect(user?.verifyEmail.expiresAt).toBeNull();
+  });
+
+  it("should explicitly fail if the totp is wrong", async () => {
+    const { accessToken, id } = await createTestUser(USER_5);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    const EMAIL_TO_VALIDATE = "valid.email@hello.fr";
+    await User.findByIdAndUpdate(id, {
+      login: {
+        totp: 111222,
+        emailToConfirm: EMAIL_TO_VALIDATE,
+        expiresAt: Date.now() + TOTP_EXPIRATION,
+      },
+    });
+
+    const res: FetchResult<Mutation> = await authenticatedClient.mutate({
+      mutation: VERIFY_EMAIL,
+      variables: { email: EMAIL_TO_VALIDATE, totp: 333222 },
+    });
+    expect(res.data.verifyEmail.success).toEqual(false);
+    expect(res.data.verifyEmail.reason).toEqual(AuthorizationErrors.wrongTotp);
+  });
+
+  it("should explicitly fail if the totp is expired", async () => {
+    const { accessToken, id } = await createTestUser(USER_6);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    const EMAIL_TO_VALIDATE = "valid.email@hello.fr";
+    await User.findByIdAndUpdate(id, {
+      login: {
+        totp: 111222,
+        emailToConfirm: EMAIL_TO_VALIDATE,
+        expiresAt: Date.now() - TOTP_EXPIRATION,
+      },
+    });
+
+    const res: FetchResult<Mutation> = await authenticatedClient.mutate({
+      mutation: VERIFY_EMAIL,
+      variables: { email: EMAIL_TO_VALIDATE, totp: 111222 },
+    });
+    expect(res.data.verifyEmail.success).toEqual(false);
+    expect(res.data.verifyEmail.reason).toEqual(
+      AuthorizationErrors.expiredTotp
+    );
+  });
+
+  it("should explicitly fail if the email is not matching", async () => {
+    const { accessToken, id } = await createTestUser(USER_7);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    await User.findByIdAndUpdate(id, {
+      login: {
+        totp: 111222,
+        emailToConfirm: "valid.email@hello.fr",
+        expiresAt: Date.now() - TOTP_EXPIRATION,
+      },
+    });
+
+    const res: FetchResult<Mutation> = await authenticatedClient.mutate({
+      mutation: VERIFY_EMAIL,
+      variables: { email: "valid.email2@hello.fr", totp: 111222 },
+    });
+    expect(res.data.verifyEmail.success).toEqual(false);
+    expect(res.data.verifyEmail.reason).toEqual(AuthorizationErrors.wrongEmail);
+  });
 });
 
 // -----------------     CREATE_APP_USER     ------------------

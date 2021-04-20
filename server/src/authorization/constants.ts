@@ -11,6 +11,7 @@ export enum AuthorizationErrors {
   invalidEmailFormat = "invalidEmailFormat",
   invalidTotp = "invalidTotp",
   noTotp = "noTotp",
+  wrongEmail = "wrongEmail",
   wrongTotp = "wrongTotp",
 }
 
