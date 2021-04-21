@@ -5,8 +5,8 @@ import userController from "./user.controller";
 import userService from "./user.service";
 
 import {
+  CreateWebUserMutationResponse,
   Languages,
-  MutationResult,
   SetLanguageMutationResponse,
   User,
 } from "../graphql/types";
@@ -17,8 +17,12 @@ export const typeDefs = gql`
 
   extend type Mutation {
     # createAppUser: Tokens!
-    createWebUser: MutationResult!
+    createWebUser: CreateWebUserMutationResponse!
     setLanguage(language: Languages!): SetLanguageMutationResponse! @loggedIn
+  }
+
+  type CreateWebUserMutationResponse {
+    success: Boolean!
   }
 
   type SetLanguageMutationResponse {
@@ -46,7 +50,7 @@ export const resolvers = {
       parent: Record<string, unknown>,
       arg: Record<string, unknown>,
       { res }: { res: Response }
-    ): Promise<MutationResult> => {
+    ): Promise<CreateWebUserMutationResponse> => {
       try {
         await userController.createWebUser(res);
         return { success: true };

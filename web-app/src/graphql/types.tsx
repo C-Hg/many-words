@@ -12,12 +12,14 @@ export type Scalars = {
 };
 
 export type AuthorizationErrors = 
+  | 'emailAlreadyVerified'
   | 'emailNotFound'
   | 'expiredTotp'
   | 'internalError'
   | 'invalidEmailFormat'
   | 'invalidTotp'
   | 'noTotp'
+  | 'wrongEmail'
   | 'wrongTotp';
 
 export type LoginInput = {
@@ -25,11 +27,7 @@ export type LoginInput = {
   totp: Scalars['Int'];
 };
 
-export type MutationResult = {
-  success: Scalars['Boolean'];
-};
-
-export type QueryResult = {
+export type GetAccessTokenQueryResult = {
   success: Scalars['Boolean'];
 };
 
@@ -52,6 +50,11 @@ export type Tokens = {
   accessToken: Scalars['String'];
   error?: Maybe<Scalars['String']>;
   refreshToken: Scalars['String'];
+};
+
+export type VerifyEmailMutationResponse = {
+  reason?: Maybe<AuthorizationErrors>;
+  success: Scalars['Boolean'];
 };
 
 export type Exercise = {
@@ -219,7 +222,8 @@ export type Mutation = {
   logInWebUser: LogInWebUserMutationResponse;
   sendTotpToLogIn: SendTotpToLogInMutationResponse;
   sendTotpToVerifyEmail: SendTotpToVerifyEmailMutationResponse;
-  createWebUser: MutationResult;
+  verifyEmail: VerifyEmailMutationResponse;
+  createWebUser: CreateWebUserMutationResponse;
   setLanguage: SetLanguageMutationResponse;
 };
 
@@ -249,6 +253,11 @@ export type MutationSendTotpToVerifyEmailArgs = {
 };
 
 
+export type MutationVerifyEmailArgs = {
+  verifyEmailInput: LoginInput;
+};
+
+
 export type MutationSetLanguageArgs = {
   language: Languages;
 };
@@ -267,6 +276,10 @@ export type UpdateStatsMutationResponse = {
   success: Scalars['Boolean'];
 };
 
+export type CreateWebUserMutationResponse = {
+  success: Scalars['Boolean'];
+};
+
 export type SetLanguageMutationResponse = {
   user?: Maybe<User>;
   success: Scalars['Boolean'];
@@ -274,7 +287,7 @@ export type SetLanguageMutationResponse = {
 
 export type Query = {
   user: User;
-  getAccessTokenWebUser: QueryResult;
+  getAccessTokenWebUser: GetAccessTokenQueryResult;
   exercise: Exercise;
   curriculum: Curriculum;
 };
@@ -289,12 +302,12 @@ export type User = {
 export type CreateWebUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateWebUserMutation = { createWebUser: Pick<MutationResult, 'success'> };
+export type CreateWebUserMutation = { createWebUser: Pick<CreateWebUserMutationResponse, 'success'> };
 
 export type GetAccessTokenWebUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAccessTokenWebUserQuery = { getAccessTokenWebUser: Pick<QueryResult, 'success'> };
+export type GetAccessTokenWebUserQuery = { getAccessTokenWebUser: Pick<GetAccessTokenQueryResult, 'success'> };
 
 export type GetNextExerciseQueryVariables = Exact<{ [key: string]: never; }>;
 

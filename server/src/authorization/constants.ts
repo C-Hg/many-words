@@ -5,6 +5,7 @@ export enum CLIENTS {
 
 // update the similar graphQl enum when adding new entries
 export enum AuthorizationErrors {
+  emailAlreadyVerified = "emailAlreadyVerified",
   emailNotFound = "emailNotFound",
   expiredTotp = "expiredTotp",
   internalError = "internalError",

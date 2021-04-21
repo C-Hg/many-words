@@ -9,7 +9,17 @@ const userSchema = new Schema(
     email: { type: String, required: false, default: "" },
     language: { type: String, required: false, default: null },
     login: {
-      emailToConfirm: {
+      expiresAt: {
+        type: Number,
+        required: false,
+      },
+      totp: {
+        type: Number,
+        required: false,
+      },
+    },
+    verifyEmail: {
+      emailToVerify: {
         type: String,
         required: false,
       },

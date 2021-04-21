@@ -10,7 +10,11 @@ import { User as GeneratedUser } from "../../graphql/types";
 export interface User extends GeneratedUser {
   _id: ObjectId;
   login: {
-    emailToConfirm?: string;
+    expiresAt: number;
+    totp: number;
+  };
+  verifyEmail: {
+    emailToVerify: string;
     expiresAt: number;
     totp: number;
   };

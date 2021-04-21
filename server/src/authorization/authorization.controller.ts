@@ -12,14 +12,15 @@ import CONFIG from "../config/config";
 import {
   LoginInput,
   LogInWebUserMutationResponse,
-  MutationResult,
   SendTotpToLogInMutationResponse,
+  SendTotpToVerifyEmailMutationResponse,
   Tokens,
+  VerifyEmailMutationResponse,
 } from "../graphql/types";
+import { User } from "../user/interfaces/user.interface";
 import userService from "../user/user.service";
 import logger from "../utils/logger";
 
-// TODO: refresh token rotation
 const authorizationController = {
   /**
    * Returns a new access token, if the refresh token is valid
@@ -92,6 +93,8 @@ const authorizationController = {
       return { reason: error, success: false };
     }
 
+    await userService.resetLoginCredentials(user.id);
+
     const accessToken = await craftAccessToken(user.id, CLIENTS.web);
     const refreshToken = await craftRefreshToken(user.id);
     setCookies(res, accessToken, refreshToken);
@@ -135,23 +138,54 @@ const authorizationController = {
   sendTotpToVerifyEmail: async (
     email: string,
     userId: string
-  ): Promise<MutationResult> => {
-    logger.debug(`[sendTotpToLogin] verifying email for user ${userId}`);
+  ): Promise<SendTotpToVerifyEmailMutationResponse> => {
+    logger.debug(`[sendTotpToVerifyEmail] verifying email for user ${userId}`);
     const totp = generateTotp();
-    // TODO: ensure email is not already taken
+    try {
+      const user = await userService.getUserByEmail(email);
+      if (user) {
+        logger.error("[verifyEmail] email already taken");
+        return {
+          reason: AuthorizationErrors.emailAlreadyVerified,
+          success: false,
+        };
+      }
+    } catch (error) {
+      logger.silly("[verifyEmail] email not matching any user in database, ");
+    }
+
     try {
       await userService.setTotpToVerifyEmail(email, totp, userId);
     } catch (error) {
-      logger.error("[sendTotpToLogin] could not send totp");
+      logger.error("[sendTotpToVerifyEmail] could not send totp");
       return { success: false };
     }
 
     if (CONFIG.env !== "production") {
-      logger.info(`[sendTotp] login with totp ${totp.toString()}`);
+      logger.info(`[sendTotp] verify email with totp ${totp.toString()}`);
     } else {
       // TODO: effectively send the email and catch errors
     }
 
+    return { success: true };
+  },
+
+  /**
+   * Verify an email address for a connected user
+   */
+  verifyEmail: async (
+    user: User,
+    verifyEmailInput: LoginInput
+  ): Promise<VerifyEmailMutationResponse> => {
+    const error = userService.verifyEmailWithTotp(verifyEmailInput, user);
+    if (error) {
+      logger.error(
+        `[verifyEmail] failed login credentials verification for ${user.id} with error ${error}`
+      );
+      return { reason: error, success: false };
+    }
+    await userService.setUserEmail(verifyEmailInput.email, user.id);
+    await userService.resetVerifyEmailCredentials(user.id);
     return { success: true };
   },
 };

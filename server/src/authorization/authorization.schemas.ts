@@ -9,16 +9,18 @@ import validateLoginInput from "./validators/validateLoginInput";
 
 import {
   LoginInput,
-  QueryResult,
   SendTotpToLogInMutationResponse,
   LogInWebUserMutationResponse,
   SendTotpToVerifyEmailMutationResponse,
   Tokens,
+  GetAccessTokenQueryResult,
+  VerifyEmailMutationResponse,
 } from "../graphql/types";
 import logger from "../utils/logger";
 
 export const typeDefs = gql`
   enum AuthorizationErrors {
+    emailAlreadyVerified
     emailNotFound
     expiredTotp
     internalError
@@ -30,7 +32,7 @@ export const typeDefs = gql`
   }
 
   extend type Query {
-    getAccessTokenWebUser: QueryResult!
+    getAccessTokenWebUser: GetAccessTokenQueryResult!
   }
 
   input LoginInput {
@@ -45,13 +47,11 @@ export const typeDefs = gql`
     sendTotpToVerifyEmail(
       email: String!
     ): SendTotpToVerifyEmailMutationResponse! @loggedIn
+    verifyEmail(verifyEmailInput: LoginInput!): VerifyEmailMutationResponse!
+      @loggedIn
   }
 
-  type MutationResult {
-    success: Boolean!
-  }
-
-  type QueryResult {
+  type GetAccessTokenQueryResult {
     success: Boolean!
   }
 
@@ -75,6 +75,11 @@ export const typeDefs = gql`
     error: String
     refreshToken: String!
   }
+
+  type VerifyEmailMutationResponse {
+    reason: AuthorizationErrors
+    success: Boolean!
+  }
 `;
 
 export const resolvers = {
@@ -83,7 +88,7 @@ export const resolvers = {
       parent: Record<string, unknown>,
       arg: Record<string, unknown>,
       { req, res }: { req: Request; res: Response }
-    ): Promise<QueryResult> => {
+    ): Promise<GetAccessTokenQueryResult> => {
       const refreshToken = await getRefreshToken(req);
       if (!refreshToken) {
         logger.error(`[getAccessTokenWebUser] - no refresh token`);
@@ -126,9 +131,9 @@ export const resolvers = {
       parent: Record<string, unknown>,
       { email }: { email: string }
     ): Promise<SendTotpToLogInMutationResponse> => {
-      logger.info("[sendTotpToLogIn]");
       const error = validateEmail(email);
       if (error) {
+        logger.error(`[sendTotpToLogIn] - ${error}`);
         return { reason: error, success: false };
       }
       return authorizationController.sendTotpToLogin(email);
@@ -140,11 +145,26 @@ export const resolvers = {
     ): Promise<SendTotpToVerifyEmailMutationResponse> => {
       const error = validateEmail(email);
       if (error) {
+        logger.error(`[sendTotpToVerifyEmail] - ${error}`);
         return { reason: error, success: false };
       }
       return authorizationController.sendTotpToVerifyEmail(
         email,
         req.ctx.user.id
+      );
+    },
+    verifyEmail: async (
+      parent: Record<string, unknown>,
+      { verifyEmailInput }: { verifyEmailInput: LoginInput },
+      { req }: { req: Request }
+    ): Promise<VerifyEmailMutationResponse> => {
+      const error = validateLoginInput(verifyEmailInput);
+      if (error) {
+        return { reason: error, success: false };
+      }
+      return authorizationController.verifyEmail(
+        req.ctx.user,
+        verifyEmailInput
       );
     },
   },

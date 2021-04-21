@@ -64,6 +64,24 @@ const SEND_TOTP_TO_LOGIN = gql`
   }
 `;
 
+const SEND_TOTP_TO_VERIFY_EMAIL = gql`
+  mutation sendTotpToVerifyEmail($email: String!) {
+    sendTotpToVerifyEmail(email: $email) {
+      reason
+      success
+    }
+  }
+`;
+
+const VERIFY_EMAIL = gql`
+  mutation verifyEmail($verifyEmailInput: LoginInput!) {
+    verifyEmail(verifyEmailInput: $verifyEmailInput) {
+      reason
+      success
+    }
+  }
+`;
+
 const INVALID_EMAIL = "invalid@email";
 const NOT_FOUND_EMAIL = "not.found@manwords.fr";
 const USER_1 = "authorization.user1@e2etest.fr";
@@ -73,6 +91,7 @@ const USER_4 = "authorization.user4@e2etest.fr";
 const USER_5 = "authorization.user5@e2etest.fr";
 const USER_6 = "authorization.user6@e2etest.fr";
 const USER_7 = "authorization.user7@e2etest.fr";
+const USER_8 = "authorization.user8@e2etest.fr";
 const VALID_EMAIL_1 = "valid1@email.fr";
 const VALID_EMAIL_11 = "valid11@email.fr";
 const VALID_EMAIL_2 = "hello2@manywords.fr";
@@ -104,6 +123,7 @@ describe("Authorization server - e2e", () => {
           USER_5,
           USER_6,
           USER_7,
+          USER_8,
           VALID_EMAIL_1,
           VALID_EMAIL_11,
           VALID_EMAIL_2,
@@ -151,7 +171,7 @@ describe("Authorization server - e2e", () => {
     });
 
     expect(res?.data?.sendTotpToLogIn?.success).toEqual(true);
-    // the user should be updated with this totp, expiration date and emailToConfirm
+    // the user should be updated with this totp, expiration date and emailToVerify
     const user = await User.findById(id);
 
     expect(user?.login.expiresAt).toBeDefined();
@@ -198,8 +218,8 @@ describe("Authorization server - e2e", () => {
     expect(res?.data?.logInWebUser?.success).toEqual(true);
 
     const user = await User.findById(id);
-    expect(user?.login.totp).toBeNull();
-    expect(user?.login.expiresAt).toBeNull();
+    expect(user?.login.totp).toBeUndefined();
+    expect(user?.login.expiresAt).toBeUndefined();
   });
 
   it("should explicitly fail if the given totp is of invalid format", async () => {
@@ -302,6 +322,20 @@ describe("Authorization server - e2e", () => {
     expect(res?.data?.sendTotpToVerifyEmail?.success).toEqual(false);
   });
 
+  it("should explicitly fail if the email is already verified", async () => {
+    await createTestUser(USER_8);
+    const { accessToken } = await createTestUser(USER_2);
+    const authenticatedClient = getAuthenticatedClient(accessToken);
+    const res: FetchResult<Mutation> = await authenticatedClient.mutate({
+      mutation: SEND_TOTP_TO_VERIFY_EMAIL,
+      variables: { email: VALID_EMAIL_8 },
+    });
+    expect(res?.data?.sendTotpToVerifyEmail?.reason).toEqual(
+      AuthorizationErrors.emailAlreadyVerified
+    );
+    expect(res?.data?.sendTotpToVerifyEmail?.success).toEqual(false);
+  });
+
   it("should successfully send a totp to verify a valid email", async () => {
     const { accessToken, id } = await createTestUser(USER_3);
     const authenticatedClient = getAuthenticatedClient(accessToken);
@@ -312,7 +346,7 @@ describe("Authorization server - e2e", () => {
     expect(res?.data?.sendTotpToVerifyEmail?.success).toEqual(true);
 
     const user = await User.findById(id);
-    expect(user?.verifyEmail.emailToConfirm).toEqual(VALID_EMAIL_1);
+    expect(user?.verifyEmail.emailToVerify).toEqual(VALID_EMAIL_1);
     expect(user?.verifyEmail.expiresAt).toBeDefined();
     expect(user?.verifyEmail.totp).toBeDefined();
   });
@@ -322,7 +356,7 @@ describe("Authorization server - e2e", () => {
     await expect(
       client.mutate({
         mutation: VERIFY_EMAIL,
-        variables: { email: INVALID_EMAIL },
+        variables: { verifyEmailInput: { email: INVALID_EMAIL, totp: 123456 } },
       })
     ).rejects.toThrowError("Disconnected");
   });
@@ -332,24 +366,26 @@ describe("Authorization server - e2e", () => {
     const authenticatedClient = getAuthenticatedClient(accessToken);
     const EMAIL_TO_VALIDATE = "valid.email@hello.fr";
     await User.findByIdAndUpdate(id, {
-      login: {
+      verifyEmail: {
         totp: 111222,
-        emailToConfirm: EMAIL_TO_VALIDATE,
+        emailToVerify: EMAIL_TO_VALIDATE,
         expiresAt: Date.now() + TOTP_EXPIRATION,
       },
     });
 
     const res: FetchResult<Mutation> = await authenticatedClient.mutate({
       mutation: VERIFY_EMAIL,
-      variables: { email: EMAIL_TO_VALIDATE, totp: 111222 },
+      variables: {
+        verifyEmailInput: { email: EMAIL_TO_VALIDATE, totp: 111222 },
+      },
     });
-    expect(res.data.verifyEmail.success).toEqual(true);
+    expect(res?.data?.verifyEmail.success).toEqual(true);
 
     const user = await User.findById(id);
     expect(user?.email).toEqual(EMAIL_TO_VALIDATE);
-    expect(user?.verifyEmail.emailToConfirm).toBeNull();
-    expect(user?.verifyEmail.totp).toBeNull();
-    expect(user?.verifyEmail.expiresAt).toBeNull();
+    expect(user?.verifyEmail.emailToVerify).toBeUndefined();
+    expect(user?.verifyEmail.totp).toBeUndefined();
+    expect(user?.verifyEmail.expiresAt).toBeUndefined();
   });
 
   it("should explicitly fail if the totp is wrong", async () => {
@@ -357,19 +393,23 @@ describe("Authorization server - e2e", () => {
     const authenticatedClient = getAuthenticatedClient(accessToken);
     const EMAIL_TO_VALIDATE = "valid.email@hello.fr";
     await User.findByIdAndUpdate(id, {
-      login: {
+      verifyEmail: {
         totp: 111222,
-        emailToConfirm: EMAIL_TO_VALIDATE,
+        emailToVerify: EMAIL_TO_VALIDATE,
         expiresAt: Date.now() + TOTP_EXPIRATION,
       },
     });
 
     const res: FetchResult<Mutation> = await authenticatedClient.mutate({
       mutation: VERIFY_EMAIL,
-      variables: { email: EMAIL_TO_VALIDATE, totp: 333222 },
+      variables: {
+        verifyEmailInput: { email: EMAIL_TO_VALIDATE, totp: 333222 },
+      },
     });
-    expect(res.data.verifyEmail.success).toEqual(false);
-    expect(res.data.verifyEmail.reason).toEqual(AuthorizationErrors.wrongTotp);
+    expect(res?.data?.verifyEmail.reason).toEqual(
+      AuthorizationErrors.wrongTotp
+    );
+    expect(res?.data?.verifyEmail.success).toEqual(false);
   });
 
   it("should explicitly fail if the totp is expired", async () => {
@@ -377,19 +417,21 @@ describe("Authorization server - e2e", () => {
     const authenticatedClient = getAuthenticatedClient(accessToken);
     const EMAIL_TO_VALIDATE = "valid.email@hello.fr";
     await User.findByIdAndUpdate(id, {
-      login: {
+      verifyEmail: {
         totp: 111222,
-        emailToConfirm: EMAIL_TO_VALIDATE,
+        emailToVerify: EMAIL_TO_VALIDATE,
         expiresAt: Date.now() - TOTP_EXPIRATION,
       },
     });
 
     const res: FetchResult<Mutation> = await authenticatedClient.mutate({
       mutation: VERIFY_EMAIL,
-      variables: { email: EMAIL_TO_VALIDATE, totp: 111222 },
+      variables: {
+        verifyEmailInput: { email: EMAIL_TO_VALIDATE, totp: 111222 },
+      },
     });
-    expect(res.data.verifyEmail.success).toEqual(false);
-    expect(res.data.verifyEmail.reason).toEqual(
+    expect(res?.data?.verifyEmail.success).toEqual(false);
+    expect(res?.data?.verifyEmail.reason).toEqual(
       AuthorizationErrors.expiredTotp
     );
   });
@@ -398,19 +440,23 @@ describe("Authorization server - e2e", () => {
     const { accessToken, id } = await createTestUser(USER_7);
     const authenticatedClient = getAuthenticatedClient(accessToken);
     await User.findByIdAndUpdate(id, {
-      login: {
+      verifyEmail: {
         totp: 111222,
-        emailToConfirm: "valid.email@hello.fr",
+        emailToVerify: "valid.email@hello.fr",
         expiresAt: Date.now() - TOTP_EXPIRATION,
       },
     });
 
     const res: FetchResult<Mutation> = await authenticatedClient.mutate({
       mutation: VERIFY_EMAIL,
-      variables: { email: "valid.email2@hello.fr", totp: 111222 },
+      variables: {
+        verifyEmailInput: { email: "valid.email2@hello.fr", totp: 111222 },
+      },
     });
-    expect(res.data.verifyEmail.success).toEqual(false);
-    expect(res.data.verifyEmail.reason).toEqual(AuthorizationErrors.wrongEmail);
+    expect(res?.data?.verifyEmail.success).toEqual(false);
+    expect(res?.data?.verifyEmail.reason).toEqual(
+      AuthorizationErrors.wrongEmail
+    );
   });
 });
 

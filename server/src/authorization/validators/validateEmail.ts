@@ -1,6 +1,5 @@
 import validator from "validator";
 
-import logger from "../../utils/logger";
 import { AuthorizationErrors } from "../constants";
 
 /**
@@ -8,10 +7,8 @@ import { AuthorizationErrors } from "../constants";
  */
 const validateEmail = (email: string): AuthorizationErrors | undefined => {
   if (!validator.isEmail(email)) {
-    logger.error("[validateEmail] invalid email format");
     return AuthorizationErrors.invalidEmailFormat;
   }
-  logger.silly("[validateEmail] email input validated");
 };
 
 export default validateEmail;

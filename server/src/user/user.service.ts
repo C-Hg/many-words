@@ -34,6 +34,22 @@ const userService = {
     return UserModel.findById(userId);
   },
 
+  resetLoginCredentials: async (userId: string): Promise<void> => {
+    await UserModel.findByIdAndUpdate(userId, {
+      $unset: { "login.expiresAt": 1, "login.totp": 1 },
+    });
+  },
+
+  resetVerifyEmailCredentials: async (userId: string): Promise<void> => {
+    await UserModel.findByIdAndUpdate(userId, {
+      $unset: {
+        "verifyEmail.emailToVerify": 1,
+        "verifyEmail.expiresAt": 1,
+        "verifyEmail.totp": 1,
+      },
+    });
+  },
+
   /**
    * Sets the preferred language
    */
@@ -77,17 +93,21 @@ const userService = {
    * Updates a user with login details to log in with totp
    */
   setTotpToVerifyEmail: async (
-    email: string,
+    emailToVerify: string,
     totp: number,
     userId: string
   ): Promise<void> => {
     logger.debug(`[setTotp] set new totp`);
-    const login = {
-      totp,
+    const verifyEmail = {
+      emailToVerify,
       expiresAt: Date.now() + TOTP_EXPIRATION,
-      emailToConfirm: email,
+      totp,
     };
-    await UserModel.findByIdAndUpdate(userId, { login });
+    await UserModel.findByIdAndUpdate(userId, { verifyEmail });
+  },
+
+  setUserEmail: async (email: string, userId: string): Promise<void> => {
+    await UserModel.findByIdAndUpdate(userId, { email });
   },
 
   /**
@@ -111,6 +131,35 @@ const userService = {
     }
     logger.info(
       `[verifyLoginCredentials] successfully verified new user ${user.id}`
+    );
+  },
+
+  /**
+   * Verify that the totp provided is valid, to verify a new email
+   */
+  verifyEmailWithTotp: (
+    verifyEmailInput: LoginInput,
+    user: User
+  ): AuthorizationErrors | undefined => {
+    const { email, totp } = verifyEmailInput;
+    const storedTotp = user?.verifyEmail?.totp;
+    // email checks
+    if (email !== user?.verifyEmail?.emailToVerify) {
+      return AuthorizationErrors.wrongEmail;
+    }
+    if (!storedTotp) {
+      // totp checks
+      return AuthorizationErrors.noTotp;
+    }
+    if (totp !== user?.verifyEmail?.totp) {
+      return AuthorizationErrors.wrongTotp;
+    }
+    const expiresAt = user?.verifyEmail?.expiresAt;
+    if (!expiresAt || expiresAt < Date.now()) {
+      return AuthorizationErrors.expiredTotp;
+    }
+    logger.info(
+      `[verifyLoginCredentials] successfully verified new email for user ${user.id}`
     );
   },
 };
