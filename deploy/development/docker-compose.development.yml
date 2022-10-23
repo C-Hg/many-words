@@ -2,7 +2,7 @@ version: "3"
 
 services:
   webapp:
-    image: node:14-alpine
+    image: node:16.18.0-alpine
     working_dir: /webapp
     container_name: manywords-webapp
     command: npm start
@@ -17,7 +17,7 @@ services:
     stdin_open: true
 
   server:
-    image: node:14-alpine
+    image: node:16.18.0-alpine
     working_dir: /server
     container_name: manywords-server
     environment:

@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import About from "../about/About.page";
 import MyAccount from "../account/myAccount.page";
@@ -9,18 +9,14 @@ import LandingPage from "../home/landing/Landing.page";
 
 const Router = (): JSX.Element => {
   return (
-    <Switch>
-      <Route
-        exact
-        path="/"
-        render={(): ReactElement => <Redirect to="/home" />}
-      />
-      <Route exact path="/about" component={About} />
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/learn" component={Exercise} />
-      <Route exact path="/myAccount" component={MyAccount} />
-      <Route exact path="/welcome" component={LandingPage} />
-    </Switch>
+    <Routes>
+      <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/learn" element={<Exercise />} />
+      <Route path="/myAccount" element={<MyAccount />} />
+      <Route path="/welcome" element={<LandingPage />} />
+    </Routes>
   );
 };
 

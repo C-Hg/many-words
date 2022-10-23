@@ -6,11 +6,14 @@ const useCharacters = (charactersLine: string[]) => {
   const [characters, setCharacters] = useState<JSX.Element[]>([]);
   const isCapitalized = true; // TODO: update with new cache
 
-  const handleLetter = useCallback((event) => {
-    // const addLetter = (value) => dispatch({ type: "ADD_LETTER", value });
-    const letter = event.target.name;
-    // addLetter(letter);
-  }, []);
+  const handleLetter = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      // const addLetter = (value) => dispatch({ type: "ADD_LETTER", value });
+      // const letter = event.target.name;
+      // addLetter(letter);
+    },
+    []
+  );
 
   useEffect(() => {
     const formattedCharacters = charactersLine.map((character) => {

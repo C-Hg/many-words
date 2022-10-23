@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 
 import LandingTitle from "./LandingTitle.styled";
@@ -20,7 +20,7 @@ import { useCreateWebUserMutation } from "../../graphql/types";
 
 const Landing = () => {
   const [createWebUser] = useCreateWebUserMutation();
-  let history = useHistory();
+  const navigate = useNavigate();
   const language = useContext(LanguageContext);
   const { home } = language;
   const theme = useContext(ThemeContext);
@@ -32,7 +32,7 @@ const Landing = () => {
     const { data } = await createWebUser();
     if (data?.createWebUser?.success) {
       isUserConnectedVar(true);
-      history.push("/learn");
+      navigate("/learn");
     }
   };
 

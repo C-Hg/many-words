@@ -64,11 +64,7 @@ app.use(
 );
 
 /* ----------------------     Mongoose setup     ------------*/
-mongoose.connect(CONFIG.mongoUri, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
+mongoose.connect(CONFIG.mongoUri);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 
