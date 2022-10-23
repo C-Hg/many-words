@@ -29,7 +29,7 @@ const updateFiles = async (
   ];
 
   // destination directories
-  const clientFolderPath = "../../web-app/src/data/";
+  const clientFolderPath = "../../webapp/src/data/";
   const serverFolderPath = "../../server/src/exercises/data/";
 
   // write the 4 files

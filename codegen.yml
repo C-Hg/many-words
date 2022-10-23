@@ -12,10 +12,10 @@ generates:
       enumsAsTypes: true
       skipTypename: true
 
-  # interfaces for the web-app, need to import gql queries and mutations
-  web-app/src/graphql/types.tsx:
+  # interfaces for the webapp, need to import gql queries and mutations
+  webapp/src/graphql/types.tsx:
     documents: 
-      - "web-app/src/**/*.graphql.ts"
+      - "webapp/src/**/*.graphql.ts"
     schema: "https://localhost:4000/graphql"
     plugins:
       - "typescript"

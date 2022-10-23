@@ -1,16 +1,16 @@
 version: "3"
 
 services:
-  web-app:
+  webapp:
     image: node:14-alpine
-    working_dir: /web-app
-    container_name: manywords-web-app
+    working_dir: /webapp
+    container_name: manywords-webapp
     command: npm start
     environment:
       REACT_APP_SERVER_URI: https://localhost:${SERVER_PORT}/graphql
     volumes:
       # to allow hot reloading
-      - ../../web-app:/web-app
+      - ../../webapp:/webapp
     ports:
       - 3000:3000
       - 35729:35729

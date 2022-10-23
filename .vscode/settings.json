@@ -10,7 +10,7 @@
         "typescriptreact"
       ],
     "eslint.alwaysShowStatus": true,
-    "eslint.workingDirectories": [ "./web-app", "./client", "./server", "./tools" ],
+    "eslint.workingDirectories": [ "./webapp", "./client", "./server", "./tools" ],
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },

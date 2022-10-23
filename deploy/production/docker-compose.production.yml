@@ -2,13 +2,13 @@ version: "3"
 
 # TODO: build and push images to Docker registry in CI
 services:
-  web-app:
+  webapp:
     build:
-      context: ./web-app/
+      context: ./webapp/
       dockerfile: Dockerfile.prod
-    container_name: manywords-web-app
+    container_name: manywords-webapp
     volumes:
-      - web-app-build:/web-app/build
+      - webapp-build:/webapp/build
     environment:
       BROWSER: "none"
     ports:
@@ -29,7 +29,7 @@ services:
       SSL_PATH: $SSL_PATH
     volumes:
       - /etc/letsencrypt:/server/letsencrypt
-      - web-app-build:/server/lib/build
+      - webapp-build:/server/lib/build
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
